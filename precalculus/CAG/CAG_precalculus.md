@@ -1,0 +1,144 @@
+# Curriculum Alignment Guide for Precalculus
+
+## Unit 1: Statistics
+
+The goal of Statistics is to systematically make inferences about populations based on samples. How do we determine whether dice are unfairly weighted? How do we determine whether a new medicine is beneficial to patients? These questions are difficult to answer because of natural variability: not every patient will die without the treatment, and not every patient will survive with the treatment.
+
+The infinite complexity underlying the variability can be modeled using probability. We learn that probabilistic models can be useful even when the events are fully deterministic (i.e. the weather). We use random-number generators and spreadsheets to run simulations and summarize data. Our study of probability culminates in the \href{https://en.wikipedia.org/wiki/Central_limit_theorem}{\color{blue}central limit theorem}. 
+
+The central limit theorem provides the foundation for (most) inferential statistics. We do not derive this connection rigorously. However, we will practice judging whether a null-hypothesis simulation is copacetic with an observation. We also practice linear regression. Students complete a project where they investigate a possible correlation, estimate a population mean, or run an experiment.
+
+* Weeks 1-16
+* Essential Questions:
+* Skills and Content:
+  - S.ID.A: Summarize, represent, and interpret data on a single count or measurement variable. Use calculators, spreadsheets, and other technology as appropriate.
+  - S.ID.B: Summarize, represent, and interpret data on two categorical and quantitative variables.
+  - S.ID.C: Interpret linear models.
+  - S.IC.A: Understand and evaluate random processes underlying statistical experiments. Use calculators, spreadsheets, and other technology as appropriate.
+  - S.IC.B: Make inferences and justify conclusions from sample surveys, experiments, and observational studies.
+  - S.CP.A: Understand independence and conditional probability and use them to interpret data from simulations or experiments.
+  - S.CP.B: Use the rules of probability to compute probabilities of compound events in a uniform probability model.
+  - S.MD.A: Calculate expected values and use them to solve problems.
+  - S.MD.B: Use probability to evaluate outcomes of decisions.
+* Assessments
+  * Project: demonstrate of Central Limit Theorem.
+  * Project: measure a value, test a correlation, or run an experiment.
+  * Exam
+
+
+## Unit 2: Functions: notation, features, symmetries, composition, limits, average rate of change, and common parents
+
+We introduce important notation to describe functions. Students often struggle with function notation, but it is useful for defining average rate of change, even/odd symmetries, and compositions. Limit notation is necessary in calculus (for definitions of continuity, derivatives, and integrals); students will practice using limit notation to describe end behavior and discontinuities. We also review interval notation for domain, range, increasing intervals, and decreasing intervals.
+
+A lot of this unit hints at the idea of a derivative function (an essential concept in calculus). We will directly discuss the concept, and students will complete a project where they find the "instantaneous" rate of change of a function at various inputs by using small intervals for the average rate of change.
+
+* Weeks 17-23
+* Essential Questions:
+  * Why is function notation useful?
+  * What are the key features to indicate when analyzing a function?
+  * What new ideas are expressed using limit notation?
+  * If $h(t)$ represents the height of a balloon as a function of time, what does a tangent line's slope represent?
+* Skills and Content:
+  * Identify parent functions.
+  * Connect graphical and algebraic translations, stretches, and reflections.
+  * State the domain and range of a function.
+  * State the intervals where function is increasing or decreasing.
+  * State the extrema (maxima and minima).
+  * State the points of interception with the axes.
+  * Distinguish the types of discontinuities: infinite, jump, and removable.
+  * State end behavior, $\lim\limits_{x\to \pm \infty}f(x)$.
+  * Define even/odd functions. Determine if a function is even, odd, or neither.
+  * Determine inverses of functions algebraically and graphically.
+  * Define composites of functions algebraically, and decompose a composite function into its components.
+  * Find average rate of change of a function over an interval. $\frac{f(b)-f(a)}{b-a} = \frac{f(a+h)-f(a)}{h}$
+  * Evaluate limits of a function using graphical tools.
+  * Graph multiple quantities changing in tandem.
+* Learning Objectives:
+  * F.IF.A: Understand the concept of a function and use function notation.
+  * F.IF.B: Interpret functions that arise in applications in terms of the context (linear, quadratic, exponential, rational, polynomial, square root, cube root, trigonometric, logarithmic).
+  * F.IF.C: Analyze functions using different representations.
+  * F.BF.A: Build a function that models a relationship between two quantities.
+  * F.BF.B: Build new functions from existing functions.
+  * N.RN.A.1:  Explain how the definition of the meaning of rational exponents follows from extending the properties of integer exponents to those values, allowing for a notation for radicals in terms of rational exponents.
+  * N.RN.A.2: Rewrite expressions involving radicals and rational exponents using the properties of exponents.
+* Assessments
+  * In-class exam
+  * "Instantaneous" rate of change project: [Desmos Secant Line](https://www.desmos.com/calculator/ez5pojmfen "Useful desmos link")
+  
+![](https://cocalc.com/share/raw/bd5a47b42a84415abcc79a883437583c84d7ed01/precalculus/CAG/images/ave_roc_small_interval_2.png "Average rate of change puzzle")
+
+
+## Unit 3: Exponential and Logarithmic Functions
+
+Exponential growth (or decay) occurs when the rate of change is proportional to the current value (of the dependent value). This concept will be introduced with a brief introduction to [Euler's method](https://en.wikipedia.org/wiki/Euler_method), using spreadsheets.
+
+Discrete exponential growth is seen in geometric sequences. We  compare arithmetic and geometric sequences. We derive formulas for partial series and the infinite convergent geometric series. We calculate the perimeters and areas of fractals.
+
+We learn about the financial example of compound interest, using a step function $A(t)=P\left(1+\frac{r}{n}\right)^{\lfloor rt\rfloor}$. We notice that as $x\to \infty$, the formula approaches $A(t)=Pe^{rt}$.
+
+
+* Weeks 24-30
+* Essential Questions:
+  * What is the relationship between exponential and logarithmic functions? (They are inverses.)
+  * How does accumulation of many small changes result in a linear, quadratic, or exponential function?
+  * How can we calculate the perimeter and area of a fractal?
+  * What is the relationship between note number and fundamental frequency (on a MIDI keyboard)
+  * What do we mean by "number of compounding periods per year" and "interest rate"?
+* Skills and Content:
+  * F.BF.A.2: Write arithmetic and geometric sequences both recursively and with an explicit formula, use them to model situations, and translate between the two forms.
+  * F.LE.A: Construct and compare linear, quadratic, and exponential models and solve problems.
+  * F.LE.B: Interpret expressions for functions in terms of the situation they model.
+  * F.BF.B.5 Understand the inverse relationship between exponents and logarithms and use this relationship to solve problems involving logarithms and exponents.
+* Assessments:
+  * In-class exam
+  * Euler's method project (spreadsheet) on Lotka–Volterra equations? [Google sheets Euler's method](https://docs.google.com/spreadsheets/d/1ZzOS0Nxz-6TxKx-S-QpkgRrfJavZXWH3x1_SIaUuL5U/edit?usp=sharing "A useful link for Euler's method")
+  * Fractal project
+
+## Unit 4: Trigonometric Functions
+
+* Weeks 31-36
+* Essential Questions:
+* Skills and Content:
+  * G.SRT.C: Define trigonometric ratios and solve problems involving right triangles.
+  * F.TF.A: Extend the domain of trigonometric functions using the unit circle.
+  * F.TF.B: Model periodic phenomena with trigonometric functions. 
+  * F.TF.C: C. Prove and apply trigonometric identities.
+* Assessments
+  * In-class exam
+  * Hybrid-image project [Hybrid image generator](https://franciscouzo.github.io/hybrid/ "A useful link for producing hybrid images")
+  * [https://academo.org/demos/spectrum-analyzer/](https://academo.org/demos/spectrum-analyzer/)
+
+
+## Unit 5: Vectors, complex numbers, polar functions, and parametric functions
+
+* Weeks 19-24
+* Essential Questions:
+* Skills and Content:
+  * N.VM.A: Represent and model with vector quantities.
+  * N.VM.B: Perform operations on vectors.
+  * (+) N.VM.C: Perform operations on matrices and use matrices in applications.
+  * N.CN.A: Perform arithmetic operations with complex numbers.
+  * N.CN.B: Represent complex numbers and their operations on the complex plane.
+  * N.CN.C: Use complex numbers in polynomial identities and equations.
+* Assessments
+  * In-class Exam
+  * Lissajous project [Desmos lissajous animation](https://www.desmos.com/calculator/q00ccekmrv)
+  
+## Unit 6: Conics
+
+* Weeks 25-28
+* Essential Questions:
+* Skills and Content:
+  * G.GMD.B.4: Identify the shapes of two-dimensional cross sections of three-dimensional objects, and identify three dimensional objects generated by rotations of two-dimensional objects.
+  * G.GPE.A: Translate between the geometric description and the equation for a conic section.
+    * G.GPE.A.3: Derive the equations of ellipses and hyperbolas given the foci, using the fact that the sum ordifference of distances from the foci is constant.
+      * a. Use equations and graphs of conic sections to model real-world problems.
+* Assessments
+
+
+  
+  
+  
+  
+
+  
