@@ -11,7 +11,7 @@
 
 
 
-<title>002_project.knit</title>
+<title>Dice-rolling project</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,66 +348,103 @@ display: none;
 
 
 
+<h1 class="title toc-ignore">Dice-rolling project</h1>
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#simulate-100d6-with-1000-repetitions." id="toc-simulate-100d6-with-1000-repetitions.">Simulate 100d6, with 1000
+repetitions.</a></li>
+<li><a href="#paste-the-data-into-a-spreadsheet." id="toc-paste-the-data-into-a-spreadsheet.">Paste the data into a
+spreadsheet.</a></li>
+<li><a href="#make-a-histogram-of-the-1000-sums" id="toc-make-a-histogram-of-the-1000-sums">Make a histogram of the 1000
+sums</a></li>
+<li><a href="#paste-the-histogram-into-a-google-doc" id="toc-paste-the-histogram-into-a-google-doc">Paste the histogram into
+a google doc</a></li>
+<li><a href="#roll-some-real-dice" id="toc-roll-some-real-dice">Roll
+some real dice</a></li>
+<li><a href="#analyze-the-results" id="toc-analyze-the-results">Analyze
+the results</a></li>
+</ul>
+</div>
 
-<div id="question" class="section level1">
-<h1>Question</h1>
-<p>A lottery offers the following payout scheme:</p>
-<table>
-<thead>
-<tr class="header">
-<th align="center">profit</th>
-<th align="center">chance</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">-7</td>
-<td align="center">0.4</td>
-</tr>
-<tr class="even">
-<td align="center">3</td>
-<td align="center">0.1</td>
-</tr>
-<tr class="odd">
-<td align="center">4</td>
-<td align="center">0.3</td>
-</tr>
-<tr class="even">
-<td align="center">5</td>
-<td align="center">0.2</td>
-</tr>
-</tbody>
-</table>
-<p>To analyze this <a href="https://en.wikipedia.org/wiki/Probability_mass_function" target="_blank">discrete probability distribution</a>, you can use this
-link:</p>
-<p><a href="https://chadworley.github.io/cltsim.html?poss=-7*3*4*5&amp;wght=0.4*0.1*0.3*0.2" class="uri">https://chadworley.github.io/cltsim.html?poss=-7*3*4*5&amp;wght=0.4*0.1*0.3*0.2</a></p>
-<p>A friend claims, “I have only played that lottery <span class="math inline">\(n=25\)</span> times, and I’ve won <span class="math inline">\(\sum x = 83\)</span> dollars.” You wish to judge
-whether your friend is making an outlandish claim. To do this, you
-calculate a <span class="math inline">\(z\)</span> score.</p>
-<p><span class="math display">\[z = \frac{\sum x -
-n\mu}{\sigma\sqrt{n}}\]</span></p>
-<p>A typical <span class="math inline">\(z\)</span> score is between
-<span class="math inline">\(-2\)</span> and <span class="math inline">\(2\)</span> (this happens 95% of the time). A <span class="math inline">\(z\)</span> score less than <span class="math inline">\(-3\)</span> or more than <span class="math inline">\(3\)</span> is quite unlikely (less than 0.3% of
-the time).</p>
-<p>Is your friend’s claim typical or outlandish? To answer this,
-calculate a <span class="math inline">\(z\)</span> score accurate to the
-hundredths place.</p>
-<p><span class="math display">\[z=\,?\]</span></p>
+<div id="simulate-100d6-with-1000-repetitions." class="section level1">
+<h1>Simulate 100d6, with 1000 repetitions.</h1>
+<p>This simulation is getting a bit unwieldy to code into a spreadsheet.
+Instead,</p>
+<ol style="list-style-type: decimal">
+<li>Click this link: <a href="https://chadworley.github.io/cltsim.html?poss=1*2*3*4*5*6&amp;wght=1*1*1*1*1*1&amp;nnn=100&amp;nreps=1000" target="_blank">https://chadworley.github.io/cltsim.html?poss=1*2*3*4*5*6&amp;wght=1*1*1*1*1*1&amp;nnn=100&amp;nreps=1000</a></li>
+<li>Make sure the probability distribution matches a 6-sided die.</li>
+<li>Make sure <span class="math inline">\(n=100\)</span>.</li>
+<li>Make sure the number of repetitions is 1000.</li>
+<li>Click “Get Sample!”</li>
+<li>Click “Copy Text Area”</li>
+</ol>
 </div>
-<div id="solution" class="section level1">
-<h1>Solution</h1>
-<p><span class="math display">\[z = \frac{\sum x -
-n\mu}{\sigma\sqrt{n}}\]</span></p>
-<p><span class="math display">\[z =
-\frac{(83)-(25)(-0.3)}{(5.4963624)\sqrt{25}} \]</span></p>
-<p><span class="math display">\[z = 3.29 \]</span></p>
+<div id="paste-the-data-into-a-spreadsheet." class="section level1">
+<h1>Paste the data into a spreadsheet.</h1>
+<ol start="7" style="list-style-type: decimal">
+<li>Open a new sheet.</li>
+<li>Click on cell A1.</li>
+<li>Paste.</li>
+</ol>
 </div>
-<div id="meta-information" class="section level1">
-<h1>Meta-information</h1>
-<p>extype: num</p>
+<div id="make-a-histogram-of-the-1000-sums" class="section level1">
+<h1>Make a histogram of the 1000 sums</h1>
+<ol start="10" style="list-style-type: decimal">
+<li>Highlight the first column (click on the top of the column, where it
+says “A”).</li>
+<li>Insert; chart</li>
+<li>Set the chart type to histogram (or “Histogram Chart”).</li>
+<li>Click “Customize”.</li>
+<li>Click “Histogram”.</li>
+<li>Set the bucket size to 10.</li>
+<li>Click “Chart &amp; axis titles”</li>
+<li>Name the chart “MY NAME rolled 100 6-sided dice 1000 times!”</li>
+<li>Change the horizontal axis label to “The sum of 100 dice”</li>
+<li>Change the vertical axis label to “Frequency”</li>
+</ol>
+</div>
+<div id="paste-the-histogram-into-a-google-doc" class="section level1">
+<h1>Paste the histogram into a google doc</h1>
+<ol start="20" style="list-style-type: decimal">
+<li>Open a new doc.</li>
+<li>Type your name at the top.</li>
+<li>Type something like, “I repeatedly simulated the act of rolling 100
+standard dice and getting their total.”</li>
+<li>Paste the histogram. (We will add more information to this doc
+soon.)</li>
+<li>Calculate the expected sum (also called the expected total). <span class="math display">\[E(100\text{d}6) = n\mu\]</span></li>
+<li>Calculate the margin of error (twice the standard error). <span class="math display">\[\text{ME} = 2\sigma\sqrt{n}\]</span></li>
+<li>State whether or not most sums are within the margin of error from
+the expected sum. In other words, are most sums between <span class="math inline">\(n\mu-2\sigma\sqrt{n}\)</span> and <span class="math inline">\(n\mu+2\sigma\sqrt{n}\)</span>?</li>
+</ol>
+</div>
+<div id="roll-some-real-dice" class="section level1">
+<h1>Roll some real dice</h1>
+<ol start="27" style="list-style-type: decimal">
+<li>As a class, roll 100 standard dice and get the total.</li>
+<li>In the doc, write something like, “the class rolled 100 standard
+dice and got a total of __“.</li>
+<li>Write whether the total is within the margin of error from the
+expected total.</li>
+<li>As a class, roll 100 special 3-D printed dice and get the
+total.</li>
+<li>In the doc, write something like, “the class rolled 100 special 3-D
+printed dice and got a total of __“.</li>
+<li>Write whether the total is within the margin of error from the
+expected total.</li>
+</ol>
+</div>
+<div id="analyze-the-results" class="section level1">
+<h1>Analyze the results</h1>
+<ol start="33" style="list-style-type: decimal">
+<li>In the doc, discuss what conclusions you might draw from the data
+and the simulation.</li>
+<li>Export the doc as a pdf.</li>
+<li>Submit your work on Canvas.</li>
+</ol>
 </div>
 
 
