@@ -74,7 +74,7 @@ function calcProbs(){
   var pfposs = 0;
   var pfprob = 0;
   var ef = 0;
-  var n = parseFloat(document.getElementById("numcs").value);
+  var n = parseFloat(document.getElementById("nnn").value);
   for(var i=1;i<=numrows;i++){
     pfposs = parseFloat(document.getElementById("A"+i).value);
     pfprob = parseFloat(document.getElementById("C"+i).innerHTML);
@@ -126,8 +126,8 @@ function getSample(){
   let rand = Array.apply(null, Array(n2)).map(() => weightedChoice(poss, prob));
   
   var txt = "sum\tave\tz\tdata\n";
-  const nr = parseInt(document.getElementById("numrs").value);
-  const nc = parseInt(document.getElementById("numcs").value);
+  const nr = parseInt(document.getElementById("nreps").value);
+  const nc = parseInt(document.getElementById("nnn").value);
   var row = Array(nc);
   var tot = 0;
   var ave = 0;
@@ -149,8 +149,8 @@ function getSample(){
 }
 
 function calcn(){
-  var nr = parseInt(document.getElementById("numrs").value);
-  var nc = parseInt(document.getElementById("numcs").value);
+  var nr = parseInt(document.getElementById("nreps").value);
+  var nc = parseInt(document.getElementById("nnn").value);
   document.getElementById("samsize").innerHTML = nr*nc;
   document.getElementById("samp").rows=Math.min(nr,50);
   document.getElementById("samp").cols=(nc+5)*8;
@@ -187,22 +187,22 @@ function setFromUrl() {
       document.getElementById("A2").value = 1;
       document.getElementById("B2").value = 0.6;
     }
-    var numrs = parseInt(decodeURIComponent(urlParams.get("numrs")));
-    var numcs = parseInt(decodeURIComponent(urlParams.get("numcs")));
-    if(isNaN(numrs)){
-      numrs = 1000;
+    var nreps = parseInt(decodeURIComponent(urlParams.get("nreps")));
+    var nnn = parseInt(decodeURIComponent(urlParams.get("nnn")));
+    if(isNaN(nreps)){
+      nreps = 1000;
     }
-    if(numrs<1){
-      numrs = 1000;
+    if(nreps<1){
+      nreps = 1000;
     }
-    if(isNaN(numcs)){
-      numcs = 25;
+    if(isNaN(nnn)){
+      nnn = 25;
     }
-    if(numcs<1){
-      numcs = 25;
+    if(nnn<1){
+      nnn = 25;
     }
-    document.getElementById("numrs").value=numrs;
-    document.getElementById("numcs").value=numcs;
+    document.getElementById("nreps").value=nreps;
+    document.getElementById("nnn").value=nnn;
     calcn();
   updateUrl();
 }
@@ -221,13 +221,13 @@ function updateUrl() {
   }
   var possURI = encodeURIComponent(poss.join("*"));
   var wghtURI = encodeURIComponent(wght.join("*"));
-  var numrsURI = document.getElementById("numrs").value;
-  var numcsURI = document.getElementById("numcs").value;
+  var nrepsURI = document.getElementById("nreps").value;
+  var nnnURI = document.getElementById("nnn").value;
   urlParams.set("poss",possURI);
   urlParams.set("wght",wghtURI);
-  urlParams.set("numrs",numrsURI);
-  urlParams.set("numcs",numcsURI);
-  window.history.replaceState("", "", window.location.pathname+"?poss="+possURI+"&wght="+wghtURI+"&numrs="+numrsURI+"&numcs="+numcsURI);
+  urlParams.set("nreps",nrepsURI);
+  urlParams.set("nnn",nnnURI);
+  window.history.replaceState("", "", window.location.pathname+"?poss="+possURI+"&wght="+wghtURI+"&nreps="+nrepsURI+"&nnn="+nnnURI);
 }
   
 </script>
@@ -284,8 +284,8 @@ function updateUrl() {
 How many measurements? (sample array dimensions)
 </h4>
 
-n = size of each sample = <input type="number" value=5 id="numcs" onchange="calcn()"> <br>
-  how many repetitions = <input type="number" value=10 id="numrs" onchange="calcn()"> <br>
+n = size of each sample = <input type="number" value=5 id="nnn" onchange="calcn()"> <br>
+  how many repetitions = <input type="number" value=10 id="nreps" onchange="calcn()"> <br>
     total number of measurements = <span id="samsize">50</span> <br>
   
   
