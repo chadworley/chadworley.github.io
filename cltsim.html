@@ -60,7 +60,7 @@ function calcProbs(){
     {
       pf = parseFloat(document.getElementById("B"+i).value);
       if(!isNaN(pf) && pf>0){
-        document.getElementById("C"+i).innerHTML=""+pf/tot;
+        document.getElementById("C"+i).innerHTML=""+(pf/tot).toPrecision(5)/1;
       } else {
         document.getElementById("C"+i).innerHTML=""+0;
       }
@@ -68,7 +68,7 @@ function calcProbs(){
   } else {
     for(var i=1;i<=numrows;i++)
     {
-      document.getElementById("C"+i).innerHTML=""+1.0/numrows;
+      document.getElementById("C"+i).innerHTML=""+(1.0/numrows).toPrecision(5)/1;
     }
   }
   var pfposs = 0;
@@ -87,12 +87,12 @@ function calcProbs(){
     sqdevtot += pfprob*(pfposs-ef)**2
   }
   var psd = sqdevtot**(0.5);
-  document.getElementById("pm").innerHTML = ef;
-  document.getElementById("psd").innerHTML = psd;
-  document.getElementById("es").innerHTML = ef*n;
-  document.getElementById("ses").innerHTML = psd*(n)**(1/2);
-  document.getElementById("ea").innerHTML = ef;
-  document.getElementById("sea").innerHTML = psd/(n)**(1/2);
+  document.getElementById("pm").innerHTML = ef.toPrecision(5)/1;
+  document.getElementById("psd").innerHTML = psd.toPrecision(5)/1;
+  document.getElementById("es").innerHTML = (ef*n).toPrecision(5)/1;
+  document.getElementById("ses").innerHTML = (psd*(n)**(1/2)).toPrecision(5)/1;
+  document.getElementById("ea").innerHTML = (ef).toPrecision(5)/1;
+  document.getElementById("sea").innerHTML = (psd/(n)**(1/2)).toPrecision(5)/1;
   
   updateUrl();
   document.getElementById("samp").innerHTML = "";

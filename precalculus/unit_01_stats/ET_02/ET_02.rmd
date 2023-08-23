@@ -1,0 +1,55 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+N = 9
+pop = 1:N
+n = 4 # changing this will break the question, sorry. 
+mu = mean(pop)
+while(T){
+  x = sample(pop,n,T)
+  abdevs = abs(x-mu)
+  AAD = mean(abdevs)
+  if(AAD*10==round(AAD*10) && sum(x<5)>0 && sum(x>5)>0){
+    break
+  }
+}
+```
+
+
+Question
+========
+
+We will calculate a [sample](https://en.wikipedia.org/wiki/Simple_random_sample){target="_blank"}'s [average absolute deviation](https://en.wikipedia.org/wiki/Average_absolute_deviation){target="_blank"} (AAD) from the [population mean](https://en.wikipedia.org/wiki/Statistical_population#Mean){target="_blank"} ($\mu$). 
+
+A `r N`-sided die has an population mean (or expected value) of `r mu`.
+$$E(1\text{d}`r N`)= \mu =\frac{1+2+3+\ldots+`r N-2`+`r N-1`+`r N`}{`r N`} = \frac{`r sum(1:N)`}{`r N`} = `r mu` $$
+I just rolled `r n` fair 9-sided dice, getting the numbers below:
+$$`r x`$$
+
+We can calculate each measurement's absolute deviation.
+
+| $i$  | $x_i$  | $x_i-`r mu`$  | $|x_i-`r mu`|$  |
+|:---:|:---:|:---:|:---:|
+| index | measurement | deviation | absolute deviation |
+|  1  | `r x[1]` | `r x[1]-mu` | `r abs(x[1]-mu)` |
+|  2  | `r x[2]` | `r x[2]-mu` | `r abs(x[2]-mu)` |
+|  3  | `r x[3]` | `r x[3]-mu` | `r abs(x[3]-mu)` |
+|  4  | `r x[4]` | `r x[4]-mu` | `r abs(x[4]-mu)` |
+
+What is the average of the absolute deviations?
+
+
+Solution
+========
+
+$$\frac{`r abs(x[1]-mu)`+`r abs(x[2]-mu)`+`r abs(x[3]-mu)`+`r abs(x[4]-mu)`}{4} = `r AAD`$$
+
+
+
+(*note: typically AAD is the average absolute deviation from the SAMPLE mean ($\bar{x}$), not the population mean.*)
+
+
+Meta-information
+================
+extype: num
+exsolution: `r AAD`
+exname: calc_AAD_from_ADs
+extol: 0.01
