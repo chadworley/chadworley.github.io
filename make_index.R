@@ -12,7 +12,7 @@ for(dir in ddd){
   for(fl in fls){
     if(grepl(".html",fl) || grepl("pdf",fl)){
       s1 = paste0(substring(dir,3),"/",fl,collapse="")
-      sss = paste0(sss,"<a href=https://chadworley.github.io/",s1,">",s1,"</a><br>")
+      sss = paste0(sss,"<a href=https://chadworley.github.io",s1,">",s1,"</a><br>")
     }
   }
 }
