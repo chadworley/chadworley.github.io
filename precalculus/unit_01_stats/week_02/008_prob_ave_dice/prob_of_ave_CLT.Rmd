@@ -1,0 +1,76 @@
+```{r data generation, echo = FALSE, results = "hide"}
+mu = round(runif(1)*80+20,2)
+sig = round(runif(1)*10+10,2)
+n = sample(25:100,1)
+SE = sig/sqrt(n)
+while(T){
+  z = round(rnorm(1),1)
+  if(abs(z)<3 && abs(z)>0.1){break}
+}
+qt = sample(1:4,1)
+if(qt==1){
+  ave = round(mu+z*sig/sqrt(n),2)
+  s1=paste0("less than ",ave, " grams?")
+  zz = (ave-mu)/(sig/sqrt(n))
+  P = pnorm(zz)
+  avedis = ave-mu
+  ttt = "leftward"
+  sss = paste0("P(Z<",round(zz,4),")=",round(P,3))
+} else if(qt==2){
+  ave = round(mu+z*sig/sqrt(n),2)
+  s1=paste0("more than ",ave," grams?")
+  zz = (ave-mu)/(sig/sqrt(n))
+  P = 1-pnorm(zz)
+  avedis = ave-mu
+  ttt = "rightward"
+  sss = paste0("P(Z>",round(zz,4),")=",round(P,3))
+} else if(qt==3){
+  avedis = round(abs(z)*sig/sqrt(n),2)
+  s1=paste0("closer than ",avedis, " grams from $\\mu$?")
+  zz = avedis/(sig/sqrt(n))
+  P = 2*(pnorm(zz)-1/2)
+  ttt = "central"
+  sss = paste0("P(|Z|<",round(zz,4),")=",round(P,3))
+} else if(qt==4){
+  avedis = round(abs(z)*sig/sqrt(n),2)
+  s1=paste0("further than ",avedis, " grams from $\\mu$?")
+  zz = avedis/(sig/sqrt(n))
+  P = 2*pnorm(-zz)
+  ttt = "two-tail"
+  sss = paste0("P(|Z|>",round(zz,4),")=",round(P,3))
+}
+```
+
+Question
+========
+
+A population of lizards has a mean weight of $\mu=`r mu`$ grams with a standard deviation of $\sigma=`r sig`$ grams.
+
+If a sample of size $n=`r n`$ is taken, what is the probability the sample average is `r s1`
+
+
+Solution
+========
+
+Calculate the [standard error](https://en.wikipedia.org/wiki/Standard_error){target="_blank"} (of the mean).
+
+$$\text{SE} = \frac{\sigma}{\sqrt{n}} $$
+$$\text{SE} = \frac{`r sig`}{\sqrt{`r n`}} = `r SE`$$
+
+
+Calculate the $z$ score.
+
+$$z = \frac{\bar{x}-\mu}{\text{SE}}$$
+
+$$z = \frac{`r avedis`}{`r SE`}$$
+$$z = `r zz`$$
+
+Use the [standard normal probability calculator](https://chadworley.github.io/sn.html){target="_blank"} to evaluate the `r ttt` probability.
+$$`r sss` $$
+
+Meta-information
+================
+extype: num
+exsolution: `r mu`
+exname: prob_ave
+extol: 0.01
