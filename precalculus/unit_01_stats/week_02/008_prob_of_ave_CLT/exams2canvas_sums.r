@@ -2,11 +2,11 @@ library("exams")
 n = 30
 outdir = "outcanvas"
 
-genname = "008_prob_of_ave_CLT"
+genname = "008_prob_of_sum_CLT"
 
-probs = c("prob_of_ave_CLT.Rmd",
-          "prob_of_ave_CLT.Rmd",
-          "prob_of_ave_CLT.Rmd")
+probs = c("prob_of_sum_CLT.Rmd",
+          "prob_of_sum_CLT.Rmd",
+          "prob_of_sum_CLT.Rmd")
 
 #stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 #names = paste0(genname,"_",stems)

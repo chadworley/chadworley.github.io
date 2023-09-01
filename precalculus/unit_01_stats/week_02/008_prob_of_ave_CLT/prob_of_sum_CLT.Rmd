@@ -1,0 +1,88 @@
+```{r data generation, echo = FALSE, results = "hide"}
+N = sample(c(4,6,8,10,12,16,20),1)
+n = sample(30:99,1)
+mu = (N+1)/2
+et = mu*n
+v = (N^2-1)/12
+sig = sqrt(v)
+SE = sig*sqrt(n)
+z=0
+while(abs(z)>3 || abs(z)<0.1){
+  z = rnorm(1)
+}
+qt = sample(1:4,1)
+if(qt==1){
+  tot = round(et+z*SE)+sample(c(-0.5,0.5),1)
+  s1=paste0("less than ",tot, " pips?")
+  zz = (tot-et)/SE
+  P = pnorm(zz)
+  totdis = tot-et
+  ttt = "leftward"
+  sss = paste0("P(Z<",round(zz,4),")=",round(P,3))
+} else if(qt==2){
+  tot = round(et+z*SE)+sample(c(-0.5,0.5),1)
+  s1=paste0("more than ",tot," pips?")
+  zz = (tot-et)/SE
+  P = 1-pnorm(zz)
+  totdis = tot-et
+  ttt = "rightward"
+  sss = paste0("P(Z>",round(zz,4),")=",round(P,3))
+} else if(qt==3){
+  tot = round(et+z*SE)+sample(c(-0.5,0.5),1)
+  totdis = abs(tot-et)
+  s1=paste0("closer than ",totdis, " pips from the expected total?")
+  zz = totdis/SE
+  P = 2*(pnorm(zz)-1/2)
+  ttt = "central"
+  sss = paste0("P(|Z|<",round(zz,4),")=",round(P,3))
+} else if(qt==4){
+  tot = round(et+z*SE)+sample(c(-0.5,0.5),1)
+  totdis = abs(tot-et)
+  s1=paste0("further than ",totdis, " pips from the expected total?")
+  zz = totdis/SE
+  P = 2*pnorm(-zz)
+  ttt = "two-tail"
+  sss = paste0("P(|Z|>",round(zz,4),")=",round(P,3))
+}
+```
+
+Question
+========
+
+Rolls from `r N`-sided [dice](https://en.wikipedia.org/wiki/Discrete_uniform_distribution){target="_blank"} have a population mean of $\mu=`r mu`$ and population variance of $\sigma^2 = `r v`$.
+
+If someone adds up $n=`r n`$ rolls (`r n`d`r N`), what is the probability of getting a total `r s1` 
+
+
+*Note: I have made a [continuity correction](https://en.wikipedia.org/wiki/Continuity_correction){target="_blank"} for you by using [half-integer](https://en.wikipedia.org/wiki/Half-integer){target="_blank"} boundaries.*
+
+Solution
+========
+
+Calculate the expected total.
+$$\text{ET}=n\mu=`r et` $$
+
+Calculate the [standard error](http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf){target="_blank"} (of the total).
+
+$$\text{SE} = \sigma\sqrt{n} $$
+$$\text{SE} = (`r sig`)(\sqrt{`r n`})$$
+
+$$\text{SE} = `r SE`$$
+
+
+Calculate the $z$ score.
+
+$$z = \frac{\sum x-\text{ET}}{\text{SE}}$$
+
+$$z = \frac{`r totdis`}{`r SE`}$$
+$$z = `r zz`$$
+
+Use the [standard normal probability calculator](https://chadworley.github.io/sn.html){target="_blank"} to evaluate the `r ttt` probability.
+$$`r sss` $$
+
+Meta-information
+================
+extype: num
+exsolution: `r P`
+exname: prob_sum_CLT
+extol: 0.01
