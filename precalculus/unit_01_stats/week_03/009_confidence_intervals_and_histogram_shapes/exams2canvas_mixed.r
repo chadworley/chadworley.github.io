@@ -14,26 +14,26 @@ probs = c("01_make_histogram_and_identify_shape.Rmd",
           "08_CI_2_means_raw_MC.Rmd",
           "09_CI_2_props_raw_MC.Rmd")
 
-stems = tools::file_path_sans_ext(sub(".*/", "", probs))
-names = paste0(genname,"_",stems)
-for(i in 1:length(probs)){
-  exams2canvas(probs[i],
-               n=n,
-               dir=outdir,
-               points=2,
-               maxattempts = 20,
-               name=names[i],
-               template = "canvas_qti12.xml")
-}
-
-
-exams2canvas(probs,
-               n=n,
-               dir=outdir,
-               points=3,
-               maxattempts = 6,
-               name=paste0(genname,"_mastery"),
-               template = "canvas_qti12.xml")
+# stems = tools::file_path_sans_ext(sub(".*/", "", probs))
+# names = paste0(genname,"_",stems)
+# for(i in 1:length(probs)){
+#   exams2canvas(probs[i],
+#                n=n,
+#                dir=outdir,
+#                points=2,
+#                maxattempts = 20,
+#                name=names[i],
+#                template = "canvas_qti12.xml")
+# }
+# 
+# 
+# exams2canvas(probs,
+#                n=n,
+#                dir=outdir,
+#                points=3,
+#                maxattempts = 6,
+#                name=paste0(genname,"_mastery"),
+#                template = "canvas_qti12.xml")
 
 
 myhtml = paste0('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -58,6 +58,17 @@ function loader(){
                 }
 }
 }
+function shower(){
+  x = this.nextSibling;
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    this.innerHTML = "Hide solution";
+  } else {
+    x.style.display = "none";
+    this.innerHTML = "Show solution";
+  }
+  
+}
 </script>
 <body onLoad="loader()">
 <h2>Shared Qs (',genname,')</h2>
@@ -71,9 +82,11 @@ fileConn<-file("mytemplate.html")
 writeLines(myhtml, fileConn)
 close(fileConn)
 
+source("exams2html_mod.r")
+
 set.seed(111)
-exams2html(probs,
-           n=1,
+exams2html_mod(probs,
+           n=5,
            dir=outdir,
            name=paste0(genname,"_shared"),
            converter = "pandoc-mathjax",
