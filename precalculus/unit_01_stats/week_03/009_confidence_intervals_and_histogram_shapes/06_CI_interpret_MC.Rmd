@@ -1,0 +1,70 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+xbar = round(runif(1,10,100),1)
+s = round(runif(1,xbar/6,xbar/3),1)
+n = sample(40:300,1)
+LB = round(xbar-2*s/sqrt(n),1)
+UB = round(xbar+2*s/sqrt(n),1)
+
+wint1 = "There is a 95% chance that $\\bar{x}$ is between the boundaries."
+wint2 = paste0("When $\\mu$ is measured repeatedly, it will be between these boundaries (",LB," and ",UB,") approximately 95% of the time.",collapse="")
+wint3 = "About 95% of the sample data lie within the confidence interval."
+wint4 = "The population mean $\\mu$ is between the boundaries."
+wint5 = "If the same population were sampled repeatedly, and each time a confidence interval was calculated, then the sample mean will be between the boundaries approximately 95% of the time."
+wint6 = "The boundaries are determined by a process that will place $\\bar{x}$ between the boundaries 95% of the time."
+wint7 = "If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that $\\bar{x}$ will be between the new boundaries."
+wint8 = paste0("If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance the new sample mean will be between ",LB," and ",UB,".",collapse="")
+wint9 = paste0("There is a 95% chance that $\\mu$ is between ",LB," and ",UB,". (Hint: this is wrong, but the reasoning is [super subtle and slightly controversial](https://en.wikipedia.org/wiki/Foundations_of_statistics#Bayesian_inference_versus_frequentist_inference).)",collapse="")
+wint10 = "Prior to randomly collecting the sample, there was a 95% chance the (yet-to-be-determined) confidence interval would contain $\\bar{x}$."
+
+rint1 = "If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that $\\mu$ will be between the new boundaries."
+rint2 = "The boundaries are determined by a process that will include $\\mu$ between the boundaries 95% of the time."
+rint3 = "If the same population were sampled repeatedly, and each time a confidence interval was calculated, then the population mean will be between the boundaries approximately 95% of the time."
+rint4 = "Prior to randomly collecting the sample, there was a 95% chance the (yet-to-be-determined) confidence interval would contain $\\mu$."
+rint5 = "If you create many confidence intervals, approximately 95% will contain their true population mean."
+
+wints = c(wint1,wint2,wint3,wint4,wint5,wint6,wint7,wint8,wint9)
+rints = c(rint1,rint2,rint3,rint4)
+
+ints = c(sample(rints,1),sample(wints,3))
+
+ao = sample(1:length(ints))
+ansstr = paste0((ao==1)*1,collapse="")
+
+```
+
+Question
+========
+
+A scientist collects a sample (with sample size $n=`r n`$) from a population. Each individual's weight is measured, and summary statistics are calculated: $\bar{x}=`r xbar`$ and $s=`r s`$. The scientist calculates a 95% confidence interval for the mean weight (in grams).
+
+$$\text{confidence interval} = \left[`r LB`,\, `r UB`\right] $$
+
+A correct interpretation is:
+
+##ANSWER1##
+
+
+Answerlist
+--------
+* `r ints[ao[1]]`
+* `r ints[ao[2]]`
+* `r ints[ao[3]]`
+* `r ints[ao[4]]`
+
+
+Solution
+========
+
+Check the meaning of [confidence interval](https://en.wikipedia.org/wiki/Confidence_interval){target="_blank"}.
+
+Notice the meaning is quite subtle and confusing. Most importantly a confidence interval allows us to indicate our uncertainty of $\mu$. We have a pretty good guess ($\mu \approx \bar{x}$), and we have an idea that it's probably not further off than the margin of error ($\text{ME}\approx \frac{2s}{\sqrt{n}}$).
+
+
+Meta-information
+================
+extype: schoice
+exsolution: `r ansstr`
+exname: confidence interval interpretation MC

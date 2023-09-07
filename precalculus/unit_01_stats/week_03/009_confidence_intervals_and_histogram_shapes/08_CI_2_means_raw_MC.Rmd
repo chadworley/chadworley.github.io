@@ -1,0 +1,165 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+while(T){
+  n1 = sample(20:40,1)
+  n2 = sample(20:40,1)
+  sig1 = runif(1,20,50)
+  sig2 = sig1
+  mu1 = runif(1,300,900)
+  mu2 = mu1+sample(c(-1,1),1)*sig1/sqrt(max(c(n1,n2)))*4
+  x1 = round(rnorm(n1,mu1,sig1),1)
+  x2 = round(rnorm(n2,mu2,sig2),1)
+  xbar1 = mean(x1)
+  xbar2 = mean(x2)
+  s1 = sd(x1)
+  s2 = sd(x2)
+  SE1 = s1/sqrt(n1)
+  SE2 = s2/sqrt(n2)
+  LB1 = round(xbar1-2*SE1,1)
+  UB1 = round(xbar1+2*SE1,1)
+  LB2 = round(xbar2-2*SE2,1)
+  UB2 = round(xbar2+2*SE2,1)
+  arediff = (UB1<LB2 || UB2<LB1)
+  bounds = sort(c(LB1,LB2,UB1,UB2))
+  wfs = c(1/4,1/4*sqrt(2),1/2,1/sqrt(2),sqrt(2),2,2*sqrt(2),4)
+  wfs1 = sample(wfs,3)
+  wfs2 = sample(wfs,3)
+  lb1opts = round(sort(c(LB1,xbar1-SE1*wfs1)),1)
+  lb2opts = round(sort(c(LB2,xbar2-SE2*wfs2)),1)
+  ub1opts = round(sort(c(UB1,xbar1+SE1*wfs1)),1)
+  ub2opts = round(sort(c(UB2,xbar2+SE2*wfs2)),1)
+  if(min(diff(bounds))>1 && abs(xbar1-xbar2)>1
+     && min(diff(lb1opts))>1
+     && min(diff(lb2opts))>1
+     && min(diff(ub1opts))>1
+     && min(diff(ub2opts))>1){break}
+}
+
+isrightlb1 = (lb1opts==LB1)
+isrightlb2 = (lb2opts==LB2)
+isrightub1 = (ub1opts==UB1)
+isrightub2 = (ub2opts==UB2)
+
+slb1 = paste0(isrightlb1*1,collapse="")
+sub1 = paste0(isrightub1*1,collapse="")
+slb2 = paste0(isrightlb2*1,collapse="")
+sub2 = paste0(isrightub2*1,collapse="")
+
+x1df = x1
+x2df = x2
+len = max(c(length(x1df),length(x2df)))
+if(length(x1)<length(x2)){
+  x1df = c(x1df,rep(NA,len-length(x1df)))
+}
+if(length(x1)>length(x2)){
+  x2df = c(x2df,rep(NA,len-length(x2df)))
+}
+
+if(arediff && xbar1<xbar2){
+  ss = "100"
+  sss = "Island 1 has a significantly lower average weight."
+} else if(arediff && xbar1>xbar2){
+  ss = "010"  
+  sss = "Island 1 has a significantly higher average weight."
+} else {
+  ss = "001"
+  sss = "These data (and methodology) do not show a significant difference."
+  }
+
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+A biologist investigated two populations of turtles (on two different islands). They weighed turtles from [simple-random samples](https://en.wikipedia.org/wiki/Simple_random_sample){target="_blank"}; those weights are shown below in grams.
+
+
+```{r tab_data, echo=FALSE, results="asis"}
+opts <- options(knitr.kable.NA = "")
+mydf = data.frame(x1df,x2df)
+colnames(mydf) = c("Island_1","Island_2")
+knitr::kable(mydf,format="html", align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+
+The scientist hopes to construct a 95% [**confidence interval**](https://en.wikipedia.org/wiki/Confidence_interval){target="blank"} for each island's average turtle weight.
+
+The scientist will later consult a statistician for a more precise method, but for now they will use a quick method to estimate the 95% confidence interval:
+$$\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} $$
+
+
+The confidence interval for Island 1's average weight is [##ANSWER1##, ##ANSWER2##].
+
+The confidence interval for Island 2's average weight is [##ANSWER3##, ##ANSWER4##].
+
+The biologist wonders if there is a significant difference in mean weights.
+
+* If confidence intervals overlap:
+  * the difference of means is not significant
+  * a more advanced technique or larger sample sizes could show significance.
+* If the confidence intervals do **NOT** overlap:
+  * the difference of means is significant.
+  
+What inference is made?
+
+##ANSWER5##
+
+
+Answerlist
+--------
+* `r lb1opts[1]`
+* `r lb1opts[2]`
+* `r lb1opts[3]`
+* `r lb1opts[4]`
+* `r ub1opts[1]`
+* `r ub1opts[2]`
+* `r ub1opts[3]`
+* `r ub1opts[4]`
+* `r lb2opts[1]`
+* `r lb2opts[2]`
+* `r lb2opts[3]`
+* `r lb2opts[4]`
+* `r ub2opts[1]`
+* `r ub2opts[2]`
+* `r ub2opts[3]`
+* `r ub2opts[4]`
+* Island 1 has a lower average weight.
+* Island 1 has a higher average weight.
+* These data (and methodology) do not show a significant difference.
+
+
+Solution
+========
+
+The confidence interval for Island 1 is [`r LB1`, `r UB1`].
+
+The confidence interval for Island 2 is [`r LB2`, `r UB2`].
+
+`r sss`
+
+
+Meta-information
+================
+extype: cloze
+exsolution: `r slb1`|`r sub1`|`r slb2`|`r sub2`|`r ss`
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exname: CI 2 means MC
