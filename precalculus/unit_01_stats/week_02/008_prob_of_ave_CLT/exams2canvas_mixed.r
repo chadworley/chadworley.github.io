@@ -379,7 +379,7 @@ show.html <- function(x)
 }
 
 
-set.seed(114)
+set.seed(118)
 exams2html_mod(probs,
            n=1,
            dir=outdir,
@@ -389,10 +389,10 @@ exams2html_mod(probs,
            template = "mytemplate.html")
 
 
-
 # set.seed(111)
 # exams2pdf(probs,
 #           n=1,
 #           dir=outdir,
 #           name=paste0(genname,"_shared"))
+
 
