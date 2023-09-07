@@ -15,26 +15,26 @@ probs = c("01_make_histogram_and_identify_shape.Rmd",
           "09_CI_2_props_raw_MC.Rmd")
 
 
-# stems = tools::file_path_sans_ext(sub(".*/", "", probs))
-# names = paste0(genname,"_",stems)
-# for(i in 1:length(probs)){
-#   exams2canvas(probs[i],
-#                n=n,
-#                dir=outdir,
-#                points=2,
-#                maxattempts = 20,
-#                name=names[i],
-#                template = "canvas_qti12.xml")
-# }
-# 
-# 
-# exams2canvas(probs,
-#                n=n,
-#                dir=outdir,
-#                points=3,
-#                maxattempts = 6,
-#                name=paste0(genname,"_mastery"),
-#                template = "canvas_qti12.xml")
+stems = tools::file_path_sans_ext(sub(".*/", "", probs))
+names = paste0(genname,"_",stems)
+for(i in 1:length(probs)){
+  exams2canvas(probs[i],
+               n=n,
+               dir=outdir,
+               points=2,
+               maxattempts = 20,
+               name=names[i],
+               template = "canvas_qti12.xml")
+}
+
+
+exams2canvas(probs,
+               n=n,
+               dir=outdir,
+               points=3,
+               maxattempts = 6,
+               name=paste0(genname,"_mastery"),
+               template = "canvas_qti12.xml")
 
 
 myhtml = paste0('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -68,7 +68,7 @@ function shower(){
     x.style.display = "none";
     this.innerHTML = "Show solution";
   }
-  
+
 }
 </script>
 <body onLoad="loader()">
@@ -96,7 +96,7 @@ exams2html_mod <- function(file, n = 1L, nsamp = NULL, dir = ".", template = NUL
     n <- nrow(file)
     nsamp <- ncol(file)
   }
-  
+
   ## for Rnw exercises use "ttm" converter and "plain" template,
   ## otherwise "pandoc" converter and "plain8" template
   if(any(tolower(tools::file_ext(unlist(file))) == "rmd")) {
@@ -105,10 +105,10 @@ exams2html_mod <- function(file, n = 1L, nsamp = NULL, dir = ".", template = NUL
     if(is.null(converter)) converter <- "ttm"
   }
   if(is.null(template)) template <- if(converter %in% c("tth", "ttm", "tex2image")) "plain" else "plain8"
-  
+
   ## add MathJax link if specified or if converter="pandoc-mathjax"
   if(is.null(mathjax)) mathjax <- converter == "pandoc-mathjax"
-  
+
   ## output directory or display on the fly
   display <- missing(dir)
   if(missing(dir) & n == 1L & length(template) == 1L) {
@@ -118,29 +118,29 @@ exams2html_mod <- function(file, n = 1L, nsamp = NULL, dir = ".", template = NUL
     display <- FALSE
     if(is.null(dir)) stop("Please specify an output 'dir'.")
   }
-  
-  ## output name processing 
+
+  ## output name processing
   if(is.null(name)) name <- file_path_sans_ext(basename(template))
-  
+
   ## set up .html transformer and writer function
   htmltransform <- make_exercise_transform_html(converter = converter, ...)
   htmlwrite <- make_exams_write_html(template = template, name = name,
                                      question = question, solution = solution, mathjax = mathjax)
-  
+
   ## create final .html exam
   rval <- xexams(file, n = n, nsamp = nsamp,
                  driver = list(sweave = list(quiet = quiet, pdf = FALSE, png = !svg, svg = svg,
                                              resolution = resolution, width = width, height = height, encoding = encoding, envir = envir),
                                read = NULL, transform = htmltransform, write = htmlwrite),
                  dir = dir, edir = edir, tdir = tdir, sdir = sdir, verbose = verbose, seed = seed)
-  
+
   ## display single .html on the fly
   if(display) {
     out <- file.path(dir, paste(name, "1.html", sep = ""))
     out <- normalizePath(out)
     browseFile(out)
   }
-  
+
   ## return xexams object invisibly
   invisible(rval)
 }
@@ -152,7 +152,7 @@ make_exams_write_html <- function(template = "plain", name = NULL,
 {
   ## the package directory
   pkg_dir <- find.package("exams")
-  
+
   ## get the .html template files
   template <- if(is.null(template)) {
     file.path(find.package("exams"), "xml", "plain.html")
@@ -166,16 +166,16 @@ make_exams_write_html <- function(template = "plain", name = NULL,
     stop(paste("The following files cannot be found: ",
                paste(template[!file.exists(template)], collapse = ", "), ".", sep = ""))
   }
-  
+
   ## output name processing
   nt <- length(template)
   name <- if(is.null(name)) file_path_sans_ext(basename(template)) else rep(name, length.out = nt)
   if(nt > 1 && length(unique(name)) < nt)
     name <- paste(name, 1:nt, sep = "")
-  
+
   ## read the templates
   template <- lapply(template, readLines)
-  
+
   ## question and solution control
   foo <- function(x, what) {
     if(is.null(x)) {
@@ -199,31 +199,31 @@ make_exams_write_html <- function(template = "plain", name = NULL,
                             foo, what = "Question"))
   solution <- unlist(lapply(rep(if(is.null(solution)) TRUE else solution, length.out = nt),
                             foo, what = "Solution"))
-  
+
   ## the link to mathjax
   mj_link <- paste('<script type="text/javascript"',
                    '  src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">',
                    '</script>', collapse = "\n")
   mathjax <- rep(mathjax, length.out = nt)
-  
+
   function(exm, dir, info)
   {
     ## basic indexes
     id <- info$id
     n <- info$n
     m <- length(exm)
-    
+
     ## current directory
     dir_orig <- getwd()
     on.exit(setwd(dir_orig))
-    
+
     ## temporary directory
     dir_temp <- tempfile()
     if(!file.exists(dir_temp) && !dir.create(dir_temp))
       stop(gettextf("Cannot create temporary work directory '%s'.", dir_temp))
-    setwd(dir_temp) 
+    setwd(dir_temp)
     on.exit(unlink(dir_temp), add = TRUE)
-    
+
     ## Surround schoice questions with div, or something, to allow styles...
     qdiv = function(x){
       paste('<select><option>--------</option><option>',paste0(x,collapse="</option><option>"),'</option></select>')
@@ -232,7 +232,7 @@ make_exams_write_html <- function(template = "plain", name = NULL,
     adiv = function(x){
       paste("<div class=`adiv` style='background: #FFAAAA'>",paste(x,collapse=" / "),"</div>",collapse=" ")
     }
-    
+
     ## collapse answer groups of clozes (if necessary)
     for(j in seq_along(exm)) {
       if(exm[[j]]$metainfo$type == "cloze") {
@@ -250,10 +250,10 @@ make_exams_write_html <- function(template = "plain", name = NULL,
         }
       }
     }
-    
+
     for(i in 1:nt) {
       html_body <- "<ol>"
-      
+
       ## question and solution insertion
       for(j in seq_along(exm)) {
         html_body <- c(html_body, "<li>")
@@ -292,7 +292,7 @@ make_exams_write_html <- function(template = "plain", name = NULL,
           # html_body <- c(html_body,paste0("TOLERANCES: ",paste0(exm[[j]]$metainfo$tol,collapse=", "),collapse=""))
         }
         html_body <- c(html_body, "</div></li>")
-        
+
         ## handle and copy possible supplements
         if(length(exm[[j]]$supplements)) {
           if(!file.exists(media_dir <- file.path(dir_temp, "media")))
@@ -321,19 +321,19 @@ make_exams_write_html <- function(template = "plain", name = NULL,
         }
       }
       html_body <- c(html_body, "</ol>")
-      
+
       ## insert the exam id
       html <- gsub("##ID##", id, template[[i]], fixed = TRUE)
-      
+
       ## if required insert mathjax link
       if(mathjax[i]) {
         jd <- grep("</head>", html, fixed = TRUE)
         html <- c(html[1L:(jd - 1)], mj_link, html[jd:length(html)])
       }
-      
+
       ## insert .html body
       html <- gsub("##\\exinput{exercises}##", paste(html_body, collapse = "\n"), html, fixed = TRUE)
-      
+
       ## write and copy final .html code
       writeLines(html, file.path(dir_temp, paste(name[i], id, ".html", sep = "")))
       file.copy(file.path(dir_temp, list.files(dir_temp)), dir, recursive = TRUE)
