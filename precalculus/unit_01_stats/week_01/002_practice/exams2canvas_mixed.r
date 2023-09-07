@@ -2,17 +2,10 @@ library("exams")
 n = 30
 outdir = "outcanvas"
 
-genname = "009_"
+genname = "002"
 
-probs = c("01_make_histogram_and_identify_shape.Rmd",
-          "02_CI_mean_MC.Rmd",
-          "03_CI_mean_raw_MC.Rmd",
-          "04_CI_prop_MC.Rmd",
-          "05_CI_prop_raw_MC.Rmd",
-          "06_CI_interpret_MC.Rmd",
-          "07_CI_paired_data_raw_MC.Rmd",
-          "08_CI_2_means_raw_MC.Rmd",
-          "09_CI_2_props_raw_MC.Rmd")
+probs = c("01_calc_z.rmd",
+          "02_calc_EV.rmd")
 
 
 # stems = tools::file_path_sans_ext(sub(".*/", "", probs))
@@ -384,7 +377,7 @@ show.html <- function(x)
 
 set.seed(111)
 exams2html_mod(probs,
-           n=5,
+           n=1,
            dir=outdir,
            name=paste0(genname,"_shared"),
            converter = "pandoc-mathjax",
