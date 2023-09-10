@@ -110,6 +110,9 @@ function next(){
 }
 </script>
 <body onLoad="loader()">
+<div style="display:none">
+\\(\\renewcommand{\\hat}[1]{\\widehat{#1}}\\)
+</div>
 <h2 id="sqid">Shared Qs (',genname,')</h2>
 <div id="linksies"></div>
 ##\\exinput{exercises}##
@@ -123,8 +126,8 @@ close(fileConn)
 
 exams2html_interact <- function(file, n = 1L, nsamp = NULL, dir = ".", template = NULL,
                            name = NULL, quiet = TRUE, edir = NULL, tdir = NULL, sdir = NULL, verbose = FALSE,
-                           question = "<h4>Question</h4><a href='#sqid'>TOP</a><br><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>", solution = "<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>",
-                           mathjax = NULL, resolution = 100, width = 4, height = 4, svg = FALSE,
+                           question = "<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>", solution = "<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>",
+                           mathjax = TRUE, resolution = 100, width = 4, height = 4, svg = FALSE,
                            encoding = "", envir = NULL, converter = NULL, seed = NULL, ...)
 {
   ## handle matrix specification of file
@@ -186,7 +189,8 @@ exams2html_interact <- function(file, n = 1L, nsamp = NULL, dir = ".", template 
 
 ## writes the final .html site
 make_exams_write_html <- function(template = "plain", name = NULL,
-                                  question = "<h4>Question</h4>", solution = "<h4>Solution</h4>", mathjax = FALSE)
+                                  question = "<h4>Question</h4>", 
+                                  solution = "<h4>Solution</h4>", mathjax = FALSE)
 {
   ## the package directory
   pkg_dir <- find.package("exams")
