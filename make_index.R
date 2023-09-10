@@ -10,7 +10,7 @@ ddd = list.dirs("./",TRUE,TRUE)
 for(dir in ddd){
   fls = list.files(dir)
   for(fl in fls){
-    if(grepl(".html",fl) || grepl("pdf",fl)){
+    if(grepl(".html",fl) || grepl(".pdf",fl)){
       s1 = paste0(substring(dir,3),"/",fl,collapse="")
       sss = paste0(sss,"<a href=https://chadworley.github.io",s1,">",s1,"</a><br>")
     }
