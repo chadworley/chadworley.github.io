@@ -9,33 +9,33 @@ probs = c("01_cards.Rmd",
           "03_winlose.Rmd",
           "04_bobhappy.Rmd")
 
-stems = tools::file_path_sans_ext(sub(".*/", "", probs))
-names = paste0(genname,"_",stems)
-for(i in 1:length(probs)){
-  exams2canvas(probs[i],
-               n=n,
-               dir=outdir,
-               points=2,
-               maxattempts = 20,
-               name=names[i],
-               template = "canvas_qti12.xml",
-               cloze = list(enumerate = FALSE)
-  )
-}
+# stems = tools::file_path_sans_ext(sub(".*/", "", probs))
+# names = paste0(genname,"_",stems)
+# for(i in 1:length(probs)){
+#   exams2canvas(probs[i],
+#                n=n,
+#                dir=outdir,
+#                points=2,
+#                maxattempts = 20,
+#                name=names[i],
+#                template = "canvas_qti12.xml",
+#                cloze = list(enumerate = FALSE)
+#   )
+# }
+# 
+# 
+# exams2canvas(probs,
+#                n=n,
+#                dir=outdir,
+#                points=3,
+#                maxattempts = 6,
+#                name=paste0(genname,"_mastery"),
+#                template = "canvas_qti12.xml",
+#                cloze = list(enumerate = FALSE)
+#              )
 
 
-exams2canvas(probs,
-               n=n,
-               dir=outdir,
-               points=3,
-               maxattempts = 6,
-               name=paste0(genname,"_mastery"),
-               template = "canvas_qti12.xml",
-               cloze = list(enumerate = FALSE)
-             )
-
-
-nvers = 2
+nvers = 10
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))
@@ -43,8 +43,7 @@ for(prob in probs){
 
 main = function(){
   exams2html_interact(ps,
-                      n=1,
-                      dir=outdir,
+                      dir="./",
                       name=paste0(genname,"_shared"),
                       converter = "pandoc-mathjax",
                       mathjax = TRUE,
