@@ -19,7 +19,6 @@ for(prob in probs){
 }
 
 main = function(){
-  set.seed(111)
   exams2html_interact(ps,
                  n=1,
                  dir=outdir,
