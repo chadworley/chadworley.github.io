@@ -1,0 +1,55 @@
+---
+title: "Unfair quarter"
+author: "Chad Worley"
+date: 2023 Sep 29
+---
+
+```{r, echo=FALSE, display=FALSE}
+ns = 132
+n = 200
+phat = 132/200
+s = sqrt(phat*(1-phat))
+LB = phat-2*s/sqrt(n)
+UB = phat+2*s/sqrt(n)
+z = (phat-0.5)/0.5
+```
+
+## Abstract
+
+A 1999 eagle-backed quarter was spun on a table 200 times. It landed heads 132 times. I calculated a confidence interval for the probability of landing heads $\left[`r signif(LB,3)`,`r signif(UB,3)`\right]$. Because the confidence interval is entirely above 0.5, I conclude that spinning this type of quarter is not equivalent to a fair flip of a coin.
+
+## Procedure
+
+I found a quarter and a smooth table. To spin the quarter, I squeezed it between the thumb of my left hand and the index finger of my right hand, releasing the tension by allowing the quarter to spin. I did this while the quarter was sitting in the middle of the table. If the quarter fell off the table or the quarter fell before 5 seconds, I ignored the result. I did not pay attention to whether heads or tails faced my left hand while spinning the quarter.
+
+If a quarter landed tails, I marked a 0 in a spreadsheet. If the quarter landed heads, I marked a 1. To determine the number of heads and number of spins, I used `=sum()` and `=count()` functions respectively.
+
+## Results and Analysis
+
+In the $n=200$ spins, 132 landed heads.
+$$\widehat{p} = \frac{132}{200} = `r signif(phat,3)` $$
+
+Do determine the confidence interval of a proportion, we use the following formula:
+
+$$\text{bounds of confidence interval} =  \widehat{p}\pm 2\sqrt{\frac{\widehat{p}\left(1-\widehat{p}\right)}{n}} $$
+
+When we plug in the sample statistics ($n$ and $\widehat{p}$) we get the 95% confidence interval.
+
+$$\text{confidence interval} = \left[`r LB`,\, `r UB`\right] $$
+Because the lower boundary is above 0.5, we conclude that getting heads is more likely than getting tails when spinning this type of quarter. 
+
+## Discussion
+
+To continue this research, it would be interesting to see whether other types of coins are fair when spun on their edge. In addition, a physics-based model describing why the coin is unfair may allow us to predict the probabilities of various coins landing heads.
+
+I believe the physics involves having the center of mass offset from the center of the quarter's edge. As the quarter spins, its point of contact at some point starts tracing a circular, or spiral, path, while to top of the coin tilts toward the center of this path. The "heavier" side of the coin will tend to push to the outside due to a centrifugal force, leading it to land upwards.
+
+To test this physical model, it would be interesting to attach extra weight to one side of the coin (maybe some clay) and see if that changes the probability.
+
+## Extra credit
+
+We can also calculate a $p$-value to test the null hypothesis (that the coin is fair). To do this, we calculate a $z$-score.
+
+$$z = \frac{\widehat{p}-p_0}{\sqrt{p_0(1-p_0)}}=\frac{`r signif(phat,3)`-0.5}{\sqrt{0.5\cdot(1-0.5)}} = `r signif(z,3)`$$
+
+
