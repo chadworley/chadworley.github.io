@@ -1,0 +1,251 @@
+---
+title: "Binomial Distribution"
+author: Chad Worley
+date: 2023 Sep 19
+output: ioslides_presentation
+---
+
+
+## Entrance Ticket
+
+![](pics/ski.svg){width=60%}
+
+How many routes can the skier ski down from the top (A) to the lodge (S), without going through trees?
+
+## Pascal's Triangle
+
+![](pics/pascal.svg){width=80%}
+
+## Anagram Approach
+
+The skier had to head East three times and West twice.
+
+> - EEEWW
+> - EEWEW
+> - EEWWE
+> - EWEEW
+> - EWEWE
+> - EWWEE
+> - WEEEW
+> - WEEWE
+> - WEWEE
+> - WWEEE
+
+## Simple anagrams (no repeats)
+
+How many ways can the letters in "FROG" be rearranged?
+
+> - There are 4 possible spots for the "F".
+> - Once the location of "F" is decided, there are 3 spots for the "R".
+> - Two spots for the "O".
+> - The last remaining spot goes to the "G".
+
+
+## Arrangements of FROG 
+
+```
+FROG RFOG ROFG ROGF
+FRGO RFGO RGFO RGOF
+FORG OFRG ORFG ORGF
+FGRO GFRO GRFO GROF
+FOGR OFGR OGFR OGRF
+FGOR GFOR GOFR GORF
+```
+
+```
+1234 2134 3124 4123
+1243 2143 3142 4132
+1324 2314 3214 4213
+1342 2341 3241 4231
+1423 2413 3412 4312
+1432 2431 3421 4321
+```
+
+## Factorial
+
+$$4! = 4\cdot 3\cdot 2\cdot 1 = 24$$
+
+> - $5! =\, ?$
+> - $5! = 120$
+> - $1! =\, ?$
+> - $1! = 1$
+> - $0! =\, ?$
+> - $0! = 1$
+> - In sheets, use `=FACT(5)` to calculate $5!$.
+
+## MYSTICAL
+
+How many ways can the letters in "MYSTICAL" be arranged?
+
+> - There are 8 unique letters.
+> - `=FACT(8)` equals 40320
+
+## ROOF
+
+How many ways can the letters in "ROOF" be arranged?
+
+> - There are 4 spots for the "R".
+> - There are 3 spots for the "F".
+> - The remaining spots are filled with "O"s.
+> - $4 \cdot 3 = 12$.
+
+## ABCXXX
+
+How many ways can the letters in "ABCDXXX" be arranged?
+
+> - There are 7 spots for "A", 6 spots for "B", 5 spots for "C", and 4 spots for "D".
+> - The remaining spots are filled with "X"s.
+> - $7 \cdot 6 \cdot 5 \cdot 4 = 840$.
+> - Notice, for each arrangement of "ABCDXXX", there would be $3!=6$ equivalent arrangements of "ABCDXYZ".
+> - For example, "ADXXBCX" is equivalent to "ADXYBCZ", "ADXZBCY", "ADYXBCZ", "ADYZBCX", "ADZXBCY", and "ADZYBCX".
+> - So, $\frac{7!}{3!} = 840$
+
+## Permutations
+
+In a class of 100 students, an election will select one president, one vice president, and one jester. How many possible election outcomes are there?
+
+> - ${_{100}P_{3}} = \frac{100!}{(100-3)!} = \frac{100!}{97!} = 100\cdot99\cdot98 = 970200$
+> - `=PERMUT(100,3)` equals 970200
+> - Notice this is equivalent to arrangements of ABCXXX...XXX, with 97 "X"s.
+> - ${_{n}P_{r}} = \frac{n!}{(n-r)!}$
+
+## MISSISSIPPI
+
+How many ways can the letters in "MISSISSIPPI" be arranged?
+
+> - There are 11 letters in total.
+> - The counts are 1, 4, 4, and 2.
+> - $\frac{11!}{1!\cdot 4! \cdot 4! \cdot 2!} = 34650$
+
+## AAAAXXX
+
+How many ways can the letters in "AAAAXXX" be arranged?
+
+> - $\frac{7!}{4! \cdot 3!} = 35$
+
+## Combinations 
+
+In a class of 100 students, an election will select three council members. How many possible election outcomes are there?
+
+> - ${_{100}C_{3}} = \frac{100!}{(100-3)!\cdot 3!} = \frac{100!}{97!\cdot 3!} = \frac{100\cdot99\cdot98}{3\cdot2\cdot1} = 161700$
+> - `=COMBIN(100,3)` equals 161700
+> - Notice this is equivalent to arrangements of AAAXXX...XXX, with 3 "A"s and 97 "X"s.
+> - ${_{n}C_{r}} = {n \choose r} = \frac{n!}{(n-r)!\cdot r!}$
+
+## Pascal's Triangle
+
+![](pics/pascal.svg){width=60%}
+
+* These represent combinations.
+* Notice, ${6\choose0} = 1$, ${6\choose1} = 6$, ${6\choose 2} = 15$,  ${6\choose 3} = 20$, ${6\choose 4} = 15$, ${6\choose 5} = 6$, and ${6\choose 6} = 1$.
+
+## Connect the dots
+
+![](pics/dots_7.svg){width=50%}
+
+How many line segments can you draw that connect 2 of the 7 dots?
+
+
+## Connect the dots
+
+![](pics/dots_7_solution.svg){width=50%}
+
+${7 \choose 2} = \frac{7!}{5! \cdot 2!} = \frac{7\cdot 6}{2} = \frac{7\cdot3}{1} = 21$
+
+> - Note, this is similar to arrangements of "AAXXXXX", where the two As dictate the segment.
+
+## Some probability rules
+
+$$P(A \text{ and } B) = P(A)\cdot P(B \text{ given } A) $$
+
+> - Events $A$ and $B$ are independent if and only if $P(B \text{ given }A) = P(B)$. So, if $A$ and $B$ are independent, then $P(A \text{ and } B) = P(A)\cdot P(B)$.
+
+$$P(A \text{ or } B) = P(A) +  P(B) - P(A \text{ and } B)$$
+
+> - Events $A$ and $B$ are mutually exclusive if and only if $P(A \text{ and }B) = 0$. So, if $A$ and $B$ are mutually exclusive, then $P(A \text{ or } B) = P(A) + P(B)$.
+
+## Free throws
+
+Jason has an 80% chance to hit each free throw. If Jason shoots 10 free throws, what is the probability Jason makes exactly 8?
+
+> - First, what is the probability Jason makes the first 8 and misses the last two? $$P(1111111100)=\,?$$
+> - Each shot is **independent**.
+> - $0.8\cdot0.8\cdot0.8\cdot0.8\cdot0.8\cdot0.8\cdot0.8\cdot0.8\cdot0.2\cdot0.2$
+> - $P(1111111100) = (0.8)^8(0.2)^2$.
+> - What is $P(1110111011)$?
+> - $0.8\cdot0.8\cdot0.8\cdot0.2\cdot0.8\cdot0.8\cdot0.8\cdot0.2\cdot0.8\cdot0.8$
+> - $P(1110111011) = (0.8)^8(0.2)^2$
+
+## Free throws cont.
+
+Jason has an 80% chance to hit each free throw. If Jason shoots 10 free throws, what is the probability Jason makes exactly 8?
+
+> - Each specific arrangement of 8 1s and 2 0s has the same probability.
+> - Each of those compound events is **MUTUALLY EXCLUSIVE**.
+> - Thus, we just add up all the probabilities of all the possible ways to make 8 out of 10.
+> - How many arrangements of `1111111100` are there?
+> - `=COMBIN(10,8)` equals 45.
+> - Thus, $P(\text{8 out of 10}) = 45 \cdot (0.8)^8\cdot(0.2)^2 = `r dbinom(8,10,0.8)`$
+> - `=BINOMDIST(8,10,0.8,FALSE)` equals `r dbinom(8,10,0.8)`
+
+
+## Binomial Distribution
+
+In $n$ trials, each attempt has a $p$ chance of success. What is $P(x)$, the probability of getting $x$ successes?
+
+$$P(x) = {n \choose x} p^x (1-p)^{n-x} $$
+
+> - `=BINOMDIST()`
+
+## Binomial Distribution
+
+```{r,echo=F}
+x=0:10
+P=dbinom(x,10,0.8)
+mydf = data.frame(x,P)
+colnames(mydf) = c("x","P(x)")
+```
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab1, results="asis", echo=F}
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+## Cumulative Binomial Distribution Problems
+
+Jason has an 80% chance to hit each free throw. If Jason shoots 10 free throws, what is the probability Jason makes at most 8?
+
+> - `=BINOMDIST(8,10,0.8,TRUE)` = `r pbinom(8,10,0.8)`
+
+Jason has an 80% chance to hit each free throw. If Jason shoots 10 free throws, what is the probability Jason makes less than 8?
+
+> - `=BINOMDIST(7,10,0.8,TRUE)` = `r pbinom(7,10,0.8)`
+
+## Cumulative Binomial Distribution Problems cont.
+
+Jason has an 80% chance to hit each free throw. If Jason shoots 10 free throws, what is the probability Jason makes at least 8?
+
+> - `=1-BINOMDIST(7,10,0.8,TRUE)` = `r 1-pbinom(7,10,0.8)`
+
+Jason has an 80% chance to hit each free throw. If Jason shoots 10 free throws, what is the probability Jason makes more than 8?
+
+> - `=1-BINOMDIST(8,10,0.8,TRUE)` = `r 1-pbinom(8,10,0.8)`
+
+
+
