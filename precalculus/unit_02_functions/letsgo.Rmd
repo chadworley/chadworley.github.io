@@ -1,0 +1,89 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+a = sample(c(-1,1),1)
+picks = sample(1:6,2)
+h = picks[1]*sample(c(-1,1),1)
+k = picks[2]*sample(c(-1,1),1)
+poses = list(c(1,1,1),
+             c(1,1,-1),
+             c(1,-1,1),
+             c(1,-1,-1),
+             c(-1,1,1),
+             c(-1,1,-1),
+             c(-1,-1,1),
+             c(-1,-1,-1))
+sels = sample(c(1,sample(2:length(poses),3)))
+ans = paste0((sels==c(1,1,1))*1,collapse="")
+
+if(h<0){hor="left"}else{hor="right"}
+if(k<0){ver="down"}else{ver="up"}
+if(a<0){
+  coef="points down"
+  symb="<"
+}else{
+  coef="points up"
+  symb=">"
+}
+
+```
+
+Question
+========
+
+```{python, echo=FALSE}
+from sympy import *
+x, y = symbols("x y")
+eq1 = int(r.a)*abs(x-int(r.h))+int(r.k)
+leq1 = latex(eq1)
+```
+
+Which plot matches the function:
+
+$$y = `r py$leq1`$$
+
+```{r,fig.dim = c(8, 8),echo=FALSE}
+par(mfrow = c(2, 2),pty="s")
+x = seq(-11,11,0.1)
+for(i in 1:length(sels)){
+  ind = sels[i]
+  a2 = a*poses[[ind]][1]
+  h2 = h*poses[[ind]][2]
+  k2 = k*poses[[ind]][3]
+  plot(x,a2*abs(x-h2)+k2,ylim=c(-10,10),xlim=c(-10,10),lwd=3,type="l",
+       asp=1,ylab="y",xlab="x",main=paste0("Plot ",i,collapse=""))
+  abline(h=0)
+  abline(v=0)
+  for(i in -10:10){
+    for(j in seq(-10,10,0.2)){
+      points(i,j,cex=0.03,pch=20)
+      points(j,i,cex=0.03,pch=20)
+    }
+  }
+}
+```
+
+Answerlist
+--------
+
+* Plot 1
+* Plot 2
+* Plot 3
+* Plot 4
+
+Solution
+========
+
+The parent function is $y=|x|$, which has a vertex at the origin.
+
+The general parameterization is $y=a\left|x-h\right|+k$. The vertex shifts to $(h,k)$. The multiplicative factor, $a$, causes a vertical stretch and/or a vertical flip. 
+
+In this example, $a=`r a`$ and $h=`r h`$ and $k=`r k`$.
+
+To get the correct daughter graph, translate the parent `r abs(h)` units `r hor` and `r abs(k)` units `r ver`. Since $a`r symb`0$, the daughter `r coef`. 
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r ans`
+exname: graph_translations_and_reflections_abs_function
