@@ -1,10 +1,10 @@
 library("exams")
 
 outdir = "./"
-genname = "ABS_GRAPHS_"
+genname = "ABS_GRAPHS"
 probs = c("trans_refl_abs_graph_MC.Rmd")
 
-nvers = 10
+nvers = 20
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))

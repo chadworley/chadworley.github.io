@@ -25,6 +25,7 @@ if(a<0){
   symb=">"
 }
 
+cn = gregexpr(pattern ='1',ans)
 ```
 
 Question
@@ -81,6 +82,32 @@ The general parameterization is $y=a\left|x-h\right|+k$. The vertex shifts to $(
 In this example, $a=`r a`$ and $h=`r h`$ and $k=`r k`$.
 
 To get the correct daughter graph, translate the parent `r abs(h)` units `r hor` and `r abs(k)` units `r ver`. Since $a`r symb`0$, the daughter `r coef`. 
+
+The correct plot is Plot `r cn`.
+
+
+```{r,fig.dim = c(5, 5),echo=FALSE}
+par(pty="s")
+x = seq(-11,11,0.1)
+for(i in cn){
+  ind = sels[i]
+  a2 = a*poses[[ind]][1]
+  h2 = h*poses[[ind]][2]
+  k2 = k*poses[[ind]][3]
+  plot(x,a2*abs(x-h2)+k2,ylim=c(-10,10),xlim=c(-10,10),lwd=3,type="l",
+       asp=1,ylab="y",xlab="x",main=paste0("Plot ",i,collapse=""))
+  abline(h=0)
+  abline(v=0)
+  for(i in -10:10){
+    for(j in seq(-10,10,0.2)){
+      points(i,j,cex=0.03,pch=20)
+      points(j,i,cex=0.03,pch=20)
+    }
+  }
+}
+```
+
+$$y = `r py$leq1`$$
 
 
 Meta-information
