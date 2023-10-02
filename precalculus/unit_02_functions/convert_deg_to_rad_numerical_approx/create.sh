@@ -1,1 +1,0 @@
-text2qti $1 --latex-render-url https://bart.instructure.com/equation_images/
