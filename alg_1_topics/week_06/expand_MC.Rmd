@@ -1,0 +1,193 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+l1 = c(-9:-1,1:9) #possible values for a
+l2 = c(-9:-1,1:9) #possible values for b
+a = sample(l1,1)
+b = sample(l2,1)
+s = a+b
+p = a*b
+allsums = unique(apply(expand.grid(l1,l2),1,prod))
+sall = unique(c(s,a-b,b-a,-a-b))
+while(length(sall)<4){
+  sall = unique(c(sall,sample(allsums,1)))
+}
+allprods = unique(apply(expand.grid(l1,l2),1,prod))
+pw = sample(allprods,1)
+pall = unique(c(p,-p,pw,-pw))
+while(length(pall)<4){
+  pw = sample(allprods,1)
+  pall = unique(c(p,-p,pw,-pw))
+}
+sall = sort(sall)
+pall = sort(pall)
+allposs = unique(c(allsums,allprods))
+qall = unique(c(sall,pall))
+while(length(qall)<8){
+  qall = unique(c(qall,sample(allposs,1)))
+}
+qall = sort(qall)
+qst = character()
+for(i in qall){
+  if(i>0){
+    qst = c(qst,paste0("+",i,collapse=""))
+  } else {
+    qst = c(qst,paste0(i))
+  }
+}
+ans1 = paste0((qall==s)*1,collapse="")
+ans2 = paste0((qall==p)*1,collapse="")
+```
+
+Question
+========
+
+```{python, echo=FALSE}
+from sympy import *
+x = symbols("x")
+exp1 = x**2+r.s*x+r.p
+lexp1 = latex(exp1)
+exp2 = (x+r.a)*(x+r.b)
+lexp2 = latex(exp2)
+```
+
+Expand the following polynomial.
+
+$$`r py$lexp2`$$
+
+Answer:
+$x^2$ ##ANSWER1##  ##ANSWER2##
+
+
+Answerlist
+--------
+
+* `r qst[1]`x
+* `r qst[2]`x
+* `r qst[3]`x
+* `r qst[4]`x
+* `r qst[5]`x
+* `r qst[6]`x
+* `r qst[7]`x
+* `r qst[8]`x
+* `r qst[1]`
+* `r qst[2]`
+* `r qst[3]`
+* `r qst[4]`
+* `r qst[5]`
+* `r qst[6]`
+* `r qst[7]`
+* `r qst[8]`
+
+Solution
+========
+
+The answer is $`r py$lexp1`$.
+
+
+```{python,echo=F}
+f1 = latex((x+r.a))
+f2 = latex((x+r.b))
+```
+
+There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+$$(`r py$f1`)(`r py$f2`)$$
+
+### Method 1: Distribution
+
+The distributive property promises us that for all $a$, $b$, and $c$:
+$$a(b+c) ~\equiv~ ab+ac$$
+
+Since we are expanding $(`r py$f1`)(`r py$f2`)$, we can say $a=(`r py$f1`)$ and $b=x$ and $c=`r b`$, leading us to
+$$(`r py$f1`)(x)~+~(`r py$f1`)(`r b`)$$
+Multiplication is commutative, meaning the order does not matter. It promises that $de \equiv ed$ for all $d$ and $e$. We can rearrange the products in order to reuse the distributive property.
+
+$$(x)(`r py$f1`)~+~(`r b`)(`r py$f1`)$$
+
+For each term, $(x)(`r py$f1`)$ and $(`r b`)(`r py$f1`)$, reuse the distributive property.
+
+$$x^2 ~+~ (`r a`)x ~+~ (`r b`)x ~+~ (`r p`) $$
+Notice the two like terms: $`r a`x$ and $`r b`x$. Combine the like terms to get the final answer.
+
+$$`r py$lexp1`$$
+
+### Method 2: FOIL
+
+The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any $(a+b)(c+d)$:
+
+* Firsts: $ac$
+* Outsides: $ad$
+* Insides: $bc$
+* Lasts: $bd$
+
+In our example, $(`r py$f1`)(`r py$f2`)$, we find the products:
+
+* Firsts: $x^2$
+* Outsides: $`r b`x$
+* Insides: $`r a`x$
+* Lasts: $`r p`$
+
+When we add together those products, we get:
+
+$$x^2 ~+~ (`r b`)x ~+~ (`r a`)x ~+~ (`r p`) $$
+Notice the two like terms: $`r a`x$ and $`r b`x$. Combine the like terms to get the final answer.
+
+$$`r py$lexp1`$$
+
+### Method 3: Box
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+The factored form has two factors: $(`r py$f1`)$ and $(`r py$f2`)$. The two terms in the first factor are $x$ and $`r a`$. The two terms in the second factor are $x$ and $`r b`$. We put all four terms on the outside of the box. Then we find the products.
+
+```{r,echo=F}
+col1 = c("","$x$",paste0("$",a,"$",collapse=""))
+col2 = c("","","")
+col3 = c("","$x^2$",paste0("$",a,"x$"))
+col4 = c("",paste0("$",b,"x$"),paste0("$",a*b,"$"))
+mydf = data.frame(col1,col2,col3,col4)
+colnames(mydf) = c("","","$x$",paste0("$",b,"$",collapse=""))
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "cccccc",row.names=F)
+```
+
+We write a sum of those 4 products.
+
+$$x^2 ~+~ (`r b`)x ~+~ (`r a`)x ~+~ (`r p`) $$
+Notice the two like terms: $`r a`x$ and $`r b`x$. Combine the like terms to get the final answer.
+
+$$`r py$lexp1`$$
+
+### Method 4: sum and product
+
+Notice, we started with factored form: $$`r py$lexp2`$$
+
+The sum of `r a` and `r b` is `r a+b`.
+$$(`r a`)+(`r b`)=`r a+b`$$
+The product of `r a` and `r b` is `r a*b`.
+$$(`r a`)(`r b`) = `r a*b`$$
+
+The sum and product show up consistently in the expanded form:
+
+$$`r py$lexp1`$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r ans1`|`r ans2`
+exname: expand_MC

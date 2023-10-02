@@ -1,0 +1,78 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+l1 = c(-9:-1,1:9) #possible values for a
+a = sort(sample(l1,2,F))
+s = a[1]+a[2]
+p = a[1]*a[2]
+ans1 = paste0((-9:9==a[1])*1,collapse="")
+ans2 = paste0((-9:9==a[2])*1,collapse="")
+```
+
+Question
+========
+
+
+Find two integers whose sum is `r s` and whose product is `r p`.
+
+What is the smaller found integer? ##ANSWER1##
+
+What is the larger found integer? ##ANSWER2##
+
+*Reminder, the smaller integer is further left on the number line. The choices should be listed smallest to largest.*
+
+Answerlist
+--------
+
+```{r,echo=F,results="asis"}
+cat(paste0("* ",-9:9,"\n",collapse=""))
+cat(paste0("* ",-9:9,"\n",collapse=""))
+```
+
+Solution
+========
+
+By guess and check, we find the two integers are $`r a[1]`$ and $`r a[2]`$.
+
+The sum:
+$$(`r a[1]`)+(`r a[2]`) = `r s`$$
+
+The product:
+$$(`r a[1]`)(`r a[2]`) = `r p`$$
+
+## Fancy method
+
+Set up a system of equations:
+
+$$x+y=`r s`$$
+$$xy=`r p`$$
+
+Solve the first equation for $y$, to get $y=`r s`-x$. Substitute this expression into second equation.
+$$x(`r s`-x)=`r p` $$
+Distribute
+$$(`r s`)x-x^2=`r p`$$
+Put this quadratic equation into standard form.
+```{python,echo=F}
+from sympy import *
+x = symbols("x")
+exp = x**2-r.s*x+r.p
+lexp = latex(exp)
+```
+$$0 = `r py$lexp`$$
+
+Remember the quadratic formula: if $ax^2+bx+c=0$, then $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$. In our case, $a=1$ and $b=`r -s`$ and $c=`r p`$.
+
+$$x = \frac{`r s`\pm\sqrt{(`r -s`)^2-4(1)(`r p`)}}{2(1)} $$
+
+Simplify.
+
+$$x = \frac{`r s`\pm \sqrt{`r s^2-4*1*p`}}{2} = \frac{`r s` \pm `r sqrt(s^2-4*1*p)`}{2}$$
+
+If you simply the fraction, you'll get `r a[1]` and `r a[2]`.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r ans1`|`r ans2`
+exname: guess_pair_from_sum_and_product_MC
