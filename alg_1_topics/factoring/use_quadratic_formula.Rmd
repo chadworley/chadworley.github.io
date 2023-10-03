@@ -1,0 +1,67 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+while(T){
+  l1 = c(-9:2,2:9) #possible values for cfs
+  al = -10:10
+  cf = sample(l1,3,F)
+  a = cf[1]
+  b = cf[2]
+  c = cf[3]
+  x1 = round((-b-(b^2-4*a*c)^(1/2))/(2*a),2)
+  x2 = round((-b+(b^2-4*a*c)^(1/2))/(2*a),2)
+  numless1 = sample(0:3,1)
+  numless2 = sample(0:3,1)
+  sgns1 = c(rep(-1,numless1),rep(1,3-numless1))
+  sgns2 = c(rep(-1,numless2),rep(1,3-numless2))
+  x1s = c(x1,round(x1+sample(5:99,3)/100*sgns1,2))
+  x2s = c(x2,round(x2+sample(5:99,3)/100*sgns2,2))
+  x1s = sample(x1s)
+  x2s = sample(x2s)
+  ans1 = paste0(1*(x1s==x1),collapse="")
+  ans2 = paste0(1*(x2s==x2),collapse="")
+  xs = sort(c(x1s,x2s))
+  ans = paste0(1*(xs %in% c(x1,x2)),collapse="")
+  if(b^2-4*a*c>0 && length(unique(xs))==8){break}
+}
+```
+
+Question
+========
+
+The quadratic function let's us solve $ax^2+bx+c=0$:
+$$x = \frac{-b\pm\sqrt{b^2-4ac}}{2a} $$
+
+```{python,echo=FALSE}
+from sympy import *
+x = symbols("x")
+lex1 = latex(r.a*x**2+r.b*x+r.c)
+```
+
+Solve $`r py$lex1`=0$ by using the quadratic formula.
+
+The solutions are $x=$
+
+
+Answerlist
+--------
+
+```{r,echo=F,results="asis"}
+cat(paste0("* ",xs,"\n",collapse=""))
+```
+
+Solution
+========
+
+Use the formula:
+$$\frac{-(`r b`)\pm\sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)} $$
+
+You probably want to use a calculator.
+
+Answers: $x=`r x1`$ and $x=`r x2`$.
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r ans`
+exname: solve_quadratic_simple

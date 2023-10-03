@@ -1,0 +1,89 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+pa = 1:10
+x = pa
+f = sample(pa)
+g = sample(pa)
+mydf2 = data.frame(x,f,g)
+colnames(mydf2) = c("$x$","$f(x)$","$g(x)$")
+a = sample(pa,1)
+b = sample(pa,1)
+c = sample(pa,1)
+d = sample(pa,1)
+e = sample(pa,1)
+
+an1 = f[g[a]]
+an2 = g[f[b]]
+an3 = f[f[c]]
+an4 = g[g[d]]
+an5 = f[g[g[e]]]
+
+al = paste0("* ",pa,"\n",collapse="")
+
+ans1 = paste0(1*(pa==an1),collapse="")
+ans2 = paste0(1*(pa==an2),collapse="")
+ans3 = paste0(1*(pa==an3),collapse="")
+ans4 = paste0(1*(pa==an4),collapse="")
+ans5 = paste0(1*(pa==an5),collapse="")
+
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+Let functions $f$ and $g$ be defined by the table below.
+
+```{r tab2, results="asis", echo=F}
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+Evaluate the following:
+
+* $f(g(`r a`)) =$ ##ANSWER1##
+* $g(f(`r b`)) =$ ##ANSWER2##
+* $f(f(`r c`)) =$ ##ANSWER3##
+* $g(g(`r d`)) =$ ##ANSWER4##
+* $f(g(g(`r e`))) =$ ##ANSWER5##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+
+Solution
+========
+
+* $f(g(`r a`))=f(`r g[a]`)=`r an1`$
+* $g(f(`r b`))=g(`r f[b]`)=`r an2`$
+* $f(f(`r c`))=f(`r f[c]`)=`r an3`$
+* $g(g(`r d`))=g(`r g[d]`)=`r an4`$
+* $f(g(g(`r e`)))=f(g(`r g[e]`))=f(`r g[g[e]]`)=`r an5`$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`|`r ans4`|`r ans5`
+exname: compose_table

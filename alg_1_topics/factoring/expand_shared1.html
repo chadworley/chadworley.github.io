@@ -1,0 +1,2990 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>SQ expand</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+h4.qqq {
+  background-color: black;
+  color: white;
+}
+ol.outermostlist{
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+<script type="text/javascript">
+const nv = 20;
+function loader(){
+  qs = document.body.getElementsByTagName("h4");
+  lnk = document.getElementById("linksies");
+  qs[0].parentElement.parentElement.classList.add("outermostlist");
+  for(let i=0;i<qs.length;i++){
+    if(i%2==0){
+      qs[i].innerHTML = "QUESTION  "+(Math.floor(i/2/nv+1)).toString()+" version "+((i/2)%nv+1).toString();
+      qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      qs[i].classList.add("qqq");
+      if(i%(2*nv)==0){
+        let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+        lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+        document.getElementById("tempid").id = newid;
+      }
+      qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      if(i%(2*nv)!=0){
+        qs[i].parentElement.style.display = "none";
+      }
+      }
+}
+}
+function shower(){
+  let x = this.nextSibling;
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    this.innerHTML = "Hide solution";
+  } else {
+    x.style.display = "none";
+    this.innerHTML = "Show solution";
+  }
+}
+function prev(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn-1+nv)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+function next(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn+1)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+</script>
+<body onLoad="loader()">
+<div style="display:none">
+\(\renewcommand{\hat}[1]{\widehat{#1}}\)
+</div>
+<h2 id="sqid">Shared Qs (expand)</h2>
+<div id="linksies"></div>
+<ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: 5 and 6.</p>
+<p>The sum of 5 and 6 is <select><option>--------</option><option> -30</option><option>-16</option><option>-11</option><option>-1</option><option>1</option><option>11</option><option>16</option><option>30 </option></select>.</p>
+<p>The product of 5 and 6 is <select><option>--------</option><option> -30</option><option>-16</option><option>-11</option><option>-1</option><option>1</option><option>11</option><option>16</option><option>30 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(5)+(6) = 11\]</span></p>
+<p>The product:
+<span class="math display">\[(5)(6) = 30\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: -5 and -7.</p>
+<p>The sum of -5 and -7 is <select><option>--------</option><option> -35</option><option>-12</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>12</option><option>35 </option></select>.</p>
+<p>The product of -5 and -7 is <select><option>--------</option><option> -35</option><option>-12</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>12</option><option>35 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(-5)+(-7) = -12\]</span></p>
+<p>The product:
+<span class="math display">\[(-5)(-7) = 35\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: 8 and 4.</p>
+<p>The sum of 8 and 4 is <select><option>--------</option><option> -32</option><option>-18</option><option>-12</option><option>-4</option><option>4</option><option>12</option><option>18</option><option>32 </option></select>.</p>
+<p>The product of 8 and 4 is <select><option>--------</option><option> -32</option><option>-18</option><option>-12</option><option>-4</option><option>4</option><option>12</option><option>18</option><option>32 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(8)+(4) = 12\]</span></p>
+<p>The product:
+<span class="math display">\[(8)(4) = 32\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: 5 and 7.</p>
+<p>The sum of 5 and 7 is <select><option>--------</option><option> -35</option><option>-12</option><option>-5</option><option>-2</option><option>2</option><option>5</option><option>12</option><option>35 </option></select>.</p>
+<p>The product of 5 and 7 is <select><option>--------</option><option> -35</option><option>-12</option><option>-5</option><option>-2</option><option>2</option><option>5</option><option>12</option><option>35 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(5)+(7) = 12\]</span></p>
+<p>The product:
+<span class="math display">\[(5)(7) = 35\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: -3 and 6.</p>
+<p>The sum of -3 and 6 is <select><option>--------</option><option> -81</option><option>-18</option><option>-9</option><option>-3</option><option>3</option><option>9</option><option>18</option><option>81 </option></select>.</p>
+<p>The product of -3 and 6 is <select><option>--------</option><option> -81</option><option>-18</option><option>-9</option><option>-3</option><option>3</option><option>9</option><option>18</option><option>81 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(-3)+(6) = 3\]</span></p>
+<p>The product:
+<span class="math display">\[(-3)(6) = -18\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: -1 and -2.</p>
+<p>The sum of -1 and -2 is <select><option>--------</option><option> -16</option><option>-3</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>3</option><option>16 </option></select>.</p>
+<p>The product of -1 and -2 is <select><option>--------</option><option> -16</option><option>-3</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>3</option><option>16 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(-1)+(-2) = -3\]</span></p>
+<p>The product:
+<span class="math display">\[(-1)(-2) = 2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: -7 and -3.</p>
+<p>The sum of -7 and -3 is <select><option>--------</option><option> -21</option><option>-10</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>10</option><option>21 </option></select>.</p>
+<p>The product of -7 and -3 is <select><option>--------</option><option> -21</option><option>-10</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>10</option><option>21 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(-7)+(-3) = -10\]</span></p>
+<p>The product:
+<span class="math display">\[(-7)(-3) = 21\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: -6 and -4.</p>
+<p>The sum of -6 and -4 is <select><option>--------</option><option> -24</option><option>-16</option><option>-10</option><option>-2</option><option>2</option><option>10</option><option>16</option><option>24 </option></select>.</p>
+<p>The product of -6 and -4 is <select><option>--------</option><option> -24</option><option>-16</option><option>-10</option><option>-2</option><option>2</option><option>10</option><option>16</option><option>24 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(-6)+(-4) = -10\]</span></p>
+<p>The product:
+<span class="math display">\[(-6)(-4) = 24\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: -6 and -4.</p>
+<p>The sum of -6 and -4 is <select><option>--------</option><option> -32</option><option>-24</option><option>-10</option><option>-2</option><option>2</option><option>10</option><option>24</option><option>32 </option></select>.</p>
+<p>The product of -6 and -4 is <select><option>--------</option><option> -32</option><option>-24</option><option>-10</option><option>-2</option><option>2</option><option>10</option><option>24</option><option>32 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(-6)+(-4) = -10\]</span></p>
+<p>The product:
+<span class="math display">\[(-6)(-4) = 24\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: -5 and -5.</p>
+<p>The sum of -5 and -5 is <select><option>--------</option><option> -25</option><option>-10</option><option>-7</option><option>-2</option><option>0</option><option>7</option><option>10</option><option>25 </option></select>.</p>
+<p>The product of -5 and -5 is <select><option>--------</option><option> -25</option><option>-10</option><option>-7</option><option>-2</option><option>0</option><option>7</option><option>10</option><option>25 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(-5)+(-5) = -10\]</span></p>
+<p>The product:
+<span class="math display">\[(-5)(-5) = 25\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: 1 and 9.</p>
+<p>The sum of 1 and 9 is <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>8</option><option>9</option><option>10</option><option>20</option><option>81 </option></select>.</p>
+<p>The product of 1 and 9 is <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>8</option><option>9</option><option>10</option><option>20</option><option>81 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(1)+(9) = 10\]</span></p>
+<p>The product:
+<span class="math display">\[(1)(9) = 9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: 1 and 7.</p>
+<p>The sum of 1 and 7 is <select><option>--------</option><option> -21</option><option>-8</option><option>-7</option><option>-6</option><option>6</option><option>7</option><option>8</option><option>21 </option></select>.</p>
+<p>The product of 1 and 7 is <select><option>--------</option><option> -21</option><option>-8</option><option>-7</option><option>-6</option><option>6</option><option>7</option><option>8</option><option>21 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(1)+(7) = 8\]</span></p>
+<p>The product:
+<span class="math display">\[(1)(7) = 7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: -6 and 8.</p>
+<p>The sum of -6 and 8 is <select><option>--------</option><option> -48</option><option>-30</option><option>-14</option><option>-2</option><option>2</option><option>14</option><option>30</option><option>48 </option></select>.</p>
+<p>The product of -6 and 8 is <select><option>--------</option><option> -48</option><option>-30</option><option>-14</option><option>-2</option><option>2</option><option>14</option><option>30</option><option>48 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(-6)+(8) = 2\]</span></p>
+<p>The product:
+<span class="math display">\[(-6)(8) = -48\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: 6 and 7.</p>
+<p>The sum of 6 and 7 is <select><option>--------</option><option> -42</option><option>-28</option><option>-13</option><option>-1</option><option>1</option><option>13</option><option>28</option><option>42 </option></select>.</p>
+<p>The product of 6 and 7 is <select><option>--------</option><option> -42</option><option>-28</option><option>-13</option><option>-1</option><option>1</option><option>13</option><option>28</option><option>42 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(6)+(7) = 13\]</span></p>
+<p>The product:
+<span class="math display">\[(6)(7) = 42\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: 6 and -9.</p>
+<p>The sum of 6 and -9 is <select><option>--------</option><option> -54</option><option>-24</option><option>-15</option><option>-3</option><option>3</option><option>15</option><option>24</option><option>54 </option></select>.</p>
+<p>The product of 6 and -9 is <select><option>--------</option><option> -54</option><option>-24</option><option>-15</option><option>-3</option><option>3</option><option>15</option><option>24</option><option>54 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(6)+(-9) = -3\]</span></p>
+<p>The product:
+<span class="math display">\[(6)(-9) = -54\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: 1 and 9.</p>
+<p>The sum of 1 and 9 is <select><option>--------</option><option> -64</option><option>-10</option><option>-9</option><option>-8</option><option>8</option><option>9</option><option>10</option><option>64 </option></select>.</p>
+<p>The product of 1 and 9 is <select><option>--------</option><option> -64</option><option>-10</option><option>-9</option><option>-8</option><option>8</option><option>9</option><option>10</option><option>64 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(1)+(9) = 10\]</span></p>
+<p>The product:
+<span class="math display">\[(1)(9) = 9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: -9 and 2.</p>
+<p>The sum of -9 and 2 is <select><option>--------</option><option> -40</option><option>-18</option><option>-11</option><option>-7</option><option>7</option><option>11</option><option>18</option><option>40 </option></select>.</p>
+<p>The product of -9 and 2 is <select><option>--------</option><option> -40</option><option>-18</option><option>-11</option><option>-7</option><option>7</option><option>11</option><option>18</option><option>40 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(-9)+(2) = -7\]</span></p>
+<p>The product:
+<span class="math display">\[(-9)(2) = -18\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: 3 and -4.</p>
+<p>The sum of 3 and -4 is <select><option>--------</option><option> -36</option><option>-12</option><option>-7</option><option>-1</option><option>1</option><option>7</option><option>12</option><option>36 </option></select>.</p>
+<p>The product of 3 and -4 is <select><option>--------</option><option> -36</option><option>-12</option><option>-7</option><option>-1</option><option>1</option><option>7</option><option>12</option><option>36 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(3)+(-4) = -1\]</span></p>
+<p>The product:
+<span class="math display">\[(3)(-4) = -12\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: 9 and -1.</p>
+<p>The sum of 9 and -1 is <select><option>--------</option><option> -81</option><option>-10</option><option>-9</option><option>-8</option><option>8</option><option>9</option><option>10</option><option>81 </option></select>.</p>
+<p>The product of 9 and -1 is <select><option>--------</option><option> -81</option><option>-10</option><option>-9</option><option>-8</option><option>8</option><option>9</option><option>10</option><option>81 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(9)+(-1) = 8\]</span></p>
+<p>The product:
+<span class="math display">\[(9)(-1) = -9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find the sum and the product of two numbers: -4 and 4.</p>
+<p>The sum of -4 and 4 is <select><option>--------</option><option> -16</option><option>-8</option><option>-6</option><option>0</option><option>6</option><option>8</option><option>16</option><option>45 </option></select>.</p>
+<p>The product of -4 and 4 is <select><option>--------</option><option> -16</option><option>-8</option><option>-6</option><option>0</option><option>6</option><option>8</option><option>16</option><option>45 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The sum:
+<span class="math display">\[(-4)+(4) = 0\]</span></p>
+<p>The product:
+<span class="math display">\[(-4)(4) = -16\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 4\right)^{2}\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -16x</option><option>-8x</option><option>-7x</option><option>0x</option><option>+1x</option><option>+7x</option><option>+8x</option><option>+16x </option></select> <select><option>--------</option><option> -16</option><option>-8</option><option>-7</option><option>0</option><option>+1</option><option>+7</option><option>+8</option><option>+16 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - 8 x + 16\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 4)(x - 4)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 4)(x - 4)\)</span>, we can say <span class="math inline">\(a=(x - 4)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=-4\)</span>, leading us to
+<span class="math display">\[(x - 4)(x)~+~(x - 4)(-4)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 4)~+~(-4)(x - 4)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 4)\)</span> and <span class="math inline">\((-4)(x - 4)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-4)x ~+~ (-4)x ~+~ (16) \]</span>
+Notice the two like terms: <span class="math inline">\(-4x\)</span> and <span class="math inline">\(-4x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 8 x + 16\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 4)(x - 4)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(-4x\)</span></li>
+<li>Insides: <span class="math inline">\(-4x\)</span></li>
+<li>Lasts: <span class="math inline">\(16\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (-4)x ~+~ (-4)x ~+~ (16) \]</span>
+Notice the two like terms: <span class="math inline">\(-4x\)</span> and <span class="math inline">\(-4x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 8 x + 16\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 4)\)</span> and <span class="math inline">\((x - 4)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-4\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-4\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(-4\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-4x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-4\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-4x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(16\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (-4)x ~+~ (-4)x ~+~ (16) \]</span>
+Notice the two like terms: <span class="math inline">\(-4x\)</span> and <span class="math inline">\(-4x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 8 x + 16\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 4\right)^{2}\]</span></p>
+<p>The sum of -4 and -4 is -8.
+<span class="math display">\[(-4)+(-4)=-8\]</span>
+The product of -4 and -4 is 16.
+<span class="math display">\[(-4)(-4) = 16\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - 8 x + 16\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 7\right) \left(x - 6\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -42x</option><option>-36x</option><option>-13x</option><option>-1x</option><option>+1x</option><option>+13x</option><option>+36x</option><option>+42x </option></select> <select><option>--------</option><option> -42</option><option>-36</option><option>-13</option><option>-1</option><option>+1</option><option>+13</option><option>+36</option><option>+42 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - 13 x + 42\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 6)(x - 7)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 6)(x - 7)\)</span>, we can say <span class="math inline">\(a=(x - 6)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=-7\)</span>, leading us to
+<span class="math display">\[(x - 6)(x)~+~(x - 6)(-7)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 6)~+~(-7)(x - 6)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 6)\)</span> and <span class="math inline">\((-7)(x - 6)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-6)x ~+~ (-7)x ~+~ (42) \]</span>
+Notice the two like terms: <span class="math inline">\(-6x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 13 x + 42\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 6)(x - 7)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(-7x\)</span></li>
+<li>Insides: <span class="math inline">\(-6x\)</span></li>
+<li>Lasts: <span class="math inline">\(42\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (-7)x ~+~ (-6)x ~+~ (42) \]</span>
+Notice the two like terms: <span class="math inline">\(-6x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 13 x + 42\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 6)\)</span> and <span class="math inline">\((x - 7)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-6\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-7\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(-7\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-7x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-6\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-6x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(42\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (-7)x ~+~ (-6)x ~+~ (42) \]</span>
+Notice the two like terms: <span class="math inline">\(-6x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 13 x + 42\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 7\right) \left(x - 6\right)\]</span></p>
+<p>The sum of -6 and -7 is -13.
+<span class="math display">\[(-6)+(-7)=-13\]</span>
+The product of -6 and -7 is 42.
+<span class="math display">\[(-6)(-7) = 42\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - 13 x + 42\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 5\right) \left(x + 9\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -45x</option><option>-14x</option><option>-6x</option><option>-4x</option><option>+4x</option><option>+6x</option><option>+14x</option><option>+45x </option></select> <select><option>--------</option><option> -45</option><option>-14</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+14</option><option>+45 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} + 4 x - 45\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 5)(x + 9)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 5)(x + 9)\)</span>, we can say <span class="math inline">\(a=(x - 5)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=9\)</span>, leading us to
+<span class="math display">\[(x - 5)(x)~+~(x - 5)(9)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 5)~+~(9)(x - 5)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 5)\)</span> and <span class="math inline">\((9)(x - 5)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-5)x ~+~ (9)x ~+~ (-45) \]</span>
+Notice the two like terms: <span class="math inline">\(-5x\)</span> and <span class="math inline">\(9x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 4 x - 45\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 5)(x + 9)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(9x\)</span></li>
+<li>Insides: <span class="math inline">\(-5x\)</span></li>
+<li>Lasts: <span class="math inline">\(-45\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (9)x ~+~ (-5)x ~+~ (-45) \]</span>
+Notice the two like terms: <span class="math inline">\(-5x\)</span> and <span class="math inline">\(9x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 4 x - 45\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 5)\)</span> and <span class="math inline">\((x + 9)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-5\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(9\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(9\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(9x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-5\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-5x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-45\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (9)x ~+~ (-5)x ~+~ (-45) \]</span>
+Notice the two like terms: <span class="math inline">\(-5x\)</span> and <span class="math inline">\(9x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 4 x - 45\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 5\right) \left(x + 9\right)\]</span></p>
+<p>The sum of -5 and 9 is 4.
+<span class="math display">\[(-5)+(9)=4\]</span>
+The product of -5 and 9 is -45.
+<span class="math display">\[(-5)(9) = -45\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} + 4 x - 45\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 4\right) \left(x - 2\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -42x</option><option>-8x</option><option>-6x</option><option>-2x</option><option>+2x</option><option>+6x</option><option>+8x</option><option>+42x </option></select> <select><option>--------</option><option> -42</option><option>-8</option><option>-6</option><option>-2</option><option>+2</option><option>+6</option><option>+8</option><option>+42 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - 6 x + 8\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 4)(x - 2)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 4)(x - 2)\)</span>, we can say <span class="math inline">\(a=(x - 4)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=-2\)</span>, leading us to
+<span class="math display">\[(x - 4)(x)~+~(x - 4)(-2)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 4)~+~(-2)(x - 4)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 4)\)</span> and <span class="math inline">\((-2)(x - 4)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-4)x ~+~ (-2)x ~+~ (8) \]</span>
+Notice the two like terms: <span class="math inline">\(-4x\)</span> and <span class="math inline">\(-2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 6 x + 8\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 4)(x - 2)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(-2x\)</span></li>
+<li>Insides: <span class="math inline">\(-4x\)</span></li>
+<li>Lasts: <span class="math inline">\(8\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (-2)x ~+~ (-4)x ~+~ (8) \]</span>
+Notice the two like terms: <span class="math inline">\(-4x\)</span> and <span class="math inline">\(-2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 6 x + 8\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 4)\)</span> and <span class="math inline">\((x - 2)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-4\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-2\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(-2\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-2x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-4\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-4x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(8\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (-2)x ~+~ (-4)x ~+~ (8) \]</span>
+Notice the two like terms: <span class="math inline">\(-4x\)</span> and <span class="math inline">\(-2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 6 x + 8\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 4\right) \left(x - 2\right)\]</span></p>
+<p>The sum of -4 and -2 is -6.
+<span class="math display">\[(-4)+(-2)=-6\]</span>
+The product of -4 and -2 is 8.
+<span class="math display">\[(-4)(-2) = 8\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - 6 x + 8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 6\right) \left(x + 3\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -27x</option><option>-18x</option><option>-9x</option><option>-3x</option><option>+3x</option><option>+9x</option><option>+18x</option><option>+27x </option></select> <select><option>--------</option><option> -27</option><option>-18</option><option>-9</option><option>-3</option><option>+3</option><option>+9</option><option>+18</option><option>+27 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - 3 x - 18\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x + 3)(x - 6)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x + 3)(x - 6)\)</span>, we can say <span class="math inline">\(a=(x + 3)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=-6\)</span>, leading us to
+<span class="math display">\[(x + 3)(x)~+~(x + 3)(-6)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x + 3)~+~(-6)(x + 3)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x + 3)\)</span> and <span class="math inline">\((-6)(x + 3)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (3)x ~+~ (-6)x ~+~ (-18) \]</span>
+Notice the two like terms: <span class="math inline">\(3x\)</span> and <span class="math inline">\(-6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 3 x - 18\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x + 3)(x - 6)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(-6x\)</span></li>
+<li>Insides: <span class="math inline">\(3x\)</span></li>
+<li>Lasts: <span class="math inline">\(-18\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (-6)x ~+~ (3)x ~+~ (-18) \]</span>
+Notice the two like terms: <span class="math inline">\(3x\)</span> and <span class="math inline">\(-6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 3 x - 18\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x + 3)\)</span> and <span class="math inline">\((x - 6)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(3\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-6\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(-6\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-6x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(3\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(3x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-18\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (-6)x ~+~ (3)x ~+~ (-18) \]</span>
+Notice the two like terms: <span class="math inline">\(3x\)</span> and <span class="math inline">\(-6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 3 x - 18\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 6\right) \left(x + 3\right)\]</span></p>
+<p>The sum of 3 and -6 is -3.
+<span class="math display">\[(3)+(-6)=-3\]</span>
+The product of 3 and -6 is -18.
+<span class="math display">\[(3)(-6) = -18\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - 3 x - 18\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 8\right) \left(x - 7\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -64x</option><option>-56x</option><option>-15x</option><option>-1x</option><option>+1x</option><option>+15x</option><option>+56x</option><option>+64x </option></select> <select><option>--------</option><option> -64</option><option>-56</option><option>-15</option><option>-1</option><option>+1</option><option>+15</option><option>+56</option><option>+64 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - 15 x + 56\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 8)(x - 7)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 8)(x - 7)\)</span>, we can say <span class="math inline">\(a=(x - 8)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=-7\)</span>, leading us to
+<span class="math display">\[(x - 8)(x)~+~(x - 8)(-7)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 8)~+~(-7)(x - 8)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 8)\)</span> and <span class="math inline">\((-7)(x - 8)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-8)x ~+~ (-7)x ~+~ (56) \]</span>
+Notice the two like terms: <span class="math inline">\(-8x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 15 x + 56\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 8)(x - 7)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(-7x\)</span></li>
+<li>Insides: <span class="math inline">\(-8x\)</span></li>
+<li>Lasts: <span class="math inline">\(56\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (-7)x ~+~ (-8)x ~+~ (56) \]</span>
+Notice the two like terms: <span class="math inline">\(-8x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 15 x + 56\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 8)\)</span> and <span class="math inline">\((x - 7)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-8\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-7\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(-7\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-7x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-8\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-8x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(56\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (-7)x ~+~ (-8)x ~+~ (56) \]</span>
+Notice the two like terms: <span class="math inline">\(-8x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 15 x + 56\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 8\right) \left(x - 7\right)\]</span></p>
+<p>The sum of -8 and -7 is -15.
+<span class="math display">\[(-8)+(-7)=-15\]</span>
+The product of -8 and -7 is 56.
+<span class="math display">\[(-8)(-7) = 56\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - 15 x + 56\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 7\right) \left(x + 3\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -30x</option><option>-21x</option><option>-10x</option><option>-4x</option><option>+4x</option><option>+10x</option><option>+21x</option><option>+30x </option></select> <select><option>--------</option><option> -30</option><option>-21</option><option>-10</option><option>-4</option><option>+4</option><option>+10</option><option>+21</option><option>+30 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - 4 x - 21\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 7)(x + 3)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 7)(x + 3)\)</span>, we can say <span class="math inline">\(a=(x - 7)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=3\)</span>, leading us to
+<span class="math display">\[(x - 7)(x)~+~(x - 7)(3)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 7)~+~(3)(x - 7)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 7)\)</span> and <span class="math inline">\((3)(x - 7)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-7)x ~+~ (3)x ~+~ (-21) \]</span>
+Notice the two like terms: <span class="math inline">\(-7x\)</span> and <span class="math inline">\(3x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 4 x - 21\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 7)(x + 3)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(3x\)</span></li>
+<li>Insides: <span class="math inline">\(-7x\)</span></li>
+<li>Lasts: <span class="math inline">\(-21\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (3)x ~+~ (-7)x ~+~ (-21) \]</span>
+Notice the two like terms: <span class="math inline">\(-7x\)</span> and <span class="math inline">\(3x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 4 x - 21\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 7)\)</span> and <span class="math inline">\((x + 3)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-7\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(3\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(3\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(3x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-7\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-7x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-21\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (3)x ~+~ (-7)x ~+~ (-21) \]</span>
+Notice the two like terms: <span class="math inline">\(-7x\)</span> and <span class="math inline">\(3x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 4 x - 21\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 7\right) \left(x + 3\right)\]</span></p>
+<p>The sum of -7 and 3 is -4.
+<span class="math display">\[(-7)+(3)=-4\]</span>
+The product of -7 and 3 is -21.
+<span class="math display">\[(-7)(3) = -21\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - 4 x - 21\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x + 7\right)^{2}\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -49x</option><option>-21x</option><option>-14x</option><option>0x</option><option>+7x</option><option>+14x</option><option>+21x</option><option>+49x </option></select> <select><option>--------</option><option> -49</option><option>-21</option><option>-14</option><option>0</option><option>+7</option><option>+14</option><option>+21</option><option>+49 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} + 14 x + 49\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x + 7)(x + 7)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x + 7)(x + 7)\)</span>, we can say <span class="math inline">\(a=(x + 7)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=7\)</span>, leading us to
+<span class="math display">\[(x + 7)(x)~+~(x + 7)(7)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x + 7)~+~(7)(x + 7)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x + 7)\)</span> and <span class="math inline">\((7)(x + 7)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (7)x ~+~ (7)x ~+~ (49) \]</span>
+Notice the two like terms: <span class="math inline">\(7x\)</span> and <span class="math inline">\(7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 14 x + 49\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x + 7)(x + 7)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(7x\)</span></li>
+<li>Insides: <span class="math inline">\(7x\)</span></li>
+<li>Lasts: <span class="math inline">\(49\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (7)x ~+~ (7)x ~+~ (49) \]</span>
+Notice the two like terms: <span class="math inline">\(7x\)</span> and <span class="math inline">\(7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 14 x + 49\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x + 7)\)</span> and <span class="math inline">\((x + 7)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(7\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(7\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(7\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(7x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(7\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(7x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(49\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (7)x ~+~ (7)x ~+~ (49) \]</span>
+Notice the two like terms: <span class="math inline">\(7x\)</span> and <span class="math inline">\(7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 14 x + 49\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x + 7\right)^{2}\]</span></p>
+<p>The sum of 7 and 7 is 14.
+<span class="math display">\[(7)+(7)=14\]</span>
+The product of 7 and 7 is 49.
+<span class="math display">\[(7)(7) = 49\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} + 14 x + 49\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 7\right) \left(x - 6\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -42x</option><option>-13x</option><option>-4x</option><option>-1x</option><option>+1x</option><option>+4x</option><option>+13x</option><option>+42x </option></select> <select><option>--------</option><option> -42</option><option>-13</option><option>-4</option><option>-1</option><option>+1</option><option>+4</option><option>+13</option><option>+42 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - 13 x + 42\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 6)(x - 7)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 6)(x - 7)\)</span>, we can say <span class="math inline">\(a=(x - 6)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=-7\)</span>, leading us to
+<span class="math display">\[(x - 6)(x)~+~(x - 6)(-7)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 6)~+~(-7)(x - 6)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 6)\)</span> and <span class="math inline">\((-7)(x - 6)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-6)x ~+~ (-7)x ~+~ (42) \]</span>
+Notice the two like terms: <span class="math inline">\(-6x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 13 x + 42\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 6)(x - 7)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(-7x\)</span></li>
+<li>Insides: <span class="math inline">\(-6x\)</span></li>
+<li>Lasts: <span class="math inline">\(42\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (-7)x ~+~ (-6)x ~+~ (42) \]</span>
+Notice the two like terms: <span class="math inline">\(-6x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 13 x + 42\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 6)\)</span> and <span class="math inline">\((x - 7)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-6\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-7\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(-7\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-7x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-6\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-6x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(42\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (-7)x ~+~ (-6)x ~+~ (42) \]</span>
+Notice the two like terms: <span class="math inline">\(-6x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 13 x + 42\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 7\right) \left(x - 6\right)\]</span></p>
+<p>The sum of -6 and -7 is -13.
+<span class="math display">\[(-6)+(-7)=-13\]</span>
+The product of -6 and -7 is 42.
+<span class="math display">\[(-6)(-7) = 42\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - 13 x + 42\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 1\right) \left(x + 6\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -7x</option><option>-6x</option><option>-5x</option><option>-3x</option><option>+3x</option><option>+5x</option><option>+6x</option><option>+7x </option></select> <select><option>--------</option><option> -7</option><option>-6</option><option>-5</option><option>-3</option><option>+3</option><option>+5</option><option>+6</option><option>+7 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} + 5 x - 6\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 1)(x + 6)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 1)(x + 6)\)</span>, we can say <span class="math inline">\(a=(x - 1)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=6\)</span>, leading us to
+<span class="math display">\[(x - 1)(x)~+~(x - 1)(6)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 1)~+~(6)(x - 1)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 1)\)</span> and <span class="math inline">\((6)(x - 1)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-1)x ~+~ (6)x ~+~ (-6) \]</span>
+Notice the two like terms: <span class="math inline">\(-1x\)</span> and <span class="math inline">\(6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 5 x - 6\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 1)(x + 6)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(6x\)</span></li>
+<li>Insides: <span class="math inline">\(-1x\)</span></li>
+<li>Lasts: <span class="math inline">\(-6\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (6)x ~+~ (-1)x ~+~ (-6) \]</span>
+Notice the two like terms: <span class="math inline">\(-1x\)</span> and <span class="math inline">\(6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 5 x - 6\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 1)\)</span> and <span class="math inline">\((x + 6)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-1\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(6\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(6\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(6x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-1\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-1x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-6\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (6)x ~+~ (-1)x ~+~ (-6) \]</span>
+Notice the two like terms: <span class="math inline">\(-1x\)</span> and <span class="math inline">\(6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 5 x - 6\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 1\right) \left(x + 6\right)\]</span></p>
+<p>The sum of -1 and 6 is 5.
+<span class="math display">\[(-1)+(6)=5\]</span>
+The product of -1 and 6 is -6.
+<span class="math display">\[(-1)(6) = -6\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} + 5 x - 6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x + 3\right) \left(x + 7\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -21x</option><option>-10x</option><option>-8x</option><option>-4x</option><option>+4x</option><option>+8x</option><option>+10x</option><option>+21x </option></select> <select><option>--------</option><option> -21</option><option>-10</option><option>-8</option><option>-4</option><option>+4</option><option>+8</option><option>+10</option><option>+21 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} + 10 x + 21\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x + 7)(x + 3)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x + 7)(x + 3)\)</span>, we can say <span class="math inline">\(a=(x + 7)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=3\)</span>, leading us to
+<span class="math display">\[(x + 7)(x)~+~(x + 7)(3)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x + 7)~+~(3)(x + 7)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x + 7)\)</span> and <span class="math inline">\((3)(x + 7)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (7)x ~+~ (3)x ~+~ (21) \]</span>
+Notice the two like terms: <span class="math inline">\(7x\)</span> and <span class="math inline">\(3x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 10 x + 21\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x + 7)(x + 3)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(3x\)</span></li>
+<li>Insides: <span class="math inline">\(7x\)</span></li>
+<li>Lasts: <span class="math inline">\(21\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (3)x ~+~ (7)x ~+~ (21) \]</span>
+Notice the two like terms: <span class="math inline">\(7x\)</span> and <span class="math inline">\(3x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 10 x + 21\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x + 7)\)</span> and <span class="math inline">\((x + 3)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(7\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(3\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(3\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(3x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(7\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(7x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(21\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (3)x ~+~ (7)x ~+~ (21) \]</span>
+Notice the two like terms: <span class="math inline">\(7x\)</span> and <span class="math inline">\(3x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 10 x + 21\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x + 3\right) \left(x + 7\right)\]</span></p>
+<p>The sum of 7 and 3 is 10.
+<span class="math display">\[(7)+(3)=10\]</span>
+The product of 7 and 3 is 21.
+<span class="math display">\[(7)(3) = 21\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} + 10 x + 21\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x + 1\right) \left(x + 4\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -9x</option><option>-5x</option><option>-4x</option><option>-3x</option><option>+3x</option><option>+4x</option><option>+5x</option><option>+9x </option></select> <select><option>--------</option><option> -9</option><option>-5</option><option>-4</option><option>-3</option><option>+3</option><option>+4</option><option>+5</option><option>+9 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} + 5 x + 4\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x + 4)(x + 1)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x + 4)(x + 1)\)</span>, we can say <span class="math inline">\(a=(x + 4)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=1\)</span>, leading us to
+<span class="math display">\[(x + 4)(x)~+~(x + 4)(1)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x + 4)~+~(1)(x + 4)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x + 4)\)</span> and <span class="math inline">\((1)(x + 4)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (4)x ~+~ (1)x ~+~ (4) \]</span>
+Notice the two like terms: <span class="math inline">\(4x\)</span> and <span class="math inline">\(1x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 5 x + 4\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x + 4)(x + 1)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(1x\)</span></li>
+<li>Insides: <span class="math inline">\(4x\)</span></li>
+<li>Lasts: <span class="math inline">\(4\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (1)x ~+~ (4)x ~+~ (4) \]</span>
+Notice the two like terms: <span class="math inline">\(4x\)</span> and <span class="math inline">\(1x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 5 x + 4\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x + 4)\)</span> and <span class="math inline">\((x + 1)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(4\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(1\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(1\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(1x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(4\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(4x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(4\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (1)x ~+~ (4)x ~+~ (4) \]</span>
+Notice the two like terms: <span class="math inline">\(4x\)</span> and <span class="math inline">\(1x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 5 x + 4\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x + 1\right) \left(x + 4\right)\]</span></p>
+<p>The sum of 4 and 1 is 5.
+<span class="math display">\[(4)+(1)=5\]</span>
+The product of 4 and 1 is 4.
+<span class="math display">\[(4)(1) = 4\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} + 5 x + 4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 7\right) \left(x - 2\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -48x</option><option>-14x</option><option>-9x</option><option>-5x</option><option>+5x</option><option>+9x</option><option>+14x</option><option>+48x </option></select> <select><option>--------</option><option> -48</option><option>-14</option><option>-9</option><option>-5</option><option>+5</option><option>+9</option><option>+14</option><option>+48 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - 9 x + 14\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 7)(x - 2)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 7)(x - 2)\)</span>, we can say <span class="math inline">\(a=(x - 7)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=-2\)</span>, leading us to
+<span class="math display">\[(x - 7)(x)~+~(x - 7)(-2)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 7)~+~(-2)(x - 7)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 7)\)</span> and <span class="math inline">\((-2)(x - 7)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-7)x ~+~ (-2)x ~+~ (14) \]</span>
+Notice the two like terms: <span class="math inline">\(-7x\)</span> and <span class="math inline">\(-2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 9 x + 14\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 7)(x - 2)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(-2x\)</span></li>
+<li>Insides: <span class="math inline">\(-7x\)</span></li>
+<li>Lasts: <span class="math inline">\(14\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (-2)x ~+~ (-7)x ~+~ (14) \]</span>
+Notice the two like terms: <span class="math inline">\(-7x\)</span> and <span class="math inline">\(-2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 9 x + 14\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 7)\)</span> and <span class="math inline">\((x - 2)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-7\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-2\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(-2\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-2x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-7\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-7x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(14\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (-2)x ~+~ (-7)x ~+~ (14) \]</span>
+Notice the two like terms: <span class="math inline">\(-7x\)</span> and <span class="math inline">\(-2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 9 x + 14\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 7\right) \left(x - 2\right)\]</span></p>
+<p>The sum of -7 and -2 is -9.
+<span class="math display">\[(-7)+(-2)=-9\]</span>
+The product of -7 and -2 is 14.
+<span class="math display">\[(-7)(-2) = 14\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - 9 x + 14\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 5\right) \left(x + 6\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -40x</option><option>-30x</option><option>-11x</option><option>-1x</option><option>+1x</option><option>+11x</option><option>+30x</option><option>+40x </option></select> <select><option>--------</option><option> -40</option><option>-30</option><option>-11</option><option>-1</option><option>+1</option><option>+11</option><option>+30</option><option>+40 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} + x - 30\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 5)(x + 6)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 5)(x + 6)\)</span>, we can say <span class="math inline">\(a=(x - 5)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=6\)</span>, leading us to
+<span class="math display">\[(x - 5)(x)~+~(x - 5)(6)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 5)~+~(6)(x - 5)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 5)\)</span> and <span class="math inline">\((6)(x - 5)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-5)x ~+~ (6)x ~+~ (-30) \]</span>
+Notice the two like terms: <span class="math inline">\(-5x\)</span> and <span class="math inline">\(6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + x - 30\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 5)(x + 6)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(6x\)</span></li>
+<li>Insides: <span class="math inline">\(-5x\)</span></li>
+<li>Lasts: <span class="math inline">\(-30\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (6)x ~+~ (-5)x ~+~ (-30) \]</span>
+Notice the two like terms: <span class="math inline">\(-5x\)</span> and <span class="math inline">\(6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + x - 30\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 5)\)</span> and <span class="math inline">\((x + 6)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-5\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(6\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(6\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(6x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-5\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-5x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-30\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (6)x ~+~ (-5)x ~+~ (-30) \]</span>
+Notice the two like terms: <span class="math inline">\(-5x\)</span> and <span class="math inline">\(6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + x - 30\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 5\right) \left(x + 6\right)\]</span></p>
+<p>The sum of -5 and 6 is 1.
+<span class="math display">\[(-5)+(6)=1\]</span>
+The product of -5 and 6 is -30.
+<span class="math display">\[(-5)(6) = -30\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} + x - 30\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 4\right) \left(x + 5\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -20x</option><option>-9x</option><option>-3x</option><option>-1x</option><option>+1x</option><option>+3x</option><option>+9x</option><option>+20x </option></select> <select><option>--------</option><option> -20</option><option>-9</option><option>-3</option><option>-1</option><option>+1</option><option>+3</option><option>+9</option><option>+20 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} + x - 20\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 4)(x + 5)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 4)(x + 5)\)</span>, we can say <span class="math inline">\(a=(x - 4)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=5\)</span>, leading us to
+<span class="math display">\[(x - 4)(x)~+~(x - 4)(5)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 4)~+~(5)(x - 4)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 4)\)</span> and <span class="math inline">\((5)(x - 4)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-4)x ~+~ (5)x ~+~ (-20) \]</span>
+Notice the two like terms: <span class="math inline">\(-4x\)</span> and <span class="math inline">\(5x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + x - 20\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 4)(x + 5)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(5x\)</span></li>
+<li>Insides: <span class="math inline">\(-4x\)</span></li>
+<li>Lasts: <span class="math inline">\(-20\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (5)x ~+~ (-4)x ~+~ (-20) \]</span>
+Notice the two like terms: <span class="math inline">\(-4x\)</span> and <span class="math inline">\(5x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + x - 20\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 4)\)</span> and <span class="math inline">\((x + 5)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-4\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(5\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(5\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(5x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-4\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-4x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-20\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (5)x ~+~ (-4)x ~+~ (-20) \]</span>
+Notice the two like terms: <span class="math inline">\(-4x\)</span> and <span class="math inline">\(5x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + x - 20\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 4\right) \left(x + 5\right)\]</span></p>
+<p>The sum of -4 and 5 is 1.
+<span class="math display">\[(-4)+(5)=1\]</span>
+The product of -4 and 5 is -20.
+<span class="math display">\[(-4)(5) = -20\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} + x - 20\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 1\right) \left(x + 9\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -10x</option><option>-9x</option><option>-8x</option><option>-1x</option><option>+1x</option><option>+8x</option><option>+9x</option><option>+10x </option></select> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-1</option><option>+1</option><option>+8</option><option>+9</option><option>+10 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} + 8 x - 9\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x + 9)(x - 1)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x + 9)(x - 1)\)</span>, we can say <span class="math inline">\(a=(x + 9)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=-1\)</span>, leading us to
+<span class="math display">\[(x + 9)(x)~+~(x + 9)(-1)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x + 9)~+~(-1)(x + 9)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x + 9)\)</span> and <span class="math inline">\((-1)(x + 9)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (9)x ~+~ (-1)x ~+~ (-9) \]</span>
+Notice the two like terms: <span class="math inline">\(9x\)</span> and <span class="math inline">\(-1x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 8 x - 9\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x + 9)(x - 1)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(-1x\)</span></li>
+<li>Insides: <span class="math inline">\(9x\)</span></li>
+<li>Lasts: <span class="math inline">\(-9\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (-1)x ~+~ (9)x ~+~ (-9) \]</span>
+Notice the two like terms: <span class="math inline">\(9x\)</span> and <span class="math inline">\(-1x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 8 x - 9\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x + 9)\)</span> and <span class="math inline">\((x - 1)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(9\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-1\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(-1\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-1x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(9\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(9x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-9\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (-1)x ~+~ (9)x ~+~ (-9) \]</span>
+Notice the two like terms: <span class="math inline">\(9x\)</span> and <span class="math inline">\(-1x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} + 8 x - 9\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 1\right) \left(x + 9\right)\]</span></p>
+<p>The sum of 9 and -1 is 8.
+<span class="math display">\[(9)+(-1)=8\]</span>
+The product of 9 and -1 is -9.
+<span class="math display">\[(9)(-1) = -9\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} + 8 x - 9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 7\right) \left(x - 2\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -36x</option><option>-14x</option><option>-9x</option><option>-5x</option><option>+5x</option><option>+9x</option><option>+14x</option><option>+36x </option></select> <select><option>--------</option><option> -36</option><option>-14</option><option>-9</option><option>-5</option><option>+5</option><option>+9</option><option>+14</option><option>+36 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - 9 x + 14\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 2)(x - 7)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 2)(x - 7)\)</span>, we can say <span class="math inline">\(a=(x - 2)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=-7\)</span>, leading us to
+<span class="math display">\[(x - 2)(x)~+~(x - 2)(-7)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 2)~+~(-7)(x - 2)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 2)\)</span> and <span class="math inline">\((-7)(x - 2)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-2)x ~+~ (-7)x ~+~ (14) \]</span>
+Notice the two like terms: <span class="math inline">\(-2x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 9 x + 14\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 2)(x - 7)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(-7x\)</span></li>
+<li>Insides: <span class="math inline">\(-2x\)</span></li>
+<li>Lasts: <span class="math inline">\(14\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (-7)x ~+~ (-2)x ~+~ (14) \]</span>
+Notice the two like terms: <span class="math inline">\(-2x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 9 x + 14\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 2)\)</span> and <span class="math inline">\((x - 7)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-2\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-7\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(-7\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-7x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-2\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-2x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(14\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (-7)x ~+~ (-2)x ~+~ (14) \]</span>
+Notice the two like terms: <span class="math inline">\(-2x\)</span> and <span class="math inline">\(-7x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 9 x + 14\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 7\right) \left(x - 2\right)\]</span></p>
+<p>The sum of -2 and -7 is -9.
+<span class="math display">\[(-2)+(-7)=-9\]</span>
+The product of -2 and -7 is 14.
+<span class="math display">\[(-2)(-7) = 14\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - 9 x + 14\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 2\right) \left(x + 1\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -25x</option><option>-3x</option><option>-2x</option><option>-1x</option><option>+1x</option><option>+2x</option><option>+3x</option><option>+25x </option></select> <select><option>--------</option><option> -25</option><option>-3</option><option>-2</option><option>-1</option><option>+1</option><option>+2</option><option>+3</option><option>+25 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - x - 2\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x + 1)(x - 2)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x + 1)(x - 2)\)</span>, we can say <span class="math inline">\(a=(x + 1)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=-2\)</span>, leading us to
+<span class="math display">\[(x + 1)(x)~+~(x + 1)(-2)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x + 1)~+~(-2)(x + 1)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x + 1)\)</span> and <span class="math inline">\((-2)(x + 1)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (1)x ~+~ (-2)x ~+~ (-2) \]</span>
+Notice the two like terms: <span class="math inline">\(1x\)</span> and <span class="math inline">\(-2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - x - 2\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x + 1)(x - 2)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(-2x\)</span></li>
+<li>Insides: <span class="math inline">\(1x\)</span></li>
+<li>Lasts: <span class="math inline">\(-2\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (-2)x ~+~ (1)x ~+~ (-2) \]</span>
+Notice the two like terms: <span class="math inline">\(1x\)</span> and <span class="math inline">\(-2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - x - 2\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x + 1)\)</span> and <span class="math inline">\((x - 2)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(1\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-2\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(-2\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-2x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(1\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(1x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-2\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (-2)x ~+~ (1)x ~+~ (-2) \]</span>
+Notice the two like terms: <span class="math inline">\(1x\)</span> and <span class="math inline">\(-2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - x - 2\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 2\right) \left(x + 1\right)\]</span></p>
+<p>The sum of 1 and -2 is -1.
+<span class="math display">\[(1)+(-2)=-1\]</span>
+The product of 1 and -2 is -2.
+<span class="math display">\[(1)(-2) = -2\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - x - 2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 9\right) \left(x + 6\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -64x</option><option>-54x</option><option>-15x</option><option>-3x</option><option>+3x</option><option>+15x</option><option>+54x</option><option>+64x </option></select> <select><option>--------</option><option> -64</option><option>-54</option><option>-15</option><option>-3</option><option>+3</option><option>+15</option><option>+54</option><option>+64 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - 3 x - 54\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 9)(x + 6)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 9)(x + 6)\)</span>, we can say <span class="math inline">\(a=(x - 9)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=6\)</span>, leading us to
+<span class="math display">\[(x - 9)(x)~+~(x - 9)(6)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 9)~+~(6)(x - 9)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 9)\)</span> and <span class="math inline">\((6)(x - 9)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-9)x ~+~ (6)x ~+~ (-54) \]</span>
+Notice the two like terms: <span class="math inline">\(-9x\)</span> and <span class="math inline">\(6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 3 x - 54\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 9)(x + 6)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(6x\)</span></li>
+<li>Insides: <span class="math inline">\(-9x\)</span></li>
+<li>Lasts: <span class="math inline">\(-54\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (6)x ~+~ (-9)x ~+~ (-54) \]</span>
+Notice the two like terms: <span class="math inline">\(-9x\)</span> and <span class="math inline">\(6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 3 x - 54\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 9)\)</span> and <span class="math inline">\((x + 6)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-9\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(6\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(6\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(6x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-9\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-9x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-54\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (6)x ~+~ (-9)x ~+~ (-54) \]</span>
+Notice the two like terms: <span class="math inline">\(-9x\)</span> and <span class="math inline">\(6x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - 3 x - 54\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 9\right) \left(x + 6\right)\]</span></p>
+<p>The sum of -9 and 6 is -3.
+<span class="math display">\[(-9)+(6)=-3\]</span>
+The product of -9 and 6 is -54.
+<span class="math display">\[(-9)(6) = -54\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - 3 x - 54\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Expand the following polynomial.</p>
+<p><span class="math display">\[\left(x - 3\right) \left(x + 2\right)\]</span></p>
+<p>Answer:
+<span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -8x</option><option>-6x</option><option>-5x</option><option>-1x</option><option>+1x</option><option>+5x</option><option>+6x</option><option>+8x </option></select> <select><option>--------</option><option> -8</option><option>-6</option><option>-5</option><option>-1</option><option>+1</option><option>+5</option><option>+6</option><option>+8 </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answer is <span class="math inline">\(x^{2} - x - 6\)</span>.</p>
+<p>There are multiple methods for expanding a product of two binomials. We begin by rewriting the product.
+<span class="math display">\[(x - 3)(x + 2)\]</span></p>
+<h3 id="method-1-distribution">Method 1: Distribution</h3>
+<p>The distributive property promises us that for all <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+<span class="math display">\[a(b+c) ~\equiv~ ab+ac\]</span></p>
+<p>Since we are expanding <span class="math inline">\((x - 3)(x + 2)\)</span>, we can say <span class="math inline">\(a=(x - 3)\)</span> and <span class="math inline">\(b=x\)</span> and <span class="math inline">\(c=2\)</span>, leading us to
+<span class="math display">\[(x - 3)(x)~+~(x - 3)(2)\]</span>
+Multiplication is commutative, meaning the order does not matter. It promises that <span class="math inline">\(de \equiv ed\)</span> for all <span class="math inline">\(d\)</span> and <span class="math inline">\(e\)</span>. We can rearrange the products in order to reuse the distributive property.</p>
+<p><span class="math display">\[(x)(x - 3)~+~(2)(x - 3)\]</span></p>
+<p>For each term, <span class="math inline">\((x)(x - 3)\)</span> and <span class="math inline">\((2)(x - 3)\)</span>, reuse the distributive property.</p>
+<p><span class="math display">\[x^2 ~+~ (-3)x ~+~ (2)x ~+~ (-6) \]</span>
+Notice the two like terms: <span class="math inline">\(-3x\)</span> and <span class="math inline">\(2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - x - 6\]</span></p>
+<h3 id="method-2-foil">Method 2: FOIL</h3>
+<p>The acronym FOIL stands for products of Firsts, Outsides, Insides, Lasts. For any <span class="math inline">\((a+b)(c+d)\)</span>:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(ac\)</span></li>
+<li>Outsides: <span class="math inline">\(ad\)</span></li>
+<li>Insides: <span class="math inline">\(bc\)</span></li>
+<li>Lasts: <span class="math inline">\(bd\)</span></li>
+</ul>
+<p>In our example, <span class="math inline">\((x - 3)(x + 2)\)</span>, we find the products:</p>
+<ul>
+<li>Firsts: <span class="math inline">\(x^2\)</span></li>
+<li>Outsides: <span class="math inline">\(2x\)</span></li>
+<li>Insides: <span class="math inline">\(-3x\)</span></li>
+<li>Lasts: <span class="math inline">\(-6\)</span></li>
+</ul>
+<p>When we add together those products, we get:</p>
+<p><span class="math display">\[x^2 ~+~ (2)x ~+~ (-3)x ~+~ (-6) \]</span>
+Notice the two like terms: <span class="math inline">\(-3x\)</span> and <span class="math inline">\(2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - x - 6\]</span></p>
+<h3 id="method-3-box">Method 3: Box</h3>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The factored form has two factors: <span class="math inline">\((x - 3)\)</span> and <span class="math inline">\((x + 2)\)</span>. The two terms in the first factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(-3\)</span>. The two terms in the second factor are <span class="math inline">\(x\)</span> and <span class="math inline">\(2\)</span>. We put all four terms on the outside of the box. Then we find the products.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(2\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(x^2\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(2x\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(-3\)</span>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-3x\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(-6\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We write a sum of those 4 products.</p>
+<p><span class="math display">\[x^2 ~+~ (2)x ~+~ (-3)x ~+~ (-6) \]</span>
+Notice the two like terms: <span class="math inline">\(-3x\)</span> and <span class="math inline">\(2x\)</span>. Combine the like terms to get the final answer.</p>
+<p><span class="math display">\[x^{2} - x - 6\]</span></p>
+<h3 id="method-4-sum-and-product">Method 4: sum and product</h3>
+<p>Notice, we started with factored form: <span class="math display">\[\left(x - 3\right) \left(x + 2\right)\]</span></p>
+<p>The sum of -3 and 2 is -1.
+<span class="math display">\[(-3)+(2)=-1\]</span>
+The product of -3 and 2 is -6.
+<span class="math display">\[(-3)(2) = -6\]</span></p>
+<p>The sum and product show up consistently in the expanded form:</p>
+<p><span class="math display">\[x^{2} - x - 6\]</span></p>
+<br/>
+</div></li>
+</ol>
+</body>
+</html>
+

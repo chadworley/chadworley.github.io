@@ -1,0 +1,71 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+while(T){
+  x = 1:10
+  f = sample(1:10)
+  g = sample(1:10)
+  mydf2 = data.frame(x,f,g)
+  colnames(mydf2) = c("$x$","$f(x)$","$g(x)$")
+  a = sample(1:10,1)
+  if(a != f[a] && a != g[a] && f[a] != g[a] && 
+     f[g[a]] != g[f[a]] &&
+     f[g[a]] != g[g[a]] &&
+     g[f[a]] != f[f[a]]
+     ){break}
+}
+isfg = sample(c(T,F),1)
+if(isfg){
+  ans = f[g[a]]
+  qstr = paste0("f(g(",a,"))",collapse="")
+  fir =  paste0("g(",a,")=",g[a],collapse="")
+  sec = paste0("f(g(",a,"))=f(",g[a],")=",ans,collapse="")
+} else {
+  ans = g[f[a]]
+  qstr = paste0("g(f(",a,"))",collapse="")
+  fir =  paste0("f(",a,")=",f[a],collapse="")
+  sec = paste0("g(f(",a,"))=g(",f[a],")=",ans,collapse="")
+}
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+Let functions $f$ and $g$ be defined by the table below.
+
+```{r tab2, results="asis", echo=F}
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+Use those definition to find $`r qstr`$.
+
+
+
+Solution
+========
+
+Start with the inner function: $$`r fir`$$
+
+Then, evaluate the outer function: $$`r sec`$$
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: graph_translations_and_reflections_abs_function
