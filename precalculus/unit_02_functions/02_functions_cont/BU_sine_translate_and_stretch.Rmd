@@ -1,0 +1,118 @@
+```{r data generation, echo = FALSE, results = "hide"}
+xn = seq(0,2*pi,pi/2)
+x = c("$0$","$\\frac{\\pi}{2}$","$\\pi$","$\\frac{3\\pi}{2}$","$2\\pi$")
+y = sin(xn)
+f = data.frame(x,y)
+# y = a*sin(b(x-h))+k
+ap = sample(c(1/2,1,2),4,T)*sample(c(-1,1),4,T)
+a = ap[1]
+b = ap[2]
+h = ap[3]
+k = ap[4]
+al = sort(c(-4,-2,-1/2,-1/4,1/4,1/2,2,4))
+```
+
+Question
+========
+
+The sine function, and some of its points are tabled and plotted below.
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+```{r tabadf, results="asis", echo=F}
+knitr::kable(f,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,2*pi),ylim=c(-pi,pi),lwd=2,ylab="sin(x)",xlab="x")
+for(j in seq(0,7,0.5)){
+  abline(v=j,lty=3)
+}
+for(j in seq(-4,4,0.5)){
+  abline(h=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+xx = seq(-1,2*pi+1,pi/50)
+lines(xx,sin(xx),col = "blue",lwd=4)
+points(xn,y)
+points(xn[1],y[1],pch=20)
+```
+\
+
+The generalized sinusoidal function contains 4 transformation parameters, $a$, $b$, $h$, and $k$:
+$$g(x) = a\sin(b(x-h))+k$$
+
+Compared to the parent sine function, the generalized sinusoidal function is stretched vertically by factor $a$, stretched horizontally by factor $\frac{1}{b}$, shifted right by $h$, and shifted up by $k$. The new amplitude equals $a$. The new period equals $\frac{2\pi}{b}$. The parent's origin point is translated to $(h,k)$.
+
+Determine the equation of the sinusoidal function plotted below:
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+par(pty="s")
+
+xvals = xn/b+h
+yvals = y*a+k
+xrad = (max(xvals)-min(xvals))/2
+xmid = (max(xvals)+min(xvals))/2
+yrad = (max(yvals)-min(yvals))/2
+ymid = (max(yvals)+min(yvals))/2
+maxrad = max(c(xrad,yrad))
+xlo = xmid-maxrad
+xhi = xmid+maxrad
+ylo = ymid-maxrad
+yhi = ymid+maxrad
+
+plot(0,0,type="n",
+     xlim=c(xlo,xhi),
+     ylim=c(ylo,yhi),
+     lwd=2,ylab="sin(x)",xlab="x")
+
+for(j in seq(floor(xlo),ceiling(xhi),1)){
+  abline(v=j,lty=3)
+}
+for(j in seq(floor(ylo),ceiling(yhi),1)){
+  abline(h=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+xx = seq(xlo-1,xhi+1,0.01)
+lines(xx,a*sin(b*(xx-h))+k,col = "red",lwd=4)
+points(xn/b+h,y*a+k)
+points(xn[1]/b+h,y[1]*a+k,pch=20)
+```
+\
+
+
+Answerlist
+--------
+
+
+
+Solution
+========
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: 
+exsolution: 
+exname: translate_table
+exshuffle: FALSE

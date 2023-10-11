@@ -1,0 +1,85 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+
+funs = c("x^3+x^2",
+         "\\sqrt{x}-\\frac{1}{x}",
+         "3x-x^2",
+         "x^2+\\frac{1}{x^2}",
+         "\\frac{1}{x}-x",
+         "\\left|x\\right|+2x^2",
+         "\\sin\\left(x\\right)+\\cos\\left(x\\right)",
+         "e^{x}-x^2",
+         "\\ln\\left(x\\right)+\\frac{1}{x}",
+         "\\frac{x+1}{2-x}",
+         "\\left|x+1\\right|+x!"
+         )
+n = length(funs)
+sels = sample(1:n,2)
+f = funs[sels[1]]
+g = funs[sels[2]]
+
+fg = gsub("x",paste0("\\left(",g,"\\right)"),f,fixed=TRUE)
+gf = gsub("x",paste0("\\left(",f,"\\right)"),g,fixed=TRUE)
+ff = gsub("x",paste0("\\left(",f,"\\right)"),f,fixed=TRUE)
+gg = gsub("x",paste0("\\left(",g,"\\right)"),g,fixed=TRUE)
+
+combs = sample(c(fg,gf,ff,gg))
+
+opts = c("a(x)","b(x)","c(x)","d(x)")
+al = paste0("* ",opts,"\n",collapse="")
+
+ans1 = paste0(1*(fg==combs),collapse="")
+ans2 = paste0(1*(gf==combs),collapse="")
+ans3 = paste0(1*(ff==combs),collapse="")
+ans4 = paste0(1*(gg==combs),collapse="")
+```
+
+Question
+========
+
+Let functions $f$ and $g$ be defined below:
+$$f(x) = `r f`$$
+$$g(x)=`r g`$$
+
+Match the following functions to a composition:
+
+$$\begin{align}
+a(x) &= `r combs[1]` \\\\
+b(x) &= `r combs[2]` \\\\
+c(x) &= `r combs[3]` \\\\
+d(x) &= `r combs[4]` 
+\end{align}$$
+
+*Your answers here:*
+
+* Match from above: $f(g(x)) =$ ##ANSWER1##
+* Match from above: $g(f(x)) =$ ##ANSWER2##
+* Match from above: $f(f(x)) =$ ##ANSWER3##
+* Match from above: $g(g(x)) =$ ##ANSWER4##
+
+
+Answerlist
+--------
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+$$\begin{align}
+f(g(x)) &= `r fg` = `r opts[fg==combs]`\\\\
+g(f(x)) &= `r gf` = `r opts[gf==combs]`\\\\
+f(f(x)) &= `r ff` = `r opts[ff==combs]`\\\\
+g(g(x)) &= `r gg` = `r opts[gg==combs]`
+\end{align}$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`|`r ans4`
+exname: compose_algebraic

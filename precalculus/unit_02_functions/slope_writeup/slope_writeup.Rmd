@@ -1,0 +1,85 @@
+---
+title: "Instantaneous Slope Writeup"
+author: "Due 2023 Oct 11"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Slope of a secant line
+
+A secant line connects two points along a function. The slope is called the average rate of change. A function $f$ over an interval $[x_a,x_b]$ has an average rate of change equal to the quotient of rise over run.
+$$\text{averate rate of change} = \frac{f(x_b)-f(x_a)}{x_b-x_a}$$
+
+Let's say a ball's height $h$ in meters is a function of time $t$ in seconds. It is dropped from a tower 100 meters tall, so it's position is approximately quadratic in time during the free fall.
+
+$$h(t) = 100-10t^2$$
+
+1. Find the average rate of change between $t_a=1$ and $t_b=2$. *Please give appropriate units and explain its meaning in context.*
+
+\vfill
+
+
+## "Instantaneous" rate of change
+
+Another way to write the average-rate-of-change formula uses $\Delta x = x_b - x_a$.
+
+$$\text{AROC} = \frac{f(x_a+\Delta x)~-~f(x_a)}{\Delta x} $$
+
+2. Going back to the falling ball, with $h(t)=100-10t^2$, find the average rate of change when $t_a=2$ and $\Delta t = 0.01$. *Please give appropriate units and explain its meaning in context.*
+
+\vfill
+
+
+
+\newpage
+
+## Desmos
+
+On Desmos graphing calculator, enter the following expressions.
+
+$$h(t) = 100-10t^2$$
+
+$$t_a = 2$$
+
+$$D=0.01$$
+
+$$m=\frac{h(t_a+D)-h(t_a)}{D}$$
+
+$$y=m\cdot(t-t_a)+h(t_a)$$
+
+Fill out the table:
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+\huge
+```{r tabf, results="asis", echo=F}
+a = seq(0,3,0.5)
+b = rep("            ",length(a))
+f = data.frame(a,b)
+colnames(f) = c("$t_a$","$m$ (an instantaneous rate of change)")
+knitr::kable(f, align = "cc",row.names=F)
+```
+
+\normalsize
+
+3. Summarize the results. *Please give appropriate units and explain the results in context.*
+
+
+

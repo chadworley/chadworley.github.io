@@ -1,0 +1,112 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+while(T){
+  ps = numeric()
+  qs = numeric()
+  mults = numeric()
+  wrds = character()
+  funs = list()
+  ys = list()
+  exps = character()
+  x = seq(-10,10,0.1)
+  for(i in 1:4){
+    while(T){
+      r = sample(-8:8,2)
+      p = r[1]
+      q = r[2]
+      k1 = -((q-p)/2)^2
+      t = sample(1:5,1)
+      b = sample(1:100,1)
+      a = t/b
+      if(abs(k1*a)<10 && round(k1*a)==round(k1*a,8)){break}
+    }
+    mult = sample(c(-1,1),1)
+    if(mult==-1){
+      wrd = 'downward, and the expression has a negative multiplicative coefficient.'
+    } else {
+      wrd = 'upward, and the expression has a positive multiplicative coefficient.'
+    }
+    exp = paste0(mult*t,"/",b,"*(x-(",p,"))*(x-(",q,"))")
+    y = mult*a*(x-p)*(x-q)
+    ys = append(ys,list(y))
+    exps = append(exps,exp)
+    ps = c(ps,p)
+    qs = c(qs,q)
+    mults = c(mults,mult)
+    wrds = c(wrds,wrd)
+  }
+  rexps = sample(exps)
+  ans1 = paste0(1*(rexps[1]==exps),collapse="")
+  ans2 = paste0(1*(rexps[2]==exps),collapse="")
+  ans3 = paste0(1*(rexps[3]==exps),collapse="")
+  ans4 = paste0(1*(rexps[4]==exps),collapse="")
+  if(length(unique(exps))==4){break}
+}
+```
+
+Question
+========
+
+```{python,echo=FALSE}
+from sympy import *
+x = symbols("x")
+rex1 = latex(factor(parse_expr(r.rexps[0])))
+rex2 = latex(factor(parse_expr(r.rexps[1])))
+rex3 = latex(factor(parse_expr(r.rexps[2])))
+rex4 = latex(factor(parse_expr(r.rexps[3])))
+aex1 = latex(factor(parse_expr(r.exps[0])))
+aex2 = latex(factor(parse_expr(r.exps[1])))
+aex3 = latex(factor(parse_expr(r.exps[2])))
+aex4 = latex(factor(parse_expr(r.exps[3])))
+pex = ["y="+str(factor(parse_expr(r.rexps[0]))).replace("*","\\*"),"y="+str(factor(parse_expr(r.rexps[1]))).replace("*","\\*"),"y="+str(factor(parse_expr(r.rexps[2]))).replace("*","\\*"),"y="+str(factor(parse_expr(r.rexps[3]))).replace("*","\\*")]
+```
+
+Match the following equations to their graphs.
+
+a. $y=`r py$rex1`$
+b. $y=`r py$rex2`$
+c. $y=`r py$rex3`$
+d. $y=`r py$rex4`$
+
+
+```{r, echo=FALSE,fig.dim=c(5,5),results='asis'}
+for(i in 1:length(ys)){
+  cat(paste0(i,". \n\n"))
+  y = unlist(ys[[i]])
+  par(pty="s")
+  plot(x,y,type="n",xlim=c(-10,10),ylim=c(-10,10))
+  for(j in -10:10){
+      abline(h=j,lty=3,lwd=0.5)
+      abline(v=j,lty=3,lwd=0.5)
+    }
+  abline(h=0,lwd=2)
+  abline(v=0,lwd=2)
+  lines(x,y,type="l",xlim=c(-10,10),ylim=c(-10,10),lwd=3,col="blue")
+  cat(paste0("\n##ANSWER",i,"##\n\n"))
+}
+anli = paste0("* ",py$pex,"\n",collapse="")
+```
+
+
+Answerlist
+--------
+`r anli`
+`r anli`
+`r anli`
+`r anli`
+
+Solution
+========
+
+1. The first graph has roots at `r ps[1]` and `r qs[1]`. Notice the equation $`r py$aex1`$ has factors that match those roots. Also, notice the parabola faces `r wrds[1]`
+2. The second graph has roots at `r ps[2]` and `r qs[2]`. Notice the equation $`r py$aex2`$ has factors that match those roots. Also, notice the parabola faces `r wrds[2]`
+3. The third graph has roots at `r ps[3]` and `r qs[3]`. Notice the equation $`r py$aex3`$ has factors that match those roots. Also, notice the parabola faces `r wrds[3]`
+4. The fourth graph has roots at `r ps[4]` and `r qs[4]`. Notice the equation $`r py$aex4`$ has factors that match those roots. Also, notice the parabola faces `r wrds[4]`
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`|`r ans4`
+exname: factored_quad_graphs

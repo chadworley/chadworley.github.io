@@ -6,7 +6,11 @@ probs = c("01_match_parent_functions.Rmd",
           "02_intervals_inc_dec_pos_neg_quad.Rmd",
           "03_trans_refl_abs_graph_MC.Rmd",
           "04_compose_table.Rmd",
-          "05_compose_graphs.Rmd")
+          "05_compose_graphs.Rmd",
+          "06_intervals_sinusoidal.Rmd",
+          "07_translate_table.Rmd",
+          "08_stretch_table.Rmd",
+          "09_translate_and_stretch.Rmd")
 
 nvers = 10
 ps = character(0)

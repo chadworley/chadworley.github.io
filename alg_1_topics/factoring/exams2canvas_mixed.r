@@ -2,11 +2,9 @@ library("exams")
 n = 50
 outdir = "outcanvas"
 
-genname = "solve_quad"
+genname = "graph_quad"
 
-probs = c("solve_quadratric_simple.Rmd",
-          "solve_quadratric_int.Rmd",
-          "use_quadratic_formula.Rmd")
+probs = c("match_factored_form_to_graph.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
@@ -15,15 +13,16 @@ for(i in 1:length(probs)){
                n=n,
                dir=outdir,
                points=2,
-               maxattempts = 40,
+               maxattempts = 30,
                name=names[i],
                template = "canvas_qti12.xml",
                cloze = list(enumerate = FALSE))
 }
 
-# probs = c("guess_whole_nums_from_sum_and_prod.Rmd",
-#           "guess_whole_nums_from_sum_and_prod.Rmd",
-#           "guess_whole_nums_from_sum_and_prod.Rmd")
+
+probs = c("match_factored_form_to_graph.Rmd",
+          "match_factored_form_to_graph.Rmd",
+          "match_factored_form_to_graph.Rmd")
 
 exams2canvas(probs,
                n=n,
