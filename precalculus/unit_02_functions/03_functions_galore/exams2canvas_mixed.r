@@ -4,8 +4,8 @@ outdir = "outcanvas"
 
 genname = "014"
 
-probs = c("01_compose_algebraic.Rmd",
-          "02_inverse_table.Rmd")
+probs = c("03_two-step_inverse_alg.Rmd",
+          "04_rational_inverse.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
@@ -13,7 +13,7 @@ for(i in 1:length(probs)){
   exams2canvas(probs[i],
                n=n,
                dir=outdir,
-               points=c(2,4)[i],
+               points=2, #c(2,4)[i],
                maxattempts = 20,
                name=names[i],
                template = "canvas_qti12.xml",

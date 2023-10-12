@@ -3,7 +3,9 @@ library("exams")
 outdir = "./"
 genname = "014"
 probs = c("01_compose_algebraic.Rmd",
-          "02_inverse_table.Rmd")
+          "02_inverse_table.Rmd",
+          "03_two-step_inverse_alg.Rmd",
+          "04_rational_inverse.Rmd")
 
 nvers = 10
 ps = character(0)
