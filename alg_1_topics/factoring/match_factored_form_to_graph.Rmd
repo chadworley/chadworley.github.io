@@ -40,7 +40,15 @@ while(T){
   ans2 = paste0(1*(rexps[2]==exps),collapse="")
   ans3 = paste0(1*(rexps[3]==exps),collapse="")
   ans4 = paste0(1*(rexps[4]==exps),collapse="")
-  if(length(unique(exps))==4){break}
+  canbreak = TRUE
+  for(i in 1:(length(ps)-1)){
+    for(j in (i+1):length(ps)){
+      pq1 = sort(c(ps[i],qs[i]))
+      pq2 = sort(c(ps[j],qs[j]))
+      if(sum(pq1==pq2)==2){canbreak==FALSE}
+    }
+  }
+  if(canbreak){break}
 }
 ```
 

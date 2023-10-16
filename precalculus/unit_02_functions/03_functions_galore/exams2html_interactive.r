@@ -5,7 +5,11 @@ genname = "014"
 probs = c("01_compose_algebraic.Rmd",
           "02_inverse_table.Rmd",
           "03_two-step_inverse_alg.Rmd",
-          "04_rational_inverse.Rmd")
+          "04_rational_inverse.Rmd",
+          "05_graph_inverse.Rmd",
+          "06_graph_limits.Rmd",
+          "07_solve_quadratric_simple.Rmd",
+          "08_limit_algebraic_hole.Rmd")
 
 nvers = 10
 ps = character(0)
