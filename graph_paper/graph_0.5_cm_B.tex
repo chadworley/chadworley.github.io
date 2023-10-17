@@ -1,0 +1,33 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[total={7in, 9in},bottom=1in]{geometry}
+\setlength{\headheight}{18pt}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{sagesilent}
+wd = 17 #cm
+ht = 22 #cm
+lpu = 2 #lines per cm
+dpl = 5 #dots per line
+grid = Graphics()
+points1 = [(i/lpu/dpl,j/lpu) for i in range(wd*lpu*dpl+1) for j in range(ht*lpu+1)]
+points2 = [(i/lpu,j/lpu/dpl) for j in range(ht*lpu*dpl+1) for i in range(wd*lpu+1)]
+grid += point(points1,size=3,color="grey")
+grid += point(points2,size=3,color="grey")
+\end{sagesilent}
+
+\begin{center}
+\sageplot{grid,figsize=[wd/2.54,ht/2.54],aspect_ratio=1,axes=False}
+\end{center}
+
+\newpage
+
+\begin{center}
+\sageplot{grid,figsize=[wd/2.54,ht/2.54],aspect_ratio=1,axes=False}
+\end{center}
+
+
+\end{document}

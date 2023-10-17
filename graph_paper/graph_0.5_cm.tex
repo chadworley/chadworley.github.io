@@ -1,0 +1,63 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tasks}
+\settasks{label-format=\bfseries, label-width=2em, before-skip =\smallskipamount, after-item-skip=100pt}
+\usepackage{wrapfig}
+\usepackage[shortlabels]{enumitem}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{newtxmath}
+\usepackage{calligra}
+\usepackage{titling}
+\usepackage{lastpage}
+\title{Graph Paper $\frac{1}{2}$ centimeter 36 x 44}
+\usepackage[total={7in, 9in},bottom=1in]{geometry}
+\setlength{\headheight}{18pt}
+\setlength{\parindent}{0pt}
+\usepackage{sagetex}
+
+\fancypagestyle{firststyle}
+{
+   \fancyhead[L]{\calligra{\thetitle}}
+  \fancyhead[R]{\bf \large Name:\hspace{2in}}
+  \fancyfoot[R]{\sc Page \thepage \ of \pageref*{LastPage}}
+  \fancyfoot[C]{}
+}
+
+\fancyhead[L]{\calligra{\thetitle}}
+\fancyhead[R]{}
+\fancyfoot[R]{\sc Page \thepage \ of \pageref*{LastPage}}
+\fancyfoot[C]{}
+\pagestyle{fancy}
+
+
+\begin{document}
+\thispagestyle{firststyle}
+
+\begin{sagesilent}
+wd = 17 #cm
+ht = 22 #cm
+lpu = 2 #lines per cm
+dpl = 5 #dots per line
+grid = Graphics()
+points1 = [(i/lpu/dpl,j/lpu) for i in range(wd*lpu*dpl+1) for j in range(ht*lpu+1)]
+points2 = [(i/lpu,j/lpu/dpl) for j in range(ht*lpu*dpl+1) for i in range(wd*lpu+1)]
+grid += point(points1,size=3,color="grey")
+grid += point(points2,size=3,color="grey")
+\end{sagesilent}
+
+\begin{center}
+\sageplot{grid,figsize=[wd/2.54,ht/2.54],aspect_ratio=1,axes=False}
+\end{center}
+
+\newpage
+
+\begin{center}
+\sageplot{grid,figsize=[wd/2.54,ht/2.54],aspect_ratio=1,axes=False}
+\end{center}
+
+
+\end{document}
