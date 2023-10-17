@@ -1,10 +1,10 @@
 library("exams")
-n = 40
+n = 30
 outdir = "outcanvas"
 
-genname = "solve_linsys"
+genname = "solve_standard"
 
-probs = c("slope_intercept.Rmd")
+probs = c("standard_form.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
@@ -13,16 +13,16 @@ for(i in 1:length(probs)){
                n=n,
                dir=outdir,
                points=2,
-               maxattempts = 30,
+               maxattempts = 20,
                name=names[i],
                template = "canvas_qti12.xml",
                cloze = list(enumerate = FALSE))
 }
 
 
-probs = c("slope_intercept.Rmd",
-          "slope_intercept.Rmd",
-          "slope_intercept.Rmd")
+probs = c("standard_form.Rmd",
+          "standard_form.Rmd",
+          "standard_form.Rmd")
 
 exams2canvas(probs,
                n=n,
