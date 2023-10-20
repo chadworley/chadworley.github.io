@@ -1,0 +1,243 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+solty = sample(1:3,1,FALSE,c(0.1,0.8,0.1))
+
+while(T){
+  ints = sample(c(1:20),4)
+  xi1 = ints[1]
+  xi2 = ints[2]
+  yi1 = ints[3]
+  yi2 = ints[4]
+  vx = round(runif(1,1,10),2)
+  vy = round(runif(1,1,10),2)
+  c = abs(xi1*yi1)
+  f = abs(xi2*yi2)
+  a = c/xi1
+  b = c/yi1
+  d = f/xi2
+  e = f/yi2
+  x = (c*e-b*f)/(a*e-b*d)
+  y = (c*d-a*f)/(b*d-a*e)
+  prof1 = sum(c(0,min(yi1,yi2))*c(vx,vy))
+  prof2 = sum(c(x,y)*c(vx,vy))
+  prof3 = sum(c(min(xi1,xi2),0)*c(vx,vy))
+  if(length(unique(c(prof1,prof2,prof3)))==3 &&
+     min(abs(diff(c(prof1,prof2,prof3,prof1)))) > 1 &&
+     c(prof1,prof2,prof3)[solty]==max(c(prof1,prof2,prof3)) &&
+     round(x)==x && 
+     round(y)==y && 
+     x<20 && 
+     y<20 && 
+     x>0 && 
+     y>0 && x!=y){break}
+}
+x = round(x)
+y = round(y)
+al = 0:20
+als = paste0("* ",al,"\n",collapse="")
+
+ans = max(c(prof1,prof2,prof3))
+```
+
+
+Question
+========
+
+```{python,echo=FALSE}
+from sympy import *
+x,y = symbols("x y")
+gcd1 = gcd(int(r.a), int(r.b))
+gcd2 = gcd(int(r.d), int(r.e))
+lex1 = latex(int(r.a/gcd1)*x+int(r.b/gcd1)*y)
+lex2 = latex(int(r.d/gcd2)*x+int(r.e/gcd2)*y)
+cc = int(int(r.c)/gcd1)
+ff = int(int(r.f)/gcd2)
+
+a = int(r.a/gcd1)
+b = int(r.b/gcd1)
+c = cc
+d = int(r.d/gcd2)
+e = int(r.e/gcd2)
+f = ff
+
+a2 = r.a #int(r.a/gcd1)
+b2 = r.b #int(r.b/gcd1)
+c2 = r.c #cc
+d2 = r.d #int(r.d/gcd2)
+e2 = r.e #int(r.e/gcd2)
+f2 = r.f #ff
+
+
+
+LCM = lcm(b,e)
+mult1 = int(LCM/b)
+mult2 = int(-LCM/e)
+```
+
+```{r,echo=F}
+a = py$a
+b = py$b
+c = py$c
+d = py$d
+e = py$e
+f = py$f
+
+a2 = py$a2
+b2 = py$b2
+c2 = py$c2
+d2 = py$d2
+e2 = py$e2
+f2 = py$f2
+
+LCM1 = py$LCM
+mult1 = py$mult1
+mult2 = py$mult2
+
+ae = a*mult1
+be = b*mult1
+ce = c*mult1
+de = d*mult2
+ee = e*mult2
+fe = f*mult2
+```
+
+A thief is stealing xots and yivs. Each xot has a mass of `r a2` kilograms and a volume of `r d2` liters. Each yiv has a mass of `r b2` kilograms and a volume of `r e2` liters. The thief can carry a maximum mass of `r c2` kilograms and a maximum volume of `r f2` liters. The profit from each xot is \$`r vx` and the profit from each yiv is \$`r vy`.
+
+For your convenience, those numbers are organized in the table below.
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab2, results="asis", echo=F}
+attribute = c("mass (kg)","volume (L)","profit ($)")
+xot = c(paste(a2),paste(d2),sprintf("%.2f",vx))
+yiv = c(paste(b2),paste(e2),sprintf("%.2f",vy))
+capacity = c(paste(c2),paste(f2),"$\\infty$")
+mydf2 = data.frame(attribute,xot,yiv,capacity)
+#colnames(mydf2) = c("$x$","$f(x)$")
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+What is the maximum profit the thief can produce? *(In dollars.)*
+
+Solution
+========
+
+This is an example of [linear programming](https://en.wikipedia.org/wiki/Linear_programming){target="_blank"}. 
+
+Define $x$ as number of xots and $y$ as number of yivs. Write the constraints as inequalities.
+
+* Mass constraint: $`r a2`x+`r b2`y \le `r c2`$
+* Volume constraint: $`r d2`x+`r e2`y \le `r f2`$
+
+We can assume that optimal profit will occur at a boundary, so we can just consider the equations.
+$$`r a2`x+`r b2`y = `r c2`$$
+$$`r d2`x+`r e2`y = `r f2`$$
+
+If either equation has coefficients that all share a common factor, we can simplify by dividing both sides by the greatest common factor:
+
+$$`r a`x+`r b`y = `r c`$$
+$$`r d`x+`r e`y = `r f`$$
+
+We need to find the $x$ intercepts and the $y$ intercepts.
+
+To find the $x$-intercepts, set $y$ to 0.
+$$`r a`x_{\text{int}1}+(`r b`)(0) = `r c` $$
+$$`r a`x_{\text{int}1} = `r c` $$
+$$x_{\text{int}1} = \frac{`r c`}{`r a`} = `r round(c/a)` $$
+
+$$`r d`x_{\text{int}2}+(`r e`)(0) = `r f` $$
+$$`r d`x_{\text{int}2} = `r f` $$
+$$x_{\text{int}2} = \frac{`r f`}{`r d`} = `r round(f/d)` $$
+
+To find the $y$-intercepts, set $x$ to 0.
+$$(`r a`)(0)+(`r b`)(y_{\text{int1}}) = `r c` $$
+$$`r b`y_{\text{int}1} = `r c` $$
+$$y_{\text{int}1} = \frac{`r c`}{`r b`} = `r round(c/b)` $$
+
+$$(`r d`)(0)+(`r e`)y_{\text{int2}} = `r f` $$
+$$`r e`y_{\text{int}2} = `r f` $$
+$$y_{\text{int}2} = \frac{`r f`}{`r e`} = `r round(f/e)` $$
+
+To find the intersection, I would recommend elimination. Multiply the equations to have matching coefficients for $y$ terms. 
+
+$$`r ae`x + `r be`y = `r ce`$$
+$$`r -de`x + `r -ee`y = `r -fe`$$
+Subtract equations.
+
+$$`r abs(ae+de)`x + (0)y = `r abs(ce+fe)`$$
+
+Simplify.
+
+$$`r abs(ae+de)`x = `r abs(ce+fe)`$$
+
+Divide by `r abs(ae+de)`.
+
+$$x = `r abs(ce+fe)/abs(ae+de)`$$
+
+Plug $x = `r x`$ into the first equation. Solve for $y$.
+
+$$(`r a`)(`r x`)+`r b`y = `r c`$$
+$$`r a*x`+`r b`y = `r c`$$
+$$`r b`y = `r c-a*x`$$
+$$y = `r (c-a*x)/b`$$
+
+So, the intersection occurs at $(`r x`,\,`r y`)$.
+
+You can plot the boundaries and shade the [feasible region](https://en.wikipedia.org/wiki/Feasible_region){target="_blank"}.
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+library(latex2exp)
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,20),ylim=c(0,20),lwd=2,ylab=TeX("$y$"),xlab=TeX("$x$"))
+for(j in seq(0,20,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+xx = seq(-1,21,1)
+y1 = (-a/b)*xx+c/b
+y2 = (-d/e)*xx+f/e
+polygon(c(0,0,x,min(xi1,xi2)),c(0,min(yi1,yi2),y,0),col=rgb(1,1,0,0.5))
+lines(xx,y1,col="blue",lwd=4)
+lines(xx,y2,col="red",lwd=4)
+```
+\
+
+
+The maximum profit could occur at $(0,`r min(yi1,yi2)`)$ or $(`r x`,`r y`)$ or $(`r min(xi1,xi2)`,0)$.
+
+Find those profits, using $P(x,y)=`r vx`x+`r vy`y$.
+
+$$P(0,`r min(yi1,yi2)`)=(`r vx`)(0)+(`r vy`)(`r min(yi1,yi2)`) = `r prof1`$$
+$$P(`r x`,`r y`)=(`r vx`)(`r x`)+(`r vy`)(`r y`) = `r prof2`$$
+$$P(`r min(xi1,xi2)`,0)=(`r vx`)(`r min(xi1,xi2)`)+(`r vy`)(0) = `r prof3`$$
+
+So, the maximum profit is $`r sprintf("%.2f",max(c(prof1,prof2,prof3)))`.
+
+
+It might help to visualize this in 3D, with xots, yivs, and profit on the 3 axes. Sorry, I was not able to make a 3D plot show up here.
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+extol: 0.01
+exname: opt_thief

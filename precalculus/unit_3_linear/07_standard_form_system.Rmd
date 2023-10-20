@@ -1,0 +1,131 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+while(T){
+  ints = sample(c(-9:-1,1:9),4)
+  xi1 = ints[1]
+  xi2 = ints[2]
+  yi1 = ints[3]
+  yi2 = ints[4]
+  c = abs(xi1*yi1)
+  f = abs(xi2*yi2)
+  a = c/xi1
+  b = c/yi1
+  d = f/xi2
+  e = f/yi2
+  x = (c*e-b*f)/(a*e-b*d)
+  y = (c*d-a*f)/(b*d-a*e)
+  if(round(x)==x && 
+     round(y)==y && 
+     abs(x)<11 && 
+     abs(y)<11 && 
+     abs(x)>0 && 
+     abs(y)>0 && x!=y){break}
+}
+x = round(x)
+y = round(y)
+al = -10:10
+als = paste0("* ",al,"\n",collapse="")
+
+ans1 = paste0(1*(x==al),collapse="")
+ans2 = paste0(1*(y==al),collapse="")
+```
+
+
+Question
+========
+
+```{python,echo=FALSE}
+from sympy import *
+x,y = symbols("x y")
+gcd1 = gcd(int(r.a), int(r.b))
+gcd2 = gcd(int(r.d), int(r.e))
+lex1 = latex(int(r.a/gcd1)*x+int(r.b/gcd1)*y)
+lex2 = latex(int(r.d/gcd2)*x+int(r.e/gcd2)*y)
+cc = int(int(r.c)/gcd1)
+ff = int(int(r.f)/gcd2)
+
+a = int(r.a/gcd1)
+b = int(r.b/gcd1)
+c = cc
+d = int(r.d/gcd2)
+e = int(r.e/gcd2)
+f = ff
+```
+
+```{r,echo=F}
+a = py$a
+b = py$b
+c = py$c
+d = py$d
+e = py$e
+f = py$f
+```
+
+Solve the system:
+$$`r py$lex1` = `r c`$$
+$$`r py$lex2` = `r f`$$
+
+Your answers:
+
+* $x=$ ##ANSWER1##
+* $y=$ ##ANSWER2##
+
+Answerlist
+--------
+`r als`
+`r als`
+
+
+Solution
+========
+
+When graphing linear equations given in standard form, it is typically best to determine both the $x$-intercept and the $y$-intercept.
+
+To find the $x$-intercepts, set $y$ to 0.
+$$`r a`x_{\text{int}1}+(`r b`)(0) = `r c` $$
+$$`r a`x_{\text{int}1} = `r c` $$
+$$x_{\text{int}1} = \frac{`r c`}{`r a`} = `r round(c/a)` $$
+
+$$`r d`x_{\text{int}2}+(`r e`)(0) = `r f` $$
+$$`r d`x_{\text{int}2} = `r f` $$
+$$x_{\text{int}2} = \frac{`r f`}{`r d`} = `r round(f/d)` $$
+
+To find the $y$-intercepts, set $x$ to 0.
+$$(`r a`)(0)+(`r b`)(y_{\text{int1}}) = `r c` $$
+$$`r b`y_{\text{int}1} = `r c` $$
+$$y_{\text{int}1} = \frac{`r c`}{`r b`} = `r round(c/b)` $$
+
+$$(`r d`)(0)+(`r e`)y_{\text{int2}} = `r f` $$
+$$`r e`y_{\text{int}2} = `r f` $$
+$$y_{\text{int}2} = \frac{`r f`}{`r e`} = `r round(f/e)` $$
+
+Plot those intercepts, determine slope pattern, draw lines, and find intersection.
+
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+library(latex2exp)
+par(pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),lwd=2,ylab=TeX("$y$"),xlab=TeX("$x$"))
+for(j in seq(-10,10,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+xx = seq(-10,10,1)
+y1 = (-a/b)*xx+c/b
+y2 = (-d/e)*xx+f/e
+lines(xx,y1,col="blue",lwd=4)
+lines(xx,y2,col="red",lwd=4)
+```
+\
+
+The intersection occurs at $(`r x`,\,`r y`)$.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r ans1`|`r ans2`
+exname: solve_lin_sys

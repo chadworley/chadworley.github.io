@@ -1,0 +1,93 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+n = sample(6:9,1)
+xl = runif(1,10,80)
+xh = runif(1,5,20)+xl
+x = round(runif(n,xl,xh),1)
+m = sample(c(2:10),1)
+b = runif(1,-30,30)
+bump = (xh-xl)*abs(m)/5
+y = round(m*x+b+runif(n,-bump,bump),1)
+mod1 = lm(y~x)
+cf = mod1$coefficients
+x0 = round(runif(1,xl-10,xh+10))
+y0 = cf[1]+cf[2]*x0
+y0r = round(cf[1])+round(cf[2],1)*x0
+tol = ceiling((max(abs(y0r-y0),1)))
+```
+
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab2, results="asis", echo=F}
+mydf2 = data.frame(x,y)
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+Find the trendline using a [simple linear regression](https://en.wikipedia.org/wiki/Simple_linear_regression){target="_blank"}. Do **not** assume the $y$-intercept is 0.
+
+Using the linear model, predict $y$ when $x=`r x0`$.
+
+
+Solution
+========
+
+* Copy the $x$ and $y$ values into a spreadsheet.
+* Highlight the data. Insert chart $\to$ scatterplot.
+* Under Setup, click `Use column A as labels`
+* Under Customize $\to$ Series, click `Trendline`
+* Change the Label to `Use Equation`
+
+The chart+trendline provide a nice visual, and an approximate linear model. To get more exact values for the slope and y-intercept, use the `=linest()` function. The first argument is the y values, and the second argument is the x values. For the third argument (calculate_b), use `true`. For the fourth argument (verbose), use `false`.
+
+```{r tab3, results="asis", echo=F}
+A = c("x",paste(x))
+B = c("y",paste(y))
+C = c("",paste0("=linest(B2:B",n+1,", A2:A",n+1,", TRUE, FALSE)"),rep("",n-1))
+mydf3 = data.frame(A,B,C)
+knitr::kable(mydf3,format="html",table.attr='class="bordered-table"', align = "cc",row.names=T)
+```
+
+That `linest` will provide two numbers: the slope `r cf[2]` and the intercept `r cf[1]`.
+
+So, our linear model is:
+$$y = (`r cf[2]`)x + (`r cf[1]`) $$
+
+Plug in the given value of $x=`r x0`$ for prediction.
+
+$$y ~=~ (`r cf[2]`)(`r x0`) + (`r cf[1]`) ~=~ `r y0`$$
+
+```{r,echo=FALSE}
+plot(x,y,xlim=c(floor(xl)-10,ceiling(xh)+10),
+     ylim=c(cf[2]*(xl-10)+cf[1], cf[2]*(xh+10)+cf[1]))
+abline(mod1,col="red")
+points(x0,y0,col="red",pch=3)
+points(x0,y0,col="red",pch=4)
+points(x0,y0,col="red",pch=1)
+```
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r y0`
+extol: `r tol`
+exname: predict_with_trendline

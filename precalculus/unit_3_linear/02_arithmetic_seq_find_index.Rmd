@@ -1,0 +1,63 @@
+```{r data generation, echo = FALSE, results = "hide"}
+d = sample(3:15,1)
+a1 = sample(2:50,1)
+i = 0:30
+a = a1+i*d
+n = sample(20:40,1)
+an = a1+(n-1)*d
+```
+
+
+Question
+========
+
+Below, a specific [arithmetic sequence](https://en.wikipedia.org/wiki/Arithmetic_progression){target="_blank"}, with a first element equal `r a1` and common difference equal `r d`, is defined recursively, where $n$ is any whole number larger than 1.
+$$a_{[1]} = `r a1`$$
+$$a_{[n]} = a_{[n-1]}+`r d`$$
+
+Find the index of the element with a value of `r an`. In other words, find $i$ such that $a_{[i]}=`r an`$.
+
+
+
+
+Solution
+========
+
+Start with the explicit formula.
+
+$$a_n = a_1 + (n-1)d $$
+
+$$`r an` = `r a1`+(i-1)\cdot `r d` $$
+
+Subtract `r a1`.
+
+$$`r an-a1` = (i-1)\cdot `r d` $$
+
+Divide by `r d`.
+
+$$`r (an-a1)/d` = i-1 $$
+
+Add 1.
+
+$$`r (an-a1)/d+1` = i $$
+
+Double check.
+
+$$a_{[`r n`]} = `r a1`+(`r n`-1)\cdot `r d` = `r an` $$
+
+If you are fancy, you can rearrange the explicit formula to create a new formula.
+
+$$a_n = a_1+(n-1)d $$
+
+$$a_n-a_1 = (n-1)d $$
+
+$$\frac{a_n-a_1}{d} = n-1 $$
+
+$$n = \frac{a_n-a_1}{d}+1 $$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r n`
+exname: arith_seq_find_index
