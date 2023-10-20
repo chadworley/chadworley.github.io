@@ -2,34 +2,34 @@ library("exams")
 n = 30
 outdir = "outcanvas"
 
-genname = "linear_programming"
+genname = "linear_review"
 
-probs = c("thief_optimization.Rmd")
-
-stems = tools::file_path_sans_ext(sub(".*/", "", probs))
-names = paste0(genname,"_",stems)
-for(i in 1:length(probs)){
-  exams2canvas(probs[i],
-               n=n,
-               dir=outdir,
-               points=2,
-               maxattempts = 20,
-               name=names[i],
-               template = "canvas_qti12.xml",
-               cloze = list(enumerate = FALSE))
-}
-
-
-# probs = c("standard_form.Rmd",
-#           "standard_form.Rmd",
-#           "standard_form.Rmd")
+# probs = c("thief_optimization.Rmd")
 # 
-# exams2canvas(probs,
+# stems = tools::file_path_sans_ext(sub(".*/", "", probs))
+# names = paste0(genname,"_",stems)
+# for(i in 1:length(probs)){
+#   exams2canvas(probs[i],
 #                n=n,
 #                dir=outdir,
-#                points=3,
-#                maxattempts = 6,
-#                name=paste0(genname,"_mastery"),
+#                points=2,
+#                maxattempts = 20,
+#                name=names[i],
 #                template = "canvas_qti12.xml",
 #                cloze = list(enumerate = FALSE))
+# }
+
+
+probs = c("standard_form.Rmd",
+          "slope_intercept.Rmd",
+          "thief_optimization.Rmd")
+
+exams2canvas(probs,
+               n=n,
+               dir=outdir,
+               points=3,
+               maxattempts = 10,
+               name=paste0(genname,"_mastery"),
+               template = "canvas_qti12.xml",
+               cloze = list(enumerate = FALSE))
 

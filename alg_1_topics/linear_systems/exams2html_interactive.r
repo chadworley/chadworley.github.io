@@ -2,7 +2,9 @@ library("exams")
 
 outdir = "./"
 genname = "solve_linsys"
-probs = c("slope_intercept.Rmd")
+probs = c("slope_intercept.Rmd",
+          "standard_form.Rmd",
+          "thief_optimization.Rmd")
 
 nvers = 20
 ps = character(0)
@@ -11,7 +13,7 @@ for(prob in probs){
 }
 
 main = function(){
-  set.seed(111)
+  set.seed(999)
   exams2html_interact(ps,
                  n=1,
                  dir=outdir,
