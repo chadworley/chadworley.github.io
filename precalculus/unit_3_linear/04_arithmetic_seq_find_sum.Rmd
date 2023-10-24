@@ -51,7 +51,7 @@ $$\sum_{i=1}^{`r n`} a_i ~=~ `r S`$$
 
 I think of an arithmetic series as representing stacks of coins in a stair pattern. Our goal is to count the coins.
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.dim=c(6,6)}
 library(latex2exp)
 par(pty="s",mar=c(4,0.1,0.1,0.1))
 plot(0,0,type="n",xlim=c(0,n+1),ylim=c(0,round(max(a)+10,-1)),ylab="value",xlab="index")
@@ -68,12 +68,14 @@ arrows(1,a1+an/15,1,a1+an/25,col="red",length=0.03)
 text(n-0.6,an+an/20,TeX(paste0("$a_{",n,"}=",an,"$")),col="red")
 # lines(c(n,n),c(an+an/25,an+an/15),col="red")
 ```
+\
 
 Because of the regularity of the step size, the average stack height is simply the average of the first and last stacks.
 
 If we redistribute the wealth, then all the stacks have the average height.
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,fig.dim=c(6,6)}
+library(latex2exp)
 par(pty="s",mar=c(4,0.1,0.1,0.1))
 plot(0,0,type="n",xlim=c(0,n+1),ylim=c(0,round(max(a)+10,-1)),ylab="value",xlab="index")
 for(i in 1:n){
@@ -90,6 +92,7 @@ abline(h=ave,lty=2,col="red")
 text(n/8,ave+an/25,paste0("average = ",ave,collapse=""),col="red")
 text(n/2,an-5,TeX(paste0("$",ave,"\\cdot ",n,"=",S,"$")),col="red",cex = 3)
 ```
+\
 
 Thus, we just need to multiply the number of stacks by the average height. And the average height is simply the average of the first and last stack. $`r ave`\cdot`r n` = `r S`$.
 
