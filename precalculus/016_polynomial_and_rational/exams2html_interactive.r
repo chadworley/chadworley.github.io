@@ -2,7 +2,8 @@ library("exams")
 
 outdir = "./"
 genname = "016"
-probs = c("01_synthetic_division.Rmd")
+probs = c("01_synthetic_division.Rmd",
+          "02_VA_zero_hole_HA.Rmd")
 
 nvers = 10
 ps = character(0)
