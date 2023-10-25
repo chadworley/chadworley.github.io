@@ -2,11 +2,15 @@
 library(reticulate)
 options(scipen=999)
 poss = -6:6
-r = sample(poss,3,TRUE)
+while(T){
+  r = sample(poss,3,TRUE)
+  if(sum(r==0)<1){break}
+}
 ex1 = paste0("(x-",r[1],")*(x-",r[2],")*(x-",r[3],")",collapse="")
 ex1 = gsub("--","+",ex1,fixed=TRUE)
 ex2 = paste0("(x-",r[1],")(x-",r[2],")(x-",r[3],")",collapse="")
 ex2 = gsub("--","+",ex2,fixed=TRUE)
+ex2 = gsub("-0","",ex2,fixed=TRUE)
 anli = paste0("* ",poss,"\n",collapse="")
 sol = rep(0,length(poss))
 for(rr in r){
@@ -33,7 +37,6 @@ qex = latex(ex)
 
 Factor the cubic polynomial $`r py$qex`$ to find solutions to the cubic equation:
 $$`r py$qex`=0$$
-`r a` `r b` `r c` `r d`
 
 *Hint: all solutions are integers between `r min(poss)` and `r max(poss)`*.
 
@@ -65,6 +68,18 @@ rrr = sort(unique(r))
 for(i in 1:length(rrr)){
   rr = rrr[i]
   cat(paste0("## Possible successful route ",i,"\n\n",collapse=""))
+  cat("<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>")
   cf = c(a,b,c,d)
   bots = c(cf[1])
   mids = numeric()
@@ -105,13 +120,23 @@ for(i in 1:length(rrr)){
 }
 ```
 
-
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
 
 
 
 Meta-information
 ============
-extype: cloze
-exclozetype: mchoice
+extype: mchoice
 exsolution: `r sol`
-exname: quadratic_formula
+exname: cubic_easy

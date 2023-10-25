@@ -4,7 +4,9 @@ outdir = "outcanvas"
 
 genname = "016"
 
-probs = c("03_quadratic_formula.Rmd",
+probs = c("01_synthetic_division.Rmd",
+          "02_VA_zero_hole_HA.Rmd",
+          "03_quadratic_formula.Rmd",
           "04_quadratic_formula_complex.Rmd",
           "05_solve_cubic_easy_integers.Rmd")
 
@@ -22,9 +24,9 @@ for(i in 1:length(probs)){
 }
 
 
-# probs = c("match_factored_form_to_graph.Rmd",
-#           "match_factored_form_to_graph.Rmd",
-#           "match_factored_form_to_graph.Rmd")
+# probs = c("03_quadratic_formula.Rmd",
+#           "03_quadratic_formula.Rmd",
+#           "04_quadratic_formula_complex.Rmd")
 # 
 # exams2canvas(probs,
 #                n=n,
