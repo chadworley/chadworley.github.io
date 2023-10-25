@@ -3,7 +3,10 @@ library("exams")
 outdir = "./"
 genname = "016"
 probs = c("01_synthetic_division.Rmd",
-          "02_VA_zero_hole_HA.Rmd")
+          "02_VA_zero_hole_HA.Rmd",
+          "03_quadratic_formula.Rmd",
+          "04_quadratic_formula_complex.Rmd",
+          "05_solve_cubic_easy_integers.Rmd")
 
 nvers = 10
 ps = character(0)
