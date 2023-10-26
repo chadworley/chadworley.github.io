@@ -1,0 +1,60 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+a = sample(c(-9:-1,1:9),1)
+b = sample(c(-9:-1,1:9),1)
+c = sample(c(-9:-1,1:9),1)
+d = sample(c(-9:-1,1:9),1)
+cn = function(a,b){
+  cn = gsub("+-","-",paste0(a,"+",b,"i"),fixed=TRUE)
+  cn = gsub("0+0i","0",cn,fixed=TRUE)
+  cn = gsub("1i","i",cn,fixed=TRUE)
+  cn = gsub("-1i","-i",cn,fixed=TRUE)
+  cn = gsub("+0i","",cn,fixed=TRUE)
+  cn = gsub("-0i","",cn,fixed=TRUE)
+  if(length(cn)>1 && substr(cn, start = 1, stop = 2)=="0+"){cn = gsub("0+","",cn,fixed=TRUE)}
+  if(length(cn)>1 && substr(cn, start = 1, stop = 2)=="0-"){cn = gsub("0-","-",cn,fixed=TRUE)}
+  return(cn)
+}
+cn1 = cn(a,b)
+cn2 = cn(c,d)
+
+if(sample(0:1,1)==1){
+  cn3 = cn(a-c,b-d)
+  q1 = "z_1-z_2"
+  e1 = paste0("(",a,")-(",c,")=",a-c,collapse="")
+  e2 = paste0("(",b,")-(",d,")=",b-d,collapse="")
+} else {
+  cn3 = cn(c-a,d-b)
+  q1 = "z_2-z_1"
+  e1 = paste0("(",c,")-(",a,")=",c-a,collapse="")
+  e2 = paste0("(",d,")-(",b,")=",d-b,collapse="")
+}
+
+```
+
+Question
+========
+
+Let $z_1$ and $z_2$ be two [complex numbers](https://en.wikipedia.org/wiki/Complex_number).
+$$z_1 = `r cn1`$$
+$$z_2 = `r cn2`$$
+Find the difference.
+$$`r q1` = ~?$$
+
+*Type your answer precisely, with no spaces, using digits, "-", "+", and "i". If the real term is nonzero, put it first. If either component is zero, do not include that term. If both components are zero, type "0" without the quotes. Instead of writing "1i" or "-1i" just write "i" or "-i".*
+
+
+Solution
+========
+
+For subtraction, just subtract the real components $`r e1`$ and the imaginary components $`r e2`$. Then, type your answer:
+$$`r cn3`$$
+
+
+
+Meta-information
+============
+extype: string
+exsolution: `r cn3`
+exname: subtract_complex

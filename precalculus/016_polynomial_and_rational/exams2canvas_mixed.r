@@ -4,11 +4,12 @@ outdir = "outcanvas"
 
 genname = "016"
 
-probs = c("01_synthetic_division.Rmd",
-          "02_VA_zero_hole_HA.Rmd",
-          "03_quadratic_formula.Rmd",
-          "04_quadratic_formula_complex.Rmd",
-          "05_solve_cubic_easy_integers.Rmd")
+probs = c("06_solve_cubic_one_real.Rmd",
+          "07_polynomial_ends.Rmd",
+          "08_add_complex.Rmd",
+          "09_subtract_complex.Rmd",
+          "10_multiply_complex.Rmd",
+          "11_read_complex_plot.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
