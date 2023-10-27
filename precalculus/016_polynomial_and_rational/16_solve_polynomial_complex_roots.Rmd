@@ -43,6 +43,45 @@ while(length(cns)<deg){
 }
 ex = paste0("(x-(",as,"+",bs,"*I))",collapse="*")
 ex = gsub("+-","-",ex,fixed=TRUE)
+
+asall = as
+bsall = bs
+cnall = cns
+while(length(cnall)<10){
+  if(length(cnall)==9 || sample(1:2,1,F,c(0.66,0.34))==1){
+    a = sample(-5:5,1)
+    b = 0
+    cn1 = cn(a,b)
+    if(sum(cn1==cnall)==0){
+      asall = c(asall,a)
+      bsall = c(bsall,b)
+      cnall = c(cnall,cn1)
+    }
+  } else {
+    a = sample(-5:5,1)
+    b = sample(1:5,1)
+    cn1 = cn(a,b)
+    cn2 = cn(a,-b)
+    if(sum(cn1==cnall)==0){
+      asall = c(asall,a,a)
+      bsall = c(bsall,b,-b)
+      cnall = c(cnall,cn1,cn2)
+    }
+  }
+}
+
+cnall = sort(cnall)
+anli = paste0("* ",cnall,"\n",collapse="")
+
+sol = numeric()
+for(z in cnall){
+  if(sum(z==cns)>0){
+    sol=c(sol,1)
+  } else {
+    sol=c(sol,0)
+  }
+}
+sol = paste0(sol,collapse="")
 ```
 
 
@@ -55,18 +94,41 @@ x = symbols("x")
 ex = sympify(r.ex)
 ex2 = expand(ex)
 lex = latex(ex2)
+pex = str(ex2)
 ```
 
-$$`r py$lex`$$
+Find solutions to the polynomial equation below.
+$$`r gsub("x","z",py$lex)`=0$$
+
+```{r,echo=FALSE}
+link = gsub("**","%5E",py$pex,fixed=TRUE)
+link = gsub("+","%2B",link,fixed=TRUE)
+link = gsub(" ","",link,fixed=TRUE)
+link = gsub("x","z",link,fixed=TRUE)
+```
+
+
+To find the solutions, I'd recommend using [this website](https://samuelj.li/complex-function-plotter/#`r link`), which uses [domain coloring](https://en.wikipedia.org/wiki/Domain_coloring) to visualize the solutions. By default the solutions will appear as the center of concentric rings.
+
+
+
+Answerlist
+--------
+
+`r anli`
+
 
 Solution
 ========
 
-`r cns`
+
+Notice that the degree is `r deg` and there are `r deg` solutions. This hints at the [fundamental theorem of algebra](https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra).
+
+The solutions: `r cns`
 
 
 Meta-information
 ============
 extype: mchoice
-exsolution: 
+exsolution: `r sol`
 exname: polynomial_complex

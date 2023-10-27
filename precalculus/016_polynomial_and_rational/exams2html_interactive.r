@@ -16,7 +16,8 @@ probs = c("01_synthetic_division.Rmd",
           "12_complex_modulus.Rmd",
           "13_complex_angle.Rmd",
           "14_complex_polar_to_rect.Rmd",
-          "15_multiply_complex_polar.Rmd")
+          "15_multiply_complex_polar.Rmd",
+          "16_solve_polynomial_complex_roots.Rmd")
 
 nvers = 10
 ps = character(0)
