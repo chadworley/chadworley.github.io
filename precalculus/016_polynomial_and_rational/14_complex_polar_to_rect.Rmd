@@ -1,0 +1,96 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+while(T){
+  a = sample(c(-9:-2,2:9),1)
+  b = sample(c(-9:-2,2:9),1)
+  cn = function(a,b){
+    cn = gsub("+-","-",paste0(a,"+",b,"i"),fixed=TRUE)
+    cn = gsub("0+0i","0",cn,fixed=TRUE)
+    cn = gsub("1i","i",cn,fixed=TRUE)
+    cn = gsub("-1i","-i",cn,fixed=TRUE)
+    cn = gsub("+0i","",cn,fixed=TRUE)
+    cn = gsub("-0i","",cn,fixed=TRUE)
+    if(length(cn)>1 && substr(cn, start = 1, stop = 2)=="0+"){cn = gsub("0+","",cn,fixed=TRUE)}
+    if(length(cn)>1 && substr(cn, start = 1, stop = 2)=="0-"){cn = gsub("0-","-",cn,fixed=TRUE)}
+    return(cn)
+  }
+  cn1 = cn(a,b)
+  m = sqrt(a^2+b^2)
+  theta = atan2(b,a)
+  if(abs(theta)>pi/4){break}
+}
+al1 = paste0("* ",-10:10,"\n",collapse="")
+al2 = paste0("* +",-10:10,"i\n",collapse="")
+al2 = gsub("+-","-",al2,fixed=TRUE)
+sol1 = paste0(1*(a==-10:10),collapse="")
+sol2 = paste0(1*(b==-10:10),collapse="")
+```
+
+Question
+========
+
+Let $z_1$ be a [complex number](https://en.wikipedia.org/wiki/Complex_number#Polar_complex_plane) with modulus $r=`r round(m,3)`$ and argument $\theta=`r round(theta,3)`$ radians. **Express $z_1$ in rectangular form ($a+bi$).**
+
+The following formulas will be useful:
+$$a = r\cos(\theta)$$
+$$b = r\sin(\theta)$$
+
+
+To visualize, $z_1$ is graphed on a [complex plane](https://en.wikipedia.org/wiki/Complex_plane) below.
+
+```{r,fig.dim=c(6,6),echo=FALSE,results="asis"}
+library(latex2exp)
+par(pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),lwd=2,ylab="imaginary component",xlab="real component",axes=FALSE)
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+lines(c(0,a),c(0,b),lwd=2,col="red")
+points(a,b,pch=20,cex=1.5,col="black")
+th = seq(0,theta,length=100)
+r = m/3
+r2 = m/2
+xx = 1*cos(th)
+yy = 1*sin(th)
+arrows(a,0,a,b,col="purple",length = 0.05,lwd=3)
+text(a+1*sign(a),b/2,"b",col="purple")
+arrows(0,0,a,0,col="green",length = 0.05,lwd=3)
+text(a/2,-sign(theta),"a",col="green")
+
+lines(xx,yy,lwd=2,col="blue")
+arrows(xx[length(xx)-1],yy[length(xx)-1],xx[length(xx)],yy[length(xx)],col="blue",length = 0.05,lwd=3)
+text((1.5)*cos(theta/2),(1.5)*sin(theta/2),TeX("$\\theta$"),lwd=2,col="blue")
+text(r2*cos(theta)+cos(theta+pi/2*sign(a)*sign(theta)),r2*sin(theta)+sin(theta+pi/2*sign(a)*sign(theta)),TeX("$r$"),lwd=2,col="red")
+```
+\
+
+Please round the components to the nearest integer.
+
+## Your answer:
+
+* $z_1 =$ ##ANSWER1## ##ANSWER2##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+Solution
+========
+
+Use the formulas.
+
+$$a = `r round(m,3)`\cos(`r round(theta,3)`) \approx `r a`$$
+$$b = `r round(m,3)`\sin(`r round(theta,3)`) \approx `r b`$$
+
+The horizontal (real) component is `r a`. The vertical (imaginary) component is `r b`. So,
+$$z_1 = `r cn1`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: complex_polar_to_rect

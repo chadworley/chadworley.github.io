@@ -12,7 +12,11 @@ probs = c("01_synthetic_division.Rmd",
           "08_add_complex.Rmd",
           "09_subtract_complex.Rmd",
           "10_multiply_complex.Rmd",
-          "11_read_complex_plot.Rmd")
+          "11_read_complex_plot.Rmd",
+          "12_complex_modulus.Rmd",
+          "13_complex_angle.Rmd",
+          "14_complex_polar_to_rect.Rmd",
+          "15_multiply_complex_polar.Rmd")
 
 nvers = 10
 ps = character(0)

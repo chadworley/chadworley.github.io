@@ -1,0 +1,61 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+a = sample(c(-9:-1,1:9),1)
+b = sample(c(-9:-1,1:9),1)
+cn = function(a,b){
+  cn = gsub("+-","-",paste0(a,"+",b,"i"),fixed=TRUE)
+  cn = gsub("0+0i","0",cn,fixed=TRUE)
+  cn = gsub("1i","i",cn,fixed=TRUE)
+  cn = gsub("-1i","-i",cn,fixed=TRUE)
+  cn = gsub("+0i","",cn,fixed=TRUE)
+  cn = gsub("-0i","",cn,fixed=TRUE)
+  if(length(cn)>1 && substr(cn, start = 1, stop = 2)=="0+"){cn = gsub("0+","",cn,fixed=TRUE)}
+  if(length(cn)>1 && substr(cn, start = 1, stop = 2)=="0-"){cn = gsub("0-","-",cn,fixed=TRUE)}
+  return(cn)
+}
+cn1 = cn(a,b)
+m = sqrt(a^2+b^2)
+```
+
+Question
+========
+
+Let $z_1$ be a complex number with integer components. It is graphed on a [complex plane](https://en.wikipedia.org/wiki/Complex_plane) below, along with a segment connecting it to the origin.
+
+```{r,fig.dim=c(6,6),echo=FALSE,results="asis"}
+par(pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),lwd=2,ylab="imaginary component",xlab="real component")
+for(j in seq(-10,10,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+lines(c(0,a),c(0,b),lwd=2,col="red")
+points(a,b,pch=20,cex=1.5,col="blue")
+```
+\
+
+The [modulus](https://en.wikipedia.org/wiki/Absolute_value#Complex_numbers) of a complex number is analogous to finding distance on a 2D Cartesian plane from the origin to a point. If complex number $z=a+bi$ then its modulus, $|z|$, is calculated with a variation on the distance formula:
+$$|z|=\sqrt{a^2+b^2}$$
+Calculate $|z_1|$. *The tolerance is $\pm 0.1$.*
+
+
+Solution
+========
+
+The horizontal (real) component is `r a`. The vertical (imaginary) component is `r b`. So,
+$$z_1 = `r cn1`$$
+
+Use the formula.
+$$|z_1| = \sqrt{(`r a`)^2+(`r b`)^2}$$
+$$|z_1| = \sqrt{`r a^2`+`r b^2`}$$
+$$|z_1| = \sqrt{`r a^2+b^2`} \approx `r m` $$
+
+Meta-information
+============
+extype: num
+exsolution: `r m`
+exname: complex_modulus
+extol: 0.1

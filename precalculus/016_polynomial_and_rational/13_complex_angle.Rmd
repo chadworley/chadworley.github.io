@@ -1,0 +1,73 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+while(T){
+  a = sample(c(-9:-1,1:9),1)
+  b = sample(c(-9:-1,1:9),1)
+  cn = function(a,b){
+    cn = gsub("+-","-",paste0(a,"+",b,"i"),fixed=TRUE)
+    cn = gsub("0+0i","0",cn,fixed=TRUE)
+    cn = gsub("1i","i",cn,fixed=TRUE)
+    cn = gsub("-1i","-i",cn,fixed=TRUE)
+    cn = gsub("+0i","",cn,fixed=TRUE)
+    cn = gsub("-0i","",cn,fixed=TRUE)
+    if(length(cn)>1 && substr(cn, start = 1, stop = 2)=="0+"){cn = gsub("0+","",cn,fixed=TRUE)}
+    if(length(cn)>1 && substr(cn, start = 1, stop = 2)=="0-"){cn = gsub("0-","-",cn,fixed=TRUE)}
+    return(cn)
+  }
+  cn1 = cn(a,b)
+  m = sqrt(a^2+b^2)
+  theta = atan2(b,a)
+  if(abs(theta)>pi/4){break}
+}
+```
+
+Question
+========
+
+Let $z_1$ be a complex number with integer components. It is graphed on a [complex plane](https://en.wikipedia.org/wiki/Complex_plane) below. The [argument](https://en.wikipedia.org/wiki/Complex_number#Modulus_and_argument) is the standard angle indicated with $\theta$. 
+
+
+```{r,fig.dim=c(6,6),echo=FALSE,results="asis"}
+library(latex2exp)
+par(pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),lwd=2,ylab="imaginary component",xlab="real component")
+for(j in seq(-10,10,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+lines(c(0,a),c(0,b),lwd=2,col="red")
+points(a,b,pch=20,cex=1.5,col="black")
+th = seq(0,theta,length=100)
+r = m/3
+r2 = m/2
+xx = 1*cos(th)
+yy = 1*sin(th)
+lines(xx,yy,lwd=2,col="blue")
+arrows(xx[length(xx)-1],yy[length(xx)-1],xx[length(xx)],yy[length(xx)],col="blue",length = 0.05,lwd=4)
+text(2*cos(theta/2),2*sin(theta/2),TeX("$\\theta$"),lwd=2,col="blue",cex=2.2)
+```
+\
+
+The argument can be found using the [atan2](https://en.wikipedia.org/wiki/Atan2) function. Find the angle (the argument) of $z_1$ in [radians](https://en.wikipedia.org/wiki/Radian) between $-\pi$ and $\pi$. A negative angle indicates a clockwise rotation from East, and a positive angle indicates a counter-clockwise rotation from East.
+
+*The tolerance is $\pm0.01$.*
+
+
+Solution
+========
+
+The horizontal (real) component is `r a`. The vertical (imaginary) component is `r b`. So,
+$$z_1 = `r cn1`$$
+
+A spreadsheet can be used to evaluate ``=atan2(`r a`,`r b`)``. It will provide the answer in radians in the interval between $-\pi$ and $\pi$ as requested.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r theta`
+exname: complex_argument
+extol: 0.01

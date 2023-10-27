@@ -1,0 +1,155 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+while(T){
+  rr = sample(1:6,1)*sample(c(-1,1),1)
+  aa = sample(1:9,1)*sample(c(-1,1),1)
+  bb = sample(1:9,1)
+  a = 1
+  b = -(rr+2*aa)
+  c = 2*aa*rr+aa^2+bb^2
+  d = -rr*(aa^2+bb^2)
+  cf = c(a,b,c,d)
+  if(max(abs(cf))<100){break}
+}
+ex1 = paste0("x^3+",b,"x^2+",c,"x+",d)
+ex1 = gsub("+-","-",ex1,fixed=TRUE)
+ex1 = gsub("1x","x",ex1,fixed=TRUE)
+ex1 = gsub("+0x^2","",ex1,fixed=TRUE)
+ex1 = gsub("+0x","",ex1,fixed=TRUE)
+ex1 = gsub("+0","",ex1,fixed=TRUE)
+sel = -10:10
+anli = paste0("* ",sel,"\n",collapse="")
+sol1 = paste0(1*(sel==rr),collapse="")
+sol2 = paste0(1*(sel==aa),collapse="")
+sol3 = paste0(1*(sel==bb),collapse="")
+sol4 = paste0(1*(sel==aa),collapse="")
+sol5 = paste0(1*(sel==bb),collapse="")
+cn1 = gsub("1i","i",paste0(aa,"-",bb,"i"))
+cn2 = gsub("1i","i",paste0(aa,"+",bb,"i"))
+fff = paste0("(x-(",rr,"))(x-(",cn1,"))(x-(",cn2,"))")
+```
+
+
+Question
+========
+
+Solve:
+
+$$`r ex1`=0$$
+
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+select {
+  width: 70px;
+}
+</style>
+
+* The real solution: ##ANSWER1##
+* The first complex solution: ##ANSWER2##-##ANSWER3##$i$
+* The other complex solution: ##ANSWER4##+##ANSWER5##$i$
+
+
+*Hint: the real solution is an integer between -6 and 6. Also the [rational root theorem](https://en.wikipedia.org/wiki/Rational_root_theorem) places additional constraints on possible real solutions. [Descarte's rule of signs](https://en.wikipedia.org/wiki/Descartes%27_rule_of_signs) can also help eliminate possibilities.*
+
+Answerlist
+--------
+`r anli`
+`r anli`
+`r anli`
+`r anli`
+`r anli`
+
+Solution
+========
+
+```{r,echo=FALSE,results='asis'}
+cat("<style>
+.r {
+border-right: 1px solid black;
+}
+.b {
+border-bottom: 1px solid black;
+}
+td {
+height: 13pt;
+text-align: center;
+}
+</style>")
+cf = c(a,b,c,d)
+bots = c(cf[1])
+mids = numeric()
+deg = length(cf)
+for(i in 2:deg){
+  mids = c(mids,bots[i-1]*rr)
+  bots = c(bots,cf[i]+mids[i-1])
+}
+trs = paste0("* Guess that $(x-",rr,")$ is a factor:\n<table style='width:50%'><tr><td class='r'></td>",collapse="")
+trs = gsub("--","+",trs,fixed=TRUE)
+for(i in 1:deg){
+  trs = paste0(trs,"<td>",cf[i],"</td>")
+}
+trs = paste0(trs,"</tr><tr><td class='r'>",rr,"</td><td class='b'></td>")
+for(i in (deg+2):(2*deg)){
+  trs = paste0(trs,"<td class='b'>",mids[i-deg-1],"</td>")
+}
+trs = paste0(trs,"</tr><tr><td class='r'> </td>")
+for(i in (2*deg+1):(3*deg)){
+  trs = paste0(trs,"<td>",bots[i-2*deg],"</td>")
+}
+trs = paste0(trs,"</tr></table>\n")
+cat(trs)
+so = "Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form."
+eq = paste0("$$(x-",rr,")(x^2+",bots[2],"x+",bots[3],")=0$$",collapse="")
+eq = gsub("+-","-",eq,fixed=TRUE)
+eq = gsub("--","+",eq,fixed=TRUE)
+eq = gsub("+0x","",eq,fixed=TRUE)
+eq = gsub("+0","",eq,fixed=TRUE)
+eq = gsub("1x","x",eq,fixed=TRUE)
+eq = gsub("(x-0)","x",eq,fixed=TRUE)
+cat(so)
+cat(eq)
+a = 1
+b = bots[2]
+c = bots[3]
+cat("\nI would recommend using quadratic formula to determine the complex roots.")
+cat(paste0("$$a=",a,"$$\n$$b=",b,"$$\n$$c=",c,"$$\n\n"))
+```
+
+Plug numbers into the quadratic formula.
+
+$$x = \frac{-(`r b`)\pm\sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)} $$
+
+Simplify.
+
+$$x = \frac{`r -b` \pm \sqrt{`r b^2-4*a*c`}}{`r 2*a`}$$
+
+$$x = \frac{`r -b` \pm `r sqrt(-b^2+4*a*c)`i}{`r 2*a`}$$
+
+$$x = `r cn2` ~~~~~~~~\text{OR}~~~~~~~~ x=`r cn1`$$
+
+We could rewrite the original equation in fully factored form.
+
+$$\Big(x-(`r rr`)\Big)\cdot\Big(x-(`r cn1`)\Big)\cdot\Big(x-(`r cn2`)\Big)~~=~~0$$
+
+The solutions are:
+$$x = `r rr`$$
+$$x = `r cn1`$$
+$$x = `r cn2`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`
+exname: cubic_complex
