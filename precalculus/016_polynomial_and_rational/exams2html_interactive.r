@@ -1,11 +1,22 @@
 library("exams")
 
 outdir = "./"
-genname = "complex"
-probs = c("08_add_complex.Rmd",
+genname = "016"
+probs = c("01_synthetic_division.Rmd",
+          "02_VA_zero_hole_HA.Rmd",
+          "03_quadratic_formula.Rmd",
+          "04_quadratic_formula_complex.Rmd",
+          "05_solve_cubic_easy_integers.Rmd",
+          "06_solve_cubic_one_real.Rmd",
+          "07_polynomial_ends.Rmd",
+          "08_add_complex.Rmd",
           "09_subtract_complex.Rmd",
           "10_multiply_complex.Rmd",
-          "11_read_complex_plot.Rmd")
+          "11_read_complex_plot.Rmd",
+          "12_complex_modulus.Rmd",
+          "13_complex_angle.Rmd",
+          "14_complex_polar_to_rect.Rmd",
+          "15_multiply_complex_polar.Rmd")
 
 nvers = 10
 ps = character(0)
