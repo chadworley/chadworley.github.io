@@ -11,12 +11,15 @@ c = R[1]^2+R[2]^2
 rs = c(R[1],R[1],-R[1],-R[1],R[2],R[2],-R[2],-R[2])
 is = c(R[2],-R[2],R[2],-R[2],R[1],-R[1],R[1],-R[1])
 cns = gsub("+-","-",paste0(rs,"+",is,"i"),fixed = TRUE)
-cns = gsub("1i","i",cns)
+cns = gsub("+1i","+i",cns)
+cns = gsub("-1i","-i",cns)
 cn1 = cns[1]
 cn2 = cns[2]
 cns = sample(cns)
 ex = paste0("x^2+",b,"x+",c,collapse="")
 ex = gsub("+-","-",ex,fixed=TRUE)
+ex = gsub("+1x","+x",ex,fixed=TRUE)
+ex = gsub("-1x","-x",ex,fixed=TRUE)
 sol = paste0(1*(cns==cn1)+1*(cns==cn2),collapse="")
 anli = paste0("* ",cns,"\n",collapse="")
 ```
