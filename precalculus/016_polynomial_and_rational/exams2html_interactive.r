@@ -1,23 +1,50 @@
 library("exams")
 
 outdir = "./"
-genname = "016"
-probs = c("01_synthetic_division.Rmd",
-          "02_VA_zero_hole_HA.Rmd",
-          "03_quadratic_formula.Rmd",
-          "04_quadratic_formula_complex.Rmd",
-          "05_solve_cubic_easy_integers.Rmd",
-          "06_solve_cubic_one_real.Rmd",
-          "07_polynomial_ends.Rmd",
-          "08_add_complex.Rmd",
+# genname = "016"
+# probs = c("01_synthetic_division.Rmd",
+#           "02_VA_zero_hole_HA.Rmd",
+#           "03_quadratic_formula.Rmd",
+#           "04_quadratic_formula_complex.Rmd",
+#           "05_solve_cubic_easy_integers.Rmd",
+#           "06_solve_cubic_one_real.Rmd",
+#           "07_polynomial_ends.Rmd",
+#           "08_add_complex.Rmd",
+#           "09_subtract_complex.Rmd",
+#           "10_multiply_complex.Rmd",
+#           "11_read_complex_plot.Rmd",
+#           "12_complex_modulus.Rmd",
+#           "13_complex_angle.Rmd",
+#           "14_complex_polar_to_rect.Rmd",
+#           "15_multiply_complex_polar.Rmd",
+#           "16_solve_polynomial_complex_roots.Rmd")
+# 
+# nvers = 10
+# ps = character(0)
+# for(prob in probs){
+#   ps = c(ps,rep(prob,nvers))
+# }
+# 
+# main = function(){
+#   set.seed(22)
+#   exams2html_interact(ps,
+#                  n=1,
+#                  dir=outdir,
+#                  name=paste0(genname,"_shared"),
+#                  converter = "pandoc-mathjax",
+#                  mathjax = TRUE,
+#                  template = "mytemplate.html")
+# }
+
+
+genname = "complex"
+probs = c("08_add_complex.Rmd",
           "09_subtract_complex.Rmd",
           "10_multiply_complex.Rmd",
           "11_read_complex_plot.Rmd",
-          "12_complex_modulus.Rmd",
-          "13_complex_angle.Rmd",
-          "14_complex_polar_to_rect.Rmd",
-          "15_multiply_complex_polar.Rmd",
           "16_solve_polynomial_complex_roots.Rmd")
+
+
 
 nvers = 10
 ps = character(0)
@@ -35,7 +62,6 @@ main = function(){
                  mathjax = TRUE,
                  template = "mytemplate.html")
 }
-
 
 myhtml = paste0('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>

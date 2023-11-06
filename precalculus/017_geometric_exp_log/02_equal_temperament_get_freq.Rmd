@@ -1,0 +1,62 @@
+```{r,echo=FALSE}
+options(scipen=99)
+
+webs = c("https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology",
+"https://en.wikipedia.org/wiki/Equal_temperament#7-tone_equal_temperament",
+"https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology",
+  "https://en.wikipedia.org/wiki/12_equal_temperament",
+  "https://en.wikipedia.org/wiki/15_equal_temperament",
+  "https://en.wikipedia.org/wiki/17_equal_temperament",
+  "https://en.wikipedia.org/wiki/19_equal_temperament",
+  "https://en.wikipedia.org/wiki/22_equal_temperament",
+  "https://en.wikipedia.org/wiki/23_equal_temperament",
+  "https://en.wikipedia.org/wiki/Quarter_tone",
+  "https://en.wikipedia.org/wiki/31_equal_temperament",
+  "https://en.wikipedia.org/wiki/34_equal_temperament",
+  "https://en.wikipedia.org/wiki/41_equal_temperament",
+  "https://en.wikipedia.org/wiki/53_equal_temperament",
+  "https://en.wikipedia.org/wiki/58_equal_temperament",
+  "https://en.wikipedia.org/wiki/72_equal_temperament",
+  "https://en.wikipedia.org/wiki/96_equal_temperament")
+
+Ns = c(5,7,9,12,15,17,19,22,23,24,31,34,41,53,58,72,96)
+
+sel = sample(1:length(Ns),1)
+wb = webs[sel]
+N = Ns[sel]
+
+i440 = sample((N*3):(N*5),1)
+idiff = sample(5:(N*2),1)*sample(c(-1,1),1)
+i2 = i440+idiff
+f = 440*2^(idiff/N)
+```
+
+Question
+========
+
+In music, an [equal temperament](https://en.wikipedia.org/wiki/Equal_temperament) implies the available [fundamental frequencies](https://en.wikipedia.org/wiki/Fundamental_frequency) follow a geometric progression. Imagine a [keyboard instrument](https://en.wikipedia.org/wiki/Keyboard_instrument) for [`r N` EDO](`r wb`). That means there are `r N` frequencies per octave, and the ratio between neighboring frequencies is $2^{1/`r N`} \approx `r 2^(1/N)`$. That instrument acts as a [function](https://en.wikipedia.org/wiki/Function_(mathematics)) that maps [key number ($k$) to frequency ($f$)](https://en.wikipedia.org/wiki/Piano_key_frequencies).
+
+Let's assume a [concert pitch](https://en.wikipedia.org/wiki/Concert_pitch) of [440 Hz](https://en.wikipedia.org/wiki/A440_(pitch_standard)) is assigned to the key number `r i440`, so we can calculate the frequency from any key number using the following [exponential function](https://en.wikipedia.org/wiki/Exponential_function).
+
+$$f = 440 \cdot 2^{(k-`r i440`)/`r N`} $$
+
+What is the frequency,  in [Hz](https://en.wikipedia.org/wiki/Hertz), of key number $k=$ `r i2`? *The tolerance is $\pm 1$ Hz.*
+
+Solution
+========
+
+$$f = 440 \cdot 2^{(`r i2`-`r i440`)/`r N`}$$
+
+$$f = 440 \cdot 2^{`r i2-i440`/`r N`}$$
+
+$$f = `r 440*2^((i2-i440)/N)`$$
+
+`r f` Hz
+
+
+Meta-information
+============
+extype: num
+exsolution: `r f`
+extol: 1
+exname: equal_temperament_get_freq

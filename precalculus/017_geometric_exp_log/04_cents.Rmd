@@ -1,0 +1,101 @@
+```{r,echo=FALSE}
+options(scipen=99)
+N = sample(5:40,1)
+kn = sort(sample(1:88,2))
+
+f1 = 27.5*2^((kn[1]-1)/12)
+f2 = 27.5*2^((kn[2]-1)/12)
+
+notes = c("A","A^{\\#}","B","C","C^{\\#}","D","D^{\\#}","E","F","F^{\\#}","G","G^{\\#}")
+oct1 = floor((kn[1]+8)/12)
+oct2 = floor((kn[2]+8)/12)
+not1 = (kn[1]-1)%%12+1
+not2 = (kn[2]-1)%%12+1
+
+C = (kn[2]-kn[1])*100
+C2 = 1200*log(f2/f1,2)
+```
+
+Question
+========
+
+In music, to compare two frequencies (to measure an [interval](https://en.wikipedia.org/wiki/Interval_(music))), we can use [cents](https://en.wikipedia.org/wiki/Cent_(music)).
+
+$$I = 1200 \cdot \log_2 \left(\frac{f_2}{f_1}\right)$$
+
+where $I$ is the size of the interval in cents, $f_1$ is the first frequency (typically in hertz), and $f_2$ is the second frequency. 
+
+A pianist plays $`r notes[not1]`_{`r oct1`}$ and $`r notes[not2]`_{`r oct2`}$. On a [standard 88-key piano](https://en.wikipedia.org/wiki/Piano_key_frequencies), these notes correspond to key number $k_1=`r kn[1]`$ and $k_2=`r kn[2]`$, and their frequencies are $f_1\approx `r f1`$ Hz and $f_2\approx `r f2`$ Hz.
+
+```{r,echo=FALSE,fig.dim=c(8,2)}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(0,1),ylim=c(-1,1),axes=FALSE,ann=FALSE)
+sharps = c(2,5,7,10,12)
+nwhites = 0
+maxnwhites = 52
+for(i in 1:88){
+  col = "white"
+  if(i == kn[1]){
+    col = "red"
+  }
+  if(i == kn[2]){
+    col = "red"
+  }
+  oct1 = floor((i+8)/12)
+  not1 = (i-1)%%12+1
+  if(sum(not1==sharps)==0){
+    rect(nwhites/maxnwhites,0,(nwhites+1)/maxnwhites,1,lwd=2,col=col)
+    text((nwhites+0.5)/maxnwhites,0.1,i,cex=0.4)
+    nwhites = nwhites+1
+  }
+}
+nwhites = 0
+for(i in 1:88){
+  col = "black"
+  if(i == kn[1]){
+    col = "red"
+  }
+  if(i == kn[2]){
+    col = "red"
+  }
+  oct1 = floor((i+8)/12)
+  not1 = (i-1)%%12+1
+  if(sum(not1==sharps)==1){
+    rect((nwhites-1/3)/maxnwhites,1/2,(nwhites+1/3)/maxnwhites,1,lwd=1.5,col=col)
+    text(nwhites/maxnwhites,0.6,i,cex=0.4,col="white")
+  } else {
+    nwhites = nwhites+1
+  }
+}
+for(i in seq(1,12*7+1,12)){
+  ff = 27.5*2^((i-1)/12)
+  oc = round((i-1)/12)
+  ftex = paste0(ff," Hz",collapse="")
+  xx = (floor((i*7/12))+0.5)/maxnwhites
+  text(xx,-0.5,ftex,cex=0.7)
+  text(xx,-0.8,paste0("A",oc,collapse=""),cex=0.7)
+  lines(c(xx,xx),c(-0.3,-0.1))
+}
+```
+
+Find $I$, the size of the interval in cents.
+
+Solution
+========
+
+Use the formula.
+
+$$I ~=~ 1200 \cdot \log_2\left(\frac{`r f2`}{`r f1`}\right) ~=~ `r C`$$
+
+If your calculator does not allow logs with base 2, you can use the [change-of-base  identity](https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base).
+
+$$I ~=~ 1200 \cdot \frac{\log\left(\frac{`r f2`}{`r f1`}\right)}{\log(2)}~=~ `r C`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r C`
+extol: 10
+exname: cents
