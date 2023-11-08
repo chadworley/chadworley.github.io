@@ -1,0 +1,65 @@
+```{r,echo=FALSE}
+options(scipen=99)
+g1 = sample(2:9,1)*10^sample(-1:2,1)*sample(c(-1,1),1)
+r = (1+sample(1:20,1)/100*sample(c(-1,1),1))*(sample(c(-1,1),1))
+Sinf = g1/(1-r)
+
+if(sign(g1*r^3)<0){
+  pm = "-"
+} else {
+  pm = "+"
+}
+
+gs = paste0(g1,"~+~",g1*r,"~+~",g1*r^2,"~",pm,"~\\ldots",collapse="")
+gs = gsub("+~-","-~",gs,fixed=TRUE)
+
+```
+
+Question
+========
+
+A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:
+
+$$S_n = \frac{a(1-r^n)}{1-r} $$
+
+If $|r|<1$, then $\lim\limits_{n\to\infty}1-r^n = 1$, because repeated multiplication of a [proper fraction](https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions) creates numbers closer and closer to 0.
+
+So, if $|r|<1$, then
+
+$$S_{\infty} ~=~ \frac{a}{1-r} $$
+
+Find the sum of the following geometric series (with infinitely many terms).
+
+$$`r gs`$$
+
+
+
+Solution
+========
+
+Determine the common ratio by dividing the second term by the first term.
+
+$$r = \frac{`r g1*r`}{`r g1`} = `r r`$$
+
+Notice, this is the same as the ratio of the third and second terms.
+
+$$r ~=~ \frac{`r g1*r^2`}{`r g1*r`} ~=~ `r r`$$
+
+Determine the absolute value of the common ratio.
+
+$$|r| ~=~ |`r r`| ~=~ `r abs(r)`$$
+
+Because $|r|<1$, the series is convergent.
+
+$$a = `r g1`$$
+$$r = `r r`$$
+
+$$S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{`r g1`}{1-`r r`} ~=~ `r Sinf`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r Sinf`
+extol: 0.01
+exname: geometric_series_infinite

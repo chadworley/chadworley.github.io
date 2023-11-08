@@ -1,0 +1,890 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>SQ 018</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+h4.qqq {
+  background-color: black;
+  color: white;
+}
+ol.outermostlist{
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+<script type="text/javascript">
+const nv = 10;
+function loader(){
+  qs = document.body.getElementsByTagName("h4");
+  lnk = document.getElementById("linksies");
+  qs[0].parentElement.parentElement.classList.add("outermostlist");
+  for(let i=0;i<qs.length;i++){
+    if(i%2==0){
+      qs[i].innerHTML = "QUESTION  "+(Math.floor(i/2/nv+1)).toString()+" version "+((i/2)%nv+1).toString();
+      qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      qs[i].classList.add("qqq");
+      if(i%(2*nv)==0){
+        let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+        lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+        document.getElementById("tempid").id = newid;
+      }
+      qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      if(i%(2*nv)!=0){
+        qs[i].parentElement.style.display = "none";
+      }
+      }
+}
+}
+function shower(){
+  let x = this.nextSibling;
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    this.innerHTML = "Hide solution";
+  } else {
+    x.style.display = "none";
+    this.innerHTML = "Show solution";
+  }
+}
+function prev(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn-1+nv)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+function next(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn+1)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+</script>
+<body onLoad="loader()">
+<div style="display:none">
+\(\renewcommand{\hat}[1]{\widehat{#1}}\)
+</div>
+<h2 id="sqid">Shared Qs (018)</h2>
+<div id="linksies"></div>
+<ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A geometric sequence has a first term 0.7 and a common ratio 1.1. Find the sum of the first 21 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 0.7\]</span></p>
+<p><span class="math display">\[r = 1.1\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (0.7)(1.1)^{(n-1)}\]</span></p>
+<p>The sum of the first 21 terms could be donated with <span class="math inline">\(S_{21}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{21} = \sum_{i=1}^{21}(0.7)(1.1)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation operator.</p>
+<p><span class="math display">\[S_{21} = 0.7\sum_{i=1}^{21}(1.1)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{21} = (0.7)\left(1+1.1+1.1^2+1.1^3+\ldots+1.1^{17}+1.1^{18}+1.1^{19}+1.1^{20}\right) \]</span></p>
+<p>If you are cool, you might multiply both sides by 1.1, and distribute to all the terms in the summation.</p>
+<p><span class="math display">\[1.1\cdot S_{21} = (0.7)\left(1.1+1.1^2+1.1^3+1.1^4+\ldots+1.1^{18}+1.1^{19}+1.1^{20}+1.1^{21}\right) \]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the opposite terms.</p>
+<p><span class="math display">\[S_{21} - 1.1\cdot S_{21} = (0.7)(1-1.1^{21})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{21}\)</span> from the terms on the left side of the equation.</p>
+<p><span class="math display">\[S_{21}(1-1.1)= (0.7)(1-1.1^{21})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-1.1)\)</span>.</p>
+<p><span class="math display">\[S_{21}= \frac{(0.7)(1-1.1^{21})}{(1-1.1)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{21}= 44.8017496\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A geometric sequence has a first term 50 and a common ratio 0.83. Find the sum of the first 20 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 50\]</span></p>
+<p><span class="math display">\[r = 0.83\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (50)(0.83)^{(n-1)}\]</span></p>
+<p>The sum of the first 20 terms could be donated with <span class="math inline">\(S_{20}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{20} = \sum_{i=1}^{20}(50)(0.83)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation operator.</p>
+<p><span class="math display">\[S_{20} = 50\sum_{i=1}^{20}(0.83)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{20} = (50)\left(1+0.83+0.83^2+0.83^3+\ldots+0.83^{16}+0.83^{17}+0.83^{18}+0.83^{19}\right) \]</span></p>
+<p>If you are cool, you might multiply both sides by 0.83, and distribute to all the terms in the summation.</p>
+<p><span class="math display">\[0.83\cdot S_{20} = (50)\left(0.83+0.83^2+0.83^3+0.83^4+\ldots+0.83^{17}+0.83^{18}+0.83^{19}+0.83^{20}\right) \]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the opposite terms.</p>
+<p><span class="math display">\[S_{20} - 0.83\cdot S_{20} = (50)(1-0.83^{20})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{20}\)</span> from the terms on the left side of the equation.</p>
+<p><span class="math display">\[S_{20}(1-0.83)= (50)(1-0.83^{20})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-0.83)\)</span>.</p>
+<p><span class="math display">\[S_{20}= \frac{(50)(1-0.83^{20})}{(1-0.83)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{20}= 287.0368372\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A geometric sequence has a first term 90 and a common ratio 1.16. Find the sum of the first 25 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 90\]</span></p>
+<p><span class="math display">\[r = 1.16\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (90)(1.16)^{(n-1)}\]</span></p>
+<p>The sum of the first 25 terms could be donated with <span class="math inline">\(S_{25}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{25} = \sum_{i=1}^{25}(90)(1.16)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation operator.</p>
+<p><span class="math display">\[S_{25} = 90\sum_{i=1}^{25}(1.16)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{25} = (90)\left(1+1.16+1.16^2+1.16^3+\ldots+1.16^{21}+1.16^{22}+1.16^{23}+1.16^{24}\right) \]</span></p>
+<p>If you are cool, you might multiply both sides by 1.16, and distribute to all the terms in the summation.</p>
+<p><span class="math display">\[1.16\cdot S_{25} = (90)\left(1.16+1.16^2+1.16^3+1.16^4+\ldots+1.16^{22}+1.16^{23}+1.16^{24}+1.16^{25}\right) \]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the opposite terms.</p>
+<p><span class="math display">\[S_{25} - 1.16\cdot S_{25} = (90)(1-1.16^{25})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{25}\)</span> from the terms on the left side of the equation.</p>
+<p><span class="math display">\[S_{25}(1-1.16)= (90)(1-1.16^{25})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-1.16)\)</span>.</p>
+<p><span class="math display">\[S_{25}= \frac{(90)(1-1.16^{25})}{(1-1.16)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{25}= 22429.2621195\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A geometric sequence has a first term 300 and a common ratio 0.8. Find the sum of the first 15 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 300\]</span></p>
+<p><span class="math display">\[r = 0.8\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (300)(0.8)^{(n-1)}\]</span></p>
+<p>The sum of the first 15 terms could be donated with <span class="math inline">\(S_{15}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{15} = \sum_{i=1}^{15}(300)(0.8)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation operator.</p>
+<p><span class="math display">\[S_{15} = 300\sum_{i=1}^{15}(0.8)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{15} = (300)\left(1+0.8+0.8^2+0.8^3+\ldots+0.8^{11}+0.8^{12}+0.8^{13}+0.8^{14}\right) \]</span></p>
+<p>If you are cool, you might multiply both sides by 0.8, and distribute to all the terms in the summation.</p>
+<p><span class="math display">\[0.8\cdot S_{15} = (300)\left(0.8+0.8^2+0.8^3+0.8^4+\ldots+0.8^{12}+0.8^{13}+0.8^{14}+0.8^{15}\right) \]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the opposite terms.</p>
+<p><span class="math display">\[S_{15} - 0.8\cdot S_{15} = (300)(1-0.8^{15})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{15}\)</span> from the terms on the left side of the equation.</p>
+<p><span class="math display">\[S_{15}(1-0.8)= (300)(1-0.8^{15})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-0.8)\)</span>.</p>
+<p><span class="math display">\[S_{15}= \frac{(300)(1-0.8^{15})}{(1-0.8)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{15}= 1447.2234419\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A geometric sequence has a first term 0.3 and a common ratio 0.86. Find the sum of the first 13 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 0.3\]</span></p>
+<p><span class="math display">\[r = 0.86\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (0.3)(0.86)^{(n-1)}\]</span></p>
+<p>The sum of the first 13 terms could be donated with <span class="math inline">\(S_{13}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{13} = \sum_{i=1}^{13}(0.3)(0.86)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation operator.</p>
+<p><span class="math display">\[S_{13} = 0.3\sum_{i=1}^{13}(0.86)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{13} = (0.3)\left(1+0.86+0.86^2+0.86^3+\ldots+0.86^{9}+0.86^{10}+0.86^{11}+0.86^{12}\right) \]</span></p>
+<p>If you are cool, you might multiply both sides by 0.86, and distribute to all the terms in the summation.</p>
+<p><span class="math display">\[0.86\cdot S_{13} = (0.3)\left(0.86+0.86^2+0.86^3+0.86^4+\ldots+0.86^{10}+0.86^{11}+0.86^{12}+0.86^{13}\right) \]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the opposite terms.</p>
+<p><span class="math display">\[S_{13} - 0.86\cdot S_{13} = (0.3)(1-0.86^{13})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{13}\)</span> from the terms on the left side of the equation.</p>
+<p><span class="math display">\[S_{13}(1-0.86)= (0.3)(1-0.86^{13})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-0.86)\)</span>.</p>
+<p><span class="math display">\[S_{13}= \frac{(0.3)(1-0.86^{13})}{(1-0.86)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{13}= 1.8412281\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A geometric sequence has a first term 0.4 and a common ratio 1.19. Find the sum of the first 15 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 0.4\]</span></p>
+<p><span class="math display">\[r = 1.19\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (0.4)(1.19)^{(n-1)}\]</span></p>
+<p>The sum of the first 15 terms could be donated with <span class="math inline">\(S_{15}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{15} = \sum_{i=1}^{15}(0.4)(1.19)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation operator.</p>
+<p><span class="math display">\[S_{15} = 0.4\sum_{i=1}^{15}(1.19)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{15} = (0.4)\left(1+1.19+1.19^2+1.19^3+\ldots+1.19^{11}+1.19^{12}+1.19^{13}+1.19^{14}\right) \]</span></p>
+<p>If you are cool, you might multiply both sides by 1.19, and distribute to all the terms in the summation.</p>
+<p><span class="math display">\[1.19\cdot S_{15} = (0.4)\left(1.19+1.19^2+1.19^3+1.19^4+\ldots+1.19^{12}+1.19^{13}+1.19^{14}+1.19^{15}\right) \]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the opposite terms.</p>
+<p><span class="math display">\[S_{15} - 1.19\cdot S_{15} = (0.4)(1-1.19^{15})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{15}\)</span> from the terms on the left side of the equation.</p>
+<p><span class="math display">\[S_{15}(1-1.19)= (0.4)(1-1.19^{15})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-1.19)\)</span>.</p>
+<p><span class="math display">\[S_{15}= \frac{(0.4)(1-1.19^{15})}{(1-1.19)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{15}= 26.5042726\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A geometric sequence has a first term 0.6 and a common ratio 0.89. Find the sum of the first 29 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 0.6\]</span></p>
+<p><span class="math display">\[r = 0.89\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (0.6)(0.89)^{(n-1)}\]</span></p>
+<p>The sum of the first 29 terms could be donated with <span class="math inline">\(S_{29}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{29} = \sum_{i=1}^{29}(0.6)(0.89)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation operator.</p>
+<p><span class="math display">\[S_{29} = 0.6\sum_{i=1}^{29}(0.89)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{29} = (0.6)\left(1+0.89+0.89^2+0.89^3+\ldots+0.89^{25}+0.89^{26}+0.89^{27}+0.89^{28}\right) \]</span></p>
+<p>If you are cool, you might multiply both sides by 0.89, and distribute to all the terms in the summation.</p>
+<p><span class="math display">\[0.89\cdot S_{29} = (0.6)\left(0.89+0.89^2+0.89^3+0.89^4+\ldots+0.89^{26}+0.89^{27}+0.89^{28}+0.89^{29}\right) \]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the opposite terms.</p>
+<p><span class="math display">\[S_{29} - 0.89\cdot S_{29} = (0.6)(1-0.89^{29})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{29}\)</span> from the terms on the left side of the equation.</p>
+<p><span class="math display">\[S_{29}(1-0.89)= (0.6)(1-0.89^{29})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-0.89)\)</span>.</p>
+<p><span class="math display">\[S_{29}= \frac{(0.6)(1-0.89^{29})}{(1-0.89)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{29}= 5.2687356\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A geometric sequence has a first term 800 and a common ratio 1.01. Find the sum of the first 10 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 800\]</span></p>
+<p><span class="math display">\[r = 1.01\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (800)(1.01)^{(n-1)}\]</span></p>
+<p>The sum of the first 10 terms could be donated with <span class="math inline">\(S_{10}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{10} = \sum_{i=1}^{10}(800)(1.01)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation operator.</p>
+<p><span class="math display">\[S_{10} = 800\sum_{i=1}^{10}(1.01)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{10} = (800)\left(1+1.01+1.01^2+1.01^3+\ldots+1.01^{6}+1.01^{7}+1.01^{8}+1.01^{9}\right) \]</span></p>
+<p>If you are cool, you might multiply both sides by 1.01, and distribute to all the terms in the summation.</p>
+<p><span class="math display">\[1.01\cdot S_{10} = (800)\left(1.01+1.01^2+1.01^3+1.01^4+\ldots+1.01^{7}+1.01^{8}+1.01^{9}+1.01^{10}\right) \]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the opposite terms.</p>
+<p><span class="math display">\[S_{10} - 1.01\cdot S_{10} = (800)(1-1.01^{10})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{10}\)</span> from the terms on the left side of the equation.</p>
+<p><span class="math display">\[S_{10}(1-1.01)= (800)(1-1.01^{10})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-1.01)\)</span>.</p>
+<p><span class="math display">\[S_{10}= \frac{(800)(1-1.01^{10})}{(1-1.01)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{10}= 8369.7700329\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A geometric sequence has a first term 0.6 and a common ratio 0.94. Find the sum of the first 11 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 0.6\]</span></p>
+<p><span class="math display">\[r = 0.94\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (0.6)(0.94)^{(n-1)}\]</span></p>
+<p>The sum of the first 11 terms could be donated with <span class="math inline">\(S_{11}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{11} = \sum_{i=1}^{11}(0.6)(0.94)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation operator.</p>
+<p><span class="math display">\[S_{11} = 0.6\sum_{i=1}^{11}(0.94)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{11} = (0.6)\left(1+0.94+0.94^2+0.94^3+\ldots+0.94^{7}+0.94^{8}+0.94^{9}+0.94^{10}\right) \]</span></p>
+<p>If you are cool, you might multiply both sides by 0.94, and distribute to all the terms in the summation.</p>
+<p><span class="math display">\[0.94\cdot S_{11} = (0.6)\left(0.94+0.94^2+0.94^3+0.94^4+\ldots+0.94^{8}+0.94^{9}+0.94^{10}+0.94^{11}\right) \]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the opposite terms.</p>
+<p><span class="math display">\[S_{11} - 0.94\cdot S_{11} = (0.6)(1-0.94^{11})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{11}\)</span> from the terms on the left side of the equation.</p>
+<p><span class="math display">\[S_{11}(1-0.94)= (0.6)(1-0.94^{11})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-0.94)\)</span>.</p>
+<p><span class="math display">\[S_{11}= \frac{(0.6)(1-0.94^{11})}{(1-0.94)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{11}= 4.9370179\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A geometric sequence has a first term 0.8 and a common ratio 0.82. Find the sum of the first 17 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 0.8\]</span></p>
+<p><span class="math display">\[r = 0.82\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (0.8)(0.82)^{(n-1)}\]</span></p>
+<p>The sum of the first 17 terms could be donated with <span class="math inline">\(S_{17}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{17} = \sum_{i=1}^{17}(0.8)(0.82)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation operator.</p>
+<p><span class="math display">\[S_{17} = 0.8\sum_{i=1}^{17}(0.82)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{17} = (0.8)\left(1+0.82+0.82^2+0.82^3+\ldots+0.82^{13}+0.82^{14}+0.82^{15}+0.82^{16}\right) \]</span></p>
+<p>If you are cool, you might multiply both sides by 0.82, and distribute to all the terms in the summation.</p>
+<p><span class="math display">\[0.82\cdot S_{17} = (0.8)\left(0.82+0.82^2+0.82^3+0.82^4+\ldots+0.82^{14}+0.82^{15}+0.82^{16}+0.82^{17}\right) \]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the opposite terms.</p>
+<p><span class="math display">\[S_{17} - 0.82\cdot S_{17} = (0.8)(1-0.82^{17})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{17}\)</span> from the terms on the left side of the equation.</p>
+<p><span class="math display">\[S_{17}(1-0.82)= (0.8)(1-0.82^{17})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-0.82)\)</span>.</p>
+<p><span class="math display">\[S_{17}= \frac{(0.8)(1-0.82^{17})}{(1-0.82)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{17}= 4.2921609\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An infinite geometric series converges if and only if <span class="math inline">\(|r|&lt;1\)</span>. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. <strong>Is the following geometric series convergent?</strong></p>
+<p><span class="math display">\[60~-~48~+~38.4~-~\ldots\]</span></p>
+<br/>
+<ol type="a">
+<li>
+Yes, the series converges.
+</li>
+<li>
+No, the series diverges.
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-48}{60} = -0.8\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{38.4}{-48} ~=~ -0.8\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-0.8| ~=~ 0.8\]</span></p>
+<p>Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.</p>
+<p><span class="math display">\[|-0.8| &lt; 1\]</span></p>
+<p>So, <strong>the series converges.</strong></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An infinite geometric series converges if and only if <span class="math inline">\(|r|&lt;1\)</span>. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. <strong>Is the following geometric series convergent?</strong></p>
+<p><span class="math display">\[-50~-~56.5~-~63.845~-~\ldots\]</span></p>
+<br/>
+<ol type="a">
+<li>
+Yes, the series converges.
+</li>
+<li>
+No, the series diverges.
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-56.5}{-50} = 1.13\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-63.845}{-56.5} ~=~ 1.13\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |1.13| ~=~ 1.13\]</span></p>
+<p>Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.</p>
+<p><span class="math display">\[|1.13| &gt; 1\]</span></p>
+<p>So, <strong>the series diverges.</strong></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An infinite geometric series converges if and only if <span class="math inline">\(|r|&lt;1\)</span>. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. <strong>Is the following geometric series convergent?</strong></p>
+<p><span class="math display">\[400~+~436~+~475.24~+~\ldots\]</span></p>
+<br/>
+<ol type="a">
+<li>
+Yes, the series converges.
+</li>
+<li>
+No, the series diverges.
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{436}{400} = 1.09\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{475.24}{436} ~=~ 1.09\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |1.09| ~=~ 1.09\]</span></p>
+<p>Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.</p>
+<p><span class="math display">\[|1.09| &gt; 1\]</span></p>
+<p>So, <strong>the series diverges.</strong></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An infinite geometric series converges if and only if <span class="math inline">\(|r|&lt;1\)</span>. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. <strong>Is the following geometric series convergent?</strong></p>
+<p><span class="math display">\[-0.4~-~0.36~-~0.324~-~\ldots\]</span></p>
+<br/>
+<ol type="a">
+<li>
+Yes, the series converges.
+</li>
+<li>
+No, the series diverges.
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-0.36}{-0.4} = 0.9\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-0.324}{-0.36} ~=~ 0.9\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |0.9| ~=~ 0.9\]</span></p>
+<p>Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.</p>
+<p><span class="math display">\[|0.9| &lt; 1\]</span></p>
+<p>So, <strong>the series converges.</strong></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An infinite geometric series converges if and only if <span class="math inline">\(|r|&lt;1\)</span>. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. <strong>Is the following geometric series convergent?</strong></p>
+<p><span class="math display">\[-20~-~18.2~-~16.562~-~\ldots\]</span></p>
+<br/>
+<ol type="a">
+<li>
+Yes, the series converges.
+</li>
+<li>
+No, the series diverges.
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-18.2}{-20} = 0.91\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-16.562}{-18.2} ~=~ 0.91\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |0.91| ~=~ 0.91\]</span></p>
+<p>Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.</p>
+<p><span class="math display">\[|0.91| &lt; 1\]</span></p>
+<p>So, <strong>the series converges.</strong></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An infinite geometric series converges if and only if <span class="math inline">\(|r|&lt;1\)</span>. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. <strong>Is the following geometric series convergent?</strong></p>
+<p><span class="math display">\[0.7~-~0.644~+~0.59248~-~\ldots\]</span></p>
+<br/>
+<ol type="a">
+<li>
+Yes, the series converges.
+</li>
+<li>
+No, the series diverges.
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-0.644}{0.7} = -0.92\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{0.59248}{-0.644} ~=~ -0.92\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-0.92| ~=~ 0.92\]</span></p>
+<p>Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.</p>
+<p><span class="math display">\[|-0.92| &lt; 1\]</span></p>
+<p>So, <strong>the series converges.</strong></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An infinite geometric series converges if and only if <span class="math inline">\(|r|&lt;1\)</span>. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. <strong>Is the following geometric series convergent?</strong></p>
+<p><span class="math display">\[600~-~648~+~699.84~-~\ldots\]</span></p>
+<br/>
+<ol type="a">
+<li>
+Yes, the series converges.
+</li>
+<li>
+No, the series diverges.
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-648}{600} = -1.08\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{699.84}{-648} ~=~ -1.08\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-1.08| ~=~ 1.08\]</span></p>
+<p>Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.</p>
+<p><span class="math display">\[|-1.08| &gt; 1\]</span></p>
+<p>So, <strong>the series diverges.</strong></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An infinite geometric series converges if and only if <span class="math inline">\(|r|&lt;1\)</span>. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. <strong>Is the following geometric series convergent?</strong></p>
+<p><span class="math display">\[-70~+~83.3~-~99.127~+~\ldots\]</span></p>
+<br/>
+<ol type="a">
+<li>
+Yes, the series converges.
+</li>
+<li>
+No, the series diverges.
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{83.3}{-70} = -1.19\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-99.127}{83.3} ~=~ -1.19\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-1.19| ~=~ 1.19\]</span></p>
+<p>Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.</p>
+<p><span class="math display">\[|-1.19| &gt; 1\]</span></p>
+<p>So, <strong>the series diverges.</strong></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An infinite geometric series converges if and only if <span class="math inline">\(|r|&lt;1\)</span>. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. <strong>Is the following geometric series convergent?</strong></p>
+<p><span class="math display">\[8~-~9.36~+~10.9512~-~\ldots\]</span></p>
+<br/>
+<ol type="a">
+<li>
+Yes, the series converges.
+</li>
+<li>
+No, the series diverges.
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-9.36}{8} = -1.17\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{10.9512}{-9.36} ~=~ -1.17\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-1.17| ~=~ 1.17\]</span></p>
+<p>Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.</p>
+<p><span class="math display">\[|-1.17| &gt; 1\]</span></p>
+<p>So, <strong>the series diverges.</strong></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An infinite geometric series converges if and only if <span class="math inline">\(|r|&lt;1\)</span>. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. <strong>Is the following geometric series convergent?</strong></p>
+<p><span class="math display">\[-0.9~+~0.963~-~1.03041~+~\ldots\]</span></p>
+<br/>
+<ol type="a">
+<li>
+Yes, the series converges.
+</li>
+<li>
+No, the series diverges.
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{0.963}{-0.9} = -1.07\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-1.03041}{0.963} ~=~ -1.07\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-1.07| ~=~ 1.07\]</span></p>
+<p>Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.</p>
+<p><span class="math display">\[|-1.07| &gt; 1\]</span></p>
+<p>So, <strong>the series diverges.</strong></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p>If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math inline">\(\lim\limits_{n\to\infty}1-r^n = 1\)</span>, because repeated multiplication of a <a href="https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions">proper fraction</a> creates numbers closer and closer to 0.</p>
+<p>So, if <span class="math inline">\(|r|&lt;1\)</span>, then</p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} \]</span></p>
+<p>Find the sum of the following geometric series (with infinitely many terms).</p>
+<p><span class="math display">\[-800~+~720~-~648~+~\ldots\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{720}{-800} = -0.9\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-648}{720} ~=~ -0.9\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-0.9| ~=~ 0.9\]</span></p>
+<p>Because <span class="math inline">\(|r|&lt;1\)</span>, the series is convergent.</p>
+<p><span class="math display">\[a = -800\]</span>
+<span class="math display">\[r = -0.9\]</span></p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{-800}{1--0.9} ~=~ -421.0526316\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p>If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math inline">\(\lim\limits_{n\to\infty}1-r^n = 1\)</span>, because repeated multiplication of a <a href="https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions">proper fraction</a> creates numbers closer and closer to 0.</p>
+<p>So, if <span class="math inline">\(|r|&lt;1\)</span>, then</p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} \]</span></p>
+<p>Find the sum of the following geometric series (with infinitely many terms).</p>
+<p><span class="math display">\[-300~+~339~-~383.07~+~\ldots\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{339}{-300} = -1.13\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-383.07}{339} ~=~ -1.13\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-1.13| ~=~ 1.13\]</span></p>
+<p>Because <span class="math inline">\(|r|&lt;1\)</span>, the series is convergent.</p>
+<p><span class="math display">\[a = -300\]</span>
+<span class="math display">\[r = -1.13\]</span></p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{-300}{1--1.13} ~=~ -140.8450704\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p>If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math inline">\(\lim\limits_{n\to\infty}1-r^n = 1\)</span>, because repeated multiplication of a <a href="https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions">proper fraction</a> creates numbers closer and closer to 0.</p>
+<p>So, if <span class="math inline">\(|r|&lt;1\)</span>, then</p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} \]</span></p>
+<p>Find the sum of the following geometric series (with infinitely many terms).</p>
+<p><span class="math display">\[6~-~6.66~+~7.3926~-~\ldots\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-6.66}{6} = -1.11\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{7.3926}{-6.66} ~=~ -1.11\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-1.11| ~=~ 1.11\]</span></p>
+<p>Because <span class="math inline">\(|r|&lt;1\)</span>, the series is convergent.</p>
+<p><span class="math display">\[a = 6\]</span>
+<span class="math display">\[r = -1.11\]</span></p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{6}{1--1.11} ~=~ 2.8436019\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p>If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math inline">\(\lim\limits_{n\to\infty}1-r^n = 1\)</span>, because repeated multiplication of a <a href="https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions">proper fraction</a> creates numbers closer and closer to 0.</p>
+<p>So, if <span class="math inline">\(|r|&lt;1\)</span>, then</p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} \]</span></p>
+<p>Find the sum of the following geometric series (with infinitely many terms).</p>
+<p><span class="math display">\[20~-~22~+~24.2~-~\ldots\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-22}{20} = -1.1\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{24.2}{-22} ~=~ -1.1\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-1.1| ~=~ 1.1\]</span></p>
+<p>Because <span class="math inline">\(|r|&lt;1\)</span>, the series is convergent.</p>
+<p><span class="math display">\[a = 20\]</span>
+<span class="math display">\[r = -1.1\]</span></p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{20}{1--1.1} ~=~ 9.5238095\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p>If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math inline">\(\lim\limits_{n\to\infty}1-r^n = 1\)</span>, because repeated multiplication of a <a href="https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions">proper fraction</a> creates numbers closer and closer to 0.</p>
+<p>So, if <span class="math inline">\(|r|&lt;1\)</span>, then</p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} \]</span></p>
+<p>Find the sum of the following geometric series (with infinitely many terms).</p>
+<p><span class="math display">\[-600~+~696~-~807.36~+~\ldots\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{696}{-600} = -1.16\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-807.36}{696} ~=~ -1.16\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-1.16| ~=~ 1.16\]</span></p>
+<p>Because <span class="math inline">\(|r|&lt;1\)</span>, the series is convergent.</p>
+<p><span class="math display">\[a = -600\]</span>
+<span class="math display">\[r = -1.16\]</span></p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{-600}{1--1.16} ~=~ -277.7777778\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p>If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math inline">\(\lim\limits_{n\to\infty}1-r^n = 1\)</span>, because repeated multiplication of a <a href="https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions">proper fraction</a> creates numbers closer and closer to 0.</p>
+<p>So, if <span class="math inline">\(|r|&lt;1\)</span>, then</p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} \]</span></p>
+<p>Find the sum of the following geometric series (with infinitely many terms).</p>
+<p><span class="math display">\[-40~-~38.4~-~36.864~-~\ldots\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-38.4}{-40} = 0.96\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-36.864}{-38.4} ~=~ 0.96\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |0.96| ~=~ 0.96\]</span></p>
+<p>Because <span class="math inline">\(|r|&lt;1\)</span>, the series is convergent.</p>
+<p><span class="math display">\[a = -40\]</span>
+<span class="math display">\[r = 0.96\]</span></p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{-40}{1-0.96} ~=~ -1000\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p>If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math inline">\(\lim\limits_{n\to\infty}1-r^n = 1\)</span>, because repeated multiplication of a <a href="https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions">proper fraction</a> creates numbers closer and closer to 0.</p>
+<p>So, if <span class="math inline">\(|r|&lt;1\)</span>, then</p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} \]</span></p>
+<p>Find the sum of the following geometric series (with infinitely many terms).</p>
+<p><span class="math display">\[0.6~-~0.534~+~0.47526~-~\ldots\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-0.534}{0.6} = -0.89\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{0.47526}{-0.534} ~=~ -0.89\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-0.89| ~=~ 0.89\]</span></p>
+<p>Because <span class="math inline">\(|r|&lt;1\)</span>, the series is convergent.</p>
+<p><span class="math display">\[a = 0.6\]</span>
+<span class="math display">\[r = -0.89\]</span></p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{0.6}{1--0.89} ~=~ 0.3174603\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p>If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math inline">\(\lim\limits_{n\to\infty}1-r^n = 1\)</span>, because repeated multiplication of a <a href="https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions">proper fraction</a> creates numbers closer and closer to 0.</p>
+<p>So, if <span class="math inline">\(|r|&lt;1\)</span>, then</p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} \]</span></p>
+<p>Find the sum of the following geometric series (with infinitely many terms).</p>
+<p><span class="math display">\[-5~-~5.2~-~5.408~-~\ldots\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-5.2}{-5} = 1.04\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-5.408}{-5.2} ~=~ 1.04\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |1.04| ~=~ 1.04\]</span></p>
+<p>Because <span class="math inline">\(|r|&lt;1\)</span>, the series is convergent.</p>
+<p><span class="math display">\[a = -5\]</span>
+<span class="math display">\[r = 1.04\]</span></p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{-5}{1-1.04} ~=~ 125\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p>If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math inline">\(\lim\limits_{n\to\infty}1-r^n = 1\)</span>, because repeated multiplication of a <a href="https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions">proper fraction</a> creates numbers closer and closer to 0.</p>
+<p>So, if <span class="math inline">\(|r|&lt;1\)</span>, then</p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} \]</span></p>
+<p>Find the sum of the following geometric series (with infinitely many terms).</p>
+<p><span class="math display">\[-0.7~-~0.798~-~0.90972~-~\ldots\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-0.798}{-0.7} = 1.14\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{-0.90972}{-0.798} ~=~ 1.14\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |1.14| ~=~ 1.14\]</span></p>
+<p>Because <span class="math inline">\(|r|&lt;1\)</span>, the series is convergent.</p>
+<p><span class="math display">\[a = -0.7\]</span>
+<span class="math display">\[r = 1.14\]</span></p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{-0.7}{1-1.14} ~=~ 5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A convergent infinite geometric series has a finite sum. First, remember the geometric series formula:</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p>If <span class="math inline">\(|r|&lt;1\)</span>, then <span class="math inline">\(\lim\limits_{n\to\infty}1-r^n = 1\)</span>, because repeated multiplication of a <a href="https://en.wikipedia.org/wiki/Fraction#Proper_and_improper_fractions">proper fraction</a> creates numbers closer and closer to 0.</p>
+<p>So, if <span class="math inline">\(|r|&lt;1\)</span>, then</p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} \]</span></p>
+<p>Find the sum of the following geometric series (with infinitely many terms).</p>
+<p><span class="math display">\[900~-~999~+~1108.89~-~\ldots\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Determine the common ratio by dividing the second term by the first term.</p>
+<p><span class="math display">\[r = \frac{-999}{900} = -1.11\]</span></p>
+<p>Notice, this is the same as the ratio of the third and second terms.</p>
+<p><span class="math display">\[r ~=~ \frac{1108.89}{-999} ~=~ -1.11\]</span></p>
+<p>Determine the absolute value of the common ratio.</p>
+<p><span class="math display">\[|r| ~=~ |-1.11| ~=~ 1.11\]</span></p>
+<p>Because <span class="math inline">\(|r|&lt;1\)</span>, the series is convergent.</p>
+<p><span class="math display">\[a = 900\]</span>
+<span class="math display">\[r = -1.11\]</span></p>
+<p><span class="math display">\[S_{\infty} ~=~ \frac{a}{1-r} ~=~ \frac{900}{1--1.11} ~=~ 426.5402844\]</span></p>
+<br/>
+</div></li>
+</ol>
+</body>
+</html>
+
