@@ -4,7 +4,10 @@ outdir = "./"
 genname = "018"
 probs = c("01_geometric_sum.Rmd",
           "02_geometric_convergence.Rmd",
-          "03_geometric_series_infinite.Rmd")
+          "03_geometric_series_infinite.Rmd",
+          "04_fractal_lines.Rmd",
+          "05_fractal_lines_finite_inf.Rmd",
+          "06_fractal_area.Rmd")
 
 nvers = 10
 ps = character(0)
