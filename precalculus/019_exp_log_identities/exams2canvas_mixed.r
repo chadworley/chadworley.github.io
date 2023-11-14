@@ -28,6 +28,9 @@ for(i in 1:length(probs)){
                cloze = list(enumerate = FALSE))
 }
 
+probs = list(probs)
+probs = rep(probs,10)
+
 exams2canvas(probs,
                n=n,
                dir=outdir,
