@@ -1,0 +1,77 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+while(T){
+  xs = sample(c(-10:-1,1:10),3)
+  ys = sample(c(-10:-1,1:10),2)
+  x1 = sort(xs[1:2])[1]
+  x2 = sort(xs[1:2])[2]
+  y1 = ys[1]
+  y2 = ys[2]
+  x3 = xs[3]
+  m = (y2-y1)/(x2-x1)
+  b = y1-m*x1
+  y3 = m*(x3-x1)+y1
+  if(abs(y3)<20){break}
+}
+```
+
+
+Question
+========
+
+A line goes through two points: (`r x1`, `r y1`) and (`r x2`, `r y2`).
+
+On the same line, if $x=`r x3`$, then what is $y$? In other words, a third point on the line is (`r x3`, $y_3$), and your goal is to find $y_3$.
+
+The tolerance is $\pm 0.01$.
+
+Solution
+========
+
+Find the slope.
+
+$$m = \frac{y_2-y_1}{x_2-x_1}$$
+$$m = \frac{(`r y2`)-(`r y1`)}{(`r x2`)-(`r x1`)}$$
+
+$$m=`r m`$$
+
+Find the $y$-intercept of the line ($b$) by using slope-intercept form and the first point.
+
+$$y = mx+b$$
+
+$$`r y1` = (`r m`)(`r x1`)+b $$
+
+$$`r y1` = `r m*x1`+b $$
+
+Subtract `r m*x1` from both sides.
+
+$$`r y1-m*x1` = b$$
+
+So the $y$-intercept equals $b=`r b`$.
+
+Now, plug in the third $x$ value.
+
+$$y = mx+b$$
+
+$$y_3 = (`r m`)(`r x3`)+(`r b`)$$
+
+$$y_3 = `r y3`$$
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+par(pty="s")
+xx = seq(-20,20,1)
+yy = m*xx+b
+plot(xx,yy,type="l",xlim=c(-20,20),ylim=c(-20,20),lwd=2,ylab="y",xlab="x")
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+points(c(x1,x2,x3),c(y1,y2,y3))
+```
+\
+
+
+Meta-information
+============
+extype: num
+exsolution: `r y3`
+exname: find_third_point
+extol: 0.01
