@@ -4,7 +4,10 @@ outdir = "./"
 genname = "020"
 probs = c("01_solve_exponent.Rmd",
           "02_cooling_solve_time.Rmd",
-          "03_eulers_method_water.Rmd")
+          "03_eulers_method_water.Rmd",
+          "04_eulers_method_falling.Rmd",
+          "05_eulers_method_pop_grow.Rmd",
+          "06_eulers_method_pred_prey.Rmd")
 
 nvers = 10
 ps = character(0)
