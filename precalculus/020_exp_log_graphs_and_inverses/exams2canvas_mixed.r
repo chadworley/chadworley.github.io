@@ -4,7 +4,7 @@ outdir = "outcanvas"
 
 genname = "020"
 
-probs = c("06_eulers_method_pred_prey.Rmd")
+probs = c("04_eulers_method_falling.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
