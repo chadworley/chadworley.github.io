@@ -1,0 +1,50 @@
+```{r,echo=FALSE}
+dubtim = round(runif(1,2,8),1)
+k = round(log(2)/dubtim,2)
+A0 = round(runif(1,4,19),1)
+dbtm = log(2)/k
+```
+
+
+Question
+========
+
+At $t=0$ a population is $y(0)=`r A0`$ million. The population grows with the following rate equation (assuming $\Delta t$ is very small):
+$$\frac{\Delta y}{\Delta t} \approx `r k` y$$
+
+where $t$ has units of years, $y$ has units of millions, and $k$ has units of years$^{-1}$. The exact solution (using algebraic calculus instead of Euler's method) is an exponential function.
+
+$$y = `r A0`e^{`r k`t}$$
+
+What is the doubling time? (The tolerance is $\pm 0.2$ years.)
+
+
+Solution
+========
+
+You can graph the function (using either Euler's method or the provided function.) Find where the graph reaches twice the initial value.
+
+```{r,echo=F}
+t = seq(-1,10,0.01)
+y = A0*exp(k*t)
+plot(t,y,type="l",ylim=c(0,round(A0*3)),xlim=c(0,10),col="blue")
+abline(h=A0*2,col="red")
+abline(h=A0,col="red")
+text(9,A0*1.85,paste0("y = ",2*A0,collapse=""),col="red")
+text(9,A0*0.85,paste0("y = ",A0,collapse=""),col="red")
+abline(h=0)
+abline(v=0)
+abline(v=dbtm,col="darkgreen")
+text(dbtm+0.7,A0*0.2,paste0("x = ",round(dbtm,2)),col="darkgreen")
+```
+\
+
+The doubling time is `r dbtm` years.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r dbtm`
+exname: doubling_time_from_eq
+extol: 0.2

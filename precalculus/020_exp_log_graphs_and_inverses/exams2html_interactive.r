@@ -7,7 +7,15 @@ probs = c("01_solve_exponent.Rmd",
           "03_eulers_method_water.Rmd",
           "04_eulers_method_falling.Rmd",
           "05_eulers_method_pop_grow.Rmd",
-          "06_eulers_method_pred_prey.Rmd")
+          "06_eulers_method_pred_prey.Rmd",
+          "07_Nose_Hoover.Rmd",
+          "08_volume_of_rotation.Rmd",
+          "09_Lorenz_system.Rmd",
+          "10_Lorenz_attractor.Rmd",
+          "11_half_life_from_graph.Rmd",
+          "12_doubling_time_from_graph.Rmd",
+          "13_doubling_time_from_eq.Rmd",
+          "14_half-life_from_eq.Rmd")
 
 nvers = 10
 ps = character(0)
