@@ -1,0 +1,82 @@
+```{r,echo=FALSE}
+b = round(sample(c(seq(-4.5,-2,0.1),seq(2,4.5,0.1)),1),1)
+if(b<0){
+  sym = "-"
+} else {
+  sym = ""
+}
+B = exp(1/b)
+```
+
+
+Question
+========
+
+For [exponential functions](https://en.wikipedia.org/wiki/Exponential_function), a horizontal stretch is equivalent to a change of base. Consider the two functions below, where $g$ is equivalent to stretching $f$ horizontally by a factor $`r b`$:
+
+```{r,echo=FALSE,fig.dim=c(6,6)}
+par(pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(0,20),xlab="x",ylab="y")
+for(i in -15:22){
+  if(i%%5==0){
+    abline(h=i,lty=2)
+    abline(v=i,lty=2)
+  } else {
+    abline(h=i,lty=3)
+    abline(v=i,lty=3)
+  }
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+x = seq(-11,11,0.01)
+y = exp(x)
+lines(x,y,col="blue",lwd=4)
+x = seq(-11,11,0.01)
+y = exp(x/b)
+lines(x,y,col="red",lwd=4)
+legend(-10,20,c("y = f(x)","y = g(x)"),lwd=2,col = c("blue","red"))
+```
+\
+
+$$\begin{align}
+f(x) &= e^{x}\\\\
+g(x) &= e^{`r sym`x/`r abs(b)`}
+\end{align}$$
+
+Instead of using the horizontal stretch transformation, we could have used changed the base.
+
+$$g(x) = B^{x}$$
+
+where $B$ represents the new base.
+
+* Find $B$. The tolerance is $\pm 0.01$.
+
+
+
+Solution
+========
+
+It can be shown that $B = `r B`$. For all $x$:
+
+$$e^{`r sym`x/`r abs(b)`} = B^x $$
+
+Division is multiplication by a reciprocal and $a^{bc}\equiv \left(a^{b}\right)^c$.
+
+$$\left(e^{`r sym`1/`r abs(b)`}\right)^x = B^x $$
+
+Since the equation must hold for all values of $x$,
+
+$$e^{`r sym`1/`r abs(b)`} = B $$
+
+Evaluate.
+
+$$B = `r B`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r B`
+exname: exp_base_and_stretch_eq
+extol: 0.01

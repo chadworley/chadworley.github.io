@@ -15,7 +15,9 @@ probs = c("01_solve_exponent.Rmd",
           "11_half_life_from_graph.Rmd",
           "12_doubling_time_from_graph.Rmd",
           "13_doubling_time_from_eq.Rmd",
-          "14_half-life_from_eq.Rmd")
+          "14_half-life_from_eq.Rmd",
+          "15_exp_shift_stretch_equiv.Rmd",
+          "16_exp_base_and_stretch_eq.Rmd")
 
 nvers = 10
 ps = character(0)
