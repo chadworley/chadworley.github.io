@@ -5,13 +5,9 @@ genname = "015_linear"
 probs = c("01_arithmetic_seq_find_term.Rmd",
           "02_arithmetic_seq_find_index.Rmd",
           "03_arithmetic_seq_find_d.Rmd",
-          "04_arithmetic_seq_find_sum.Rmd",
-          "05_predict_with_trendline.Rmd",
-          "06_slope_intercept_system.Rmd",
-          "07_standard_form_system.Rmd",
-          "08_linear_programming.Rmd")
+          "04_arithmetic_seq_find_sum.Rmd")
 
-nvers = 10
+nvers = 1
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))

@@ -1,0 +1,73 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+sel = sample(1:5,1)
+types = c("exactly","less than","at most","more than","at least")
+syms = c("=","<","\\le",">","\\ge")
+ty = types[sel]
+sym = syms[sel]
+
+n = sample(7:10,1)
+p = round(runif(1,0.3,0.7),2)
+x = sample(3:(n-3),1)
+P1 = dbinom(x,n,p)
+P2 = pbinom(x-1,n,p)
+P3 = pbinom(x,n,p)
+P4 = 1-P3
+P5 = 1-P2
+P = c(P1,P2,P3,P4,P5)
+ans = P[sel]
+
+X = 0:n
+binom = dbinom(X,n,p)
+mydf = data.frame(X,binom)
+colnames(mydf) = c("x","P[X=x]")
+```
+
+Question
+========
+In some situation, each trial has `r p` probability of success. There will be `r n` trials. (Thus the number of successes will follow a [binomial distribution](https://en.wikipedia.org/wiki/Binomial_distribution){target="blank"}.)
+
+What is the probability that the number of successes is **`r ty`** $`r x`$.
+
+Solution
+========
+
+
+This is a binomial distribution, so use the appropriate formulas. $$P[X=x] ~=~ _n\text{C}_x \cdot p^x(1-p)^{n-x}$$ where $p$ is the probability of success on each trial, $x$ is a specific number of successes, $n$ is the number of trials, and $C$ is the combinations operator (so that ${_n}C_x = \frac{n!}{(n-x)! \, x!}$). Some people prefer using $q$ as the probability of failure, such that $q=1-p$.
+$$P[X=x] ~=~ _n\text{C}_x \cdot p^xq^{n-x}$$
+
+You can generate the probability distribution.
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+```{r tab1, results="asis", echo=F}
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+You will also need to add [mutually exclusive](https://en.wikipedia.org/wiki/Mutual_exclusivity){target="blank"} probabilities (when multiple $x$-values satisfy the probability's condition). It is also helpful to be aware of the [complement rule](https://en.wikipedia.org/wiki/Complementary_event#Complement_rule){target="blank"}.
+
+$$P(X`r sym``r x`) = `r ans`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: binomial
+extol: 0.01

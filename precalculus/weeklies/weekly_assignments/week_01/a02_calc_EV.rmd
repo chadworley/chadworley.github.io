@@ -1,0 +1,62 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+while(T){
+  X = sort(sample(0:9,4)*c(1,1,1,-1))
+  P = sample(1:4)/10
+  
+  mu = sum(X*P)
+  sig = sqrt(sum(P*(X-mu)^2))
+
+  if(mu < 0 && mu >- 2 && abs(mu)>0.02){
+    break
+  }
+}
+
+X2 = as.character(X)
+P2 = as.character(P)
+X3 = paste0(X2,sep="",collapse='\\*')
+P3 = paste0(P2,sep="",collapse='\\*')
+
+html = paste0("https://chadworley.github.io/cltsim.html?poss=",X3,"&wght=",P3)
+```
+
+
+Question
+========
+
+A lottery offers the following payout scheme:
+
+| profit | chance |
+|:---:|:---:|
+| `r X[1]` | `r P[1]` |
+| `r X[2]` | `r P[2]` |
+| `r X[3]` | `r P[3]` |
+| `r X[4]` | `r P[4]` |
+
+Calculate $\mu$, the [population mean](https://en.wikipedia.org/wiki/Expected_value#Random_variables_with_finitely_many_outcomes){target="_blank"}.
+
+$$\mu = \sum x_i \cdot p_i$$
+
+This formula tells you to multiply each profit by its chance, and then add up all those products.
+
+
+Solution
+========
+
+$$\mu = (`r X[1]`)(`r P[1]`)+(`r X[2]`)(`r P[2]`)+(`r X[3]`)(`r P[3]`)+(`r X[4]`)(`r P[4]`)$$
+
+$$\mu = `r X[1]*P[1]` + `r X[2]*P[2]` + `r X[3]*P[3]` + `r X[4]*P[4]`  $$
+
+$$\mu = `r mu` $$
+
+You could also use the app:
+
+[`r html`](`r html`)
+
+
+
+Meta-information
+================
+extype: num
+exsolution: `r mu`
+exname: calc_mu_easy
+extol: 0.01
