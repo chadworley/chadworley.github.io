@@ -1,0 +1,79 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+pa = 1:9
+while(T){
+  x1 = sort(c(1,sample(2:8,3),9))
+  f = sample(pa,5)
+  a = sample(x1,1)
+  x2 = sort(c(1,sample(2:8,3),9))
+  g = sample(pa,5)
+  b = sample(x2,1)
+  an1 = g[which(x2==f[which(x1==a)])]
+  an2 = f[which(x1==g[which(x2==b)])]
+  if(f[which(x1==a)] %in% x2 &&
+     g[which(x2==b)] %in% x1 &&
+     abs(f[5]-g[5]) > 2 &&
+     an1 != an2 &&
+     a != an1 &&
+     b != an2 &&
+     a != an2 &&
+     b != an1 &&
+     a != f[which(x1==a)] &&
+     b != g[which(x2==b)] &&
+     an1 != g[which(x2==b)] &&
+     an2 != f[which(x1==a)]
+     ){break}
+}
+
+al = paste0("* ",pa,"\n",collapse="")
+
+ans1 = paste0(1*(pa==an1),collapse="")
+ans2 = paste0(1*(pa==an2),collapse="")
+```
+
+Question
+========
+
+Let functions $f$ and $g$ be defined by the graph below.
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,10),ylim=c(0,10),lwd=2,ylab="y",xlab="x")
+for(j in seq(0,10,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+xspline(x1,f,shape=c(0,rep(-0.2,length(x1)-2),0),border = "blue",lwd=4)
+xspline(x2,g,shape=c(0,rep(-0.2,length(x1)-2),0),border = "red",lwd=4)
+text(x1[length(x1)]+0.4,f[length(x1)],"f",col="blue",cex=2)
+text(x2[length(x2)]+0.4,g[length(x2)],"g",col="red",cex=2)
+```
+\
+
+
+Evaluate the following:
+
+* $g(f(`r a`)) =$ ##ANSWER1##
+* $f(g(`r b`)) =$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+* $g(f(`r a`))=g(`r f[which(x1==a)]`)=`r an1`$
+* $f(g(`r b`))=f(`r g[which(x2==b)]`)=`r an2`$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r ans1`|`r ans2`
+exname: compose_graphs

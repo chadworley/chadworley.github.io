@@ -1,0 +1,40 @@
+```{r,echo=FALSE}
+options(scipen=99)
+P = sample(11:99,1)*10^sample(1:3,1)
+r = sample(2:9,1)/100
+t = sample(c(10,15,20,25,30),1)
+n = sample(c(2,3,4,6,12,52),1)
+A = P*(1+r/n)^(n*t)
+```
+
+Question
+========
+
+An investment earns [compound interest](https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding) with periodic compounding.
+
+* Principal = $P=`r P`$ USD
+* Nominal [annual interest rate](https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR) = $r~=~`r r` ~=~`r 100*r`\%$
+* Compounding frequency = $n=`r n`$ per year
+* Time = $t=`r t`$ years
+
+Calculate the amount, in USD, after `r t` years.
+
+$$A = P\left(1+\frac{r}{n}\right)^{\lfloor nt \rfloor}$$
+For the final amount, you can ignore the [floor](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions) function, as $nt$ is an integer. You can round to the nearest penny. (*Tolerance is $\pm 1$*)
+
+Solution
+========
+
+Notice the definition of $r$ is a bit tricky. Really, `r n` times per year the money grows by multiplication by $\left(1+\frac{`r r`}{`r n`}\right)$ which equals `r 1+r/n`. Over `r t` years, this multiplication occurs `r t*n` times.
+
+$$A ~=~ `r P` \cdot (`r 1+r/n`)^{`r n*t`} ~=~ `r round(A,2)`$$
+
+Each year, the money actually grows by multiplying by $\left(1+\frac{`r r`}{`r n`}\right)^{`r n`}$, which equals `r (1+r/n)^n`, which is more than the $`r 1+r`$ you might expect from $r$. In the US, credit cards will often state an APR, but compound monthly, so the [effective interest rate](https://en.wikipedia.org/wiki/Effective_interest_rate) is higher for long-term debt.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r A`
+extol: 1
+exname: compound_interest_periodic

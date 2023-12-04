@@ -1,0 +1,131 @@
+```{r data generation, echo = FALSE, results = "hide"}
+n = 3
+while(T){
+  while(T){
+    x = sort(sample(1:9,n))
+    y = sort(sample(1:9,n))
+    if(sample(0:1,1)==0){
+      y=rev(y)
+    }
+    if(min(diff(atan(diff(y)/diff(x))))>pi/6){break}
+  }
+  xi = y
+  yi = x
+  wxi1 = 10-x
+  wyi1 = 10-y
+  wxi2 = 10-x
+  wyi2 = y
+  wxi3 = x
+  wyi3 = 10-y
+  xs = list(xi,wxi1,wxi2,wxi3)
+  ys = list(yi,wyi1,wyi2,wyi3)
+  xa = list(x,xi,wxi1,wxi2,wxi3)
+  ya = list(y,yi,wyi1,wyi2,wyi3)
+  alldiff = TRUE
+  for(i in 1:4){
+    for(j in (i+1):5){
+      matches = 0
+      for(k in 1:n){
+        for(l in 1:n){
+          if(xa[[i]][k]==xa[[j]][l] && ya[[i]][k]==ya[[j]][l]){
+            matches = matches+1
+          }
+        }
+      }
+      if(matches>=n){alldiff=FALSE}
+    }
+  }
+  if(alldiff){break}
+}
+
+ord = sample(1:4)
+ans = paste0(1*(ord==1),collapse="")
+
+lets = c("A","B","C","D")
+whi = which(ord==1)
+correct_letter = lets[whi]
+```
+
+Question
+========
+
+The [one-to-one](https://en.wikipedia.org/wiki/Injective_function){target="_blank"} function $f$ is plotted below:
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,10),ylim=c(0,10),lwd=2,ylab="f(x)",xlab="x")
+for(j in seq(0,10,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+xspline(x,y,shape=c(0,rep(-0.2,length(x)-2),0),border = "blue",lwd=4)
+text(x[length(x)]+0.4,y[length(x)],"f",col="blue",cex=2)
+#abline(0,1,col="black",cex="0.5",lty=2)
+```
+\
+
+Which of the following red curves is a graph of the inverse function, $f^{-1}$?
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+for(i in 1:4){
+  cat(paste0("\n\n* ",lets[i],collapse=""))
+  par(pty="s")
+  plot(0,0,type="n",xlim=c(0,10),ylim=c(0,10),lwd=2,ylab="f(x)",xlab="x")
+  for(j in seq(0,10,1)){
+    abline(h=j,lty=3)
+    abline(v=j,lty=3)
+  }
+  abline(h=0,lwd=2)
+  abline(v=0,lwd=2)
+  xspline(x,y,shape=c(0,rep(-0.2,length(x)-2),0),border = "blue",lwd=2,lty=3)
+  xx = xs[[ord[i]]]
+  yy = ys[[ord[i]]]
+  xspline(xx,yy,shape=c(0,rep(-0.2,length(x)-2),0),lwd=3,border="red")
+}
+```
+\
+
+
+
+Answerlist
+--------
+* A
+* B
+* C
+* D
+
+
+
+
+Solution
+========
+
+The correct answer should have reflective symmetry across the $y=x$ line, also known as the 45$^\circ$ line.
+
+So, the correct answer is `r correct_letter`:
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+library(latex2exp)
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,10),ylim=c(0,10),lwd=2,ylab="f(x)",xlab="x")
+for(j in seq(0,10,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+xspline(x,y,shape=c(0,rep(-0.2,length(x)-2),0),border = "blue",lwd=2)
+abline(0,1,col="black",cex="0.5",lty=2)
+xspline(xi,yi,shape=c(0,rep(-0.2,length(x)-2),0),border = "red",lwd=2)
+```
+\
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r ans`
+exname: graph_inverse

@@ -1,0 +1,37 @@
+```{r,echo=FALSE}
+options(scipen=99)
+P = sample(11:99,1)*10^sample(1:3,1)
+r = sample(2:9,1)/100
+t = sample(c(10,15,20,25,30),1)
+#n = sample(c(2,3,4,6,12,52),1)
+#A = P*(1+r/n)^(n*t)
+A = P*exp(r*t)
+```
+
+Question
+========
+
+An investment earns compound interest with [continuous compounding](https://en.wikipedia.org/wiki/Compound_interest#Continuous_compounding).
+
+* Principal = $P=`r P`$ USD
+* Nominal [annual interest rate](https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR) = $r~=~`r r` ~=~`r 100*r`\%$
+* Compounding frequency = $n\to\infty$ per year
+* Time = $t=`r t`$ years
+
+Calculate the amount, in USD, after `r t` years.
+
+$$A ~=~ \lim_{n\to\infty} P\left(1+\frac{r}{n}\right)^{nt} ~=~ Pe^{rt}$$
+[Euler's number](https://en.wikipedia.org/wiki/E_(mathematical_constant)), $e$, is approximately `r exp(1)`. You can round to the nearest dollar. (*Tolerance is $\pm 1$*.)
+
+Solution
+========
+
+$$A ~=~ `r P` \cdot e^{(`r r`)(`r t`)} ~=~ `r round(A,2)`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r A`
+extol: 1
+exname: compound_interest_continuous

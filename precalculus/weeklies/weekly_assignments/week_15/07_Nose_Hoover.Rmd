@@ -1,0 +1,253 @@
+```{r,echo=FALSE}
+ords = list(c(1,2,3),
+            c(1,3,2),
+            c(2,1,3),
+            c(2,3,1),
+            c(3,1,2),
+            c(3,2,1))
+ord = sample(1:6)
+ord2 = ords[ord]
+xx = list()
+yy = list()
+zz = list()
+tt = list()
+col = list()
+dt = 0.1
+while(T){
+  allgood = T
+  x0s = sample(seq(-3,3,0.1),3)
+  indy = 0
+  for(o in ord){
+    indy = indy+1
+    x0 = x0s[ords[[o]][1]]
+    y0 = x0s[ords[[o]][2]]
+    z0 = x0s[ords[[o]][3]]
+    x = c(x0)
+    y = c(y0)
+    z = c(z0)
+    t = c(0)
+    for(i in 1:101){
+      dx = y[i]*dt
+      dy = (-x[i]+y[i]*z[i])*dt
+      dz = (1-y[i]^2)*dt
+      x = c(x,x[i]+dx)
+      y = c(y,y[i]+dy)
+      z = c(z,z[i]+dz)
+      t = c(t,t[i]+dt)
+      if(abs(x[i+1])>20 || abs(y[i+1])>20 || abs(z[i+1])>20){
+        allgood = F
+        break
+      }
+    }
+    if(allgood){
+      xx[[indy]] = x
+      yy[[indy]] = y
+      zz[[indy]] = z
+      tt[[indy]] = t
+      col[[indy]] = c("","","")
+      col[[indy]][x0s[1] == c(x0,y0,z0)] = "blue"
+      col[[indy]][x0s[2] == c(x0,y0,z0)] = "red"
+      col[[indy]][x0s[3] == c(x0,y0,z0)] = "orange"
+    } else {
+      break
+    }
+  }
+  if(allgood){break}
+}
+x0 = x0s[1]
+y0 = x0s[2]
+z0 = x0s[3]
+sol = paste0(1*(ord==1),collapse="")
+best = c("A","B","C","D","E","F")[ord==1]
+```
+
+
+Question
+========
+
+In the book "Chaos and Time-Series Analysis" by Julien Clinton Sprott, a simple system of differential equations is given. Research into this system was published by Nosé (1991) and Hoover (1995).
+
+$$\begin{align}
+\frac{\Delta x}{\Delta t} &= y \\\\
+\frac{\Delta y}{\Delta t} &= -x+yz \\\\
+\frac{\Delta z}{\Delta t} &= 1-y^2
+\end{align}$$
+
+Use these initial conditions:
+$$t_0 = 0$$
+$$x_0 = `r x0`$$
+$$y_0 = `r y0`$$
+$$z_0 = `r z0`$$
+
+Use Euler's method with a step size of $\Delta t = `r dt`$ to simulate until $t=`r dt*100`$. Plot $x$, $y$, and $z$ as functions of time, using blue, red, and orange respectively. Determine which plot matches your simulation.
+
+```{r,echo=F,fig.dim=c(6,10)}
+par(mfrow=c(4,2),mar=c(3,3,1,0))
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+legend(-1,1,c("x(t)","y(t)","z(t)"),col=c("blue","red","orange"),lwd=c(1,1,1),cex=3)
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+lets = c("A","B","C","D","E","F")
+for(i in 1:6){
+  x = xx[[i]]
+  y = yy[[i]]
+  z = zz[[i]]
+  t = tt[[i]]
+  minmin = min(c(x,y,z))
+  maxmax = max(c(x,y,z))
+  plot(t,x,type="l",ylim=c(minmin,maxmax),col=col[[i]][1],main=lets[i])
+  lines(t,y,col=col[[i]][2])
+  lines(t,z,col=col[[i]][3])
+}
+```
+\
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+* E
+* F
+
+
+
+Solution
+========
+
+The correct graph is **`r best`**.
+
+```{r,echo=F,fig.dim=c(6,6)}
+theone = sum((1:6)[1==ord])
+x = xx[[theone]]
+y = yy[[theone]]
+z = zz[[theone]]
+t = tt[[theone]]
+minmin = min(c(x,y,z))
+maxmax = max(c(x,y,z))
+plot(t,x,type="l",col="blue",ylim=c(minmin,maxmax),ylab=c("x, y, z"))
+lines(t,y,type="l",col="red")
+lines(t,z,type="l",col="orange")
+```
+\
+
+In each round, to calculate the deltas:
+
+$$\begin{align}
+\Delta x &= y \cdot \Delta t \\\\
+\Delta y &= (-x+yz)\cdot \Delta t \\\\
+\Delta z &= (1-y^2)\cdot \Delta t
+\end{align}$$
+
+Your spreadsheet should give these values:
+
+<style>
+table.brd td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd th{
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd {
+  border: 3px solid black;
+}
+</style>
+
+<table class="brd">
+  <tr>
+    <th>$t$</th> 
+    <th>$x$</th> 
+    <th>$y$</th> 
+    <th>$z$</th>
+    <th>$\Delta t$</th>
+    <th>$\Delta x$</th>
+    <th>$\Delta y$</th>
+    <th>$\Delta z$</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>`r x[1]`</td>
+    <td>`r y[1]`</td>
+    <td>`r z[1]`</td>
+    <td> `r dt` </td>
+    <td>`r x[2]-x[1]`</td>
+    <td>`r y[2]-y[1]`</td>
+    <td>`r z[2]-z[1]`</td>
+  </tr>
+  <tr>
+    <td>`r t[2]`</td>
+    <td>`r x[2]`</td>
+    <td>`r y[2]`</td>
+    <td>`r z[2]`</td>
+    <td> `r dt` </td>
+    <td>`r x[3]-x[2]`</td>
+    <td>`r y[3]-y[2]`</td>
+    <td>`r z[3]-z[2]`</td>
+  </tr>
+  <tr>
+    <td>`r t[3]`</td>
+    <td>`r x[3]`</td>
+    <td>`r y[3]`</td>
+    <td>`r z[3]`</td>
+    <td> `r dt` </td>
+    <td>`r x[4]-x[3]`</td>
+    <td>`r y[4]-y[3]`</td>
+    <td>`r z[4]-z[3]`</td>
+  </tr>
+  <tr>
+    <td>`r t[4]`</td>
+    <td>`r x[4]`</td>
+    <td>`r y[4]`</td>
+    <td>`r z[4]`</td>
+    <td> `r dt` </td>
+    <td>`r x[5]-x[4]`</td>
+    <td>`r y[5]-y[4]`</td>
+    <td>`r z[5]-z[4]`</td>
+  </tr>
+  <tr>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+  </tr>
+  <tr>
+    <td>`r t[100]`</td>
+    <td>`r x[100]`</td>
+    <td>`r y[100]`</td>
+    <td>`r z[100]`</td>
+    <td> `r dt` </td>
+    <td>`r x[101]-x[100]`</td>
+    <td>`r y[101]-y[100]`</td>
+    <td>`r z[101]-z[100]`</td>
+  </tr>
+  <tr>
+    <td>`r t[101]`</td>
+    <td>`r x[101]`</td>
+    <td>`r y[101]`</td>
+    <td>`r z[101]`</td>
+    <td> `r dt` </td>
+    <td>`r x[102]-x[101]`</td>
+    <td>`r y[102]-y[101]`</td>
+    <td>`r z[102]-z[101]`</td>
+  </tr>
+</table>
+
+In a Google spreadsheet, highlight the columns of $t$, $x$, $y$, and $z$. Then `Insert` a `Chart`. Make sure to choose a `Line Chart` for the chart type. Also, make sure to use the first column (with $t$ values) as labels. Google spreadsheets should default to using blue, red, and orange for the lines by default.
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: Nose_Hoover
+extol: 0.01
