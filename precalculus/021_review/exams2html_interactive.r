@@ -9,7 +9,8 @@ probs = c("01_check_complex_solution.Rmd",
           "05_check_for_independence.Rmd",
           "06_which_is_decay.Rmd",
           "07_two-step_inverse_alg.Rmd",
-          "08_which_has_complex_sol.Rmd")
+          "08_which_has_complex_sol.Rmd",
+          "09_simplify_complex_fraction.Rmd")
 
 nvers = 10
 ps = character(0)

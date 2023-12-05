@@ -1,0 +1,131 @@
+```{r,echo=F}
+makez = function(a,b){
+  z = gsub("+-","-",paste0(a,"+",b,"i",collapse=""),fixed=T)
+  z = gsub("+1i","+i",z,fixed=T)
+  z = gsub("-1i","-i",z,fixed=T)
+  return(z)
+}
+gcd <- function(x,y) {
+  r <- x%%y;
+  return(ifelse(r, gcd(y, r), y))
+}
+while(T){
+  cf = sample(1:9,4)*sample(c(-1,1),4,T)
+  a = cf[1]
+  b = cf[2]
+  c = cf[3]
+  d = cf[4]
+  dag = gcd(gcd(a,b),gcd(c,d))
+  a = round(a/dag)
+  b = round(b/dag)
+  c = round(c/dag)
+  d = round(d/dag)
+  zn = makez(a,b)
+  zd = makez(c,d)
+  R = a*c+b*d
+  I = b*c-a*d
+  D = c^2+d^2
+  gcd1 = gcd(R,D)
+  gcd2 = gcd(I,D)
+  gcd3 = gcd(gcd1,gcd2)
+  nr = R/gcd3
+  ni = I/gcd3
+  ad = D/gcd3
+  an = makez(nr,ni)
+  if(max(abs(c(nr,ni,ad)))<21 && min(abs(c(nr,ni,ad)))>1){break}
+}
+if(ad<0){
+  nr = -nr
+  ni = -ni
+  ad = -ad
+  an = makez(nr,ni)
+}
+
+poss = -20:20
+al = paste0("* ",poss,"\n",collapse="")
+sol1 = paste0(1*(nr==poss),collapse="")
+sol2 = paste0(1*(ni==poss),collapse="")
+sol3 = paste0(1*(ad==poss),collapse="")
+
+zc = makez(c,-d)
+
+nnn = paste0("(",a,")(",c,")+(",a,")(",-d,")i+(",b,")(",c,")i+(",b,")(",-d,")i^2")
+ddd = paste0("(",c,")(",c,")+(",c,")(",-d,")i+(",d,")(",c,")i+(",d,")(",-d,")i^2")
+
+nnn2 = paste0("(",a*c,")+(",-a*d,")i+(",b*c,")i+(",-b*d,")(-1)")
+ddd2 = paste0("(",c*c,")+(",-c*d,")i+(",d*c,")i+(",-d*d,")(-1)")
+
+n2 = makez(a*c+b*d,-a*d+b*c)
+d2 = makez(c*c+d*d,0)
+
+tt1 = a*c+b*d
+tt2 = -a*d+b*c
+tt3 = c*c+d*d
+
+tg = gcd(tt1,gcd(tt2,tt3))
+
+d2b = c*c+d*d
+
+```
+
+Question
+========
+
+Simplify the quotient of complex numbers by rationalizing the denominator.
+
+$$\frac{`r zn`}{`r zd`}$$
+
+Your answer (when simplified) will have the form $$\frac{a+bi}{c}$$  If $c>0$, what are the values of $a$, $b$, and $c$?
+
+
+* $a=$ ##ANSWER1##
+* $b=$ ##ANSWER2##
+* $c=$ ##ANSWER3##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+Multiply the numerator and denominator by the conjugate of the denominator.
+
+$$\frac{`r zn`}{`r zd`} \cdot \frac{`r zc`}{`r zc`}$$
+
+FOIL the numerator and denominator.
+
+$$\frac{`r nnn`}{`r ddd`}$$
+
+
+
+Remember, $i^2=-1$.
+
+$$\frac{`r nnn2`}{`r ddd2`} $$
+
+Combine like terms.
+
+$$\frac{`r n2`}{`r d2`}$$
+
+The denominator is now real, because $0i=0$.
+
+$$\frac{`r n2`}{`r d2b`}$$
+
+The greatest common factor of `r tt1` and `r tt2` and `r tt3` is `r abs(tg)`. So, you can divide the numerator and denominator by `r sign(tt3)*abs(tg)`. 
+
+$$\frac{`r an`}{`r ad`}$$
+
+Thus, $a=`r nr`$ and $b=`r ni`$ and $c=`r ad`$.
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: simplify_complex_fraction
