@@ -1,0 +1,67 @@
+```{r,echo=F}
+hd = sample(10:30,1)*10
+vd = sample(1:6,1)*10
+ls = round(runif(1,2,4),1)
+ss = round(runif(1,0.8,1.9),1)
+
+xx = seq(0,hd,0.01)
+tt = xx/ls+sqrt((hd-xx)^2+vd^2)/ss
+
+tmin = min(tt)
+xmin = xx[tt==tmin]
+```
+
+Question
+========
+
+A lifeguard wants to get to a struggling swimmer as soon as possible. The lifeguard can run along the beach at `r ls` m/s and swim at `r ss` m/s. The lifeguard will run $x$ meters and swim $\sqrt{(`r hd`-x)^2+`r vd`^2}$ meters.
+
+```{r,echo=F}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",axes=F,ann=F,xlim=c(0,1),ylim=c(0,1))
+t = seq(0,1,0.01)
+polygon(c(0,0,t,1,1),c(0,0.2,sin(10*pi*t)/150+0.2,0.2,0),col=rgb(0.9,0.9,0.3),border = NA)
+polygon(c(0,0,t,1,1),c(1,0.2,sin(10*pi*t)/150+0.2,0.2,1),col=rgb(0.7,0.7,1),border= NA)
+lines(c(0.1,0.6,0.9),c(0.19,0.19,0.7),col="red",lwd=4)
+lines(c(0.6,0.9,0.9),c(0.19,0.19,0.7),lty=3,col="red",lwd=3)
+points(0.1,0.19,cex=2,pch=21,col="black",bg="red")
+points(0.9,0.7,cex=2,pch=21,col="black",bg="purple")
+lines(c(0.1,0.1,0.9,0.9),c(0.13,0.1,0.1,0.13))
+text(0.5,0.05,paste(hd," m",collapse=""))
+text(0.35,0.25,"x",col="red",cex=1.5)
+lines(c(0.93,0.95,0.95,0.93),c(0.19,0.19,0.7,0.7))
+text(0.97,0.45,paste(vd," m",collapse=""),srt=90)
+text(0.1,0.25,"lifeguard",col="red")
+text(0.9,0.75,"swimmer",col="purple")
+```
+\
+
+Thus, the time is a function of $x$.
+
+$$t(x) ~=~ \frac{x}{`r ls`} + \frac{\sqrt{(`r hd`-x)^2+`r vd`^2}}{`r ss`}$$
+
+Find the value of $x$ (in meters) that minimizes the amount of time. The tolerance is $\pm 0.1$ meters.
+
+Solution
+========
+
+Use a graphing utility to find the minimum.
+
+```{r,echo=F}
+xx = seq(0,hd,0.1)
+tt = xx/ls+sqrt((hd-xx)^2+vd^2)/ss
+plot(xx,tt,type="l",ylim=c(0,max(tt)),xlab="x (meters)",ylab="t (seconds)")
+points(xmin,tmin,pch=20,col="red")
+text(xmin-10,tmin*0.8,paste0("(",xmin,", ",round(tmin,2),")",collapse=""),col="red")
+```
+\
+
+So the optimal value of $x$ equals `r xmin` in order to get to the struggling swimmer as quickly as possible.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r xmin`
+exname: which_has_complex_sol
+extol: 0.1

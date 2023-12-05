@@ -1,0 +1,109 @@
+```{r,echo=F}
+isind = sample(c(T,F),1)
+
+if(isind){
+  sol = "10"
+  sym = "="
+  wrd = "independent"
+} else {
+  sol = "01"
+  sym = "\\ne"
+  wrd = "dependent"
+}
+
+while(T){
+  tot = 100
+  pa = sample(20:80,1)/100
+  pb = sample(20:80,1)/100
+  if(isind){
+    pbga = pb
+  } else {
+    pbga = pb+sample(2:5,1)*sample(c(-1,1),1)/100
+  }
+  pnbga = 1-pbga
+  AT = tot*pa
+  NAT = tot-AT
+  BT = tot*pb
+  NBT = tot-BT
+  ab = AT*pbga
+  nab = BT-ab
+  anb = AT*pnbga
+  nanb = tot-ab-nab-anb
+  if(round(ab)==ab && round(nab)==nab && 
+     round(anb)==anb && round(nanb)==nanb &&
+     length(unique(c(ab,nab,anb,nanb)))==4
+     ){
+    break
+  }
+}
+```
+
+
+
+Question
+========
+
+<style>
+table td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table th{
+  border: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table {
+  border: 3px solid black;
+}
+</style>
+
+Below is a 2-way table expressing [joint probabilities](https://en.wikipedia.org/wiki/Joint_probability_distribution).
+
+|   |   A   | not A |
+|:---:|:---:|:---:|
+|B | `r ab`\% | `r nab`\% |
+| not B| `r anb`\% | `r nanb`\% |
+
+So, 
+
+$$\begin{align}
+P(A \text{ and }B) &= `r ab/100` \\
+P(A \text{ and not }B) &= `r anb/100` \\
+P([\text{not }A] \text{ and }B) &= `r nab/100` \\
+P([\text{not }A] \text{ and [not }B]) &= `r nanb/100` \\
+\end{align}$$
+
+Are events $A$ and $B$ independent?
+
+Answerlist
+--------
+
+* Yes, events A and B are independent.
+* No, events A and B are dependent.
+
+
+Solution
+========
+
+First, find $P(A)$.
+$$P(A) ~=~ `r ab/100`+`r anb/100` ~=~`r ab/100+anb/100`$$
+
+Find $P(B)$.
+$$P(B) ~=~ `r ab/100`+`r nab/100` ~=~`r ab/100+nab/100`$$
+
+
+Next, find $P(A\text{ given }B)$.
+$$P(A|B) ~=~ \frac{P(A\text{ and }B)}{P(B)} ~=~ \frac{`r ab/100`}{`r ab/100+nab/100`} ~=~ `r ab/(ab+nab)`$$
+
+Compare $P(A)$ and $P(A|B)$. The events $A$ and $B$ are independent if and only if $P(A)=P(A|B)$.
+$$`r ab/100+anb/100` ~`r sym`~ `r ab/(ab+nab)`$$
+So, $A$ and $B$ are `r wrd`.
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: check_for_independence
