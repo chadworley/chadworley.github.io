@@ -18,8 +18,7 @@ genname = "021"
 #           "08_which_has_complex_sol.Rmd",
 #           "09_simplify_complex_fraction.Rmd")
 
-probs = c("09_simplify_complex_fraction.Rmd",
-          "10_pH.Rmd")
+probs = c("11_logarithmic_form.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
