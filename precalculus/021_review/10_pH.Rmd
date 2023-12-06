@@ -1,0 +1,71 @@
+```{r,echo=F}
+roundnum = 3
+a = sample(2:9,1)
+b = sample(-1:-13,1)
+A = round(log10(a),roundnum)
+```
+
+Question
+========
+
+In Chemistry, the pH is used to measure the acidity of a solution. The pH is calculated from the concentration of hydrogen ions (in moles per liter).
+
+$$\mathrm{pH} = -\log_{10}\big(\left[\mathrm{H^{+}}\right]\big)$$
+
+The table below lists the (rounded) base-10 logarithm of integers between 1 and 9.
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab2, results="asis", echo=F}
+mydf2 = data.frame(1:9,round(log10(1:9),roundnum))
+colnames(mydf2) = c("$x$","$\\log_{10}(x)$")
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+If the concentration of hydrogen ions is $\left[\mathrm{H^{+}}\right]=`r a`\cdot 10^{`r b`}$ moles per liter, what is the pH? Please use the table, and do not round your answer any more than the table already has.
+
+
+Solution
+========
+
+Plug that concentration into the pH formula.
+
+$$\mathrm{pH} = -\log_{10}\left(`r a`\cdot 10^{`r b`}\right)$$
+
+Remember that a log of a product equals a sum of logs.
+
+$$\mathrm{pH} = -\left(\log_{10}(`r a`)+\log_{10}\left(10^{`r b`}\right)\right)$$
+
+Use that table. Also, $\log_{10}(10^p)\equiv p$ for all $p$. So,
+
+$$\mathrm{pH} = -\left(`r A`+(`r b`)\right)$$
+
+Distribute the negative.
+
+$$\mathrm{pH} = -`r A`+`r -b`$$
+
+Evaluate $`r -b`-`r A`$.
+
+$$\mathrm{pH} = `r -A-b`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r -A-b`
+exname: pH
