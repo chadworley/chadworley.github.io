@@ -12,7 +12,8 @@ probs = c("01_check_complex_solution.Rmd",
           "08_which_has_complex_sol.Rmd",
           "09_simplify_complex_fraction.Rmd",
           "10_pH.Rmd",
-          "11_logarithmic_form.Rmd")
+          "11_logarithmic_form.Rmd",
+          "12_Venn_probs.Rmd")
 
 nvers = 10
 ps = character(0)

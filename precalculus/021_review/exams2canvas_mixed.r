@@ -16,9 +16,12 @@ genname = "021"
 #           "06_which_is_decay.Rmd",
 #           "07_two-step_inverse_alg.Rmd",
 #           "08_which_has_complex_sol.Rmd",
-#           "09_simplify_complex_fraction.Rmd")
+#           "09_simplify_complex_fraction.Rmd",
+#           "10_pH.Rmd",
+#           "11_logarithmic_form.Rmd",
+#           "12_Venn_probs.Rmd")
 
-probs = c("11_logarithmic_form.Rmd")
+probs = c("12_Venn_probs.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)

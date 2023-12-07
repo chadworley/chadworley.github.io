@@ -1,0 +1,126 @@
+```{r,echo=F}
+isind = sample(c(T,F),1)
+
+while(T){
+  x = sample(3:50,4)
+  anb = x[1]
+  nab = x[2]
+  ab = x[3]
+  nanb = x[4]
+  N = sum(x)
+  PA = (anb+ab)/N
+  PB = (nab+ab)/N
+  PAnB = ab/N
+  PAuB = (anb+nab+ab)/N
+  PAgB = (ab)/(ab+nab)
+  PBgA = (ab)/(ab+anb)
+  answers = c(PA,PB,PAnB,PAuB,PAgB,PBgA)
+  aln = sort(unique(answers))
+  if(length(aln)<6){
+    others = c(min(c(anb,nab))/max(c(anb,nab)),
+               nanb/N,
+               anb/N,
+               nab/N)
+    aln = sort(c(aln,sample(others,6-length(aln))))
+  }
+  ii = (ab/(anb+ab) == (nab+ab)/sum(x))
+  if(ii == isind && min(diff(aln))>0.02){
+    break
+  }
+}
+qs = c("$P(B)=$",
+       "$P(C)=$",
+       "$P(B\\cap C)=$",
+       "$P(B\\cup C)=$",
+       "$P(B|C)=$",
+       "$P(C|B)=$")
+ord = sample(1:6)
+
+ql = paste0("* ",qs[ord]," ##ANSWER",1:6,"##\n",collapse="")
+al = paste0("* ",aln,collapse="\n")
+
+sol1 = paste0(1*(answers[ord[1]]==aln),collapse="")
+sol2 = paste0(1*(answers[ord[2]]==aln),collapse="")
+sol3 = paste0(1*(answers[ord[3]]==aln),collapse="")
+sol4 = paste0(1*(answers[ord[4]]==aln),collapse="")
+sol5 = paste0(1*(answers[ord[5]]==aln),collapse="")
+sol6 = paste0(1*(answers[ord[6]]==aln),collapse="")
+
+if(isind){
+  sol7 = "10"
+  statement = "So, yes, they are independent."
+} else {
+  sol7 = "01"
+  statement = "So, no, they are not independent."
+}
+
+
+```
+
+Question
+========
+
+In a school, there are `r sum(x)` students. Each student can be in bike club, crochet club, both, or neither. The amounts are represented in the Venn diagram below.
+
+```{r,echo=F,fig.dim=c(8,4)}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(0,1),axes=F,ann=F)
+th = seq(0,2*pi,pi/100)
+polygon(0.4*cos(th)-0.2,0.4*sin(th)+0.5,col=rgb(1,0,0,0.5),border="red")
+polygon(0.4*cos(th)+0.2,0.4*sin(th)+0.5,col=rgb(0,0,1,0.5),border="blue")
+lines(c(-1,-1,1,1,-1),c(0,1,1,0,0))
+text(-0.2,0.95,"bike",col="red",cex=2)
+text(0.2,0.95,"crochet",col="blue",cex=2)
+text(-0.4,0.5,anb,col="red",cex=2)
+text(0,0.5,ab,col="black",cex=2)
+text(0.4,0.5,nab,col="blue",cex=2)
+text(0.8,0.5,nanb,cex=2)
+```
+\
+
+Let $B$ represent the event that a randomly selected student is in bike club, and let $C$ represent the event that a random student is in crochet club.
+
+`r ql`
+* Are events $B$ and $C$ independent? ##ANSWER7##
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+* Yes, B and C are independent.
+* No, B and C are not independent.
+
+Solution
+========
+
+The three symbols (and related concepts) we are learning are:
+
+* [Intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)), [and](https://en.wikipedia.org/wiki/Logical_conjunction), $\cap$
+* [Union](https://en.wikipedia.org/wiki/Union_(set_theory)), [or](https://en.wikipedia.org/wiki/Logical_disjunction), $\cup$
+* [Conditional](https://en.wikipedia.org/wiki/Conditional_probability), given, $|$
+
+To calculate the probabilities (in a more organized order):
+
+* $P(B) = \frac{`r anb`+`r ab`}{`r N`} = `r PA`$
+* $P(C) = \frac{`r nab`+`r ab`}{`r N`} = `r PB`$
+* $P(B\cap C) = \frac{`r ab`}{`r N`} = `r PAnB`$
+* $P(B\cup C) = \frac{`r anb`+`r ab`+`r nab`}{`r N`} = `r PAuB`$
+* $P(B|C) = \frac{`r ab`}{`r ab`+`r nab`} = `r PAgB`$
+* $P(C|B) = \frac{`r ab`}{`r ab`+`r anb`} = `r PBgA`$
+
+The events are independent if and only if $P(B|C)~=~P(B)$. `r statement`
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`|`r sol6`|`r sol7`
+exname: Venn_probs
