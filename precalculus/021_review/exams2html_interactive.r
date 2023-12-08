@@ -13,7 +13,8 @@ probs = c("01_check_complex_solution.Rmd",
           "09_simplify_complex_fraction.Rmd",
           "10_pH.Rmd",
           "11_logarithmic_form.Rmd",
-          "12_Venn_probs.Rmd")
+          "12_Venn_probs.Rmd",
+          "13_resize_image_even_border.Rmd")
 
 nvers = 10
 ps = character(0)
