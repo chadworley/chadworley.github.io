@@ -14,7 +14,9 @@ probs = c("01_check_complex_solution.Rmd",
           "10_pH.Rmd",
           "11_logarithmic_form.Rmd",
           "12_Venn_probs.Rmd",
-          "13_resize_image_even_border.Rmd")
+          "13_resize_image_even_border.Rmd",
+          "14_divide_cubic_by_linear.Rmd",
+          "15_parabola_line_intersect.Rmd")
 
 nvers = 10
 ps = character(0)
