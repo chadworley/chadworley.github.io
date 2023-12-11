@@ -29,9 +29,10 @@ while(T){
   p2 = paste0("(",x2,", ",y2,")",collapse="")
   p3 = paste0("(",x3,", ",y3,")",collapse="")
   p4 = paste0("(",x4,", ",y4,")",collapse="")
+  pbad = paste0("(",y2,", ",x2,")",collapse="")
   ps = sample(c(p1,p2,p3,p4))
   sol = paste0(1*(ps==p1),collapse="")
-  if(!is.nan(yv1) && y2!=x2 && x3!=x1 && x3!=x2  && abs(yv1)<8 && abs(yi1)<8 && abs(yi2)<8 && sign(a)==sign(-yv1) && y3!=0 && y1!=0 && x3%%1==0 && abs(diff(c(x4,x3)))<5 && abs(diff(c(x4,x3)))>0 && length(unique(ps))==4){break}
+  if(!is.nan(yv1) && y2!=x2 && x3!=x1 && abs(yv1)<8 && abs(yi1)<8 && abs(yi2)<8 && sign(a)==sign(-yv1) && y3!=0 && y1!=0 && x3%%1==0 && abs(diff(c(x4,x3)))<5 && abs(diff(c(x4,x3)))>0 && length(unique(ps))==4 && sum(ps==pbad)==0){break}
 }
 
 ```
@@ -78,7 +79,20 @@ Answerlist
 Solution
 ========
 
-The correct answer is `r p1`. The other intersection point is (`r y2`, `r x2`), but that was not an option.
+When a linear equation is given in standard form, I typically graph by finding the intercepts: $(`r xint`, 0)$ and $(0, `r yint`)$. Notice,
+
+```{r, echo=F}
+lex1 = gsub("x",paste0("(",xint,")",collapse=""),linex,fixed=T)
+lex1 = gsub("y",paste0("(0)",collapse=""),lex1,fixed=T)
+lex2 = gsub("y",paste0("(",yint,")",collapse=""),linex,fixed=T)
+lex2 = gsub("x",paste0("(0)",collapse=""),lex2,fixed=T)
+```
+
+$$`r lex1`$$
+
+$$`r lex2`$$
+
+To connect the two points on the line, we recognize it has a slope of `r m`. We draw the line, and look at the two points of intersection. The correct answer is `r p1`. The other intersection point is (`r y2`, `r x2`), but that was not an option.
 
 ```{r,echo=F}
 par(mar=c(3,3,0,0),pty="s")

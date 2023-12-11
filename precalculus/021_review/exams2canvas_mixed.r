@@ -21,8 +21,7 @@ genname = "021"
 #           "11_logarithmic_form.Rmd",
 #           "12_Venn_probs.Rmd")
 
-probs = c("14_divide_cubic_by_linear.Rmd",
-          "15_parabola_line_intersect.Rmd")
+probs = c("15_parabola_line_intersect.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
