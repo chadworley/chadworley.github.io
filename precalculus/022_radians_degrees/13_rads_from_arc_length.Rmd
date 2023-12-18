@@ -37,12 +37,17 @@ al = paste0("* ",choices,"\n",collapse="")
 sol1 = paste0(1*(choices==radnum),collapse="")
 sol2 = paste0(1*(choices==radden),collapse="")
 
+arclength = paste0("\\frac{",anum,"\\pi}{",aden,"}",collapse="")
+if(aden==1){
+  arclength = paste0(anum,"\\pi",collapse="")
+}
+
 ```
 
 Question
 ========
 
-An arc is drawn along the circumference of a circle with a radius of `r r` meters. The arc's length is $\frac{`r anum`\pi}{`r aden`}$ radians. What is the arc's angle measure in radians?
+An arc is drawn along the circumference of a circle with a radius of `r r` meters. The arc's length is $`r arclength`$ meters. What is the arc's angle measure in radians?
 
 ```{r,echo=F,fig.dim=c(4,4)}
 library(latex2exp)
@@ -75,7 +80,7 @@ for(i in 1:length(shuch)){
   text((ra+0.1)*cos(th[len%/%2]),(ra+0.1)*sin(th[len%/%2]),
        TeX("$x$"),col="red")
   text(1.2*cos(th[len%/%2]),1.2*sin(th[len%/%2]),
-       TeX(paste0("\\frac{",anum,"\\pi}{",aden,"}")),col="purple")
+       TeX(paste0(arclength," m",collapse="")),col="purple")
 }
 ```
 \
@@ -105,6 +110,7 @@ $$x = \frac{`r anum`\pi}{`r aden` \cdot `r r`}$$
 
 $$x = \frac{`r rn`\pi}{`r radden`}$$
 
+Thus, $a = `r radnum`$ and $b=`r radden`$.
 
 
 Meta-information
