@@ -1,0 +1,93 @@
+```{r,echo=F}
+# 360 = 36*10 = 6*6*2*5 = 2^3*3^2*5
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+while(T){
+  deg = sample(30:350,1)
+  div = gcd(deg,360)
+  num = round(deg/div)
+  den = round(360/div)
+  r = sample(2:8,1)
+  shuch = list(c(0,deg/180*pi))
+  sol = r*2*pi*deg/360
+  anum = num*2*r
+  aden = den
+  div2 = gcd(anum,aden)
+  anum = round(anum/div2)
+  aden = round(aden/div2)
+  if(den>4 && den<20 && deg%%90 != 0 && aden!=1){break}
+}
+```
+
+Question
+========
+
+An arc is drawn along the circumference of a circle with a radius of `r r` meters. The arc's angle is `r deg` degrees. What is the arc's length in meters?
+
+```{r,echo=F,fig.dim=c(4,4)}
+library(latex2exp)
+par(pty="s")
+for(i in 1:length(shuch)){
+  par(mar=c(1,1,1,1),pty="s")
+  plot(0,0,type="n",ann=F,axes=F,xlim=c(-1,1),ylim=c(-1,1))
+  th = seq(0,2*pi,pi/100)
+  lines(cos(th),sin(th))
+  a1 = shuch[[i]][1]
+  a2 = shuch[[i]][2]
+  lines(c(0,cos(a1)),c(0,sin(a1)),col="blue",lwd=2)
+  text(0.5,-0.05,paste0(r," m"),col="blue")
+  lines(c(0,cos(a2)),c(0,sin(a2)))
+  len = 100
+  th = seq(a1,a2,(a2-a1)/len)
+  len = length(th)-1
+  lines(cos(th),sin(th),col="purple",lwd=2)
+  ra = 0.4-0.2*deg/360
+  lines(cos(th)*ra,sin(th)*ra,col="red",lwd=2)
+  arrows(ra*cos(th[len]),ra*sin(th[len]),
+         ra*cos(th[len+1]),ra*sin(th[len+1]),length=0.1,
+         col="red",lwd=2)
+  text((ra+0.1)*cos(th[len%/%2]),(ra+0.1)*sin(th[len%/%2]),paste0(deg,"°"),col="red")
+  text(0.9*cos(th[len%/%2]),0.9*sin(th[len%/%2]),TeX("$x$"),col="purple")
+}
+```
+\
+
+The tolerance is $\pm0.01$ meters.
+
+Solution
+========
+
+For reference, check out the wikipedia article on [central angles](https://en.wikipedia.org/wiki/Central_angle).
+
+First, find the total circumference.
+$$C = 2\pi r $$
+
+$$C = 2\pi\cdot`r r`$$
+
+$$C  =  `r 2*r`\pi$$
+
+Next, determine the fraction of the circle.
+
+$$\frac{`r deg`}{360} = \frac{`r num`}{`r den`}$$
+
+Find the fraction of the circumference.
+
+$$x = \frac{`r num`}{`r den`} \cdot `r 2*r`\pi$$
+
+Simplify.
+
+$$x = \frac{`r anum`\pi}{`r aden`}$$
+
+Evaluate the decimal approximation.
+
+$$x \approx `r sol`$$
+So the arc length is approximately `r sol` meters.
+
+Meta-information
+============
+extype: num
+exsolution: `r sol`
+exname: arc_length_degs
+extol: 0.01

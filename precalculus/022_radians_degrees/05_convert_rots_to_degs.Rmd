@@ -19,8 +19,8 @@ One rotation is equivalent to 360$^\circ$. Use this equivalence as a [conversion
 
 $$`r rots`~\mathrm{ rotations} \cdot \frac{360^\circ}{1~\mathrm{ rotation}} ~~=~~ `r degs`^\circ$$
 
-```{r,echo=F,fig.dim=c(4,8)}
-par(mfrow = c(2, 1))
+```{r,echo=F,fig.dim=c(4,4)}
+par(pty="s")
 for(i in 1:length(shuch)){
   par(mar=c(1,1,1,1),pty="s")
   plot(0,0,type="n",ann=F,axes=F,xlim=c(-1,1),ylim=c(-1,1))
@@ -31,9 +31,9 @@ for(i in 1:length(shuch)){
   lines(c(0,cos(a1)),c(0,sin(a1)),col="blue",lwd=3)
   lines(c(0,cos(a2)),c(0,sin(a2)),col="blue",lwd=3)
   len = 500
-  th = seq(a1,a2,(a2-a1)/len)
+  th = seq(a1,a2,length.out = len+1)
   if(abs(a2-a1)>2*pi){
-    r = seq(0.4,0.8,0.4/len)
+    r = seq(0.4,0.8,length.out = len+1)
   } else {
     r = 0.8
   }
