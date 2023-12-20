@@ -15,7 +15,8 @@ probs = c("01_standard_pos_deg.Rmd",
           "11_plot_coterminal_rads.Rmd",
           "12_large_angle_rad.Rmd",
           "13_rads_from_arc_length.Rmd",
-          "14_sector_area.Rmd")
+          "14_sector_area.Rmd",
+          "15_conical_ratio.Rmd")
 
 nvers = 10
 ps = character(0)

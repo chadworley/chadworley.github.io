@@ -1,0 +1,176 @@
+```{r,echo=F}
+# 360 = 36*10 = 6*6*2*5 = 2^3*3^2*5
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+R = sample(4:9,1)
+while(T){
+  den = sample(c(3,4,5,6,7,8,9),1)
+  num = sample(1:(2*den-1),1)
+  div = gcd2(den,num)
+  den = den/div
+  num = num/div
+  theta = num*pi/den
+  if(den>2 && theta>pi/2){break}
+}
+
+getfrac = function(n,d,nfac=""){
+  div3 = gcd2(n,d)
+  n = n/div3
+  d = d/div3
+  if(abs(n)>1 && abs(d)>1){
+    retval = paste0("\\frac{",n,nfac,"}{",d,"}",collapse="")
+  }
+  if(n==1 && abs(d)>1){
+    retval = paste0("\\frac{",nfac,"}{",d,"}",collapse="")
+  }
+  if(abs(n)>1 && abs(d)==1){
+    retval = paste0(n,nfac,collapse="")
+  }
+  if(n==1 && d==1 && nfac==""){
+    retval = "1"
+  }
+  if(n==1 && d==1 && nfac!=""){
+    retval = nfac
+  }
+  return(retval)
+}
+
+theta2 = paste0("\\frac{",num,"\\pi}{",den,"}",collapse="")
+L = R*theta
+L2 = getfrac(num*R,den,"\\pi")
+
+sa = R*L/2
+f = theta/2/pi
+r = R*f
+
+r2 = getfrac(num*R,den*2,"")
+
+h = sqrt(R^2-r^2)
+d = 2*r
+hor = h/r
+
+
+```
+
+Question
+========
+
+A circle with radius $R=`r R`$ ft is cut to a sector with an angle of $\theta=`r theta2`$ radians.
+
+```{r,echo=F,fig.dim=c(4,4)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",ann=F,axes=F,xlim=c(-1.3,1.3),ylim=c(-1.3,1.3))
+th = seq(0,2*pi,pi/100)
+lines(cos(th),sin(th))
+a1 = 0
+a2 = theta
+len = 100
+th = seq(0,a2,length.out=len+1)
+th2 = seq(a2,2*pi,length.out=len+1)
+polygon(c(0,cos(th2)),c(0,sin(th2)),col=rgb(0.1,0.1,0.1,0.2))
+text(0.7*cos(mean(c(a2,2*pi))),0.7*sin(mean(c(a2,2*pi))),
+     "discard",col=rgb(0.1,0.1,0.1))
+lines(c(0,cos(a1)),c(0,sin(a1)),col="blue",lwd=2)
+lines(c(0,cos(a2)),c(0,sin(a2)),col="blue",lwd=2)
+text(0.5,0.07,paste0("R"),col="blue")
+lines(cos(th),sin(th),col="purple",lwd=2)
+text(1.15*cos((a1+a2)/2),1.15*sin((a1+a2)/2),"L",col="purple")
+ra = 1/R
+lines(cos(th)*ra,sin(th)*ra,col="red",lwd=2)
+arrows(ra*cos(th[len]),ra*sin(th[len]),
+       ra*cos(th[len+1]),ra*sin(th[len+1]),length=0.05,
+       col="red",lwd=2)
+text((ra+0.1)*cos(th[len%/%2]),(ra+0.1)*sin(th[len%/%2]),
+     TeX("$\\theta$"),col="red")
+```
+\
+
+By connecting the initial side and terminal side, the sector is bent (in 3 dimensions) into a [right-circular cone](https://en.wikipedia.org/wiki/Cone) with height $h$ and radius $r$. Notice the cone's [slant height](https://en.wikipedia.org/wiki/Cone#Slant_height) equals the radius of the original circle ($R$) and the circumference of the cone matches the arc length ($L$) of the original circle.
+
+
+```{r,echo=F,fig.dim=c(3,3)}
+library(latex2exp)
+ppp = 1.3*3/4
+par(mar=c(0,0,0,0),pty="s")
+aaa = 0.05
+sizer = max(d,h)/2*(1+aaa)/R
+plot(0,0,type="n",ann=F,axes=F,xlim=c(-ppp,ppp),ylim=c(-ppp,ppp))
+th = seq(0,2*pi,length.out=100)
+lines(r/R*cos(th),-h/2/R+r/R*sin(th)*aaa,col="purple",lwd=2)
+lines(c(r/R,0),c(-h/2/R,h/2/R),lwd=2,col="blue")
+lines(c(-r/R,0),c(-h/2/R,h/2/R))
+lines(c(0,r/R),c(-h/2/R,-h/2/R),col="orange",lwd=2)
+lines(c(0,0,r/R,r/R),c(-h/2/R-0.15,-h/2/R-0.19,-h/2/R-0.19,-h/2/R-0.15),col="orange",lwd=1)
+text(r/2/R,-h/2/R-0.24,"r",col="orange")
+lines(c(0,0),c(-h/2/R,h/2/R),lwd=2,col="darkgreen")
+text(-0.05,0,"h",col="darkgreen")
+```
+\
+
+Find the ratio of the cone's height to the cone's radius.
+
+$$\frac{h}{r} ~=~ ?$$
+
+The tolerance is $\pm 0.01$.
+
+Solution
+========
+
+First, find the arc length.
+
+$$L ~=~ `r theta2` \cdot `r R` ~=~ `r L2`$$
+
+We know that a circle's circumference is twice its radius times $\pi$. Look at the circular base of the cone, and use the circumference formula to find its radius. Remember $L$ is the circumference of the cone's base.
+
+$$L=2\pi r$$
+
+Divide both sides by $2\pi$ and switch sides to get $r=\frac{L}{2\pi}$.
+
+$$r ~=~ \frac{L}{2\pi} ~=~ \frac{`r L2`}{2\pi}$$
+
+$$r ~=~ `r r2`$$
+
+To get the height of the cone, use [Pythagorean theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem), which states a right triangle with legs $a$ and $b$ and hypotenuse $c$ is constrained by $a^2+b^2=c^2$.
+
+$$\left(`r r2`\right)^2 + h^2 = (`r R`)^2$$
+
+Solve for $h$.
+
+$$h = \sqrt{(`r R`)^2-\left(`r r2`\right)^2}$$
+
+$$h\approx `r h`$$
+
+Find the ratio.
+
+$$\frac{h}{r} ~=~ \frac{\sqrt{(`r R`)^2-\left(`r r2`\right)^2}}{`r r2`}$$
+
+
+$$\frac{h}{r} \approx `r hor`$$
+
+### Fancy stuff
+
+With some thought, you might convince yourself that this ratio $\frac{h}{r}$ should be independent of the radius of the original circle. For example, if you measured the radius $R$ in inches (instead of feet), the $\frac{h}{r}$ ratio shouldn't change. Or if you doubled $R$, it seems $\frac{h}{r}$ should be the same.
+
+By approaching this problem more algebraically, you might reach some interesting insights. For example, if we define $f$ to be the fraction of the original circle.
+
+$$f = \frac{\theta}{2\pi}$$
+
+You can show that the ratio of radii also equals $f$.
+
+$$\frac{r}{R} = f$$
+
+Substituting $r=Rf$, you can generalize the formula to find $h$ in terms of $R$ and $f$:
+$$h ~=~ \sqrt{R^2-r^2} ~=~ \sqrt{R^2-(fR)^2} ~=~ R\sqrt{1-f^2}$$
+
+Using that information, you can derive a simple formula for $\frac{h}{r}$ that only depends on $f$.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r hor`
+exname: conical_ratio
+extol: 0.01

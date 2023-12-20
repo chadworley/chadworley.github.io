@@ -4,7 +4,7 @@ outdir = "outcanvas"
 
 genname = "022"
 
-probs = c("14_sector_area.Rmd")
+probs = c("15_conical_ratio.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
