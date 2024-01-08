@@ -1,0 +1,130 @@
+```{r,echo=F}
+while(T){
+  grad = round(runif(1,7,45),1)
+  if(grad != round(grad)){break}
+}
+rad = atan(grad/100)
+deg = rad/pi*180
+```
+
+Question
+========
+
+On steep streets, you may see signs that indicate the [grade](https://en.wikipedia.org/wiki/Grade_(slope)), which is usually shown as a percentage. The grade is equivalent to [slope](https://en.wikipedia.org/wiki/Slope), written as a percentage.
+
+The highest grade of the Ashuwillticook Rail Trail is 2.5%. The Mohawk Trail (Route 2), near the hairpin turn, has sections of 8% grade. Notch Road, heading up Mount Greylock, has grades as high as 12%. Circuit Road, below Berry Pond in Pittsfield State Forest, has a section of 16% grade. Thunderbolt Ski Trail's steepest section has 35% grade.
+
+```{r,fig.dim=c(6,6),echo=F}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+yel1 = rgb(1,0.9,0)
+th1 = seq(3*pi/4,5*pi/4,length.out=50)
+th2 = seq(5*pi/4,7*pi/4,length.out=50)
+th3 = seq(-pi/4,pi/4,length.out=50)
+th4 = seq(pi/4,3*pi/4,length.out=50)
+lr = 0.02
+polygon(c(-1+lr*cos(th1),
+          lr*cos(th2),
+          1+lr*cos(th3),
+          lr*cos(th4)),
+        c(lr*sin(th1),
+          -1+lr*sin(th2),
+          lr*sin(th3),
+          1+lr*sin(th4)),
+        col=yel1,border=F)
+rr = 0.96
+polygon(rr*c(-1+lr*cos(th1),
+          lr*cos(th2),
+          1+lr*cos(th3),
+          lr*cos(th4)),
+        rr*c(lr*sin(th1),
+          -1+lr*sin(th2),
+          lr*sin(th3),
+          1+lr*sin(th4)),col=yel1,lwd=3)
+dx = 1
+dy = 0.5
+m = dy/dx
+b = -0.05
+t = atan(m)
+polygon(c(-0.5,0.5,0.5),c(-0.3,-0.3,0.2),col="black",border=NA)
+wr = 0.05
+th = seq(0,2*pi,length.out=100)
+x1 = -0.4
+y1 = m*x1+b
+x1c = x1+wr*cos(pi/2+t)
+y1c = y1+wr*sin(pi/2+t)
+polygon(x1c+wr*cos(th),y1c+wr*sin(th),col="black",border=NA)
+x1 = -0.1
+y1 = m*x1+b
+x1c = x1+wr*cos(pi/2+t)
+y1c = y1+wr*sin(pi/2+t)
+polygon(x1c+wr*cos(th),y1c+wr*sin(th),col="black",border=NA)
+x1 = 0.4
+y1 = m*x1+b
+x1c = x1+wr*cos(pi/2+t)
+y1c = y1+wr*sin(pi/2+t)
+polygon(x1c+wr*cos(th),y1c+wr*sin(th),col="black",border=NA)
+x1 = -0.2
+y1 = m*x1+b
+x2 = 0.5
+y2 = m*x2+b
+h1 = 1.6
+h2 = 9
+x1c = x1+h1*wr*cos(pi/2+t)
+y1c = y1+h1*wr*sin(pi/2+t)
+x1d = x1+h2*wr*cos(pi/2+t)
+y1d = y1+h2*wr*sin(pi/2+t)
+x2c = x2+h1*wr*cos(pi/2+t)
+y2c = y2+h1*wr*sin(pi/2+t)
+x2d = x2+h2*wr*cos(pi/2+t)
+y2d = y2+h2*wr*sin(pi/2+t)
+polygon(c(x1c,x1d,x2d,x2c),c(y1c,y1d,y2d,y2c),
+        border=NA,col="black")
+
+xas = c(-0.5,-0.49,-0.47,-0.4,-0.32,-0.23,-0.23,-0.1,-0.1,-0.23,-0.23)
+has = c(1.2,3.6,4.1,4.1,6,6,1.9,1.9,1.6,1.6,1.2)
+yas = m*xas+b
+xa = xas+has*wr*cos(pi/2+t)
+ya = yas+has*wr*sin(pi/2+t)
+polygon(xa,ya,col="black",border=NA)
+text(0,-0.55,paste0(grad,"%"),cex=3)
+```
+\
+
+A grade of `r grad`% implies that for every 100 feet of horizontal travel (as seen on a map), the elevation changes by `r grad` feet. We wish to determine the angle of inclination (in degrees) of a `r grad`% grade.
+
+```{r,echo=F,fig.width=7}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(c(0,100,100,0),c(0,0,grad,0),type="l",asp=1,ann=F,axes=F,lwd=2)
+lines(c(96,96,100),c(0,4,4))
+text(50,2,"100")
+text(95,grad/2,grad)
+th = seq(0,rad,length.out=30)
+polygon(c(0,20*cos(th)),c(0,20*sin(th)),col=rgb(1,0.8,0.8),border=NA)
+lines(20*cos(th),20*sin(th),col="red",lwd=3)
+text(25*cos(rad/2),25*sin(rad/2),col="red",TeX("$\\theta^{\\circ}$"))
+```
+\
+
+Find $\theta$, the angle of inclination in degrees. The tolerance is $\pm0.1^\circ$.
+
+
+Solution
+========
+
+Remember to use DEGREE mode.
+
+$$\theta = \arctan\left(\frac{`r grad`}{100}\right)$$
+
+$$\theta \approx `r round(deg,1)`^\circ$$
+
+Humans tend to think terrain is much steeper than it truly is. It is tempting to think a hill is going up at a 45$^\circ$ angle, but this would be a 100% grade, much steeper than any public street in the world. The steepest public roads have angles of inclination under $`r round(atan(0.4)*180/pi)`^\circ$ (under 40% grade). Some examples: [Canton Avenue](https://en.wikipedia.org/wiki/Canton_Avenue) in Pennsylvania, [Baldwin Street](https://en.wikipedia.org/wiki/Baldwin_Street) in New Zealand, and [Ffordd_Pen_Llech](https://en.wikipedia.org/wiki/Ffordd_Pen_Llech) in North Wales.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r deg`
+exname: deg_from_grad
+extol: 0.1
