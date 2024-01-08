@@ -8,7 +8,8 @@ probs = c("01_trig_ratios_from_sides.Rmd",
           "04_plr_vect_add_simp.Rmd",
           "05_slope_from_angle.Rmd",
           "06_angle_from_gradient.Rmd",
-          "07_polar_to_rect.Rmd")
+          "07_polar_to_rect.Rmd",
+          "08_rect_to_polar.Rmd")
 
 nvers = 10
 ps = character(0)

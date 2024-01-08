@@ -30,13 +30,12 @@ while(T){
   if(gcd2(rdn,rnf)==1 && abs(x)>1.2 && abs(y)>1.2 &&
      abs(x)<4.5 && abs(y)<4.5 && round(r,1)!=r && sum(ac1==r)==1 && sum(ac2==t)==1){break}
 }
-
 ```
 
 Question
 ========
 
-A point on a Cartesian plane is denoted in [rectangular coordinates](https://en.wikipedia.org/wiki/Cartesian_coordinate_system):
+A point on a Cartesian plane is given in [rectangular coordinates](https://en.wikipedia.org/wiki/Cartesian_coordinate_system):
 $$x = `r xa`$$
 $$y=`r ya`$$
 
@@ -75,7 +74,7 @@ Answerlist
 Solution
 ========
 
-First, get the radius, using Pythagorean Theorem.
+First, get the radius, using [Pythagorean Theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem).
 
 $$r = \sqrt{(`r abs(xa)`)^2+(`r abs(ya)`)^2}$$
 
@@ -94,7 +93,7 @@ refnmrt = paste0(refnmr)
 if(refnmrt=="1"){refnmrt=""}
 ```
 
-We can use right-triangle trigonometry. Start by finding the [reference angle](https://courses.lumenlearning.com/csn-precalculus/chapter/reference-angles/) by using the arctan function with the quotient of the absolute values of the rectangular coordinates.
+Finding the [reference angle](https://courses.lumenlearning.com/csn-precalculus/chapter/reference-angles/) by using the arctan function with the quotient of the absolute values of the rectangular coordinates.
 
 $$\phi ~=~ \arctan\left(\frac{`r abs(ya)`}{`r abs(xa)`}\right)$$
 
@@ -119,36 +118,29 @@ text(x,y+sign(y)/2,"(x,y)",col="purple")
 ```
 
 
-Remember, $r=`r r`$. Use trigonometry to calculate the lengths of the right triangle.
-
-$$|x| ~=~ `r r`\cos\left(\frac{`r refnmrt`\pi}{`r rdn`}\right) ~=~ `r r*cos(abs(t-t2))`$$
-
-$$|y| ~=~ `r r`\sin\left(\frac{`r refnmrt`\pi}{`r rdn`}\right) ~=~ `r r*sin(abs(t-t2))`$$
-
 ```{r,echo=FALSE}
 qn = t%/%(pi/2)+1
+qstr = c("I","II","III","IV")[qn]
+if(qn==2){
+  addstr = "find the difference of $\\pi$ minus $\\phi$"
+  mathop = "\\theta = \\pi-\\phi"
+}
+if(qn==3){
+  addstr = "add $\\pi$ and $\\phi$"
+  mathop = "\\theta = \\pi+\\phi"
+}
+if(qn==4){
+  addstr = "find the difference of $2\\pi$ minus $\\phi$"
+  mathop = "\\theta = 2\\pi-\\phi"
+}
 ```
 
-Since we are in quadrant `r qn`, we know the signs of $x$ and $y$.
+**Because the point is in quadrant `r qstr`**, we `r addstr` to get $\theta$.
+$$`r mathop`$$
 
-$$x = `r x`$$
+$$\theta\approx`r t`$$
 
-$$y = `r y`$$
-
-If you round to the hundredths place:
-
-$$x = `r xa`$$
-$$y = `r ya`$$
-
-### Another approach
-
-It turns out that the trigonometric functions are defined for all angles (not just acute angles). The way they are defined actually makes this problem trivial. There is no need to find an acute reference angle.
-
-$$x = r \cos(\theta)$$
-
-$$y = r \sin(\theta)$$
-
-Using these above formulas will work directly. 
+Unfortunately, you cannot simply use $\arctan\left(\frac{`r ya`}{`r xa`}\right)$ to get the angle $\theta$. This is because tangent is not a one-to-one function, so arctangent has a restricted range, from $\frac{-\pi}{2}$ to $\frac{\pi}{2}$.
 
 
 Meta-information
@@ -156,4 +148,4 @@ Meta-information
 extype: cloze
 exclozetype: schoice|schoice
 exsolution: `r sol1`|`r sol2`
-exname: polar_to_rect
+exname: rect_to_polar
