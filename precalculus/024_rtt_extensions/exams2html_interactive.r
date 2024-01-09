@@ -9,7 +9,9 @@ probs = c("01_trig_ratios_from_sides.Rmd",
           "05_slope_from_angle.Rmd",
           "06_angle_from_gradient.Rmd",
           "07_polar_to_rect.Rmd",
-          "08_rect_to_polar.Rmd")
+          "08_rect_to_polar.Rmd",
+          "09_special_right_triangles.Rmd",
+          "10_spec_right_tris_rad.Rmd")
 
 nvers = 10
 ps = character(0)
