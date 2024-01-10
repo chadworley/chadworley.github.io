@@ -11,7 +11,10 @@ probs = c("01_trig_ratios_from_sides.Rmd",
           "07_polar_to_rect.Rmd",
           "08_rect_to_polar.Rmd",
           "09_special_right_triangles.Rmd",
-          "10_spec_right_tris_rad.Rmd")
+          "10_spec_right_tris_rad.Rmd",
+          "11_unit_circ_intro.Rmd",
+          "12_unit_circ_special.Rmd",
+          "13_unit_circ_float.Rmd")
 
 nvers = 10
 ps = character(0)
