@@ -1,0 +1,110 @@
+```{r,echo=F}
+n = 1000
+while(T){
+  corfs = sample(0:1,4,T)
+  w1fs = sample(0:1,4,T)
+  w2fs = sample(0:1,4,T)
+  w3fs = sample(0:1,4,T)
+  corks = sample(2:9,4,F)
+  w1ks = sample(2:9,4,F)
+  w2ks = sample(2:9,4,F)
+  w3ks = sample(2:9,4,F)
+  t = seq(0,2*pi,length.out=n)
+  corx = sin(corks[1]*t+corfs[1]*pi/2)+sin(corks[2]*t+corfs[2]*pi/2)
+  cory = sin(corks[3]*t+corfs[3]*pi/2)+sin(corks[4]*t+corfs[4]*pi/2)
+  w1x = sin(w1ks[1]*t+w1fs[1]*pi/2)+sin(w1ks[2]*t+w1fs[2]*pi/2)
+  w1y = sin(w1ks[3]*t+w1fs[3]*pi/2)+sin(w1ks[4]*t+w1fs[4]*pi/2)
+  w2x = sin(w2ks[1]*t+w2fs[1]*pi/2)+sin(w2ks[2]*t+w2fs[2]*pi/2)
+  w2y = sin(w2ks[3]*t+w2fs[3]*pi/2)+sin(w2ks[4]*t+w2fs[4]*pi/2)
+  w3x = sin(w3ks[1]*t+w3fs[1]*pi/2)+sin(w3ks[2]*t+w3fs[2]*pi/2)
+  w3y = sin(w3ks[3]*t+w3fs[3]*pi/2)+sin(w3ks[4]*t+w3fs[4]*pi/2)
+  fs = list(corfs,w1fs,w2fs,w3fs)
+  ks = list(corks,w1ks,w2ks,w3ks)
+  xs = list(corx,w1x,w2x,w3x)
+  ys = list(cory,w1y,w2y,w3y)
+  canpass = T
+  for(i in 1:3){
+    for(j in (i+1):4){
+      if(n == sum(sort(xs[[i]]*ys[[i]])==sort(xs[[j]]*ys[[j]]))){canpass=F}
+    }
+  }
+  if(canpass){break}
+}
+
+fn = function(fs){
+  if(fs==0){return("sin")}else{return("cos")}
+}
+corex = paste0("\\",fn(corfs[1]),"(",corks[1],"t)+\\",fn(corfs[2]),"(",corks[2],"t)")
+corey = paste0("\\",fn(corfs[3]),"(",corks[3],"t)+\\",fn(corfs[4]),"(",corks[4],"t)")
+w1ex = paste0("\\",fn(w1fs[1]),"(",w1ks[1],"t)+\\",fn(w1fs[2]),"(",w1ks[2],"t)")
+w1ey = paste0("\\",fn(w1fs[3]),"(",w1ks[3],"t)+\\",fn(w1fs[4]),"(",w1ks[4],"t)")
+w2ex = paste0("\\",fn(w2fs[1]),"(",w2ks[1],"t)+\\",fn(w2fs[2]),"(",w2ks[2],"t)")
+w2ey = paste0("\\",fn(w2fs[3]),"(",w2ks[3],"t)+\\",fn(w2fs[4]),"(",w2ks[4],"t)")
+w3ex = paste0("\\",fn(w3fs[1]),"(",w3ks[1],"t)+\\",fn(w3fs[2]),"(",w3ks[2],"t)")
+w3ey = paste0("\\",fn(w3fs[3]),"(",w3ks[3],"t)+\\",fn(w3fs[4]),"(",w3ks[4],"t)")
+
+ord = sample(1:4)
+sol = paste0(1*(1==ord),collapse="")
+cl = c("A","B","C","D")[ord==1]
+```
+
+Question
+========
+
+Consider the parametric equations for $0\le t\le2\pi$:
+$$x = `r corex`$$
+$$y = `r corey`$$
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(pty="s",mfrow=c(2,2))
+plot(xs[[ord[1]]],ys[[ord[1]]],type="l",xlim=c(-2,2),ylim=c(-2,2),
+     xlab="x",ylab="y",main="A")
+plot(xs[[ord[2]]],ys[[ord[2]]],type="l",xlim=c(-2,2),ylim=c(-2,2),
+     xlab="x",ylab="y",main="B")
+plot(xs[[ord[3]]],ys[[ord[3]]],type="l",xlim=c(-2,2),ylim=c(-2,2),
+     xlab="x",ylab="y",main="C")
+plot(xs[[ord[4]]],ys[[ord[4]]],type="l",xlim=c(-2,2),ylim=c(-2,2),
+     xlab="x",ylab="y",main="D")
+```
+\
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+
+
+Solution
+========
+
+You will want to use a graphing utility.
+
+### Desmos
+
+To [graph a parametric equation in Desmos](https://help.desmos.com/hc/en-us/articles/4406906208397-Parametric-Equations), you can graph a set of points by writing $(x(t),\,y(t))$ and give boundaries on $t$:
+
+Write $x(t)$ and $y(t)$:
+$$(`r corex`,\, `r corey`)$$
+
+Set the boundaries on $t$:
+$$0\le t \le 2\pi$$
+
+This will generate the correct graph:
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(pty="s")
+plot(corx,cory,type="l",xlim=c(-2,2),ylim=c(-2,2),
+     xlab="x",ylab="y",main=cl)
+```
+\
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: parametric_trig_sums

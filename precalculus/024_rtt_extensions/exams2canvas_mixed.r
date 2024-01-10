@@ -6,7 +6,8 @@ genname = "024"
 
 probs = c("11_unit_circ_intro.Rmd",
           "12_unit_circ_special.Rmd",
-          "13_unit_circ_float.Rmd")
+          "13_unit_circ_float.Rmd",
+          "14_parametric_trig_sums.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
