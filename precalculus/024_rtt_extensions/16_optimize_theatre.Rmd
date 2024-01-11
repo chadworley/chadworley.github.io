@@ -1,0 +1,116 @@
+```{r,echo=F}
+s = round(runif(1,10,35),1)
+a = round(runif(1,3,15),1)
+xb = sqrt(a^2+a*s)
+```
+
+Question
+========
+
+A moviegoer enters a theater with a `r s`-foot screen with a bottom edge `r a` feet above eye level of chairs on flat ground. How far (horizontally) should the moviegoer sit from the screen to [maximize](https://en.wikipedia.org/wiki/Arg_max) their viewing angle ($\theta$)?
+
+```{r,echo=F,fig.dim=c(8,4)}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(c(0,50,50),c(0,0,25),type="l",axes=F,ann=F,asp=1)
+lines(c(25,50,50,25),c(0,5,25,0))
+polygon(c(1,1,9,9),c(-1,1,1,-1),col="white")
+text(5,0,"eye level",col="grey")
+th1 = atan(5/25)
+th2 = atan(25/25)
+ths = seq(th1,th2,length.out=60)
+lines(25+5*cos(ths),5*sin(ths),col="red",lwd=2)
+th3 = (th1+th2)/2
+text(25+7*cos(th3),7*sin(th3),TeX("$\\theta$"),col="red")
+lines(c(50,50),c(5,25),col="blue",lwd=2)
+text(48.5,15,s,col="blue")
+lines(c(50,50),c(0,5),col="purple",lwd=2)
+text(48.5,2.5,a,col="purple")
+lines(c(25,50),c(0,0),col="orange")
+text(75/2,0.6,"x",col="orange")
+lines(c(49.5,49.5,50),c(0,0.5,0.5))
+```
+\
+(Above figure not drawn to scale.)
+
+
+Determine the value of $x$ (in feet) that makes $\theta$ as large as possible. The tolerance is $\pm0.01$ feet.
+
+
+Solution
+========
+
+Start by labeling another angle and finding the total height ($`r a`+`r s`$) is `r a+s` feet.
+
+```{r,echo=F,fig.dim=c(8,4)}
+library(latex2exp)
+par(mar=c(1,1,1,1))
+plot(c(0,50,50),c(0,0,25),type="l",axes=F,ann=F,asp=1)
+lines(c(25,50,50,25),c(0,5,25,0))
+polygon(c(1,1,9,9),c(-1,1,1,-1),col="white")
+text(5,0,"eye level",col="grey")
+th1 = atan(5/25)
+th2 = atan(25/25)
+ths = seq(th1,th2,length.out=60)
+lines(25+5*cos(ths),5*sin(ths),col="red",lwd=2)
+th3 = (th1+th2)/2
+text(25+7*cos(th3),7*sin(th3),TeX("$\\theta$"),col="red")
+lines(c(50,50),c(5,25),col="blue",lwd=2)
+text(48.5,15,s,col="blue")
+lines(c(50,50),c(0,5),col="purple",lwd=2)
+text(48.5,2.5,a,col="purple")
+lines(c(25,50),c(0,0),col="orange")
+text(75/2,0.6,"x",col="orange")
+ths2 = seq(0,th1,length.out=60)
+lines(25+6*cos(ths2),6*sin(ths2),col="darkgreen")
+text(25+8*cos(th1/2),8*sin(th1/2),TeX("$\\phi$"),col="darkgreen")
+text(51.5,25/2,a+s)
+lines(c(49.5,49.5,50),c(0,0.5,0.5))
+```
+\
+
+Write a system of equations.
+
+$$\tan(\phi) ~=~ \frac{`r a`}{x}$$
+
+$$\tan(\phi+\theta) ~=~ \frac{`r a+s`}{x}$$
+
+Take the arctan of both sides of both equations.
+
+$$\phi ~=~ \arctan\left(\frac{`r a`}{x}\right)$$
+
+$$\phi+\theta ~=~ \arctan\left(\frac{`r a+s`}{x}\right)$$
+
+Eliminate $\phi$ by substituting.
+
+$$\arctan\left(\frac{`r a`}{x}\right)+\theta ~=~ \arctan\left(\frac{`r a+s`}{x}\right)$$
+
+Get $\theta$ as a function of $x$.
+
+$$\theta ~=~ \arctan\left(\frac{`r a+s`}{x}\right)-\arctan\left(\frac{`r a`}{x}\right)$$
+
+Plot the function (in Desmos or other graphing utility). Desmos will prefer if you use function notation.
+
+$$\theta(x) ~=~ \arctan\left(\frac{`r a+s`}{x}\right)-\arctan\left(\frac{`r a`}{x}\right)$$
+
+Find the maximum of the function.
+
+```{r,echo=F,fig.dim=c(8,8)}
+x = seq(0,2*xb,length.out=100)
+theta = atan((a+s)/x)-atan(a/x)
+thetab = atan((a+s)/xb)-atan(a/xb)
+plot(x,theta,type="l",xlim=c(0,2*xb))
+points(xb,thetab,pch=20)
+text(xb,thetab*0.9,paste0("(",round(xb,3),", ",round(thetab,3),")"))
+```
+\
+
+So, choosing to sit $x=`r xb`$ feet away will maximize the viewing angle.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r xb`
+exname: optimize_theatre
+extol: 0.01

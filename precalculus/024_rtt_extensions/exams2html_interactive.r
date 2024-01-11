@@ -15,7 +15,9 @@ probs = c("01_trig_ratios_from_sides.Rmd",
           "11_unit_circ_intro.Rmd",
           "12_unit_circ_special.Rmd",
           "13_unit_circ_float.Rmd",
-          "14_parametric_trig_sums.Rmd")
+          "14_parametric_trig_sums.Rmd",
+          "15_rotate_point.Rmd",
+          "16_optimize_theatre.Rmd")
 
 nvers = 10
 ps = character(0)
