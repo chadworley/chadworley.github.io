@@ -1,0 +1,45 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+while(T){
+  tens = sample(2:9,1)
+  n = sample(4:7,1)
+  x = sample((tens*10):(tens*10+9),n)
+  xmed = median(x)
+  imid = n%/%2
+  if(sum(sort(x)==x)!=n && round(xmed,2)==xmed && x[imid]!=xmed && x[imid+1]!=xmed && sort(x)[imid]!=sort(x)[imid+1]){break}
+}
+if(n%%2==0){
+  eo = "even"
+  s1 = paste0("So, identify the two middle numbers: ",sort(x)[imid]," and ",sort(x)[imid+1],". Find the mean of those two numbers: $$\\frac{",sort(x)[imid],"+",sort(x)[imid+1],"}{2}=",xmed,"$$ That number is the median." )
+} else {
+  eo = "odd"
+  s1 = paste0("So, identify the middle number: ",sort(x)[imid+1],". That number is the median.")
+}
+
+```
+
+
+Question
+========
+
+Find [the median](https://en.wikipedia.org/wiki/Median) of the following list:
+$$`r x`$$
+
+(Do not round your answer.)
+
+
+Solution
+========
+
+Sort the data from low to high.
+
+$$`r sort(x)`$$
+
+The count (how many numbers) is `r n`, which is `r eo`. `r s1`.
+
+
+
+Meta-information
+================
+extype: num
+exsolution: `r xmed`
+exname: median_of_list
