@@ -5,49 +5,96 @@ output:
 fontsize: 12pt
 params:
   num: "0"
+geometry: "left=3cm,right=3cm,top=3cm,bottom=3cm"
 ---
 
 \setlength{\headheight}{18.0pt}.
 
 \fancyhead[L]{\sc{Precalc 024 NO-CALC Mastery v`r params$num`}}
 \fancyhead[R]{\bf \large ANSWER KEY}
-\fancyfoot[R]{\sc Page \thepage ~ of 5}
+\fancyfoot[R]{\sc Page \thepage \, of 6}
 \fancyfoot[C]{}
 \pagestyle{fancy}
 
 
-<!-- ## Trig cheat sheet -->
+```{r,echo=F}
+set.seed(as.numeric(params$num))
+```
 
-<!-- Below shows the right-triangle definitions of the 6 trigonometric functions: sine, cosine, tangent, cosecant, secant, and cotangent. The hypotenuse is the longest side of a right triangle, and the hypotenuse is always across from the right angle. The opposite leg is across from the indicated angle, and the adjacent leg is the non-hypotenuse side that is adjacent to the angle. -->
+## Trig cheat sheet
 
-<!-- ```{r,fig.dim=c(3.5,3.5),echo=F,fig.align='center'} -->
-<!-- par(mar=c(0,0,0,0),pty="s") -->
-<!-- t9 = atan(3/4) -->
-<!-- plot(c(0,4,4,0),c(0,0,3,0),type="l",axes=F,ann=F,xlim=c(-0.5,4.5),ylim=c(-1,4)) -->
-<!-- text(2,-0.5,"adjacent") -->
-<!-- text(4.5,1.5,"opposite",srt=90) -->
-<!-- text(1.5,2,"hypotenuse",srt=t9/pi*180) -->
-<!-- ths = seq(0,t9,length.out=1000) -->
-<!-- lines(0.5*cos(ths),0.5*sin(ths),lwd=2) -->
-<!-- text(0.9*cos(t9/2),0.9*sin(t9/2),"angle",srt=t9/pi*180/2) -->
-<!-- lines(c(3.8,3.8,4),c(0,0.2,0.2)) -->
-<!-- ``` -->
+Below are the right-triangle definitions of the 6 trigonometric functions: sine, cosine, tangent, cosecant, secant, and cotangent. The hypotenuse is the longest side of a right triangle, always across from the right angle. The opposite leg is across from the indicated angle, and the adjacent leg is the other side.
+
+\vspace{-30pt}
+```{r,fig.dim=c(1.7,1.7),echo=F,fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+t9 = atan(3/4)
+plot(c(0,4,4,0),c(0,0,3,0),type="l",axes=F,ann=F,xlim=c(-0.5,4.5),ylim=c(-1,4))
+text(2,-0.5,"adjacent leg",cex=0.8)
+text(4.5,1.5,"opposite leg",srt=90,cex=0.8)
+text(5/2*cos(t9)+0.5*cos(t9+pi/2),5/2*sin(t9)+0.5*sin(t9+pi/2),
+     "hypotenuse",srt=t9/pi*180,cex=0.8)
+ths = seq(0,t9,length.out=1000)
+lines(0.5*cos(ths),0.5*sin(ths),lwd=2)
+text(1.3*cos(t9/2),1.3*sin(t9/2),"angle",srt=t9/pi*180/2,cex=0.8)
+lines(c(3.8,3.8,4),c(0,0.2,0.2))
+```
+
+\vspace{-30pt}
+
+\begin{align*}
+\sin(\mathrm{angle}) &= \frac{\mathrm{opposite}}{\mathrm{hypotenuse}} & \cos(\mathrm{angle}) &= \frac{\mathrm{adjacent}}{\mathrm{hypotenuse}} &
+\tan(\mathrm{angle}) &= \frac{\mathrm{opposite}}{\mathrm{adjacent}} \\
+\csc(\mathrm{angle}) &= \frac{\mathrm{hypotenuse}}{\mathrm{opposite}} & \sec(\mathrm{angle}) &= \frac{\mathrm{hypotenuse}}{\mathrm{adjacent}} & \cot(\mathrm{angle}) &= \frac{\mathrm{adjacent}}{\mathrm{opposite}}
+\end{align*}
+
+Some special right triangles whose angles and ratios can be found exactly with a tad of algebra are the 45-45-90 and 30-60-90 triangles.
+
+\vspace{-30pt}
+
+```{r,echo=F,fig.dim=c(4,2),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0),mfrow=c(1,2),pty="s")
+plot(c(0,sqrt(2)/2,sqrt(2)/2,0),c(0,0,sqrt(2)/2,0),type="l",ann=F,axes=F,xlim=c(-0.1,0.9),ylim=c(-0.1,0.9))
+lines(c(sqrt(2)/2-0.05,sqrt(2)/2-0.05,sqrt(2)/2),
+      c(0,0.05,0.05))
+text(sqrt(2)/4,-0.05,"a")
+text(sqrt(2)/2+0.05,sqrt(2)/4,"a")
+text(sqrt(2)/4-0.05,sqrt(2)/4+0.05,TeX("a\\sqrt{2}"),srt=45)
+text(0.15*cos(pi/9),0.15*sin(pi/9),"45°")
+par(mar=c(0,0,0,0),pty="s")
+plot(c(0,sqrt(3)/2,sqrt(3)/2,0),c(0,0,1/2,0),type="l",ann=F,axes=F,xlim=c(-0.1,0.9),ylim=c(-0.1,0.9))
+lines(c(sqrt(3)/2-0.05,sqrt(3)/2-0.05,sqrt(3)/2),
+      c(0,0.05,0.05))
+text(sqrt(3)/4,-0.05,TeX("$b\\sqrt{3}$"))
+text(sqrt(3)/2+0.05,1/4,"b")
+text(sqrt(3)/4,1/4+0.05,"2b",srt=30)
+text(0.21*cos(pi/15),0.21*sin(pi/15),"30°")
+```
 
 
-<!-- $$\sin(\mathrm{angle}) = \frac{\mathrm{opposite}}{\mathrm{hypotenuse}}$$ -->
+To extend beyond acute angles, we use a unit circle: replace the hypotenuse length with $1$, the opposite-leg length with $y$, and the adjacent-leg length with $x$.
 
-<!-- $$\cos(\mathrm{angle}) = \frac{\mathrm{adjacent}}{\mathrm{hypotenuse}}$$ -->
+```{r,fig.dim=c(2,2),echo=F,fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+t9 = atan(3/4)
+plot(0,0,type="n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+arrows(-1.07,0,1.07,0,length=0.06,angle=15,code=3)
+arrows(0,-1.07,0,1.07,length=0.06,angle=15,code=3)
+th = seq(0,2*pi,length.out=1000)
+lines(cos(th),sin(th),lty=2)
+lines(c(0,0.8),c(0,0.6),lwd=2)
+points(0.8,0.6,pch=19,cex=1.2)
+text(0.9,0.8,"(x,y)")
+ths = seq(0,t9,length.out=1000)
+lines(0.3*cos(ths),0.3*sin(ths),lwd=2)
+text(0.5*cos(t9/2),0.5*sin(t9/2),"angle",srt=t9/pi*180/2,cex=0.8)
+text(0.4+cos(t9+pi/2)*0.1,0.3+sin(t9+pi/2)*0.1,"1")
+lines(c(0,0.8,0.8),c(0,0,0.6),lwd=2)
+```
 
-<!-- $$\tan(\mathrm{angle}) = \frac{\mathrm{opposite}}{\mathrm{adjacent}}$$ -->
 
-<!-- $$\csc(\mathrm{angle}) = \frac{\mathrm{hypotenuse}}{\mathrm{opposite}}$$ -->
-
-<!-- $$\sec(\mathrm{angle}) = \frac{\mathrm{hypotenuse}}{\mathrm{adjacent}}$$ -->
-
-<!-- $$\cot(\mathrm{angle}) = \frac{\mathrm{adjacent}}{\mathrm{opposite}}$$ -->
-
-
-<!-- \newpage -->
+\newpage
 
 
 ## Question 1
@@ -84,6 +131,8 @@ sqxx = c(a/2-bump,a/2-bump,a/2)
 sqyy = c(-b/2,-b/2+bump,-b/2+bump)
 sqx = sqxx*cos(theta)-sqyy*sin(theta)
 sqy = sqxx*sin(theta)+sqyy*cos(theta)
+
+bump=bump*1.3
 
 labx = c(0,        a/2+bump,bump*cos(phi+pi/2))
 laby = c(-b/2-bump,0,bump*sin(phi+pi/2))
@@ -256,7 +305,7 @@ $$h = g\sqrt{3}$$
 
 ## Question 4
 
-A unit circle (with radius = 1) is drawn with its center at the origin. Based on the two proofs in Question 2 and Question 3, determine the angles and (exact) coordinates of the indicated 16 points, with the angle measure increasing, starting at 0, and all angles in standard position. All angles are multiples of 1/24 of a revolution.
+A unit circle (with radius = 1) is drawn with its center at the origin. Based on the two proofs in Question 2 and Question 3, determine the angles and (exact) coordinates of the indicated 16 points, with the angle measure increasing, starting at 0, and all angles in standard position. All angles are multiples of 1/24 of a revolution. Remember, half a turn equals 180°, which equals $\pi$ radians.
 
 ```{r,echo=F,fig.dim=c(2.5,2.5),fig.align='center'}
 par(mar=c(0,0,0,0),pty="s")
@@ -276,7 +325,7 @@ for(ttt in ts){
 ```
 
 
-\renewcommand{\arraystretch}{1.4}
+\renewcommand{\arraystretch}{1.3}
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -322,7 +371,7 @@ Angle measure (degrees) & Angle measure (radians)  & $~x~$ & $~y~$\\
 
 ## Question 5
 
-```{r,echo=F,fig.dim=c(6,6)}
+```{r,echo=F,fig.dim=c(5,5),fig.align='center'}
 while(T){
   t = round(runif(1,pi/8,3*pi/8)+pi/2*sample(1:3,1),2)
   x = round(cos(t),2)
@@ -353,12 +402,11 @@ text(-0.1,1.2,"y")
 
 An angle of `r t` radians intersects the unit circle at coordinates ($`r x`$, $`r y`$). Fill the blanks in the two equations below.
 
-$$\sin\left(~\fbox{`r t`}~\right) ~~=~~ \fbox{`r y`} $$
-
-
-$$\cos\left(~\fbox{`r t`}~\right) ~~=~~ \fbox{`r x`} $$
-
-$$\tan\left(~\fbox{`r t`}~\right) ~~=~~ \frac{\phantom{xxx}\fbox{`r y`}\phantom{xxx}}{\fbox{`r x`}}$$
+\begin{align*}
+\sin\left(~\fbox{`r t`}~\right) ~~&=~~ \fbox{`r y`} \\\\
+\cos\left(~\fbox{`r t`}~\right) ~~&=~~ \fbox{`r x`} \\\\
+\tan\left(~\fbox{`r t`}~\right) ~~&=~~ \frac{\phantom{xxx}\fbox{`r y`}\phantom{xxx}}{\fbox{`r x`}}
+\end{align*}
 
 
 
