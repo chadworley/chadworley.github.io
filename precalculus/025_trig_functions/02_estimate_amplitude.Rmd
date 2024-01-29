@@ -1,0 +1,128 @@
+```{r,echo=F,warning=F}
+A = round(runif(1,0.7,4),1)
+P = round(runif(1,2,8)/4,1)*4
+B = 2*pi/P
+D = round(runif(1,0.1,4.9-A),1)*sample(c(-1,1),1)
+h = round(runif(1,0,P),1)
+C = h*B
+```
+
+Question
+========
+
+Some quantity ($y$) is varying in time ($t$), following a temporal [sinusoidal function](https://en.wikipedia.org/wiki/Sine_wave) parameterized with 4 parameters:
+
+$$y(t) ~=~ A\sin\left(\frac{2\pi}{P}(t+L)\right)+D$$
+
+* Amplitude $A$, where $A>0$
+  * Amplitude is the "vertical stretch" factor.
+  * A negative $A$ would cause a vertical reflection. However, an equivalent transformation would be caused by shifting "horizontally" (in time) by half a period, so there is no loss of generality by forcing $A$ to be positive.
+  * The amplitude might indicate changes in pressure, position, temperature, or many other types of quantities.
+  * The [wikipedia article on amplitude](https://en.wikipedia.org/wiki/Amplitude#Semi-amplitude) refers to $A$ as the semi-amplitude.
+* Period $P$, where $P>0$
+  * Period is a "horizontal stretch" factor.
+  * Another symbol, $T$, is often used for period.
+  * Period has units of time, typically seconds.
+  * The [frequency](https://en.wikipedia.org/wiki/Frequency) is the reciprocal of $P$, so $f=\frac{1}{P}$. Frequency has units of [hertz](https://en.wikipedia.org/wiki/Hertz).
+  * The [angular frequency](https://en.wikipedia.org/wiki/Angular_frequency) $\omega$ is equivalent to the quotient, so $\omega~=~\frac{2\pi}{P}~=~2\pi f$
+  * If the independent variable is spatial rather than temporal, the analogous term to "period" is "[wavelength](https://en.wikipedia.org/wiki/Wavelength)"; often $\lambda$ is used for wavelength.
+  * Most physical waves (like sound and light) vary in space and time, so they have both wavelength and period, which are related by the speed ($v$) of the wave: $v=\frac{\lambda}{P}$
+* Leftward shift $L$, where $0\le L<P$. All points along the sine function are shifted backwards (in time) by $L$.
+  * When $t=0$, it is kind of like $L$ time has already passed (compared to the parent sine function).
+  * Like $A$, the parameter $L$ does not need to be constrained (between 0 and $P$), but any sinusoidal wave can be generated with this constraint.
+  * This parameter, $L$, has units of time.
+  * Many textbooks will incorrectly/confusingly refer to this as the "phase shift".
+  * The [phase](https://en.wikipedia.org/wiki/Phase_(waves)) shift, $\phi$, has units of radians: $\phi=\frac{2\pi L}{P}$.
+* [Vertical shift]((https://manual.audacityteam.org/man/dc_offset.html)) $D$
+  * This vertical shift is called [DC offset or DC bias](https://en.wikipedia.org/wiki/DC_bias) in sound recording.
+  * The midline at $y=D$ is halfway between the [crests and troughs](https://en.wikipedia.org/wiki/Crest_and_trough).
+
+
+
+
+Those four parameters were randomly assigned values, producing the graph below.
+
+```{r,fig.dim=c(10,10),echo=F}
+par(mar=c(5,5,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-5,5),ylim=c(-5,5),xlab="t",ylab="y")
+
+for(i in seq(-6,6,0.1)){
+  if(i%%1==0){
+    abline(h=i,col="darkgrey",lwd=1)
+    abline(v=i,col="darkgrey",lwd=1)
+  } else {
+    abline(h=i,col="grey",lwd=0.5)
+    abline(v=i,col="grey",lwd=0.5)
+  }
+}
+
+arrows(0,-5,0,5,length=0.1,angle=10,code=3,lwd=1.5)
+arrows(-5,0,5,0,length=0.1,angle=10,code=3,lwd=1.5)
+
+t = seq(-6,6,0.01)
+lines(t,A*sin(B*t+C)+D,lwd=3,col="blue")
+```
+\
+
+Estimate the **amplitude** of the [sinusoidal](https://www.khanacademy.org/math/algebra2/x2ec2f6f830c9fb89:trig/x2ec2f6f830c9fb89:amp-mid-period/a/midline-amplitude-and-period-review) function graphed above.
+
+
+Solution
+========
+
+The amplitude of a [sinusoidal function](https://en.wikipedia.org/wiki/Sine_wave) is half the difference between the maximum $y$ and the minimum $y$. 
+
+```{r,fig.dim=c(10,10),echo=F}
+par(mar=c(5,5,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-5,5),ylim=c(-5,5),xlab="t",ylab="y")
+
+for(i in seq(-6,6,0.1)){
+  if(i%%1==0){
+    abline(h=i,col="darkgrey",lwd=1)
+    abline(v=i,col="darkgrey",lwd=1)
+  } else {
+    abline(h=i,col="grey",lwd=0.5)
+    abline(v=i,col="grey",lwd=0.5)
+  }
+}
+
+arrows(0,-5.2,0,5.2,length=0.1,angle=10,code=3,lwd=1.5)
+arrows(-5.2,0,5.2,0,length=0.1,angle=10,code=3,lwd=1.5)
+
+t = seq(-6,6,0.01)
+lines(t,A*sin(B*t+C)+D,lwd=2,col="blue")
+
+abline(h=A+D,col="red",lwd=2,lty=2)
+text(-4,A+D+0.2,paste0("y = ",A+D),col="red")
+abline(h=-A+D,col="red",lwd=2,lty=2)
+text(-4,-A+D-0.2,paste0("y = ",-A+D),col="red")
+
+abline(h=D,col=rgb(0.1,0.1,0.1),lwd=2,lty=2)
+arrows(-3,-A+D,-3,A+D,0.1,10,3,col="red",lwd=4)
+text(-2.5,D,2*A,col="red",cex=3)
+
+arrows(3,D,3,A+D,0.1,10,3,col="purple",lwd=4)
+text(3.5,D+A/2,A,col="purple",cex=3)
+
+
+```
+\
+
+$$A~=~\frac{(`r A+D`)-(`r -A+D`)}{2} ~=~ \frac{`r 2*A`}{2} ~=~ `r A`$$
+
+The amplitude is `r A`.
+
+
+This exact function could be plotted with the following algebraic definition:
+$$y(t) = `r A` \sin\left(\frac{2\pi}{`r P`}(t+`r h`)\right)+(`r D`)$$
+
+The amplitude is `r A`; the period is `r P`; the horizontal shift is left by `r h`; and the midline is $y=`r D`$.
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r A`
+exname: estimate_amplitude
+extol: 0.1

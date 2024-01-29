@@ -1,0 +1,100 @@
+```{r,echo=F,results='hide'}
+library(exams)
+library(wav)
+library(csv)
+options(scipen=999)
+srs = c(8000,10000,11025,12000,16000,22050,24000,30000,32000)
+while(T){
+  sr = sample(srs,1)
+  f = round(2^runif(1,5,12))
+  p = 1/f*sr
+  if(p<200 && p>40){break}
+}
+
+flo = sr/(p-3)
+fhi = sr/(p+3)
+
+extol = ceiling(abs(fhi-flo)/2)
+
+tf = 1
+x = seq(0,tf,length.out=sr*tf)
+x <- matrix(sin(f*2*pi*x), nrow=1)
+fn = paste0(sample(letters,10),collapse="")
+fn = paste0(fn,".wav",collapse="")
+fn = "soundfile.wav"
+write_wav(x,fn,sample_rate=sr)
+include_supplement(fn)
+y <- read_wav(fn)
+
+fn2 = "soundfile.csv"
+y2 = matrix(y,ncol=1)
+colnames(y2) = "S"
+write.csv(y2,fn2)
+include_supplement(fn2)
+
+i1 = p*1/4
+i2 = p*5/4
+m1 = max(y[(i1-10):(i1+10)])
+m2 = max(y[(i2-10):(i2+10)])
+n1 = min(which(y[1:400]==m1))
+n2 = max(which(y[1:round(p*3)]==m2))
+
+asol = sr/(n2-n1)
+
+extol = max(c(extol,ceiling(2*abs(asol-f))))
+
+```
+
+Question
+========
+
+A [pure tone](https://en.wikipedia.org/wiki/Pure_tone) was encoded to a half-second [wave file](`r fn`) with a [sample rate](https://en.wikipedia.org/wiki/Sampling_(signal_processing)#Audio_sampling) of `r sr` Hz (and a [bit depth](https://en.wikipedia.org/wiki/Audio_bit_depth) of 32 bits). 
+
+The [samples](https://en.wikipedia.org/wiki/Sampling_(signal_processing)) can be downloaded as [a csv](`r fn2`). Each sample is shown as a decimal between -1 and 1. *Notice that "sample" has a different meaning in audio files than in Statistics.*
+
+What is the frequency of the pure tone?
+
+(There is a reasonable tolerance on accepted answers.)
+
+
+Solution
+========
+
+It was generated with a pure sine wave with a frequency of `r f` Hz.
+
+A variety of tools could be used to get this answer. For example, you might try [https://audiomass.co/](https://audiomass.co/). If you load the wav file, it'll display the waveform vs time. 
+
+One way is to import the csv file into a new spreadsheet. Graph a few hundred rows. The horizontal axis is number of samples (and it corresponds to time). The vertical axis represents the value of each sample (and it corresponds to the position of the [speaker's cone](https://en.wikipedia.org/wiki/Electrodynamic_speaker_driver)). Find the locations of two peaks.
+
+```{r,echo=F,fig.dim=c(8,4)}
+xxx = 1:round(p*3,-2)
+plot(xxx,y[xxx],type="l",xlab="n",ylab="S",col="grey")
+
+points(xxx,y[xxx],col="black",pch=19,cex=0.2)
+points(c(n1,n2),c(m1,m2),pch=19,col=c("red","blue"))
+
+text(n1+p/3.5,m1,paste0("(",n1,", ",signif(m1,8),")"),cex=0.7,col="red")
+text(n2+p/3.5,m2,paste0("(",n2,", ",signif(m2,8),")"),cex=0.7,col="blue")
+
+i3 = p*9/4
+m3 = max(y[(i3-10):(i3+10)])
+n3 = max(which(y[1:round(p*4)]==m3))
+
+```
+\
+
+Find a difference of the $n$ values.
+
+$$`r n2`-`r n1` = `r n2-n1`$$
+
+Divide the sample rate by this difference to get the approximate answer.
+
+$$\frac{`r sr`}{`r n2-n1`} = `r sr/(n2-n1)`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r f`
+exname: pure_tone_frequency
+extol: `r extol`
