@@ -7,7 +7,8 @@ probs = c("01_identify_functions.Rmd",
           "03_estimate_period.Rmd",
           "04_estimate_midline.Rmd",
           "05_estimate_left_shift.Rmd",
-          "06_sinusoidal_params.Rmd")
+          "06_sinusoidal_params.Rmd",
+          "07_get_freq.Rmd")
 
 nvers = 10
 ps = character(0)
