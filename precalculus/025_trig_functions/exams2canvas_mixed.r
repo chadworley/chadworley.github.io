@@ -4,11 +4,7 @@ outdir = "outcanvas"
 
 genname = "025"
 
-probs = c("02_estimate_amplitude.Rmd",
-          "03_estimate_period.Rmd",
-          "04_estimate_midline.Rmd",
-          "05_estimate_left_shift.Rmd",
-          "06_sinusoidal_params.Rmd")
+probs = c("06_sinusoidal_params.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
