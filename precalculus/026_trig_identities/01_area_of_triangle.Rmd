@@ -1,0 +1,212 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+while(T){
+  ab = round(runif(2,2,9),1)
+  a = ab[1]
+  b = ab[2]
+  thd = sample(5:30,1)
+  thn = sample(2:(thd-1),1)
+  g = gcd2(thd,thn)
+  thd = thd/g
+  thn = thn/g
+  C = thn*pi/thd
+  c = sqrt(a^2+b^2-2*a*b*cos(C))
+  A = acos((c^2+b^2-a^2)/2/c/b)
+  B = acos((a^2+c^2-b^2)/2/a/c)
+  if(thn>1 && A>pi/12 && A<11*pi/12 && B>pi/12 && B<11*pi/12 && C>pi/12 && C<11*pi/12 && abs(A-pi/2)>pi/12 && abs(B-pi/2)>pi/12 && abs(C-pi/2)>pi/12){break}
+}
+pC = c(0,0)
+pB = c(a,0)
+pA = c(cos(C)*b,sin(C)*b)
+phi = runif(1,0,2*pi)
+ps = matrix(c(pA,pB,pC),nrow=2,byrow=F)
+shx = 2/3*mean(c(a,cos(C)*b))
+shy = 2/3*mean(c(0,sin(C)*b))
+ps = ps-matrix(c(shx,shx,shx,shy,shy,shy),nrow=2,byrow=T)
+rotM = matrix(c(cos(phi),
+                -sin(phi),
+                sin(phi),
+                cos(phi)),ncol=2,byrow=T)
+p = rotM%*%ps
+t1 = phi
+t2 = C+phi
+bump = max(c(a,b,c))/20
+texa = c(a/2,-bump)
+texb = c(cos(C)*b/2+bump*cos(C+pi/2),
+         sin(C)*b/2+bump*sin(C+pi/2))
+texC = c(1.5*bump/C*cos(C/2),1.5*bump/C*sin(C/2))
+texx = matrix(c(texa,texb,texC),nrow=2,byrow=F)
+texx = texx-matrix(c(shx,shx,shx,shy,shy,shy),nrow=2,byrow=T)
+texx = rotM%*%texx
+switchem = sample(c(T,F),1)
+area = a*b*sin(C)/2
+```
+
+Question
+========
+
+The area of a triangle equals half the product of base times height.
+$$A_{\triangle}=\frac{bh}{2}$$
+
+The diagram below shows how this makes sense by making a rectangle with equivalent area with the same base but half the height of the triangle.
+
+```{r,echo=F,fig.dim=c(5,5),fig.align='center'}
+library(latex2exp)
+par(pty="s",mar=c(0,0,0,0))
+plot(c(0,5,2,0),c(0,0,6,0),type="l",xlim=c(-1,6),ylim=c(-0.5,6.5))
+for(i in (-2):7){
+  abline(h=i,col="darkgrey")
+  abline(v=i,col="darkgrey")
+}
+#polygon(c(0,5,5,0),c(0,0,6,6),col=rgb(0.8,0.8,1,0.5))
+lines(c(1,3.5),c(3,3),lty=2,lwd=2)
+lines(c(3.5,5,5),c(3,3,0),lty=2,lwd=1)
+lines(c(1,0,0),c(3,3,0),lty=2,lwd=1)
+polygon(c(0,5,2,0),c(0,0,6,0),col=rgb(1,0.8,0.8,0.5))
+lines(c(0,5),c(0,0),lwd=3,col="blue")
+text(2.5,-0.3,TeX("$b$"),col="blue",cex=2)
+lines(c(2,2.3,2.3),c(0.3,0.3,0),col="red")
+lines(c(2,2),c(0,6),lty=2,lwd=3,col="red")
+text(2.3,2.7,TeX("$h$"),col="red",cex=2)
+polygon(c(5,5,3.5),c(0,3,3),border=F,col=rgb(0,0,0,0.1))
+polygon(c(0,0,1),c(0,3,3),border=F,col=rgb(0,0,0,0.1))
+text(-0.5,1.5,TeX("$\\frac{h}{2}$"))
+r = 1
+cx = 3.5
+cy = 3
+t1 = atan2(2,-1)+atan2(2,1)/2
+t2 = atan2(-2,1)+atan2(2,1)/2
+n = 100
+ts = seq(t1,t2,length.out=n)
+lines(cx+r*cos(ts),cy+r*sin(ts),col="purple",lwd=3)
+arrows(cx+r*cos(ts[n-1]),cy+r*sin(ts[n-1]),cx+r*cos(ts[n]),cy+r*sin(ts[n]),0.1,20,lwd=4,col="purple")
+r = 0.7
+cx = 1
+cy = 3
+t1 = atan2(3,1)-atan2(3,1)/2
+t2 = atan2(-3,-1)-atan2(3,1)/2+2*pi
+n = 100
+ts = seq(t1,t2,length.out=n)
+lines(cx+r*cos(ts),cy+r*sin(ts),col="purple",lwd=3)
+arrows(cx+r*cos(ts[n-1]),cy+r*sin(ts[n-1]),cx+r*cos(ts[n]),cy+r*sin(ts[n]),0.1,20,lwd=4,col="purple")
+```
+\
+
+
+This still works with obtuse triangles.
+
+```{r,echo=F,fig.dim=c(5,5),fig.align='center'}
+library(latex2exp)
+par(pty="s",mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(-1,6),ylim=c(-0.5,6.5))
+for(i in (-2):7){
+  abline(h=i,col="darkgrey")
+  abline(v=i,col="darkgrey")
+}
+polygon(c(2.5,5,0),c(0,0,6),col=rgb(0.8,0.8,1,0.6))
+polygon(c(5,3.75,2.5),c(0,3,3),col=rgb(0,0,0,0.05),border=F)
+polygon(c(5,3.75,5),c(0,3,3),col=rgb(0,0,0,0.1),border=F)
+lines(c(2.5,2.5,1.25),c(0,3,3),lty=2)
+lines(c(5,5,3.75,5),c(0,3,3,0),lty=2)
+lines(c(2.5,3.75),c(3,3),lty=2)
+lines(c(0,0),c(0,6),lty=2,lwd=3,col="red")
+text(0.3,2.7,"h",cex=2,col="red")
+lines(c(2.5,5),c(0,0),lwd=3,col="purple")
+text(mean(c(2.5,5)),-0.3,"b",col="purple",cex=2)
+arrows(2,2.5,4.5,2.5,lwd=2,length=0.1,col="darkgrey")
+th = seq(11*pi/12,-pi/12,length.out=100)
+r = 0.9
+lines(2.5+r*cos(th),3+r*sin(th),lwd=2,col="darkgrey")
+arrows(2.5+r*cos(th[99]),3+r*sin(th[99]),
+       2.5+r*cos(th[100]),3+r*sin(th[100]),
+       lwd=2,length=0.1,col="darkgrey")
+lines(c(5,5),c(0,3),lwd=3,col="blue")
+text(5.3,1.5,TeX("$\\frac{h}{2}$"),col="blue",cex=1.5)
+if(switchem){
+  aaa = b
+  bbb = a
+} else {
+  aaa = a
+  bbb = b
+}
+```
+\
+
+Based on the formula above, and by using some trigonometry, **find the area** (in cm$^2$) of the triangle below, where $a=`r aaa`$ cm and $b=`r bbb`$ cm and $\gamma=\frac{`r thn`\pi}{`r thd`}$ radians.
+
+
+```{r,fig.dim=c(5,5),echo=F}
+mxmx = ceiling(max(abs(p)))
+par(pty="s",mar=c(0,0,0,0))
+plot(c(p[1,],texx[1,]),c(p[2,],texx[2,]),type="n",axes=F,ann=F,
+     xlim=c(-mxmx,mxmx),ylim=c(-mxmx,mxmx))
+for(i in (-mxmx):mxmx){
+  abline(h=i,col="grey")
+  abline(v=i,col="grey")
+}
+polygon(p[1,],p[2,],col=rgb(1,0.8,0.8,0.5))
+if(switchem){
+  text(texx[1,2],texx[2,2],TeX("$a$"))
+  text(texx[1,1],texx[2,1],TeX("$b$"))
+} else {
+  text(texx[1,1],texx[2,1],TeX("$a$"))
+  text(texx[1,2],texx[2,2],TeX("$b$"))
+}
+text(texx[1,3],texx[2,3],TeX("$\\gamma$"))
+```
+\
+
+The tolerance is $\pm0.1$ cm$^2$.
+
+Solution
+========
+
+We are given two lengths of a triangle and the angle measure between those lengths. We can draw a generic diagram for this scenario:
+
+```{r,echo=F,fig.dim=c(5,5),fig.align='center'}
+library(latex2exp)
+par(pty="s",mar=c(0,0,0,0))
+plot(c(0,5,2,0),c(0,0,6,0),type="l",xlim=c(-1,6),ylim=c(-0.5,6.5))
+for(i in (-2):7){
+  abline(h=i,col="darkgrey")
+  abline(v=i,col="darkgrey")
+}
+polygon(c(0,5,2,0),c(0,0,6,0),col=rgb(1,0.8,0.8,0.5))
+lines(c(0,5),c(0,0),lwd=3,col="blue")
+text(2.5,-0.3,TeX("$b$"),col="blue",cex=2)
+lines(c(2,2.3,2.3),c(0.3,0.3,0),col="red")
+lines(c(2,2),c(0,6),lty=2,lwd=3,col="red")
+text(2.3,2.7,TeX("$h$"),col="red",cex=2)
+lines(c(0,2),c(0,6),col="purple",lwd=3)
+text(0.8,3.3,"a",col="purple",cex=2)
+r=0.6
+tt = atan(3)
+text(r*cos(tt/2),r*sin(tt/2),TeX("$\\gamma$"),cex=2)
+```
+\
+
+We notice that we can write a trigonometric equation:
+$$\sin(\gamma) = \frac{h}{a}$$
+We can solve for $h$.
+$$h = a \sin(\gamma)$$
+Substitute for $h$ in the area formula.
+$$A_{\triangle} = \frac{ab \sin(\gamma)}{2}$$
+That formula will work even if $\gamma$ is obtuse.
+
+$$A_{\triangle} = \frac{`r aaa`\cdot `r bbb` \sin\left(\frac{`r thn`\pi}{`r thd`}\right)}{2}$$
+
+
+$$A_{\triangle} = `r area` ~\mathrm{cm^2}$$
+
+$$A_{\triangle} \approx `r round(area,1)` ~\mathrm{cm^2}$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r area`
+exname: area_of_triangle
+extol: 0.1

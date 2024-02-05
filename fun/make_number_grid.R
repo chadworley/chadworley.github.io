@@ -2,12 +2,12 @@ ncopies = 3 #how many versions
 w = 8.5 #paper width (in)
 h = 11  #paper height (in)
 m = 1 #paper margin (in)
-d = 0.8 #distance between dots (in)
+d = 0.4 #distance between dots (in)
 dotsizefactor = 0.7
-numbersizefactor = 2
-X = c(5,6,7,8) #possibilities
-P = c(0.4,0.3,0.2,0.1) #probabilities
-fileroots = "output"
+numbersizefactor = 1
+X = 2:12 #possibilities
+P = (6-abs(2:12-7))/36
+fileroots = "numgrids/output"
 
 for(copy in 1:ncopies){
   pdf(paste0(fileroots,sprintf("%02d",copy),".pdf",collapse=""), width=w, height=h)

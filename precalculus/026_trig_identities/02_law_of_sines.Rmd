@@ -1,0 +1,95 @@
+```{r,echo=F,warning=F}
+while(T){
+  angle_denom = sample(c(11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97),1)
+  angle_num_bounds = sort(sample(2:angle_denom,2))
+  alpha_num = angle_num_bounds[1]
+  beta_num = angle_num_bounds[2]-angle_num_bounds[1]
+  gamma_num = angle_denom-angle_num_bounds[2]
+  alpha = alpha_num*pi/angle_denom
+  beta = beta_num*pi/angle_denom
+  gamma = gamma_num*pi/angle_denom
+  m = c(alpha,beta,gamma)
+  a = runif(1,2,8)
+  b = a*sin(beta)/sin(alpha)
+  c = a*sin(gamma)/sin(alpha)
+  l = c(a,b,c)
+  spots = c(0,2*pi-2*m[1]-2*m[2],2*pi-2*m[2])
+  if(min(m)>pi/12 && max(m)<11*pi/12 && min(abs(m-pi/2))>pi/12 && min(abs(spots-pi))<pi/2 && min(diff(sort(m)))>0 && min(c(alpha_num,beta_num,gamma_num))>1){break}
+}
+knunk = sample(1:3,2)
+known = knunk[1]
+unknown = knunk[2]
+knownletter = c("a","b","c")[known]
+unknownletter = c("a","b","c")[unknown]
+km = c("alpha","beta","gamma")[known]
+um = c("alpha","beta","gamma")[unknown]
+kn = c(alpha_num,beta_num,gamma_num)[known]
+un = c(alpha_num,beta_num,gamma_num)[unknown]
+knownlength = round(l[known],1)
+unknownlength = knownlength*sin(m[unknown])/sin(m[known])
+rul = round(unknownlength,1)
+D = a/sin(alpha)
+```
+
+
+Question
+========
+
+The **[law of sines](https://en.wikipedia.org/wiki/Law_of_sines)** states that for any triangle with sides $a$, $b$, and $c$ --- and with opposing angle measures $\alpha$, $\beta$, and $\gamma$ --- all three quotients of length over sine are equivalent. Also, each quotient equals the diameter ($D$) of the circumcircle.
+
+$$\frac{a}{\sin(\alpha)} ~=~ \frac{b}{\sin(\beta)} ~=~ \frac{c}{\sin(\gamma)} ~=~ D $$
+
+Consider the triangle below with length $`r knownletter`=`r knownlength`$ cm and angle meansures $\alpha=\frac{`r alpha_num`\pi}{`r angle_denom`}$ and $\beta=\frac{`r beta_num`\pi}{`r angle_denom`}$ and $\gamma=\frac{`r gamma_num`\pi}{`r angle_denom`}$ (radians).
+
+
+```{r,echo=F,fig.dim=c(6,6),fig.align='center'}
+library(latex2exp)
+flipper = sample(c(-1,1),1)
+spots = flipper*c(0,2*pi-2*m[1]-2*m[2],2*pi-2*m[2])+runif(1,0,2*pi) #c(0,7*pi/9,14*pi/9) #
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+th = seq(0,2*pi,length.out=1000)
+#arrows(-1.05,0,1.05,0,0.1,20,3,"grey",lwd=1)
+#arrows(0,-1.05,0,1.05,0.1,20,3,"grey",lwd=1)
+lines(cos(th),sin(th))
+polygon(cos(spots),sin(spots),col=rgb(1,0.9,0.9,0.3),lwd=2)
+incenter = c(sum(l*cos(spots))/(sum(l)),sum(l*sin(spots))/(sum(l)))
+text(0.8*cos(spots)+0.2*incenter[1],0.8*sin(spots)+0.2*incenter[2],
+     c(TeX("$\\alpha$"),TeX("$\\beta$"),TeX("$\\gamma$")))
+x = cos(spots)
+y = sin(spots)
+t1 = atan2(y[2]-y[1],x[2]-x[1])
+text((x[1]+x[2])/2-0.05*cos(t1+pi/2)*flipper,(y[1]+y[2])/2-0.05*sin(t1+pi/2)*flipper,"c")
+t1 = atan2(y[3]-y[2],x[3]-x[2])
+text((x[2]+x[3])/2-0.05*cos(t1+pi/2)*flipper,(y[2]+y[3])/2-0.05*sin(t1+pi/2)*flipper,"a")
+t1 = atan2(y[1]-y[3],x[1]-x[3])
+text((x[1]+x[3])/2-0.05*cos(t1+pi/2)*flipper,(y[1]+y[3])/2-0.05*sin(t1+pi/2)*flipper,"b")
+```
+\
+
+**Find the length**, in cm, of side $`r unknownletter`$. The tolerance is $\pm 0.1$ cm.
+
+
+Solution
+========
+
+Use the law of sines.
+
+$$\frac{`r unknownletter`}{\sin(\`r um`)} = \frac{`r knownletter`}{\sin(\`r km`)}$$
+
+Solve for `r unknownletter` by multiplying both sides by $\sin(\`r um`)$.
+
+$$`r unknownletter` = \frac{`r knownletter`\sin(\`r um`)}{\sin(\`r km`)}$$
+
+Plug in the numbers to evaluate $`r unknownletter`$.
+
+$$`r unknownletter` = \frac{`r knownlength`\cdot \sin\left(\frac{`r un`\pi}{`r angle_denom`}\right)}{\sin\left(\frac{`r kn`\pi}{`r angle_denom`}\right)}$$
+
+$$`r unknownletter` ~\approx~ `r round(unknownlength,3)`~\mathrm{cm}$$
+
+Meta-information
+============
+extype: num
+exsolution: `r unknownlength`
+exname: law_of_sines
+extol: 0.1
