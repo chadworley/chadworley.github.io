@@ -4,7 +4,8 @@ outdir = "./"
 genname = "026"
 probs = c("01_area_of_triangle.Rmd",
           "02_law_of_sines.Rmd",
-          "03_LOS_ambig_case.Rmd")
+          "03_LOS_ambig_case.Rmd",
+          "04_LOC_get_side.Rmd")
 
 nvers = 10
 ps = character(0)

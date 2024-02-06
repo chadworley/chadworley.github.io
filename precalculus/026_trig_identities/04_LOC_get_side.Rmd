@@ -1,0 +1,104 @@
+```{r,echo=F,warning=F}
+while(T){
+  ad = sample(c(11,13,17,19,23,29,
+                31,37,41,43,47,53,
+                59,61,67,71,73,79,
+                83,89,97),1)
+  an = sort(sample(0:ad,3))
+  th = 2*an*pi/ad
+  an2 = c(an,an[1]+ad)
+  th2 = 2*an2*pi/ad
+  m = (diff(th2)/2)[c(2,3,1)]
+  alpha = m[1]
+  beta = m[2]
+  gamma = m[3]
+  mn = diff(an2)[c(2,3,1)]
+  gf = runif(1,1,5)
+  a = 2*sin(alpha)*gf
+  b = 2*sin(beta)*gf
+  c = 2*sin(gamma)*gf
+  l = c(a,b,c)
+  lr = round(l,1)
+  if(min(diff(th2))>pi/3 && min(diff(an))>1 && length(unique(mn))==3 && length(unique(lr))==3){break}
+}
+km = sample(1:3,1)
+kl = (1:3)[-km]
+x = cos(th)
+y = sin(th)
+xx = c(x,x[1])
+yy = c(y,y[1])
+xm = (x[c(2,3,1)]+x[c(3,1,2)])/2
+ym = (y[c(2,3,1)]+y[c(3,1,2)])/2
+s = numeric()
+for(i in c(2,3,1)){
+  s = c(s,atan2(yy[i+1]-yy[i],xx[i+1]-xx[i]))
+}
+
+aa = round(l[kl[1]],2)
+bb = round(l[kl[2]],2)
+gam = m[km]
+
+cc = sqrt(aa^2+bb^2-2*aa*bb*cos(gam))
+
+```
+
+Question
+========
+
+The [law of cosines](https://en.wikipedia.org/wiki/Law_of_cosines) is a correction to [Pythagorean Theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem) that is accurate for ALL triangles (not just right triangles).
+
+$$a^2 = b^2+c^2-2bc\cos(\alpha)$$
+$$b^2 = a^2+c^2-2ac\cos(\beta)$$
+$$c^2 = a^2+b^2-2ab\cos(\gamma)$$
+
+where angles with measures $\alpha$, $\beta$, and $\gamma$ are opposing sides with lengths $a$, $b$, and $c$ respectively.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-1.1,1.1),ylim=c(-1.1,1.1),axes=F,ann=F)
+for(i in seq(-20/gf,20/gf,1/gf)){
+  abline(h=i,col="grey")
+  abline(v=i,col="grey")
+}
+tthh = seq(0,2*pi,length.out=1000)
+lines(cos(tthh),sin(tthh),lty=3,col="darkgrey")
+polygon(cos(th),sin(th),col=rgb(1,0.8,0.8,0.6))
+incenter = c(sum(l*cos(th))/(sum(l)),sum(l*sin(th))/(sum(l)))
+text(0.7*cos(th[km])+0.3*incenter[1],
+     0.7*sin(th[km])+0.3*incenter[2],
+     TeX(paste0("$\\frac{",mn[km],"\\pi}{",ad,"}$"))
+     )
+# for(i in 1:3){
+#   text(0.7*cos(th[i])+0.3*incenter[1],
+#      0.7*sin(th[i])+0.3*incenter[2],
+#      TeX(paste0("$\\frac{",mn[i],"\\pi}{",ad,"}$"))
+#      )
+# }
+for(i in kl){
+  text(xm[i]+0.1*cos(s[i]-pi/2),ym[i]+0.1*sin(s[i]-pi/2),round(l[i],2))
+}
+text(xm[km]+0.1*cos(s[km]-pi/2),ym[km]+0.1*sin(s[km]-pi/2),"?")
+```
+\
+
+In a triangle, two sides have lengths `r round(l[kl[1]],2)` and `r round(l[kl[2]],2)` with an included angle with measure $\frac{`r mn[km]`\pi}{`r ad`}$ radians.
+
+**Find the length** labelled "?". The tolerance is $\pm 0.01$.
+
+
+Solution
+========
+
+Use the law of cosines.
+
+$$\sqrt{`r aa`^2+`r bb`^2-2\cdot `r aa`\cdot `r bb` \cos\left(\frac{`r mn[km]`\pi}{`r ad`}\right)} ~\approx~ `r round(cc,2)`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r cc`
+exname: LOC_get_side
+extol: 0.01
