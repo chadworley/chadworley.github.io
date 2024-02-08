@@ -1,9 +1,46 @@
 ```{r,echo=F,warning=F}
-twoangs = sample(seq(0.5,5.5,0.1),2)
-a = twoangs[1]
-b = twoangs[2]
+while(T){
+  twoangs = sample(seq(0.5,5.5,0.1),2)
+  a = twoangs[1]
+  b = twoangs[2]
+  sina = round(sin(a),2)
+  cosa = round(cos(a),2)
+  sinb = round(sin(b),2)
+  cosb = round(cos(b),2)
+  rats = c(sina,cosa,sinb,cosb)
+  if(min(diff(abs(sort(rats))))>0.05 &&
+     max(abs(rats))<0.99 && 
+     min(abs(rats))>0.01 &&
+     abs(diff(twoangs))>1 &&
+     min(abs(abs(twoangs)-rep(abs(diff(twoangs)),2)))>0.5
+     ){break}
+}
 
+poss = c("\\sin(\\alpha+\\beta)","\\cos(\\alpha+\\beta)",
+         "\\sin(\\alpha-\\beta)","\\cos(\\alpha-\\beta)")
+wp = sample(1:4,1)
+q = poss[wp]
+work = c("(sina)(cosb)+(cosa)(sinb)",
+        "(cosa)(cosb)-(sina)(sinb)",
+        "(sina)(cosb)-(cosa)(sinb)",
+        "(cosa)(cosb)+(sina)(sinb)")
+wrk = work[wp]
+wrk = gsub("sina",paste(sina),wrk,fixed = T)
+wrk = gsub("cosa",paste(cosa),wrk,fixed = T)
+wrk = gsub("sinb",paste(sinb),wrk,fixed = T)
+wrk = gsub("cosb",paste(cosb),wrk,fixed = T)
 
+answer = c(sina*cosb+cosa*sinb,
+           cosa*cosb-sina*sinb,
+           sina*cosb-cosa*sinb,
+           cosa*cosb+sina*sinb)
+sol = answer[wp]
+
+alph = (atan2(sina,cosa)+2*pi)%%(2*pi)
+bet = (atan2(sinb,cosb)+2*pi)%%(2*pi)
+comb = c(alph+bet,alph+bet,alph-bet,alph-bet)[wp]
+exp = c("\\alpha+\\beta","\\alpha+\\beta","\\alpha-\\beta","\\alpha-\\beta")[wp]
+tf = c("\\sin","\\cos","\\sin","\\cos")[wp]
 ```
 
 Question
@@ -11,9 +48,9 @@ Question
 
 Some equations are true for ANY substitutions of numbers for the variables (see [universal quantification](https://en.wikipedia.org/wiki/Universal_quantification)). Other equations are only true for SOME substitutions of numbers (see [existential quantification](https://en.wikipedia.org/wiki/Existential_quantification)).
 
-When an equation is true for ANY substitution, we call it an [identity](https://en.wikipedia.org/wiki/Identity_(mathematics)). If you want to be fancy, you might put a "for all" symbol ($\forall$) nearby, or use a triple equals ($\equiv$) to reinforce that an equation is an identity.
+When an equation is true for ANY substitution, we call it an [identity](https://en.wikipedia.org/wiki/Identity_(mathematics)). If you want to be fancy, you might put a "[for all](https://en.wikipedia.org/wiki/Turned_A)" symbol nearby (e.g. $\forall x:~~ x^2=x\cdot x$), or use a triple equals ($\equiv$) to reinforce that an equation is an identity.
 
-An essential identity in trigonometry is the [angle sum identity](https://en.wikipedia.org/wiki/List_of_trigonometric_identities#Angle_sum_and_difference_identities). We already saw how to derive the ratios of $30-60-90$ and $45-45-90$ triangles, but the angle-sum identity (indirectly) allows us to find exact ratios for a LOT of other right triangles.
+An essential identity in trigonometry is the [angle sum identity](https://en.wikipedia.org/wiki/List_of_trigonometric_identities#Angle_sum_and_difference_identities). We already saw how to derive the ratios of $30-60-90$ and $45-45-90$ triangles, but the angle-sum identity (indirectly) allows us to find exact ratios for a LOT of other right triangles (to get as fine-grained as we want).
 
 The angle-sum and angle-difference identities are true for all values of $\alpha$ and $\beta$:
 
@@ -22,14 +59,30 @@ $$\cos(\alpha+\beta) ~\equiv~ \cos(\alpha)\cos(\beta)-\sin(\alpha)\sin(\beta)$$
 $$\sin(\alpha-\beta) ~\equiv~ \sin(\alpha)\cos(\beta)-\cos(\alpha)\sin(\beta)$$
 $$\cos(\alpha-\beta) ~\equiv~ \cos(\alpha)\cos(\beta)+\sin(\alpha)\sin(\beta)$$
 
+I randomly chose values for $\alpha$ and $\beta$, which I am purposefully obscuring to try to get you to use the identites above. I will instead tell you some (approximate) trig ratios.
+
+$$\begin{align*}
+\sin(\alpha) &= `r sina` & \cos(\alpha) &= `r cosa` \\
+\sin(\beta) &= `r sinb` & \cos(\beta) &= `r cosb` 
+\end{align*}$$
+
+Evaluate $`r q`$ using the values above. The tolerance is $\pm 0.01$.
+
 
 Solution
 ========
+
+Use the correct identity.
+
+$$\begin{align*}
+`r q`~&=~`r wrk`\\
+`r q`~&=~`r sol`
+\end{align*}$$
 
 
 Meta-information
 ============
 extype: num
-exsolution: 1
+exsolution: `r sol`
 exname: angle_sum
 extol: 0.01
