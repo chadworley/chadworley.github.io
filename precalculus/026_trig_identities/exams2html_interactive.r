@@ -10,7 +10,8 @@ probs = c("01_area_of_triangle.Rmd",
           "06_angle_sum_ident.Rmd",
           "07_ang_sum_proof.Rmd",
           "08_ang_sum_proof_alg.Rmd",
-          "09_match_animations.Rmd")
+          "09_match_animations.Rmd",
+          "10_string_animation.Rmd")
 
 nvers = 4
 ps = character(0)

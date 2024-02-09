@@ -4,7 +4,7 @@ outdir = "outcanvas"
 
 genname = "026"
 
-probs = c("09_match_animations.Rmd")
+probs = c("10_string_animation.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
