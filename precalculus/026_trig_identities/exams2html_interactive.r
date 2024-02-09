@@ -7,9 +7,12 @@ probs = c("01_area_of_triangle.Rmd",
           "03_LOS_ambig_case.Rmd",
           "04_LOC_get_side.Rmd",
           "05_LOC_get_angle.Rmd",
-          "06_angle_sum_ident.Rmd")
+          "06_angle_sum_ident.Rmd",
+          "07_ang_sum_proof.Rmd",
+          "08_ang_sum_proof_alg.Rmd",
+          "09_match_animations.Rmd")
 
-nvers = 10
+nvers = 4
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))

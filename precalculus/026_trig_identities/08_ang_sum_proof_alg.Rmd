@@ -4,38 +4,32 @@ while(T){
   b = round(runif(1,pi/10,pi/4-0.1),3)
   if(abs(diff(c(a,b)))>0.1){break}
 }
-p = round(cos(b),3)
-q = round(sin(b),3)
-r = round(cos(a)*cos(b),3)
-s = round(sin(a)*cos(b),3)
-t = round(cos(a)*sin(b),3)
-u = round(sin(a)*sin(b),3)
-v = round(cos(a+b),3)
-w = round(sin(a+b),3)
-ans = c(p,q,r,s,t,u,v,w)
-al = numeric()
-sol = c()
-for(i in 1:length(ans)){
-  wc = sample(1:5,1)
-  al = c(al,ans[i]+0.003*(1:5-wc))
-  sol = c(sol,paste0(1*(wc==1:5),collapse=""))
-}
-newal = sort(c(a,b,a+b,a-b,b-a))
-al = c(al,newal)
-sol = c(sol,paste0(1*(newal==a),collapse=""))
-newal = sort(c(a,b,a+b,a-b,b-a))
-al = c(al,newal)
-sol = c(sol,paste0(1*(newal==a+b),collapse=""))
+p = "cos(b)"
+q = "sin(b)"
+r = "cos(a)*cos(b)"
+s = "sin(a)*cos(b)"
+theta = "a"
+t = "cos(a)*sin(b)"
+u = "sin(a)*sin(b)"
+phi = "a+b"
+v = "cos(a+b)"
+w = "sin(a+b)"
 
-al = paste0("* ",al,collapse="\n")
-ect = paste0(rep("schoice",length(al)),collapse="|")
+ans = c(p,q,r,s,theta,t,u,phi,v,w)
+ac = sort(c(ans,"sin(a)","cos(a)","b"))
+sol = character()
+for(i in 1:length(ans)){
+  sol = c(sol,paste0(1*(ans[i]==ac),collapse=""))
+}
+al = paste0("* ",rep(ac,length(ans)),collapse="\n")
+ect = paste0(rep("schoice",length(ans)),collapse="|")
 exsol = paste0(sol,collapse="|")
 ```
 
 Question
 ========
 
-In the diagram below, let $\alpha=`r a`$ radians and $\beta=`r b`$ radians. Find all the lengths (to the nearest thousandth) and angle measures $\theta$ and $\phi$. Use unrounded values for all intermediate calculations.
+In terms of $a$ and $b$, express all the lengths and other angle measures ($\theta$ and $\phi$).
 
 ```{r,fig.dim=c(7,7),echo=F}
 library(latex2exp)
@@ -60,8 +54,8 @@ lines(c(xma,xma-0.02,xma-0.02),c(yma-0.02,yma-0.02,yma))
 xmid = cos(a+b)/2
 ymid = sin(a+b)/2
 text(xmid+0.03*cos(a+b+pi/2),ymid+0.03*sin(a+b+pi/2),"1")
-text(0.05/a*cos(a/2),0.05/a*sin(a/2),TeX("$\\alpha$"))
-text(0.05/b*cos(a+b/2),0.05/b*sin(a+b/2),TeX("$\\beta$"))
+text(0.05/a*cos(a/2),0.05/a*sin(a/2),TeX("$a$"))
+text(0.05/b*cos(a+b/2),0.05/b*sin(a+b/2),TeX("$b$"))
 xmid = cos(a)/2
 ymid = sin(a)/2
 text(xmid+0.03*cos(a+pi/2),ymid+0.03*sin(a+pi/2),"p")
@@ -102,12 +96,12 @@ text(-0.03,yma/2,"w")
 * $q=$ ##ANSWER2##
 * $r=$ ##ANSWER3##
 * $s=$ ##ANSWER4##
-* $\theta=$ ##ANSWER9##
-* $t=$ ##ANSWER5##
-* $u=$ ##ANSWER6##
-* $\phi=$ ##ANSWER10##
-* $v=$ ##ANSWER7##
-* $w=$ ##ANSWER8##
+* $\theta=$ ##ANSWER5##
+* $t=$ ##ANSWER6##
+* $u=$ ##ANSWER7##
+* $\phi=$ ##ANSWER8##
+* $v=$ ##ANSWER9##
+* $w=$ ##ANSWER10##
 
 
 Answerlist
@@ -118,19 +112,6 @@ Answerlist
 
 Solution
 ========
-
-The correct values are shown below.
-
-* $p=`r p`$
-* $q=`r q`$
-* $r=`r r`$
-* $s=`r s`$
-* $\theta=`r a`$
-* $t=`r t`$
-* $u=`r u`$
-* $\phi=`r a+b`$
-* $v=`r v`$
-* $w=`r w`$
 
 You might find [this](https://en.wikipedia.org/wiki/List_of_trigonometric_identities#/media/File:AngleAdditionDiagramSine.svg) helpful.
 
