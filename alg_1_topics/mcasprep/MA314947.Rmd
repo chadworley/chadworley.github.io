@@ -1,0 +1,60 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+while(T){
+  a = sample(2:6,1)
+  bc = sample(2:13,2)
+  b = bc[1]
+  c = bc[2]
+  if(gcd2(b,c)==1 && (a*b-a!=b||c*a-a!=c) && a*b<30 && a*c<30){break}
+}
+
+orex = paste0(a*b,"x^2+",a*c)
+
+cc = paste0(a,"x(",b,"x+",c,")",collapse="")
+wc1 = paste0(a,"x(",a*b-a,"x+",c*a-a,")",collapse="")
+wc2 = paste0(a*b,"x(x+",c-b,")",collapse="")
+wc2 = gsub("+-","-",wc2,fixed=T)
+wc3 = paste0(a*b,"x+",a*c,"x^2")
+
+choices = sample(c(cc,wc1,wc2,wc3))
+sol = paste0(1*(cc==choices),collapse="")
+
+al = paste0("* $",choices,"$",collapse="\n")
+```
+
+Question
+========
+
+The area, in square units, of a rectangle is represented by this expression.
+$$`r a*b`x^2+`r a*c`x$$
+
+Which of the following also represents the area, in square units, of the rectangle?
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+Notice $`r cc`$ is equivalent is $`r orex`$. You can show this based on the [distributive property](https://en.wikipedia.org/wiki/Distributive_property).
+
+$$a(b+c) ~~\equiv~~ ab+ac$$
+
+In this case, $a=`r a`x$ and $b=`r b`x$ and $c=`r c`$.
+
+
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: 001_factor_easy

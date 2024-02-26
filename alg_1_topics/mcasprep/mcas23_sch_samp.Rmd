@@ -1,0 +1,58 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(exams)
+howmany = 5
+choices = c("a","b","c","d")
+dr = "mcas_2023/"
+f = list.files(dr)
+# # This was to make all files have same format...
+# for(fi in f){
+#   if(substr(fi,1,1)!="0"){
+#     file.rename(paste0(dr,fi,collapse=""),paste0(dr,"0",fi,collapse=""))
+#   }
+# }
+
+fis = c()
+sols = c()
+for(fi in f){
+  if(sum(substr(fi,5,5)==c("a","b","c","d"))==1 && substr(fi,6,9)==".png"){
+    fis=c(fis,paste0(dr,fi,collapse=""))
+    sols = c(sols,paste0(1*(substr(fi,5,5)==c("a","b","c","d")),collapse=""))
+  }
+}
+
+ii = sort(sample(1:length(fis),howmany))
+x = fis[ii]
+sols = sols[ii]
+
+for(i in 1:howmany){
+  include_supplement(paste0("./",x[i],collapse=""))
+}
+
+probs = paste0("![](",x,")\n\n##ANSWER",1:howmany,"##\n\n")
+ac = paste0("* ",rep(choices,howmany),collapse="\n")
+sols = paste0(sols,collapse="|")
+```
+
+Question
+========
+
+`r probs`
+
+Answerlist
+--------
+
+`r ac`
+
+
+Solution
+========
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r sols`
+exname: mcas23_sch_samp
