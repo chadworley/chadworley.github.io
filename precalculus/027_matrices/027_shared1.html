@@ -1,0 +1,698 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>SQ 027</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+h4.qqq {
+  background-color: black;
+  color: white;
+}
+ol.outermostlist{
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+<script type="text/javascript">
+const nv = 4;
+function loader(){
+  qs = document.body.getElementsByTagName("h4");
+  lnk = document.getElementById("linksies");
+  qs[0].parentElement.parentElement.classList.add("outermostlist");
+  for(let i=0;i<qs.length;i++){
+    if(i%2==0){
+      qs[i].innerHTML = "QUESTION  "+(Math.floor(i/2/nv+1)).toString()+" version "+((i/2)%nv+1).toString();
+      qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      qs[i].classList.add("qqq");
+      if(i%(2*nv)==0){
+        let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+        lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+        document.getElementById("tempid").id = newid;
+      }
+      qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      if(i%(2*nv)!=0){
+        qs[i].parentElement.style.display = "none";
+      }
+      }
+}
+}
+function shower(){
+  let x = this.nextSibling;
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    this.innerHTML = "Hide solution";
+  } else {
+    x.style.display = "none";
+    this.innerHTML = "Show solution";
+  }
+}
+function prev(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn-1+nv)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+function next(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn+1)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+</script>
+<body onLoad="loader()">
+<div style="display:none">
+\(\renewcommand{\hat}[1]{\widehat{#1}}\)
+</div>
+<h2 id="sqid">Shared Qs (027)</h2>
+<div id="linksies"></div>
+<ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Calculus, when <a href="https://en.wikipedia.org/wiki/Integral">integrating</a> <a href="https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions">rational expressions</a>, it is often helpful to perfom <a href="https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions">partial-fraction decomposition</a>. The simplest version of partial-fraction decomposition occurs when there are two distinct linear factors.</p>
+<p>The procedure can be exemplified by trying to determine <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> to satisfy the equation below <strong>for all</strong> values of <span class="math inline">\(x\)</span> (with restrictions <span class="math inline">\(x\ne -7\)</span> and <span class="math inline">\(x\ne 2\)</span>).</p>
+<p><span class="math display">\[\frac{3x-33}{(x+7)(x-2)} = \frac{A}{x+7}+\frac{B}{x-2}\]</span></p>
+<ul>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We are trying to find <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, to make both sides of the equation equivalent expressions.</p>
+<p><span class="math display">\[\frac{3x-33}{(x+7)(x-2)} ~=~ \frac{A}{x+7}+\frac{B}{x-2}\]</span></p>
+<p>Multiply both sides by <span class="math inline">\((x+7)(x-2)\)</span>.</p>
+<p><span class="math display">\[\frac{3x-33}{(x+7)(x-2)} \cdot (x+7)(x-2) ~=~ \left(\frac{A}{x+7}+\frac{B}{x-2}\right) \cdot (x+7)(x-2)\]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[3x-33 = A(x-2)+B(x+7)\]</span></p>
+<p>Expand the right side of the equation. Gather the linear coefficient and the constant.</p>
+<p><span class="math display">\[3x-33 = (A+B)x+(-2A+7B)\]</span>
+The equation must be true FOR ALL values of <span class="math inline">\(x\)</span>. This means the linear coefficients must be equal, and the constants must be equal.</p>
+<p><span class="math display">\[\begin{align}
+3 &amp;= A + B \\
+-33 &amp;= -2A+7B\\  
+\end{align}\]</span></p>
+<p>Use elimination. Multiply the first equation by 2.</p>
+<p><span class="math display">\[\begin{align}
+6 &amp;= 2A+2B \\
+\oplus~~~~ -33 &amp;= -2A+7B\\
+\hline
+-27 &amp;= 9B
+\end{align}\]</span></p>
+<p>Divide both sides by 9.</p>
+<p><span class="math display">\[-3 = B\]</span></p>
+<p>Plug that value into <span class="math inline">\(3 = A + B\)</span>.</p>
+<p><span class="math display">\[3 = A-3\]</span></p>
+<p>Add 3 to both sides.</p>
+<p><span class="math display">\[6 = A\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Calculus, when <a href="https://en.wikipedia.org/wiki/Integral">integrating</a> <a href="https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions">rational expressions</a>, it is often helpful to perfom <a href="https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions">partial-fraction decomposition</a>. The simplest version of partial-fraction decomposition occurs when there are two distinct linear factors.</p>
+<p>The procedure can be exemplified by trying to determine <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> to satisfy the equation below <strong>for all</strong> values of <span class="math inline">\(x\)</span> (with restrictions <span class="math inline">\(x\ne -5\)</span> and <span class="math inline">\(x\ne -8\)</span>).</p>
+<p><span class="math display">\[\frac{5x+46}{(x+5)(x+8)} = \frac{A}{x+5}+\frac{B}{x+8}\]</span></p>
+<ul>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We are trying to find <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, to make both sides of the equation equivalent expressions.</p>
+<p><span class="math display">\[\frac{5x+46}{(x+5)(x+8)} ~=~ \frac{A}{x+5}+\frac{B}{x+8}\]</span></p>
+<p>Multiply both sides by <span class="math inline">\((x+5)(x+8)\)</span>.</p>
+<p><span class="math display">\[\frac{5x+46}{(x+5)(x+8)} \cdot (x+5)(x+8) ~=~ \left(\frac{A}{x+5}+\frac{B}{x+8}\right) \cdot (x+5)(x+8)\]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[5x+46 = A(x+8)+B(x+5)\]</span></p>
+<p>Expand the right side of the equation. Gather the linear coefficient and the constant.</p>
+<p><span class="math display">\[5x+46 = (A+B)x+(8A+5B)\]</span>
+The equation must be true FOR ALL values of <span class="math inline">\(x\)</span>. This means the linear coefficients must be equal, and the constants must be equal.</p>
+<p><span class="math display">\[\begin{align}
+5 &amp;= A + B \\
+46 &amp;= 8A+5B\\  
+\end{align}\]</span></p>
+<p>Use elimination. Multiply the first equation by -8.</p>
+<p><span class="math display">\[\begin{align}
+-40 &amp;= -8A-8B \\
+\oplus~~~~ 46 &amp;= 8A+5B\\
+\hline
+6 &amp;= -3B
+\end{align}\]</span></p>
+<p>Divide both sides by -3.</p>
+<p><span class="math display">\[-2 = B\]</span></p>
+<p>Plug that value into <span class="math inline">\(5 = A + B\)</span>.</p>
+<p><span class="math display">\[5 = A-2\]</span></p>
+<p>Add 2 to both sides.</p>
+<p><span class="math display">\[7 = A\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Calculus, when <a href="https://en.wikipedia.org/wiki/Integral">integrating</a> <a href="https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions">rational expressions</a>, it is often helpful to perfom <a href="https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions">partial-fraction decomposition</a>. The simplest version of partial-fraction decomposition occurs when there are two distinct linear factors.</p>
+<p>The procedure can be exemplified by trying to determine <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> to satisfy the equation below <strong>for all</strong> values of <span class="math inline">\(x\)</span> (with restrictions <span class="math inline">\(x\ne 2\)</span> and <span class="math inline">\(x\ne -9\)</span>).</p>
+<p><span class="math display">\[\frac{-12x-64}{(x-2)(x+9)} = \frac{A}{x-2}+\frac{B}{x+9}\]</span></p>
+<ul>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We are trying to find <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, to make both sides of the equation equivalent expressions.</p>
+<p><span class="math display">\[\frac{-12x-64}{(x-2)(x+9)} ~=~ \frac{A}{x-2}+\frac{B}{x+9}\]</span></p>
+<p>Multiply both sides by <span class="math inline">\((x-2)(x+9)\)</span>.</p>
+<p><span class="math display">\[\frac{-12x-64}{(x-2)(x+9)} \cdot (x-2)(x+9) ~=~ \left(\frac{A}{x-2}+\frac{B}{x+9}\right) \cdot (x-2)(x+9)\]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[-12x-64 = A(x+9)+B(x-2)\]</span></p>
+<p>Expand the right side of the equation. Gather the linear coefficient and the constant.</p>
+<p><span class="math display">\[-12x-64 = (A+B)x+(9A-2B)\]</span>
+The equation must be true FOR ALL values of <span class="math inline">\(x\)</span>. This means the linear coefficients must be equal, and the constants must be equal.</p>
+<p><span class="math display">\[\begin{align}
+-12 &amp;= A + B \\
+-64 &amp;= 9A-2B\\  
+\end{align}\]</span></p>
+<p>Use elimination. Multiply the first equation by -9.</p>
+<p><span class="math display">\[\begin{align}
+108 &amp;= -9A-9B \\
+\oplus~~~~ -64 &amp;= 9A-2B\\
+\hline
+44 &amp;= -11B
+\end{align}\]</span></p>
+<p>Divide both sides by -11.</p>
+<p><span class="math display">\[-4 = B\]</span></p>
+<p>Plug that value into <span class="math inline">\(-12 = A + B\)</span>.</p>
+<p><span class="math display">\[-12 = A-4\]</span></p>
+<p>Add 4 to both sides.</p>
+<p><span class="math display">\[-8 = A\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Calculus, when <a href="https://en.wikipedia.org/wiki/Integral">integrating</a> <a href="https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions">rational expressions</a>, it is often helpful to perfom <a href="https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions">partial-fraction decomposition</a>. The simplest version of partial-fraction decomposition occurs when there are two distinct linear factors.</p>
+<p>The procedure can be exemplified by trying to determine <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> to satisfy the equation below <strong>for all</strong> values of <span class="math inline">\(x\)</span> (with restrictions <span class="math inline">\(x\ne 6\)</span> and <span class="math inline">\(x\ne -2\)</span>).</p>
+<p><span class="math display">\[\frac{13x-38}{(x-6)(x+2)} = \frac{A}{x-6}+\frac{B}{x+2}\]</span></p>
+<ul>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We are trying to find <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, to make both sides of the equation equivalent expressions.</p>
+<p><span class="math display">\[\frac{13x-38}{(x-6)(x+2)} ~=~ \frac{A}{x-6}+\frac{B}{x+2}\]</span></p>
+<p>Multiply both sides by <span class="math inline">\((x-6)(x+2)\)</span>.</p>
+<p><span class="math display">\[\frac{13x-38}{(x-6)(x+2)} \cdot (x-6)(x+2) ~=~ \left(\frac{A}{x-6}+\frac{B}{x+2}\right) \cdot (x-6)(x+2)\]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[13x-38 = A(x+2)+B(x-6)\]</span></p>
+<p>Expand the right side of the equation. Gather the linear coefficient and the constant.</p>
+<p><span class="math display">\[13x-38 = (A+B)x+(2A-6B)\]</span>
+The equation must be true FOR ALL values of <span class="math inline">\(x\)</span>. This means the linear coefficients must be equal, and the constants must be equal.</p>
+<p><span class="math display">\[\begin{align}
+13 &amp;= A + B \\
+-38 &amp;= 2A-6B\\  
+\end{align}\]</span></p>
+<p>Use elimination. Multiply the first equation by -2.</p>
+<p><span class="math display">\[\begin{align}
+-26 &amp;= -2A-2B \\
+\oplus~~~~ -38 &amp;= 2A-6B\\
+\hline
+-64 &amp;= -8B
+\end{align}\]</span></p>
+<p>Divide both sides by -8.</p>
+<p><span class="math display">\[8 = B\]</span></p>
+<p>Plug that value into <span class="math inline">\(13 = A + B\)</span>.</p>
+<p><span class="math display">\[13 = A+8\]</span></p>
+<p>Add -8 to both sides.</p>
+<p><span class="math display">\[5 = A\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Calculus, when <a href="https://en.wikipedia.org/wiki/Integral">integrating</a> <a href="https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions">rational expressions</a>, it is often helpful to perfom <a href="https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions">partial-fraction decomposition</a>. One version of partial-fraction decomposition occurs when there is a squared linear factor.</p>
+<p>The procedure can be exemplified by trying to determine <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> to satisfy the equation below <strong>for all</strong> values of <span class="math inline">\(x\)</span> (with restriction <span class="math inline">\(x\ne 3\)</span>). It should be said that knowing/remembering how to set up the equation below is the hardest part of partial-fraction decomposition.</p>
+<p><span class="math display">\[\frac{5x-17}{(x-3)^2} ~=~ \frac{A}{(x-3)}+\frac{B}{(x-3)^2}\]</span></p>
+<ul>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[\frac{5x-17}{(x-3)^2} ~=~ \frac{A}{(x-3)}+\frac{B}{(x-3)^2}\]</span></p>
+<p>Multiply both sides by <span class="math inline">\((x-3)^2\)</span>.</p>
+<p><span class="math display">\[5x-17 ~=~ A(x-3)+B\]</span></p>
+<p>Expand. Recognize the linear coefficient and the constant.</p>
+<p><span class="math display">\[5x-17 ~=~ Ax+(-3A+B)\]</span></p>
+<p>The corresponding coefficients must be equal for the equation to be true for all <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+5 ~&amp;=~ A \\
+-17 ~&amp;=~ -3A+B
+\end{align}\]</span></p>
+<p>We already have <span class="math inline">\(A\)</span>. Substitute to get <span class="math inline">\(B\)</span>.
+<span class="math display">\[-17 ~=~ -3(5)+B\]</span></p>
+<p>Multiply -3 and 5.</p>
+<p><span class="math display">\[-17 ~=~ -15+B\]</span></p>
+<p>Add <span class="math inline">\(15\)</span> to both sides.</p>
+<p><span class="math display">\[-2 ~=~ B\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Calculus, when <a href="https://en.wikipedia.org/wiki/Integral">integrating</a> <a href="https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions">rational expressions</a>, it is often helpful to perfom <a href="https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions">partial-fraction decomposition</a>. One version of partial-fraction decomposition occurs when there is a squared linear factor.</p>
+<p>The procedure can be exemplified by trying to determine <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> to satisfy the equation below <strong>for all</strong> values of <span class="math inline">\(x\)</span> (with restriction <span class="math inline">\(x\ne -7\)</span>). It should be said that knowing/remembering how to set up the equation below is the hardest part of partial-fraction decomposition.</p>
+<p><span class="math display">\[\frac{-2x-23}{(x+7)^2} ~=~ \frac{A}{(x+7)}+\frac{B}{(x+7)^2}\]</span></p>
+<ul>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[\frac{-2x-23}{(x+7)^2} ~=~ \frac{A}{(x+7)}+\frac{B}{(x+7)^2}\]</span></p>
+<p>Multiply both sides by <span class="math inline">\((x+7)^2\)</span>.</p>
+<p><span class="math display">\[-2x-23 ~=~ A(x+7)+B\]</span></p>
+<p>Expand. Recognize the linear coefficient and the constant.</p>
+<p><span class="math display">\[-2x-23 ~=~ Ax+(7A+B)\]</span></p>
+<p>The corresponding coefficients must be equal for the equation to be true for all <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+-2 ~&amp;=~ A \\
+-23 ~&amp;=~ 7A+B
+\end{align}\]</span></p>
+<p>We already have <span class="math inline">\(A\)</span>. Substitute to get <span class="math inline">\(B\)</span>.
+<span class="math display">\[-23 ~=~ 7(-2)+B\]</span></p>
+<p>Multiply 7 and -2.</p>
+<p><span class="math display">\[-23 ~=~ -14+B\]</span></p>
+<p>Add <span class="math inline">\(14\)</span> to both sides.</p>
+<p><span class="math display">\[-9 ~=~ B\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Calculus, when <a href="https://en.wikipedia.org/wiki/Integral">integrating</a> <a href="https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions">rational expressions</a>, it is often helpful to perfom <a href="https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions">partial-fraction decomposition</a>. One version of partial-fraction decomposition occurs when there is a squared linear factor.</p>
+<p>The procedure can be exemplified by trying to determine <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> to satisfy the equation below <strong>for all</strong> values of <span class="math inline">\(x\)</span> (with restriction <span class="math inline">\(x\ne 7\)</span>). It should be said that knowing/remembering how to set up the equation below is the hardest part of partial-fraction decomposition.</p>
+<p><span class="math display">\[\frac{-5x+26}{(x-7)^2} ~=~ \frac{A}{(x-7)}+\frac{B}{(x-7)^2}\]</span></p>
+<ul>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[\frac{-5x+26}{(x-7)^2} ~=~ \frac{A}{(x-7)}+\frac{B}{(x-7)^2}\]</span></p>
+<p>Multiply both sides by <span class="math inline">\((x-7)^2\)</span>.</p>
+<p><span class="math display">\[-5x+26 ~=~ A(x-7)+B\]</span></p>
+<p>Expand. Recognize the linear coefficient and the constant.</p>
+<p><span class="math display">\[-5x+26 ~=~ Ax+(-7A+B)\]</span></p>
+<p>The corresponding coefficients must be equal for the equation to be true for all <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+-5 ~&amp;=~ A \\
+26 ~&amp;=~ -7A+B
+\end{align}\]</span></p>
+<p>We already have <span class="math inline">\(A\)</span>. Substitute to get <span class="math inline">\(B\)</span>.
+<span class="math display">\[26 ~=~ -7(-5)+B\]</span></p>
+<p>Multiply -7 and -5.</p>
+<p><span class="math display">\[26 ~=~ 35+B\]</span></p>
+<p>Add <span class="math inline">\(-35\)</span> to both sides.</p>
+<p><span class="math display">\[-9 ~=~ B\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Calculus, when <a href="https://en.wikipedia.org/wiki/Integral">integrating</a> <a href="https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions">rational expressions</a>, it is often helpful to perfom <a href="https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions">partial-fraction decomposition</a>. One version of partial-fraction decomposition occurs when there is a squared linear factor.</p>
+<p>The procedure can be exemplified by trying to determine <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> to satisfy the equation below <strong>for all</strong> values of <span class="math inline">\(x\)</span> (with restriction <span class="math inline">\(x\ne 6\)</span>). It should be said that knowing/remembering how to set up the equation below is the hardest part of partial-fraction decomposition.</p>
+<p><span class="math display">\[\frac{8x-39}{(x-6)^2} ~=~ \frac{A}{(x-6)}+\frac{B}{(x-6)^2}\]</span></p>
+<ul>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[\frac{8x-39}{(x-6)^2} ~=~ \frac{A}{(x-6)}+\frac{B}{(x-6)^2}\]</span></p>
+<p>Multiply both sides by <span class="math inline">\((x-6)^2\)</span>.</p>
+<p><span class="math display">\[8x-39 ~=~ A(x-6)+B\]</span></p>
+<p>Expand. Recognize the linear coefficient and the constant.</p>
+<p><span class="math display">\[8x-39 ~=~ Ax+(-6A+B)\]</span></p>
+<p>The corresponding coefficients must be equal for the equation to be true for all <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+8 ~&amp;=~ A \\
+-39 ~&amp;=~ -6A+B
+\end{align}\]</span></p>
+<p>We already have <span class="math inline">\(A\)</span>. Substitute to get <span class="math inline">\(B\)</span>.
+<span class="math display">\[-39 ~=~ -6(8)+B\]</span></p>
+<p>Multiply -6 and 8.</p>
+<p><span class="math display">\[-39 ~=~ -48+B\]</span></p>
+<p>Add <span class="math inline">\(48\)</span> to both sides.</p>
+<p><span class="math display">\[9 ~=~ B\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system of linear equations.</p>
+<p><span class="math display">\[\begin{align}
+-5x-5y-5z&amp;=-15 \\
+-6x-4y-6z&amp;=-4 \\
+-x-2y+4z&amp;=-10 
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>From <a href="https://openstax.org/books/precalculus-2e/pages/9-2-systems-of-linear-equations-three-variables">OpenStax</a>:</p>
+<p>Given a linear system of three equations, solve for three unknowns.</p>
+<ul>
+<li>Pick any pair of equations and eliminate one variable.</li>
+<li>Pick another pair of equations and eliminate the same variable.</li>
+<li>You have created a system of two equations in two unknowns. Solve the resulting two-by-two system.</li>
+<li>Back-substitute known variables into any one of the original equations and solve for the missing variable.</li>
+</ul>
+<p><span class="math display">\[x=-4\]</span></p>
+<p><span class="math display">\[y=7\]</span></p>
+<p><span class="math display">\[z=0\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system of linear equations.</p>
+<p><span class="math display">\[\begin{align}
+3x+3y+4z&amp;=-6 \\
+4x+4y+3z&amp;=-1 \\
+5x+6y-z&amp;=16 
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>From <a href="https://openstax.org/books/precalculus-2e/pages/9-2-systems-of-linear-equations-three-variables">OpenStax</a>:</p>
+<p>Given a linear system of three equations, solve for three unknowns.</p>
+<ul>
+<li>Pick any pair of equations and eliminate one variable.</li>
+<li>Pick another pair of equations and eliminate the same variable.</li>
+<li>You have created a system of two equations in two unknowns. Solve the resulting two-by-two system.</li>
+<li>Back-substitute known variables into any one of the original equations and solve for the missing variable.</li>
+</ul>
+<p><span class="math display">\[x=-1\]</span></p>
+<p><span class="math display">\[y=3\]</span></p>
+<p><span class="math display">\[z=-3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system of linear equations.</p>
+<p><span class="math display">\[\begin{align}
+6x-2y+6z&amp;=-12 \\
+x-2y+2z&amp;=1 \\
+-4x-y+6z&amp;=-5 
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>From <a href="https://openstax.org/books/precalculus-2e/pages/9-2-systems-of-linear-equations-three-variables">OpenStax</a>:</p>
+<p>Given a linear system of three equations, solve for three unknowns.</p>
+<ul>
+<li>Pick any pair of equations and eliminate one variable.</li>
+<li>Pick another pair of equations and eliminate the same variable.</li>
+<li>You have created a system of two equations in two unknowns. Solve the resulting two-by-two system.</li>
+<li>Back-substitute known variables into any one of the original equations and solve for the missing variable.</li>
+</ul>
+<p><span class="math display">\[x=-1\]</span></p>
+<p><span class="math display">\[y=-3\]</span></p>
+<p><span class="math display">\[z=-2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system of linear equations.</p>
+<p><span class="math display">\[\begin{align}
+x+2y+5z&amp;=-14 \\
+-3x+y-2z&amp;=-9 \\
+5x-2y+3z&amp;=16 
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>From <a href="https://openstax.org/books/precalculus-2e/pages/9-2-systems-of-linear-equations-three-variables">OpenStax</a>:</p>
+<p>Given a linear system of three equations, solve for three unknowns.</p>
+<ul>
+<li>Pick any pair of equations and eliminate one variable.</li>
+<li>Pick another pair of equations and eliminate the same variable.</li>
+<li>You have created a system of two equations in two unknowns. Solve the resulting two-by-two system.</li>
+<li>Back-substitute known variables into any one of the original equations and solve for the missing variable.</li>
+</ul>
+<p><span class="math display">\[x=7\]</span></p>
+<p><span class="math display">\[y=2\]</span></p>
+<p><span class="math display">\[z=-5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system of linear equations.</p>
+<p><span class="math display">\[\begin{align}
+w-4x+2y-3z&amp;=-5 \\
+w-5x+3y+z&amp;=38 \\
+5w-5x+3y-z&amp;=-6 \\
+-5w-2x-5y-4z&amp;=-38 
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(w=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Don’t do this by hand. I’m hoping we can begin using Python with the <a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/intro.html">sympy</a> library to do algebra for us.</p>
+<ol style="list-style-type: decimal">
+<li>Go to <a href="https://colab.research.google.com/">https://colab.research.google.com/</a>.</li>
+<li>Make a new notebook.</li>
+<li>In a code cell, type the following:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>sp.var(<span class="st">&quot;w x y z&quot;</span>)  <span class="co">#these will be our algebraic variables</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>eq1 <span class="op">=</span> <span class="dv">1</span><span class="op">*</span>w<span class="op">-</span><span class="dv">4</span><span class="op">*</span>x<span class="op">+</span><span class="dv">2</span><span class="op">*</span>y<span class="op">-</span><span class="dv">3</span><span class="op">*</span>z<span class="op">+</span><span class="dv">5</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>eq2 <span class="op">=</span> <span class="dv">1</span><span class="op">*</span>w<span class="op">-</span><span class="dv">5</span><span class="op">*</span>x<span class="op">+</span><span class="dv">3</span><span class="op">*</span>y<span class="op">+</span><span class="dv">1</span><span class="op">*</span>z<span class="op">-</span><span class="dv">38</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>eq3 <span class="op">=</span> <span class="dv">5</span><span class="op">*</span>w<span class="op">-</span><span class="dv">5</span><span class="op">*</span>x<span class="op">+</span><span class="dv">3</span><span class="op">*</span>y<span class="op">-</span><span class="dv">1</span><span class="op">*</span>z<span class="op">+</span><span class="dv">6</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>eq4 <span class="op">=</span> <span class="op">-</span><span class="dv">5</span><span class="op">*</span>w<span class="op">-</span><span class="dv">2</span><span class="op">*</span>x<span class="op">-</span><span class="dv">5</span><span class="op">*</span>y<span class="op">-</span><span class="dv">4</span><span class="op">*</span>z<span class="op">+</span><span class="dv">38</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>sp.solve([eq1,eq2,eq3,eq4],[w,x,y,z])</span></code></pre></div>
+<p>Notice the equations (<code>eq1</code>, <code>eq2</code>, <code>eq3</code>, and <code>eq4</code>) are stored as expressions that equal 0. Every equation can be written with one side equal to 0. In programming, the <code>=</code> symbol is already used for <a href="https://cs.stanford.edu/people/nick/py/python-var.html">assignment</a> and the <code>==</code> symbol is used to test for equivalence. In a Computer Algebra System (CAS), the default way to store an equation is as an expression that equals 0. Basically, you should start by rewriting the system:</p>
+<p><span class="math display">\[\begin{align}
+w-4x+2y-3z+5&amp;=0 \\
+w-5x+3y+z-38&amp;=0 \\
+5w-5x+3y-z+6&amp;=0 \\
+-5w-2x-5y-4z+38&amp;=0
+\end{align}\]</span></p>
+<p>Anyway, your Python code should tell you the answer:</p>
+<p><span class="math display">\[w=-7\]</span></p>
+<p><span class="math display">\[x=-2\]</span></p>
+<p><span class="math display">\[y=9\]</span></p>
+<p><span class="math display">\[z=8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system of linear equations.</p>
+<p><span class="math display">\[\begin{align}
+w-4x+6y+3z&amp;=18 \\
+4w+3x+6y-2z&amp;=55 \\
+-w+x-3y+3z&amp;=-33 \\
+-5w-x+4y-6z&amp;=74 
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(w=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Don’t do this by hand. I’m hoping we can begin using Python with the <a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/intro.html">sympy</a> library to do algebra for us.</p>
+<ol style="list-style-type: decimal">
+<li>Go to <a href="https://colab.research.google.com/">https://colab.research.google.com/</a>.</li>
+<li>Make a new notebook.</li>
+<li>In a code cell, type the following:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>sp.var(<span class="st">&quot;w x y z&quot;</span>)  <span class="co">#these will be our algebraic variables</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>eq1 <span class="op">=</span> <span class="dv">1</span><span class="op">*</span>w<span class="op">-</span><span class="dv">4</span><span class="op">*</span>x<span class="op">+</span><span class="dv">6</span><span class="op">*</span>y<span class="op">+</span><span class="dv">3</span><span class="op">*</span>z<span class="op">-</span><span class="dv">18</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>eq2 <span class="op">=</span> <span class="dv">4</span><span class="op">*</span>w<span class="op">+</span><span class="dv">3</span><span class="op">*</span>x<span class="op">+</span><span class="dv">6</span><span class="op">*</span>y<span class="op">-</span><span class="dv">2</span><span class="op">*</span>z<span class="op">-</span><span class="dv">55</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>eq3 <span class="op">=</span> <span class="op">-</span><span class="dv">1</span><span class="op">*</span>w<span class="op">+</span><span class="dv">1</span><span class="op">*</span>x<span class="op">-</span><span class="dv">3</span><span class="op">*</span>y<span class="op">+</span><span class="dv">3</span><span class="op">*</span>z<span class="op">+</span><span class="dv">33</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>eq4 <span class="op">=</span> <span class="op">-</span><span class="dv">5</span><span class="op">*</span>w<span class="op">-</span><span class="dv">1</span><span class="op">*</span>x<span class="op">+</span><span class="dv">4</span><span class="op">*</span>y<span class="op">-</span><span class="dv">6</span><span class="op">*</span>z<span class="op">-</span><span class="dv">74</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>sp.solve([eq1,eq2,eq3,eq4],[w,x,y,z])</span></code></pre></div>
+<p>Notice the equations (<code>eq1</code>, <code>eq2</code>, <code>eq3</code>, and <code>eq4</code>) are stored as expressions that equal 0. Every equation can be written with one side equal to 0. In programming, the <code>=</code> symbol is already used for <a href="https://cs.stanford.edu/people/nick/py/python-var.html">assignment</a> and the <code>==</code> symbol is used to test for equivalence. In a Computer Algebra System (CAS), the default way to store an equation is as an expression that equals 0. Basically, you should start by rewriting the system:</p>
+<p><span class="math display">\[\begin{align}
+w-4x+6y+3z-18&amp;=0 \\
+4w+3x+6y-2z-55&amp;=0 \\
+-w+x-3y+3z+33&amp;=0 \\
+-5w-x+4y-6z-74&amp;=0
+\end{align}\]</span></p>
+<p>Anyway, your Python code should tell you the answer:</p>
+<p><span class="math display">\[w=-3\]</span></p>
+<p><span class="math display">\[x=3\]</span></p>
+<p><span class="math display">\[y=8\]</span></p>
+<p><span class="math display">\[z=-5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system of linear equations.</p>
+<p><span class="math display">\[\begin{align}
+2w-6x-3y+2z&amp;=47 \\
+-6w+x+y-4z&amp;=-31 \\
+-4w+4x-6y+z&amp;=-18 \\
+-4w-2x+4y-6z&amp;=-28 
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(w=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Don’t do this by hand. I’m hoping we can begin using Python with the <a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/intro.html">sympy</a> library to do algebra for us.</p>
+<ol style="list-style-type: decimal">
+<li>Go to <a href="https://colab.research.google.com/">https://colab.research.google.com/</a>.</li>
+<li>Make a new notebook.</li>
+<li>In a code cell, type the following:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>sp.var(<span class="st">&quot;w x y z&quot;</span>)  <span class="co">#these will be our algebraic variables</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>eq1 <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>w<span class="op">-</span><span class="dv">6</span><span class="op">*</span>x<span class="op">-</span><span class="dv">3</span><span class="op">*</span>y<span class="op">+</span><span class="dv">2</span><span class="op">*</span>z<span class="op">-</span><span class="dv">47</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>eq2 <span class="op">=</span> <span class="op">-</span><span class="dv">6</span><span class="op">*</span>w<span class="op">+</span><span class="dv">1</span><span class="op">*</span>x<span class="op">+</span><span class="dv">1</span><span class="op">*</span>y<span class="op">-</span><span class="dv">4</span><span class="op">*</span>z<span class="op">+</span><span class="dv">31</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>eq3 <span class="op">=</span> <span class="op">-</span><span class="dv">4</span><span class="op">*</span>w<span class="op">+</span><span class="dv">4</span><span class="op">*</span>x<span class="op">-</span><span class="dv">6</span><span class="op">*</span>y<span class="op">+</span><span class="dv">1</span><span class="op">*</span>z<span class="op">+</span><span class="dv">18</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>eq4 <span class="op">=</span> <span class="op">-</span><span class="dv">4</span><span class="op">*</span>w<span class="op">-</span><span class="dv">2</span><span class="op">*</span>x<span class="op">+</span><span class="dv">4</span><span class="op">*</span>y<span class="op">-</span><span class="dv">6</span><span class="op">*</span>z<span class="op">+</span><span class="dv">28</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>sp.solve([eq1,eq2,eq3,eq4],[w,x,y,z])</span></code></pre></div>
+<p>Notice the equations (<code>eq1</code>, <code>eq2</code>, <code>eq3</code>, and <code>eq4</code>) are stored as expressions that equal 0. Every equation can be written with one side equal to 0. In programming, the <code>=</code> symbol is already used for <a href="https://cs.stanford.edu/people/nick/py/python-var.html">assignment</a> and the <code>==</code> symbol is used to test for equivalence. In a Computer Algebra System (CAS), the default way to store an equation is as an expression that equals 0. Basically, you should start by rewriting the system:</p>
+<p><span class="math display">\[\begin{align}
+2w-6x-3y+2z-47&amp;=0 \\
+-6w+x+y-4z+31&amp;=0 \\
+-4w+4x-6y+z+18&amp;=0 \\
+-4w-2x+4y-6z+28&amp;=0
+\end{align}\]</span></p>
+<p>Anyway, your Python code should tell you the answer:</p>
+<p><span class="math display">\[w=-1\]</span></p>
+<p><span class="math display">\[x=-6\]</span></p>
+<p><span class="math display">\[y=1\]</span></p>
+<p><span class="math display">\[z=8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system of linear equations.</p>
+<p><span class="math display">\[\begin{align}
+2w+5x-2y-6z&amp;=0 \\
+-3w-4x-4y-2z&amp;=68 \\
+-5w-x+y+3z&amp;=-20 \\
+4w+3x+4y-6z&amp;=-34 
+\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(w=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Don’t do this by hand. I’m hoping we can begin using Python with the <a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/intro.html">sympy</a> library to do algebra for us.</p>
+<ol style="list-style-type: decimal">
+<li>Go to <a href="https://colab.research.google.com/">https://colab.research.google.com/</a>.</li>
+<li>Make a new notebook.</li>
+<li>In a code cell, type the following:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>sp.var(<span class="st">&quot;w x y z&quot;</span>)  <span class="co">#these will be our algebraic variables</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>eq1 <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>w<span class="op">+</span><span class="dv">5</span><span class="op">*</span>x<span class="op">-</span><span class="dv">2</span><span class="op">*</span>y<span class="op">-</span><span class="dv">6</span><span class="op">*</span>z<span class="op">+</span><span class="dv">0</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>eq2 <span class="op">=</span> <span class="op">-</span><span class="dv">3</span><span class="op">*</span>w<span class="op">-</span><span class="dv">4</span><span class="op">*</span>x<span class="op">-</span><span class="dv">4</span><span class="op">*</span>y<span class="op">-</span><span class="dv">2</span><span class="op">*</span>z<span class="op">-</span><span class="dv">68</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>eq3 <span class="op">=</span> <span class="op">-</span><span class="dv">5</span><span class="op">*</span>w<span class="op">-</span><span class="dv">1</span><span class="op">*</span>x<span class="op">+</span><span class="dv">1</span><span class="op">*</span>y<span class="op">+</span><span class="dv">3</span><span class="op">*</span>z<span class="op">+</span><span class="dv">20</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>eq4 <span class="op">=</span> <span class="dv">4</span><span class="op">*</span>w<span class="op">+</span><span class="dv">3</span><span class="op">*</span>x<span class="op">+</span><span class="dv">4</span><span class="op">*</span>y<span class="op">-</span><span class="dv">6</span><span class="op">*</span>z<span class="op">+</span><span class="dv">34</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>sp.solve([eq1,eq2,eq3,eq4],[w,x,y,z])</span></code></pre></div>
+<p>Notice the equations (<code>eq1</code>, <code>eq2</code>, <code>eq3</code>, and <code>eq4</code>) are stored as expressions that equal 0. Every equation can be written with one side equal to 0. In programming, the <code>=</code> symbol is already used for <a href="https://cs.stanford.edu/people/nick/py/python-var.html">assignment</a> and the <code>==</code> symbol is used to test for equivalence. In a Computer Algebra System (CAS), the default way to store an equation is as an expression that equals 0. Basically, you should start by rewriting the system:</p>
+<p><span class="math display">\[\begin{align}
+2w+5x-2y-6z+0&amp;=0 \\
+-3w-4x-4y-2z-68&amp;=0 \\
+-5w-x+y+3z+20&amp;=0 \\
+4w+3x+4y-6z+34&amp;=0
+\end{align}\]</span></p>
+<p>Anyway, your Python code should tell you the answer:</p>
+<p><span class="math display">\[w=2\]</span></p>
+<p><span class="math display">\[x=-8\]</span></p>
+<p><span class="math display">\[y=-9\]</span></p>
+<p><span class="math display">\[z=-3\]</span></p>
+<br/>
+</div></li>
+</ol>
+</body>
+</html>
+
