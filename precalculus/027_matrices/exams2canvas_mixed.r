@@ -3,11 +3,7 @@ n = 12
 outdir = "outcanvas"
 
 genname = "027"
-probs = c("01_pfd_2_linear.Rmd",
-          "02_pfd_linear_sqrd.Rmd",
-          "03_3x3_lin_sys.Rmd",
-          "04_4x4_lin_sys.Rmd",
-          "05_pfd_3_linear.Rmd")
+probs = c("05_pfd_3_linear.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)

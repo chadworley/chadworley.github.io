@@ -139,14 +139,13 @@ s = gsub("+-","-",s,fixed=T)
 cat(s)
 ```
 
-
 $$\begin{align}
 A&=`r A`\\
 B&=`r B`\\
 C&=`r C`
 \end{align}$$
 
-And, really, [SageMath](https://chadworley.github.io/sage.html) can do the entire partial-fraction decomposition by using [sympy](https://www.sympy.org/en/index.html)'s [apart](https://docs.sympy.org/latest/tutorials/intro-tutorial/simplification.html#apart) function.
+And, really, [SageMath](https://chadworley.github.io/sage.html) can do the entire partial-fraction decomposition by using the  [`partial_fraction()`](https://doc.sagemath.org/html/en/reference/calculus/sage/symbolic/expression.html#sage.symbolic.expression.Expression.partial_fraction) method available to [expression](https://doc.sagemath.org/html/en/reference/calculus/sage/symbolic/expression.html#) objects.
 
 ```{r,echo=F,results='asis'}
 s = '```python\n'
@@ -154,8 +153,7 @@ s = paste0(s,'var("x")\n')
 s = paste0(s,"nmrtr = ",numer2,"\n")
 s = paste0(s,"dnmntr = ",denom2,"\n")
 s = paste0(s,"exp = nmrtr/dnmntr\n")
-s = paste0(s,"from sympy import apart\n")
-s = paste0(s,"apart(exp)\n```")
+s = paste0(s,"exp.partial_fraction()\n```")
 s = gsub("+-","-",s,fixed=T)
 cat(s)
 ```

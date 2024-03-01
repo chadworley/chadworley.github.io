@@ -360,8 +360,8 @@ decomposition</a>.</p>
 <p>The procedure can be exemplified by trying to determine constants
 <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> to satisfy the equation below
 <strong>for all</strong> values of <span class="math inline">\(x\)</span>.</p>
-<p><span class="math display">\[\frac{5x^2+3x+16}{(x+2)(x-3)(x+4)} =
-\frac{A}{x+2}+\frac{B}{x-3}+\frac{C}{x+4}\]</span></p>
+<p><span class="math display">\[\frac{5x^2+13x+14}{(x-2)(x+3)(x+4)} =
+\frac{A}{x-2}+\frac{B}{x+3}+\frac{C}{x+4}\]</span></p>
 <ul>
 <li><span class="math inline">\(A=\)</span> ##ANSWER1##</li>
 <li><span class="math inline">\(B=\)</span> ##ANSWER2##</li>
@@ -432,48 +432,48 @@ decomposition</a>.</p>
 </div>
 <div id="solution" class="section level1">
 <h1>Solution</h1>
-<p>We start with the given equivalence: <span class="math display">\[\frac{5x^2+3x+16}{(x+2)(x-3)(x+4)} =
-\frac{A}{x+2}+\frac{B}{x-3}+\frac{C}{x+4}\]</span></p>
-<p>Multiply both sides by <span class="math inline">\((x+2)(x-3)(x+4)\)</span>.</p>
-<p><span class="math display">\[5x^2+3x+16 ~~=~~
-A(x-3)(x+4)+B(x+2)(x+4)+C(x+2)(x-3)\]</span></p>
+<p>We start with the given equivalence: <span class="math display">\[\frac{5x^2+13x+14}{(x-2)(x+3)(x+4)} =
+\frac{A}{x-2}+\frac{B}{x+3}+\frac{C}{x+4}\]</span></p>
+<p>Multiply both sides by <span class="math inline">\((x-2)(x+3)(x+4)\)</span>.</p>
+<p><span class="math display">\[5x^2+13x+14 ~~=~~
+A(x+3)(x+4)+B(x-2)(x+4)+C(x-2)(x+3)\]</span></p>
 <p>Expand (by <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL</a> and <a href="https://en.wikipedia.org/wiki/Distributive_property">distributing</a>).</p>
-<p><span class="math display">\[5x^2+3x+16 ~~=~~
-Ax^2+1Ax-12A+Bx^2+6Bx+8B+Cx^2-Cx-6C\]</span></p>
+<p><span class="math display">\[5x^2+13x+14 ~~=~~
+Ax^2+7Ax+12A+Bx^2+2Bx-8B+Cx^2+Cx-6C\]</span></p>
 <p>Gather similar terms (with same degree of <span class="math inline">\(x\)</span>) to identify the coefficients.</p>
-<p><span class="math display">\[(5)x^2+(3)x+(16) ~~=~~
-(A+B+C)x^2+(1A+6B-C)x+(-12A+8B-6C)\]</span> Corresponding coefficients
+<p><span class="math display">\[(5)x^2+(13)x+(14) ~~=~~
+(A+B+C)x^2+(7A+2B+C)x+(12A-8B-6C)\]</span> Corresponding coefficients
 must be equal for the above equivalence to hold for all <span class="math inline">\(x\)</span>.</p>
 <p><span class="math display">\[\begin{align}
 5&amp;=A+B+C\\
-3&amp;=1A+6B-C\\
-16&amp;=-12A+8B-6C
+13&amp;=7A+2B+C\\
+14&amp;=12A-8B-6C
 \end{align}\]</span></p>
 <p>Solve the 3x3 system. You can use elimination, or you can use <a href="https://chadworley.github.io/sage.html">SageMath</a>.</p>
 <pre class="python"><code>var(&quot;A B C&quot;)
 eq1 = 5==A+B+C
-eq2 = 3==1*A+6*B-C
-eq3 = 16==-12*A+8*B-6*C
+eq2 = 13==7*A+2*B+C
+eq3 = 14==12*A-8*B-6*C
 solve([eq1,eq2,eq3],[A,B,C])</code></pre>
 <p><span class="math display">\[\begin{align}
-A&amp;=-3\\
-B&amp;=2\\
-C&amp;=6
+A&amp;=2\\
+B&amp;=-4\\
+C&amp;=7
 \end{align}\]</span></p>
 <p>And, really, <a href="https://chadworley.github.io/sage.html">SageMath</a> can do the
-entire partial-fraction decomposition by using <a href="https://www.sympy.org/en/index.html">sympy</a>’s <a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/simplification.html#apart">apart</a>
-function.</p>
+entire partial-fraction decomposition by using the <a href="https://doc.sagemath.org/html/en/reference/calculus/sage/symbolic/expression.html#sage.symbolic.expression.Expression.partial_fraction"><code>partial_fraction()</code></a>
+method available to <a href="https://doc.sagemath.org/html/en/reference/calculus/sage/symbolic/expression.html#">expression</a>
+objects.</p>
 <pre class="python"><code>var(&quot;x&quot;)
-nmrtr = 5*x^2+3*x+16
-dnmntr = (x+2)*(x-3)*(x+4)
+nmrtr = 5*x^2+13*x+14
+dnmntr = (x-2)*(x+3)*(x+4)
 exp = nmrtr/dnmntr
-from sympy import apart
-apart(exp)</code></pre>
+exp.partial_fraction()</code></pre>
 </div>
 <div id="meta-information" class="section level1">
 <h1>Meta-information</h1>
 <p>extype: cloze exclozetype: schoice|schoice|schoice exsolution:
-0000001000000000000|0000000000010000000|0000000000000001000 exname:
+0000000000010000000|0000010000000000000|0000000000000000100 exname:
 pfd_3_linear</p>
 </div>
 
