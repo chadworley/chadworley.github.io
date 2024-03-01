@@ -11,7 +11,7 @@
 
 
 
-<title>04_4x4_lin_sys.knit</title>
+<title>05_pfd_3_linear.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -354,41 +354,22 @@ display: none;
 
 <div id="question" class="section level1">
 <h1>Question</h1>
-<p>Solve the system of linear equations.</p>
-<p><span class="math display">\[\begin{align}
-6w-x+4y-3z&amp;=-20 \\
--3w+x-3y+5z&amp;=1 \\
-w-5x-y-3z&amp;=-19 \\
-2w+5x+4y-6z&amp;=40
-\end{align}\]</span></p>
+<p>In Calculus, when <a href="https://en.wikipedia.org/wiki/Integral">integrating</a> <a href="https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions">rational
+expressions</a>, it is often helpful to perform <a href="https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions">partial-fraction
+decomposition</a>.</p>
+<p>The procedure can be exemplified by trying to determine constants
+<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span> to satisfy the equation below
+<strong>for all</strong> values of <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\frac{5x^2+3x+16}{(x+2)(x-3)(x+4)} =
+\frac{A}{x+2}+\frac{B}{x-3}+\frac{C}{x+4}\]</span></p>
 <ul>
-<li><span class="math inline">\(w=\)</span> ##ANSWER1##</li>
-<li><span class="math inline">\(x=\)</span> ##ANSWER2##</li>
-<li><span class="math inline">\(y=\)</span> ##ANSWER3##</li>
-<li><span class="math inline">\(z=\)</span> ##ANSWER4##</li>
+<li><span class="math inline">\(A=\)</span> ##ANSWER1##</li>
+<li><span class="math inline">\(B=\)</span> ##ANSWER2##</li>
+<li><span class="math inline">\(C=\)</span> ##ANSWER3##</li>
 </ul>
 <div id="answerlist" class="section level2">
 <h2>Answerlist</h2>
 <ul>
-<li>-9</li>
-<li>-8</li>
-<li>-7</li>
-<li>-6</li>
-<li>-5</li>
-<li>-4</li>
-<li>-3</li>
-<li>-2</li>
-<li>-1</li>
-<li>0</li>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-<li>4</li>
-<li>5</li>
-<li>6</li>
-<li>7</li>
-<li>8</li>
-<li>9</li>
 <li>-9</li>
 <li>-8</li>
 <li>-7</li>
@@ -451,41 +432,49 @@ w-5x-y-3z&amp;=-19 \\
 </div>
 <div id="solution" class="section level1">
 <h1>Solution</h1>
-<p>Don’t do this by hand. Let’s use SageMath, which is based on
-Python.</p>
-<p>You can run SageMath code <a href="https://chadworley.github.io/sage.html">here</a> or <a href="https://sagecell.sagemath.org/">here</a>.</p>
-<pre class="python"><code>var(&quot;w x y z&quot;)  #these will be our algebraic variables
-eq1 = 6*w-1*x+4*y-3*z==-20
-eq2 = -3*w+1*x-3*y+5*z==1
-eq3 = 1*w-5*x-1*y-3*z==-19
-eq4 = 2*w+5*x+4*y-6*z==40
-solve([eq1,eq2,eq3,eq4],[w,x,y,z])</code></pre>
-<p>Notice the equations (<code>eq1</code>, <code>eq2</code>,
-<code>eq3</code>, and <code>eq4</code>) are stored as expressions that
-equal 0. Every equation can be written with one side equal to 0. In
-programming, the <code>=</code> symbol is already used for <a href="https://cs.stanford.edu/people/nick/py/python-var.html">assignment</a>
-and the <code>==</code> symbol is used to test for equivalence. In a
-Computer Algebra System (CAS), the default way to store an equation is
-as an expression that equals 0. Basically, you should start by rewriting
-the system:</p>
+<p>We start with the given equivalence: <span class="math display">\[\frac{5x^2+3x+16}{(x+2)(x-3)(x+4)} =
+\frac{A}{x+2}+\frac{B}{x-3}+\frac{C}{x+4}\]</span></p>
+<p>Multiply both sides by <span class="math inline">\((x+2)(x-3)(x+4)\)</span>.</p>
+<p><span class="math display">\[5x^2+3x+16 ~~=~~
+A(x-3)(x+4)+B(x+2)(x+4)+C(x+2)(x-3)\]</span></p>
+<p>Expand (by <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL</a> and <a href="https://en.wikipedia.org/wiki/Distributive_property">distributing</a>).</p>
+<p><span class="math display">\[5x^2+3x+16 ~~=~~
+Ax^2+1Ax-12A+Bx^2+6Bx+8B+Cx^2-Cx-6C\]</span></p>
+<p>Gather similar terms (with same degree of <span class="math inline">\(x\)</span>) to identify the coefficients.</p>
+<p><span class="math display">\[(5)x^2+(3)x+(16) ~~=~~
+(A+B+C)x^2+(1A+6B-C)x+(-12A+8B-6C)\]</span> Corresponding coefficients
+must be equal for the above equivalence to hold for all <span class="math inline">\(x\)</span>.</p>
 <p><span class="math display">\[\begin{align}
-6w-x+4y-3z+20&amp;=0 \\
--3w+x-3y+5z-1&amp;=0 \\
-w-5x-y-3z+19&amp;=0 \\
-2w+5x+4y-6z-40&amp;=0
+5&amp;=A+B+C\\
+3&amp;=1A+6B-C\\
+16&amp;=-12A+8B-6C
 \end{align}\]</span></p>
-<p>Anyway, your Python code should tell you the answer:</p>
-<p><span class="math display">\[w=-3\]</span></p>
-<p><span class="math display">\[x=6\]</span></p>
-<p><span class="math display">\[y=-2\]</span></p>
-<p><span class="math display">\[z=-4\]</span></p>
+<p>Solve the 3x3 system. You can use elimination, or you can use <a href="https://chadworley.github.io/sage.html">SageMath</a>.</p>
+<pre class="python"><code>var(&quot;A B C&quot;)
+eq1 = 5==A+B+C
+eq2 = 3==1*A+6*B-C
+eq3 = 16==-12*A+8*B-6*C
+solve([eq1,eq2,eq3],[A,B,C])</code></pre>
+<p><span class="math display">\[\begin{align}
+A&amp;=-3\\
+B&amp;=2\\
+C&amp;=6
+\end{align}\]</span></p>
+<p>And, really, <a href="https://chadworley.github.io/sage.html">SageMath</a> can do the
+entire partial-fraction decomposition by using <a href="https://www.sympy.org/en/index.html">sympy</a>’s <a href="https://docs.sympy.org/latest/tutorials/intro-tutorial/simplification.html#apart">apart</a>
+function.</p>
+<pre class="python"><code>var(&quot;x&quot;)
+nmrtr = 5*x^2+3*x+16
+dnmntr = (x+2)*(x-3)*(x+4)
+exp = nmrtr/dnmntr
+from sympy import apart
+apart(exp)</code></pre>
 </div>
 <div id="meta-information" class="section level1">
 <h1>Meta-information</h1>
-<p>extype: cloze exclozetype: schoice|schoice|schoice|schoice
-exsolution:
-0000001000000000000|0000000000000001000|0000000100000000000|0000010000000000000
-exname: 4x4_lin_sys</p>
+<p>extype: cloze exclozetype: schoice|schoice|schoice exsolution:
+0000001000000000000|0000000000010000000|0000000000000001000 exname:
+pfd_3_linear</p>
 </div>
 
 

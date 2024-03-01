@@ -5,7 +5,8 @@ genname = "027"
 probs = c("01_pfd_2_linear.Rmd",
           "02_pfd_linear_sqrd.Rmd",
           "03_3x3_lin_sys.Rmd",
-          "04_4x4_lin_sys.Rmd")
+          "04_4x4_lin_sys.Rmd",
+          "05_pfd_3_linear.Rmd")
 
 nvers = 4
 ps = character(0)
