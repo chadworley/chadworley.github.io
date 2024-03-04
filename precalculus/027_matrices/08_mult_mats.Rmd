@@ -22,11 +22,10 @@ while(T){
   if(max(abs(p))<100){break}
 }
 
-
 ann = dims[1]*dims[4]
 anma = paste0("##ANSWER",1:ann,"##")
 
-ac = sort(p)
+ac = unique(sort(p))
 al = paste0("* ",ac,collapse="\n")
 al = paste0(rep(al,ann),collapse="\n")
 schs = paste0(rep("schoice",ann),collapse="|")
@@ -42,9 +41,9 @@ solstr = paste0("The product matrix has ",dims[1]," rows and ", dims[4], " colum
 
 for(i in 1:dims[1]){
   for(j in 1:dims[4]){
-    solstr = paste0(solstr,"To find the product matrix's value in row ",i," and column ",j,", sum the products of corresponding elements of row ",i," in matrix A and column ",j," in matrix B.\n")
+    solstr = paste0(solstr,"To find the product matrix's value in row ",i," and column ",j,", sum the products of corresponding elements of row ",i," in matrix A and column ",j," in matrix B.\n","$$C_{[",i,",",j,"]}=")
     damath = paste0("(",a[i,],")(",b[,j],")",collapse="+")
-    solstr = paste0(solstr,"$$",damath,"=",p[i,j],"$$\n\n")
+    solstr = paste0(solstr,damath,"=",p[i,j],"$$\n\n")
   }
 }
 
@@ -58,12 +57,20 @@ Matrices $A$ and $B$ are defined below.
 $$A = `r pra`$$
 $$B = `r prb`$$
 
-Find the [product](https://en.wikipedia.org/wiki/Matrix_multiplication) $AB$.
+Find the [product](https://en.wikipedia.org/wiki/Matrix_multiplication) $C=AB$.
 
+<style>
+.b:after {
+  content: "]"
+}
+.b:before {
+  content: "["
+}
+</style>
 
 $AB=$
-```{r,echo=F,fig.align='center'}
-knitr::kable(matrix(anma,dims[1]), "html")
+```{r,echo=F}
+knitr::kable(matrix(anma,dims[1]), "html",table.attr = "class=\"b\"")
 ```
 
 
@@ -84,7 +91,7 @@ $$B = `r prb`$$
 
 All of that work leads to the answer:
 
-$$AB = `r prp`$$
+$$C = AB = `r prp`$$
 
 Meta-information
 ============
