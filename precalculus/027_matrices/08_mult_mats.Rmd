@@ -1,0 +1,94 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+while(T){
+  dims = sample(2:4,3)
+  dims = c(dims,dims[3])
+  dims[3]=dims[2]
+  a = matrix(sample(-9:9,prod(dims[1:2]),T),nrow = dims[1])
+  b = matrix(sample(-9:9,prod(dims[3:4]),T),nrow = dims[3])
+  pra = matpr(a)
+  prb = matpr(b)
+  p = matrix(a%*%b,nrow=dims[1])
+  prp = matpr(p)
+  if(max(abs(p))<100){break}
+}
+
+
+ann = dims[1]*dims[4]
+anma = paste0("##ANSWER",1:ann,"##")
+
+ac = sort(p)
+al = paste0("* ",ac,collapse="\n")
+al = paste0(rep(al,ann),collapse="\n")
+schs = paste0(rep("schoice",ann),collapse="|")
+
+sols = character()
+for(i in 1:ann){
+  sol = paste0(1*(ac==p[i]),collapse="")
+  sols = c(sols,sol)
+}
+sols = paste0(sols,collapse="|")
+
+solstr = paste0("The product matrix has ",dims[1]," rows and ", dims[4], " columns.\n\n")
+
+for(i in 1:dims[1]){
+  for(j in 1:dims[4]){
+    solstr = paste0(solstr,"To find the product matrix's value in row ",i," and column ",j,", sum the products of corresponding elements of row ",i," in matrix A and column ",j," in matrix B.\n")
+    damath = paste0("(",a[i,],")(",b[,j],")",collapse="+")
+    solstr = paste0(solstr,"$$",damath,"=",p[i,j],"$$\n\n")
+  }
+}
+
+```
+
+Question
+========
+
+Matrices $A$ and $B$ are defined below.
+
+$$A = `r pra`$$
+$$B = `r prb`$$
+
+Find the [product](https://en.wikipedia.org/wiki/Matrix_multiplication) $AB$.
+
+
+$AB=$
+```{r,echo=F,fig.align='center'}
+knitr::kable(matrix(anma,dims[1]), "html")
+```
+
+
+Answerlist
+--------
+
+`r al`
+
+Solution
+========
+
+Here are the matrices:
+
+$$A = `r pra`$$
+$$B = `r prb`$$
+
+`r solstr`
+
+All of that work leads to the answer:
+
+$$AB = `r prp`$$
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r schs`
+exsolution: `r sols`
+exname: mult_mats
