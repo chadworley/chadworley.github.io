@@ -12,7 +12,7 @@ probs = c("01_pfd_2_linear.Rmd",
           "08_mult_mats.Rmd",
           "09_groceries.Rmd")
 
-nvers = 4
+nvers = 10
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))
