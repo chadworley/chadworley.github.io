@@ -9,7 +9,8 @@ probs = c("01_pfd_2_linear.Rmd",
           "05_pfd_3_linear.Rmd",
           "06_matrix_dimensions.Rmd",
           "07_can_mats_mult.Rmd",
-          "08_mult_mats.Rmd")
+          "08_mult_mats.Rmd",
+          "09_groceries.Rmd")
 
 nvers = 4
 ps = character(0)

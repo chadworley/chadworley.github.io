@@ -3,7 +3,7 @@ n = 12
 outdir = "outcanvas"
 
 genname = "027"
-probs = c("08_mult_mats.Rmd")
+probs = c("09_groceries.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)

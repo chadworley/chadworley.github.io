@@ -1,0 +1,120 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+foods = c("apple","banana","cherry","durian",
+          "eggplant","fig","grapefruit","honeydew")
+pricemu = c(1.5,0.9,6,8,4,4,3,6)
+groceries = c("Lovely Lunches","More Munchies",
+              "Nick's Necessities","Overpriced Options",
+              "Price Pincher")
+people = c("Quintin","Rachel","Sebastian","Trevor","Ursula","Venus")
+while(T){
+  mults = runif(length(foods)*length(groceries),0.75,1.25)
+  prices = round(rep(pricemu,length(groceries))*mults,2)
+  amounts = numeric()
+  for(i in 1:length(people)){
+    amounts = c(amounts,sample(c(0,0,0,0,1,1,1,2,2,2,3,4),length(foods)))
+  }
+  P = matrix(prices,nrow=length(groceries),byrow=T)
+  Q = matrix(amounts,ncol=length(people))
+  
+  C = P%*%Q
+  if(max(C)<100){break}
+}
+
+
+smm = function(M){
+  dastras = character()
+  for(i in 1:dim(M)[1]){
+    dastras = c(dastras,paste0(M[i,],collapse=","))
+  }
+  s = paste0("[[",paste0(dastras,collapse="],\n            ["),"]]")
+  return(s)
+}
+
+smm2 = function(M){
+  dastras = character()
+  for(i in 1:dim(M)[1]){
+    dastras = c(dastras,paste0(sprintf("%.2f",M[i,]),collapse=","))
+  }
+  s = paste0("[[",paste0(dastras,collapse="],\n            ["),"]]")
+  return(s)
+}
+
+```
+
+Question
+========
+
+In a [15-minute city](https://en.wikipedia.org/wiki/15-minute_city), all the following grocery stores are within a quick walk, and their prices (in USD) for some foods are shown.
+
+```{r,echo=F}
+dfP = data.frame(P)
+rownames(dfP) = groceries
+colnames(dfP) = foods
+knitr::kable(dfP)
+```
+
+Each of the people below plan to go shopping for those foods. Their grocery lists are shown.
+
+```{r,echo=F}
+dfQ = data.frame(Q)
+rownames(dfQ) = foods
+colnames(dfQ) = people
+knitr::kable(dfQ)
+```
+
+We can create these matrices in [SageMath](https://chadworley.github.io/sage.html) using the following commands:
+
+```
+P = matrix(`r smm2(P)`)
+
+Q = matrix(`r smm(Q)`)
+```
+
+We can find the product of these matrices.
+
+```
+pretty_print(P*Q)
+```
+
+What is the maximum possible cost of a grocery trip?
+
+
+Solution
+========
+
+The maximum cost is `r max(C)` USD. When you run the lines of code, you should get the following matrix:
+
+$$`r matpr(C)`$$
+If there are many trailing 0s, you can use the [`n` function](https://doc.sagemath.org/html/en/reference/misc/sage/misc/functional.html#sage.misc.functional.n) to get numerical approximations.
+
+```
+P = matrix(`r smm2(P)`)
+Q = matrix(`r smm(Q)`)
+C = n(P*Q,digits=4)
+pretty_print(C)
+```
+
+You can manually identify the maximum cost.
+
+[Getting sagemath to identify the largest element is annoyingly unintuitive.](https://ask.sagemath.org/question/10344/maximum-element-of-a-matrix/)
+
+```
+print(max(C.list()))
+```
+
+
+Meta-information
+============
+extype: num
+exsolution: `r max(C)`
+exname: groceries
+extol: 0.01
