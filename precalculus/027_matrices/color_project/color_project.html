@@ -354,14 +354,35 @@ display: none;
 
 <div id="color-project" class="section level1">
 <h1>Color Project</h1>
+<p>Use <a href="https://sagecell.sagemath.org/">SageMath</a> to show
+your color preferences in various <a href="https://doc.sagemath.org/html/en/reference/plot3d/threejs.html">3D
+graphs</a>. Document your work in a Jupyter notebook, which will be
+exported to an HTML file.</p>
 <ul>
-<li>Categorize a bunch of colors as “good” or “bad” based on your
-personal preference.</li>
+<li><a href="https://chadworley.github.io/color_good_bad.html">Categorize a
+bunch of colors</a> as “good” or “bad” based on your personal
+preference.</li>
 <li>Plot those colors in rectangular <a href="https://en.wikipedia.org/wiki/RGB_color_spaces#/media/File:RGB_Cube_Show_lowgamma_cutout_b.png">RGB
 space</a>.</li>
-<li>Plot those colors in cylindrical <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSL space</a>.</li>
+<li>Plot those colors in rectangular <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSV space</a>.</li>
 <li>Plot those colors in cylindrical <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSV space</a>.</li>
+<li>Plot those colors in rectangular <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSL space</a>.</li>
+<li>Plot those colors in cylindrical <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSL space</a>.</li>
 </ul>
+<div id="make-a-cocalc-account-with-a-junk-email" class="section level2">
+<h2>Make a CoCalc account with a junk email</h2>
+<ul>
+<li>Go to <a href="https://cocalc.com/">https://cocalc.com/</a></li>
+<li>Click <code>Sign Up</code></li>
+<li>Give fake email and name. Please write down your fake email so you
+can save your work.</li>
+<li>Click <code>New</code>.</li>
+<li>Click <code>Jupyter Notebook</code>.</li>
+<li>For Kernel, use <code>SageMath</code>.</li>
+</ul>
+<p>There are two types of cells: Text and Code. Use Text cells to write
+about what you are doing. Use Code cells for code.</p>
+</div>
 <div id="categorize-colors." class="section level2">
 <h2>Categorize colors.</h2>
 <ul>
@@ -370,12 +391,154 @@ space</a>.</li>
 <li>If you like the color, click <code>Good</code>. If you do NOT like
 the color, click <code>Bad</code>.</li>
 <li>Continue deciding whether colors are good or bad.</li>
-<li>Copy and paste the lists of lists into a <a href="https://chadworley.github.io/sage.html">SageMathCell</a>. Use the
+<li>Copy and paste the lists of lists into a code cell. Use the
 assignment operator (<code>=</code>) to name the lists <code>good</code>
 and <code>bad</code>.</li>
 </ul>
 <pre><code>good = [[55,43,169],[100,200,12],...]
 bad = [[1,2,33],[200,100,12],...]</code></pre>
+</div>
+<div id="plot-colors-in-rectangular-rgb-space" class="section level2">
+<h2>Plot colors in rectangular RGB space</h2>
+<ul>
+<li>Plot good and bad colors as <a href="https://doc.sagemath.org/html/en/reference/plot3d/sage/plot/plot3d/shapes.html">spheres
+and boxes</a>.</li>
+<li>Note: the <a href="https://doc.sagemath.org/html/en/reference/plotting/sage/plot/colors.html#"><code>Color</code>
+function</a> expects red, green, and blue values to be between 0 and 1,
+not 0 and 255. That is why we divide r, g, and b by 255.</li>
+</ul>
+<pre><code>good = [..your data here..]
+bad = [..your data here..]
+from sage.plot.plot3d.shapes import *
+graph = Graphics()
+size = 0.05
+for r,g,b in good:
+    x = r/255
+    y = g/255
+    z = b/255
+    c = Color(x,y,z)
+    graph += Sphere(size, color=c).translate(x,y,z)
+for r,g,b in bad:
+    x,y,z = [r/255,g/255,b/255]
+    c = Color(x,y,z)
+    graph += Box([size,size,size], color=c).translate(x,y,z)
+show(graph,
+     aspect_ratio=1,
+     #projection=&quot;orthographic&quot;,
+     axes_labels = (&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;)
+    )</code></pre>
+<ul>
+<li>Run the code.</li>
+<li>Is there anything interesting to note?</li>
+</ul>
+</div>
+<div id="plot-colors-in-rectangular-hsv-space" class="section level2">
+<h2>Plot colors in rectangular HSV space</h2>
+<p>Use the <a href="https://doc.sagemath.org/html/en/reference/plotting/sage/plot/colors.html#sage.plot.colors.Color.hsv"><code>hsv()</code>
+method</a> available to Color objects to determine the hue, saturation,
+and value of each color. Use these h,s,v coordinates as the positions of
+the spheres and boxes.</p>
+<pre><code>good = [..your data here..]
+bad = [..your data here..]
+from sage.plot.plot3d.shapes import *
+graph = Graphics()
+size = 0.05
+for r,g,b in good:
+    r = r/255
+    g = g/255
+    b = b/255
+    c = Color(r,g,b)
+    h,s,v = c.hsv()
+    graph += Sphere(size, color=c).translate(h,s,v)
+for r,g,b in bad:
+    r = r/255
+    g = g/255
+    b = b/255
+    c = Color(r,g,b)
+    h,s,v = c.hsv()
+    graph += Box([size,size,size], color=c).translate(h,s,v)
+show(graph,
+     aspect_ratio=1,
+     #projection=&quot;orthographic&quot;,
+     axes_labels = (&quot;hue&quot;,&quot;sat&quot;,&quot;val&quot;)
+    )</code></pre>
+<ul>
+<li>Is there anything interesting to note?</li>
+</ul>
+</div>
+<div id="plot-colors-in-cylindrical-hsv-space" class="section level2">
+<h2>Plot colors in cylindrical HSV space</h2>
+<p>In <a href="https://en.wikipedia.org/wiki/Cylindrical_coordinate_system#Cartesian_coordinates">cylindrical
+coordinates</a>, each point has an angle, a radius, and a height.</p>
+<p>The standard <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSV</a> model uses hue
+(<span class="math inline">\(h\)</span>) as the angle, saturation (<span class="math inline">\(s\)</span>) as the radius, and value (<span class="math inline">\(v\)</span>) as the height. Assuming all of these
+are numbers between 0 and 1, we can get reasonable cartesian
+coordinates:</p>
+<p><span class="math display">\[x = s \cos(2\pi h)\]</span> <span class="math display">\[y = s \sin(2\pi h)\]</span> <span class="math display">\[z = v\]</span></p>
+<pre><code>good = [..your data here..]
+bad = [..your data here..]
+from sage.plot.plot3d.shapes import *
+graph = Graphics()
+size = 0.05
+for r,g,b in good:
+    r = r/255
+    g = g/255
+    b = b/255
+    c = Color(r,g,b)
+    h,s,v = c.hsv()
+    x = s*cos(2*pi*h)
+    y = s*sin(2*pi*h)
+    z = v
+    graph += Sphere(size, color=c).translate(x,y,z)
+for r,g,b in bad:
+    r = r/255
+    g = g/255
+    b = b/255
+    c = Color(r,g,b)
+    h,s,v = c.hsv()
+    x = s*cos(2*pi*h)
+    y = s*sin(2*pi*h)
+    z = v
+    graph += Box([size,size,size], color=c).translate(x,y,z)
+show(graph,
+     aspect_ratio=1,
+     #projection=&quot;orthographic&quot;,
+     axes_labels=False
+    )</code></pre>
+<ul>
+<li>Is there anything interesting to note?</li>
+</ul>
+</div>
+<div id="plot-colors-in-rectangular-hsl-space" class="section level2">
+<h2>Plot colors in rectangular HSL space</h2>
+<p>Use the <a href="https://doc.sagemath.org/html/en/reference/plotting/sage/plot/colors.html#sage.plot.colors.Color.hsl"><code>hsl()</code>
+method</a> available to Color objects to determine the hue, saturation,
+and value of each color. We use these h,s,l values as the positions of
+the spheres and boxes.</p>
+<ul>
+<li>Is there anything interesting to note?</li>
+</ul>
+</div>
+<div id="plot-colors-in-cylindrical-hsl-space" class="section level2">
+<h2>Plot colors in cylindrical HSL space</h2>
+<p>In <a href="https://en.wikipedia.org/wiki/Cylindrical_coordinate_system#Cartesian_coordinates">cylindrical
+coordinates</a>, each point has an angle, a radius, and a height.</p>
+<p>The standard <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSL</a> model uses hue
+(<span class="math inline">\(h\)</span>) as the angle, saturation (<span class="math inline">\(s\)</span>) as the radius, and lightness (<span class="math inline">\(l\)</span>) as the height. Assuming all of these
+are numbers between 0 and 1, we can get reasonable cartesian
+coordinates:</p>
+<p><span class="math display">\[x = s \cos(2\pi h)\]</span> <span class="math display">\[y = s \sin(2\pi h)\]</span> <span class="math display">\[z = l\]</span></p>
+<ul>
+<li>Is there anything interesting to note?</li>
+</ul>
+</div>
+<div id="export" class="section level2">
+<h2>Export</h2>
+<ul>
+<li>Click <code>File</code></li>
+<li>Click <code>Save and export as HTML</code></li>
+<li>Submit the HTML file on Canvas.</li>
+</ul>
 </div>
 </div>
 
