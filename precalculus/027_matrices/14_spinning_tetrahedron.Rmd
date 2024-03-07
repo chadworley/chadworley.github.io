@@ -1,0 +1,76 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+while(T){
+  uv1 = rnorm(3)
+  uv1 = uv1/sqrt(sum(uv1^2))
+  uv2 = rnorm(3)
+  uv2 = uv2/sqrt(sum(uv2^2))
+  uv3 = rnorm(3)
+  uv3 = uv3/sqrt(sum(uv3^2))
+  uv4 = rnorm(3)
+  uv4 = uv4/sqrt(sum(uv4^2))
+}
+
+n = 50
+X = matrix(round(runif(n*3,-1,1),2),nrow=3)
+
+```
+
+Question
+========
+
+Consider the orthographic projection matrix below to project 3D points into a 2D plane:
+
+$$P = \begin{bmatrix}1 & 0.1 & 0 \\ 0 & 0.1 & 1\end{bmatrix}$$
+
+Also consider the [3D rotation matrices](https://en.wikipedia.org/wiki/Rotation_matrix#In_three_dimensions) around the $x$, $y$, and $z$ axes.
+
+$$R_x = \begin{bmatrix}1 & 0 & 0 \\ 0 & \cos(\theta) & -\sin(\theta) \\ 0 &\sin(\theta) & \cos(\theta) \end{bmatrix}$$
+
+$$R_y = \begin{bmatrix}\cos(\theta) & 0 & \sin(\theta) \\ 0 & 1 & 0 \\ -\sin(\theta) & 0 & \cos(\theta) \end{bmatrix}$$
+
+$$R_z = \begin{bmatrix}\cos(\theta) & -\sin(\theta) & 0 \\ \sin(\theta) & \cos(\theta) & 0 \\ 0 & 0 & 1\end{bmatrix}$$
+
+We will take a set of points, rotate them around the $x$ axis and $y$ axis. Then, we will animate the points as they rotate around the $z$ axis.
+
+
+```
+X = matrix(`r matcc(X)`)
+```
+
+`r uvw`
+
+
+
+
+Solution
+========
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: 1
+exname: multiple_transforms

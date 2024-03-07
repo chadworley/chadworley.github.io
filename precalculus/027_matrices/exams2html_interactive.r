@@ -10,7 +10,11 @@ probs = c("01_pfd_2_linear.Rmd",
           "06_matrix_dimensions.Rmd",
           "07_can_mats_mult.Rmd",
           "08_mult_mats.Rmd",
-          "09_groceries.Rmd")
+          "09_groceries.Rmd",
+          "10_transpose_matrix.Rmd",
+          "11_2D_rotation_matrix.Rmd",
+          "12_rotate_2D_points.Rmd",
+          "13_multiple_transforms.Rmd")
 
 nvers = 10
 ps = character(0)

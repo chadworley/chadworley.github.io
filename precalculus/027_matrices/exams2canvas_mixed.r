@@ -3,7 +3,10 @@ n = 12
 outdir = "outcanvas"
 
 genname = "027"
-probs = c("09_groceries.Rmd")
+probs = c("10_transpose_matrix.Rmd",
+          "11_2D_rotation_matrix.Rmd",
+          "12_rotate_2D_points.Rmd",
+          "13_multiple_transforms.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)

@@ -1,0 +1,80 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],\n            [",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+while(T){
+  theta = round(runif(1,0,2*pi),2)
+  ct = round(cos(theta),2)
+  nct = -ct
+  st = round(sin(theta),2)
+  nst = -st
+  angs = sort(c(ct,nct,st,nst))
+  if(min(abs(angs))>0.1 && min(diff(angs))>0.1){break}
+}
+
+al = paste0("* ",angs,collapse="\n")
+sol1 = paste0(1*(angs==ct),collapse="")
+sol2 = paste0(1*(angs==nst),collapse="")
+sol3 = paste0(1*(angs==st),collapse="")
+sol4 = paste0(1*(angs==ct),collapse="")
+
+R = matrix(c(ct,nst,st,ct),2,byrow=T)
+
+```
+
+Question
+========
+
+The [2D rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) is defined below for a counter-clockwise rotation by an angle $\theta$ when it is the first operand in matrix multiplication.
+
+$$R = \begin{bmatrix}\cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta) \end{bmatrix} $$
+
+Let $\theta=`r sprintf("%.2f",theta)`$ radians. Determine $R$ (approximate decimal values). 
+
+$R =$
+
+|    |    |
+|:---:|:---:|
+|##ANSWER1##|##ANSWER2##|
+|##ANSWER3##|##ANSWER4##|
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+$$R = `r matpr(R)`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: 2D_rotation_matrix
