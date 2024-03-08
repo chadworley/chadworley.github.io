@@ -3,8 +3,7 @@ n = 12
 outdir = "outcanvas"
 
 genname = "027"
-probs = c("14_oblique_projection.Rmd",
-          "15_spinning_pyramid.Rmd")
+probs = c("14_oblique_projection.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
