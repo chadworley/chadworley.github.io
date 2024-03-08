@@ -1,0 +1,233 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+X = matrix(c(1,-1,-1,
+      -1,-1,-1,
+      -1,1,-1,
+      1,1,-1,
+      1,-1,-1,
+      0,0,1,
+      1,1,-1,
+      -1,1,-1,
+      0,0,1,
+      -1,-1,-1),3)
+
+
+XS = c(0,0,0,
+      0,0,1,
+      0,1,1,
+      0,1,0,
+      0,0,0,
+      1,0,0,
+      1,1,0,
+      0,1,0,
+      1,1,0,
+      1,1,1,
+      0,1,1,
+      1,1,1,
+      1,0,1,
+      0,0,1,
+      1,0,1,
+      1,0,0)
+XS = matrix(XS,3)
+
+tx = round(runif(1,0.1,2*pi-0.1),2)
+ty = round(runif(1,0.1,2*pi-0.1),2)
+tz = round(runif(1,0.1,2*pi-0.1),2)
+tp = round(runif(1,0.1,pi/4),2)
+r = round(runif(1,0.05,0.5),2)
+
+pams1 = c(tp,r,tx,ty,tz)
+
+pm = list(pams1)
+
+for(i in 2:4){
+  tx2 = round(runif(1,0.1,2*pi-0.1),2)
+  ty2 = round(runif(1,0.1,2*pi-0.1),2)
+  tz2 = round(runif(1,0.1,2*pi-0.1),2)
+  tp2 = round(runif(1,0.1,pi/4),2)
+  r2 = round(runif(1,0.05,0.5),2)
+  pams2 = c(tp2,r2,tx2,ty2,tz2)
+  pm[[i]] = pams2
+}
+
+ord = sample(1:4)
+sol = paste0(1*(1==ord),collapse="")
+
+```
+
+Question
+========
+
+One of the simplest 3D $\to$ 2D projections (to draw by hand) is an [oblique projection](https://en.wikipedia.org/wiki/Oblique_projection). Each type of oblique projection can be parameterized with an angle ($\theta$) and a ratio ($r<1$). Below is an oblique-projection matrix.
+
+$$P = \begin{bmatrix}1 & r\cos(\theta_P) & 0 \\ 0 & r\sin(\theta_P) & 1 \end{bmatrix}$$
+
+We can exemplify an oblique projection with $r=0.5$ and $\theta_P=\frac{pi}{6}$ on a unit cube. The cube has lengths 1 unit long.
+
+([SageMath](https://sagecell.sagemath.org/?z=eJxtUF0LgyAUfRf8Dxf2oiEtH7a3fsN6DCLCwuCOpk4N9vPnWrGgecCPq-d47jnBrZ_wOWtw3t71ENEasCPMBiMMc68pqSWU8FDR44s1TSE2yITD3ApKYD-a39PvumGV-UfYXR9pbcsp8clSkV8oiS7tHJ6vlFR7m1L4bLCBRcc_fyRRnwU0y1kuEuOkYrf0VmW1pGRCo9lazKNXJjgbNONCBZdy6bxK2ZSSvwGw2ExO&lang=sage&interacts=eJyLjgUAARUAuQ==))
+```
+X1 = matrix(`r matcc(XS)`)
+r = 0.5
+tp = pi/6
+P = matrix([[1,r*cos(tp),0],[0,r*sin(tp),1]])
+flat_X1 = P*X1
+line(flat_X1.transpose(),aspect_ratio=1)
+```
+
+```{r,echo=F,fig.dim=c(5,5)}
+r = 0.5
+t = pi/6
+P = matrix(c(1,r*cos(t),0,0,r*sin(t),1),2,byrow=T)
+Y = P%*%XS
+par(pty="s")
+plot(Y[1,],Y[2,],type="l",xlim=c(-0.1,1.5),ylim=c(-0.1,1.5),xlab="x",ylab="z")
+lines(c(1+r,1,1+r*cos(t)),c(0,0,r*sin(t)),col="red",lwd=2)
+th = seq(0,2*pi,length.out=300)
+lines(1+r*cos(th),r*sin(th),col="red",lty=3)
+th = seq(0,t,length.out=100)
+lines(1+r*cos(th),r*sin(th),col="red",lwd=2)
+text(1+0.3*cos(t/2),0.3*sin(t/2),"pi/6",col="red")
+text(1+r/2,-0.05,r,col="red")
+```
+\
+
+In 3D, there are relatively simple rotation matrices for spinning around the $x$, $y$, or $z$ axis.
+
+$$R_x = \begin{bmatrix}1 & 0 & 0 \\ 0 & \cos(\theta_x) & -\sin(\theta_x) \\ 0 &\sin(\theta_x) & \cos(\theta_x) \end{bmatrix}$$
+
+$$R_y = \begin{bmatrix}\cos(\theta_y) & 0 & \sin(\theta_y) \\ 0 & 1 & 0 \\ -\sin(\theta_y) & 0 & \cos(\theta_y) \end{bmatrix}$$
+
+$$R_z = \begin{bmatrix}\cos(\theta_z) & -\sin(\theta_z) & 0 \\ \sin(\theta_z) & \cos(\theta_z) & 0 \\ 0 & 0 & 1\end{bmatrix}$$
+
+## Information specific to this question
+
+Fill in the missing code to generate various rotations of a square pyramid.
+
+* Red: X1 is the original
+* Orange: X2 is after a rotation of `r tx` radians around the x-axis
+* Green: X3 has another rotation of `r ty` radians around the y-axis
+* Blue: X4 has another rotation of `r tz` radians around the z-axis
+
+In order to flatten the 3D points onto a 2D graph, each pyramid will undergo an oblique projection with $r=`r r`$ and $\theta_P=`r tp`$.
+
+```
+graph01 = Graphics()
+X1 = matrix(`r matcc(X)`)
+P = ...
+X1_flat = ...
+graph01 += line(X1_flat.transpose(),color="red")
+Rx = ...
+X2 = ...
+X2_flat = ...
+graph01 += line(X2_flat.transpose(),color="orange")
+Ry = ...
+X3 = ...
+X3_flat = ...
+graph01 += ...
+Rz = ...
+X4 = ...
+X4_flat = ...
+graph01 += ...
+show(graph01,aspect_ratio=1,axes=False)
+```
+
+Which graph matches?
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(pty="s",mfrow=c(2,2),mar=c(0,0,3,0))
+for(i in 1:4){
+  pams = pm[[ord[i]]]
+  TP = pams[1]
+  R = pams[2]
+  TX = pams[3]
+  TY = pams[4]
+  TZ = pams[5]
+  rx = matrix(c(1,0,0,
+                0,cos(TX),-sin(TX),
+                0,sin(TX),cos(TX)),3,byrow = T)
+  ry = matrix(c(cos(TY),0,sin(TY),
+                0,1,0,
+                -sin(TY),0,cos(TY)),3,byrow = T)
+  rz = matrix(c(cos(TY),-sin(TY),0,
+                sin(TY),cos(TY),0,
+                0,0,1),3,byrow = T)
+  pp = matrix(c(1,R*cos(TP),0,
+                0,R*sin(TP),1),2,byrow=T)
+  x1 = pp %*% X
+  x2 = pp %*% rx %*% X
+  x3 = pp %*% ry %*% rx %*% X
+  x4 = pp %*% rz %*% ry %*% rx %*% X
+  plot(0,0,type="n",axes=F,ann=T,xlab="",ylab="",xlim=c(-2,2),ylim=c(-2,2),main=c("A","B","C","D")[i])
+  lines(x1[1,],x1[2,],col="red")
+  lines(x2[1,],x2[2,],col="orange")
+  lines(x3[1,],x3[2,],col="darkgreen")
+  lines(x4[1,],x4[2,],col="blue")
+}
+```
+\
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+
+
+Solution
+========
+
+The answer is `r c("A","B","C","D")[ord==1]`.
+
+[SageMath](https://sagecell.sagemath.org/)
+```
+graph01 = Graphics()
+X1 = matrix(`r matcc(X)`)
+P = matrix([[1,`r r`*cos(`r tp`),0],[0,`r r`*sin(`r tp`),1]])
+X1_flat = P*X1
+graph01 += line(X1_flat.transpose(),color="red")
+tx = `r tx`
+Rx = matrix([[1,0,0],[0,cos(tx),-sin(tx)],[0,sin(tx),cos(tx)]])
+X2 = Rx*X1
+X2_flat = P*X2
+graph01 += line(X2_flat.transpose(),color="orange")
+ty = `r ty`
+Ry = matrix([[cos(ty),0,sin(ty)],[0,1,0],[-sin(ty),0,cos(ty)]])
+X3 = Ry*X2
+X3_flat = P*X3
+graph01 += line(X3_flat.transpose(),color="green")
+Rz = matrix([[cos(`r tz`),-sin(`r tz`),0],[sin(`r tz`),cos(`r tz`),0],[0,0,1]])
+X4 = Rz*X3
+X4_flat = P*X4
+graph01 += line(X4_flat.transpose(),color="blue")
+show(graph01,aspect_ratio=1,axes=False)
+```
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: oblique_projection

@@ -14,7 +14,9 @@ probs = c("01_pfd_2_linear.Rmd",
           "10_transpose_matrix.Rmd",
           "11_2D_rotation_matrix.Rmd",
           "12_rotate_2D_points.Rmd",
-          "13_multiple_transforms.Rmd")
+          "13_multiple_transforms.Rmd",
+          "14_oblique_projection.Rmd",
+          "15_spinning_pyramid.Rmd")
 
 nvers = 10
 ps = character(0)
