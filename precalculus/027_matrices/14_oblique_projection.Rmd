@@ -87,28 +87,28 @@ We can exemplify an oblique projection with $r=0.5$ and $\theta_P=\frac{pi}{6}$ 
 
 ([SageMath](https://sagecell.sagemath.org/?z=eJxtUF0LgyAUfRf8Dxf2oiEtH7a3fsN6DCLCwuCOpk4N9vPnWrGgecCPq-d47jnBrZ_wOWtw3t71ENEasCPMBiMMc68pqSWU8FDR44s1TSE2yITD3ApKYD-a39PvumGV-UfYXR9pbcsp8clSkV8oiS7tHJ6vlFR7m1L4bLCBRcc_fyRRnwU0y1kuEuOkYrf0VmW1pGRCo9lazKNXJjgbNONCBZdy6bxK2ZSSvwGw2ExO&lang=sage&interacts=eJyLjgUAARUAuQ==))
 ```
-X1 = matrix(`r matcc(XS)`)
+X = matrix(`r matcc(XS)`)
 r = 0.5
 tp = pi/6
 P = matrix([[1,r*cos(tp),0],[0,r*sin(tp),1]])
-flat_X1 = P*X1
-line(flat_X1.transpose(),aspect_ratio=1)
+flat_X = P*X
+line(flat_X.transpose(),aspect_ratio=1)
 ```
 
 ```{r,echo=F,fig.dim=c(5,5)}
-r = 0.5
-t = pi/6
-P = matrix(c(1,r*cos(t),0,0,r*sin(t),1),2,byrow=T)
-Y = P%*%XS
+r3 = 0.5
+t3 = pi/6
+P3 = matrix(c(1,r3*cos(t3),0,0,r3*sin(t3),1),2,byrow=T)
+Y3 = P3%*%XS
 par(pty="s")
-plot(Y[1,],Y[2,],type="l",xlim=c(-0.1,1.5),ylim=c(-0.1,1.5),xlab="x",ylab="z")
-lines(c(1+r,1,1+r*cos(t)),c(0,0,r*sin(t)),col="red",lwd=2)
+plot(Y3[1,],Y3[2,],type="l",xlim=c(-0.1,1.5),ylim=c(-0.1,1.5),xlab="x",ylab="z")
+lines(c(1+r3,1,1+r3*cos(t3)),c(0,0,r3*sin(t3)),col="red",lwd=2)
 th = seq(0,2*pi,length.out=300)
-lines(1+r*cos(th),r*sin(th),col="red",lty=3)
-th = seq(0,t,length.out=100)
-lines(1+r*cos(th),r*sin(th),col="red",lwd=2)
-text(1+0.3*cos(t/2),0.3*sin(t/2),"pi/6",col="red")
-text(1+r/2,-0.05,r,col="red")
+lines(1+r3*cos(th),r3*sin(th),col="red",lty=3)
+th = seq(0,t3,length.out=100)
+lines(1+r3*cos(th),r3*sin(th),col="red",lwd=2)
+text(1+0.3*cos(t3/2),0.3*sin(t3/2),"pi/6",col="red")
+text(1+r/2,-0.05,r3,col="red")
 ```
 \
 
@@ -209,16 +209,21 @@ P = matrix([[1,`r r`*cos(`r tp`),0],[0,`r r`*sin(`r tp`),1]])
 X1_flat = P*X1
 graph01 += line(X1_flat.transpose(),color="red")
 tx = `r tx`
-Rx = matrix([[1,0,0],[0,cos(tx),-sin(tx)],[0,sin(tx),cos(tx)]])
+Rx = matrix([[1,0,0],
+             [0,cos(tx),-sin(tx)],
+             [0,sin(tx),cos(tx)]])
 X2 = Rx*X1
 X2_flat = P*X2
 graph01 += line(X2_flat.transpose(),color="orange")
-ty = `r ty`
-Ry = matrix([[cos(ty),0,sin(ty)],[0,1,0],[-sin(ty),0,cos(ty)]])
+Ry = matrix([[cos(`r ty`),0,sin(`r ty`)],
+             [0,1,0],
+             [-sin(`r ty`),0,cos(`r ty`)]])
 X3 = Ry*X2
 X3_flat = P*X3
 graph01 += line(X3_flat.transpose(),color="green")
-Rz = matrix([[cos(`r tz`),-sin(`r tz`),0],[sin(`r tz`),cos(`r tz`),0],[0,0,1]])
+Rz = matrix([[cos(`r tz`),-sin(`r tz`),0],
+             [sin(`r tz`),cos(`r tz`),0],
+             [0,0,1]])
 X4 = Rz*X3
 X4_flat = P*X4
 graph01 += line(X4_flat.transpose(),color="blue")

@@ -1,0 +1,106 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+while(T){
+  A = matrix(sample(-9:9,9),3)
+  X = matrix(sample(-9:9,3),3)
+  B = A %*% X
+  if(det(A)!=0 && max(abs(B))<10){break}
+}
+
+eqs = character()
+for(i in 1:3){
+  cof = A[i,]
+  a = cof[1]
+  b = cof[2]
+  c = cof[3]
+  eq = paste0(a,"x+",b,"y+",c,"z&=",B[i])
+  eq = gsub("+-","-",eq,fixed=T)
+  eq = gsub("1x","x",eq,fixed=T)
+  eq = gsub("1y","y",eq,fixed=T)
+  eq = gsub("1z","z",eq,fixed=T)
+  eq = gsub("0x+","",eq,fixed=T)
+  eq = gsub("0x","",eq,fixed=T)
+  eq = gsub("+0y","",eq,fixed=T)
+  eq = gsub("0y","",eq,fixed=T)
+  eq = gsub("+0z","",eq,fixed=T)
+  eqs = c(eqs,eq)
+}
+soe = paste0(eqs,collapse="\\\\\n")
+
+ac = c(paste(-9:9),"x","y","z")
+
+al = paste0("* ",ac,collapse="\n")
+aal = paste0(rep(al,15),collapse="\n")
+
+sols = character()
+
+for(i in 1:3){
+  for(j in 1:3){
+    sols = c(sols,paste0(1*(ac==as.character(A[i,j])),collapse=""))
+  }
+}
+sols = c(sols,paste0(1*(ac=="x"),collapse=""))
+sols = c(sols,paste0(1*(ac=="y"),collapse=""))
+sols = c(sols,paste0(1*(ac=="z"),collapse=""))
+for(i in 1:3){
+  sols = c(sols,paste0(1*(ac==as.character(B[i])),collapse=""))
+}
+```
+
+Question
+========
+
+Consider the following system of linear equations:
+
+$$\begin{align}
+`r soe`
+\end{align}$$
+
+Write that system in [matrix form](https://en.wikipedia.org/wiki/System_of_linear_equations#Matrix_equation).
+
+$$
+\begin{bmatrix}
+##ANSWER1## & ##ANSWER2## & ##ANSWER3## \\
+##ANSWER4## & ##ANSWER5## & ##ANSWER6## \\
+##ANSWER7## & ##ANSWER8## & ##ANSWER9##
+\end{bmatrix}
+\begin{bmatrix}
+##ANSWER10##\\
+##ANSWER11##\\
+##ANSWER12##
+\end{bmatrix} ~&=~
+\begin{bmatrix}
+##ANSWER13##\\
+##ANSWER14##\\
+##ANSWER15##
+\end{bmatrix}
+$$
+
+
+
+Answerlist
+--------
+
+`r aal`
+
+
+Solution
+========
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice
+exsolution: `r paste0(sols,collapse="|")`
+exname: SOE_matrix_form
