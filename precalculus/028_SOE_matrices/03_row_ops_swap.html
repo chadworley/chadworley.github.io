@@ -11,7 +11,7 @@
 
 
 
-<title>01_SOE_matrix_form.knit</title>
+<title>03_row_ops_swap.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -354,100 +354,97 @@ display: none;
 
 <div id="question" class="section level1">
 <h1>Question</h1>
-<p>Consider the following system of linear equations:</p>
-<p><span class="math display">\[\begin{align}
--8x+y+5z&amp;=1\\
--5x+8z&amp;=-5\\
-2x-y+3z&amp;=-7
-\end{align}\]</span></p>
-<p>Write that system in <a href="https://en.wikipedia.org/wiki/System_of_linear_equations#Matrix_equation">matrix
-form</a>.</p>
-<p><span class="math display">\[
-\begin{bmatrix}
-##ANSWER1## &amp; ##ANSWER2## &amp; ##ANSWER3## \\
-##ANSWER4## &amp; ##ANSWER5## &amp; ##ANSWER6## \\
-##ANSWER7## &amp; ##ANSWER8## &amp; ##ANSWER9##
-\end{bmatrix}
-\begin{bmatrix}
-##ANSWER10##\\
-##ANSWER11##\\
+<p>There are 3 <a href="https://en.wikipedia.org/wiki/Elementary_matrix#Elementary_row_operations">elementary
+row operations</a>:</p>
+<ul>
+<li>Row switch: <span class="math inline">\(R_a \leftrightarrow
+R_b\)</span></li>
+<li>Row multiply: <span class="math inline">\(k R_a \rightarrow
+R_a\)</span></li>
+<li>Row add: <span class="math inline">\(R_a+kR_b \rightarrow
+R_a\)</span></li>
+</ul>
+<p>Personally, I prefer to mix the multiply and add into “linear
+combination”:</p>
+<ul>
+<li>Linear combination: <span class="math inline">\(jR_a + kR_b
+\rightarrow R_a\)</span></li>
+</ul>
+<p>Write that system as an <a href="https://en.wikipedia.org/wiki/Augmented_matrix#Solution_of_a_linear_system">augmented
+matrix</a>.</p>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.matrix-container {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+padding: 5px;
+margin: 3px;
+background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+padding: 10px; text-align: center;
+}
+</style>
+<div class="matrix-container">
+<table class="matrix">
+<tr>
+<td>
+##ANSWER1##
+</td>
+<td>
+##ANSWER2##
+</td>
+<td>
+##ANSWER3##
+</td>
+<td class="lbtd">
+##ANSWER10##
+</td>
+</tr>
+<tr>
+<td>
+##ANSWER4##
+</td>
+<td>
+##ANSWER5##
+</td>
+<td>
+##ANSWER6##
+</td>
+<td class="lbtd">
+##ANSWER11##
+</td>
+</tr>
+<tr>
+<td>
+##ANSWER7##
+</td>
+<td>
+##ANSWER8##
+</td>
+<td>
+##ANSWER9##
+</td>
+<td class="lbtd">
 ##ANSWER12##
-\end{bmatrix} ~&amp;=~
-\begin{bmatrix}
-##ANSWER13##\\
-##ANSWER14##\\
-##ANSWER15##
-\end{bmatrix}
-\]</span></p>
+</td>
+</tr>
+</table>
+</div>
 <div id="answerlist" class="section level2">
 <h2>Answerlist</h2>
 <ul>
-<li>-9</li>
-<li>-8</li>
-<li>-7</li>
-<li>-6</li>
-<li>-5</li>
-<li>-4</li>
-<li>-3</li>
-<li>-2</li>
-<li>-1</li>
-<li>0</li>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-<li>4</li>
-<li>5</li>
-<li>6</li>
-<li>7</li>
-<li>8</li>
-<li>9</li>
-<li>x</li>
-<li>y</li>
-<li>z</li>
-<li>-9</li>
-<li>-8</li>
-<li>-7</li>
-<li>-6</li>
-<li>-5</li>
-<li>-4</li>
-<li>-3</li>
-<li>-2</li>
-<li>-1</li>
-<li>0</li>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-<li>4</li>
-<li>5</li>
-<li>6</li>
-<li>7</li>
-<li>8</li>
-<li>9</li>
-<li>x</li>
-<li>y</li>
-<li>z</li>
-<li>-9</li>
-<li>-8</li>
-<li>-7</li>
-<li>-6</li>
-<li>-5</li>
-<li>-4</li>
-<li>-3</li>
-<li>-2</li>
-<li>-1</li>
-<li>0</li>
-<li>1</li>
-<li>2</li>
-<li>3</li>
-<li>4</li>
-<li>5</li>
-<li>6</li>
-<li>7</li>
-<li>8</li>
-<li>9</li>
-<li>x</li>
-<li>y</li>
-<li>z</li>
 <li>-9</li>
 <li>-8</li>
 <li>-7</li>
@@ -721,7 +718,7 @@ form</a>.</p>
 <div id="meta-information" class="section level1">
 <h1>Meta-information</h1>
 <p>extype: cloze exclozetype: schoice exsolution:
-0100000000000000000000|0000000000100000000000|0000000000000010000000|0000100000000000000000|0000000001000000000000|0000000000000000010000|0000000000010000000000|0000000010000000000000|0000000000001000000000|0000000000000000000100|0000000000000000000010|0000000000000000000001|0000000000100000000000|0000100000000000000000|0010000000000000000000
+0000000000000000100000|0000000000100000000000|0000000000010000000000|0001000000000000000000|0000000001000000000000|0000010000000000000000|0000001000000000000000|0000000000000010000000|0000100000000000000000|0000100000000000000000|0000000000000000010000|0000000000000010000000
 exname: SOE_matrix_form</p>
 </div>
 

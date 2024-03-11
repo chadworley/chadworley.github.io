@@ -39,7 +39,7 @@ soe = paste0(eqs,collapse="\\\\\n")
 ac = c(paste(-9:9),"x","y","z")
 
 al = paste0("* ",ac,collapse="\n")
-aal = paste0(rep(al,15),collapse="\n")
+aal = paste0(rep(al,12),collapse="\n")
 
 sols = character()
 
@@ -48,9 +48,6 @@ for(i in 1:3){
     sols = c(sols,paste0(1*(ac==as.character(A[i,j])),collapse=""))
   }
 }
-sols = c(sols,paste0(1*(ac=="x"),collapse=""))
-sols = c(sols,paste0(1*(ac=="y"),collapse=""))
-sols = c(sols,paste0(1*(ac=="z"),collapse=""))
 for(i in 1:3){
   sols = c(sols,paste0(1*(ac==as.character(B[i])),collapse=""))
 }
@@ -62,13 +59,28 @@ Xstr = matrix(c("x","y","z"),3)
 Question
 ========
 
-Consider the following system of linear equations:
+There are 3 [elementary row operations](https://en.wikipedia.org/wiki/Elementary_matrix#Elementary_row_operations):
 
-$$\begin{align}
-`r soe`
-\end{align}$$
+* Row switch: $R_a \leftrightarrow R_b$
+* Row multiply: $k R_a \rightarrow R_a$
+* Row add: $R_a+kR_b \rightarrow R_a$
 
-Write that system in [matrix form](https://en.wikipedia.org/wiki/System_of_linear_equations#Matrix_equation).
+Personally, I prefer to mix the multiply and add into "linear combination":
+
+* Linear combination: $jR_a + kR_b \rightarrow R_a$
+
+Both $j$ and $k$ should be nonzero.
+
+
+## Row swap
+
+Write that system as an [augmented matrix](https://en.wikipedia.org/wiki/Augmented_matrix#Solution_of_a_linear_system).
+
+
+
+
+
+
 
 <style>
 select.question_input {
@@ -85,16 +97,14 @@ white-space: nowrap;
 background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
 }
 
-.op-container {
-display: inline-block;
-padding: 5px;
-margin: 5px;
-}
-
 .matrix {
     padding: 5px;
     margin: 3px;
     background: white;
+}
+
+td.lbtd {
+border-left: solid 2px #000;
 }
 
 .matrix td {
@@ -107,68 +117,18 @@ margin: 5px;
 <div class="matrix-container">
   <table class="matrix">
   <tr>
-  <td>##ANSWER1##</td><td>##ANSWER2##</td><td>##ANSWER3##</td>
+  <td>##ANSWER1##</td><td>##ANSWER2##</td>
+  <td>##ANSWER3##</td><td class="lbtd">##ANSWER10##</td>
   </tr>
   <tr>
-  <td>##ANSWER4##</td><td>##ANSWER5##</td><td>##ANSWER6##</td>
+  <td>##ANSWER4##</td><td>##ANSWER5##</td><td>##ANSWER6##</td><td class="lbtd">##ANSWER11##</td>
   </tr>
   <tr>
-  <td>##ANSWER7##</td><td>##ANSWER8##</td><td>##ANSWER9##</td>
+  <td>##ANSWER7##</td><td>##ANSWER8##</td><td>##ANSWER9##</td><td class="lbtd">##ANSWER12##</td>
   </tr>
   </table>
 </div>
-<div class="op-container">
-<table>
-  <tr>
-  <td> </td>
-  </tr>
-  <tr>
-  <td>$\cdot$</td>
-  </tr>
-  <tr>
-  <td></td>
-  </tr>
-</table>
-</div>
-<div class="matrix-container">
-  <table class="matrix">
-  <tr>
-  <td>##ANSWER10##</td>
-  </tr>
-  <tr>
-  <td>##ANSWER11##</td>
-  </tr>
-  <tr>
-  <td>##ANSWER12##</td>
-  </tr>
-  </table>
-</div>
-<div class="op-container">
- <table>
-  <tr>
-  <td> </td>
-  </tr>
-  <tr>
-  <td> = </td>
-  </tr>
-  <tr>
-  <td></td>
-  </tr>
-</table>
-</div>
-<div class="matrix-container">
-  <table class="matrix">
-  <tr>
-  <td>##ANSWER13##</td>
-  </tr>
-  <tr>
-  <td>##ANSWER14##</td>
-  </tr>
-  <tr>
-  <td>##ANSWER15##</td>
-  </tr>
-  </table>
-</div>
+
 
 
 Answerlist
@@ -179,8 +139,6 @@ Answerlist
 
 Solution
 ========
-
-$$`r matpr(A)`\cdot`r matpr(Xstr)`=`r matpr(B)`$$
 
 
 
