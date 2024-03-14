@@ -2,7 +2,11 @@ library("exams")
 
 outdir = "./"
 genname = "028"
-probs = c("01_SOE_matrix_form.Rmd")
+probs = c("01_SOE_matrix_form.Rmd",
+          "02_SOE_augmented_form.Rmd",
+          "03_row_ops_swap.Rmd",
+          "04_linear_combination.Rmd",
+          "05_row_ops_to_RREF.Rmd")
 
 nvers = 10
 ps = character(0)

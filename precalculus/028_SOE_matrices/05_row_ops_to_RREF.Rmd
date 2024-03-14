@@ -1,0 +1,324 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+lataug = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  nch = nc-1
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:nch],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,'\\end{matrix}
+  \\;\\middle|\\;
+    \\,
+    \\begin{matrix}\n')
+  for(i in 1:dim(A)[1]){
+    s = paste0(s,A[i,nc]," \\\\\n")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+styleblock = '<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>'
+
+rowops = character()
+
+strt = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("")
+  } else {
+    return(as.character(s))
+  }
+}
+
+md = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("+")
+  } else if(s<0){
+    return(as.character(s))
+  } else {
+    return(paste0("+",s,collapse=""))
+  }
+}
+
+while(T)
+{
+  ac = -9:9
+  rowops = character()
+  eqops = character()
+  A1 = matrix(c(1,sample(1:9,8,T))*c(1,sample(c(-1,1),8,T)),3)
+  X = matrix(sample(-9:9,3),3)
+  B1 = A1%*%X
+  M1 = cbind(A1,B1)
+  ms = list(M1)
+  M = M1
+  rowop = paste0(strt(-M[2,1]),"R_1",md(M[1,1]),"R_2\\rightarrow R_2",collapse="")
+  rowops = c(rowops,rowop)
+  eqop = paste0("Combine ",-M[2,1]," times eq1 and ",M[1,1]," times eq2 to get the new eq2.",collapse="")
+  eqops = c(eqops,eqop)
+  M[2,] = M[1,1]*M[2,]-M[2,1]*M[1,]
+  ms[[2]] = M
+  nums = unique(M[2,])
+  l = length(nums)
+  if(l>1){
+    g = gcd(rev(nums[2:l]))
+  } else {
+    next
+  }
+  if(is.null(g)){next}
+  ind = 3
+  if(abs(g)>1){
+    rowop = paste0("R_2/(",g,")\\rightarrow R_2",collapse="")
+    rowops = c(rowops,rowop)
+    eqop = paste0("Divide eq2 by ",g," to get the new eq2.",collapse="")
+    eqops = c(eqops,eqop)
+    M[2,] = M[2,]/g
+    ms[[ind]] = M
+    ind = ind+1
+  }
+  rowop = paste0(strt(-M[3,1]),"R_1",md(M[1,1]),"R_3\\rightarrow R_3",collapse="")
+  rowops = c(rowops,rowop)
+  eqop = paste0("Combine ",-M[3,1]," times eq1 and ",M[1,1]," times eq3 to get the new eq3.",collapse="")
+  eqops = c(eqops,eqop)
+  M[3,] = M[1,1]*M[3,]-M[3,1]*M[1,]
+  ms[[ind]] = M
+  ind = ind+1
+  nums = unique(M[3,])
+  l = length(nums)
+  if(l>1){
+    g = gcd(rev(nums[2:l]))
+  } else {
+    next
+  }
+  if(is.null(g)){next}
+  if(abs(g)>1){
+    rowop = paste0("R_3/",abs(g),"\\rightarrow R_3",collapse="")
+    rowops = c(rowops,rowop)
+    eqop = paste0("Divide eq3 by ",abs(g)," to get the new eq3.",collapse="")
+    eqops = c(eqops,eqop)
+    M[3,] = M[3,]/abs(g)
+    ms[[ind]] = M
+    ind = ind+1
+  }
+  rowop = paste0(strt(-M[3,2]),"R_2",md(M[2,2]),"R_3\\rightarrow R_3",collapse="")
+  rowops = c(rowops,rowop)
+  eqop = paste0("Combine ",-M[3,2]," times eq2 and ",M[2,2]," times eq3 to get the new eq3.",collapse="")
+  eqops = c(eqops,eqop)
+  M[3,] = M[2,2]*M[3,]-M[3,2]*M[2,]
+  ms[[ind]] = M
+  ind = ind+1
+  nums = unique(M[3,])
+  l = length(nums)
+  if(l>1){
+    g = gcd(rev(nums[2:l]))
+  } else {
+    next
+  }
+  if(is.null(g)){next}
+  if(abs(g)>1){
+    rowop = paste0("R_3/(",abs(g),")\\rightarrow R_3",collapse="")
+    rowops = c(rowops,rowop)
+    eqop = paste0("Divide eq3 by ",abs(g)," to get the new eq3.",collapse="")
+    eqops = c(eqops,eqop)
+    M[3,] = M[3,]/g
+    ms[[ind]] = M
+    ind = ind+1
+  }
+  if(M[2,3]!=0){
+    rowop = paste0("R_2",md(-M[2,3]),"R_3\\rightarrow R_2",collapse="")
+    rowops = c(rowops,rowop)
+  eqop = paste0("Combine eq2 and ",-M[2,3]," times eq3 to get the new eq2.",collapse="")
+  eqops = c(eqops,eqop)
+    M[2,] = M[2,]-M[2,3]*M[3,]
+    ms[[ind]] = M
+    ind = ind+1
+  }
+  if(M[1,3]!=0){
+    rowop = paste0("R_1",md(-M[1,3]),"R_3\\rightarrow R_1",collapse="")
+    rowops = c(rowops,rowop)
+  eqop = paste0("Combine eq1 and ",-M[1,3]," times eq3 to get the new eq1.",collapse="")
+  eqops = c(eqops,eqop)
+    M[1,] = M[1,]-M[1,3]*M[3,]
+    ms[[ind]] = M
+    ind = ind+1
+  }
+  if(M[1,2]!=0){
+    rowop = paste0("R_1",md(-M[1,2]),"R_2\\rightarrow R_1",collapse="")
+    rowops = c(rowops,rowop)
+  eqop = paste0("Combine eq1 and ",-M[1,2]," times eq2 to get the new eq1.",collapse="")
+  eqops = c(eqops,eqop)
+    M[1,] = M[1,]-M[1,2]*M[2,]
+    ms[[ind]] = M
+    ind = ind+1
+  }
+  for(i in 1:(ind-1)){
+    ac = sort(unique(c(ac,unique(ms[[i]]))))
+  }
+  if(det(A1)!=0 && max(abs(M))<100 && M[2,2]==1 && M[3,3]!=0 && max(abs(ac))<100 && ms[[2]][2,3]!=0){break}
+}
+
+prs = function(M,lets=c("x","y","z","q","r","s","t","u","v","w")){
+  s = "\\begin{align*}"
+  for(i in 1:dim(M)[1]){
+    row = ""
+    nc = dim(M)[2]
+    ls = lets[1:(nc-1)]
+    row = paste0(strt(M[i,1]),ls[1],collapse="")
+    for(j in 2:(nc-1)){
+      row = paste0(row,md(M[i,j]),ls[j],collapse="")
+    }
+    row = paste(row,"&=",M[i,nc],"\\\\\n",collapse="")
+    row = sub("0x+","",row,fixed=T)
+    row = sub("0x-","-",row,fixed=T)
+    row = sub("0y+","",row,fixed=T)
+    row = sub("0y-","-",row,fixed=T)
+    row = sub("+0z","",row,fixed=T)
+    row = sub("-0z","",row,fixed=T)
+    s = paste0(s,row,collapse="")
+  }
+  s = paste0(s,"\\end{align*}",collapse="")
+  return(s)
+}
+
+
+html_input_table = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  nr = 3
+  nc = 4
+  nv = nc-1
+  for(i in 1:nr){
+    rs = paste0("<td>",rep("!!!",nv),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td></tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+acs = list()
+sols = character()
+nm = ind-1
+tac = character()
+for(i in 2:nm){
+  M = ms[[i]]
+  aaa = c(t(M))
+  for(aa in aaa){
+    while(T){
+      aacc = sort(unique(c(aa,sample(ac,1))))
+      if(length(aacc)==2){break}
+    }
+    tac = c(tac,aacc)
+    sols=c(sols,paste0(1*(aa==aacc),collapse=""))
+  }
+}
+al = paste0("* ",tac,collapse="\n")
+```
+
+Question
+========
+
+`r styleblock`
+
+Use [Gauss–Jordan elimination](https://en.wikipedia.org/wiki/Gaussian_elimination#Gauss%E2%80%93Jordan_elimination) to convert an augmented matrix into [reduced row echelon form](https://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form).
+
+$$`r lataug(ms[[1]])`$$
+
+
+```{r,echo=F,results='asis'}
+#cat(paste0("$$",lataug(ms[[1]]),"$$\n"))
+ans_num = 1
+for(i in 2:(ind-1)){
+  cat(paste0("Row operation: $",rowops[i-1],"$\n\n"))
+  #cat(paste0("$$",lataug(ms[[i]]),"$$\n"))
+  mm = ms[[i]]
+  hm = html_input_table()
+  for(j in 1:12){
+    hm = sub("!!!",paste0("##ANSWER",ans_num,"##",collapse=""),hm,fixed = T)
+    ans_num=ans_num+1
+  }
+  cat(hm)
+  cat('\n\n')
+}
+```
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+```{r,echo=F,results='asis'}
+cat(paste0("$$",lataug(ms[[1]]),"$$\n"))
+for(i in 2:(ind-1)){
+  cat(paste0("Row operation: $",rowops[i-1],"$\n\n"))
+  cat(paste0("$$",lataug(ms[[i]]),"$$\n"))
+}
+```
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(sols)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: row_ops_to_rref

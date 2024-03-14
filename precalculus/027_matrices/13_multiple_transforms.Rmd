@@ -29,14 +29,17 @@ while(T){
   mats = list()
   for(i in 1:length(transformations)){
     tr = transformations[i]
-    k = sample(13:25,1)/10
+    k1 = sample(13:25,1)/10
+    k2 = sample(3:15,1)/10
     th = round(runif(1,0.1,2*pi-0.1),2)
     if(tr==1){
+      k = k1
       wrd1 = c(wrd1,paste0("horizontal stretch by factor ",k))
       nums = c(nums,k)
       mats[[i]] = matrix(c(k,0,0,1),2,byrow=T)
     }
     if(tr==2){
+      k = k1
       wrd1 = c(wrd1,paste0("vertical stretch by factor ",k))
       nums = c(nums,k)
       mats[[i]] = matrix(c(1,0,0,k),2,byrow=T)
@@ -47,11 +50,13 @@ while(T){
       mats[[i]] = matrix(round(c(cos(th),-sin(th),sin(th),cos(th)),3),2,byrow=T)
     }
     if(tr==4){
+      k = k2
       wrd1 = c(wrd1,paste0("horizontal shear by factor ",k))
       nums = c(nums,k)
       mats[[i]] = matrix(c(1,k,0,1),2,byrow=T)
     }
     if(tr==5){
+      k = k2
       wrd1 = c(wrd1,paste0("vertical shear by factor ",k))
       nums = c(nums,k)
       mats[[i]] = matrix(c(1,0,k,1),2,byrow=T)
