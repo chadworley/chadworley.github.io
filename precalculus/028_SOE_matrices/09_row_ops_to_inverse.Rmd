@@ -31,9 +31,8 @@ lataug = function(A){
   s = '\\left[
   \\begin{matrix}\n'
   nc = dim(A)[2]
-  nch = nc-1
   for(i in 1:dim(A)[1]){
-    s2 = paste0(A[i,1:nch],collapse=" & ")
+    s2 = paste0(A[i,1:3],collapse=" & ")
     s = paste0(s,s2,"\\\\\n",collapse="")
   }
   s = paste0(s,'\\end{matrix}
@@ -41,7 +40,8 @@ lataug = function(A){
     \\,
     \\begin{matrix}\n')
   for(i in 1:dim(A)[1]){
-    s = paste0(s,A[i,nc]," \\\\\n")
+    s2 = paste0(A[i,4:6],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
   }
   s = paste0(s,"\\end{matrix}
 \\right]")
@@ -74,8 +74,6 @@ border-left: solid 2px #000;
 }
 </style>'
 
-rowops = character()
-
 strt = function(s){
   if(s==-1){
     return("-")
@@ -98,6 +96,7 @@ md = function(s){
   }
 }
 
+
 while(T)
 {
   ac = -9:9
@@ -105,7 +104,7 @@ while(T)
   eqops = character()
   A1 = matrix(c(1,sample(1:9,8,T))*c(1,sample(c(-1,1),8,T)),3)
   X = matrix(sample(-9:9,3),3)
-  B1 = A1%*%X
+  B1 = matrix(c(1,0,0,0,1,0,0,0,1),3)
   M1 = cbind(A1,B1)
   ms = list(M1)
   M = M1
@@ -237,15 +236,12 @@ prs = function(M,lets=c("x","y","z","q","r","s","t","u","v","w")){
   return(s)
 }
 
-
 html_input_table = function(){
   s = "<div class='mc'><table class='matrix'>"
-  nr = 3
-  nc = 4
-  nv = nc-1
-  for(i in 1:nr){
-    rs = paste0("<td>",rep("!!!",nv),"</td>",collapse="")
-    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td></tr>")
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    rs2 = paste0("<td>",rep("!!!",2),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td>",rs2,"</tr>")
   }
   s = paste0(s,'</table></div>')
   return(s)
@@ -275,7 +271,7 @@ Question
 
 `r styleblock`
 
-Use [Gauss–Jordan elimination](https://en.wikipedia.org/wiki/Gaussian_elimination#Gauss%E2%80%93Jordan_elimination) to convert an augmented matrix into [reduced row echelon form](https://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form).
+Use elementary row operations to find the inverse of $`r lat(A1)`$. Start by augmenting the given matrix with an identity matrix. 
 
 $$`r lataug(ms[[1]])`$$
 
@@ -288,7 +284,7 @@ for(i in 2:(ind-1)){
   #cat(paste0("$$",lataug(ms[[i]]),"$$\n"))
   mm = ms[[i]]
   hm = html_input_table()
-  for(j in 1:12){
+  for(j in 1:18){
     hm = sub("!!!",paste0("##ANSWER",ans_num,"##",collapse=""),hm,fixed = T)
     ans_num=ans_num+1
   }
