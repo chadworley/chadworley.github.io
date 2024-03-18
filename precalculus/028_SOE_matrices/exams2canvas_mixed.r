@@ -11,7 +11,7 @@ for(i in 1:length(probs)){
   exams2canvas(probs[i],
                n=n,
                dir=outdir,
-               points=2,
+               points=8,
                maxattempts = 20,
                name=names[i],
                template = "canvas_qti12.xml",
