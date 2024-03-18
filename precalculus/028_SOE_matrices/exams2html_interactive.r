@@ -6,7 +6,9 @@ probs = c("01_SOE_matrix_form.Rmd",
           "02_SOE_augmented_form.Rmd",
           "03_row_ops_swap.Rmd",
           "04_linear_combination.Rmd",
-          "05_row_ops_to_RREF.Rmd")
+          "05_row_ops_to_RREF.Rmd",
+          "06_RREF_sagemath.Rmd",
+          "07_Identity_Matrix.Rmd")
 
 nvers = 10
 ps = character(0)

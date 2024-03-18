@@ -3,11 +3,7 @@ n = 30
 outdir = "outcanvas"
 
 genname = "028"
-probs = c("01_SOE_matrix_form.Rmd",
-          "02_SOE_augmented_form.Rmd",
-          "03_row_ops_swap.Rmd",
-          "04_linear_combination.Rmd",
-          "05_row_ops_to_RREF.Rmd")
+probs = c("07_Identity_Matrix.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
