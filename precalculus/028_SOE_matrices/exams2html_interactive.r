@@ -8,7 +8,8 @@ probs = c("01_SOE_matrix_form.Rmd",
           "04_linear_combination.Rmd",
           "05_row_ops_to_RREF.Rmd",
           "06_RREF_sagemath.Rmd",
-          "07_Identity_Matrix.Rmd")
+          "07_Identity_Matrix.Rmd",
+          "08_check_if_inverse.Rmd")
 
 nvers = 10
 ps = character(0)
