@@ -3,7 +3,7 @@ n = 30
 outdir = "outcanvas"
 
 genname = "028"
-probs = c("08_check_if_inverse.Rmd")
+probs = c("11_use_inverse_to_solve.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)

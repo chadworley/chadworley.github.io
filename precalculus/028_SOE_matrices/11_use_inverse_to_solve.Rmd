@@ -1,0 +1,256 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+lataug = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:3],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,'\\end{matrix}
+  \\;\\middle|\\;
+    \\,
+    \\begin{matrix}\n')
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,4:6],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+styleblock = '<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>'
+
+strt = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("")
+  } else {
+    return(as.character(s))
+  }
+}
+
+md = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("+")
+  } else if(s<0){
+    return(as.character(s))
+  } else {
+    return(paste0("+",s,collapse=""))
+  }
+}
+
+html_input_table = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    rs2 = paste0("<td>",rep("!!!",2),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td>",rs2,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+html_input_table_33 = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+prs = function(M,lets=c("x","y","z","q","r","s","t","u","v","w")){
+  s = "\\begin{align*}"
+  for(i in 1:dim(M)[1]){
+    row = ""
+    nc = dim(M)[2]
+    ls = lets[1:(nc-1)]
+    row = paste0(strt(M[i,1]),ls[1],collapse="")
+    for(j in 2:(nc-1)){
+      row = paste0(row,md(M[i,j]),ls[j],collapse="")
+    }
+    row = paste(row,"&=",M[i,nc],"\\\\\n",collapse="")
+    row = sub("0x+","",row,fixed=T)
+    row = sub("0x-","-",row,fixed=T)
+    row = sub("0y+","",row,fixed=T)
+    row = sub("0y-","-",row,fixed=T)
+    row = sub("+0z","",row,fixed=T)
+    row = sub("-0z","",row,fixed=T)
+    s = paste0(s,row,collapse="")
+  }
+  s = paste0(s,"\\end{align*}",collapse="")
+  return(s)
+}
+
+while(T){
+  A = matrix(sample(-15:15,9,T),3)
+  if(abs(det(A))!=1){next}
+  Ainv = round(solve(A),3)
+  if(max(abs(Ainv))>100){next}
+  break
+}
+I = matrix(c(1,0,0,0,1,0,0,0,1),3)
+
+
+
+m1 = cbind(A,I)
+
+X = matrix(sample(-10:10,3),3)
+
+B = A%*%X
+
+tac = numeric()
+sols = character()
+aaa = c(t(X))
+for(aa in aaa){
+  tac = c(tac,-10:10)
+  sols = c(sols,paste0(1*(-10:10==aa),collapse=""))
+}
+al = paste0("* ",tac,collapse="\n")
+
+xxx = matrix(c("x","y","z"),3)
+
+```
+
+Question
+========
+
+`r styleblock`
+
+Let $A$ be the 3x3 matrix below.
+
+$$A=`r lat(A)`$$
+```
+A = matrix(`r matcc(A)`)
+```
+
+
+Its inverse is shown below.
+
+$$A^{-1}= `r lat(Ainv)`$$
+
+```
+Ainv = matrix(`r matcc(Ainv)`)
+```
+
+Use that information to solve the system below.
+
+```{r,echo=F,results='asis'}
+M = cbind(A,B)
+cat(prs(M))
+```
+
+
+* $x=$ ##ANSWER1##
+* $y=$ ##ANSWER2##
+* $z=$ ##ANSWER3##
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+Write the system in matrix form $A\cdot X = B$.
+
+$$`r lat(A)`\cdot`r lat(xxx)` = `r lat(B)`$$
+
+You can left-multiply both sides by the inverse.
+$$A^{-1}AX = A^{-1}B$$
+$$`r lat(Ainv)`\cdot `r lat(A)` \cdot `r lat(xxx)` = `r lat(Ainv)`\cdot `r lat(B)`$$
+
+We know that $A^{-1}\cdot A = I$, where $I$ is the identity matrix.
+
+$$`r lat(I)` \cdot `r lat(xxx)` = `r lat(Ainv)`\cdot `r lat(B)`$$
+
+We know $I\cdot X = X$, because multiplication by an identity matrix returns an unchanged matrix.
+
+$$`r lat(xxx)` = `r lat(Ainv)`\cdot `r lat(B)`$$
+
+So, in short, we just need to evaluate $A^{-1}\cdot B$.
+
+
+Use [sagemath](https://sagecell.sagemath.org/).
+
+```
+Ainv = matrix(`r matcc(Ainv)`)
+B = matrix(`r matcc(t(B))`).transpose()
+XYZ = Ainv*B
+pretty_print(XYZ)
+```
+
+$$X = `r lat(X)`$$
+
+So, 
+
+$$`r prs(cbind(I,X))`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(sols)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: get_inverse_rref
