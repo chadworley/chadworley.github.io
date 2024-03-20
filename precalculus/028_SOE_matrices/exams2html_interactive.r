@@ -12,9 +12,13 @@ probs = c("01_SOE_matrix_form.Rmd",
           "08_check_if_inverse.Rmd",
           "09_row_ops_get_inverse.Rmd",
           "10_get_inverse_rref.Rmd",
-          "11_use_inverse_to_solve.Rmd")
+          "11_use_inverse_to_solve.Rmd",
+          "12_determinant_2x2.Rmd",
+          "13_determinant_3x3.Rmd",
+          "14_determinant_4x4.Rmd",
+          "15_can_solve_sys.Rmd")
 
-nvers = 5
+nvers = 4
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))

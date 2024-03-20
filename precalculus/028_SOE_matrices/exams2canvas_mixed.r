@@ -1,9 +1,9 @@
 library("exams")
-n = 10
+n = 30
 outdir = "outcanvas"
 
 genname = "028"
-probs = c("09_row_ops_get_inverse.Rmd")
+probs = c("15_can_solve_sys.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
@@ -11,8 +11,8 @@ for(i in 1:length(probs)){
   exams2canvas(probs[i],
                n=n,
                dir=outdir,
-               points=8,
-               maxattempts = 5,
+               points=2,
+               maxattempts = 10,
                name=names[i],
                template = "canvas_qti12.xml",
                cloze = list(enumerate = FALSE))

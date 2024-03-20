@@ -1,0 +1,198 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+latdet = function(A){
+  pra = "\\begin{vmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{vmatrix}")
+  return(pra)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+lataug = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:3],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,'\\end{matrix}
+  \\;\\middle|\\;
+    \\,
+    \\begin{matrix}\n')
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,4:6],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+styleblock = '<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>'
+
+strt = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("")
+  } else {
+    return(as.character(s))
+  }
+}
+
+md = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("+")
+  } else if(s<0){
+    return(as.character(s))
+  } else {
+    return(paste0("+",s,collapse=""))
+  }
+}
+
+html_input_table = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    rs2 = paste0("<td>",rep("!!!",2),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td>",rs2,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+html_input_table_33 = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+prs = function(M,lets=c("x","y","z","q","r","s","t","u","v","w")){
+  s = "\\begin{align*}"
+  for(i in 1:dim(M)[1]){
+    row = ""
+    nc = dim(M)[2]
+    ls = lets[1:(nc-1)]
+    row = paste0(strt(M[i,1]),ls[1],collapse="")
+    for(j in 2:(nc-1)){
+      row = paste0(row,md(M[i,j]),ls[j],collapse="")
+    }
+    row = paste(row,"&=",M[i,nc],"\\\\\n",collapse="")
+    row = sub("0x+","",row,fixed=T)
+    row = sub("0x-","-",row,fixed=T)
+    row = sub("0y+","",row,fixed=T)
+    row = sub("0y-","-",row,fixed=T)
+    row = sub("+0z","",row,fixed=T)
+    row = sub("-0z","",row,fixed=T)
+    s = paste0(s,row,collapse="")
+  }
+  s = paste0(s,"\\end{align*}",collapse="")
+  return(s)
+}
+
+while(T){
+  A = matrix(sample(-10:10,4),2)
+  dA = round(det(A),3)
+  if(sum(c(A)==0)==0){break}
+}
+
+
+L = matrix(c("a","b","c","d"),2,byrow=T)
+
+a = A[1,1]
+b = A[1,2]
+c = A[2,1]
+d = A[2,2]
+
+```
+
+Question
+========
+
+Find the [determinant](https://en.wikipedia.org/wiki/Determinant) of $A$.
+
+$$A=`r lat(A)`$$
+
+Find $\det(A)$. The determinant is also noted with vertical lines, like absolute value.
+
+$$\det(A) = `r latdet(A)`$$
+
+In order to find the determinant of a 2x2 matrix:
+
+$$\det\left(`r lat(L)`\right) ~=~ `r latdet(L)` ~=~ ad-bc$$
+
+Find the determinant of $A$.
+
+Solution
+========
+
+$$(`r a`)(`r d`)-(`r b`)(`r c`) ~=~ `r dA`$$
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r dA`
+exname: determinant_2x2
