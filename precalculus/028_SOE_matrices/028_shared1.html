@@ -9870,6 +9870,962 @@ print(det(A))</code></pre>
 <p>The determinant is not 0, so the system has a solution.</p>
 <br/>
 </div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Read <a href="https://chadworley.github.io/precalculus/028_SOE_matrices/Cramer.html">this about Cramer’s rule</a>.</p>
+<p>Consider the following specific 3x3 system.</p>
+<p><span class="math display">\[\begin{align*}x-2y+2z &amp;= -5 \\
+-3x+5y-4z &amp;= 7 \\
+-x-5y+4z &amp;= -3 \\
+\end{align*}\]</span></p>
+<p>Determine the elements of the coefficient matrix.</p>
+<span class="math inline">\(A =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -5</option><option>1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -2</option><option>2 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -2</option><option>2 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -3</option><option>1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -2</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>4 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -2</option><option>-1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>2 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>4 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_1\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_1 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -5</option><option>-3 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -2</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>2 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> 4</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 2</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>-4 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -3</option><option>-2 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>-2 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 4</option><option>7 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_2\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_2 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -5</option><option>1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>2 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -3</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>1 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -4</option><option>-1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>4 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 2</option><option>4 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_3\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_3 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -2</option><option>1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -2</option><option>-1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>4 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -3</option><option>-2 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 1</option><option>7 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -4</option><option>-1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>-4 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>1 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>We can evaluate the determinants.</p>
+<ul>
+<li>$(A) = $ <select><option>--------</option><option> -81</option><option>-48</option><option>-32</option><option>-18</option><option>-8</option><option>8</option><option>18</option><option>32</option><option>48</option><option>81 </option></select></li>
+<li><span class="math inline">\(\det(A_1) =\)</span> <select><option>--------</option><option> -81</option><option>-48</option><option>-32</option><option>-18</option><option>-8</option><option>8</option><option>18</option><option>32</option><option>48</option><option>81 </option></select></li>
+<li><span class="math inline">\(\det(A_2) =\)</span> <select><option>--------</option><option> -81</option><option>-48</option><option>-32</option><option>-18</option><option>-8</option><option>8</option><option>18</option><option>32</option><option>48</option><option>81 </option></select></li>
+<li><span class="math inline">\(\det(A_3) =\)</span> <select><option>--------</option><option> -81</option><option>-48</option><option>-32</option><option>-18</option><option>-8</option><option>8</option><option>18</option><option>32</option><option>48</option><option>81 </option></select></li>
+</ul>
+<p>Solve the system.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -6</option><option>-4</option><option>-1</option><option>1</option><option>4</option><option>6 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -6</option><option>-4</option><option>-1</option><option>1</option><option>4</option><option>6 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -6</option><option>-4</option><option>-1</option><option>1</option><option>4</option><option>6 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The constant vector is <span class="math inline">\(\begin{bmatrix} -5\\ 7\\ -3 \end{bmatrix}\)</span>.</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+1 &amp; -2 &amp; 2\\
+-3 &amp; 5 &amp; -4\\
+-1 &amp; -5 &amp; 4
+\end{bmatrix}\]</span>
+<span class="math display">\[A_1 = \begin{bmatrix}
+-5 &amp; -2 &amp; 2\\
+7 &amp; 5 &amp; -4\\
+-3 &amp; -5 &amp; 4
+\end{bmatrix}\]</span>
+<span class="math display">\[A_2 = \begin{bmatrix}
+1 &amp; -5 &amp; 2\\
+-3 &amp; 7 &amp; -4\\
+-1 &amp; -3 &amp; 4
+\end{bmatrix}\]</span>
+<span class="math display">\[A_3 = \begin{bmatrix}
+1 &amp; -2 &amp; -5\\
+-3 &amp; 5 &amp; 7\\
+-1 &amp; -5 &amp; -3
+\end{bmatrix}\]</span></p>
+<ul>
+<li><span class="math inline">\(\det(A)=8\)</span></li>
+<li><span class="math inline">\(\det(A_1)=-8\)</span></li>
+<li><span class="math inline">\(\det(A_2)=-32\)</span></li>
+<li><span class="math inline">\(\det(A_3)=-48\)</span></li>
+</ul>
+<p><span class="math display">\[x~=~\frac{-8}{8} ~=~ -1\]</span>
+<span class="math display">\[y~=~\frac{-32}{8} ~=~ -4\]</span>
+<span class="math display">\[z~=~\frac{-48}{8} ~=~ -6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Read <a href="https://chadworley.github.io/precalculus/028_SOE_matrices/Cramer.html">this about Cramer’s rule</a>.</p>
+<p>Consider the following specific 3x3 system.</p>
+<p><span class="math display">\[\begin{align*}5x-5y-4z &amp;= -7 \\
+-8x+9y-3z &amp;= -9 \\
+-2x+2y+3z &amp;= 7 \\
+\end{align*}\]</span></p>
+<p>Determine the elements of the coefficient matrix.</p>
+<span class="math inline">\(A =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -4</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>-2 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 3</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>-3 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -7</option><option>-2 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>2 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -2</option><option>3 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_1\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_1 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>3 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>-3 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>2 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -7</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -7</option><option>2 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 3</option><option>7 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_2\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_2 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -4</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -7</option><option>-5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>3 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>-3 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -2</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 2</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>3 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_3\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_3 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> 5</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>-5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -7</option><option>-4 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>-5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 7</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-4 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>-2 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 2</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>7 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>We can evaluate the determinants.</p>
+<ul>
+<li>$(A) = $ <select><option>--------</option><option> -63</option><option>-56</option><option>-24</option><option>-21</option><option>-7</option><option>7</option><option>21</option><option>24</option><option>56</option><option>63 </option></select></li>
+<li><span class="math inline">\(\det(A_1) =\)</span> <select><option>--------</option><option> -63</option><option>-56</option><option>-24</option><option>-21</option><option>-7</option><option>7</option><option>21</option><option>24</option><option>56</option><option>63 </option></select></li>
+<li><span class="math inline">\(\det(A_2) =\)</span> <select><option>--------</option><option> -63</option><option>-56</option><option>-24</option><option>-21</option><option>-7</option><option>7</option><option>21</option><option>24</option><option>56</option><option>63 </option></select></li>
+<li><span class="math inline">\(\det(A_3) =\)</span> <select><option>--------</option><option> -63</option><option>-56</option><option>-24</option><option>-21</option><option>-7</option><option>7</option><option>21</option><option>24</option><option>56</option><option>63 </option></select></li>
+</ul>
+<p>Solve the system.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-3</option><option>3</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-3</option><option>3</option><option>8</option><option>9 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -9</option><option>-8</option><option>-3</option><option>3</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The constant vector is <span class="math inline">\(\begin{bmatrix} -7\\ -9\\ 7 \end{bmatrix}\)</span>.</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+5 &amp; -5 &amp; -4\\
+-8 &amp; 9 &amp; -3\\
+-2 &amp; 2 &amp; 3
+\end{bmatrix}\]</span>
+<span class="math display">\[A_1 = \begin{bmatrix}
+-7 &amp; -5 &amp; -4\\
+-9 &amp; 9 &amp; -3\\
+7 &amp; 2 &amp; 3
+\end{bmatrix}\]</span>
+<span class="math display">\[A_2 = \begin{bmatrix}
+5 &amp; -7 &amp; -4\\
+-8 &amp; -9 &amp; -3\\
+-2 &amp; 7 &amp; 3
+\end{bmatrix}\]</span>
+<span class="math display">\[A_3 = \begin{bmatrix}
+5 &amp; -5 &amp; -7\\
+-8 &amp; 9 &amp; -9\\
+-2 &amp; 2 &amp; 7
+\end{bmatrix}\]</span></p>
+<ul>
+<li><span class="math inline">\(\det(A)=7\)</span></li>
+<li><span class="math inline">\(\det(A_1)=63\)</span></li>
+<li><span class="math inline">\(\det(A_2)=56\)</span></li>
+<li><span class="math inline">\(\det(A_3)=21\)</span></li>
+</ul>
+<p><span class="math display">\[x~=~\frac{63}{7} ~=~ 9\]</span>
+<span class="math display">\[y~=~\frac{56}{7} ~=~ 8\]</span>
+<span class="math display">\[z~=~\frac{21}{7} ~=~ 3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Read <a href="https://chadworley.github.io/precalculus/028_SOE_matrices/Cramer.html">this about Cramer’s rule</a>.</p>
+<p>Consider the following specific 3x3 system.</p>
+<p><span class="math display">\[\begin{align*}-5x+7y+8z &amp;= -1 \\
+9x-3y-4z &amp;= 5 \\
+3x-7y-8z &amp;= -1 \\
+\end{align*}\]</span></p>
+<p>Determine the elements of the coefficient matrix.</p>
+<span class="math inline">\(A =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>-5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 3</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>8 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -5</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>7 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> 3</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -7</option><option>-5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>7 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_1\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_1 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>-1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -1</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 5</option><option>8 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -5</option><option>-4 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -7</option><option>-1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>-7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>8 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_2\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_2 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>-5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>-1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>8 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -7</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 3</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -4</option><option>-1 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -4</option><option>3 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -1</option><option>3 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>5 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_3\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_3 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -5</option><option>8 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 3</option><option>7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -1</option><option>5 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> 7</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -3</option><option>-1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 5</option><option>7 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -5</option><option>3 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -7</option><option>-1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -1</option><option>7 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>We can evaluate the determinants.</p>
+<ul>
+<li>$(A) = $ <select><option>--------</option><option> -82</option><option>-68</option><option>-57</option><option>-32</option><option>-8</option><option>8</option><option>32</option><option>57</option><option>68</option><option>82 </option></select></li>
+<li><span class="math inline">\(\det(A_1) =\)</span> <select><option>--------</option><option> -82</option><option>-68</option><option>-57</option><option>-32</option><option>-8</option><option>8</option><option>32</option><option>57</option><option>68</option><option>82 </option></select></li>
+<li><span class="math inline">\(\det(A_2) =\)</span> <select><option>--------</option><option> -82</option><option>-68</option><option>-57</option><option>-32</option><option>-8</option><option>8</option><option>32</option><option>57</option><option>68</option><option>82 </option></select></li>
+<li><span class="math inline">\(\det(A_3) =\)</span> <select><option>--------</option><option> -82</option><option>-68</option><option>-57</option><option>-32</option><option>-8</option><option>8</option><option>32</option><option>57</option><option>68</option><option>82 </option></select></li>
+</ul>
+<p>Solve the system.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -4</option><option>-1</option><option>1</option><option>4 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -4</option><option>-1</option><option>1</option><option>4 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -4</option><option>-1</option><option>1</option><option>4 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The constant vector is <span class="math inline">\(\begin{bmatrix} -1\\ 5\\ -1 \end{bmatrix}\)</span>.</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+-5 &amp; 7 &amp; 8\\
+9 &amp; -3 &amp; -4\\
+3 &amp; -7 &amp; -8
+\end{bmatrix}\]</span>
+<span class="math display">\[A_1 = \begin{bmatrix}
+-1 &amp; 7 &amp; 8\\
+5 &amp; -3 &amp; -4\\
+-1 &amp; -7 &amp; -8
+\end{bmatrix}\]</span>
+<span class="math display">\[A_2 = \begin{bmatrix}
+-5 &amp; -1 &amp; 8\\
+9 &amp; 5 &amp; -4\\
+3 &amp; -1 &amp; -8
+\end{bmatrix}\]</span>
+<span class="math display">\[A_3 = \begin{bmatrix}
+-5 &amp; 7 &amp; -1\\
+9 &amp; -3 &amp; 5\\
+3 &amp; -7 &amp; -1
+\end{bmatrix}\]</span></p>
+<ul>
+<li><span class="math inline">\(\det(A)=8\)</span></li>
+<li><span class="math inline">\(\det(A_1)=8\)</span></li>
+<li><span class="math inline">\(\det(A_2)=-32\)</span></li>
+<li><span class="math inline">\(\det(A_3)=32\)</span></li>
+</ul>
+<p><span class="math display">\[x~=~\frac{8}{8} ~=~ 1\]</span>
+<span class="math display">\[y~=~\frac{-32}{8} ~=~ -4\]</span>
+<span class="math display">\[z~=~\frac{32}{8} ~=~ 4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Read <a href="https://chadworley.github.io/precalculus/028_SOE_matrices/Cramer.html">this about Cramer’s rule</a>.</p>
+<p>Consider the following specific 3x3 system.</p>
+<p><span class="math display">\[\begin{align*}6x+5y+2z &amp;= 1 \\
+-7x-8y-6z &amp;= 4 \\
+4x+8y+9z &amp;= -10 \\
+\end{align*}\]</span></p>
+<p>Determine the elements of the coefficient matrix.</p>
+<span class="math inline">\(A =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> 4</option><option>6 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 1</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 2</option><option>4 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -7</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>4 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -6</option><option>2 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>4 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 4</option><option>8 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 8</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_1\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_1 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>1 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 4</option><option>5 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 2</option><option>6 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> 2</option><option>4 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>4 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -6</option><option>4 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -10</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 5</option><option>8 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -7</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_2\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_2 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> 1</option><option>6 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 1</option><option>6 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -7</option><option>2 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -7</option><option>6 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -10</option><option>4 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -6</option><option>1 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -8</option><option>4 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -10</option><option>6 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 2</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>The <span class="math inline">\(A_3\)</span> matrix is made by replacing the first column of <span class="math inline">\(A\)</span> with the constant vector.</p>
+<span class="math inline">\(A_3 =\)</span>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> 5</option><option>6 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 5</option><option>8 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>1 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -10</option><option>-7 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> 4</option><option>6 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> 4</option><option>8 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -10</option><option>8 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -10</option><option>2 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<p>We can evaluate the determinants.</p>
+<ul>
+<li>$(A) = $ <select><option>--------</option><option> -95</option><option>-87</option><option>-36</option><option>-6</option><option>-3</option><option>0</option><option>3</option><option>6</option><option>36</option><option>87</option><option>95 </option></select></li>
+<li><span class="math inline">\(\det(A_1) =\)</span> <select><option>--------</option><option> -95</option><option>-87</option><option>-36</option><option>-6</option><option>-3</option><option>0</option><option>3</option><option>6</option><option>36</option><option>87</option><option>95 </option></select></li>
+<li><span class="math inline">\(\det(A_2) =\)</span> <select><option>--------</option><option> -95</option><option>-87</option><option>-36</option><option>-6</option><option>-3</option><option>0</option><option>3</option><option>6</option><option>36</option><option>87</option><option>95 </option></select></li>
+<li><span class="math inline">\(\det(A_3) =\)</span> <select><option>--------</option><option> -95</option><option>-87</option><option>-36</option><option>-6</option><option>-3</option><option>0</option><option>3</option><option>6</option><option>36</option><option>87</option><option>95 </option></select></li>
+</ul>
+<p>Solve the system.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -2</option><option>-1</option><option>0</option><option>1</option><option>2 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -2</option><option>-1</option><option>0</option><option>1</option><option>2 </option></select></li>
+<li><span class="math inline">\(z=\)</span> <select><option>--------</option><option> -2</option><option>-1</option><option>0</option><option>1</option><option>2 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The constant vector is <span class="math inline">\(\begin{bmatrix} 1\\ 4\\ -10 \end{bmatrix}\)</span>.</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+6 &amp; 5 &amp; 2\\
+-7 &amp; -8 &amp; -6\\
+4 &amp; 8 &amp; 9
+\end{bmatrix}\]</span>
+<span class="math display">\[A_1 = \begin{bmatrix}
+1 &amp; 5 &amp; 2\\
+4 &amp; -8 &amp; -6\\
+-10 &amp; 8 &amp; 9
+\end{bmatrix}\]</span>
+<span class="math display">\[A_2 = \begin{bmatrix}
+6 &amp; 1 &amp; 2\\
+-7 &amp; 4 &amp; -6\\
+4 &amp; -10 &amp; 9
+\end{bmatrix}\]</span>
+<span class="math display">\[A_3 = \begin{bmatrix}
+6 &amp; 5 &amp; 1\\
+-7 &amp; -8 &amp; 4\\
+4 &amp; 8 &amp; -10
+\end{bmatrix}\]</span></p>
+<ul>
+<li><span class="math inline">\(\det(A)=3\)</span></li>
+<li><span class="math inline">\(\det(A_1)=0\)</span></li>
+<li><span class="math inline">\(\det(A_2)=3\)</span></li>
+<li><span class="math inline">\(\det(A_3)=-6\)</span></li>
+</ul>
+<p><span class="math display">\[x~=~\frac{0}{3} ~=~ 0\]</span>
+<span class="math display">\[y~=~\frac{3}{3} ~=~ 1\]</span>
+<span class="math display">\[z~=~\frac{-6}{3} ~=~ -2\]</span></p>
+<br/>
+</div></li>
 </ol>
 </body>
 </html>

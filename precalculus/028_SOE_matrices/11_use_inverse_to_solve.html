@@ -11,7 +11,7 @@
 
 
 
-<title>Cramer.knit</title>
+<title>11_use_inverse_to_solve.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -352,76 +352,220 @@ display: none;
 </div>
 
 
-<div id="cramers-rule" class="section level2">
-<h2>Cramer’s rule</h2>
-<p><a href="https://en.wikipedia.org/wiki/Cramer%27s_rule#General_case">Cramer’s
-rule</a> expresses the solution to any linear system (that has a single
-solution). If the coefficient matrix is <span class="math inline">\(A\)</span>, the variable vector is <span class="math inline">\(X\)</span>, and the constant vector is <span class="math inline">\(B\)</span>, then the linear system can be
-expressed in matrix form as <span class="math inline">\(AX=B\)</span>.
-If the elements of the variable vector are <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>,… <span class="math inline">\(x_n\)</span>, we can find <span class="math inline">\(x_i\)</span> using determinants:</p>
-<p><span class="math display">\[x_i = \frac{\det(A_i)}{\det(A)}\]</span>
-where <span class="math inline">\(A_i\)</span> is the matrix made by
-substituting the <span class="math inline">\(i\)</span>th column with
-the constant vector.</p>
-<div id="cramers-rule-on-a-3x3-system" class="section level3">
-<h3>Cramer’s rule on a 3x3 system</h3>
-<p>Let’s focus on a 3x3 system. Instead of <span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, and <span class="math inline">\(x_3\)</span>, we will use the more familiar <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span>, and <span class="math inline">\(z\)</span>. The general 3x3 system can be written
-with those three variables and 12 parameters.</p>
-<p><span class="math display">\[\begin{align*}ax+by+cz &amp;= p \\
-dx+ey+fz &amp;= q \\
-gx+hy+iz &amp;= r \\
+<div id="question" class="section level1">
+<h1>Question</h1>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+padding: 5px;
+margin: 3px;
+background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+padding: 10px; text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(A\)</span> be the 3x3 matrix
+below.</p>
+<p><span class="math display">\[A=\begin{bmatrix}
+5 &amp; -2 &amp; 1\\
+1 &amp; 3 &amp; 6\\
+8 &amp; -3 &amp; 2
+\end{bmatrix}\]</span></p>
+<pre><code>A = matrix([[5,-2,1],[1,3,6],[8,-3,2]])</code></pre>
+<p>Its inverse is shown below.</p>
+<p><span class="math display">\[A^{-1}= \begin{bmatrix}
+24 &amp; 1 &amp; -15\\
+46 &amp; 2 &amp; -29\\
+-27 &amp; -1 &amp; 17
+\end{bmatrix}\]</span></p>
+<pre><code>Ainv = matrix([[24,1,-15],[46,2,-29],[-27,-1,17]])</code></pre>
+<p>Use that information to solve the system below.</p>
+<p><span class="math display">\[\begin{align*}5x-2y+z &amp;= -72 \\
+x+3y+6z &amp;= -37 \\
+8x-3y+2z &amp;= -117 \\
 \end{align*}\]</span></p>
-<p>We can express the 3x3 system in matrix form (<span class="math inline">\(AX=B\)</span>):</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> ##ANSWER1##</li>
+<li><span class="math inline">\(y=\)</span> ##ANSWER2##</li>
+<li><span class="math inline">\(z=\)</span> ##ANSWER3##</li>
+</ul>
+<div id="answerlist" class="section level2">
+<h2>Answerlist</h2>
+<ul>
+<li>-10</li>
+<li>-9</li>
+<li>-8</li>
+<li>-7</li>
+<li>-6</li>
+<li>-5</li>
+<li>-4</li>
+<li>-3</li>
+<li>-2</li>
+<li>-1</li>
+<li>0</li>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+<li>5</li>
+<li>6</li>
+<li>7</li>
+<li>8</li>
+<li>9</li>
+<li>10</li>
+<li>-10</li>
+<li>-9</li>
+<li>-8</li>
+<li>-7</li>
+<li>-6</li>
+<li>-5</li>
+<li>-4</li>
+<li>-3</li>
+<li>-2</li>
+<li>-1</li>
+<li>0</li>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+<li>5</li>
+<li>6</li>
+<li>7</li>
+<li>8</li>
+<li>9</li>
+<li>10</li>
+<li>-10</li>
+<li>-9</li>
+<li>-8</li>
+<li>-7</li>
+<li>-6</li>
+<li>-5</li>
+<li>-4</li>
+<li>-3</li>
+<li>-2</li>
+<li>-1</li>
+<li>0</li>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+<li>5</li>
+<li>6</li>
+<li>7</li>
+<li>8</li>
+<li>9</li>
+<li>10</li>
+</ul>
+</div>
+</div>
+<div id="solution" class="section level1">
+<h1>Solution</h1>
+<p>Write the system in matrix form <span class="math inline">\(A\cdot X
+= B\)</span>.</p>
 <p><span class="math display">\[\begin{bmatrix}
-a &amp; b &amp; c\\
-d &amp; e &amp; f\\
-g &amp; h &amp; i
+5 &amp; -2 &amp; 1\\
+1 &amp; 3 &amp; 6\\
+8 &amp; -3 &amp; 2
 \end{bmatrix}\cdot\begin{bmatrix}
 x\\
 y\\
 z
-\end{bmatrix} ~=~ \begin{bmatrix}
-p\\
-q\\
-r
+\end{bmatrix} = \begin{bmatrix}
+-72\\
+-37\\
+-117
 \end{bmatrix}\]</span></p>
-<p>Cramer’s rule tells us the solution:</p>
-<p><span class="math display">\[\begin{align}
-x&amp;=\frac{\det\left(A_1\right)}{\det\left(A\right)} &amp;
-y&amp;=\frac{\det\left(A_2\right)}{\det\left(A\right)} &amp;
-z&amp;=\frac{\det\left(A_3\right)}{\det\left(A\right)}
-\end{align}\]</span></p>
-<p>In terms of the 12 parameters:</p>
-<p><span class="math display">\[\begin{align}
-x&amp;=\frac{\det\left(\begin{bmatrix}
-p &amp; b &amp; c\\
-q &amp; e &amp; f\\
-r &amp; h &amp; i
-\end{bmatrix}\right)}{\det\left(\begin{bmatrix}
-a &amp; b &amp; c\\
-d &amp; e &amp; f\\
-g &amp; h &amp; i
-\end{bmatrix}\right)} &amp;
-y&amp;=\frac{\det\left(\begin{bmatrix}
-a &amp; p &amp; c\\
-d &amp; q &amp; f\\
-g &amp; r &amp; i
-\end{bmatrix}\right)}{\det\left(\begin{bmatrix}
-a &amp; b &amp; c\\
-d &amp; e &amp; f\\
-g &amp; h &amp; i
-\end{bmatrix}\right)} &amp;
-z&amp;=\frac{\det\left(\begin{bmatrix}
-a &amp; b &amp; p\\
-d &amp; e &amp; q\\
-g &amp; h &amp; r
-\end{bmatrix}\right)}{\det\left(\begin{bmatrix}
-a &amp; b &amp; c\\
-d &amp; e &amp; f\\
-g &amp; h &amp; i
-\end{bmatrix}\right)}
-\end{align}\]</span></p>
+<p>You can left-multiply both sides by the inverse. <span class="math display">\[A^{-1}AX = A^{-1}B\]</span> <span class="math display">\[\begin{bmatrix}
+24 &amp; 1 &amp; -15\\
+46 &amp; 2 &amp; -29\\
+-27 &amp; -1 &amp; 17
+\end{bmatrix}\cdot \begin{bmatrix}
+5 &amp; -2 &amp; 1\\
+1 &amp; 3 &amp; 6\\
+8 &amp; -3 &amp; 2
+\end{bmatrix} \cdot \begin{bmatrix}
+x\\
+y\\
+z
+\end{bmatrix} = \begin{bmatrix}
+24 &amp; 1 &amp; -15\\
+46 &amp; 2 &amp; -29\\
+-27 &amp; -1 &amp; 17
+\end{bmatrix}\cdot \begin{bmatrix}
+-72\\
+-37\\
+-117
+\end{bmatrix}\]</span></p>
+<p>We know that <span class="math inline">\(A^{-1}\cdot A = I\)</span>,
+where <span class="math inline">\(I\)</span> is the identity matrix.</p>
+<p><span class="math display">\[\begin{bmatrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1
+\end{bmatrix} \cdot \begin{bmatrix}
+x\\
+y\\
+z
+\end{bmatrix} = \begin{bmatrix}
+24 &amp; 1 &amp; -15\\
+46 &amp; 2 &amp; -29\\
+-27 &amp; -1 &amp; 17
+\end{bmatrix}\cdot \begin{bmatrix}
+-72\\
+-37\\
+-117
+\end{bmatrix}\]</span></p>
+<p>We know <span class="math inline">\(I\cdot X = X\)</span>, because
+multiplication by an identity matrix returns an unchanged matrix.</p>
+<p><span class="math display">\[\begin{bmatrix}
+x\\
+y\\
+z
+\end{bmatrix} = \begin{bmatrix}
+24 &amp; 1 &amp; -15\\
+46 &amp; 2 &amp; -29\\
+-27 &amp; -1 &amp; 17
+\end{bmatrix}\cdot \begin{bmatrix}
+-72\\
+-37\\
+-117
+\end{bmatrix}\]</span></p>
+<p>So, in short, we just need to evaluate <span class="math inline">\(A^{-1}\cdot B\)</span>.</p>
+<p>Use <a href="https://sagecell.sagemath.org/">sagemath</a>.</p>
+<pre><code>Ainv = matrix([[24,1,-15],[46,2,-29],[-27,-1,17]])
+B = matrix([[-72,-37,-117]]).transpose()
+XYZ = Ainv*B
+pretty_print(XYZ)</code></pre>
+<p><span class="math display">\[X = \begin{bmatrix}
+-10\\
+7\\
+-8
+\end{bmatrix}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[\begin{align*}x &amp;= -10 \\
+y &amp;= 7 \\
+z &amp;= -8 \\
+\end{align*}\]</span></p>
 </div>
+<div id="meta-information" class="section level1">
+<h1>Meta-information</h1>
+<p>extype: cloze exclozetype: schoice|schoice|schoice exsolution:
+100000000000000000000|000000000000000001000|001000000000000000000
+exname: get_inverse_rref</p>
 </div>
 
 

@@ -189,66 +189,67 @@ ac = numeric()
 sols = character()
 nch = 2
 poss = sort(unique(c(A,B)))
-# for(i in 1:9){
-#   corr = c(t(A))[i]
-#   wr2 = sample(poss,nch-1)
-#   myl = sort(unique(c(corr,wr2)))
-#   while(length(myl)<nch){
-#     wr2 = sample(poss,nch-1)
-#     myl = sort(unique(c(corr,wr2)))
-#   }
-#   ac = c(ac,myl)
-#   sols = c(sols,paste0(1*(myl==corr),collapse=""))
-# }
-# for(i in 1:9){
-#   corr = c(t(Ax))[i]
-#   wr2 = sample(poss,nch-1)
-#   myl = sort(unique(c(corr,wr2)))
-#   while(length(myl)<nch){
-#     wr2 = sample(poss,nch-1)
-#     myl = sort(unique(c(corr,wr2)))
-#   }
-#   ac = c(ac,myl)
-#   sols = c(sols,paste0(1*(myl==corr),collapse=""))
-# }
-# for(i in 1:9){
-#   corr = c(t(Ay))[i]
-#   wr2 = sample(poss,nch-1)
-#   myl = sort(unique(c(corr,wr2)))
-#   while(length(myl)<nch){
-#     wr2 = sample(poss,nch-1)
-#     myl = sort(unique(c(corr,wr2)))
-#   }
-#   ac = c(ac,myl)
-#   sols = c(sols,paste0(1*(myl==corr),collapse=""))
-# }
-# for(i in 1:9){
-#   corr = c(t(Az))[i]
-#   wr2 = sample(poss,nch-1)
-#   myl = sort(unique(c(corr,wr2)))
-#   while(length(myl)<nch){
-#     wr2 = sample(poss,nch-1)
-#     myl = sort(unique(c(corr,wr2)))
-#   }
-#   ac = c(ac,myl)
-#   sols = c(sols,paste0(1*(myl==corr),collapse=""))
-# }
+for(i in 1:9){
+  corr = c(t(A))[i]
+  wr2 = sample(poss,nch-1)
+  myl = sort(unique(c(corr,wr2)))
+  while(length(myl)<nch){
+    wr2 = sample(poss,nch-1)
+    myl = sort(unique(c(corr,wr2)))
+  }
+  ac = c(ac,myl)
+  sols = c(sols,paste0(1*(myl==corr),collapse=""))
+}
+for(i in 1:9){
+  corr = c(t(Ax))[i]
+  wr2 = sample(poss,nch-1)
+  myl = sort(unique(c(corr,wr2)))
+  while(length(myl)<nch){
+    wr2 = sample(poss,nch-1)
+    myl = sort(unique(c(corr,wr2)))
+  }
+  ac = c(ac,myl)
+  sols = c(sols,paste0(1*(myl==corr),collapse=""))
+}
+for(i in 1:9){
+  corr = c(t(Ay))[i]
+  wr2 = sample(poss,nch-1)
+  myl = sort(unique(c(corr,wr2)))
+  while(length(myl)<nch){
+    wr2 = sample(poss,nch-1)
+    myl = sort(unique(c(corr,wr2)))
+  }
+  ac = c(ac,myl)
+  sols = c(sols,paste0(1*(myl==corr),collapse=""))
+}
+for(i in 1:9){
+  corr = c(t(Az))[i]
+  wr2 = sample(poss,nch-1)
+  myl = sort(unique(c(corr,wr2)))
+  while(length(myl)<nch){
+    wr2 = sample(poss,nch-1)
+    myl = sort(unique(c(corr,wr2)))
+  }
+  ac = c(ac,myl)
+  sols = c(sols,paste0(1*(myl==corr),collapse=""))
+}
 
 poss = sort(unique(c(dA,dAx,dAy,dAz)))#,2*dA,3*dA,5*dA,ceiling(dA/2),ceiling(dA/3),ceiling(dA/5))
-# poss = sort(unique(c(poss,-poss)))
-# while(length(poss)<10){
-#   poss = sort(unique(c(poss,sample(-100:100,1))))
-# }
-# ac = c(ac,poss)
-# sols = c(sols,paste0(1*(poss==dA),collapse=""))
-# ac = c(ac,poss)
-# sols = c(sols,paste0(1*(poss==dAx),collapse=""))
-# ac = c(ac,poss)
-# sols = c(sols,paste0(1*(poss==dAy),collapse=""))
-# ac = c(ac,poss)
-# sols = c(sols,paste0(1*(poss==dAz),collapse=""))
+poss = sort(unique(c(poss,-poss)))
+while(length(poss)<10){
+  neww = sample(1:100,1)
+  poss = sort(unique(c(poss,neww,-neww)))
+}
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==dA),collapse=""))
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==dAx),collapse=""))
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==dAy),collapse=""))
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==dAz),collapse=""))
 
-poss = sort(c(X))
+poss = sort(unique(c(X,-X)))
 ac = c(ac,poss)
 sols = c(sols,paste0(1*(poss==X[1]),collapse=""))
 ac = c(ac,poss)
@@ -263,56 +264,43 @@ al = paste0("* ",ac,collapse="\n")
 Question
 ========
 
-[Cramer's rule](https://en.wikipedia.org/wiki/Cramer%27s_rule#General_case) expresses the solution to any linear system (that has a single solution). If the coefficient matrix is $A$, the variable vector is $X$, and the constant vector is $B$, then the linear system can be expressed in matrix form as $AX=B$. If the elements of the variable vector are $x_1$, $x_2$,... $x_n$, we can find $x_i$ using determinants:
+`r styleblock`
 
-$$x_i = \frac{\det(A_i)}{\det(A)}$$
-where $A_i$ is the matrix made by substituting the $i$th column with the constant vector.
-
-Let's focus on a 3x3 system. Instead of $x_1$, $x_2$, and $x_3$, we will use the more familiar $x$, $y$, and $z$. We can express the 3x3 system in matrix form:
-
-$$`r lat(As)`\cdot`r lat(Xs)` ~=~ `r lat(Bs)`$$
-
-Cramer's rule tells us the solution:
-
-$$\begin{align}
-x&=\frac{\det\left(A_1\right)}{\det\left(A\right)} &
-y&=\frac{\det\left(A_2\right)}{\det\left(A\right)} &
-z&=\frac{\det\left(A_3\right)}{\det\left(A\right)}
-\end{align}$$
+Read [this about Cramer's rule](https://chadworley.github.io/precalculus/028_SOE_matrices/Cramer.html).
 
 
 Consider the following specific 3x3 system.
 
 $$`r prs(cbind(A,B))`$$
 
-The coefficient matrix is given.
+Determine the elements of the coefficient matrix.
 
-$A = `r lat(A)`$
+$A =$ `r html_input_table_33(1)`
 
 The $A_1$ matrix is made by replacing the first column of $A$ with the constant vector.
 
-$A_1 = `r lat(Ax)`$
+$A_1 =$ `r html_input_table_33(10)`
 
 The $A_2$ matrix is made by replacing the first column of $A$ with the constant vector.
 
-$A_2 = `r lat(Ay)`$
+$A_2 =$ `r html_input_table_33(19)`
 
 The $A_3$ matrix is made by replacing the first column of $A$ with the constant vector.
 
-$A_3 = `r lat(Az)`$
+$A_3 =$ `r html_input_table_33(28)`
 
 We can evaluate the determinants.
 
-* $\det(A) = `r dA`$
-* $\det(A_1) = `r dAx`$
-* $\det(A_2) = `r dAy`$
-* $\det(A_3) = `r dAz`$
+* $\det(A) = $ ##ANSWER37##
+* $\det(A_1) =$ ##ANSWER38##
+* $\det(A_2) =$ ##ANSWER39##
+* $\det(A_3) =$ ##ANSWER40##
 
 Solve the system.
 
-* $x=$ ##ANSWER1##
-* $y=$ ##ANSWER2##
-* $z=$ ##ANSWER3##
+* $x=$ ##ANSWER41##
+* $y=$ ##ANSWER42##
+* $z=$ ##ANSWER43##
 
 Answerlist
 --------
@@ -330,10 +318,10 @@ $$A_1 = `r lat(Ax)`$$
 $$A_2 = `r lat(Ay)`$$
 $$A_3 = `r lat(Az)`$$
 
-* $\det(A)=`r round(det(A),4)`$
-* $\det(A_1)=`r round(det(Ax),4)`$
-* $\det(A_2)=`r round(det(Ay),4)`$
-* $\det(A_3)=`r round(det(Az),4)`$
+* $\det(A)=`r dA`$
+* $\det(A_1)=`r dAx`$
+* $\det(A_2)=`r dAy`$
+* $\det(A_3)=`r dAz`$
 
 $$x~=~\frac{`r round(det(Ax),4)`}{`r round(det(A),4)`} ~=~ `r X[1]`$$
 $$y~=~\frac{`r round(det(Ay),4)`}{`r round(det(A),4)`} ~=~ `r X[2]`$$
@@ -343,6 +331,6 @@ $$z~=~\frac{`r round(det(Az),4)`}{`r round(det(A),4)`} ~=~ `r X[3]`$$
 Meta-information
 ============
 extype: cloze
-exclozetype: `r paste0(rep("schoice",3),collapse="|")`
+exclozetype: `r paste0(rep("schoice",length(sols)),collapse="|")`
 exsolution: `r paste0(sols,collapse="|")`
 exname: cramers_rule
