@@ -3,8 +3,7 @@ n = 30
 outdir = "outcanvas"
 genname = "028"
 
-
-probs = c("16_cramers_rule.Rmd")
+probs = c("17_row_ops_equiv_mat_mult.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
@@ -12,7 +11,7 @@ for(i in 1:length(probs)){
   exams2canvas(probs[i],
                n=n,
                dir=outdir,
-               points=10,
+               points=4,
                maxattempts = 15,
                name=names[i],
                template = "canvas_qti12.xml",

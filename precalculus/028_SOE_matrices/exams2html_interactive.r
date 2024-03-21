@@ -17,7 +17,8 @@ probs = c("01_SOE_matrix_form.Rmd",
           "13_determinant_3x3.Rmd",
           "14_determinant_4x4.Rmd",
           "15_can_solve_sys.Rmd",
-          "16_cramers_rule.Rmd")
+          "16_cramers_rule.Rmd",
+          "17_row_ops_equiv_mat_mult.Rmd")
 
 nvers = 4
 ps = character(0)

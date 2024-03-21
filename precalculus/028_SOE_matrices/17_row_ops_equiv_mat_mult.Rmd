@@ -1,0 +1,311 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+latdet = function(A){
+  pra = "\\begin{vmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{vmatrix}")
+  return(pra)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+lataug = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:3],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,'\\end{matrix}
+  \\;\\middle|\\;
+    \\,
+    \\begin{matrix}\n')
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,4:6],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+styleblock = '<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>'
+
+strt = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("")
+  } else {
+    return(as.character(s))
+  }
+}
+
+md = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("+")
+  } else if(s<0){
+    return(as.character(s))
+  } else {
+    return(paste0("+",s,collapse=""))
+  }
+}
+
+html_input_table = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    rs2 = paste0("<td>",rep("!!!",2),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td>",rs2,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+html_input_table_33 = function(an=1){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",paste0("##ANSWER",an:(an+2),"##"),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"</tr>")
+    an = an+3
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+html_input_table_44 = function(an=1){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:4){
+    rs = paste0("<td>",paste0("##ANSWER",an:(an+3),"##"),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"</tr>")
+    an = an+4
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+prs = function(M,lets=c("x","y","z","q","r","s","t","u","v","w")){
+  s = "\\begin{align*}"
+  for(i in 1:dim(M)[1]){
+    row = ""
+    nc = dim(M)[2]
+    ls = lets[1:(nc-1)]
+    row = paste0(strt(M[i,1]),ls[1],collapse="")
+    for(j in 2:(nc-1)){
+      row = paste0(row,md(M[i,j]),ls[j],collapse="")
+    }
+    row = paste(row,"&=",M[i,nc],"\\\\\n",collapse="")
+    row = sub("0x+","",row,fixed=T)
+    row = sub("0x-","-",row,fixed=T)
+    row = sub("0y+","",row,fixed=T)
+    row = sub("0y-","-",row,fixed=T)
+    row = sub("+0z","",row,fixed=T)
+    row = sub("-0z","",row,fixed=T)
+    s = paste0(s,row,collapse="")
+  }
+  s = paste0(s,"\\end{align*}",collapse="")
+  return(s)
+}
+
+
+I = matrix(c(1,0,0,0,
+             0,1,0,0,
+             0,0,1,0,
+             0,0,0,1),4)
+A = matrix(c(1,1,1,1,
+             2,2,2,2,
+             3,3,3,3,
+             4,4,4,4),4,byrow = T)
+
+B = A
+
+ros = sample(c("swap","add","mult"),3)
+M = I
+rowops = character()
+
+ms = list(M)
+as = list(B)
+
+i=1
+for(ro in ros){
+  i = i+1
+  if(ro=="swap"){
+    rows = sort(sample(1:4,2))
+    M2 = M
+    M[rows[1],] = M2[rows[2],]
+    M[rows[2],] = M2[rows[1],]
+    B2 = B
+    B[rows[1],] = B2[rows[2],]
+    B[rows[2],] = B2[rows[1],]
+    rowops = c(rowops,paste0("R_",rows[1],"\\leftrightarrow R_",rows[2],collapse=""))
+  }
+  if(ro=="add"){
+    rows = sample(1:4,2)
+    ra = sort(rows)
+    rowops = c(rowops,paste0("R_",ra[1],"+ R_",ra[2],"\\rightarrow R_",rows[1],collapse=""))
+    M[rows[1],] = M[rows[1],]+M[rows[2],]
+    B[rows[1],] = B[rows[1],]+B[rows[2],]
+  }
+  if(ro=="mult"){
+    row = sample(1:4,1)
+    mu = sample(2:5,1)
+    rowops = c(rowops,paste0(mu,"\\cdot R_",row,"\\rightarrow R_",row,collapse=""))
+    M[row,] = mu*M[row,]
+    B[row,] = mu*B[row,]
+  }
+  ms[[i]] = M
+  as[[i]] = B
+}
+
+P = M %*% A
+
+ac = sort(unique(c(0:4,c(A),c(M),c(P),ms[[2]],ms[[3]],as[[2]],as[[3]])))
+sols = character()
+for(num in c(t(M))){
+  sols = c(sols,paste0(1*(num==ac),collapse=""))
+}
+for(num in c(t(P))){
+  sols = c(sols,paste0(1*(num==ac),collapse=""))
+}
+ac = rep(ac,length(sols))
+al = paste0("* ",ac,collapse="\n")
+
+```
+
+Question
+========
+
+`r styleblock`
+
+When row operations are applied to an identity matrix, the resulting matrix can apply the same operations (in the same order) to another matrix through matrix multiplication.
+
+Let's explore this idea in the context of 4x4 matrices. For your reference, the 4x4 identity matrix is shown below.
+
+$$I = `r lat(I)`$$
+To get matrix $M$, apply the following elementary row operations to the identity matrix (in the given order):
+
+1. $`r rowops[1]`$
+2. $`r rowops[2]`$
+3. $`r rowops[3]`$
+
+
+* $M =$ `r html_input_table_44()`
+
+Now, let's introduce another matrix:
+
+$$A = `r lat(A)`$$
+
+Let $P$ be the product of $M$ and $A$ (in that order). Find the elements of $P$.
+
+$$P = M\cdot A$$
+
+* $P =$ `r html_input_table_44(17)`
+
+You can get the elements of $P$ using either strategy:
+
+1. You can use matrix multiplication. $M\cdot A$
+2. You can apply the same list of row operations to $A$.
+
+When you apply row operations to an identity matrix, the resulting matrix can be used to apply the same operations to another matrix through matrix multiplication.
+
+Answerlist
+--------
+
+`r al`
+
+Solution
+========
+
+$$I=`r lat(I)`$$
+
+* $`r rowops[1]`$
+
+$$`r lat(ms[[2]])`$$
+
+* $`r rowops[2]`$
+
+$$`r lat(ms[[3]])`$$
+
+* $`r rowops[3]`$
+
+$$`r lat(ms[[4]])`$$
+
+Thus,
+
+$$M = `r lat(M)`$$
+
+$$P=M\cdot A$$
+
+$$P = `r lat(M)`\cdot `r lat(A)`$$
+
+$$P = `r lat(M %*% A)`$$
+
+You can get the elements of $P$ using either of two different strategies.
+
+1. You can use matrix multiplication. $M\cdot A$
+2. You can apply the same list of row operations to $A$.
+
+When you apply row operations to an identity matrix, the resulting matrix can be used to apply the same operations to another matrix through matrix multiplication.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(sols)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: row_ops_equiv_mat_mult
