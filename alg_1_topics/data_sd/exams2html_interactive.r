@@ -1,14 +1,11 @@
 library("exams")
 
 outdir = "./"
-genname = "w22"
-probs = c("01_identify_shape.Rmd",
-          "02_mean_of_list.Rmd",
-          "03_median_of_list.Rmd",
-          "04_compare_mean_median.Rmd",
-          "05_compare_boxplots.Rmd")
+genname = "w23"
+probs = c("01_sd_pop_int.Rmd",
+          "02_estimate_SD.Rmd")
 
-nvers = 10
+nvers = 20
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))
