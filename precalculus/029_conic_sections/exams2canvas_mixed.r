@@ -3,8 +3,7 @@ n = 30
 outdir = "outcanvas"
 genname = "029"
 
-probs = c("05_pins_string_get_string.Rmd",
-          "06_pins_string_get_stakes.Rmd")
+probs = c("07_polynom_to_stndrd_ell.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
