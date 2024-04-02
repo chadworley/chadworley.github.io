@@ -7,7 +7,7 @@ probs = c("01_fef_dist_ellipse.Rmd",
           "03_pins_string_get_major.Rmd",
           "04_pins_string_get_minor.Rmd",
           "05_pins_string_get_string.Rmd",
-          "06_pins_string_get_stakes.Rmd")
+          "06_pins_string_get_pins.Rmd")
 
 nvers = 10
 ps = character(0)
