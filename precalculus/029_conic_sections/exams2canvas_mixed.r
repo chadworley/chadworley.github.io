@@ -3,7 +3,7 @@ n = 30
 outdir = "outcanvas"
 genname = "029"
 
-probs = c("07_polynom_to_stndrd_ell.Rmd")
+probs = c("08_area_of_ellipse.Rmd")
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)

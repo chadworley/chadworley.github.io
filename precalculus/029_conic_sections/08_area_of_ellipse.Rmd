@@ -1,0 +1,125 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  return(exp)
+}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+trips = list(c(3,4,5),
+             c(5,12,13),
+             c(8,15,17),
+             c(7,24,25),
+             c(20,21,29),
+             c(12,35,37),
+             c(9,40,41),
+             c(28,45,53),
+             c(11,60,61),
+             c(16,63,65),
+             c(33,56,65),
+             c(48,55,73),
+             c(13,84,85),
+             c(36,77,85),
+             c(39,80,89),
+             c(65,72,97))
+
+while(T){
+  whichi = sample(1:length(trips),1)
+  trip = trips[[whichi]]
+  maxmult = floor(100/trip[3])
+  mult = sample(1:maxmult,1)
+  trip = mult*trip
+  a = trip[3]/10
+  www = sample(1:2,2)
+  b = trip[www[1]]/10
+  c = trip[www[2]]/10
+  if(a>5 && c/a<0.9){break}
+}
+
+```
+
+Question
+========
+
+It is easy to find the area of an ellipse. It is surprisingly difficult to find the perimeter (you need calculus).
+
+The area of an ellipse is pretty intuitive because an ellipse is a stretched circle. The ellipse has two different radii, so instead of $A=\pi\cdot r\cdot r$ (for a circle), an ellipse's area is found with the following equation.
+
+$$A=\pi a b$$
+
+where $a$ is the length of the semi-major axis and $b$ is the length of the semi-minor axis. Or, $a$ and $b$ are the largest and smallest radii of the ellipse.
+
+If an ellipse is drawn with a string of length $`r 2*a`$ meters and two stakes placed $`r 2*c`$ meters apart. What is the area of the ellipse in square meters?
+
+(The tolerance is $\pm 0.01 ~\mathrm{m}^2$.)
+
+Solution
+========
+
+We need to find $a$ and $b$. Remember the string's length equals $2a$.
+
+$$a~=~\frac{2a}{2}~=~\frac{`r 2*a`}{2}~=~`r a`$$
+
+The distance from the center to a focus, $c$, equals half the distance between the stakes.
+
+$$c=\frac{`r 2*c`}{2}=`r c`$$
+
+We still need $b$, the shorter radius.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2)
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2)
+th = seq(0,2*pi,length.out=1000)
+x = a*cos(th)
+y = b*sin(th)
+polygon(x,y,border="blue")
+points(c(-c,c),c(0,0),col="red",pch=19)
+lines(c(-c,0),c(0,b),col="darkgreen")
+th = atan(b/c)
+text(-c/2+0.3*cos(th+pi/2),
+     b/2+0.3*sin(th+pi/2),
+     a,
+     srt=th/pi*180,col="darkgreen")
+lines(c(c,0),c(0,b),col="darkgreen")
+th = atan(b/c)
+text(c/2+0.3*cos(-th+pi/2),
+     b/2+0.3*sin(-th+pi/2),
+     a,
+     srt=-th/pi*180,col="darkgreen")
+lines(c(0,c),c(0,0),col="red",lwd=2)
+text(c/2,-0.3,c,col="red")
+lines(c(0,0),c(0,b),col="purple",lwd=2)
+text(-0.3,b/2,"b",col="purple")
+```
+\
+
+
+$$b=`r b`$$
+
+Find the area.
+
+$$A ~=~ ab\pi ~=~ (`r a`)(`r b`)\pi$$
+
+$$A \approx `r round(a*b*pi,2)`$$
+
+The area is approximately `r round(a*b*pi,2)` square meters.
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r pi*a*b`
+exname: polynom_to_stndrd_ell
+extol: 0.01
