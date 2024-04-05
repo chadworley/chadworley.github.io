@@ -3,7 +3,7 @@ n = 30
 outdir = "outcanvas"
 genname = "029"
 
-probs = c("09_parametric_ellipse.Rmd")
+probs = c("13_hyp_hor_or_ver.Rmd")
 
 pnts = c(3)
 

@@ -12,7 +12,9 @@ probs = c("01_fef_dist_ellipse.Rmd",
           "08_area_of_ellipse.Rmd",
           "09_parametric_ellipse.Rmd",
           "10_eccentric_anomaly.Rmd",
-          "11_hyperbola_intro.Rmd")
+          "11_hyperbola_intro.Rmd",
+          "12_hyp_get_params.Rmd",
+          "13_hyp_hor_or_ver.Rmd")
 
 nvers = 5
 ps = character(0)
