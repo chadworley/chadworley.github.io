@@ -1,0 +1,183 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  return(exp)
+}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+while(T){
+  a = round(runif(1,2,5),1)
+  c = round(runif(1,a+1,8),1)
+  b = sqrt(c^2-a^2)
+  x1 = round(runif(1,a+1,9),1)
+  y1 = b*sqrt(x1^2/a^2-1)
+  y1r = round(y1,1)
+  d1 = a+c
+  d2 = c-a
+  diff1 = d1-d2
+  d3 = sqrt((x1+c)^2+y1r^2)
+  d4 = sqrt((x1-c)^2+y1r^2)
+  diff2 = d3-d4
+  if(b/a<2 && b/a>1/2 && round(y1,1)==round(y1,2) && y1<9 && x1!=c &&
+     round(d3,1)==round(d3,2) && round(d4,1)==round(d4,2) && round(diff2,2)==2*a && round(d4,1)!=y1r){break}
+}
+y1 = round(y1,1)
+d3 = round(d3,1)
+d4 = round(d4,1)
+diff2 = 2*a
+diff1 = 2*a
+
+wh1 = sample(1:5,1)
+ac1 = d1+0.1*(1:5-wh1)
+sol1 = paste0(1*(1:5==wh1),collapse="")
+wh2 = sample(1:5,1)
+ac2 = d2+0.1*(1:5-wh2)
+sol2 = paste0(1*(1:5==wh2),collapse="")
+wh3 = sample(1:5,1)
+ac3 = diff1+0.1*(1:5-wh3)
+sol3 = paste0(1*(1:5==wh3),collapse="")
+
+wh4 = sample(1:5,1)
+ac4 = d3+0.1*(1:5-wh4)
+sol4 = paste0(1*(1:5==wh4),collapse="")
+wh5 = sample(1:5,1)
+ac5 = d4+0.1*(1:5-wh5)
+sol5 = paste0(1*(1:5==wh5),collapse="")
+wh6 = wh3 #sample(1:5,1)
+ac6 = diff2+0.1*(1:5-wh6)
+sol6 = paste0(1*(1:5==wh6),collapse="")
+
+```
+
+Question
+========
+
+An [ellipse](https://en.wikipedia.org/wiki/Ellipse) is the set of points with a constant **sum** of distances from two foci.
+
+A [hyperbola](https://en.wikipedia.org/wiki/Hyperbola) is the set of points with a constant **difference** of distances from two foci.
+
+Let's explore the idea that a hyberloa is a collection of points with a constant difference of distances. Consider the hyperbola below, centered at the origin with foci at $(`r -c`,0)$ and $(`r c`,0)$ and with vertices at $(`r -a`,0)$ and $(`r a`,0)$. We will begin by finding the distances (and their difference) from the foci to a vertex.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+#polygon(c(-a,-a,a,a),c(b,-b,-b,b),lty=3,border="red",lwd=2)
+th = seq(-pi/2,pi/2,length.out=1000)
+x = a/cos(th)
+y = b*tan(th)
+lines(x,y,col="blue",lwd=2)
+th = seq(pi/2+0.000001,3*pi/2-0.00001,length.out=1000)
+x = a/cos(th)
+y = b*tan(th)
+lines(x,y,col="blue",lwd=2)
+text(-c-0.2,-0.2,paste0("(",-c,", 0)"),col="red",adj=c(1,1))
+text(c+0.2,-0.2,paste0("(",c,", 0)"),col="red",adj=c(0,1))
+text(a-0.2,0.2,paste0("(",a,", 0)"),adj=c(1,0))
+lines(c(-c,a),c(0,0),lwd=3,col="darkorange")
+text(mean(c(-c,a)),0.2,TeX("$d_1$"),col="darkorange",adj=c(0.5,0),cex=1.2)
+lines(c(c,a),c(0,0),lwd=3,col="purple")
+text(mean(c(c,a)),0.2,TeX("$d_2$"),col="purple",adj=c(0.5,0),cex=1.2)
+points(c(-c,c),c(0,0),pch=19,col="red")
+points(a,0,pch=19)
+#abline(a=0,b=b/a)
+#abline(a=0,b=-b/a)
+```
+\
+
+* Find the longer distance from a foci to a vertex. $d_1=$ ##ANSWER1##
+* Find the shorter distance from a foci to a vertex. $d_2=$ ##ANSWER2##
+* Find their difference. $d_1-d_2=$ ##ANSWER3##
+
+Now let's pick another point on the hyperbola: $(`r x1`,`r y1`)$
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+#polygon(c(-a,-a,a,a),c(b,-b,-b,b),lty=3,border="red",lwd=2)
+th = seq(-pi/2,pi/2,length.out=1000)
+x = a/cos(th)
+y = b*tan(th)
+lines(x,y,col="blue",lwd=2)
+th = seq(pi/2+0.000001,3*pi/2-0.00001,length.out=1000)
+x = a/cos(th)
+y = b*tan(th)
+lines(x,y,col="blue",lwd=2)
+text(-c-0.2,-0.2,paste0("(",-c,", 0)"),col="red",adj=c(1,1))
+text(c+0.2,-0.2,paste0("(",c,", 0)"),col="red",adj=c(0,1))
+text(x1-0.2,y1+0.2,paste0("(",x1,", ",y1,")"),adj=c(1,0))
+lines(c(-c,x1),c(0,y1),lwd=3,col="darkgreen")
+ang1 = atan2(y1,x1+c)
+text(mean(c(-c,x1))+0.1*cos(ang1+pi/2),
+     y1/2+0.1*sin(ang1+pi/2),
+     TeX("$d_3$"),
+     col="darkgreen",adj=c(0.5,0),cex=1.2,srt=ang1/pi*180)
+lines(c(c,x1),c(0,y1),lwd=3,col="purple")
+ang2 = atan2(y1,x1-c)
+if(ang2>pi/2){ang2=ang2-pi}
+text(mean(c(c,x1))+0.1*cos(ang2+pi/2),y1/2+0.1*sin(ang2+pi/2),TeX("$d_4$"),col="purple",adj=c(0.5,0),cex=1.2,srt=ang2/pi*180)
+points(c(-c,c),c(0,0),pch=19,col="red")
+points(x1,y1,pch=19)
+#abline(a=0,b=b/a)
+#abline(a=0,b=-b/a)
+```
+\
+
+* Find the longer distance from a foci to the point. $d_3=$ ##ANSWER4##
+* Find the shorter distance from a foci to the point. $d_4=$ ##ANSWER5##
+* Find their difference. $d_3-d_4=$ ##ANSWER6##
+
+Answerlist
+--------
+
+`r paste0("* ",ac1,collapse="\n")`
+`r paste0("* ",ac2,collapse="\n")`
+`r paste0("* ",ac3,collapse="\n")`
+`r paste0("* ",ac4,collapse="\n")`
+`r paste0("* ",ac5,collapse="\n")`
+`r paste0("* ",ac6,collapse="\n")`
+
+Solution
+========
+
+The first two distances are both 1D distances, so they are found by simple addition/subtraction.
+
+$$d_1 ~=~ `r a`-(-`r c`) ~=~ `r a+c`$$
+$$d_2 ~=~ `r c`-`r a` ~=~ `r c-a`$$
+$$d_1-d2 ~=~ `r 2*a`$$
+
+The next distances ($d_3$ and $d_4$) require the 2D distance formula. Remember, distance formula is just Pythagorean Theorem. Make right triangles by using horizontal and vertical legs, and find the hypotenuse.
+
+$$d_3 ~=~ \sqrt{(`r x1`-(`r -c`))^2+`r y1`^2} ~=~ `r d3`$$
+$$d_4 ~=~ \sqrt{(`r x1`-`r c`)^2+`r y1`^2} ~=~ `r d4`$$
+$$d_3-d_4 ~=~ `r 2*a`$$
+
+Notice that $d_1-d_2=d_3-d_4$. The difference (of distances) remains constant as you move along a hyperbolic curve.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`|`r sol6`
+exname: hyperbola_intro

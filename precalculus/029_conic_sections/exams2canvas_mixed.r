@@ -3,7 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "029"
 
-probs = c("08_area_of_ellipse.Rmd")
+probs = c("09_parametric_ellipse.Rmd")
+
+pnts = c(3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
@@ -11,7 +13,7 @@ for(i in 1:length(probs)){
   exams2canvas(probs[i],
                n=n,
                dir=outdir,
-               points=2,
+               points=pnts[i],
                maxattempts = 10,
                name=names[i],
                template = "canvas_qti12.xml",

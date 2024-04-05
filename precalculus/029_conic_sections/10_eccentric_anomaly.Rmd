@@ -1,0 +1,80 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("(x-0)","x",exp,fixed=T)
+  exp = gsub("(y-0)","y",exp,fixed=T)
+  return(exp)
+}
+while(T){
+  ab = sample(4:7,2)
+  a = ab[1]
+  b = ab[2]
+  t = round(runif(1,pi/8,pi/2-pi/8),2)
+  x = a*cos(t)
+  y = b*sin(t)
+  theta = atan(y/x)
+  if(abs(diff(c(t,theta)))>0.03){break}
+}
+
+```
+
+Question
+========
+
+Consider the ellipse represented by the parametric system below (with $0\le t < 2\pi$):
+$$\begin{align}
+x &= `r a`\cos(t) \\
+y &= `r b`\sin(t)
+\end{align}$$
+
+The parameter $t$ is called the [eccentric anomaly](https://en.wikipedia.org/wiki/Eccentric_anomaly). Let's consider the point on the ellipse when $t=`r t`$.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2)
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2)
+th = seq(0,2*pi,length.out=1000)
+xs = a*cos(th)
+ys = b*sin(th)
+polygon(xs,ys,border="blue")
+points(a*cos(t),b*sin(t),pch=19,col="black")
+lines(c(0,a*cos(t)),c(0,b*sin(t)),col="red")
+text(a*cos(t),b*sin(t),paste0("( ",a,"*cos(",t,"),\n   ",b,"*sin(",t,") )"),adj=c(0,0))
+th = seq(0,theta,length.out=100)
+xs = 0.8/theta*cos(th)
+ys = 0.8/theta*sin(th)
+lines(xs,ys,col="purple")
+text(1.1/theta*cos(theta/2),1.1/theta*sin(theta/2),TeX("\\phi"),col="purple")
+```
+\
+
+That point with [Cartesian coordinates](https://en.wikipedia.org/wiki/Cartesian_coordinate_system) $(`r a`\cos(`r t`), `r b`\sin(`r t`))$ also has [polar coordinates](https://en.wikipedia.org/wiki/Polar_coordinate_system) $(r,\phi)$, where $r$ is the distance from origin and $\phi$ is the angle counterclockwise from the positive $x$ axis.
+
+Find $\phi$. The tolerance is $\pm 0.01$ radians.
+
+
+Solution
+========
+
+Embarrassingly, I was surprised that $\phi \ne `r t`$. I was writing a problem about parametric form, and I assumed that the angle matched the eccentric anomaly (I wrongly thought $\phi=t$). I was excited to find the wikipedia article [naming $t$ the "eccentric anomaly"](https://en.wikipedia.org/wiki/Eccentric_anomaly).
+
+Anyway, you should probably use the [arctan()](https://en.wikipedia.org/wiki/Inverse_trigonometric_functions#Finding_the_angle_of_a_right_triangle) function. I believe in you.
+
+$$\phi=`r theta`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r theta`
+exname: eccentric_anomaly
+extol: 0.01

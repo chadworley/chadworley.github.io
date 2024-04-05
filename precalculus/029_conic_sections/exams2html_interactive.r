@@ -9,9 +9,12 @@ probs = c("01_fef_dist_ellipse.Rmd",
           "05_pins_string_get_string.Rmd",
           "06_pins_string_get_pins.Rmd",
           "07_polynom_to_stndrd_ell.Rmd",
-          "08_area_of_ellipse.Rmd")
+          "08_area_of_ellipse.Rmd",
+          "09_parametric_ellipse.Rmd",
+          "10_eccentric_anomaly.Rmd",
+          "11_hyperbola_intro.Rmd")
 
-nvers = 10
+nvers = 5
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))
