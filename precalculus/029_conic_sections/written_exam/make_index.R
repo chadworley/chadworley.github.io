@@ -18,8 +18,8 @@ for(dir in c("out_practice/","out_practice_sol/")){
   for(fl in fls){
     #if(grepl(".html",fl,fixed=T) || grepl(".pdf",fl,fixed=T)){
     if(grepl(".pdf",fl,fixed=T)){
-      s1 = paste0(substring(dir,3),"/",fl,collapse="")
-      sss = paste0(sss,"<a href=https://chadworley.github.io/precalculus/029_conic_sections_written_exam",s1,">",s1,"</a><br>")
+      s1 = paste0(dir,fl,collapse="")
+      sss = paste0(sss,"<a href=https://chadworley.github.io/precalculus/029_conic_sections/written_exam/",s1,">",s1,"</a><br>")
     }
   }
 }
