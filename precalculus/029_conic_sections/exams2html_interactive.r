@@ -14,7 +14,8 @@ probs = c("01_fef_dist_ellipse.Rmd",
           "10_eccentric_anomaly.Rmd",
           "11_hyperbola_intro.Rmd",
           "12_hyp_get_params.Rmd",
-          "13_hyp_hor_or_ver.Rmd")
+          "13_hyp_hor_or_ver.Rmd",
+          "14_CTS_hyp.Rmd")
 
 nvers = 5
 ps = character(0)

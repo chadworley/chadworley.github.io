@@ -1,0 +1,183 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  return(exp)
+}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+while(T){
+  alldem = sample(1:9,4)
+  h = alldem[1]*sample(c(-1,1),1)
+  k = alldem[2]*sample(c(-1,1),1)
+  r1 = alldem[3]
+  r2 = alldem[4]
+  c = sqrt(r1^2+r2^2)
+  maxx = abs(h)+c
+  maxy = abs(k)+r2
+  if(maxx<10 && maxy<10 && r1>1 && r2>1){break}
+}
+
+a = r1
+b = r2
+
+
+A = b^2
+B = -2*h*b^2
+C = -a^2
+D = 2*k*a^2
+E = b^2*h^2-a^2*k^2-a^2*b^2
+pn = fixer(paste0(A,"x^2+",B,"x+",C,"y^2+",D,"y+",E,"=0"))
+FF = round(B/A)
+G = round(D/C)
+e1 = fixer(paste0(A,"(x^2+",FF,"x)+",C,"(y^2+",G,"y)=",-E))
+H = round((FF/2)^2)
+sqrtH = round(FF/2)
+I = round((G/2)^2)
+sqrtI = round(G/2)
+e2 = fixer(paste0(A,"(x^2+",FF,"x+",H,")+",C,"(y^2+",G,"y)=",-E,"+",A*H))
+psx = fixer(paste0("(x+",sqrtH,")^2\\equiv x^2+",FF,"x+",H))
+psy = fixer(paste0("(y+",sqrtI,")^2\\equiv y^2+",G,"x+",I))
+
+e3 = fixer(paste0(A,"(x^2+",FF,"x+",H,")+",C,"(y^2+",G,"y+",I,")=",-E,"+",A*H,"+",C*I))
+e4 = fixer(paste0(A,"(x^2+",FF,"x+",H,")+",C,"(y^2+",G,"y+",I,")=",-E+A*H+C*I))
+e5 = fixer(paste0(A,"(x+",sqrtH,")^2+",C,"(y+",sqrtI,")^2=",-E+A*H+C*I))
+e6 = fixer(paste0("\\frac{",A,"(x+",sqrtH,")^2}{",-E+A*H+C*I,
+                  "}-\\frac{",-C,"(y+",sqrtI,")^2}{",-E+A*H+C*I,"}=",1))
+e7 = fixer(paste0("\\frac{(x+",sqrtH,")^2}{",r1^2,
+                  "}-\\frac{(y+",sqrtI,")^2}{",r2^2,"}=",1))
+
+e8 = fixer(paste0("\\frac{(x+",sqrtH,")^2}{",r1,
+                  "^2}-\\frac{(y+",sqrtI,")^2}{",r2,"^2}=",1))
+
+ac = -10:10
+al = paste0("* ",ac,collapse="\n")
+ac2 = 1:10
+al2 = paste0("* ",ac2,collapse="\n")
+sol1 = paste0(1*(ac==h),collapse="")
+sol2 = paste0(1*(ac==k),collapse="")
+sol3 = paste0(1*(ac2==r1),collapse="")
+sol4 = paste0(1*(ac2==r2),collapse="")
+
+```
+
+Question
+========
+
+The following equation (in polynomial form) represents a horizontal [hyperbola](https://openstax.org/books/precalculus-2e/pages/10-2-the-hyperbola).
+
+$$`r pn`$$
+
+With some algebra ([completing the square](https://en.wikipedia.org/wiki/Completing_the_square)), you can convert the equation into standard form:
+
+$$\frac{(x-h)^2}{a^2}-\frac{(y-k)^2}{b^2}=1$$
+
+From the given polynomial form, determine the 4 parameters.
+
+* $h=$ ##ANSWER1##
+* $k=$ ##ANSWER2##
+* $r_1=$ ##ANSWER3##
+* $r_2=$ ##ANSWER4##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al2`
+`r al2`
+
+
+Solution
+========
+
+$$`r pn`$$
+Factor out the quadratic coefficients from each variable's polynomial. Also move the constant term to the right with addition/subtration.
+
+$$`r e1`$$
+
+Complete the square for the $x$ quadratic. If $x^2+bx+c$ is a perfect square, then $c=\left(\frac{b}{2}\right)^2$. In this case, the linear coefficient is $`r FF`$. If you divide it by 2 and square the result, you get the necessary constant to complete the square (`r H`). Notice $`r psx`$. Lastly, since we are adding `r H` inside parentheses with a multiplier of `r A`, we are technically adding `r A*H` to both sides to make an equivalent equation.
+
+$$`r e2`$$
+
+Complete the square for the $y$ quadratic. If $y^2+by+c$ is a perfect square, then $c=\left(\frac{b}{2}\right)^2$. In this case, the linear coefficient is $`r G`$. If you divide it by 2 and square the result, you get the necessary constant to complete the square (`r I`). Notice $`r psy`$. Lastly, since we are adding `r I` inside parentheses with a multiplier of `r C`, we are technically adding `r C*I` to both sides to make an equivalent equation.
+
+$$`r e3`$$
+
+Combine the constants.
+
+$$`r e4`$$
+
+O yeah, remember how you completed the square? Twice? Let's rewrite those quadratic expressions in factored form. (This could have been done earlier.)
+
+$$`r e5`$$
+
+Divide both sides by $`r -E+A*H+C*I`$.
+
+$$`r e6`$$
+
+Simplify the fractions. Notice that $\frac{`r A`}{`r -E+A*H+C*I`}= \frac{1}{`r r1^2`}$ and $\frac{`r -C`}{`r -E+A*H+C*I`}= \frac{1}{`r r2^2`}$.
+
+$$`r e7`$$
+
+If you find the square roots of both denominators, you will have the standard form of a horizontal hyperbola. Notice $\sqrt{`r r1^2`}=`r r1`$ and $\sqrt{`r r2^2`}=`r r2`$.
+
+$$`r e8`$$
+
+Thus,
+
+$$\begin{align}
+h &= `r h` \\
+k &= `r k` \\
+a &= `r r1` \\
+b &= `r r2`
+\end{align}$$
+
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+eps = 0.00001
+th1 = seq(-pi/2+eps,pi/2-eps,length.out=1000)
+x1 = h+a/cos(th1)
+y1 = k+b*tan(th1)
+th2 = seq(pi/2+eps,3*pi/2-eps,length.out=1000)
+x2 = h+a/cos(th2)
+y2 = k+b*tan(th2)
+lines(c(h,h+r1),c(k,k),col="purple",lwd=2)
+text(h+r1/2,k-0.4,r1,col="purple",cex=1.2)
+lines(c(h,h),c(k,k+r2),col="darkgreen",lwd=2)
+text(h-0.4,k+r2/2,r2,col="darkgreen",cex=1.2)
+m = b/a
+xxx = c(-11,11)
+lines(xxx,m*(xxx-h)+k,col="darkorange")
+m = -b/a
+xxx = c(-11,11)
+lines(xxx,m*(xxx-h)+k,col="darkorange")
+points(h,k,col="red",pch=19)
+text(h-0.1,k-0.2,paste0("(",h,",",k,")"),adj=c(1,1),col="red",cex=1.2)
+lines(c(h-a,h-a,h+a,h+a,h-a),c(k-b,k+b,k+b,k-b,k-b),col="darkorange")
+
+
+lines(x1,y1,col="blue",lwd=3)
+lines(x2,y2,col="blue",lwd=3)
+```
+\
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: polynom_to_stndrd_ell
