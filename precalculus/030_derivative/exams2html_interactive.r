@@ -3,7 +3,8 @@ library("exams")
 outdir = "./"
 genname = "030"
 probs = c("01_lim_def_quad.Rmd",
-          "02_lim_def_cubic.Rmd")
+          "02_lim_def_cubic.Rmd",
+          "03_lim_def_power.Rmd")
 
 nvers = 5
 ps = character(0)
