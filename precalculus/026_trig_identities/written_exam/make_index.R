@@ -16,7 +16,7 @@ for(dir in c("out_prac/","out_exams/","out_exams_2")){
     #if(grepl(".html",fl,fixed=T) || grepl(".pdf",fl,fixed=T)){
     if(grepl(".pdf",fl,fixed=T)){
       s1 = paste0(dir,fl,collapse="")
-      sss = paste0(sss,"<a href=https://chadworley.github.io/precalculus/026_conic_sections/written_exam/",s1,">",s1,"</a><br>")
+      sss = paste0(sss,"<a href=https://chadworley.github.io/precalculus/026_trig_identities/written_exam/",s1,">",s1,"</a><br>")
     }
   }
 }
