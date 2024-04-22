@@ -7,7 +7,7 @@ probs = c("01_lim_def_quad.Rmd",
           "02_lim_def_cubic.Rmd",
           "03_lim_def_power.Rmd")
 
-pnts = c(3,5)
+pnts = c(3,5,3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
