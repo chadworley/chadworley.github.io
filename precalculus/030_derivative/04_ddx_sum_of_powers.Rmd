@@ -1,0 +1,90 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("t^0","",exp,fixed=T)
+  exp = gsub("h^0","",exp,fixed=T)
+  exp = gsub("t^1","t",exp,fixed=T)
+  exp = gsub("h^1","h",exp,fixed=T)
+  return(exp)
+}
+abcd = sample(11:100,4)/10
+a = abcd[1]
+b = abcd[2]
+c = abcd[3]
+d = abcd[4]
+
+t = sample(25:99,1)/100
+fpot = a*b*t^(b-1)+c*d*t^(d-1)
+```
+
+Question
+========
+
+First, we can prove that if $f(t) = m(t)+n(t)$ then $f'(t) = m'(t)+n'(t)$. In other words, the derivative of a sum equals the sum of the derivatives. Or, in other words, [differentiation is linear](https://en.wikipedia.org/wiki/Linearity_of_differentiation). The proof follows.
+
+$$f'(t) = \lim_{h\to 0}\frac{f(t+h)-f(t)}{h}$$
+$$f'(t) = \lim_{h\to 0}\frac{\left(m(t+h)+n(t+h)\right)-\left(m(t)+n(t)\right)}{h}$$
+$$f'(t) = \lim_{h\to 0}\frac{\left(m(t+h)-m(t)\right)+\left(n(t+h)-n(t)\right)}{h}$$
+$$f'(t) = \lim_{h\to 0}\left(\frac{m(t+h)-m(t)}{h}+\frac{n(t+h)-n(t)}{h}\right)$$
+$$f'(t) = \lim_{h\to 0}\frac{m(t+h)-m(t)}{h}+\lim_{h\to 0}\frac{n(t+h)-n(t)}{h}$$
+$$f'(t) = m'(t)+n'(t)$$
+
+Also, if $g(t) = at^b$ then $g'(t) = (ab)t^{b-1}$. In other words, the derivative of a power function is found by multiplying the coefficient by the power and then reducing the power by one.
+
+Let $f(t)$ be a function defined below:
+$$f(t)~=~`r a`t^{`r b`}+`r c`t^{`r d`}$$
+
+Using the rules above, find $f'(`r t`)$. The tolerance is $\pm 0.01$.
+
+Solution
+========
+
+Don't use the definition of a derivative. We get to use the shortcuts now.
+
+$$f'(t) = (`r a`\cdot `r b`)t^{`r b`-1}+(`r c`\cdot `r d`)t^{`r d`-1}$$
+
+Simplify.
+
+$$f'(t) = (`r a*b`)t^{`r b-1`}+(`r c*d`)t^{`r d-1`}$$
+
+Now, use the given value of $t$.
+
+$$f'(`r t`) = (`r a*b`)(`r t`)^{`r b-1`}+(`r c*d`)(`r t`)^{`r d-1`}$$
+
+Plug the expression into a calculator.
+
+$$(`r a*b`)(`r t`)^{`r b-1`}+(`r c*d`)(`r t`)^{`r d-1`} = `r fpot`$$
+
+So,
+
+$$f'(`r t`)~=~`r fpot`$$
+
+
+
+```{r,echo=F,fig.dim=c(6,6)}
+xx = seq(0,1.5,0.01)
+yy = a*xx^b+c*xx^d
+yt = a*t^b+c*t^d
+
+ym = max(yy)
+ym2 = signif(ym,0)
+
+y2 = fpot*(xx-t)+yt
+
+plot(xx,yy,type="l",ylim=c(0,max(y2)*1.5),xlab="t",ylab="y")
+lines(xx,fpot*(xx-t)+yt,col="blue")
+points(t,yt,pch=19,col="purple")
+text(t,yt,paste0("(",t,", ",round(yt,2),")",collapse=""),adj=c(1.1,0),col="purple")
+
+text(t,yt,paste0("y=",round(fpot,2),"*(t-",t,")+",round(yt,2)),adj=c(-0.1,1),col="blue")
+```
+
+Above, the black curve is $y=f(t)$ and the blue ([tangent](https://en.wikipedia.org/wiki/Tangent)) line is $y=f'(`r t`)\cdot(t-`r t`)+f(`r t`)$, written in [point-slope form](https://en.wikipedia.org/wiki/Linear_equation#Point%E2%80%93slope_form_or_Point-gradient_form). The two intersect at point $(`r t`,f(`r t`))$. The slope of the tangent line equals $f'(`r t`)$, which equals `r fpot`.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r fpot`
+exname: ddx_sum_of_powers
+extol: 0.01

@@ -4,7 +4,9 @@ outdir = "./"
 genname = "030"
 probs = c("01_lim_def_quad.Rmd",
           "02_lim_def_cubic.Rmd",
-          "03_lim_def_power.Rmd")
+          "03_lim_def_power.Rmd",
+          "04_ddx_sum_of_powers.Rmd",
+          "05_d2dx2_polynom.Rmd")
 
 nvers = 5
 ps = character(0)
