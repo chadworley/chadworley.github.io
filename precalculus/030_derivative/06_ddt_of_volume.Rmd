@@ -53,6 +53,17 @@ $$V'(`r t`) ~=~ `r dVdt`$$
 
 So, when $t=`r t`$, water is leaving at a rate of `r abs(dVdt)` liters per minute.
 
+```{r,echo=F,fig.dim=c(6,6)}
+tt = seq(0,tf,length.out=100)
+VV = a*tt^2+b*tt+c
+Vt = a*t^2+b*t+c
+tt2 = seq(t*0.6,t*1.4,length.out=10)
+plot(tt,VV,type="l",col="blue",xlab="time (min)",ylab="volume (L)",main=paste0("at (",t,",",round(Vt,2),")\nslope is ",round(dVdt,2)," L/min.",collapse=""))
+lines(tt2,dVdt*(tt2-t)+Vt,col="red")
+points(t,Vt,pch=19,col="purple")
+```
+\
+
 Meta-information
 ============
 extype: num
