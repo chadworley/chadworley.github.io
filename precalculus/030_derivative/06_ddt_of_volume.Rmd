@@ -1,0 +1,66 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("x^0","",exp,fixed=T)
+  exp = gsub("x^1","x",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  tf = runif(1,1,10) #sample(5:60,1)/10
+  V0 = round(runif(1,2,20),1)  #sample(20:80,1)/10
+  # V0(1-t/tf)^2
+  # V0(1-2t/tf+t^2/tf^2)
+  # V0/tf^2*t^2 - 2V0/tf*t + V0
+  a = round(V0/tf^2,1)
+  b = round(-2*V0/tf,1)
+  c = round(V0,1)
+  t = round(runif(1,tf*0.1,tf*0.9),2)
+  dVdt = 2*a*t+b
+  if(a>0.5 && abs(dVdt)>0.1){break}
+}
+
+ex1 = fixer(paste0(a,"t^2+",b,"t+",c,collapse=""))
+ex2 = fixer(paste0(2*a,"t+",b,collapse=""))
+
+
+
+```
+
+Question
+========
+
+A bucket initially holds `r V0` liters of water. A hole is punched into the bottom of the bucket, so water leaks out following [Torricelli's law](https://en.wikipedia.org/wiki/Torricelli%27s_law). Below, volume is shown as a function of time, where $t$ in in minutes.
+
+$$V(t)~=~`r ex1`$$
+
+How fast (in liters per minute) is water leaving the bucket at $t=`r t`$ minutes? (Tolerance is $\pm 0.01$ liters per minute.)
+
+
+Solution
+========
+
+We were given the volume as a function of time.
+
+$$V(t) ~=~ `r ex1`$$
+
+Find the derivative of the volume function (with respect to time). Use the [differentiation rules](https://en.wikipedia.org/wiki/Differentiation_rules#The_polynomial_or_elementary_power_rule).
+
+$$V'(t) ~=~ (`r a`\cdot 2)t^{2-1}+(`r b`\cdot 1)t^{1-1}$$
+
+$$V'(t) ~=~ `r ex2`$$
+
+Plug the specified time $t=`r t`$ into the function.
+
+$$V'(`r t`) ~=~ `r dVdt`$$
+
+So, when $t=`r t`$, water is leaving at a rate of `r abs(dVdt)` liters per minute.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r abs(dVdt)`
+exname: ddt_of_volume
+extol: 0.01

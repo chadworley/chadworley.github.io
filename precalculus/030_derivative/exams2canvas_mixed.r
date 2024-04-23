@@ -3,7 +3,7 @@ n = 30
 outdir = "outcanvas"
 genname = "030"
 
-probs = c("05_d2dx2_polynom.Rmd")
+probs = c("06_ddt_of_volume.Rmd")
 
 pnts = c(2)
 
