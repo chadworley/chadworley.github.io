@@ -9,7 +9,13 @@ probs = c("01_lim_def_quad.Rmd",
           "05_d2dx2_polynom.Rmd",
           "06_ddt_of_volume.Rmd",
           "07_ddt_energy.Rmd",
-          "08_dydx_from_graph.Rmd")
+          "08_dydx_from_graph.Rmd",
+          "09_ddx_exp.Rmd",
+          "10_optimize_profit.Rmd",
+          "11_optimize_cyl_vol.Rmd",
+          "12_visualize_der_func.Rmd",
+          "13_product_rule.Rmd",
+          "14_prod_rule_rect_area.Rmd")
 
 nvers = 5
 ps = character(0)

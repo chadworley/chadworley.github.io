@@ -1,0 +1,69 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("t^0","",exp,fixed=T)
+  exp = gsub("t^1","x",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  a = round(runif(1,1.1,9),1)
+  b = round(runif(1,1.1,9),1)
+  x = round(runif(1,1.1,9),1)
+  fpx = a*x^(a-1)*b^x + x^a*b^x*log(b)
+  if(length(unique(c(a,b,x)))==3 && fpx<99999 && fpx>10){break}
+}
+
+
+```
+
+Question
+========
+
+The [product rule](https://en.wikipedia.org/wiki/Differentiation_rules#The_product_rule) tells us that if $f(x)=g(x)\cdot h(x)$, then
+
+$$f'(x)~=~g'(x)\cdot h(x) ~+~ g(x)\cdot h'(x)$$
+
+Let's practice using the product rule along with the [power rule](https://en.wikipedia.org/wiki/Differentiation_rules#The_polynomial_or_elementary_power_rule) and the [exponential rule](https://en.wikipedia.org/wiki/Differentiation_rules#Derivatives_of_exponential_and_logarithmic_functions).
+
+Let function $f$ be defined below. $$f(x)~=~x^{`r a`}\cdot `r b`^x$$ 
+
+Evaluate $f'(`r x`)$. The tolerance is $\pm 1$.
+
+
+
+Solution
+========
+
+The product rule tells us that if $f(x)=g(x)\cdot h(x)$, then $f'(x)~=~g'(x)\cdot h(x) ~+~ g(x)\cdot h'(x)$.
+
+Let $$g(x)=x^{`r a`}$$
+and $$h(x)=`r b`^x$$
+
+Find the derivative of each. Function $g$ is a power function.
+$$g'(x)~=~ `r a` x^{`r a-1`}$$
+
+Function $h$ is an exponential function.
+
+$$h'(x)~=~ `r b`^x \cdot \ln(`r b`)$$
+
+Use those four equations in the product rule.
+
+$$f'(x)~=~`r a` x^{`r a-1`}\cdot `r b`^x ~+~ x^{`r a`}\cdot `r b`^x \cdot \ln(`r b`)$$
+
+Plug in $x=`r x`$.
+
+
+$$f'(`r x`)~~=~~`r a`(`r x`)^{`r a-1`} `r b`^{`r x`} ~~+~~ `r x`^{`r a`} `r b`^{`r x`} \ln(`r b`)$$
+
+$$f'(`r x`)~=~ `r fpx`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r fpx`
+exname: visualize_der_func
+extol: 1

@@ -1,0 +1,93 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("t^0","",exp,fixed=T)
+  exp = gsub("t^1","x",exp,fixed=T)
+  return(exp)
+}
+
+# V = pi*r^2*h
+# A = 2*pi*r^2+2*pi*r*h
+
+while(T){
+  m = round(10^runif(1,log(5,10),2),1)
+  adb = round(10^runif(1,log(0.04,10),log(0.8,10)),2)
+  ads = round(adb*runif(1,0.34,0.8),2)
+  cf1 = m/2/ads
+  cf2 = adb/2/ads
+  if(round(cf1,2)==round(cf1,5) && round(cf2,2)==round(cf2,5)){break}
+}
+
+R = sqrt(m/2/ads/(3*adb/2/ads*pi))
+H = (m-adb*pi*R^2)/(ads*2*pi*R)
+
+```
+
+Question
+========
+
+A designer plans to manufacture open-top cylinders by using `r m` grams of aluminum for each cylinder. The base uses `r adb` grams per square centimeter. The sides use `r ads` grams per square centimeter. The goal is to produce a cylinder that holds as much volume as possible. How tall, in centimeters, should the cylinder be?
+
+The tolerance is $\pm 0.1$ cm.
+
+
+Solution
+========
+
+The total mass of the cylinder depends on the radius and height. The [areal density](https://en.wikipedia.org/wiki/Area_density) of the bottom is multiplied by the area of the bottom to get the mass of the bottom, and the areal density of the sides are multiplied by the area of the sides to get the mass of the sides; the two masses are added to get a total mass.
+
+$$`r m` ~=~ `r adb`\cdot\pi r^2+`r ads`\cdot 2\pi r h$$
+
+The volume the cylinder holds also depends on the radius and height.
+
+$$V(r,h) ~=~ \pi r^2h$$
+
+Solve the first equation (the mass-balance equation) for $h$.
+
+$$h ~=~ \frac{`r m`-`r adb`\cdot\pi r^2}{`r ads`\cdot 2\pi r}$$
+
+Substitute into the volume equation to express volume as a function of radius.
+
+$$V(r) ~=~ \pi r^2\frac{`r m`-`r adb`\cdot\pi r^2}{`r ads`\cdot 2\pi r}$$
+
+Simplify.
+
+$$V(r) ~=~ \frac{`r m`r}{`r 2*ads`} - \frac{`r adb`\cdot\pi r^3}{`r 2*ads`}$$
+
+
+$$V(r) ~=~ `r m/2/ads`r - `r adb/2/ads`\pi r^3$$
+
+We have expressed the [objective function](https://en.wikipedia.org/wiki/Mathematical_optimization#Optimization_problems) in terms of a single variable, the radius. Now, we can differentiate $V(r)$ with respect to $r$.
+
+$$V'(r) ~=~ `r m/2/ads` - `r 3*adb/2/ads`\pi r^2$$
+
+At the maximum, the derivative will equal 0. Let $R$ equal the special radius that maximizes the volume.
+
+$$0 ~=~ `r m/2/ads` - `r 3*adb/2/ads`\pi R^2$$
+
+$$`r 3*adb/2/ads`\pi R^2 ~=~ `r m/2/ads`$$
+
+
+$$R^2 ~=~ \frac{`r m/2/ads`}{`r 3*adb/2/ads`\pi}$$
+
+$$R ~=~ \pm\sqrt{\frac{`r m/2/ads`}{`r 3*adb/2/ads`\pi}}$$
+
+We are only interested in the positive value.
+
+$$R ~=~ `r sqrt(m/2/ads/(3*adb/2/ads*pi))`$$
+
+Let $H$ be the special height that maximizes volume.
+
+
+$$H ~=~ \frac{`r m`-`r adb`\cdot\pi (`r R`)^2}{`r ads`\cdot 2\pi (`r R`)}$$
+
+$$H ~=~ `r H`$$
+
+Meta-information
+============
+extype: num
+exsolution: `r H`
+exname: optimize_cyl_vol
+extol: 0.1

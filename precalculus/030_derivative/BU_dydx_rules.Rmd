@@ -1,0 +1,95 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("t^0","",exp,fixed=T)
+  exp = gsub("t^1","x",exp,fixed=T)
+  return(exp)
+}
+
+fracs = c(1,1/2,1/3,1/4,1/5,2/3,2/5,3/4,3/5,4/5,2,3,4,5,3/2,5/2,4/3,5/3,5/4)
+
+nums = c(1,1,1,1,1,2,2,3,3,4,2,3,4,5,3,5,4,5,5)
+dens = c(1,2,3,4,5,3,5,4,5,5,1,1,1,1,2,2,3,3,4)
+
+nums = c(nums,-nums)
+dens = c(dens,dens)
+fracs = c(fracs,-fracs)
+
+while(T){
+  a = sample(-5:5,1)
+  w = sample(1:length(nums),1)
+  m = fracs[w]
+  p = runif(1,-2,2)
+  q = runif(1,-2,2)
+  # f'(x) = m*(1+qx-qa)+p(x-a)^2 = mqx+(m-mqa)+px^2-2apx+pa^2 = 
+  # f'(x) = px^2+(mq-2ap)x+(m-mqa+pa^2)
+  # f(x) = p/3*x^3+(mq-2pa)/2*x^2+(m-m*q*a+p*a^2)x+D
+  A = p/3
+  B = (m*q-2*a*p)/2
+  C = (m-m*q*a+p*a^2)
+  D = -(A*a^3+B*a^2+C*a)+sample(1:3,1)*sample(c(-1,1),1)
+  x = seq(-11,11,length.out=1000)
+  y = A*x^3+B*x^2+C*x+D
+  ya = A*a^3+B*a^2+C*a+D
+  if(max(abs(y))<30 && a!=0){break}
+}
+```
+
+Question
+========
+
+In Calculus, you will prove many rules of differentiation by referring to the limit definition of a derivative. However, in practice, you will refer to the [rules of differentiation](https://en.wikipedia.org/wiki/Differentiation_rules). You can also refer to [this pdf](https://chadworley.github.io/precalculus/030_derivative/reference/deriv_rules_lag.pdf).
+
+
+
+Solution
+========
+
+Notice the tangent line intersects $f(x)$ at point $(`r a`,`r ya`)$. From there, follow the red line until you get to another point with integer coordinates.
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(pty="s")
+plot(x,y,type="l",col="blue",lwd=1,xlim=c(-10,10),ylim=c(-10,10))
+arrows(-10,0,10,0,length=0.15,angle=20,code=3,col="darkgrey",lwd=2)
+arrows(0,-10,0,10,length=0.15,angle=20,code=3,col="darkgrey",lwd=2)
+for(i in 1:10){
+  abline(h=i,col="grey")
+  abline(h=-i,col="grey")
+  abline(v=i,col="grey")
+  abline(v=-i,col="grey")
+}
+lines(x,y,col="blue",lwd=1)
+lines(x,m*(x-a)+ya,col="red",lwd=1)
+points(a,ya,col="purple",pch=19)
+legend("top",legend=c("y=f(x)","tangent"),col=c("blue","red"),lwd=c(1,1))
+points(a+dens[w],ya+nums[w],pch=19)
+lines(c(a,a+dens[w]),c(ya,ya),col="darkgreen",lwd=2)
+lines(c(a+dens[w],a+dens[w]),c(ya,ya+nums[w]),col="darkgreen",lwd=2)
+text(a+dens[w]/2,ya-0.5*sign(nums[w]),dens[w],cex=2,col="darkgreen")
+text(a+dens[w]+0.5,ya+0.5*nums[w],nums[w],cex=2,col="darkgreen")
+```
+\
+
+The slope of the tangent line is found with "rise over run".
+
+$$m ~=~ \frac{`r nums[w]`}{`r dens[w]`}$$
+
+$$m ~=~ `r m`$$
+
+So, the equation of the tangent line in point-slope form is $y=`r round(m,3)`(x-(`r a`))+(`r ya`)$. More importantly for this question, the slope of the tangent line equals the instantaneous rate of change of the function, which equals the derivative at $x=`r a`$. In other words,
+$$f'(`r a`) ~=~ `r m`$$
+
+
+$$\left.\frac{df(x)}{dx}\right|_{x=`r a`} ~=~ `r m`$$
+
+
+$$\frac{df}{dx}(`r a`) ~=~ `r m`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r m`
+exname: ddt_energy
+extol: 0.01

@@ -1,0 +1,184 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("t^0","",exp,fixed=T)
+  exp = gsub("t^1","x",exp,fixed=T)
+  return(exp)
+}
+
+dt = 0.01
+while(T){
+  t = sample(1:9,1)
+  w = round(runif(1,2,sqrt(99)),2)
+  h = round(runif(1,2,sqrt(99)),2)
+  A = w*h
+  hdw = runif(1,0.1,2)
+  wdh = runif(1,0.1,2)
+  dw = round(hdw/h,2)
+  dh = round(wdh/w,2)
+  dA1 = h*dw+w*dh
+  dA2 = dA1+dw*dh
+  if(dw*dh<0.005 && abs(diff(c(h,w)))>0.5 && abs(log(w/h))<log(1.6) && abs(diff(c(dw,dh)))>0.02 && abs(log(dw/dh))<log(3)){break}
+}
+
+At = w*h
+hdw = hdw
+wdh = wdh
+dwdh = dw*dh
+dA = hdw+wdh+dwdh
+edA = hdw+wdh
+A2 = (w+dw)*(h+dh)
+eA2 = At+hdw+wdh
+dwdt = dw/dt
+dhdt = dh/dt
+dAdt = dA/dt
+edAdt = edA/dt
+
+vals = c(At,hdw,wdh,dwdh,dA,edA,A2,eA2,dwdt,dhdt,dAdt,edAdt)
+suv = sort(unique(vals))
+
+sols = character()
+for(i in 1:length(vals)){
+  sols = c(sols,paste0(1*(vals[i]==suv),collapse=""))
+}
+
+al = paste0("* ",rep(suv,12),collapse="\n")
+```
+
+Question
+========
+
+The area of a rectangle is the product of its width and height. A rectangle is growing both horizontally and vertically, so that both width and height are functions of time.
+
+$$A(t) ~=~ w(t)\cdot h(t)$$
+
+At $t=`r t`$ seconds, the width is `r w` meters, and the height is `r h` meters.
+
+$$w(`r t`)=`r w`$$
+$$h(`r t`)=`r h`$$
+
+Over a small interval of time ($\Delta t = 0.01$) the rectangle's width grows by $\Delta w=`r dw`$ meters and the height grows by $\Delta h =`r dh`$ meters, so $w(`r t+0.01`)=`r w+dw`$ and $h(`r t+0.01`)=`r h+dh`$. This is depicted below (not drawn to scale).
+
+
+```{r,echo=F,fig.dim=c(8,8)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+bump = 0.1
+plot(0,0,type="n",xlim=c(0-bump,1),ylim=c(0,1+bump),axes=F,ann=F)
+ratio1 = w/h
+ratio2 = dw/dh
+
+ds = c(dw,dh)
+mind = min(ds)
+dpl = ds/mind*0.2
+
+ws = c(w,h)
+wpl = ws/min(ws)*0.8
+
+tots = ws+ds
+totpl = tots/max(tots)
+
+rs = wpl/(wpl+dpl)
+
+x = rs[1]*totpl[1]
+y = rs[2]*totpl[2]
+x2 = totpl[1]
+y2 = totpl[2]
+x3 = mean(c(x,x2))
+y3 = mean(c(y,y2))
+
+polygon(c(0,0,x,x),1-c(0,y,y,0),col=rgb(0.2,0.1,0.6,0.5),border=rgb(0.2,0.1,0.6))
+polygon(c(0,0,x2,x2),1-c(0,y2,y2,0),col=rgb(0.2,0.1,0.6,0.2),border=rgb(0.2,0.1,0.6))
+lines(c(0,0,x,x),1-c(y,y2,y2,y),col="red")
+lines(c(x,x2,x2,x),1-c(y,y,0,0),col="blue")
+lines(c(x,x2,x2),1-c(y2,y2,y))
+text(x/2,1.05,paste0("w(",t,")",collapse=""))
+text(-0.05,1-y/2,paste0("h(",t,")",collapse=""),srt=90)
+text(x3,1.05,TeX("$\\Delta w$"))
+text(-0.05,1-y3,TeX("$\\Delta h$"),srt=90)
+arrows(0.1,1-y,0.1,1-y2,length=0.08,angle=15,lwd=2,col="red")
+arrows(x,1-0.1,x2,1-0.1,length=0.08,angle=15,lwd=2,col="blue")
+text(x/2,1-y/2,TeX(paste0("$A(",t,")$",collapse="")))
+text(x/2,1-y3,TeX(paste0("$w(",t,") \\cdot \\Delta h$",collapse="")))
+text(x3,1-y/2,TeX(paste0("$h(",t,") \\cdot \\Delta w$",collapse="")))
+text(x3,1-y3,TeX("$\\Delta w \\cdot \\Delta h$"))
+```
+\
+
+By calculating various values, we will explore the fact that if $\Delta w$ and $\Delta h$ are quite small compared to $w$ and $h$, then the area $\Delta w\cdot \Delta h$ is so small that we can ignore it for many purposes. In the process, we will "prove" the [product rule](https://en.wikipedia.org/wiki/Differentiation_rules#The_product_rule).
+
+Find the area of the rectangle at $t=`r t`$.
+
+* $A(`r t`)=$ ##ANSWER1## $\mathrm{m^2}$
+
+Find the other areas in the diagram.
+
+* $h(`r t`) \Delta w=$ ##ANSWER2## $\mathrm{m^2}$
+* $w(`r t`) \Delta h=$ ##ANSWER3## $\mathrm{m^2}$
+* $\Delta w \Delta h=$ ##ANSWER4## $\mathrm{m^2}$
+
+How much did the area grow by?
+
+* $\Delta A ~=~ A(`r t+0.01`)-A(`r t`) ~=~$ ##ANSWER5## $\mathrm{m^2}$
+
+What would be the estimated growth of area if we ignored the smallest area?
+
+* $h(`r t`)\Delta w + w(`r t`)\Delta h=$ ##ANSWER6## $\mathrm{m^2}$
+
+Find the final area of the rectangle.
+
+* $A(`r t+0.01`)=$ ##ANSWER7## $\mathrm{m^2}$
+
+What would be the estimated final area of the rectangle if you ignored the smallest area?
+
+* $A(`r t`)+h(`r t`)\Delta w + w(`r t`)\Delta h=$ ##ANSWER8## $\mathrm{m^2}$
+
+How fast (on average) are the width and height growing between $t=`r t`$ and $t=`r t+0.01`$?
+
+* $\frac{\Delta w}{\Delta t} =$ ##ANSWER9## $\mathrm{\frac{m}{s}}$
+* $\frac{\Delta h}{\Delta t} =$ ##ANSWER10## $\mathrm{\frac{m}{s}}$
+
+What is the average rate of growth of the rectangle's area between $t=`r t`$ and $t=`r t+0.01`$?
+
+* $\frac{\Delta A}{\Delta t}=$ ##ANSWER11## $\mathrm{\frac{m^2}{s}}$
+
+What would be the estimated rate of growth if we ignored the smallest area?
+
+* $h\cdot \frac{\Delta w}{\Delta t}~+~w\cdot \frac{\Delta h}{\Delta t}=$ ##ANSWER12## $\mathrm{\frac{m^2}{s}}$
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+* $A(`r t`)=$ `r At` $\mathrm{m^2}$
+* $h(`r t`) \Delta w=$ `r hdw` $\mathrm{m^2}$
+* $w(`r t`) \Delta h=$ `r wdh` $\mathrm{m^2}$
+* $\Delta w \Delta h=$ `r dwdh` $\mathrm{m^2}$
+* $\Delta A =$ `r dA` $\mathrm{m^2}$
+* $h(`r t`)\Delta w + w(`r t`)\Delta h=$ `r edA` $\mathrm{m^2}$
+* $A(`r t+0.01`)=$ `r A2` $\mathrm{m^2}$
+* $A(`r t`)+h(`r t`)\Delta w + w(`r t`)\Delta h=$ `r eA2` $\mathrm{m^2}$
+* $\frac{\Delta w}{\Delta t} =$ `r dwdt` $\mathrm{\frac{m}{s}}$
+* $\frac{\Delta h}{\Delta t} =$ `r dhdt` $\mathrm{\frac{m}{s}}$
+* $\frac{\Delta A}{\Delta t}=$ `r dAdt` $\mathrm{\frac{m^2}{s}}$
+* $h\cdot \frac{\Delta w}{\Delta t}~+~w\cdot \frac{\Delta h}{\Delta t}=$ `r edAdt` $\mathrm{\frac{m^2}{s}}$
+
+Notice, this suggests that in the limit as $\Delta t \to 0$, then we get the product rule:
+
+$$A'(t) ~=~ w'(t)h(t)+w(t)h'(t)$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",12),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: prod_rule_rect_area

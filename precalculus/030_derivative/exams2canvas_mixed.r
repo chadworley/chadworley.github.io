@@ -3,9 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "030"
 
-probs = c("08_dydx_from_graph.Rmd")
+probs = c("13_product_rule.Rmd")
 
-pnts = c(2)
+pnts = c(3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)
