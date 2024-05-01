@@ -26,6 +26,8 @@ while(T){
   K = round(b)
   
   exp1 = fixer(paste0(A,"t^3+",B,"t^2+",C,"t+",D,collapse=""))
+  exp2 = fixer(paste0(3*A,"t^2+",2*B,"t+",C,collapse=""))
+  exp3 = fixer(paste0(6*A,"t+",2*B,collapse=""))
   ts = c(0,1,2)
   sols1 = A*ts^3+B*ts^2+C*ts+D
   sols2 = G*ts^2+H*ts+I
@@ -34,7 +36,8 @@ while(T){
   allsols = c(sols1,sols2,sols3)
   ac = sort(unique(allsols))
   if(length(unique(sign(sols1)))>1 && 
-     length(unique(sign(sols2)))>1 &&
+     length(unique(sign(sols2)))>1 && 
+     length(unique(sign(sols3)))>1 &&
      max(abs(allsols))<100){break}
 }
 
@@ -85,20 +88,20 @@ table, th, td {
 <tr>
   <td>0</td>
   <td>##ANSWER1##</td>
-  <td>##ANSWER5##</td>
-  <td>##ANSWER9##</td>
+  <td>##ANSWER4##</td>
+  <td>##ANSWER7##</td>
 </tr>
 <tr>
   <td>1</td>
   <td>##ANSWER2##</td>
-  <td>##ANSWER6##</td>
-  <td>##ANSWER10##</td>
+  <td>##ANSWER5##</td>
+  <td>##ANSWER8##</td>
 </tr>
 <tr>
   <td>2</td>
   <td>##ANSWER3##</td>
-  <td>##ANSWER7##</td>
-  <td>##ANSWER11##</td>
+  <td>##ANSWER6##</td>
+  <td>##ANSWER9##</td>
 </tr>
 </table>
 
@@ -111,6 +114,50 @@ Answerlist
 
 Solution
 ========
+
+
+$$y(t)=`r exp1`$$
+$$v(t)=`r exp2`$$
+$$a(t)=`r exp3`$$
+
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+
+table, th, td {
+  border:1px solid black;
+  padding:5px;
+}
+</style>
+
+<table>
+<tr>
+    <th>t</th>
+    <th>y(t)</th>
+    <th>v(t)</th>
+    <th>a(t)</th>
+</tr>
+<tr>
+  <td>0</td>
+  <td>`r allsols[1]`</td>
+  <td>`r allsols[4]`</td>
+  <td>`r allsols[7]`</td>
+</tr>
+<tr>
+  <td>1</td>
+  <td>`r allsols[2]`</td>
+  <td>`r allsols[5]`</td>
+  <td>`r allsols[8]`</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>`r allsols[3]`</td>
+  <td>`r allsols[6]`</td>
+  <td>`r allsols[9]`</td>
+</tr>
+</table>
 
 
 
