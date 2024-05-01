@@ -15,7 +15,8 @@ probs = c("01_lim_def_quad.Rmd",
           "11_optimize_cyl_vol.Rmd",
           "12_visualize_der_func.Rmd",
           "13_product_rule.Rmd",
-          "14_prod_rule_rect_area.Rmd")
+          "14_prod_rule_rect_area.Rmd",
+          "15_get_tangent_mx+b.Rmd")
 
 nvers = 5
 ps = character(0)

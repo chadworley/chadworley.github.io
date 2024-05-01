@@ -1,0 +1,90 @@
+---
+output: 
+  pdf_document:
+    extra_dependencies: ["fancyhdr","multicol"]
+fontsize: 12pt
+params:
+  num: "1234"
+  mytitle: "PC 030 NO-CALC Mastery"
+  showsol: True
+geometry: "left=3cm,right=3cm,top=3cm,bottom=3cm"
+---
+
+```{r,echo=F}
+theseed = sample(1:1000,1)#as.numeric(params$num)
+set.seed(theseed) #set.seed(as.numeric(params$num))
+showsol = params$showsol
+if(showsol){
+  soltxt="SOL"
+} else {
+  soltxt=""
+}
+```
+
+\setlength{\headheight}{18.0pt}
+\fancyhead[L]{\sc{`r params$mytitle` v`r theseed` `r soltxt`}}
+\fancyhead[R]{\bf \large Name:\hspace{2in}}
+\fancyfoot[R]{\sc Page \thepage ~ of 2}
+\fancyfoot[C]{}
+\pagestyle{fancy}
+
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("-1x^3","-x^3",exp,fixed=T)
+  exp = gsub("1x^3","x^3",exp,fixed=T)
+  exp = gsub("+1x","+x",exp,fixed=T)
+  exp = gsub("-1x","-x",exp,fixed=T)
+  exp = gsub("+0x^2","",exp,fixed=T)
+  exp = gsub("+0x","",exp,fixed=T)
+  exp = gsub("+0","",exp,fixed=T)
+  return(exp)
+}
+
+##f' quadratic
+while(T){
+  rs = sample(-10:10,2)
+  ## f' = x^2-(r1+r2)*x+r1*r2
+  a = 3
+  b = -3*sum(rs)
+  c = 3*prod(rs)
+  A = a/3
+  B = b/2
+  C = c
+  D = gcd(c(C,B,A))*sample(1:5,1)*sample(c(-1,1),1)
+  ggg = gcd(c(D,C,B,A))
+  if(abs(ggg)>1){
+    a=round(a/ggg)
+    b=round(b/ggg)
+    c=round(c/ggg)
+    A=round(A/ggg)
+    B=round(B/ggg)
+    C=round(C/ggg)
+    D=round(D/ggg)
+  }
+  ys = A*rs^3+B*rs^2+C*rs+D
+  if(B%%1==0 && max(abs(c(A*rs^3,B*rs^2,C*rs)))<130 && 
+     max(abs(c(a,b,c,A,B,C,D)))<100  && 
+     min(abs(c(a,b,c,A,B,C,D)))>0){break}
+}
+
+
+
+exp1 = fixer(paste0(A,"x^3+",B,"x^2+",C,"x+",D))
+
+```
+
+Let $f(x)=`r exp1`$.
+
+1. Determine $f'(x)$.
+2. Solve $f'(x)=0$. There should be two solutions.
+3. Find both local extrema of $f(x)$. In other words, for each solution in (2), find $(x,\,f(x))$.
+
+
+
+
+

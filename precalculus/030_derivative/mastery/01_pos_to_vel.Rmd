@@ -1,0 +1,122 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("+1t","t",exp,fixed=T)
+  exp = gsub("-1t","-t",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  m = 6*sample(1:10,1)*sample(c(-1,1),1)
+  b = 2*sample(1:10,1)*sample(c(-1,1),1)
+  c = sample(1:10,1)*sample(c(-1,1),1)
+  d = sample(1:10,1)*sample(c(-1,1),1)
+  
+  A = round(m/6)
+  B = round(b/2)
+  C = round(c)
+  D = round(d)
+  
+  G = round(m/2)
+  H = round(b)
+  I = round(c)
+  
+  J = round(m)
+  K = round(b)
+  
+  exp1 = fixer(paste0(A,"t^3+",B,"t^2+",C,"t+",D,collapse=""))
+  ts = c(0,1,2)
+  sols1 = A*ts^3+B*ts^2+C*ts+D
+  sols2 = G*ts^2+H*ts+I
+  sols3 = J*ts+K
+  
+  allsols = c(sols1,sols2,sols3)
+  ac = sort(unique(allsols))
+  if(length(unique(sign(sols1)))>1 && 
+     length(unique(sign(sols2)))>1 &&
+     max(abs(allsols))<100){break}
+}
+
+
+sols = character()
+for(sol in allsols){
+  sols = c(sols,paste0(1*(sol==ac),collapse=""))
+}
+al = paste0("* ",rep(ac,9),collapse="\n")
+
+
+```
+
+Question
+========
+
+A particle moves up and down along a 1-dimensional path. It's position ($y$ in meters) is a function of time ($t$ in seconds).
+$$y(t)=`r exp1`$$
+
+Velocity ($v$ in m/s) is also a function of time. The velocity function is the derivative of the position function (with respect to time).
+$$v(t) = y'(t)$$
+
+Acceleration ($a$ in $\mathrm{\frac{m}{s^2}}$) is also a function of time. The acceleration function is the derivative of the velocity function or the second derivative of the position function.
+$$a(t)=v'(t)=y''(t)$$
+
+Evaluate position, velocity, and acceleration at $t=0$, $t=1$, and $t=2$.
+
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+
+table, th, td {
+  border:1px solid black;
+  padding:5px;
+}
+</style>
+
+
+<table>
+<tr>
+    <th>t</th>
+    <th>y(t)</th>
+    <th>v(t)</th>
+    <th>a(t)</th>
+</tr>
+<tr>
+  <td>0</td>
+  <td>##ANSWER1##</td>
+  <td>##ANSWER5##</td>
+  <td>##ANSWER9##</td>
+</tr>
+<tr>
+  <td>1</td>
+  <td>##ANSWER2##</td>
+  <td>##ANSWER6##</td>
+  <td>##ANSWER10##</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>##ANSWER3##</td>
+  <td>##ANSWER7##</td>
+  <td>##ANSWER11##</td>
+</tr>
+</table>
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",9),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: pos_vel_acc
