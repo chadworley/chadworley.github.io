@@ -1,0 +1,111 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  exp = gsub("{1}x^{0}","1",exp,fixed=T)
+  exp = gsub("{1}","{}",exp,fixed=T)
+  exp = gsub("x^{0}","{}",exp,fixed=T)
+  return(exp)
+}
+fixer2 = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  pows = sort(sample(1:9,2))
+  xs = round(sort(sample(11:89,2))/100,2)
+  ys = xs^pows[1]-xs^pows[2]
+  nt1 = xs[2]^(pows[1]+1)/(pows[1]+1)
+  nt2 = xs[2]^(pows[2]+1)/(pows[2]+1)
+  nt3 = xs[1]^(pows[1]+1)/(pows[1]+1)
+  nt4 = xs[1]^(pows[2]+1)/(pows[2]+1)
+  A = nt1-nt2-nt3+nt4
+  if(min(ys)>0.05 && abs(diff(xs))>0.1 && A>0.01){break}
+}
+
+f = fixer(paste0("x^{",pows[1],"}-x^{",pows[2],"}"))
+g = paste0("\\frac{1}{",pows[1]+1,"}x^{",pows[1]+1,"}-\\frac{1}{",pows[2]+1,"}x^{",pows[2]+1,"}")
+
+t1 = paste0("\\frac{1}{",pows[1]+1,"}(",xs[2],")^{",pows[1]+1,"}")
+t2 = paste0("\\frac{1}{",pows[2]+1,"}(",xs[2],")^{",pows[2]+1,"}")
+t3 = paste0("\\frac{1}{",pows[1]+1,"}(",xs[1],")^{",pows[1]+1,"}")
+t4 = paste0("\\frac{1}{",pows[2]+1,"}(",xs[1],")^{",pows[2]+1,"}")
+
+
+
+```
+
+Question
+========
+
+A [definite integral](https://en.wikipedia.org/wiki/Integral) can be used to express the area under a curve. For example, say we wanted to find the area under $f(x)=`r f`$ between $x=`r xs[1]`$ and $x=`r xs[2]`$. Let's draw a picture.
+
+```{r,fig.dim=c(7,7),echo=F}
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),xlab="x",ylab="y")
+for(i in seq(0.1,1,0.1)){
+  abline(h=i,col="grey")
+  abline(v=i,col="grey")
+}
+arrows(-0.03,0,1.03,0,code=3,lwd=2,length=0.05)
+arrows(0,-0.03,0,1.03,code=3,lwd=2,length=0.05)
+x = seq(0,1,0.01)
+y = x^pows[1]-x^pows[2]
+legend(0,1,"y = f(x)",col="blue",lwd=3)
+
+polygon(c(xs[1],x[(x>=xs[1])&(x<=xs[2])],xs[2]),c(0,y[(x>=xs[1])&(x<=xs[2])],0),col=rgb(1,0.3,0.3,0.5),border="red")
+text(mean(xs),0.05,"A",col="red")
+lines(x,y,col="blue",lwd=3)
+
+```
+\
+
+
+The area equals the definite integral of the function on interval [`r xs[1]`, `r xs[2]`].
+
+$$A ~=~ \int_{`r xs[1]`}^{`r xs[2]`} \left(`r f` \right)~dx$$
+
+This definite integral can be evaluated from an antiderivative of $f(x)$. Let $g(x)$ be an antiderivative of $f(x)$ such that $g'(x)=f(x)$. 
+
+$$A~=~g(`r xs[2]`)-g(`r xs[1]`)$$
+
+Find the area. The tolerance is $\pm 0.001$.
+
+
+Solution
+========
+
+We were given the curve's function.
+
+$$f(x)=`r f`$$
+
+
+Remember how to find an antiderivative of a polynomial.
+
+$$g(x)=`r g`+C$$
+
+In this case, we can't determine $C$, but we do not need to because the area is a difference of two instances of $g$.
+
+$$g(`r xs[2]`)-g(`r xs[1]`)=\left(\frac{1}{`r pows[1]+1`}(`r xs[2]`)^{`r pows[1]+1`}-\frac{1}{`r pows[2]+1`}(`r xs[2]`)^{`r pows[2]+1`}+C\right)-\left(\frac{1}{`r pows[1]+1`}(`r xs[1]`)^{`r pows[1]+1`}-\frac{1}{`r pows[2]+1`}(`r xs[1]`)^{`r pows[2]+1`}+C\right)$$
+
+Simplify.
+
+$$A=\frac{1}{`r pows[1]+1`}(`r xs[2]`)^{`r pows[1]+1`}-\frac{1}{`r pows[2]+1`}(`r xs[2]`)^{`r pows[2]+1`}-\frac{1}{`r pows[1]+1`}(`r xs[1]`)^{`r pows[1]+1`}+\frac{1}{`r pows[2]+1`}(`r xs[1]`)^{`r pows[2]+1`}$$
+
+Evaluate.
+
+$$A=(`r nt1`)-(`r nt2`)-(`r nt3`)+(`r nt4`)$$
+
+So,
+
+$$A = `r A`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r A`
+exname: definite_integral
+extol: 0.001
