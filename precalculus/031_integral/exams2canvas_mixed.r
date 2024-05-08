@@ -3,10 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "031"
 
-probs = c("01_antiderivative.Rmd",
-          "02_definite_integral.Rmd")
+probs = c("04_volume_by_slabs.Rmd")
 
-pnts = c(3,3)
+pnts = c(5)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)

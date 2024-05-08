@@ -1,0 +1,104 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  exp = gsub("{1}x^{0}","1",exp,fixed=T)
+  exp = gsub("{1}","{}",exp,fixed=T)
+  exp = gsub("x^{0}","{}",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  ps = round(10^runif(2,-1,1),2)
+  a = ps[1]
+  b = ps[2]
+  if(abs(diff(c(a,b)))>0.5){break}
+}
+
+xs = seq(0,1,0.01)
+ys = xs^a
+zs = xs^b
+
+X1 = matrix(c(xs,0,zs),3,byrow=T)
+X2 = matrix(c(xs,0,-zs),3,byrow=T)
+X3 = matrix(c(xs,ys,0),3,byrow=T)
+X4 = matrix(c(xs,-ys,0),3,byrow=T)
+
+X = list(X1,X2,X3,X4)
+
+n = 180
+t = seq(0,2*pi,length.out=n)
+for(x in seq(0.1,1,0.1)){
+  xs = rep(x,length(t))
+  ry = x^a
+  rz = x^b
+  ys = ry*cos(t)
+  zs = rz*sin(t)
+  cl = length(X)
+  X[[cl+1]] = matrix(xs,ys,zs,nrow=3,byrow=T)
+}
+
+```
+
+Question
+========
+
+A 3D shape is produced with elliptical cross sections. As $x$ progresses from along the interval $[0,1]$, the, a cross section perpendicular to the $x$ axis will be a ellipse with axes (and radii) parallel to the $y$ and $z$ axes. The (maximum and minimum) radii are power functions with respect to $x$.
+
+$$r_1 ~=~ x^{`r a`}$$
+$$r_2 ~=~ x^{`r b`}$$
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(6,6)}
+getR = function(u,t){
+  ux = u[1]
+  uy = u[2]
+  uz = u[3]
+  f = cos(t)+ux^2*(1-cos(t))
+  g = ux*uy*(1-cos(t))-uz*sin(t)
+  h = ux*uz*(1-cos(t))+uy*sin(t)
+  i = uy*ux*(1-cos(t))+uz*sin(t)
+  j = cos(t)+uy^2*(1-cos(t))
+  k = uy*uz*(1-cos(t))-ux*sin(t)
+  l = uz*ux*(1-cos(t))-uy*sin(t)
+  m = uz*uy*(1-cos(t))+ux*sin(t)
+  n = cos(t)+uz^2*(1-cos(t))
+  R = matrix(c(f,g,h,i,j,k,l,m,n),3,byrow=T)
+  return(R)
+}
+tp = pi/2
+r = 0.2
+P = matrix(c(1,r*cos(tp),0,
+             0,r*sin(tp),1),2,byrow=T)
+n = 20
+par(pty="s",mar=c(0,0,0,0))
+u = c(0,0,1)
+t = 2*pi/n
+R = getR(u,t)
+Xc = X
+Cc = C
+for(i in 1:n){
+  plot(0,0,type="n",axes=F,ann=F,xlim=c(-0.7,0.7),ylim=c(-0.4,1))
+  Xc_flat = P%*%Xc
+  lines(Xc_flat[1,],Xc_flat[2,])
+  Cc_flat = P%*%Cc
+  lines(Cc_flat[1,],Cc_flat[2,])
+  Xc = R%*%Xc
+  Cc = R%*%Cc
+}
+```
+\
+
+
+
+
+Solution
+========
+
+
+
+Meta-information
+============
+extype: num
+exsolution: 1
+exname: vol_ellipse_cs
+extol: 0.001

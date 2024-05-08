@@ -3,7 +3,9 @@ library("exams")
 outdir = "./"
 genname = "031"
 probs = c("01_antiderivative.Rmd",
-          "02_definite_integral.Rmd")
+          "02_definite_integral.Rmd",
+          "03_integ_acc_vel_pos.Rmd",
+          "04_volume_by_slabs.Rmd")
 
 nvers = 5
 ps = character(0)
