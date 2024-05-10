@@ -8,21 +8,33 @@ fixer = function(exp){
   return(exp)
 }
 
-hk = rev(sort(sample(4:13,2)))
-h = hk[1]
-k = hk[2]
-m = sample(2:5,1)
-b = k-m*h
-a = k/h^2
-
-xint = -b/m
+while(T){
+  hk = rev(sort(sample(4:13,2)))
+  h = hk[1]
+  k = hk[2]
+  m = sample(2:5,1)
+  b = k-m*h
+  a = k/h^2
+  
+  xint = -b/m
+  
+  V = pi*(k^3/3/m^2+(2*abs(b)/2/m^2-h^2/2/k)*k^2+b^2/m^2*k)
+  if(V<9999){break}
+}
 
 ```
 
 Question
 ========
 
-A bowl is designed as the [revolution](https://en.wikipedia.org/wiki/Solid_of_revolution) of the region between $z=`r m`x-`r abs(b)`$ and $z=\frac{`r k`}{`r h^2`}x^2$. The revolution occurs around the $z$ axis. The bowl will be made of wood. 
+A bowl is designed as the [revolution](https://en.wikipedia.org/wiki/Solid_of_revolution) of the region between 3 curves:
+$$z=`r m`x-`r abs(b)`$$
+
+$$z=\frac{`r k`}{`r h^2`}x^2$$
+
+$$z=0$$
+
+The revolution occurs around the $z$ axis. The bowl will be made of wood. 
 
 ```{r,echo=F,fig.dim=c(7,7)}
 par(pty="s")
@@ -46,10 +58,10 @@ polygon(c(x,rev(x2)),c(y1,rev(y2)),col=rgb(0.9,0.2,0.2,0.8))
 
 Notice the point of intersection is $(`r h`, `r k`)$. Below is a wireframe animation of the bowl.
 
-```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(6,6)}
+```{r,animation.hook="gifski",interval=0.3,echo=F,fig.dim=c(6,6)}
 curves = list()
 n = 12
-nframes = 10
+nframes = 8
 for(y in 0:k){
   th = seq(0,2*pi,length.out=360)
   x1 = (y-b)/m
@@ -108,7 +120,7 @@ for(i in 1:nframes){
 ```
 \
 
-Find the volume of the wood composing the bowl. I'd recommend using the [washer method](https://en.wikipedia.org/wiki/Disc_integration#Washer_method).
+Find the volume of the wood composing the bowl. I'd recommend using the [washer method](https://en.wikipedia.org/wiki/Disc_integration#Washer_method). The tolerance is $\pm 1$ cubic units.
 
 
 Solution
@@ -116,15 +128,12 @@ Solution
 
 We will use the [washer method](https://en.wikipedia.org/wiki/Disc_integration#Washer_method). Notice we can approximate the shape with a bunch of thin washers.
 
-```{r,echo=F,fig.dim=c(6,6)}
+```{r,animation.hook="gifski",interval=0.5,echo=F,fig.dim=c(5,5)}
 dz = k/30
 zs = seq(dz,k-dz,dz)
 r1 = sqrt(zs/a)
 r2 = (zs-b)/m
 f = 0.4
-
-par(pty="s",mar=c(0,0,0,0))
-plot(0,0,type="n",xlim=c(-h,h),ylim=c(-h/2,3*h/2),ann=F,axes=F)
 
 draw_washer = function(z,r1,r2,dz,perspective_ratio=0.5,col="red"){
   N = 360
@@ -156,8 +165,15 @@ draw_washer = function(z,r1,r2,dz,perspective_ratio=0.5,col="red"){
   lines(r2*cos(th),z+r2*pr*sin(th))
 }
 
-for(i in 1:length(zs)){
-  draw_washer(zs[i],r1[i],r2[i],dz,f,col=hsv(i/length(zs),0.7,0.5+0.1*i%%5))
+nnn = 8
+spf = ceiling(length(zs)/nnn)
+
+for(kk in 1:(nnn+1)){
+  par(pty="s",mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(-h,h),ylim=c(-h/2,3*h/2),ann=F,axes=F)
+  for(i in 1:min(c(kk*spf,length(zs)))){
+    draw_washer(zs[i],r1[i],r2[i],dz,f,col=hsv(i/length(zs),0.7,0.5+0.1*i%%5))
+  }
 }
 
 ```
@@ -195,7 +211,6 @@ draw_washer = function(z,r1,r2,dz,perspective_ratio=0.5,col="red"){
   lines(r1*cos(th),z+r1*pr*sin(th))
   lines(r2*cos(th),z+r2*pr*sin(th))
 }
-
 par(mar=c(0,0,0,0))
 plot(0,0,type="n",xlim=c(-1,1),ylim=c(-0.5,0.5),ann=F,axes=F)
 
@@ -216,7 +231,7 @@ The infinitesimal volume for each washer can be expressed in terms of $r$, $R$, 
 
 $$dV ~=~ \pi \left(R^2 - r^2\right) \, dz$$
 
-We need to express $R$ and $r$ as functions of $z$. Notice, that $R$ is equivalent to $x$ in the linear equation and $r$ is equivalent to $x$ in the quadratic equation. Let's start by finding $R$ in terms of $z$.
+We need to express $R$ and $r$ as functions of $z$. Notice that $R$ is equivalent to $x$ in the linear equation and $r$ is equivalent to $x$ in the quadratic equation. Let's start by finding $R$ in terms of $z$.
 
 $$z = `r m`R-`r abs(b)`$$
 
@@ -241,16 +256,38 @@ $$V = \int_{0}^{`r k`} \pi\left(R^2-r^2\right)\,dz$$
 
 $$V = \int_{0}^{`r k`} \pi\left(\left(\frac{z+`r abs(b)`}{`r m`}\right)^2-\left(\sqrt{\frac{`r h^2`z}{`r k`}}\right)^2\right)\,dz$$
 
-Remember [binomial expansion](https://en.wikipedia.org/wiki/Binomial_theorem).
+A constant multiplier can be pulled out of an integral.
 
-$$V = \int_{0}^{`r k`} \pi\left(\left(\frac{z+`r abs(b)`}{`r m`}\right)^2-\left(\sqrt{\frac{`r h^2`z}{`r k`}}\right)^2\right)\,dz$$
+$$V = \pi \int_{0}^{`r k`} \left(\left(\frac{z+`r abs(b)`}{`r m`}\right)^2-\left(\sqrt{\frac{`r h^2`z}{`r k`}}\right)^2\right)\,dz$$
 
+Honestly, at this point, you probably want to use Desmos. It understands definite integrals. You can get the integration symbol by typing `int`.
 
+If you want to work it out algebraically, remember [binomial expansion](https://en.wikipedia.org/wiki/Binomial_theorem).
+
+$$V = \pi \int_{0}^{`r k`} \left(\frac{1}{`r m^2`}z^2+\frac{`r 2*abs(b)`}{`r m^2`}z+\frac{`r b^2`}{`r m^2`}-\frac{`r h^2`}{`r k`}z\right)\,dz$$
+
+Combine like terms.
+
+$$V = \pi \int_{0}^{`r k`} \left(\frac{1}{`r m^2`}z^2+\left(\frac{`r 2*abs(b)`}{`r m^2`}-\frac{`r h^2`}{`r k`}\right)z+\frac{`r b^2`}{`r m^2`}\right)\,dz$$
+
+Use the antiderivative. We use the square brackets and rewriting the limits to remember to put them into the antiderivative (and take a difference).
+
+$$V = \pi  \left[\frac{1}{`r 3*m^2`}z^3+\left(\frac{`r 2*abs(b)`}{`r 2*m^2`}-\frac{`r h^2`}{`r 2*k`}\right)z^2+\frac{`r b^2`}{`r m^2`}z\right]_{0}^{`r k`}$$
+
+Plug in the limits and take a difference.
+
+$$V = \pi \left[ \left(\frac{1}{`r 3*m^2`}(`r k`)^3+\left(\frac{`r 2*abs(b)`}{`r 2*m^2`}-\frac{`r h^2`}{`r 2*k`}\right)(`r k`)^2+\frac{`r b^2`}{`r m^2`}(`r k`)\right)-\left(\frac{1}{`r 3*m^2`}(0)^3+\left(\frac{`r 2*abs(b)`}{`r 2*m^2`}-\frac{`r h^2`}{`r 2*k`}\right)(0)^2+\frac{`r b^2`}{`r m^2`}(0)\right) \right]$$
+
+Anything times 0 is 0.
+
+$$V = \pi \left(\frac{1}{`r 3*m^2`}(`r k`)^3+\left(\frac{`r 2*abs(b)`}{`r 2*m^2`}-\frac{`r h^2`}{`r 2*k`}\right)(`r k`)^2+\frac{`r b^2`}{`r m^2`}(`r k`)\right)$$
+
+$$V=`r V`$$
 
 
 Meta-information
 ============
 extype: num
-exsolution: 1
+exsolution: `r V`
 exname: vol_by_washers
-extol: 0.01
+extol: 1
