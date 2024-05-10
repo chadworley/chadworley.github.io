@@ -1,20 +1,20 @@
 ```{r,echo=F,warning=F}
 fixer = function(exp){
+  exp = gsub("{1}","",exp,fixed=T)
+  exp = gsub("{-1}","-",exp,fixed=T)
+  exp = gsub("{","",exp,fixed=T)
+  exp = gsub("}","",exp,fixed=T)
   exp = gsub("+-","-",exp,fixed=T)
   exp = gsub("--","+",exp,fixed=T)
-  exp = gsub("-1x","-x",exp,fixed=T)
-  exp = gsub("+1x","+x",exp,fixed=T)
-  exp = gsub(" 1x^3","x^3",exp,fixed=T)
-  exp = gsub(" ","",exp,fixed=T)
   return(exp)
 }
 fixer2 = function(exp){
+  exp = gsub("{1}","",exp,fixed=T)
+  exp = gsub("{-1}","-",exp,fixed=T)
+  exp = gsub("{","",exp,fixed=T)
+  exp = gsub("}","",exp,fixed=T)
   exp = gsub("+-","-",exp,fixed=T)
   exp = gsub("--","+",exp,fixed=T)
-  exp = gsub("-1x","-x",exp,fixed=T)
-  exp = gsub("+1x","+x",exp,fixed=T)
-  exp = gsub(" 1x^2","x^2",exp,fixed=T)
-  exp = gsub(" ","",exp,fixed=T)
   return(exp)
 }
 gcd2 <- function(a, b) {
@@ -49,8 +49,8 @@ while(T){
 # $$adh^2+bdh+cd = n$$
 # $$Ah^3+Bh^2+Ch+D$$
 
-exp1 = fixer(paste0(" ",A,"x^3+",B,"x^2+",C,"x+",D))
-exp2 = fixer2(paste0(" ",a,"x^2+",b,"x+",c))
+exp1 = fixer(paste0("{",A,"}x^3+{",B,"}x^2+{",C,"}x+",D))
+exp2 = fixer2(paste0("{",a,"}x^2+{",b,"}x+",c))
 
 ac = -10:10
 
@@ -89,10 +89,10 @@ The derivative of $f(x)$ at $x=`r h`$ equals the slope of the tangent line.
 $$m=`r m`$$
 
 ```{r,echo=F}
-sif = fixer(paste0("y=",m,"x+",ntr))
-sifb = fixer(paste0("y=",m,"x+b"))
-psf = fixer(paste0("y=",m,"(x+",-h,")+",k))
-psf2 = fixer(paste0("y=",m,"x+",-m*h,"+",k))
+sif = fixer(paste0("y={",m,"}x+",ntr))
+sifb = fixer(paste0("y={",m,"}x+b"))
+psf = fixer(paste0("y={",m,"}(x+",-h,")+",k))
+psf2 = fixer(paste0("y={",m,"}x+",-m*h,"+",k))
 ```
 
 At this stage there are two good options. We either substitute into $y=mx+b$ with $y=`r k`$, $m=`r m`$, and $x=`r h`$ to find $b$ or simplify the point-slope ($y=m(x-x_0)+y_0$) form into slope-intercept form.
