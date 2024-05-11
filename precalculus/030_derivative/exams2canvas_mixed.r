@@ -3,7 +3,7 @@ n = 30
 outdir = "outcanvas"
 genname = "030"
 
-probs = c("16_optimize_salt.Rmd")
+probs = c("15_get_tangent_slope_int.Rmd")
 
 pnts = c(3)
 
