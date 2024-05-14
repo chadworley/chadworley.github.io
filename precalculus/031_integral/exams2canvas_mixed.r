@@ -3,8 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "031"
 
-probs = c("08_bucket_work.Rmd")
-pnts = c(3)
+probs = c("09_graphical_integration.Rmd",
+          "10_graph_integ_net.Rmd")
+pnts = c(2)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,"_",stems)

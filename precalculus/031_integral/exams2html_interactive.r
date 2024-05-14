@@ -9,7 +9,9 @@ probs = c("01_antiderivative.Rmd",
           "05_vol_ellipse_cs.Rmd",
           "06_vol_by_washers.Rmd",
           "07_vol_by_cyl_shells.Rmd",
-          "08_bucket_work.Rmd")
+          "08_bucket_work.Rmd",
+          "09_graphical_integration.Rmd",
+          "10_graph_integ_net.Rmd")
 
 nvers = 5
 ps = character(0)
