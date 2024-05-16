@@ -1,0 +1,1230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>SQ ELIM</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+h4.qqq {
+  background-color: black;
+  color: white;
+}
+ol.outermostlist{
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+<script type="text/javascript">
+const nv = 5;
+function loader(){
+  qs = document.body.getElementsByTagName("h4");
+  lnk = document.getElementById("linksies");
+  qs[0].parentElement.parentElement.classList.add("outermostlist");
+  for(let i=0;i<qs.length;i++){
+    if(i%2==0){
+      qs[i].innerHTML = "QUESTION  "+(Math.floor(i/2/nv+1)).toString()+" version "+((i/2)%nv+1).toString();
+      qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      qs[i].classList.add("qqq");
+      if(i%(2*nv)==0){
+        let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+        lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+        document.getElementById("tempid").id = newid;
+      }
+      qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      if(i%(2*nv)!=0){
+        qs[i].parentElement.style.display = "none";
+      }
+      }
+}
+}
+function shower(){
+  let x = this.nextSibling;
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    this.innerHTML = "Hide solution";
+  } else {
+    x.style.display = "none";
+    this.innerHTML = "Show solution";
+  }
+}
+function prev(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn-1+nv)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+function next(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn+1)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+</script>
+<body onLoad="loader()">
+<div style="display:none">
+\(\renewcommand{\hat}[1]{\widehat{#1}}\)
+</div>
+<h2 id="sqid">Shared Qs (ELIM)</h2>
+<div id="linksies"></div>
+<ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{3}x+{9}y&amp;=60\\ {3}x+{4}y&amp;=40\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Subtract the 2nd equation from the 1st equation.</p>
+<p><span class="math display">\[{5}y=20\]</span></p>
+<p>Divide both sides by 5.</p>
+<p><span class="math display">\[y=4\]</span></p>
+<p>Plug in <span class="math inline">\(y=4\)</span> into 1st equation.
+<span class="math display">\[{3}x+9\cdot4=60\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[{3}x+36=60\]</span></p>
+<p>Subtract 36 from both sides.</p>
+<p><span class="math display">\[{3}x=24\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{4}x+{6}y&amp;=46\\ {4}x+{2}y&amp;=34\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Subtract the 2nd equation from the 1st equation.</p>
+<p><span class="math display">\[{4}y=12\]</span></p>
+<p>Divide both sides by 4.</p>
+<p><span class="math display">\[y=3\]</span></p>
+<p>Plug in <span class="math inline">\(y=3\)</span> into 1st equation.
+<span class="math display">\[{4}x+6\cdot3=46\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[{4}x+18=46\]</span></p>
+<p>Subtract 18 from both sides.</p>
+<p><span class="math display">\[{4}x=28\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{3}x+{7}y&amp;=63\\ {3}x+{2}y&amp;=33\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Subtract the 2nd equation from the 1st equation.</p>
+<p><span class="math display">\[{5}y=30\]</span></p>
+<p>Divide both sides by 5.</p>
+<p><span class="math display">\[y=6\]</span></p>
+<p>Plug in <span class="math inline">\(y=6\)</span> into 1st equation.
+<span class="math display">\[{3}x+7\cdot6=63\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[{3}x+42=63\]</span></p>
+<p>Subtract 42 from both sides.</p>
+<p><span class="math display">\[{3}x=21\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{5}x+{6}y&amp;=57\\ {5}x+{3}y&amp;=36\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Subtract the 2nd equation from the 1st equation.</p>
+<p><span class="math display">\[{3}y=21\]</span></p>
+<p>Divide both sides by 3.</p>
+<p><span class="math display">\[y=7\]</span></p>
+<p>Plug in <span class="math inline">\(y=7\)</span> into 1st equation.
+<span class="math display">\[{5}x+6\cdot7=57\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[{5}x+42=57\]</span></p>
+<p>Subtract 42 from both sides.</p>
+<p><span class="math display">\[{5}x=15\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{7}x+{8}y&amp;=52\\ {7}x+{2}y&amp;=34\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Subtract the 2nd equation from the 1st equation.</p>
+<p><span class="math display">\[{6}y=18\]</span></p>
+<p>Divide both sides by 6.</p>
+<p><span class="math display">\[y=3\]</span></p>
+<p>Plug in <span class="math inline">\(y=3\)</span> into 1st equation.
+<span class="math display">\[{7}x+8\cdot3=52\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[{7}x+24=52\]</span></p>
+<p>Subtract 24 from both sides.</p>
+<p><span class="math display">\[{7}x=28\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{5}x+{8}y&amp;=57\\ {-5}x+{6}y&amp;=69\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Add the two equations.</p>
+<p><span class="math display">\[14y=126\]</span></p>
+<p>Divide both sides by 14.</p>
+<p><span class="math display">\[y=9\]</span></p>
+<p>Plug in <span class="math inline">\(y=9\)</span> into first equation.</p>
+<p><span class="math display">\[5x+8\cdot9=57\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[5x+72=57\]</span></p>
+<p>Subtract 72 from both sides.</p>
+<p><span class="math display">\[5x=-15\]</span></p>
+<p>Divide both sides by 5.</p>
+<p><span class="math display">\[x=-3\]</span>
+<span class="math display">\[y=9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{5}x+{9}y&amp;=51\\ {-5}x+{6}y&amp;=9\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Add the two equations.</p>
+<p><span class="math display">\[15y=60\]</span></p>
+<p>Divide both sides by 15.</p>
+<p><span class="math display">\[y=4\]</span></p>
+<p>Plug in <span class="math inline">\(y=4\)</span> into first equation.</p>
+<p><span class="math display">\[5x+9\cdot4=51\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[5x+36=51\]</span></p>
+<p>Subtract 36 from both sides.</p>
+<p><span class="math display">\[5x=15\]</span></p>
+<p>Divide both sides by 5.</p>
+<p><span class="math display">\[x=3\]</span>
+<span class="math display">\[y=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{4}x+{8}y&amp;=60\\ {-4}x+{6}y&amp;=66\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Add the two equations.</p>
+<p><span class="math display">\[14y=126\]</span></p>
+<p>Divide both sides by 14.</p>
+<p><span class="math display">\[y=9\]</span></p>
+<p>Plug in <span class="math inline">\(y=9\)</span> into first equation.</p>
+<p><span class="math display">\[4x+8\cdot9=60\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[4x+72=60\]</span></p>
+<p>Subtract 72 from both sides.</p>
+<p><span class="math display">\[4x=-12\]</span></p>
+<p>Divide both sides by 4.</p>
+<p><span class="math display">\[x=-3\]</span>
+<span class="math display">\[y=9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{6}x+{7}y&amp;=19\\ {-6}x+{2}y&amp;=44\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Add the two equations.</p>
+<p><span class="math display">\[9y=63\]</span></p>
+<p>Divide both sides by 9.</p>
+<p><span class="math display">\[y=7\]</span></p>
+<p>Plug in <span class="math inline">\(y=7\)</span> into first equation.</p>
+<p><span class="math display">\[6x+7\cdot7=19\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[6x+49=19\]</span></p>
+<p>Subtract 49 from both sides.</p>
+<p><span class="math display">\[6x=-30\]</span></p>
+<p>Divide both sides by 6.</p>
+<p><span class="math display">\[x=-5\]</span>
+<span class="math display">\[y=7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{4}x+{7}y&amp;=43\\ {-4}x+{2}y&amp;=2\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Add the two equations.</p>
+<p><span class="math display">\[9y=45\]</span></p>
+<p>Divide both sides by 9.</p>
+<p><span class="math display">\[y=5\]</span></p>
+<p>Plug in <span class="math inline">\(y=5\)</span> into first equation.</p>
+<p><span class="math display">\[4x+7\cdot5=43\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[4x+35=43\]</span></p>
+<p>Subtract 35 from both sides.</p>
+<p><span class="math display">\[4x=8\]</span></p>
+<p>Divide both sides by 4.</p>
+<p><span class="math display">\[x=2\]</span>
+<span class="math display">\[y=5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}x+{2}y&amp;=9\\ {4}x+{5}y&amp;=24\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 4 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{4}x+{8}y&amp;=36\\ {4}x+{5}y&amp;=24\end{align}\]</span></p>
+<p>Using the new system, subtract the second equation from the first equation.</p>
+<p><span class="math display">\[3y=12\]</span></p>
+<p>Divide both sides by 3.
+<span class="math display">\[y=4\]</span></p>
+<p>Plug <span class="math inline">\(y=4\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[x+(2)(4)=9\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[x+8=9\]</span></p>
+<p>Subtract 8 from both sides.</p>
+<p><span class="math display">\[x=1\]</span>
+<span class="math display">\[y=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}x+{7}y&amp;=13\\ {3}x+{4}y&amp;=22\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 3 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{3}x+{21}y&amp;=39\\ {3}x+{4}y&amp;=22\end{align}\]</span></p>
+<p>Using the new system, subtract the second equation from the first equation.</p>
+<p><span class="math display">\[17y=17\]</span></p>
+<p>Divide both sides by 17.
+<span class="math display">\[y=1\]</span></p>
+<p>Plug <span class="math inline">\(y=1\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[x+(7)(1)=13\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[x+7=13\]</span></p>
+<p>Subtract 7 from both sides.</p>
+<p><span class="math display">\[x=6\]</span>
+<span class="math display">\[y=1\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}x+{2}y&amp;=9\\ {5}x+{4}y&amp;=33\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 5 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{5}x+{10}y&amp;=45\\ {5}x+{4}y&amp;=33\end{align}\]</span></p>
+<p>Using the new system, subtract the second equation from the first equation.</p>
+<p><span class="math display">\[6y=12\]</span></p>
+<p>Divide both sides by 6.
+<span class="math display">\[y=2\]</span></p>
+<p>Plug <span class="math inline">\(y=2\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[x+(2)(2)=9\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[x+4=9\]</span></p>
+<p>Subtract 4 from both sides.</p>
+<p><span class="math display">\[x=5\]</span>
+<span class="math display">\[y=2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}x+{7}y&amp;=30\\ {2}x+{3}y&amp;=16\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 2 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{2}x+{14}y&amp;=60\\ {2}x+{3}y&amp;=16\end{align}\]</span></p>
+<p>Using the new system, subtract the second equation from the first equation.</p>
+<p><span class="math display">\[11y=44\]</span></p>
+<p>Divide both sides by 11.
+<span class="math display">\[y=4\]</span></p>
+<p>Plug <span class="math inline">\(y=4\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[x+(7)(4)=30\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[x+28=30\]</span></p>
+<p>Subtract 28 from both sides.</p>
+<p><span class="math display">\[x=2\]</span>
+<span class="math display">\[y=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}x+{3}y&amp;=19\\ {4}x+{9}y&amp;=58\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 4 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{4}x+{12}y&amp;=76\\ {4}x+{9}y&amp;=58\end{align}\]</span></p>
+<p>Using the new system, subtract the second equation from the first equation.</p>
+<p><span class="math display">\[3y=18\]</span></p>
+<p>Divide both sides by 3.
+<span class="math display">\[y=6\]</span></p>
+<p>Plug <span class="math inline">\(y=6\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[x+(3)(6)=19\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[x+18=19\]</span></p>
+<p>Subtract 18 from both sides.</p>
+<p><span class="math display">\[x=1\]</span>
+<span class="math display">\[y=6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}x+{3}y&amp;=19\\ {-5}x+{4}y&amp;=0\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 5 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{5}x+{15}y&amp;=95\\ {-5}x+{4}y&amp;=0\end{align}\]</span></p>
+<p>Using the new system, add the second equation from the first equation.</p>
+<p><span class="math display">\[19y=95\]</span></p>
+<p>Divide both sides by 19.
+<span class="math display">\[y=5\]</span></p>
+<p>Plug <span class="math inline">\(y=5\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[x+(3)(5)=19\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[x+15=19\]</span></p>
+<p>Subtract 15 from both sides.</p>
+<p><span class="math display">\[x=4\]</span>
+<span class="math display">\[y=5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}x+{9}y&amp;=11\\ {-3}x+{5}y&amp;=-1\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 3 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{3}x+{27}y&amp;=33\\ {-3}x+{5}y&amp;=-1\end{align}\]</span></p>
+<p>Using the new system, add the second equation from the first equation.</p>
+<p><span class="math display">\[32y=32\]</span></p>
+<p>Divide both sides by 32.
+<span class="math display">\[y=1\]</span></p>
+<p>Plug <span class="math inline">\(y=1\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[x+(9)(1)=11\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[x+9=11\]</span></p>
+<p>Subtract 9 from both sides.</p>
+<p><span class="math display">\[x=2\]</span>
+<span class="math display">\[y=1\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}x+{7}y&amp;=14\\ {-2}x+{5}y&amp;=-9\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 2 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{2}x+{14}y&amp;=28\\ {-2}x+{5}y&amp;=-9\end{align}\]</span></p>
+<p>Using the new system, add the second equation from the first equation.</p>
+<p><span class="math display">\[19y=19\]</span></p>
+<p>Divide both sides by 19.
+<span class="math display">\[y=1\]</span></p>
+<p>Plug <span class="math inline">\(y=1\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[x+(7)(1)=14\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[x+7=14\]</span></p>
+<p>Subtract 7 from both sides.</p>
+<p><span class="math display">\[x=7\]</span>
+<span class="math display">\[y=1\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}x+{2}y&amp;=12\\ {-5}x+{7}y&amp;=-26\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 5 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{5}x+{10}y&amp;=60\\ {-5}x+{7}y&amp;=-26\end{align}\]</span></p>
+<p>Using the new system, add the second equation from the first equation.</p>
+<p><span class="math display">\[17y=34\]</span></p>
+<p>Divide both sides by 17.
+<span class="math display">\[y=2\]</span></p>
+<p>Plug <span class="math inline">\(y=2\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[x+(2)(2)=12\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[x+4=12\]</span></p>
+<p>Subtract 4 from both sides.</p>
+<p><span class="math display">\[x=8\]</span>
+<span class="math display">\[y=2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}x+{2}y&amp;=10\\ {-3}x+{8}y&amp;=-2\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 3 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{3}x+{6}y&amp;=30\\ {-3}x+{8}y&amp;=-2\end{align}\]</span></p>
+<p>Using the new system, add the second equation from the first equation.</p>
+<p><span class="math display">\[14y=28\]</span></p>
+<p>Divide both sides by 14.
+<span class="math display">\[y=2\]</span></p>
+<p>Plug <span class="math inline">\(y=2\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[x+(2)(2)=10\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[x+4=10\]</span></p>
+<p>Subtract 4 from both sides.</p>
+<p><span class="math display">\[x=6\]</span>
+<span class="math display">\[y=2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{9}x+{8}y&amp;=50\\ {6}x+{8}y&amp;=44\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Subtract the 2nd equation from the 1st equation.</p>
+<p><span class="math display">\[{3}x=6\]</span></p>
+<p>Divide both sides by 3.</p>
+<p><span class="math display">\[x=2\]</span></p>
+<p>Plug in <span class="math inline">\(x=2\)</span> into 1st equation.
+<span class="math display">\[(9)(2)+8y=50\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[18+8y=50\]</span></p>
+<p>Subtract 18 from both sides.</p>
+<p><span class="math display">\[{8}y=32\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{6}x+{5}y&amp;=72\\ {4}x+{5}y&amp;=58\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Subtract the 2nd equation from the 1st equation.</p>
+<p><span class="math display">\[{2}x=14\]</span></p>
+<p>Divide both sides by 2.</p>
+<p><span class="math display">\[x=7\]</span></p>
+<p>Plug in <span class="math inline">\(x=7\)</span> into 1st equation.
+<span class="math display">\[(6)(7)+5y=72\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[42+5y=72\]</span></p>
+<p>Subtract 42 from both sides.</p>
+<p><span class="math display">\[{5}y=30\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y=6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{7}x+{6}y&amp;=58\\ {5}x+{6}y&amp;=50\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Subtract the 2nd equation from the 1st equation.</p>
+<p><span class="math display">\[{2}x=8\]</span></p>
+<p>Divide both sides by 2.</p>
+<p><span class="math display">\[x=4\]</span></p>
+<p>Plug in <span class="math inline">\(x=4\)</span> into 1st equation.
+<span class="math display">\[(7)(4)+6y=58\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[28+6y=58\]</span></p>
+<p>Subtract 28 from both sides.</p>
+<p><span class="math display">\[{6}y=30\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y=5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{9}x+{2}y&amp;=46\\ {6}x+{2}y&amp;=34\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Subtract the 2nd equation from the 1st equation.</p>
+<p><span class="math display">\[{3}x=12\]</span></p>
+<p>Divide both sides by 3.</p>
+<p><span class="math display">\[x=4\]</span></p>
+<p>Plug in <span class="math inline">\(x=4\)</span> into 1st equation.
+<span class="math display">\[(9)(4)+2y=46\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[36+2y=46\]</span></p>
+<p>Subtract 36 from both sides.</p>
+<p><span class="math display">\[{2}y=10\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y=5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{9}x+{6}y&amp;=57\\ {7}x+{6}y&amp;=47\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Subtract the 2nd equation from the 1st equation.</p>
+<p><span class="math display">\[{2}x=10\]</span></p>
+<p>Divide both sides by 2.</p>
+<p><span class="math display">\[x=5\]</span></p>
+<p>Plug in <span class="math inline">\(x=5\)</span> into 1st equation.
+<span class="math display">\[(9)(5)+6y=57\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[45+6y=57\]</span></p>
+<p>Subtract 45 from both sides.</p>
+<p><span class="math display">\[{6}y=12\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y=2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{8}x+{4}y&amp;=4\\ {2}x-{4}y&amp;=16\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Add the two equations.</p>
+<p><span class="math display">\[10x=20\]</span></p>
+<p>Divide both sides by 10.</p>
+<p><span class="math display">\[x=2\]</span></p>
+<p>Plug in <span class="math inline">\(x=2\)</span> into first equation.</p>
+<p><span class="math display">\[(8)(2)+4y=4\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[16+4y=4\]</span></p>
+<p>Subtract 16 from both sides.</p>
+<p><span class="math display">\[4y=-12\]</span></p>
+<p>Divide both sides by 4.</p>
+<p><span class="math display">\[y=-3\]</span>
+The solution:</p>
+<p><span class="math display">\[x=2\]</span>
+<span class="math display">\[y=-3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{8}x+{4}y&amp;=16\\ {5}x-{4}y&amp;=62\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Add the two equations.</p>
+<p><span class="math display">\[13x=78\]</span></p>
+<p>Divide both sides by 13.</p>
+<p><span class="math display">\[x=6\]</span></p>
+<p>Plug in <span class="math inline">\(x=6\)</span> into first equation.</p>
+<p><span class="math display">\[(8)(6)+4y=16\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[48+4y=16\]</span></p>
+<p>Subtract 48 from both sides.</p>
+<p><span class="math display">\[4y=-32\]</span></p>
+<p>Divide both sides by 4.</p>
+<p><span class="math display">\[y=-8\]</span>
+The solution:</p>
+<p><span class="math display">\[x=6\]</span>
+<span class="math display">\[y=-8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{7}x+{6}y&amp;=2\\ {3}x-{6}y&amp;=78\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Add the two equations.</p>
+<p><span class="math display">\[10x=80\]</span></p>
+<p>Divide both sides by 10.</p>
+<p><span class="math display">\[x=8\]</span></p>
+<p>Plug in <span class="math inline">\(x=8\)</span> into first equation.</p>
+<p><span class="math display">\[(7)(8)+6y=2\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[56+6y=2\]</span></p>
+<p>Subtract 56 from both sides.</p>
+<p><span class="math display">\[6y=-54\]</span></p>
+<p>Divide both sides by 6.</p>
+<p><span class="math display">\[y=-9\]</span>
+The solution:</p>
+<p><span class="math display">\[x=8\]</span>
+<span class="math display">\[y=-9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{9}x+{2}y&amp;=20\\ {4}x-{2}y&amp;=32\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Add the two equations.</p>
+<p><span class="math display">\[13x=52\]</span></p>
+<p>Divide both sides by 13.</p>
+<p><span class="math display">\[x=4\]</span></p>
+<p>Plug in <span class="math inline">\(x=4\)</span> into first equation.</p>
+<p><span class="math display">\[(9)(4)+2y=20\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[36+2y=20\]</span></p>
+<p>Subtract 36 from both sides.</p>
+<p><span class="math display">\[2y=-16\]</span></p>
+<p>Divide both sides by 2.</p>
+<p><span class="math display">\[y=-8\]</span>
+The solution:</p>
+<p><span class="math display">\[x=4\]</span>
+<span class="math display">\[y=-8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{8}x+{2}y&amp;=34\\ {5}x-{2}y&amp;=31\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Add the two equations.</p>
+<p><span class="math display">\[13x=65\]</span></p>
+<p>Divide both sides by 13.</p>
+<p><span class="math display">\[x=5\]</span></p>
+<p>Plug in <span class="math inline">\(x=5\)</span> into first equation.</p>
+<p><span class="math display">\[(8)(5)+2y=34\]</span></p>
+<p>Simplify the product.</p>
+<p><span class="math display">\[40+2y=34\]</span></p>
+<p>Subtract 40 from both sides.</p>
+<p><span class="math display">\[2y=-6\]</span></p>
+<p>Divide both sides by 2.</p>
+<p><span class="math display">\[y=-3\]</span>
+The solution:</p>
+<p><span class="math display">\[x=5\]</span>
+<span class="math display">\[y=-3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{5}x+y&amp;=19\\ {9}x+{2}y&amp;=36\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 2 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{10}x+{2}y&amp;=38\\ {9}x+{2}y&amp;=36\end{align}\]</span></p>
+<p>Using the new system, subtract the second equation from the first equation.</p>
+<p><span class="math display">\[1x=2\]</span></p>
+<p>Divide both sides by 1.
+<span class="math display">\[x=2\]</span></p>
+<p>Plug <span class="math inline">\(x=2\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[(5)(2)+y=19\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[10+y=19\]</span></p>
+<p>Subtract 10 from both sides.</p>
+<p><span class="math display">\[y=9\]</span>
+The solution:</p>
+<p><span class="math display">\[x=2\]</span>
+<span class="math display">\[y=9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{9}x+y&amp;=27\\ {5}x+{3}y&amp;=37\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 3 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{27}x+{3}y&amp;=81\\ {5}x+{3}y&amp;=37\end{align}\]</span></p>
+<p>Using the new system, subtract the second equation from the first equation.</p>
+<p><span class="math display">\[22x=44\]</span></p>
+<p>Divide both sides by 22.
+<span class="math display">\[x=2\]</span></p>
+<p>Plug <span class="math inline">\(x=2\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[(9)(2)+y=27\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[18+y=27\]</span></p>
+<p>Subtract 18 from both sides.</p>
+<p><span class="math display">\[y=9\]</span>
+The solution:</p>
+<p><span class="math display">\[x=2\]</span>
+<span class="math display">\[y=9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{2}x+y&amp;=16\\ {3}x+{2}y&amp;=28\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 2 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{4}x+{2}y&amp;=32\\ {3}x+{2}y&amp;=28\end{align}\]</span></p>
+<p>Using the new system, subtract the second equation from the first equation.</p>
+<p><span class="math display">\[1x=4\]</span></p>
+<p>Divide both sides by 1.
+<span class="math display">\[x=4\]</span></p>
+<p>Plug <span class="math inline">\(x=4\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[(2)(4)+y=16\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[8+y=16\]</span></p>
+<p>Subtract 8 from both sides.</p>
+<p><span class="math display">\[y=8\]</span>
+The solution:</p>
+<p><span class="math display">\[x=4\]</span>
+<span class="math display">\[y=8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{9}x+y&amp;=28\\ {4}x+{3}y&amp;=15\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 3 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{27}x+{3}y&amp;=84\\ {4}x+{3}y&amp;=15\end{align}\]</span></p>
+<p>Using the new system, subtract the second equation from the first equation.</p>
+<p><span class="math display">\[23x=69\]</span></p>
+<p>Divide both sides by 23.
+<span class="math display">\[x=3\]</span></p>
+<p>Plug <span class="math inline">\(x=3\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[(9)(3)+y=28\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[27+y=28\]</span></p>
+<p>Subtract 27 from both sides.</p>
+<p><span class="math display">\[y=1\]</span>
+The solution:</p>
+<p><span class="math display">\[x=3\]</span>
+<span class="math display">\[y=1\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{4}x+y&amp;=18\\ {8}x+{3}y&amp;=38\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 3 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{12}x+{3}y&amp;=54\\ {8}x+{3}y&amp;=38\end{align}\]</span></p>
+<p>Using the new system, subtract the second equation from the first equation.</p>
+<p><span class="math display">\[4x=16\]</span></p>
+<p>Divide both sides by 4.
+<span class="math display">\[x=4\]</span></p>
+<p>Plug <span class="math inline">\(x=4\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[(4)(4)+y=18\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[16+y=18\]</span></p>
+<p>Subtract 16 from both sides.</p>
+<p><span class="math display">\[y=2\]</span>
+The solution:</p>
+<p><span class="math display">\[x=4\]</span>
+<span class="math display">\[y=2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{3}x+y&amp;=11\\ {9}x-{4}y&amp;=-2\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 4 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{12}x+{4}y&amp;=44\\ {9}x-{4}y&amp;=-2\end{align}\]</span></p>
+<p>Using the new system, add the second equation from the first equation.</p>
+<p><span class="math display">\[21x=42\]</span></p>
+<p>Divide both sides by 21.
+<span class="math display">\[x=2\]</span></p>
+<p>Plug <span class="math inline">\(x=2\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[(3)(2)+y=11\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[6+y=11\]</span></p>
+<p>Subtract 6 from both sides.</p>
+<p><span class="math display">\[y=5\]</span></p>
+<p>The solution:</p>
+<p><span class="math display">\[x=2\]</span>
+<span class="math display">\[y=5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{3}x+y&amp;=12\\ {9}x-{5}y&amp;=-36\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 5 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{15}x+{5}y&amp;=60\\ {9}x-{5}y&amp;=-36\end{align}\]</span></p>
+<p>Using the new system, add the second equation from the first equation.</p>
+<p><span class="math display">\[24x=24\]</span></p>
+<p>Divide both sides by 24.
+<span class="math display">\[x=1\]</span></p>
+<p>Plug <span class="math inline">\(x=1\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[(3)(1)+y=12\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[3+y=12\]</span></p>
+<p>Subtract 3 from both sides.</p>
+<p><span class="math display">\[y=9\]</span></p>
+<p>The solution:</p>
+<p><span class="math display">\[x=1\]</span>
+<span class="math display">\[y=9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{2}x+y&amp;=8\\ {7}x-{5}y&amp;=-6\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 5 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{10}x+{5}y&amp;=40\\ {7}x-{5}y&amp;=-6\end{align}\]</span></p>
+<p>Using the new system, add the second equation from the first equation.</p>
+<p><span class="math display">\[17x=34\]</span></p>
+<p>Divide both sides by 17.
+<span class="math display">\[x=2\]</span></p>
+<p>Plug <span class="math inline">\(x=2\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[(2)(2)+y=8\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[4+y=8\]</span></p>
+<p>Subtract 4 from both sides.</p>
+<p><span class="math display">\[y=4\]</span></p>
+<p>The solution:</p>
+<p><span class="math display">\[x=2\]</span>
+<span class="math display">\[y=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{3}x+y&amp;=16\\ {5}x-{4}y&amp;=21\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 4 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{12}x+{4}y&amp;=64\\ {5}x-{4}y&amp;=21\end{align}\]</span></p>
+<p>Using the new system, add the second equation from the first equation.</p>
+<p><span class="math display">\[17x=85\]</span></p>
+<p>Divide both sides by 17.
+<span class="math display">\[x=5\]</span></p>
+<p>Plug <span class="math inline">\(x=5\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[(3)(5)+y=16\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[15+y=16\]</span></p>
+<p>Subtract 15 from both sides.</p>
+<p><span class="math display">\[y=1\]</span></p>
+<p>The solution:</p>
+<p><span class="math display">\[x=5\]</span>
+<span class="math display">\[y=1\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the system.
+<span class="math display">\[\begin{align}{4}x+y&amp;=18\\ {7}x-{5}y&amp;=-9\end{align}\]</span></p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Multiply the first equation by 5 to get a new system.</p>
+<p><span class="math display">\[\begin{align}{20}x+{5}y&amp;=90\\ {7}x-{5}y&amp;=-9\end{align}\]</span></p>
+<p>Using the new system, add the second equation from the first equation.</p>
+<p><span class="math display">\[27x=81\]</span></p>
+<p>Divide both sides by 27.
+<span class="math display">\[x=3\]</span></p>
+<p>Plug <span class="math inline">\(x=3\)</span> into the first equation of the original system.</p>
+<p><span class="math display">\[(4)(3)+y=18\]</span></p>
+<p>Simplify product.</p>
+<p><span class="math display">\[12+y=18\]</span></p>
+<p>Subtract 12 from both sides.</p>
+<p><span class="math display">\[y=6\]</span></p>
+<p>The solution:</p>
+<p><span class="math display">\[x=3\]</span>
+<span class="math display">\[y=6\]</span></p>
+<br/>
+</div></li>
+</ol>
+</body>
+</html>
+

@@ -1,0 +1,97 @@
+```{r data generation, echo = FALSE, results = "hide"}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+fix = function(xpr){
+  xpr = gsub("+{-","-{",xpr,fixed=T)
+  xpr = gsub("+-","-",xpr,fixed=T)
+  xpr = gsub("{1}","",xpr,fixed=T)
+  xpr = gsub("+\\cdot","+",xpr,fixed=T)
+}
+
+while(T){
+  ord = sample(1:2)
+  abd = sort(sample(2:9,3))
+  a = abd[ord[1]]
+  b = abd[3]
+  c = -a
+  d = abd[ord[2]]
+  
+  xy = sample(2:9,2)*sample(c(-1,1),2,T)
+  x = xy[1]
+  y = xy[2]
+  
+  p = a*x+b*y
+  q = c*x+d*y
+  if(p<100 && q<100 && b-d>1 && p>0 && q>0){break}
+}
+
+exp1 = fix(paste0("{",a,"}x+{",b,"}y&=",p,collapse=""))
+exp2 = fix(paste0("{",c,"}x+{",d,"}y&=",q,collapse=""))
+exp3 = fix(paste0("{",b-d,"}y=",p-q,collapse=""))
+exp4 = fix(paste0("{",a,"}x+",b,"\\cdot",y,"=",p,collapse=""))
+exp5 = fix(paste0("{",a,"}x+",b*y,"=",p,collapse=""))
+exp6 = fix(paste0("{",a,"}x=",p-b*y,collapse=""))
+exp7 = fix(paste0("x=",x,collapse=""))
+
+ac = -10:10
+
+al = paste0("* ",ac,collapse="\n")
+sol1 = paste0(1*(ac==x),collapse="")
+sol2 = paste0(1*(ac==y),collapse="")
+
+```
+
+
+Question
+========
+
+Solve the system.
+$$\begin{align}`r exp1`\\ `r exp2`\end{align}$$
+
+* $x=$ ##ANSWER1##
+* $y=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+
+Solution
+========
+
+Add the two equations.
+
+$$`r b+d`y=`r p+q`$$
+
+Divide both sides by `r b+d`.
+
+$$y=`r y`$$
+
+Plug in $y=`r y`$ into first equation.
+
+$$`r a`x+`r b`\cdot`r y`=`r p`$$
+
+Simplify the product.
+
+$$`r a`x+`r b*y`=`r p`$$
+
+Subtract `r b*y` from both sides.
+
+$$`r a`x=`r p-b*y`$$
+
+Divide both sides by `r a`.
+
+$$x=`r x`$$
+$$y=`r y`$$
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: elim_add
