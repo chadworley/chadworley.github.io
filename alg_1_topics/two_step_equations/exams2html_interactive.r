@@ -2,7 +2,7 @@ library("exams")
 
 outdir = "./"
 genname = "two-step"
-probs = c("01_two-step_equations.Rmd")
+probs = c("02_EZ_two-step_equations.Rmd")
 
 nvers = 50
 ps = character(0)
@@ -11,7 +11,7 @@ for(prob in probs){
 }
 
 main = function(){
-  set.seed(29)
+  set.seed(123456)
   exams2html_interact(ps,
                  n=1,
                  dir=outdir,
