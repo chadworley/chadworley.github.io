@@ -50,7 +50,8 @@ for(i in 1:1000){
     } else if(wht==8){
       y = (x-A)/B
     } 
-    if(y%%1==0 && abs(y)>1 && abs(y)<100 && abs(x)!=abs(A) && y>1){break}
+    if(y%%1==0 && abs(y)>1 && abs(y)<100 && abs(x)!=abs(A) && y>1 &&
+       x!=A && x!=B && x!=y && y!=A && y!=B){break}
   }
   ex = paste0(y," = ",sample(eqs[[wht]],1))
   ex = gsub("A",abs(A),ex,fixed=T)

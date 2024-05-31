@@ -1,4 +1,4 @@
-png("hi.png",width=480,height=480)
+png("hi2.png",width=480,height=480)
 options(scipen=99)
 
 choice = sample(1:10,1)
