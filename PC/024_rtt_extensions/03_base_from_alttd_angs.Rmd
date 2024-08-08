@@ -1,0 +1,104 @@
+```{r,echo=F}
+while(T){
+  hxy = sample(11:99,3)/10
+  h = hxy[1]
+  x = hxy[2]
+  y = hxy[3]
+  theta = round(atan(h/x),2)
+  phi = round(atan(h/y),2)
+  minang = pi/10
+  maxang = pi/2-pi/20
+  x2 = h/tan(theta)
+  y2 = h/tan(phi)
+  z2 = x2+y2
+  if(theta>minang && 
+     theta<maxang && 
+     phi>minang && 
+     phi<maxang && 
+     theta+phi+0.02<pi/2 && 
+     round(theta,1)!=theta &&
+     round(phi,1)!=phi &&
+     abs(phi-theta)>0.05 && 
+     h!=round(h)){break}
+}
+```
+
+Question
+========
+
+Find $x$. The angles are measured in radians.
+
+```{r,echo=F,fig.width=6}
+par(mar=c(0,0,0,0))
+plot(c(0,z2,x2,0),c(0,0,h,0),type="l",asp=1,ann=F,axes=F)
+lines(c(x2,x2),c(0,h),col="red",lwd=2)
+lines(c(x2,x2+h/20,x2+h/20),c(h/20,h/20,0))
+bump = z2*0.04
+text(x2+bump,h/2,h,col="red")
+ths = seq(0,theta,length.out=100)
+phs = seq(pi-phi,pi,length.out=100)
+lines((bump+bump/theta)*cos(ths),(bump+bump/theta)*sin(ths),col="blue",lwd=2)
+text((2*bump+bump/theta)*cos(theta/2),(2*bump+bump/theta)*sin(theta/2),theta,col="blue")
+lines(z2+(bump+bump/phi)*cos(phs),(bump+bump/phi)*sin(phs),col="purple",lwd=2)
+text(z2+(2*bump+bump/phi)*cos(pi-phi/2),(2*bump+bump/phi)*sin(pi-phi/2),phi,col="purple")
+lines(c(0,z2),c(0,0),col="darkgreen",lwd=2)
+text(z2/2,-bump,"x",col="darkgreen",cex=1.3)
+lines(c(0,0,0,z2/2-bump),c(-bump*1.2,-bump*0.8,-bump,-bump),col="darkgreen")
+lines(c(z2,z2,z2,z2/2+bump),c(-bump*1.2,-bump*0.8,-bump,-bump),col="darkgreen")
+```
+\
+
+The tolerance is $\pm 0.01$.
+
+Solution
+========
+
+It is helpful to name the two lengths that add up to $x$.
+
+```{r,echo=F}
+par(mar=c(0,0,0,0))
+plot(c(0,z2,x2,0),c(0,0,h,0),type="l",asp=1,ann=F,axes=F)
+lines(c(x2,x2+h/20,x2+h/20),c(h/20,h/20,0))
+lines(c(x2,x2),c(0,h),col="red",lwd=2)
+bump = z2*0.04
+text(x2+bump,h/2,h,col="red")
+ths = seq(0,theta,length.out=100)
+phs = seq(pi-phi,pi,length.out=100)
+lines((bump+bump/theta)*cos(ths),(bump+bump/theta)*sin(ths),col="blue",lwd=2)
+text((2*bump+bump/theta)*cos(theta/2),(2*bump+bump/theta)*sin(theta/2),theta,col="blue")
+lines(z2+(bump+bump/phi)*cos(phs),(bump+bump/phi)*sin(phs),col="purple",lwd=2)
+text(z2+(2*bump+bump/phi)*cos(pi-phi/2),(2*bump+bump/phi)*sin(pi-phi/2),phi,col="purple")
+lines(c(0,x2),c(0,0),col="orange",lwd=2)
+text(x2/2,-bump,"p",col="orange",cex=1.3)
+lines(c(0,0,0,x2/2-bump),c(-bump*1.2,-bump*0.8,-bump,-bump),col="orange")
+lines(c(x2,x2,x2,x2/2+bump),c(-bump*1.2,-bump*0.8,-bump,-bump),col="orange")
+lines(c(x2,z2),c(0,0),col="cyan",lwd=2)
+text(x2+y2/2,-bump,"q",col="cyan",cex=1.3)
+lines(c(x2,x2,x2,x2+y2/2-bump),c(-bump*1.2,-bump*0.8,-bump,-bump),col="cyan")
+lines(c(z2,z2,z2,x2+y2/2+bump),c(-bump*1.2,-bump*0.8,-bump,-bump),col="cyan")
+```
+\
+
+$$x = p+q$$
+
+Set up the trigonometric equations.
+
+$$\tan(`r theta`) = \frac{`r h`}{p}$$
+$$\tan(`r phi`) = \frac{`r h`}{q}$$
+
+Solve those equations.
+$$p = `r x2`$$
+$$q = `r y2`$$
+
+Add the parts.
+$$x = `r x2`+`r y2`$$
+$$x = `r z2`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r z2`
+exname: base_from_alttd_angs
+extol: 0.1

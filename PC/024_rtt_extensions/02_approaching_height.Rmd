@@ -1,0 +1,200 @@
+```{r,echo=F}
+while(T){
+  angs = sort(runif(2,0.1,pi/2-0.1))
+  x = signif(runif(1,10,2000),2)
+  theta = round(angs[1],2)
+  phi = round(angs[2],2)
+  y = x*tan(theta)*tan(phi)/(tan(phi)-tan(theta))
+  y2 = signif(y,2)
+  z = y/tan(phi)
+  if(y>10 && y<1000 && phi-theta>pi/10 && y2!=signif(y,1) && x!=signif(x,1) && y2 != x*2){break}
+}
+```
+
+Question
+========
+
+An adventurer, crossing a vast (flat) desert, approaches a distant monument. When the adventurer first notices the monument, the viewing angle (the [angle of elevation](https://www.khanacademy.org/math/geometry/hs-geo-trig/hs-geo-modeling-with-right-triangles/a/angles-of-elevation-and-depression) to the top of the monument) is `r theta` radians.
+
+The adventurer walks toward the monument, getting `r x` meters closer; the viewing angle increases to `r phi` radians.
+
+How tall is the monument (in meters)?
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(c(0,1,1,0),c(0,0,1,0),type="l",axes=F,ann=F,
+     xlim=c(-0.1,1.1),ylim=c(-0.1,1.1))
+lines(c(0.5,1),c(0,1))
+lines(c(0,0.5),c(0,0),col="purple",lwd=2)
+text(0.25,-0.05,paste0(x," m"),col="purple")
+ths = seq(0,atan(1),length.out=100)
+phs = seq(0,atan(2),length.out=100)
+lines(0.1*cos(ths),0.1*sin(ths),col="red")
+text(0.17*cos(atan(1)/2),0.17*sin(atan(1)/2),theta,col="red")
+lines(0.5+0.1*cos(phs),0.1*sin(phs),col="blue")
+text(0.5+0.17*cos(atan(2)/2),0.17*sin(atan(2)/2),phi,col="blue")
+lines(c(1,1),c(0,1),lwd=2,col="darkgreen")
+text(1.05,0.5,"?",col="darkgreen")
+```
+\
+
+(Figure not drawn to scale.)
+
+PLEASE ROUND YOUR ANSWER TO 2 [SIGNIFICANT FIGURES](https://en.wikipedia.org/wiki/Significant_figures).
+
+
+Solution
+========
+
+Below are two methods. The first uses long decimal representations to somewhat simplify the algebra. The second method abstracts the problem further to derive a formula.
+
+## Long decimals
+
+First, label some unknowns with variables.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(c(0,1,1,0),c(0,0,1,0),type="l",axes=F,ann=F,
+     xlim=c(-0.1,1.1),ylim=c(-0.1,1.1))
+lines(c(0.5,1),c(0,1))
+lines(c(0,0.5),c(0,0),col="purple",lwd=2)
+text(0.25,-0.05,paste0(x," m"),col="purple")
+ths = seq(0,atan(1),length.out=100)
+phs = seq(0,atan(2),length.out=100)
+lines(0.1*cos(ths),0.1*sin(ths),col="red")
+text(0.17*cos(atan(1)/2),0.17*sin(atan(1)/2),theta,col="red")
+lines(0.5+0.1*cos(phs),0.1*sin(phs),col="blue")
+text(0.5+0.17*cos(atan(2)/2),0.17*sin(atan(2)/2),phi,col="blue")
+lines(c(1,1),c(0,1),lwd=2,col="darkgreen")
+text(1.05,0.5,"h",col="darkgreen")
+lines(c(0.5,1),c(0,0),lwd=2,col="black")
+text(0.75,-0.05,"z",col="black")
+```
+\
+
+Write a system of equations.
+
+$$\tan(`r theta`) = \frac{h}{`r x`+z}$$
+
+$$\tan(`r phi`) = \frac{h}{z}$$
+
+Evaluate decimal approximations.
+
+$$`r tan(theta)` = \frac{h}{`r x`+z}$$
+
+$$`r tan(phi)` = \frac{h}{z}$$
+
+Isolate (solve for) $z$ in the second equation by multiplying both sides by $z$ and dividing both sides by `r tan(phi)`. Remember, dividing by `r tan(phi)` is equivalent to multiplying by $\frac{1}{`r tan(phi)`}$, which is equivalent to multiplying by $`r 1/tan(phi)`$.
+
+$$z ~=~ \frac{h}{`r tan(phi)`}$$
+
+$$z ~=~ \frac{1}{`r tan(phi)`} h$$
+
+$$z ~=~ `r 1/tan(phi)` h$$
+
+Substitute $`r 1/tan(phi)` h$ for $z$ in the first equation of the system.
+
+$$`r tan(theta)` = \frac{h}{`r x`+`r 1/tan(phi)` h}$$
+
+Multiply both sides by the denominator.
+
+$$`r tan(theta)`\cdot \left(`r x`+`r 1/tan(phi)` h\right) = h$$
+Distribute.
+
+$$`r tan(theta)*x`+`r tan(theta)/tan(phi)` h= h$$
+
+Subtract $`r tan(theta)/tan(phi)` h$ from both sides.
+
+$$`r tan(theta)*x`= h-`r tan(theta)/tan(phi)` h$$
+
+Simplify the difference by combining like terms.
+
+$$`r tan(theta)*x`= `r 1-tan(theta)/tan(phi)` h$$
+
+Divide both sides by `r 1-tan(theta)/tan(phi)`.
+
+$$`r tan(theta)*x/(1-tan(theta)/tan(phi))`= h$$
+
+Round to two significant figures.
+
+$$h = `r y2`$$
+
+## Further abstraction do derive formula
+
+Rewrite the problem using only variables.
+
+```{r,echo=F,fig.dim=c(5,5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(c(0,1,1,0),c(0,0,1,0),type="l",axes=F,ann=F,
+     xlim=c(-0.1,1.1),ylim=c(-0.1,1.1))
+lines(c(0.5,1),c(0,1))
+lines(c(0,0.5),c(0,0),col="purple",lwd=2)
+text(0.25,-0.05,"x",col="purple")
+ths = seq(0,atan(1),length.out=100)
+phs = seq(0,atan(2),length.out=100)
+lines(0.1*cos(ths),0.1*sin(ths),col="red")
+text(0.17*cos(atan(1)/2),0.17*sin(atan(1)/2),TeX("$\\theta$"),col="red")
+lines(0.5+0.1*cos(phs),0.1*sin(phs),col="blue")
+text(0.5+0.17*cos(atan(2)/2),0.17*sin(atan(2)/2),TeX("$\\phi$"),col="blue")
+lines(c(1,1),c(0,1),lwd=2,col="darkgreen")
+text(1.05,0.5,"h",col="darkgreen")
+lines(c(0.5,1),c(0,0),lwd=2,col="black")
+text(0.75,-0.05,"z",col="black")
+```
+\
+
+Knowns: $x$, $\theta$, $\phi$
+
+Unknowns: $z$, $h$
+
+Goal: Solve for $z$ in terms of known quantities.
+
+Write the system of equations.
+
+$$\tan(\theta) = \frac{h}{x+z}$$
+
+$$\tan(\phi) = \frac{h}{z}$$
+
+Solve second equation for $z$.
+
+$$z = \frac{h}{\tan(\phi)}$$
+
+Substitute into first equation of system.
+$$\tan(\theta) = \frac{h}{x+\frac{h}{\tan(\phi)}}$$
+
+Multiply both sides by the denominator.
+
+
+$$\tan(\theta)x + \frac{\tan(\theta)}{\tan(\phi)}h ~=~ h$$
+
+Multiply by $\tan(\phi)$ to get ride of denominators.
+
+$$\tan(\theta)\tan(\phi)x + \tan(\theta)h ~=~ \tan(\phi)h$$
+
+Subtract $\tan(\theta)h$ from both sides.
+
+$$\tan(\theta)\tan(\phi)x ~=~ \tan(\phi)h - \tan(\theta)h$$
+
+Factor out $h$.
+
+$$\tan(\theta)\tan(\phi)x ~=~ \big(\tan(\phi) - \tan(\theta)\big)h$$
+
+Solve for $h$.
+
+$$h = \frac{\tan(\theta)\tan(\phi)x}{\tan(\phi) - \tan(\theta)}$$
+
+If you plug in the known values, you should be able to get $h$.
+
+$$h = `r y`$$
+
+Round to 2 significant digits.
+
+$$h = `r y2`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r y2`
+exname: approaching_height

@@ -1,0 +1,313 @@
+```{r,echo=FALSE}
+k = round(runif(1,0.001,0.05),3)
+h0 = sample(3:7,1)*100
+dt = 0.1
+g = 9.81
+
+t = c(0)
+v = c(0)
+h = c(h0)
+
+for(i in 1:103){
+  t = c(t,t[i]+dt)
+  v = c(v,v[i]+(-g+k*v[i]^2)*dt)
+  h = c(h,h[i]+v[i]*dt)
+}
+```
+
+
+Question
+========
+
+When a object falls downward, its acceleration is influenced by two competing terms: gravity ($g$) and air resistance ($kv^2$). Notice air resistance is proportional to the square of velocity.
+
+$$\frac{\Delta v}{\Delta t} = -g+kv^2$$
+
+The coefficient $k$ depends on the shape of the object, the orientation of the object, the density of the object, and the density of the air.
+
+Because the object is falling straight down, velocity is how fast the height is changing.
+
+$$\frac{\Delta h}{\Delta t} = v$$
+
+Let's set the parameters and initial values.
+
+* Parameters:
+  * $k = `r k`$ $\text{m}^{-1}$
+  * $g = 9.81$ $\text{m/s}^2$
+* Initial values:
+  * $h(0) = `r h0`$ m
+  * $v(0) = 0$ m/s
+* Step size for Euler's method:
+  * $\Delta t=0.1$ s
+
+Using Euler's method, we can produce the first few rounds of the simulation.
+
+<style>
+table.brd td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd th{
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd {
+  border: 3px solid black;
+}
+</style>
+
+<table class="brd">
+  <tr>
+    <th>$t$</th>
+    <th>$v$</th>
+    <th>$h$</th>
+    <th>$\Delta t$</th>
+    <th>$\Delta v ~=~ (-9.81+`r k`v^2)\cdot\Delta t$</th>
+    <th>$\Delta h ~=~ v \cdot \Delta t$</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>0</td>
+    <td>`r h0`</td>
+    <td>0.1</td>
+    <td>`r v[2]-v[1]`</td>
+    <td>`r h[2]-h[1]`</td>
+  </tr>
+  <tr>
+    <td>`r t[2]`</td>
+    <td>`r v[2]`</td>
+    <td>`r h[2]`</td>
+    <td>0.1</td>
+    <td>`r v[3]-v[2]`</td>
+    <td>`r h[3]-h[2]`</td>
+  </tr>
+  <tr>
+    <td>`r t[3]`</td>
+    <td>`r v[3]`</td>
+    <td>`r h[3]`</td>
+    <td>0.1</td>
+    <td>`r v[4]-v[3]`</td>
+    <td>`r h[4]-h[3]`</td>
+  </tr>
+  <tr>
+    <td>`r t[4]`</td>
+    <td>`r v[4]`</td>
+    <td>`r h[4]`</td>
+    <td>0.1</td>
+    <td>`r v[5]-v[4]`</td>
+    <td>`r h[5]-h[4]`</td>
+  </tr>
+  <tr>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+  </tr>
+</table>
+
+* Continue the simulation to estimate the height after 10 seconds. In other words, use Euler's method to find $h(10)$.
+
+The tolerance is $\pm 0.01$ m.
+
+
+Solution
+========
+
+
+```{r,fig.dim=c(6,6),echo=FALSE}
+plot(t,h,type="l",ylab="height (m)",xlab="time (s)",main="Object falling with air resistance")
+points(t[101],h[101])
+text(t[101]-1.5,h[101],paste0("(10, ",round(h[101],4),")"))
+```
+\
+
+<style>
+table.sol td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.sol td.fc{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+  background-color: #aaaaaa;
+}
+table.sol th{
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+  background-color: #aaaaaa;
+}
+table.sol {
+  border: 3px solid black;
+}
+
+</style>
+
+Formula view:
+
+<table class="sol">
+  <tr>
+    <th> </th>
+    <th>A</th> 
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+  <tr>
+    <td class="fc">1</td>
+    <td> t </td>
+    <td> v </td>
+    <td> h </td>
+    <td> dt </td>
+    <td> dv </td>
+    <td> dh </td>
+  </tr>
+  <tr>
+    <td class="fc">2</td>
+    <td> 0 </td>
+    <td> 0 </td>
+    <td> `r h0` </td>
+    <td> 0.1 </td>
+    <td> = (-9.81 + `r k` * B2^2) * D2</td>
+    <td> = B2*D2</td>
+  </tr>
+  <tr>
+    <td class="fc">3</td>
+    <td> =A2+D2 </td>
+    <td> =B2+E2 </td>
+    <td> =C2+F2 </td>
+    <td> 0.1 </td>
+    <td> = (-9.81 + `r k` * B3^2) * D3</td>
+    <td> = B3*D3</td>
+  </tr>
+  <tr>
+    <td class="fc">4</td>
+    <td> =A3+D3 </td>
+    <td> =B3+E3 </td>
+    <td> =C3+F3 </td>
+    <td> 0.1 </td>
+    <td> = (-9.81 + `r k` * B4^2) * D4</td>
+    <td> = B4*D4</td>
+  </tr>
+  <tr>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+  </tr>
+  <tr>
+    <td class="fc">101</td>
+    <td> =A100+D100 </td>
+    <td> =B100+E100 </td>
+    <td> =C100+F100 </td>
+    <td> 0.1 </td>
+    <td> = (-9.81 + `r k` * B101^2) * D101</td>
+    <td> = B101*D101</td>
+  </tr>
+  <tr>
+    <td class="fc">102</td>
+    <td> =A101+D101 </td>
+    <td> =B101+E101 </td>
+    <td> =C101+F101 </td>
+    <td> 0.1 </td>
+    <td> = (-9.81 + `r k` * B102^2) * D102</td>
+    <td> = B102*D102</td>
+  </tr>
+</table>
+
+Value view:
+
+<table class="sol">
+  <tr>
+    <th> </th>
+    <th>A</th> 
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+  <tr>
+    <td class="fc">1</td>
+    <td> t </td>
+    <td> v </td>
+    <td> h </td>
+    <td> dt </td>
+    <td> dv </td>
+    <td> dh </td>
+  </tr>
+  <tr>
+    <td class="fc">2</td>
+    <td> `r t[1]` </td>
+    <td> `r v[1]` </td>
+    <td> `r h[1]` </td>
+    <td> 0.1 </td>
+    <td> `r v[2]-v[1]` </td>
+    <td> `r h[2]-h[1]`</td>
+  </tr>
+  <tr>
+    <td class="fc">3</td>
+    <td> `r t[2]` </td>
+    <td> `r v[2]` </td>
+    <td> `r h[2]` </td>
+    <td> 0.1 </td>
+    <td> `r v[3]-v[2]` </td>
+    <td> `r h[3]-h[2]`</td>
+  </tr>
+  <tr>
+    <td class="fc">4</td>
+    <td> `r t[3]` </td>
+    <td> `r v[3]` </td>
+    <td> `r h[3]` </td>
+    <td> 0.1 </td>
+    <td> = `r v[4]-v[3]` </td>
+    <td> = `r h[4]-h[3]`</td>
+  </tr>
+  <tr>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+  </tr>
+  <tr>
+    <td class="fc">101</td>
+    <td> `r t[100]` </td>
+    <td> `r v[100]` </td>
+    <td> `r h[100]` </td>
+    <td> 0.1 </td>
+    <td> `r v[101]-v[100]` </td>
+    <td> `r h[101]-h[100]`</td>
+  </tr>
+  <tr>
+    <td class="fc">102</td>
+    <td> `r t[101]` </td>
+    <td> `r v[101]` </td>
+    <td> `r h[101]` </td>
+    <td> 0.1 </td>
+    <td> `r v[102]-v[101]` </td>
+    <td> `r h[102]-h[101]`</td>
+  </tr>
+</table>
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r h[101]`
+exname: eulers_method_falling
+extol: 0.01

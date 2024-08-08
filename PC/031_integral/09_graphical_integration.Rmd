@@ -1,0 +1,90 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  exp = gsub("{1}x^{0}","1",exp,fixed=T)
+  exp = gsub("{1}","{}",exp,fixed=T)
+  exp = gsub("x^{0}","{}",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  dy = sample(c(-1,0,1),10,T)
+  y0 = sample(1:7,1)
+  y = c(y0,y0+cumsum(dy))
+  ab = sort(sample(0:10,2))
+  a = ab[1]
+  b = ab[2]
+  S = sum(c(y[(a+1):(b)],y[(a+2):(b+1)]))/2
+  if(sum(sign(abs(diff(dy))))<6 && sum(sign(abs(diff(dy))))>3 &&
+     S != a && S!=b && S!=(b-a) && S!=(a+b) &&
+     min(y)>0 && max(y)<10 && length(unique(dy[a:b]))==3 ){break}
+}
+
+
+```
+
+Question
+========
+
+A function $f(x)$ is graphed below.
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(pty="s")
+plot(0:10,y,"l",xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="y")
+
+
+arrows(-0.2,0,10.2,0,length=0.05,lwd=2)
+arrows(0,-0.2,0,10.2,length=0.05,lwd=2)
+
+for(i in 1:10){
+  abline(h=i,col="grey")
+  abline(v=i,col="grey")
+}
+
+lines(0:10,y,lwd=3,col="blue")
+legend(4,10,"y=f(x)",col="blue",lwd=3)
+
+```
+\
+
+Evaluate the following integral.
+$$\int_{`r a`}^{`r b`}f(x)\,dx$$
+
+
+Solution
+========
+
+The definite integral represents the area under $y=f(x)$ between $x=`r a`$ and $x=`r b`$. Find the area by counting boxes.
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(pty="s")
+plot(0:10,y,"l",xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="f(x)")
+
+
+arrows(-0.2,0,10.2,0,length=0.05,lwd=2)
+arrows(0,-0.2,0,10.2,length=0.05,lwd=2)
+
+for(i in 1:10){
+  abline(h=i,col="grey")
+  abline(v=i,col="grey")
+}
+
+lines(0:10,y,lwd=3,col="blue")
+
+polygon(c(a,a:b,b),c(0,y[(a+1):(b+1)],0),col=rgb(1,0,0,0.5))
+
+```
+\
+
+The definite integral represents the area under $y=f(x)$ between $x=`r a`$ and $x=`r b`$.
+
+$$\int_{`r a`}^{`r b`}f(x)\,dx = `r S`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r S`
+exname: graphical_integration

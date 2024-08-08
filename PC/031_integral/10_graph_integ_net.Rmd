@@ -1,0 +1,108 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  exp = gsub("{1}x^{0}","1",exp,fixed=T)
+  exp = gsub("{1}","{}",exp,fixed=T)
+  exp = gsub("x^{0}","{}",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  dy = sample(c(-1,0,1),10,T)
+  y0 = sample((-2):2,1)
+  y = c(y0,y0+cumsum(dy))
+  ab = sort(sample(1:9,2))
+  a = ab[1]
+  b = ab[2]
+  S = sum(c(y[(a+1):(b)],y[(a+2):(b+1)]))/2
+  if(sum(sign(abs(diff(dy))))<6 && sum(sign(abs(diff(dy))))>2 &&
+     min(y)>-5 && max(y)<5 && length(unique(dy[a:b]))==3 &&
+     min(y[(a+1):(b+1)])<0 && max(y[(a+1):(b+1)])>0 && S!=0 &&
+     sum(y==0)<3){break}
+}
+
+
+```
+
+Question
+========
+
+A function $f(x)$ is graphed below.
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(pty="s")
+plot(0:10,y,"l",xlim=c(0,10),ylim=c(-5,5),xlab="x",ylab="y")
+
+for(i in 0:10){
+  abline(h=i,col="grey")
+  abline(h=-i,col="grey")
+  abline(v=i,col="grey")
+}
+arrows(-0.2,0,10.2,0,length=0.05,lwd=2,code=3)
+arrows(0,-5.2,0,5.2,length=0.05,lwd=2,code=3)
+
+
+lines(0:10,y,lwd=3,col="purple")
+legend(4,10,"y=f(x)",col="purple",lwd=3)
+
+```
+\
+
+Evaluate the following integral.
+$$\int_{`r a`}^{`r b`}f(x)\,dx$$
+
+
+Solution
+========
+
+The definite integral represents the total of the [signed area](https://en.wikipedia.org/wiki/Signed_area) between the $x$-axis and $y=f(x)$ between $x=`r a`$ and $x=`r b`$. Find the area by counting boxes.
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(pty="s")
+plot(0:10,y,"l",xlim=c(0,10),ylim=c(-5,5),xlab="x",ylab="y")
+
+for(i in 0:10){
+  abline(h=i,col="grey")
+  abline(h=-i,col="grey")
+  abline(v=i,col="grey")
+}
+arrows(-0.2,0,10.2,0,length=0.05,lwd=2,code=3)
+arrows(0,-5.2,0,5.2,length=0.05,lwd=2,code=3)
+
+lines(0:10,y,lwd=3,col="purple")
+
+
+pn = sign(y)
+
+su = 0
+
+for(i in a:(b-1)){
+  y1 = y[i+1]
+  y2 = y[i+2]
+  if(y1==0 && y2==0){
+    next
+  }
+  if(y1>=0 && y2 >=0){
+    polygon(c(i,i,i+1,i+1),c(0,y1,y2,0),col=rgb(0,0,1,0.5),border=NA)
+    text(i+0.5,max(c(y1,y2))+0.5,paste0("+",mean(c(y1,y2))),col="blue")
+  } else {
+    polygon(c(i,i,i+1,i+1),c(0,y1,y2,0),col=rgb(1,0,0,0.5),border=NA)
+    text(i+0.5,min(c(y1,y2))-0.5,paste0("-",abs(mean(c(y1,y2)))),col="red")
+  }
+}
+
+
+```
+\
+
+The definite integral represents the total signed area of $y=f(x)$ between $x=`r a`$ and $x=`r b`$.
+
+$$\int_{`r a`}^{`r b`}f(x)\,dx = `r S`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r S`
+exname: graph_integ_net

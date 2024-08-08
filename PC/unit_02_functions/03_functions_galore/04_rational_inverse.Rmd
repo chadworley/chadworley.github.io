@@ -1,0 +1,97 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+a = sample(3:9,4)*sample(c(-1,1),4,TRUE)
+qex = "\\frac{Ax+B}{Cx+D}"
+
+makesub = function(qex){
+  qex = gsub("A",a[1],qex)
+  qex = gsub("B",a[2],qex)
+  qex = gsub("C",a[3],qex)
+  qex = gsub("D",a[4],qex)
+  qex = gsub("+-","-",qex,fixed = T)
+  qex = gsub("--","+",qex,fixed = T)
+  qex = gsub("{+","{",qex,fixed = T)
+  return(qex)
+}
+qex = makesub(qex)
+swapxy = makesub("x=\\frac{Ay+B}{Cy+D}")
+multden = makesub("x(Cy+D)=Ay+B")
+distleft = makesub("Cxy+Dx=Ay+B")
+gathery = makesub("Cxy-Ay=B-Dx")
+factory = makesub("y(Cx-A)=B-Dx")
+exfac = makesub("Cx-A")
+divfac = makesub("y=\\frac{B-Dx}{Cx-A}")
+fin = makesub("y=\\frac{-Dx+B}{Cx-A}")
+fin2 = makesub("f^{-1}(x)=\\frac{-Dx+B}{Cx-A}")
+
+apo = -9:9
+al = paste0("* ",apo,"\n",collapse="")
+
+anA = -a[4]
+anB = a[2]
+anC = a[3]
+anD = -a[1]
+
+ans1 = paste0(1*(anA==apo),collapse="")
+ans2 = paste0(1*(anB==apo),collapse="")
+ans3 = paste0(1*(anC==apo),collapse="")
+ans4 = paste0(1*(anD==apo),collapse="")
+```
+
+Question
+========
+
+Let function $f$ be defined with the algebraic formula below:
+$$f(x) = `r qex`$$
+
+The inverse function $f^{-1}$ can be expressed as:
+
+$$f^{-1}(x) = \frac{ax+b}{cx+d}$$
+
+Find the integer values for $a$, $b$, $c$, and $d$.
+
+* $a=$ ##ANSWER1##
+* $b=$ ##ANSWER2##
+* $c=$ ##ANSWER3##
+* $d=$ ##ANSWER4##
+
+
+Answerlist
+--------
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+
+Solution
+========
+
+First, swap around the dependent and independent variables. Also, use $y$ for simplicity.
+
+$$`r swapxy`$$
+Our goal is to solve for $y$. Multiply both sides by the denominator.
+$$`r multden`$$
+Distribute.
+$$`r distleft` $$
+Gather all terms with $y$ on the left side, others on right, by adding/subtracting.
+$$`r gathery`$$
+Factor out $y$.
+$$`r factory`$$
+Divide both sides by the extra factor $(`r exfac`)$.
+$$`r divfac` $$
+Rearrange the numerator.
+$$`r fin`$$
+So, we know the inverse function.
+$$`r fin2`$$
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`|`r ans4`
+exname: rational_inverse

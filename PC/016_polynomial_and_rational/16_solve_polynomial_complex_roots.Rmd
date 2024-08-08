@@ -1,0 +1,134 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+deg = sample(4:7,1)
+cn = function(a,b){
+  cn = gsub("+-","-",paste0(a,"+",b,"i"),fixed=TRUE)
+  cn = gsub("0+0i","0",cn,fixed=TRUE)
+  cn = gsub("1i","i",cn,fixed=TRUE)
+  cn = gsub("-1i","-i",cn,fixed=TRUE)
+  cn = gsub("+0i","",cn,fixed=TRUE)
+  cn = gsub("-0i","",cn,fixed=TRUE)
+  if(nchar(cn)>1 && substr(cn,1,2)=="0+"){cn = gsub("0+","",cn,fixed=TRUE)}
+  if(nchar(cn)>1 && substr(cn,1,2)=="0-"){cn = gsub("0-","-",cn,fixed=TRUE)}
+  return(cn)
+}
+r = sample(-5:5,1)
+a1 = sample(-5:5,1)
+b1 = sample(1:3,1)
+as = c(r,a1,a1)
+bs = c(0,b1,-b1)
+cns = c(cn(r,0),cn(a1,b1),cn(a1,-b1))
+while(length(cns)<deg){
+  if(length(cns)==deg-1 || sample(1:2,1,F,c(0.66,0.34))==1){
+    a = sample(-5:5,1)
+    b = 0
+    cn1 = cn(a,b)
+    if(sum(cn1==cns)==0){
+      as = c(as,a)
+      bs = c(bs,b)
+      cns = c(cns,cn1)
+    }
+  } else {
+    a = sample(-5:5,1)
+    b = sample(1:5,1)
+    cn1 = cn(a,b)
+    cn2 = cn(a,-b)
+    if(sum(cn1==cns)==0){
+      as = c(as,a,a)
+      bs = c(bs,b,-b)
+      cns = c(cns,cn1,cn2)
+    }
+  }
+}
+ex = paste0("(x-(",as,"+",bs,"*I))",collapse="*")
+ex = gsub("+-","-",ex,fixed=TRUE)
+
+asall = as
+bsall = bs
+cnall = cns
+while(length(cnall)<10){
+  if(length(cnall)==9 || sample(1:2,1,F,c(0.66,0.34))==1){
+    a = sample(-5:5,1)
+    b = 0
+    cn1 = cn(a,b)
+    if(sum(cn1==cnall)==0){
+      asall = c(asall,a)
+      bsall = c(bsall,b)
+      cnall = c(cnall,cn1)
+    }
+  } else {
+    a = sample(-5:5,1)
+    b = sample(1:5,1)
+    cn1 = cn(a,b)
+    cn2 = cn(a,-b)
+    if(sum(cn1==cnall)==0){
+      asall = c(asall,a,a)
+      bsall = c(bsall,b,-b)
+      cnall = c(cnall,cn1,cn2)
+    }
+  }
+}
+
+cnall = sort(cnall)
+anli = paste0("* ",cnall,"\n",collapse="")
+
+sol = numeric()
+for(z in cnall){
+  if(sum(z==cns)>0){
+    sol=c(sol,1)
+  } else {
+    sol=c(sol,0)
+  }
+}
+sol = paste0(sol,collapse="")
+```
+
+
+Question
+========
+
+```{python,echo=FALSE}
+from sympy import *
+x = symbols("x")
+ex = sympify(r.ex)
+ex2 = expand(ex)
+lex = latex(ex2)
+pex = str(ex2)
+```
+
+Find solutions to the polynomial equation below.
+$$`r gsub("x","z",py$lex)`=0$$
+
+```{r,echo=FALSE}
+link = gsub("**","%5E",py$pex,fixed=TRUE)
+link = gsub("+","%2B",link,fixed=TRUE)
+link = gsub(" ","",link,fixed=TRUE)
+link = gsub("x","z",link,fixed=TRUE)
+```
+
+
+To find the solutions, I'd recommend using [this website](https://samuelj.li/complex-function-plotter/#`r link`), which uses [domain coloring](https://en.wikipedia.org/wiki/Domain_coloring) to visualize the solutions. By default the solutions will appear as the center of concentric rings.
+
+
+
+Answerlist
+--------
+
+`r anli`
+
+
+Solution
+========
+
+
+Notice that the degree is `r deg` and there are `r deg` solutions. This hints at the [fundamental theorem of algebra](https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra).
+
+The solutions: `r cns`
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: polynomial_complex

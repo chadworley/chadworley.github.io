@@ -1,0 +1,102 @@
+```{r,echo=FALSE}
+dt = 0.02
+n = 500
+sigma = 10 #round(10+runif(1,-0.5,0.5),2)
+rho = 28 #round(28 + runif(1,-3,3),2)
+beta = 8/3 #round(8/3+runif(1,-0.2,0.2),2)
+x0 = round(runif(1,-15,15),1)
+y0 = round(runif(1,-10,10),1)
+z0 = round(runif(1,15,40),1)
+t0 = 0
+x0s = c(x0,x0+sample(c(-0.02,-0.01,0.01,0.02)))
+y0s = c(y0,y0+sample(c(-0.02,-0.01,0.01,0.02)))
+z0s = c(z0,z0+sample(c(-0.02,-0.01,0.01,0.02)))
+t = seq(0,dt*n,dt)
+x = list()
+y = list()
+z = list()
+for(i in 1:length(x0s)){
+  xx = c(x0s[i])
+  yy = c(y0s[i])
+  zz = c(z0s[i])
+  for(j in 1:length(t)){
+    dx = (sigma*(yy[j]-xx[j]))*dt
+    dy = (xx[j]*(rho-zz[j])-yy[j])*dt
+    dz = (xx[j]*yy[j]-beta*zz[j])*dt
+    xx = c(xx,xx[j]+dx)
+    yy = c(yy,yy[j]+dy)
+    zz = c(zz,zz[j]+dz)
+  }
+  x[[i]] = xx
+  y[[i]] = yy
+  z[[i]] = zz
+}
+ord = sample(1:5)
+lets = c("A","B","C","D","E")
+sol = paste0(1*(1==ord),collapse="")
+alet = lets[sum((1:5)[1==ord])]
+```
+
+
+Question
+========
+
+By simulating the [Lorenz system](https://en.wikipedia.org/wiki/Lorenz_system), Lorenz made an important contribution to the development of [chaos theory](https://en.wikipedia.org/wiki/Chaos_theory). Below are the rate equations with his original parameters.
+
+$$\begin{align}
+\frac{\Delta x}{\Delta t} ~&=~ `r sigma`(y-x)\\\\
+\frac{\Delta y}{\Delta t} ~&=~ x(`r rho`-z)-y\\\\
+\frac{\Delta z}{\Delta t} ~&=~ xy-\frac{8}{3}z
+\end{align}$$
+
+Use Euler's method with $\Delta t=`r dt`$ for time $t=0$ to $t=`r dt*n`$. Use the initial conditions below.
+
+$$x_0 = `r x0`$$
+$$y_0 = `r y0`$$
+$$z_0 = `r z0`$$
+Plot $z$ versus $x$. (Put $z$ on the vertical axis and $x$ on the horizontal axis.) Determine which graph best matches your graph.
+
+```{r,echo=F,fig.dim=c(8,12)}
+par(mfrow=c(3,2),mar=c(7,5,1,0))
+lets = c("A","B","C","D","E")
+for(i in 1:5){
+  x2 = x[[ord[i]]]
+  y2 = y[[ord[i]]]
+  z2 = z[[ord[i]]]
+  plot(x2[1:length(t)],z2[1:length(t)],type="l",
+       main=lets[i],xlab="x",ylab="z")
+}
+```
+\
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+* E
+
+Solution
+========
+
+The best graph is **`r alet`**. 
+
+```{r,echo=F}
+ans = sum((1:5)[ord==1])
+x2 = x[[1]]
+y2 = y[[1]]
+z2 = z[[1]]
+plot(x2[1:length(t)],z2[1:length(t)],type="l",col="blue",
+     main=lets[ans],xlab="x",ylab="z")
+```
+\
+
+If two graphs looked almost identical to the correct answer, please screen shot the correct answer along with the options and send those screenshots to me.
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: lorenz_system

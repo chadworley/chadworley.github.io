@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Color Good Bad</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        #color-box {
+            width: 200px;
+            height: 200px;
+            margin: 50px auto;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Color Good Bad</h1>
+    <div id="color-box"></div>
+    <button onclick="showColor()">Show New Color</button>
+    <p>Is this color good or bad?</p>
+    <button onclick="categorizeColor('good')">Good</button>
+    <button onclick="categorizeColor('bad')">Bad</button>
+    <h2 hidden>Good Colors:</h2>
+    <ul hidden id="good-colors-list"></ul>
+    <h2 hidden>Bad Colors:</h2>
+    <ul hidden id="bad-colors-list"></ul>
+
+    <h2>List of colors in Python format:</h2>
+    Good:
+    <p id="good-colors-output"></p>
+    Bad:
+    <p id="bad-colors-output"></p>
+
+    <script>
+        let goodColors = [];
+        let badColors = [];
+        let currentColor;
+
+        function showColor() {
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            currentColor = [r, g, b];
+            document.getElementById('color-box').style.backgroundColor = `rgb(${r},${g},${b})`;
+        }
+
+        function categorizeColor(category) {
+            if (currentColor) {
+                if (category === 'good') {
+                    goodColors.push(currentColor);
+                    let li = document.createElement('li');
+                    li.textContent = `(${currentColor.join(',')})`;
+                    document.getElementById('good-colors-list').appendChild(li);
+                    document.getElementById('good-colors-output').textContent = JSON.stringify(goodColors);
+                  showColor();
+                } else {
+                    badColors.push(currentColor);
+                    let li = document.createElement('li');
+                    li.textContent = `(${currentColor.join(',')})`;
+                    document.getElementById('bad-colors-list').appendChild(li);
+                    document.getElementById('bad-colors-output').textContent = JSON.stringify(badColors);
+                  showColor();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

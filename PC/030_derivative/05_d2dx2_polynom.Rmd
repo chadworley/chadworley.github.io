@@ -1,0 +1,56 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("x^0","",exp,fixed=T)
+  exp = gsub("x^1","x",exp,fixed=T)
+  return(exp)
+}
+while(T){
+  abcd = sample(4:12,4)
+  a = abcd[1]*sample(c(-1,1),1)
+  b = abcd[2]
+  c = abcd[3]*sample(c(-1,1),1)
+  d = abcd[4]
+  
+  t = sample(11:999,1)/100*sample(c(-1,1),1)
+  fpot = a*b*t^(b-1)+c*d*t^(d-1)
+  fppot = a*b*(b-1)*t^(b-2)+c*d*(d-1)*t^(d-2)
+  if(abs(fppot)<10 && abs(fppot)>0.05){break}
+}
+
+
+ex1 = fixer(paste0(a,"x^{",b,"}+",c,"x^{",d,"}",collapse=""))
+ex2 = fixer(paste0(a*b,"x^{",b-1,"}+",c*d,"x^{",d-1,"}",collapse=""))
+ex3 = fixer(paste0(a*b*(b-1),"x^{",b-2,"}+",c*d*(d-1),"x^{",d-2,"}",collapse=""))
+ex4 = fixer(paste0(a*b*(b-1),"\\cdot(",t,")^{",b-2,"}+",c*d*(d-1),"\\cdot(",t,")^{",d-2,"}",collapse=""))
+```
+
+Question
+========
+
+Consider the polynomial function below.
+$$f(x)=`r ex1`$$
+
+Determine $$f''(`r t`)$$. The tolerance is $\pm0.01$.
+
+Solution
+========
+
+Use [the differentiation rules](https://en.wikipedia.org/wiki/Differentiation_rules#The_polynomial_or_elementary_power_rule). Specifically the power rule along with the sum and constant multiple rules.
+
+$$f(x)=`r ex1`$$
+$$f'(x)=`r ex2`$$
+$$f''(x)=`r ex3`$$
+
+Plug in $x=`r t`$.
+
+$$f''(`r t`) ~=~ `r ex4`$$
+$$f''(`r t`) ~\approx~ `r round(fppot,2)`$$
+
+Meta-information
+============
+extype: num
+exsolution: `r fppot`
+exname: d2dx2_polynom
+extol: 0.01

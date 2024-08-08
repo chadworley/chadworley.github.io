@@ -1,0 +1,265 @@
+```{r,echo=F,warning=F}
+trips = list(c(3,4,5),
+             c(5,12,13),
+             c(8,15,17),
+             c(7,24,25),
+             c(20,21,29),
+             c(12,35,37),
+             c(9,40,41),
+             c(28,45,53),
+             c(11,60,61),
+             c(16,63,65),
+             c(33,56,65),
+             c(48,55,73),
+             c(13,84,85),
+             c(36,77,85),
+             c(39,80,89),
+             c(65,72,97))
+while(T){
+  whichi = sample(1:length(trips),1)
+  trip = trips[[whichi]]
+  maxmult = floor(100/trip[3])
+  mult = sample(1:maxmult,1)
+  trip = mult*trip
+  a = trip[3]/10
+  www = sample(1:2,2)
+  b = trip[www[1]]/10
+  c = trip[www[2]]/10
+  if(c/a<0.95 && a>5){break}
+}
+
+i=0
+while(T){
+  i=i+1
+  thsp = runif(1,pi/8,pi/2-pi/8)
+  xx = round(a*cos(thsp),2)
+  yy = round(b*sin(thsp),2)
+  s = sqrt((xx+c)^2+yy^2)
+  t = sqrt((xx-c)^2+yy^2)
+  spt = s+t
+  if(round(spt,2)==2*a && round(s,2)==round(s,1) && round(t,2)==round(t,1) && xx!=c && ((round(xx,1)==xx && round(yy,1)==yy) || i>1000)){break}
+}
+w = t
+
+wh1 = sample(1:5,1)
+ac1 = a+0.1*(1:5-wh1)
+sol1 = paste0(1*(1:5==wh1),collapse="")
+ac2 = 2*ac1
+sol2 = sol1
+wh3 = sample(1:5,1)
+ac3 = c+0.1*(1:5-wh3)
+sol3 = paste0(1*(1:5==wh3),collapse="")
+ac4 = 2*ac3
+sol4 = sol3
+
+wh5 = sample(1:5,1)
+ac5 = round(s,1)+0.1*(1:5-wh5)
+sol5 = paste0(1*(1:5==wh5),collapse="")
+
+wh6 = sample(1:5,1)
+ac6 = round(w,1)+0.1*(1:5-wh6)
+sol6 = paste0(1*(1:5==wh6),collapse="")
+
+
+ac = c(ac1,ac2,ac3,ac4,ac5,ac6,ac2,ac1)
+al = paste0("* ",ac,collapse="\n")
+sols = c(sol1,sol2,sol3,sol4,sol5,sol6,sol2,sol1)
+```
+
+Question
+========
+
+An [ellipse](https://en.wikipedia.org/wiki/Ellipse) is a set of points such that the total distance from (1) one focus to (2) the edge to (3) the other focus is constant for any point on the edge. The two foci ($F_1$ and $F_2$) are a distance $2c$ apart, and the total distance from $F_1$ to the edge to $F_2$ is a distance $2a$.
+
+Let's consider the example below with foci at $(`r -c`,0)$ and $(`r c`,0)$ and a covertex at $(0, `r b`)$:
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2)
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2)
+th = seq(0,2*pi,length.out=1000)
+x = a*cos(th)
+y = b*sin(th)
+polygon(x,y,border="blue")
+points(c(-c,c),c(0,0),col="red",pch=19)
+text(-c,-0.6,paste0("(",-c,", 0)"),col="red")
+text(c,-0.6,paste0("(",c,", 0)"),col="red")
+text(-c,-1.5,paste0("F1"),col="red")
+text(c,-1.5,paste0("F2"),col="red")
+lines(c(-c,c),c(0,0),col="darkorange",lty=2)
+text(-c/2,0.3,"c",col="darkorange")
+text(c/2,0.3,"c",col="darkorange")
+points(0,0,pch=19,col="darkorange")
+points(0,b,col="purple",pch=19)
+text(0,b+0.5,paste0("(0, ",b,")"),adj=0,col="purple")
+lines(c(-c,0),c(0,b),col="darkgreen")
+th = atan(b/c)
+text(-c/2+0.3*cos(th+pi/2),
+     b/2+0.3*sin(th+pi/2),
+     "a",
+     srt=th/pi*180,col="darkgreen")
+lines(c(c,0),c(0,b),col="darkgreen")
+th = atan(b/c)
+text(c/2+0.3*cos(-th+pi/2),
+     b/2+0.3*sin(-th+pi/2),
+     "a",
+     srt=-th/pi*180,col="darkgreen")
+```
+\
+
+Evaluate $2a$ and $2c$.
+
+* $a=$ ##ANSWER1##
+* $2a=$ ##ANSWER2##
+* $c=$ ##ANSWER3##
+* $2c=$ ##ANSWER4##
+
+Now, let's pick another point on the ellipse, with (approximate) coordinates (`r xx`, `r yy`):
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2)
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2)
+th = seq(0,2*pi,length.out=1000)
+x = a*cos(th)
+y = b*sin(th)
+polygon(x,y,border="blue")
+points(c(-c,c),c(0,0),col="red",pch=19)
+text(-c,-0.6,paste0("(",-c,", 0)"),col="red")
+text(c,-0.6,paste0("(",c,", 0)"),col="red")
+text(-c,-1.5,paste0("F1"),col="red")
+text(c,-1.5,paste0("F2"),col="red")
+
+points(xx,yy,col="purple",pch=19)
+lines(c(-c,xx),c(0,yy),col="darkgreen")
+th1 = atan(yy/(xx+c))
+text((xx-c)/2+0.3*cos(th1+pi/2),
+     yy/2+0.3*sin(th1+pi/2),
+     "s",
+     srt=th1/pi*180,col="darkgreen")
+lines(c(c,xx),c(0,yy),col="darkblue")
+th1 = atan(yy/(xx-c))
+text((xx+c)/2+0.3*cos(th1+pi/2),
+     yy/2+0.3*sin(th1+pi/2),
+     "w",
+     srt=th1/pi*180,col="darkblue")
+
+text(xx+0.5*cos(thsp),yy+0.5*sin(thsp),
+     paste0("(",xx,", ",yy,")",collapse=""),adj=0,col="purple")
+
+```
+\
+
+The distance $s$ is from $F_1$ to the point on the edge. The distance $w$ is from $F_2$ to the point on the edge. Evaluate $s$, $w$, and the total distance ($s+w$).
+
+* $s=$ ##ANSWER5##
+* $w=$ ##ANSWER6##
+* $s+w=$ ##ANSWER7##
+
+Remember, the total distance when connecting
+
+1. The first focus $F_1$
+2. Any point on the edge
+3. The second focus $F_2$
+
+equals $2a$. Based on this information, find the location of the right vertex at ($x$, 0) in the diagram below.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2)
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2)
+th = seq(0,2*pi,length.out=1000)
+x = a*cos(th)
+y = b*sin(th)
+polygon(x,y,border="blue")
+points(c(-c,c),c(0,0),col="red",pch=19)
+text(-c,-0.6,paste0("(",-c,", 0)"),col="red")
+text(c,-0.6,paste0("(",c,", 0)"),col="red")
+text(-c,-1.5,paste0("F1"),col="red")
+text(c,-1.5,paste0("F2"),col="red")
+
+points(a,0,col="purple",pch=19)
+text(a-0.3,0.5,"(x, 0)",adj=1,col="purple")
+```
+\
+
+* $x=$ ##ANSWER8##
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+To find $a$, use the Pythagorean Theorem. The length $a$ is a hypotenuse of a right triangle with legs along the axes.
+
+$$(`r c`)^2 + (`r b`)^2 =a^2$$
+
+$$a ~=~ \sqrt{`r c`^2+`r b`^2} ~=~ `r a`$$
+Use multiplication by 2 to find the total distance from $F_1$ to (0,`r b`) to $F_2$
+$$2a = `r 2*a`$$
+
+It is easy to find $c$ from the graph. It is the distance from the center to either focus. In this graph, the center and the focus are on the same horizontal axis, so distance is just a difference, and the subtrahend is 0.
+
+$$c=`r c`$$
+$$2c = `r 2*c`$$
+
+Use pythagorean theorem to find $s$.
+
+$$s = \sqrt{(`r xx`-(`r -c`))^2+`r yy`^2}$$
+
+$$s=`r s`$$
+$$s\approx`r round(s,1)`$$
+
+Use pythagorean theorem to find $w$.
+
+$$w = \sqrt{(`r xx`-(`r c`))^2+`r yy`^2}$$
+
+$$w=`r w`$$
+$$w\approx`r round(w,1)`$$
+
+Add $s$ and $w$ to get the total distance.
+
+$$s+w=`r 2*a`$$
+
+Notice that $s+w=2a$, because the total distance is always $2a$ for any point on the edge.
+
+To find $x$, use the fact that the total distance is $2a$.
+
+$$(x-(`r -c`))+(x-`r c`)=`r 2*a`$$
+$$x+`r c`+x-`r c`=`r 2*a`$$
+$$2x=`r 2*a`$$
+$$x=`r a`$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(sols)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: fef_dist_ellipse

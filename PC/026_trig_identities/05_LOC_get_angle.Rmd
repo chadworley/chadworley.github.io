@@ -1,0 +1,126 @@
+```{r,echo=F,warning=F}
+while(T){
+  ad = sample(c(11,13,17,19,23,29,
+                31,37,41,43,47,53,
+                59,61,67,71,73,79,
+                83,89,97),1)
+  an = sort(sample(0:ad,3))
+  th = 2*an*pi/ad
+  an2 = c(an,an[1]+ad)
+  th2 = 2*an2*pi/ad
+  m = (diff(th2)/2)[c(2,3,1)]
+  alpha = m[1]
+  beta = m[2]
+  gamma = m[3]
+  mn = diff(an2)[c(2,3,1)]
+  gf = runif(1,1,5)
+  a = 2*sin(alpha)*gf
+  b = 2*sin(beta)*gf
+  c = 2*sin(gamma)*gf
+  l = c(a,b,c)
+  lr = round(l,1)
+  if(min(diff(th2))>pi/4 && min(diff(an))>1 && length(unique(mn))==3 && length(unique(lr))==3){break}
+}
+km = sample(1:3,1)
+kl = (1:3)[-km]
+x = cos(th)
+y = sin(th)
+xx = c(x,x[1])
+yy = c(y,y[1])
+xm = (x[c(2,3,1)]+x[c(3,1,2)])/2
+ym = (y[c(2,3,1)]+y[c(3,1,2)])/2
+s = numeric()
+for(i in c(2,3,1)){
+  s = c(s,atan2(yy[i+1]-yy[i],xx[i+1]-xx[i]))
+}
+aa = round(l[1],2)
+bb = round(l[2],2)
+cc = round(l[3],2)
+lr = c(aa,bb,cc)
+
+alpha_ans = acos((bb^2+cc^2-aa^2)/(2*bb*cc))
+beta_ans = acos((aa^2+cc^2-bb^2)/(2*aa*cc))
+gamma_ans = acos((aa^2+bb^2-cc^2)/(2*aa*bb))
+
+ua = sample(1:3,1)
+ual = c("\\alpha","\\beta","\\gamma")[ua]
+
+a_ans = c(alpha_ans,beta_ans,gamma_ans)[ua]
+lao = c("a","b","c")[ua]
+laa = c("a","b","c")[-ua]
+
+nao = c(lr)[ua]
+naa = c(lr)[-ua]
+```
+
+Question
+========
+
+The [law of cosines](https://en.wikipedia.org/wiki/Law_of_cosines) is a correction to [Pythagorean Theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem) that is accurate for ALL triangles (not just right triangles).
+
+$$a^2 = b^2+c^2-2bc\cos(\alpha)$$
+$$b^2 = a^2+c^2-2ac\cos(\beta)$$
+$$c^2 = a^2+b^2-2ab\cos(\gamma)$$
+
+where angles with measures $\alpha$, $\beta$, and $\gamma$ are opposite the sides with lengths $a$, $b$, and $c$ respectively.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-1.1,1.1),ylim=c(-1.1,1.1),axes=F,ann=F)
+for(i in seq(-20/gf,20/gf,1/gf)){
+  abline(h=i,col="grey")
+  abline(v=i,col="grey")
+}
+tthh = seq(0,2*pi,length.out=1000)
+lines(cos(tthh),sin(tthh),lty=3,col="darkgrey")
+polygon(cos(th),sin(th),col=rgb(1,0.8,0.8,0.6))
+incenter = c(sum(l*cos(th))/(sum(l)),sum(l*sin(th))/(sum(l)))
+letts = c(TeX("$\\alpha$"),TeX("$\\beta$"),TeX("$\\gamma$"))
+for(i in 1:3){
+  text(xm[i]+0.1*cos(s[i]-pi/2),ym[i]+0.1*sin(s[i]-pi/2),round(l[i],2))
+  text(0.8*cos(th[i])+0.2*incenter[1],
+     0.8*sin(th[i])+0.2*incenter[2],
+     letts[i]
+     )
+}
+```
+\
+
+The lengths of a triangle are shown above in the diagram.
+
+**Find the angle measure** $`r ual`$. The tolerance is $\pm 0.01$ radians.
+
+
+Solution
+========
+
+Use the law of cosines.
+
+$$`r lao`^2 = `r laa[1]`^2+`r laa[2]`^2-2 `r laa[1]` `r laa[2]` \cos(`r ual`)$$
+
+To solve for $`r ual`$, add $2 `r laa[1]` `r laa[2]` \cos(`r ual`)$ to both sides and subtract $`r lao`^2$ from both sides.
+
+$$2 `r laa[1]` `r laa[2]` \cos(`r ual`) = `r laa[1]`^2+`r laa[2]`^2-`r lao`^2 $$
+
+Divide both sides by $2 `r laa[1]` `r laa[2]`$.
+
+$$ \cos(`r ual`) = \frac{`r laa[1]`^2+`r laa[2]`^2-`r lao`^2}{2 `r laa[1]` `r laa[2]`}$$
+
+Take the arccos of both sides. Notice, we are sure $`r ual`$ is between 0 and $\pi$, because it is an angle in a triangle, and arccos has a range between 0 and $\pi$. So, we are confident that arccos will return an accurate angle for any triangle (unlike when we used arcsin with law of sines).
+
+$$`r ual` = \arccos\left(\frac{`r laa[1]`^2+`r laa[2]`^2-`r lao`^2}{2 `r laa[1]` `r laa[2]`}\right)$$
+
+Remember, the side lengths $a$, $b$, and $c$ are opposite $\alpha$, $\beta$, and $\gamma$.
+
+$$`r ual` = \arccos\left(\frac{`r naa[1]`^2+`r naa[2]`^2-`r nao`^2}{2 (`r naa[1]`)(`r naa[2]`)}\right)$$
+
+$$`r ual` \approx `r round(a_ans,2)`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r a_ans`
+exname: LOC_get_angle
+extol: 0.01

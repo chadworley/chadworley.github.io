@@ -1,0 +1,322 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("--","+",exp,fixed=T)
+  return(exp)
+}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+while(T){
+  numq = 6
+  hkabs = list()
+  for(i in 1:numq){
+    while(T){
+      hkab = sample(2:8,4)
+      h = hkab[1]*sample(c(-1,1),1)
+      k = hkab[2]*sample(c(-1,1),1)
+      a = hkab[3]
+      b = hkab[4]
+      c = sqrt(a^2+b^2)
+      if(abs(h)+c<10 && abs(k)+b<10 && b/a<3 && b/a>1/3){break}
+    }
+    hkabs[[i]] = c(h,k,a,b)
+  }
+  
+  figshows = character()
+  eqs = character()
+  eqshows = character()
+  ishors = numeric()
+  x1s = list()
+  x2s = list()
+  y1s = list()
+  y2s = list()
+  xfs = list()
+  yfs = list()
+  sols = character()
+  wrds = character()
+  typs = numeric()
+  
+  for(i in 1:numq){
+    h = hkabs[[i]][1]
+    k = hkabs[[i]][2]
+    a = hkabs[[i]][3]
+    b = hkabs[[i]][4]
+    figshow = sample(c(T,F),1)
+    if(figshow){
+      figshows=c(figshows,'asis')
+    } else {
+      figshows=c(figshows,'hide') 
+    }
+    ishor = sample(c(T,F),1)
+    ishors = c(ishors,1*ishor)
+    ord = sample(c(1,2),1)
+    if(ishor && ord==1){
+      eq = fixer(paste0("\\frac{(x-",h,")^2}{",a^2,"}-\\frac{(y-",k,")^2}{",b^2,"}=1"))
+    } else if(ishor && ord==2){
+      eq = fixer(paste0("-\\frac{(y-",k,")^2}{",b^2,"}+\\frac{(x-",h,")^2}{",a^2,"}=1"))
+    } else if(!ishor && ord==1){
+      eq = fixer(paste0("\\frac{(y-",h,")^2}{",a^2,"}-\\frac{(x-",k,")^2}{",b^2,"}=1"))
+    } else if(!ishor && ord==2){
+      eq = fixer(paste0("-\\frac{(x-",k,")^2}{",b^2,"}+\\frac{(y-",h,")^2}{",a^2,"}=1"))
+    }
+    eqs = c(eqs,eq)
+    if(figshow){
+      eqshows= c(eqshows,"")
+    } else {
+      eqshows = c(eqshows,paste0("$$",eq,"$$",collapse=""))
+    }
+    if(ishor){
+      th = seq(-pi/2,pi/2,length.out=1000)
+      x = h+a/cos(th)
+      y = k+b*tan(th)
+      x1s[[i]] = x
+      y1s[[i]] = y
+      th = seq(pi/2+0.000001,3*pi/2-0.00001,length.out=1000)
+      x = h+a/cos(th)
+      y = k+b*tan(th)
+      x2s[[i]] = x
+      y2s[[i]] = y
+      c = sqrt(a^2+b^2)
+      xfs[[i]] = c(h-c,h+c)
+      yfs[[i]] = c(k,k)
+      sols = c(sols,"10")
+      wrds = c(wrds,"horizontal")
+    } else {
+      th = seq(-pi/2,pi/2,length.out=1000)
+      x = k+b*tan(th)
+      y = h+a/cos(th)
+      x1s[[i]] = x
+      y1s[[i]] = y
+      th = seq(pi/2+0.000001,3*pi/2-0.00001,length.out=1000)
+      x = k+b*tan(th)
+      y = h+a/cos(th)
+      x2s[[i]] = x
+      y2s[[i]] = y
+      c = sqrt(a^2+b^2)
+      yfs[[i]] = c(h-c,h+c)
+      xfs[[i]] = c(k,k)
+      sols = c(sols,"01")
+      wrds = c(wrds,"vertical")
+    }
+    if(ishor && figshow){
+      typs = c(typs,1)
+    }
+    if(ishor && !figshow){
+      typs = c(typs,2)
+    }
+    if(!ishor && figshow){
+      typs = c(typs,3)
+    }
+    if(!ishor && !figshow){
+      typs = c(typs,4)
+    }
+  }
+  if(sum(ishors)>1 && sum(ishors)<5 && 
+     sum(typs==1)>0 && sum(typs==2)>0 && sum(typs==3)>0 && sum(typs==4)>0 &&
+     sum(figshows=="asis")<4){break}
+}
+
+
+
+al = paste0("* ",c("horizontal","vertical"),collapse="\n")
+al = paste0(rep(al,numq),collapse="\n")
+```
+
+Question
+========
+
+
+A **horizontal hyperbola** has two curves facing East and West (like  `)(`  ). There is a center $(h,k)$, transverse semi-axis $a$, and conjugate semi-axis $b$. A horizontal hyperbola is the set of points satisfying the equation below.
+
+
+$$\frac{(x-h)^2}{a^2}-\frac{(y-k)^2}{b^2}=1$$
+
+A **vertical hyperbola** has two curves facing North and South (like  $\asymp$  ). There is a center $(h,k)$, transverse semi-axis $a$, and conjugate semi-axis $b$. A vertical hyperbola is the set of points satisfying the equation below.
+
+
+$$\frac{(y-k)^2}{a^2}-\frac{(x-h)^2}{b^2}=1$$
+
+
+Determine whether the following are horizontal or vertical.
+
+## A
+
+Is the hyperbola represented below horizontal or vertical?
+
+```{r,echo=FALSE,fig.dim=c(5,5),fig.show=figshows[1]}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+lines(x1s[[1]],y1s[[1]],col="blue",lwd=2)
+lines(x2s[[1]],y2s[[1]],col="blue",lwd=2)
+points(xfs[[1]],yfs[[1]],col="red",pch=19)
+```
+\
+
+`r eqshows[1]`
+
+The hyperbola represented above is ##ANSWER1##
+
+## B
+
+Is the hyperbola represented below horizontal or vertical?
+
+```{r,echo=FALSE,fig.dim=c(5,5),fig.show=figshows[2]}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+lines(x1s[[2]],y1s[[2]],col="blue",lwd=2)
+lines(x2s[[2]],y2s[[2]],col="blue",lwd=2)
+points(xfs[[2]],yfs[[2]],col="red",pch=19)
+```
+\
+
+`r eqshows[2]`
+
+The hyperbola represented above is ##ANSWER2##
+
+## C
+
+Is the hyperbola represented below horizontal or vertical?
+
+```{r,echo=FALSE,fig.dim=c(5,5),fig.show=figshows[3]}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+lines(x1s[[3]],y1s[[3]],col="blue",lwd=2)
+lines(x2s[[3]],y2s[[3]],col="blue",lwd=2)
+points(xfs[[3]],yfs[[3]],col="red",pch=19)
+```
+\
+
+`r eqshows[3]`
+
+The hyperbola represented above is ##ANSWER3##
+
+## D
+
+Is the hyperbola represented below horizontal or vertical?
+
+```{r,echo=FALSE,fig.dim=c(5,5),fig.show=figshows[4]}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+lines(x1s[[4]],y1s[[4]],col="blue",lwd=2)
+lines(x2s[[4]],y2s[[4]],col="blue",lwd=2)
+points(xfs[[4]],yfs[[4]],col="red",pch=19)
+```
+\
+
+`r eqshows[4]`
+
+The hyperbola represented above is ##ANSWER4##
+
+## E
+
+Is the hyperbola represented below horizontal or vertical?
+
+```{r,echo=FALSE,fig.dim=c(5,5),fig.show=figshows[5]}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+lines(x1s[[5]],y1s[[5]],col="blue",lwd=2)
+lines(x2s[[5]],y2s[[5]],col="blue",lwd=2)
+points(xfs[[5]],yfs[[5]],col="red",pch=19)
+```
+\
+
+`r eqshows[5]`
+
+The hyperbola represented above is ##ANSWER5##
+
+## F
+
+Is the hyperbola represented below horizontal or vertical?
+
+```{r,echo=FALSE,fig.dim=c(5,5),fig.show=figshows[6]}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+lines(x1s[[6]],y1s[[6]],col="blue",lwd=2)
+lines(x2s[[6]],y2s[[6]],col="blue",lwd=2)
+points(xfs[[6]],yfs[[6]],col="red",pch=19)
+```
+\
+
+`r eqshows[6]`
+
+The hyperbola represented above is ##ANSWER6##
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+The graphs should be pretty easy. `)(` is horizontal and $\asymp$ is vertical.
+
+The equations can be a bit tricky, because the order of the fractions is randomized. **Pay attention to which fraction (containing $x$ or $y$) has the negative sign.**
+
+Personally, I think about $x$ and $y$ values that make the numerators 0. Then I think if there could be any solutions. The key idea is that there are no real $n$ and $d$ such that $-\frac{n^2}{d^2}=1$. If there are $x$ values that have no solution (no corresponding $y$ to make the equation true), then there are vertical lines that do not hit the hyperbola, meaning the hyperbola must be horizontal. If there are $y$ values that have no solution, then there are horizontal lines that do not hit the hyperbola, meaning the hyperbola must be vertical. I know that is convoluted, but I've yet to find a more robust way to store this in my long-term memory.
+
+* Representation $A$ is of a `r wrds[1]` hyperbola.
+* Representation $B$ is of a `r wrds[2]` hyperbola.
+* Representation $C$ is of a `r wrds[3]` hyperbola.
+* Representation $D$ is of a `r wrds[4]` hyperbola.
+* Representation $E$ is of a `r wrds[5]` hyperbola.
+* Representation $F$ is of a `r wrds[6]` hyperbola.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r paste0(sols,collapse="|")`
+exname: hyp_hor_or_ver

@@ -1,0 +1,80 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("t^0","",exp,fixed=T)
+  exp = gsub("t^1","x",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  a = round(10^runif(1,log(0.1,10),1),2)
+  x = round(runif(1,2,7),2)
+  gx = a^x
+  gpx = a^x*log(a)
+  if(abs(gpx)>0.2 && abs(gpx)<5 && gx<8){break}
+}
+
+```
+
+Question
+========
+
+In Calculus you will prove various [differentiation rules](https://en.wikipedia.org/wiki/Differentiation_rules). We already "proved" the [power rule](https://en.wikipedia.org/wiki/Power_rule). From here on, we will just practice using the rules (and not first prove them).
+
+The [rule to find the derivative of an exponential function](https://en.wikipedia.org/wiki/Differentiation_rules#Derivatives_of_exponential_and_logarithmic_functions) is shown below, where $a$ is a constant, and $\ln(a)$ is the [natural logarithm](https://en.wikipedia.org/wiki/Natural_logarithm) of $a$.
+
+$$f(x) ~=~ a^x$$
+
+$$f'(x) ~=~ a^x\cdot\ln(a)$$
+
+Let $g(x)=`r a`^x$. Calculate $g'(`r x`)$. The tolerance is $\pm 0.01$.
+
+
+Solution
+========
+
+We were given $g(x)=`r a`^x$. We were told the rule to find the derivative of an exponential function.
+
+$$g'(x) = `r a`^x \cdot \ln(`r a`)$$
+
+Plug in $x=`r x`$.
+
+$$g'(`r x`) = `r a`^{`r x`} \cdot \ln(`r a`)$$
+
+
+$$g'(`r x`) = `r a^x*log(a)`$$
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(pty="s")
+xx = seq(0,20,0.01)
+plot(xx,a^xx,type="l",xlab="x",ylab="g(x)",xlim=c(0,10),ylim=c(0,10))
+arrows(0,0,10.3,0,lwd=2,length=0.2)
+arrows(0,0,0,10.3,lwd=2,length=0.2)
+for(i in 1:20){
+  abline(h=i,col="grey")
+  abline(v=i,col="grey")
+}
+for(i in seq(5,20,5)){
+  abline(h=i,col="darkgrey",lwd=2)
+  abline(v=i,col="darkgrey",lwd=2)
+}
+lines(xx,a^xx,lwd=3,col="blue")
+lines(xx,gpx*(xx-x)+gx,lwd=2,col="red")
+points(x,gx,col="purple",pch=19)
+text(x,gx,paste0("(",x,", ",round(gx,2),")",collapse=""),
+     col="purple",adj=c(1.1,-0.2))
+theta = atan(gpx)
+text(x+0.5*cos(pi+theta),gx+0.5*sin(pi+theta),paste0("slope=",round(gpx,2),collapse=""),srt=atan(gpx)/pi*180,adj=c(1,1.2),col="red")
+text(x+0.5*cos(theta),gx+0.5*sin(theta),paste0("y=",round(gpx,2),"*(x-",x,")+",round(gx,2),collapse=""),srt=atan(gpx)/pi*180,adj=c(0,1.2),col="red")
+```
+\
+
+
+Meta-information
+============
+extype: num
+exsolution: `r a^x*log(a)`
+exname: ddx_exp
+extol: 0.01

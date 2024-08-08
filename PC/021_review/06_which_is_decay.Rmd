@@ -1,0 +1,74 @@
+```{r,echo=F}
+# I would add to the explanation... make all exponents without negative signs
+
+while(T){
+  A0 = round(runif(4,10,100),1)
+  Bf = sample(c(2,3,5,7,11,13,17,19,23,29,31,37),8)
+  n = Bf[1:4]
+  d = Bf[5:8]
+  k = round(runif(4,0.1,2),2)*sample(c(-1,1),4,T)
+  ncor = 0
+  wcor = 0
+  for(i in 1:4){
+    if((n[i]/d[i]<1 && k[i]>0) || (n[i]/d[i]>1 && k[i]<0)){
+      ncor = ncor+1
+      wcor = i
+    }
+  }
+  if(ncor == 1){break}
+}
+sol = paste0(1*(c(1,2,3,4)==wcor),collapse="")
+let = c("A","B","C","D")[wcor]
+if(k[wcor]>0){
+  sym1 = "<"
+  sym2 = ">"
+} else {
+  sym1 = ">"
+  sym2 = "<"
+}
+```
+
+
+
+Question
+========
+
+Below are 4 exponential functions.
+
+$$\begin{align}
+A(x) ~&=~ `r A0[1]`\cdot\left(\frac{`r n[1]`}{`r d[1]`}\right)^{`r k[1]`x} \\\\
+B(x) ~&=~ `r A0[2]`\cdot\left(\frac{`r n[2]`}{`r d[2]`}\right)^{`r k[2]`x} \\\\
+C(x) ~&=~ `r A0[3]`\cdot\left(\frac{`r n[3]`}{`r d[3]`}\right)^{`r k[3]`x} \\\\
+D(x) ~&=~ `r A0[4]`\cdot\left(\frac{`r n[4]`}{`r d[4]`}\right)^{`r k[4]`x}
+\end{align}$$
+
+Which function represents exponential decay?
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+
+
+Solution
+========
+
+There two ways $f(x)=f_0\cdot M^{kx}$, with $f_0>0$, can represent exponential decay:
+
+* $M>1$ and $k<0$
+* $M<1$ and $k>0$
+
+In this case, function $`r let`$ has $M=`r n[wcor]`/`r d[wcor]`$ and $k=`r k[wcor]`$. So, in this case $M `r sym1` 1$ and $k `r sym2` 0$, giving exponential decay.
+
+
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: which_is_decay

@@ -1,0 +1,131 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  exp = gsub("{1}x^{0}","1",exp,fixed=T)
+  exp = gsub("{1}","{}",exp,fixed=T)
+  exp = gsub("x^{0}","{}",exp,fixed=T)
+  return(exp)
+}
+fixer2 = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  return(exp)
+}
+
+n = 3
+while(T){
+  fdegs = sort(sample(1:9,n),decreasing=T)
+  fcofs = sample(2:9,n)*sample(c(-1,1),n,T)
+  fpd = fdegs-1
+  fpc = fdegs*fcofs
+  fp = fixer(paste0("{",fpc,"}x^{",fpd,"}",collapse="+"))
+  f = paste0(fixer(paste0("{",fcofs,"}x^{",fdegs,"}",collapse="+")),"+C")
+  hk = sample(2:7,2)*sample(c(-1,1),2,T)
+  h = hk[1]
+  k = sum(fcofs*h^fdegs) + hk[2]
+  C = hk[2]
+  if(abs(k)<100){break}
+}
+
+fe2 = paste0(paste0("{",c("J","K","L"),"}x^{",fdegs,"}",collapse="+"),"+C")
+fe3 = paste0(paste0("\\frac{",fpc,"}{",fdegs,"}x^{",fdegs,"}",collapse="+"),"+C")
+
+fath = gsub("x",paste0("(",h,")"),f,fixed=T)
+fath2 = paste0(k-C,"+C")
+
+ff = fixer(paste0(fixer(paste0("{",fcofs,"}x^{",fdegs,"}",collapse="+")),"+{",C,"}",collapse=""))
+
+ac = -10:10
+
+ans = c(fcofs[1],fdegs[1],
+        fcofs[2],fdegs[2],
+        fcofs[3],fdegs[3],
+        C)
+
+sols = character()
+for(an in ans){
+  sols=c(sols,paste0(1*(an==ac),collapse=""))
+}
+
+al = paste0("* ",rep(ac,7),collapse="\n")
+
+```
+
+Question
+========
+
+[Integration](https://en.wikipedia.org/wiki/Integral) reverses differentiation. We will practice "undoing" the power rule by finding an [antiderivative](https://en.wikipedia.org/wiki/Antiderivative).
+
+Let $f(x)$ be an unknown polynomial. Its derivative is known.
+
+$$f'(x)=`r fp`$$
+
+To undo the power rule, each term's power is increased by 1, and then the coefficient is divided by the new power. This gets us most of the way.
+
+A (slightly annoying) complication occurs because adding any constant to $f(x)$ would not change its derivative, since the derivative of a constant is 0. This means there are infinitely many possible antiderivatives with a [constant of integration](https://en.wikipedia.org/wiki/Constant_of_integration) equaling any real number. If we know a single solution to $y=f(x)$ (a single point on the curve), then the constant of integration can be determined. In this case, let's enforce the following condition: 
+
+$$f(`r h`)=`r k`$$
+
+We know the integral can be expressed as a polynomial with 4 terms, where $j>k>l$:
+
+$$f(x)=Jx^{j}+Kx^{k}+Lx^l+C$$
+
+Find the parameters.
+
+* $J=$ ##ANSWER1##
+* $j=$ ##ANSWER2##
+* $K=$ ##ANSWER3##
+* $k=$ ##ANSWER4##
+* $L=$ ##ANSWER5##
+* $l=$ ##ANSWER6##
+* $C=$ ##ANSWER7##
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+We were given the derivative.
+
+
+$$f'(x)=`r fp`$$
+
+The degrees of $f'(x)$ are `r fpd`. If we add 1 to each, we get the new degrees.
+
+$$f(x)=`r fe2`$$
+
+Divide the coefficients of $f'(x)$ by the new degrees.
+
+$$f(x)=`r fe3`$$
+
+Simplify the quotients.
+
+$$f(x)=`r f`$$
+
+Now, use the given solution $f(`r h`)=`r k`$.
+
+
+$$`r k`=`r fath`$$
+
+Simplify.
+
+
+$$`r k`=`r fath2`$$
+
+So,
+
+$$C=`r C`$$
+
+And we have the antiderivative.
+
+$$f(x)=`r ff`$$
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r paste0(sols,collapse="|")`
+exname: antiderivative

@@ -1,0 +1,160 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+while(T){
+  n = sample(16:25,2)
+  n1 = n[1]
+  n2 = n[2]
+  sigma1 = runif(1,10,50)
+  sigma2 = sigma1*runif(1,0.6,1/0.6)
+  se = sqrt(sigma1^2/n[1]+sigma2^2/n[2])
+  me = 2*se
+  mu1 = runif(1,200,600)
+  mu2 = mu1+sample(c(-1,1),1)*me
+  x1 = round(rnorm(n1,mu1,sigma1),1)
+  x2 = round(rnorm(n2,mu2,sigma2),1)
+  xbar1 = mean(x1)
+  xbar2 = mean(x2)
+  xbar1r = round(xbar1,1)
+  xbar2r = round(xbar2,1)
+  s1 = sd(x1)
+  s2 = sd(x2)
+  s1r = round(s1,1)
+  s2r = round(s2,1)
+  df = (s1^2/n1+s2^2/n2)^2/(s1^4/n1^2/(n1-1)+s2^4/n2^2/(n2-1))
+  t = abs(xbar1-xbar2)/sqrt(s1^2/n1+s2^2/n2)
+  cump = pt(t,df)
+  pval = 2*(1-cump)
+  if(pval<0.2 & pval>0.005 & abs(pval-0.05)>0.01){break}
+}
+
+x1rep = x1
+x2rep = x2
+
+if(pval<0.05){
+  ans2="10"
+  s2="The $p$-value is less than 0.05, so the result is significant."
+} else {
+  ans2="01"
+  s2="The $p$-value is more than 0.05, so the result is NOT significant."
+}
+
+default_source_hook <- knitr::knit_hooks$get('source')
+knitr::knit_hooks$set(source = function(xx, options) {
+  xx <- gsub('x1rep',paste(x1,collapse=","),xx)
+  xx <- gsub('x2rep',paste(x2,collapse=","),xx)
+  default_source_hook(xx, options)
+})
+
+```
+
+Question
+========
+
+A doctor runs a [controlled experiment](https://en.wikipedia.org/wiki/Randomized_controlled_trial){target="blank"}. The participants are randomly assigned to two groups: control and treatment. The participants in the control group are given a [placebo](https://en.wikipedia.org/wiki/Placebo-controlled_study){target="blank"}. The participants in the treatment group are given a drug. After several months, each participant's triglyceride level is measured (in mg/dL). 
+
+```{r}
+len = max(n1,n2)
+if(n1>n2){
+  x1d = x1
+  x2d = c(x2,rep(NA,n1-n2))
+  x1s = sprintf(x1, fmt = '%#.2f')
+  x2s = c(sprintf(x2, fmt = '%#.2f'),rep("      ",n1-n2))
+} else {
+  x2d = x2
+  x1d = c(x1,rep(NA,n2-n1))
+  x2s = sprintf(x2, fmt = '%#.2f')
+  x1s = c(sprintf(x1, fmt = '%#.2f'),rep("      ",n2-n1))
+}
+data = data.frame(x1d,x2d)
+colnames(data) = c("x1","x2")
+```
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab_data, echo=FALSE, results="asis"}
+opts <- options(knitr.kable.NA = "")
+knitr::kable(data,format="html", align = "cccc",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+
+You are asked to perform a two-tail [two-sample Welch's $t$ test](https://en.wikipedia.org/wiki/Welch%27s_t-test){target="blank"} to determine whether there is a significant difference of means in the two samples.
+
+
+* Determine the $p$-value. Answers within a tolerance of 0.005 will be accepted.
+
+
+Solution
+========
+
+Use a spreadsheet. Copy the data over to a [new sheet](https://sheets.new).
+
+```{r}
+spacer=rep("",length(x1d))
+eq = c("","=T.TEST(A:A,B:B,2,3)",rep("",length(x1d)-2))
+sol = data.frame(x1d,x2d,spacer,eq)
+colnames(sol)=c("x1","x2","","")
+```
+
+You just need to use `T.TEST` with the proper settings. 
+
+```{r fig.height=5,fig.width=6}
+draw_ss = function(df,widths=rep(1,length(df[1,])+1)){
+  xline = c(0,cumsum(widths)/sum(widths))
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  xtex = (xline[2:(ncol+2)]+xline[1:(ncol+1)])/2
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+2)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  #xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=xline)
+  abline(v=xline[2],lwd=3)
+  for(i in 2:(ncol+1)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+    text(xtex[i],ytex[2],colnames(df)[i-1])
+  }    
+  for(i in 2:(nrow+2)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+2],df[i,j])
+    }
+  }
+}
+draw_ss(sol[1:9,],c(0.4,1,1,0.5,3))
+```
+\
+
+
+Meta-information
+================
+extype: num
+exsolution: `r pval`
+exname: hypothesis test 2 means
+extol: 0.005

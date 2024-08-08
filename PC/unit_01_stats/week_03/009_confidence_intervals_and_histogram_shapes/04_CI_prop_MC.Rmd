@@ -1,0 +1,99 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+while(T){
+  p = round(runif(1,0.1,0.9),3)
+  n = sample(40:300,1)
+  phat = round(mean((runif(n)<p)*1),3)
+  p = phat
+  xbar = phat
+  s = sqrt(phat*(1-phat))
+  
+  LB = round(xbar-2*s/sqrt(n),3)
+  UB = round(xbar+2*s/sqrt(n),3)
+  
+  lba = round(xbar-2*s/n,3)
+  uba = round(xbar+2*s/n,3)
+  lbb = round(xbar-s/sqrt(n),3) 
+  ubb = round(xbar+s/sqrt(n),3)
+  lbc = round(xbar-2*s,3)
+  ubc = round(xbar+2*s,3)
+  lbd = round(xbar-s,3)
+  ubd = round(xbar+s,3)
+  lbe = round(xbar-4*s/sqrt(n),3)
+  ube = round(xbar+4*s/sqrt(n),3)
+  lbf = round(xbar-s/sqrt(n)/2,3)
+  ubf = round(xbar+s/sqrt(n)/2,3)
+  lbh = round(xbar-s/sqrt(n)/4,3)
+  ubh = round(xbar+s/sqrt(n)/4,3)
+  
+  tightlb = c(lba,lbb,lbf,lbh)
+  tightub = c(uba,ubb,ubf,ubh)
+  widelb = c(lbc,lbd,lbe)
+  wideub = c(ubc,ubd,ube)
+  
+  posright = sample(1:4,1)
+  
+  tightpicks = sample(1:length(tightlb),posright-1)
+  widepicks = sample(1:length(widelb),4-posright)
+  
+  ansli1 = sort(c(tightlb[tightpicks],LB,widelb[widepicks]))
+  ansli2 = sort(c(tightub[tightpicks],UB,wideub[widepicks]))
+  
+  s1 = paste0((ansli1==LB)*1,collapse="")
+  s2 = paste0((ansli2==UB)*1,collapse="")
+  if(length(unique(ansli1))==4){break}
+}
+```
+
+Question
+========
+
+A pollster is trying to determine the [proportion](https://en.wikipedia.org/wiki/Population_proportion){target="_blank"} of likely voters who are still undecided (*note: in Statistics, the definition of "proportion" is distinct from other definitions; it refers to a quotient of counts, part over whole, giving a number between 0 and 1*.) They randomly select `r n` likely voters, and in that sample `r phat*100`% are still undecided. The pollster wishes to calculate the boundaries of a [confidence interval of the proportion](https://en.wikipedia.org/wiki/Population_proportion#Estimation){target="_blank"}.
+
+Proportions are a special case: an average of 0s (not undecided) and 1s (undecided). In this special case, the single parameter (sample proportion $\hat{p}=`r phat`$) determines the sample mean $\bar{x}$ and the sample standard deviation $s$.
+
+$$\bar{x} = \hat{p}$$
+
+$$s = \sqrt{\hat{p}(1-\hat{p})} $$
+
+The approximate formula to calculate the boundaries of a confidence interval remains the same, except [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction){target="_blank"} is not used to calculate $s$ (due to a complicated argument involving [degrees of freedom](https://en.wikipedia.org/wiki/Degrees_of_freedom_(statistics)){target="_blank"} and because both $\bar{x}$ and $s$ are determined from ${\hat{p}}$).
+$$\text{CI boundaries} = \bar{x} \pm \frac{2s}{\sqrt{n}}$$
+
+This formula can also be rewritten in terms of $\hat{p}$.
+$$\text{CI boundaries (proportion)} = \hat{p} \pm 2 \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+**Calculate the confidence-interval boundaries**.
+
+The confidence interval is [##ANSWER1##, ##ANSWER2##].
+
+
+Answerlist
+--------
+* `r ansli1[1]`
+* `r ansli1[2]`
+* `r ansli1[3]`
+* `r ansli1[4]`
+* `r ansli2[1]`
+* `r ansli2[2]`
+* `r ansli2[3]`
+* `r ansli2[4]`
+
+
+Solution
+========
+
+First calculate the sample standard deviation. $s = \sqrt{`r phat`(1-`r phat`)} = `r s`$.
+
+* Lower bound = $`r xbar`-2(`r s`)/\sqrt{`r n`} ~=~ `r LB`$
+* Upper bound = $`r xbar`+2(`r s`)/\sqrt{`r n`} ~=~ `r UB`$
+
+$$\left[`r LB`,\, `r UB`\right] $$
+
+
+Meta-information
+================
+extype: cloze
+exsolution: `r s1`|`r s2`
+exclozetype: schoice|schoice
+exname: confidence interval simple MC

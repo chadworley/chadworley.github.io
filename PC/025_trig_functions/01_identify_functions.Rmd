@@ -1,0 +1,120 @@
+```{r,echo=F,warning=F}
+names = c("sin(x)","cos(x)","tan(x)","csc(x)","sec(x)","cot(x)",
+          "arcsin(x)","arccos(x)","arctan(x)",
+          "arccsc(x)","arcsec(x)","arccot(x)")
+dx = 14/(1001-1)
+xs = seq(-7,7,length.out=10000)
+ys = list(sin(xs),cos(xs),tan(xs),1/sin(xs),1/cos(xs),1/tan(xs),
+          asin(xs),acos(xs),atan(xs),asin(1/xs),acos(1/xs),atan(1/xs)+abs(sign(xs)-1)/2*pi)
+
+ord1 = sample(1:12)
+
+ys2 = ys[ord1]
+
+al = paste0("* y = ",names,"\n",collapse="")
+
+tal = paste0(rep(al,12),collapse="\n")
+
+sols = character()
+for(i in 1:12){
+  sols = c(sols,paste0(1*(ord1[i]==1:12),collapse=""))
+}
+tsols = paste0(sols,collapse="|")
+ttyps = paste0(rep("schoice",12),collapse="|")
+```
+
+Question
+========
+
+Match each plot with its function. Different sources define `arccot` with different ranges. I've followed the `arccot` defined by Desmos and [wikipedia](https://en.wikipedia.org/wiki/Inverse_trigonometric_functions#Relationships_among_the_inverse_trigonometric_functions), with a range of $\left[0,\pi\right]$, not $\left[\frac{-\pi}{2},\,\frac{\pi}{2}\right]$. This choice gives a continuous function, but means that when $m<0$, $\arctan(\frac{1}{m})\ne \mathrm{arccot}(m)$. The other possible definition (not used here) is seen on [Wolfram Alpha](https://www.wolframalpha.com/input/?i=arccot+x).
+
+
+```{r,echo=F,fig.dim=c(5,5),results='asis'}
+for(i in 1:length(names)){
+  par(pty="s")
+  cat(paste0("## Plot ",i,"\n",collapse=""))
+  plot(0,0,type="n",xlim=c(-7,7),ylim=c(-7,7),
+       xlab="x",ylab="y")
+  arrows(-7.5,0,7.5,0,length=0.1,angle=20,code=3)
+  arrows(0,-7.5,0,7.5,length=0.1,angle=20,code=3)
+  x = xs
+  y = ys2[[i]]
+  spots = !is.nan(y)
+  x = x[spots]
+  y = y[spots]
+  spots = abs(y)<10
+  x = x[spots]
+  y = y[spots]
+  beg1 = c(1,which(diff(x)>1.1*dx),length(x))
+  if(length(beg1)<2){
+    lines(x,y)
+  } else {
+    for(j in 1:(length(beg1)-1)){
+      lines(x[(beg1[j]+1):(beg1[j+1]-1)],
+            y[(beg1[j]+1):(beg1[j+1]-1)],col="blue",lwd=2)
+    }
+  }
+  
+  
+  cat(paste0("##ANSWER",i,"##\n\n",collapse=""))
+}
+```
+\
+
+Answerlist
+--------
+
+`r tal`
+
+
+
+Solution
+========
+
+I'd recommend using a graphing utility, like [Desmos](https://www.desmos.com/calculator).
+
+<!-- Here are the solutions: -->
+
+<!-- ```{r,echo=F,fig.dim=c(5,5),results='asis'} -->
+<!-- for(i in 1:length(names)){ -->
+<!--   par(pty="s") -->
+<!--   cat(paste0("### Plot ",i,"\n",collapse="")) -->
+<!--   plot(0,0,type="n",xlim=c(-7,7),ylim=c(-7,7), -->
+<!--        xlab="x",ylab="y") -->
+<!--   arrows(-7.5,0,7.5,0,length=0.1,angle=20,code=3) -->
+<!--   arrows(0,-7.5,0,7.5,length=0.1,angle=20,code=3) -->
+<!--   x = xs -->
+<!--   y = ys2[[i]] -->
+<!--   spots = !is.nan(y) -->
+<!--   x = x[spots] -->
+<!--   y = y[spots] -->
+<!--   spots = abs(y)<10 -->
+<!--   x = x[spots] -->
+<!--   y = y[spots] -->
+<!--   beg1 = c(1,which(diff(x)>1.1*dx),length(x)) -->
+<!--   if(length(beg1)<2){ -->
+<!--     lines(x,y) -->
+<!--   } else { -->
+<!--     for(j in 1:(length(beg1)-1)){ -->
+<!--       lines(x[(beg1[j]+1):(beg1[j+1]-1)], -->
+<!--             y[(beg1[j]+1):(beg1[j+1]-1)],col="blue",lwd=2) -->
+<!--     } -->
+<!--   } -->
+
+<!--   cat("\n") -->
+<!--   cat("y = ") -->
+<!--   cat(names[ord1[i]]) -->
+<!--   cat("\n\n") -->
+<!-- } -->
+<!-- ``` -->
+<!-- \ -->
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r ttyps`
+exsolution: `r tsols`
+exname: identify_functions

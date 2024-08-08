@@ -1,0 +1,85 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  exp = gsub("x^{0}","",exp,fixed=T)
+  exp = gsub("x^{1}","x",exp,fixed=T)
+  exp = gsub("{1}x","x",exp,fixed=T)
+  exp = gsub("{-1}x","-x",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  ps = sort(sample(3:10,2))
+  cs = sample(2:9,2)
+  A = cs[1]
+  B = cs[2]
+  q = ps[1]
+  r = ps[2]
+  C = A*q
+  D = B*r
+  s = q-1
+  t = r-1
+  exp = paste0(A,"x^{",q,"}-",B,"x^{",r,"}",collapse="")
+  dexp = paste0(A*q,"x^{",q-1,"}-",B*r,"x^{",r-1,"}",collapse="")
+  dexp2 = paste0("(",A*q,"-",B*r,"x^{",r-q,"})x^{",q-1,"}",collapse="")
+  dexp3 = paste0(A*q,"-",B*r,"x^{",r-q,"}",collapse="")
+  eq1 = paste0(A*q,"=",B*r,"x^{",r-q,"}",collapse="")
+  eq2 = paste0("\\frac{",A*q,"}{",B*r,"}=x^{",r-q,"}",collapse="")
+  if(r-q>2){
+    eq3 = paste0("\\sqrt[",r-q,"]{\\frac{",A*q,"}{",B*r,"}}=x",collapse="")
+  } else {
+    eq3 = paste0("\\sqrt{\\frac{",A*q,"}{",B*r,"}}=x",collapse="")
+  }
+  eq4 = paste0("x=\\left(\\frac{",A*q,"}{",B*r,"}\\right)^{1/",r-q,"}")
+  sol = (A*q/B/r)^(1/(r-q))
+  # u' = Aq*x^(q-1)-Br*x^(r-1)
+  if(t-s>1 && sol>0.1 && sol<10){
+    break
+  }
+}
+
+
+```
+
+Question
+========
+
+A chef is deciding how much salt to add to a dish. They've determined that [utility](https://en.wikipedia.org/wiki/Utility) ($u$ in "utils") is a function of the mass of salt ($x$ in grams).
+
+$$u(x) = `r exp`$$
+
+What is the optimal mass of salt to maximize utility? (You can assume only positive amounts of salt are possible. The tolerance is $\pm0.01$ grams.)
+
+Solution
+========
+
+We were given $u(x) = `r exp`$. Differentiate to find derivative function.
+
+$$u'(x) = `r dexp`$$
+
+Set the derivative function equal to 0 to find extrema.
+
+$$`r dexp` = 0$$
+Factor out $x^{`r q-1`}$.
+
+$$`r dexp2` = 0$$
+
+We are not interested in when $x=0$. So, we can just consider the other factor.
+$$`r dexp3` = 0$$
+$$`r eq1`$$
+$$`r eq2`$$
+$$`r eq3`$$
+
+So...
+
+$$`r eq4`$$
+
+$$x = `r sol`$$
+
+Meta-information
+============
+extype: num
+exsolution: `r sol`
+exname: optimize_salt
+extol: 0.01

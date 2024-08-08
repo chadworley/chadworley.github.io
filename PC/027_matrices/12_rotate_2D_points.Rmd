@@ -1,0 +1,121 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+while(T){
+  n = sample(8:12,1)
+  points = matrix(sample(-7:7,n*2,T),2)
+  ps = character()
+  for(i in 1:n){
+    ps = c(ps,paste0(points[1:2,i]))
+  }
+  theta = round(runif(4,0.1,2*pi-0.1),2)
+  R = matrix(c(cos(theta),-sin(theta),sin(theta),cos(theta)),nrow=2,byrow = T)
+  if(min(diff(sort(theta)))>0.4 && length(unique(ps))==n){break}
+}
+whth = sample(1:4,1)
+th = theta[whth]
+P = points
+
+sol = paste0(1*(1:4==whth),collapse="")
+
+```
+
+Question
+========
+
+## Matrix of original points (preimage)
+
+A list of 2D-cartesian points is stored as the preimage matrix. Each column represents one point.
+
+$$P = `r matpr(points)`$$
+
+```
+P = matrix(`r matcc(points)`)
+```
+
+## Rotation matrix
+
+We want to rotate the points by $\theta=`r th`$ radians counterclockwise. We will do this by [matrix multiplication with the 2D rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix).
+
+$$R = \begin{bmatrix}\cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta) \end{bmatrix}$$
+
+## Image
+
+We can apply the rotation to the points through matrix multiplication. Remember, matrix multiplication is not commutative. Let $T$ represent a matrix holding the final positions of the image (after the transformation).
+
+$$T = RP$$
+
+After you calculate $T$, you can plot the points in $T$ with the following code (in SageMath):
+
+```
+point(T.transpose(),xmin=-10,xmax=10,ymin=-10,ymax=10,size=50)
+```
+
+Which is the graph of the points in $T$? (Please excuse minor stylistic differences due to my graphs being made in R, not SageMath.)
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(mfrow=c(2,2),pty="s")
+for(i in 1:4){
+  tht = theta[i]
+  R = matrix(c(cos(tht),-sin(tht),sin(tht),cos(tht)),2,byrow = T)
+  tm = R%*%P
+  plot(0,0,type="n",axes=T,ann=T,main=c("A","B","C","D")[i],
+       xlim=c(-10,10),ylim=c(-10,10),xlab="x",ylab="y")
+  abline(h=0)
+  abline(v=0)
+  points(tm[1,],tm[2,],pch=20,cex=2,col="blue")
+}
+
+```
+\
+
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+
+
+Solution
+========
+
+
+```
+P = matrix(`r matcc(points)`)
+theta = `r th`
+R = matrix([[cos(theta),-sin(theta)],
+            [sin(theta),cos(theta)]])
+T = R*P
+point(T.transpose(),xmin=-10,xmax=10,ymin=-10,ymax=10,size=50)
+```
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: rotate_2D

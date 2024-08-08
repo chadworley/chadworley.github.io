@@ -1,0 +1,91 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+deg = sample(5:8,1)
+cf = sample(c(-10:-2,2:10),deg+1)
+exps = deg:0
+ex = paste0(cf,"x^",exps,collapse="+")
+ex = gsub("x^0","",ex,fixed=TRUE)
+ex = gsub("x^1","x",ex,fixed=TRUE)
+ex = gsub("+-","-",ex,fixed=TRUE)
+
+if(deg%%2==0 && cf[1]>0){
+  sol1 = "01"
+  sol2 = "01"
+  oddeven = "even"
+  posneg = "positive"
+  leb = "\\infty"
+  reb = "\\infty"
+  lsy = ""
+  rsy = ""
+}
+if(deg%%2==0 && cf[1]<0){
+  sol1 = "10"
+  sol2 = "10"
+  oddeven = "even"
+  posneg = "negative"
+  leb = "-\\infty"
+  reb = "-\\infty"
+  lsy = ""
+  rsy = ""
+}
+if(deg%%2==1 && cf[1]>0){
+  sol1 = "10"
+  sol2 = "01"
+  oddeven = "odd"
+  posneg = "positive"
+  leb = "-\\infty"
+  reb = "\\infty"
+  lsy = "-"
+  rsy = ""
+}
+if(deg%%2==1 && cf[1]<0){
+  sol1 = "01"
+  sol2 = "10"
+  oddeven = "odd"
+  posneg = "negative"
+  leb = "\\infty"
+  reb = "-\\infty"
+  lsy = "-"
+  rsy = ""
+}
+```
+
+Question
+========
+
+$$f(x) = `r ex`$$
+
+### Your answers:
+
+* Left end behavior: $\lim\limits_{x\to-\infty}f(x)=$ ##ANSWER1##
+* Right end behavior: $\lim\limits_{x\to\infty}f(x)=$ ##ANSWER2## 
+
+Answerlist
+-------
+* negative infinity
+* positive infinity
+* negative infinity
+* positive infinity
+
+Solution
+========
+
+As $x$ heads toward $-\infty$ or $\infty$, the [highest-degree](https://en.wikipedia.org/wiki/Degree_of_a_polynomial) term dominates. So, the end behavior is dictated by the $`r cf[1]`x^`r deg`$ term. There are two characteristics of two parameters to consider:
+
+* The [sign](https://en.wikipedia.org/wiki/Sign_(mathematics)) of the leading coefficient. In this case, `r cf[1]` is `r posneg`.
+* The [parity](https://en.wikipedia.org/wiki/Parity_(mathematics)) of the exponent. In this case, `r deg` is `r oddeven`.
+
+So,
+$$\lim\limits_{x\to-\infty}f(x) = `r cf[1]`(-\infty)^{`r deg`} = (`r cf[1]`)(`r lsy`\infty) = `r leb`$$
+$$\lim\limits_{x\to\infty}f(x) = `r cf[1]`(\infty)^{`r deg`} = (`r cf[1]`)(`r rsy`\infty)  = `r reb`$$
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: polynomial_ends

@@ -1,0 +1,19 @@
+
+```{r}
+nsam = 1000
+nreps = 1000
+X = c(-1,1)
+muX = mean(X)
+varX = sum((X-muX)^2)/length(X)
+x = matrix(sample(c(-1,1),nsam*nreps,T),nreps)
+xsum = apply(x,1,cumsum)
+mymax = 1 #max(abs(xsum))
+plot(0,0,type="n",xlim=c(0,nsam),ylim=c(-mymax,mymax))
+for(i in 1:nreps){
+  lines(1:nsam,xsum[,i]/1:nsam,col=rgb(0,0,0,0.1))
+}
+t = 1:nsam
+lines(t,2*varX/sqrt(t),col="red")
+lines(t,-2*varX/sqrt(t),col="red")
+print(xsum[,1]/1:nsam)
+```

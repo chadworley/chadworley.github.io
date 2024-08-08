@@ -1,0 +1,151 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("(x-0)","x",exp,fixed=T)
+  exp = gsub("(y-0)","y",exp,fixed=T)
+  return(exp)
+}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+trips = list(c(3,4,5),
+             c(5,12,13),
+             c(8,15,17),
+             c(7,24,25),
+             c(20,21,29),
+             c(12,35,37),
+             c(9,40,41),
+             c(28,45,53),
+             c(11,60,61),
+             c(16,63,65),
+             c(33,56,65),
+             c(48,55,73),
+             c(13,84,85),
+             c(36,77,85),
+             c(39,80,89),
+             c(65,72,97))
+
+while(T){
+  whichi = sample(1:length(trips),1)
+  trip = trips[[whichi]]
+  maxmult = floor(100/trip[3])
+  mult = sample(1:maxmult,1)
+  trip = mult*trip
+  a = trip[3]/10
+  www = sample(1:2,2)
+  b = trip[www[1]]/10
+  c = trip[www[2]]/10
+  if(a>5 && c/a<0.9){break}
+}
+
+```
+
+Question
+========
+
+A gardener is making an ellipse using the [pins and string method](https://en.wikipedia.org/wiki/Ellipse#Pins-and-string_method). She wants the length of the major axis to be `r 2*a` meters and the length of the minor axis to be `r 2*b` meters.
+
+How far apart should the stakes be placed?
+
+
+Solution
+========
+
+If the major axis is `r 2*a` meters long, then the string is `r 2*a` meters long; divide by 2 to find $a$.
+
+$$a = \frac{`r 2*a`}{2} = `r a`$$
+
+The length minor axis is `r 2*b` meters. Divide this by two to find the length of the semi-minor axis (the shorter radius).
+
+$$b = \frac{`r 2*b`}{2} = `r b`$$
+
+Draw a diagram
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2)
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2)
+th = seq(0,2*pi,length.out=1000)
+x = a*cos(th)
+y = b*sin(th)
+polygon(x,y,border="blue")
+points(c(-c,c),c(0,0),col="red",pch=19)
+lines(c(-c,0),c(0,b),col="darkgreen")
+th = atan(b/c)
+text(-c/2+0.3*cos(th+pi/2),
+     b/2+0.3*sin(th+pi/2),
+     a,
+     srt=th/pi*180,col="darkgreen")
+lines(c(c,0),c(0,b),col="darkgreen")
+th = atan(b/c)
+text(c/2+0.3*cos(-th+pi/2),
+     b/2+0.3*sin(-th+pi/2),
+     a,
+     srt=-th/pi*180,col="darkgreen")
+lines(c(0,c),c(0,0),col="red",lwd=2)
+text(c/2,-0.3,"c",col="red")
+lines(c(0,0),c(0,b),col="purple",lwd=2)
+text(-0.1,b/2,b,col="purple",adj=1)
+```
+\
+
+Notice the right triangle. We know two sides, and we are hoping to find the third side. Use [Pythagorean Equation](https://en.wikipedia.org/wiki/Pythagorean_theorem).
+
+$$`r b`^2+c^2=`r a`^2 $$
+
+$$c^2=`r a`^2-`r b`^2$$
+
+$$c^2=`r a^2`-`r b^2`$$
+
+
+$$c^2=`r a^2-b^2`$$
+
+$$c=\sqrt{`r a^2-b^2`}$$
+
+$$c=`r c`$$
+
+The distance between the stakes is $2c$.
+
+$$2c=`r 2*c`$$
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="grey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="grey")
+th = seq(0,2*pi,length.out=1000)
+x = a*cos(th)
+y = b*sin(th)
+polygon(x,y,border="blue")
+points(c(-c,c),c(0,0),col="red",pch=19)
+lines(c(-c,c),c(0,0),lwd=3,col="darkorange")
+text(0,0.1,2*c,col="darkorange",cex=2,adj=c(0.5,0))
+```
+\
+
+I should also mention that if $x^2+y^2=z^2$, then $(2x)^2+(2y)^2=(2z)^2$. This implies we can also get our answer without halving and doubling.
+
+$$2c = \sqrt{(2a)^2-(2b)^2} = \sqrt{`r 2*a`^2-`r 2*b`^2} = `r 2*c`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r 2*c`
+exname: pins_string_get_stakes

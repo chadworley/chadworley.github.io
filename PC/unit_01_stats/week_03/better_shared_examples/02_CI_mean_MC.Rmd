@@ -1,0 +1,89 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+while(T){
+  xbar = round(runif(1,10,100),1)
+  s = round(runif(1,xbar/6,xbar/3),1)
+  n = sample(40:300,1)
+  LB = round(xbar-2*s/sqrt(n),1)
+  UB = round(xbar+2*s/sqrt(n),1)
+  
+  lba = round(xbar-2*s/n,1)
+  uba = round(xbar+2*s/n,1)
+  lbb = round(xbar-s/sqrt(n),1) 
+  ubb = round(xbar+s/sqrt(n),1)
+  lbc = round(xbar-2*s,1)
+  ubc = round(xbar+2*s,1)
+  lbd = round(xbar-s,1)
+  ubd = round(xbar+s,1)
+  lbe = round(xbar-4*s/sqrt(n),1)
+  ube = round(xbar+4*s/sqrt(n),1)
+  lbf = round(xbar-s/sqrt(n)/2,1)
+  ubf = round(xbar+s/sqrt(n)/2,1)
+  lbh = round(xbar-s/sqrt(n)/4,1)
+  ubh = round(xbar+s/sqrt(n)/4,1)
+  
+  tightlb = c(lba,lbb,lbf,lbh)
+  tightub = c(uba,ubb,ubf,ubh)
+  widelb = c(lbc,lbd,lbe)
+  wideub = c(ubc,ubd,ube)
+  
+  posright = sample(1:4,1)
+  
+  tightpicks = sample(1:length(tightlb),posright-1)
+  widepicks = sample(1:length(widelb),4-posright)
+  
+  ansli1 = sort(c(tightlb[tightpicks],LB,widelb[widepicks]))
+  ansli2 = sort(c(tightub[tightpicks],UB,wideub[widepicks]))
+  
+  s1 = paste0((ansli1==LB)*1,collapse="")
+  s2 = paste0((ansli2==UB)*1,collapse="")
+  if(length(unique(ansli1))==4){break}
+}
+```
+
+Question
+========
+
+A scientist has weighed `r n` specimens of a newly discovered organism. Those weights have a [*sample mean*](https://en.wikipedia.org/wiki/Sample_mean_and_covariance#Definition_of_the_sample_mean){target="_blank"} equaling $\bar{x} =`r xbar`$ grams and a [sample standard deviation](https://en.wikipedia.org/wiki/Unbiased_estimation_of_standard_deviation#Motivation){target="_blank"} equaling $s=`r s`$ grams. The scientist hopes to construct a 95% [**confidence interval**](https://en.wikipedia.org/wiki/Confidence_interval){target="blank"} of the organism's [*population mean*](https://en.wikipedia.org/wiki/Statistical_population#Mean){target="_blank"} ($\mu$).
+
+The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
+$$\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} $$
+
+
+The lower boundary is ##ANSWER1##.
+
+The upper boundary is ##ANSWER2##.
+
+
+Answerlist
+--------
+* `r ansli1[1]`
+* `r ansli1[2]`
+* `r ansli1[3]`
+* `r ansli1[4]`
+* `r ansli2[1]`
+* `r ansli2[2]`
+* `r ansli2[3]`
+* `r ansli2[4]`
+
+
+Solution
+========
+
+
+Plug the numbers into the expressions.
+
+* Lower bound = $`r xbar`-2(`r s`)/\sqrt{`r n`} ~=~ `r LB`$
+* Upper bound = $`r xbar`+2(`r s`)/\sqrt{`r n`} ~=~ `r UB`$
+
+Using [interval notation](https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals){target="_blank"}, the 95% confidence interval is [`r LB`, `r UB`].
+
+
+Meta-information
+================
+extype: cloze
+exsolution: `r s1`|`r s2`
+exclozetype: schoice|schoice
+exname: confidence interval mean MC

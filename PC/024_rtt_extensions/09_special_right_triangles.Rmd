@@ -1,0 +1,259 @@
+```{r,echo=F}
+while(T){
+  tt = sample(1:2,1)
+  ss = sample(1:3,2)
+  ks = ss[1]
+  ws = ss[2]
+  shouldpass = TRUE
+  if(tt==1 && ks==1 && ws==2){shouldpass=FALSE}
+  if(tt==1 && ks==2 && ws==1){shouldpass=FALSE}
+  if(shouldpass){break}
+}
+ksl = sample(111:999,1)/100
+if(tt==1 && (ks==1 || ks==2)){
+  a = ksl
+  b = ksl
+  c = ksl*sqrt(2)
+}
+if(tt==1 && ks==3){
+  a = ksl/sqrt(2)
+  b = ksl/sqrt(2)
+  c = ksl
+}
+if(tt==2 && ks==1){
+  a = ksl
+  b = ksl*sqrt(3)
+  c = 2*ksl
+}
+if(tt==2 && ks==2){
+  a = ksl/sqrt(3)
+  b = ksl
+  c = 2*a
+}
+if(tt==2 && ks==3){
+  a = ksl/2
+  b = a*sqrt(3)
+  c = ksl
+}
+sol = c(a,b,c)[ws]
+
+if(tt==1){
+  giv = c("leg length","leg length","hypotenuse length")[ks]
+  ask = c("leg length","leg length","hypotenuse length")[ws]
+  ttx = "45°-45°-90°"
+}
+if(tt==2){
+  giv = c("short-leg length","long-leg length","hypotenuse length")[ks]
+  ask = c("short-leg length","long-leg length","hypotenuse length")[ws]
+  ttx = "30°-60°-90°"
+}
+```
+
+Question
+========
+
+A [`r ttx` right triangle](https://en.wikipedia.org/wiki/Special_right_triangle#Angle-based) has `r giv` of `r ksl` meters. 
+
+```{r,fig.dim=c(5,5),echo=FALSE}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+bump = a/20
+plot(c(0,b,b,0),c(0,0,a,0),type="l",col="black",axes=F,ann=F,xlim=c(0-2*bump,b+2*bump),ylim=c(0-2*bump,b+2*bump))
+lines(c(b-bump,b-bump,b),c(0,bump,bump))
+th = atan(a/b)
+if(ks==1){
+  text(b+bump,a/2,a,srt=90)
+}
+if(ks==2){
+  text(b/2,-bump,b)
+}
+if(ks==3){
+  text(b/2+bump*cos(th+pi/2),a/2+bump*sin(th+pi/2),
+     c,srt=th/pi*180)
+}
+if(ws==1){
+  text(b+bump,a/2,"?",srt=90)
+}
+if(ws==2){
+  text(b/2,-bump,"?")
+}
+if(ws==3){
+  text(b/2+bump*cos(th+pi/2),a/2+bump*sin(th+pi/2),
+     "?",srt=th/pi*180)
+}
+ths = seq(0,th,length.out=30)
+lines(2*bump*cos(ths),2*bump*sin(ths),col="red")
+if(abs(th-pi/6)<0.01){ang="30°"}else{ang="45°"}
+text(4*bump*cos(th/2),4*bump*sin(th/2),ang,col="red")
+```
+\
+
+Find the `r ask` in meters. The tolerance is $\pm0.01$ meters.
+
+
+Solution
+========
+
+You should be able to derive the side-length ratios of 45°-45°-90° triangles and 30°-60°-90° triangles by using Pythagorean Theorem.
+
+### 45-45-90
+
+A 45°-45°-90° triangle's ratios are easy to derive. Because it is [isosceles](https://en.wikipedia.org/wiki/Isosceles_triangle), both legs are congruent. We can use $x$ to represent the length of a leg and $c$ to represent the length of the hypotenuse.
+
+```{r,fig.dim=c(5,5),echo=F}
+par(mar=c(0,0,0,0),pty="s")
+plot(c(0,1,1,0),c(0,0,1,0),type="l",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+lines(c(0.96,0.96,1),c(0,0.04,0.04))
+text(0.5,-0.05,"x")
+text(1.05,0.5,"x")
+text(0.5+0.05*cos(3*pi/4),0.5+0.05*sin(3*pi/4),"c")
+```
+\
+
+If we use Pythagorean Theorem:
+
+$$x^2+x^2 = c^2$$
+Combine similar terms.
+
+$$2x^2 = c^2$$
+
+Take the square root of both sides.
+
+$$\sqrt{2x^2} = \sqrt{c^2}$$
+
+Simplify.
+
+$$\frac{c}{x} = \sqrt{2}$$
+
+Any of the triangles below indicate the ratios of a 45-45-90 triangle.
+
+```{r,fig.dim=c(4,4),echo=F}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(c(0,1,1,0),c(0,0,1,0),type="l",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+lines(c(0.96,0.96,1),c(0,0.04,0.04))
+text(0.5,-0.05,"x")
+text(1.05,0.5,"x")
+text(0.5+0.05*cos(3*pi/4),0.5+0.05*sin(3*pi/4),TeX("$x\\sqrt{2}$"),srt=45)
+```
+\
+
+```{r,fig.dim=c(4,4),echo=F}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(c(0,1,1,0),c(0,0,1,0),type="l",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+lines(c(0.96,0.96,1),c(0,0.04,0.04))
+text(0.5,-0.08,TeX("\\frac{c}{\\sqrt{2}}"),cex=0.7)
+text(1.05,0.5,TeX("\\frac{c}{\\sqrt{2}}"),cex=0.7)
+text(0.5+0.05*cos(3*pi/4),0.5+0.05*sin(3*pi/4),TeX("$c$"),srt=45)
+```
+\
+
+
+```{r,fig.dim=c(4,4),echo=F}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(c(0,1,1,0),c(0,0,1,0),type="l",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+lines(c(0.96,0.96,1),c(0,0.04,0.04))
+text(0.5,-0.08,TeX("\\frac{c\\,\\sqrt{2}}{2}"),cex=0.7)
+text(1.05,0.5,TeX("\\frac{c\\,\\sqrt{2}}{2}"),cex=0.7)
+text(0.5+0.05*cos(3*pi/4),0.5+0.05*sin(3*pi/4),TeX("$c$"),srt=45)
+```
+\
+
+The 3-part ratios can be expressed in various ways.
+
+$$1:1:\sqrt{2}$$
+
+$$\frac{1}{\sqrt{2}} : \frac{1}{\sqrt{2}} : 1$$
+
+$$\frac{\sqrt{2}}{2} : \frac{\sqrt{2}}{2} : 1$$
+
+
+
+### 30-60-90
+
+The ratios of a 30-60-90 triangle are also straight-forward to prove. Begin by drawing an equilateral triangle. Cut the equilateral triangle in half. That half of the equilateral triangle will be a 30-60-90 triangle. In that 30-60-90 triangle, the short leg is half as long as the hypotenuse.
+
+```{r,fig.dim=c(6,6),echo=FALSE}
+par(mar=c(0,0,0,0),pty="s")
+plot(c(0,cos(pi/6),cos(pi/6),0),c(0,sin(pi/6),sin(-pi/6),0),
+     type="l",col="grey",axes=F,ann=F,ylim=c(-0.6,0.6),xlim=c(-0.1,1.1))
+lines(c(0,cos(pi/6),cos(pi/6),0),c(0,0,sin(pi/6),0),lwd=2)
+lines(c(cos(pi/6)-0.04,cos(pi/6)-0.04,cos(pi/6)),c(0,0.04,0.04))
+text(cos(pi/6)+0.05,sin(pi/6)/2,"y")
+text(cos(pi/6)/2+0.05*cos(pi/6+pi/2),sin(pi/6)/2+0.05*sin(pi/6+pi/2),
+     "2y",srt=pi/6/pi*180)
+text(cos(pi/6)/2,-0.05,"b")
+```
+\
+
+Use Pythagorean Theorem:
+
+$$y^2+b^2 = (2y)^2$$
+
+An exponent can distribute over multiplication.
+
+$$y^2+b^2 = 4y^2$$
+
+Subtract $y^2$ from both sides.
+$$b^2 = 3y^2$$
+Square root both sides.
+
+$$b = y\sqrt{3}$$
+
+```{r,fig.dim=c(5,5),echo=FALSE}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(c(0,cos(pi/6),cos(pi/6),0),c(0,sin(pi/6),0,0),
+     type="l",col="grey",axes=F,ann=F,ylim=c(-0.2,0.7),xlim=c(0,0.9))
+lines(c(0,cos(pi/6),cos(pi/6),0),c(0,0,sin(pi/6),0),lwd=2)
+lines(c(cos(pi/6)-0.04,cos(pi/6)-0.04,cos(pi/6)),c(0,0.04,0.04))
+text(cos(pi/6)+0.05,sin(pi/6)/2,"y")
+text(cos(pi/6)/2+0.05*cos(pi/6+pi/2),sin(pi/6)/2+0.05*sin(pi/6+pi/2),
+     "2y",srt=pi/6/pi*180)
+text(cos(pi/6)/2,-0.05,TeX("$y\\sqrt{3}$"))
+
+th = seq(0,pi/6,length.out=30)
+lines(0.1*cos(th),0.1*sin(th),col="red")
+text(0.15*cos(pi/12),0.15*sin(pi/12),"30°",col="red")
+```
+\
+
+The 3-part ratios can be expressed in various ways.
+
+$$1:\sqrt{3}:2$$
+$$\frac{\sqrt{3}}{3} : 1 : \frac{2\sqrt{3}}{3}$$
+
+$$\frac{1}{2} : \frac{\sqrt{3}}{2} : 1$$
+
+### This specific problem
+
+```{r,fig.dim=c(5,5),echo=FALSE}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+bump = a/20
+plot(c(0,b,b,0),c(0,0,a,0),type="l",col="black",axes=F,ann=F,xlim=c(0-2*bump,b+2*bump),ylim=c(0-2*bump,b+2*bump))
+lines(c(b-bump,b-bump,b),c(0,bump,bump))
+text(b+bump,a/2,a,srt=90)
+text(b/2,-bump,b)
+th = atan(a/b)
+text(b/2+bump*cos(th+pi/2),a/2+bump*sin(th+pi/2),
+     c,srt=th/pi*180)
+
+ths = seq(0,th,length.out=30)
+lines(2*bump*cos(ths),2*bump*sin(ths),col="red")
+if(abs(th-pi/6)<0.01){ang="30°"}else{ang="45°"}
+text(4*bump*cos(th/2),4*bump*sin(th/2),ang,col="red")
+```
+\
+
+So, the answer is approximately `r round(sol,2)` meters.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r sol`
+exname: srt
+extol: 0.01

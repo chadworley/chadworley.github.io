@@ -1,0 +1,199 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+latdet = function(A){
+  pra = "\\begin{vmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{vmatrix}")
+  return(pra)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+lataug = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:3],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,'\\end{matrix}
+  \\;\\middle|\\;
+    \\,
+    \\begin{matrix}\n')
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,4:6],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+styleblock = '<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>'
+
+strt = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("")
+  } else {
+    return(as.character(s))
+  }
+}
+
+md = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("+")
+  } else if(s<0){
+    return(as.character(s))
+  } else {
+    return(paste0("+",s,collapse=""))
+  }
+}
+
+html_input_table = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    rs2 = paste0("<td>",rep("!!!",2),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td>",rs2,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+html_input_table_33 = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+prs = function(M,lets=c("x","y","z","q","r","s","t","u","v","w")){
+  s = "\\begin{align*}"
+  for(i in 1:dim(M)[1]){
+    row = ""
+    nc = dim(M)[2]
+    ls = lets[1:(nc-1)]
+    row = paste0(strt(M[i,1]),ls[1],collapse="")
+    for(j in 2:(nc-1)){
+      row = paste0(row,md(M[i,j]),ls[j],collapse="")
+    }
+    row = paste(row,"&=",M[i,nc],"\\\\\n",collapse="")
+    row = sub("0x+","",row,fixed=T)
+    row = sub("0x-","-",row,fixed=T)
+    row = sub("0y+","",row,fixed=T)
+    row = sub("0y-","-",row,fixed=T)
+    row = sub("+0z","",row,fixed=T)
+    row = sub("-0z","",row,fixed=T)
+    s = paste0(s,row,collapse="")
+  }
+  s = paste0(s,"\\end{align*}",collapse="")
+  return(s)
+}
+
+while(T){
+  A = matrix(sample(-9:9,16,T),4)
+  dA = round(det(A),3)
+  if(dA!=0 && sum(c(A)==0)==0 && abs(dA)<1000){break}
+}
+
+```
+
+Question
+========
+
+To find the determinant of a 4x4 (or larger) square matrix, we refer to [a more general definition of a determinant](https://en.wikipedia.org/wiki/Leibniz_formula_for_determinants). 
+
+$$\det(A) ~=~ \sum_{\tau\in S_n}\mathrm{sgn}(\tau) \prod_{i=1}^n a_{i\tau(i)}$$
+
+where $A$ is an $n\times n$ matrix, and $a_{ij}$ is the entry in the $i$-th row and $j$-th column. The [sign function](https://en.wikipedia.org/wiki/Parity_of_a_permutation) $\mathrm{sgn}$  determines whether you multiply by 1 or -1, depending on the parity of the permutation. And $S_n$ refers to the [permutation group](https://en.wikipedia.org/wiki/Permutation_group).
+
+All of that is outside the scope of this class, but digesting the formula above is not super impossible, and it is quite satisfying how the pieces come together. I'd be happy to walk anyone through it.
+
+Anyway, most mortals prefer using a computer to calculate a determinant of matrices bigger than 3x3. In [SageMath](https://sagecell.sagemath.org/), you can use the `det()` function (as either a function, like `det(A)`, or a method, like `A.det()`).
+
+Let $A$ be the 4x4 matrix defined below.
+
+$$A = `r lat(A)`$$
+
+Find $\det(A)$.
+
+
+
+Solution
+========
+
+Use [SageMath](https://sagecell.sagemath.org/).
+
+```
+A = matrix(`r matcc(A)`)
+print(det(A))
+```
+
+$$\det(A) = `r dA`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r dA`
+exname: determinant_4x4

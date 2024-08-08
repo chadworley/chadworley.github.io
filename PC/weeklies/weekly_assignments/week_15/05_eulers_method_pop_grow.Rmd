@@ -1,0 +1,110 @@
+```{r,echo=FALSE}
+options(scipen=99)
+r = round(runif(1,0.01,0.024),3) #per year
+K = sample(7:20,1) #billion
+x0 = round(runif(1,1,3),1) #billion
+dt = 2 #sample(c(0.1,0.5,2,3,5,10),1)
+
+t = c(0)
+x = c(x0)
+
+for(i in 1:105){
+  t = c(t, t[i]+dt)
+  x = c(x, x[i]+r*x[i]*(1-x[i]/K)*dt)
+}
+```
+
+
+Question
+========
+
+The [competitive Lotka–Volterra equation](https://en.wikipedia.org/wiki/Competitive_Lotka%E2%80%93Volterra_equations) is used to simulate population growth.
+
+$$\frac{\Delta x}{\Delta t} = rx\left(1-\frac{x}{K}\right)$$
+
+where $x$ is population count, $t$ is time in years, $r$ is the growth factor, and $K$ is the [carrying capacity](https://en.wikipedia.org/wiki/Carrying_capacity).
+
+For our simulation, use the following values for the initial values and parameters.
+
+* Parameters:
+  * $r=`r r`$ $\mathrm{yr^{-1}}$
+  * $K=`r K`$ billion
+* Initial values:
+  * $x(0) = `r x0`$ billion
+* Euler's method step size:
+  * $\Delta t = `r dt`$ yr
+
+Using Euler's method, we can produce the first few rounds of the simulation.
+
+<style>
+table.brd td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd th{
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd {
+  border: 3px solid black;
+}
+</style>
+
+<table class="brd">
+  <tr>
+    <th>$t$</th>
+    <th>$x$</th>
+    <th>$\Delta t$</th>
+    <th>$\Delta x ~=~ `r r`\cdot x\cdot (1-x/`r K`)\cdot\Delta t$</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>`r x[1]`</td>
+    <td>`r dt`</td>
+    <td>`r x[2]-x[1]`</td>
+  </tr>
+  <tr>
+    <td>`r t[2]`</td>
+    <td>`r x[2]`</td>
+    <td>`r dt`</td>
+    <td>`r x[3]-x[2]`</td>
+  </tr>
+  <tr>
+    <td>`r t[3]`</td>
+    <td>`r x[3]`</td>
+    <td>`r dt`</td>
+    <td>`r x[4]-x[3]`</td>
+  </tr>
+  <tr>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+  </tr>
+</table>
+
+* Continue using Euler's method to estimate the population (in billions) after $t=`r dt*100`$ years. In other words, find $x(`r dt*100`)$. Please answer in billions. For example, enter `9` for 9 billion, not $9\cdot 10^9$ and not $`r 9e9`$. The tolerance is $\pm 0.01$ billion.
+
+Solution
+========
+
+Use a spreadsheet. If your formulas produce the first 3 rows correctly, they should continue to work to find $x(`r dt*100`)=`r x[101]`$ billion.
+
+```{r,echo=F,fig.dim=c(6,6)}
+plot(t,x,type="l")
+```
+\
+
+Correct answer: `r x[101]`
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r x[101]`
+exname: eulers_method_pop_grow
+extol: 0.01

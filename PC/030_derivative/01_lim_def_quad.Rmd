@@ -1,0 +1,113 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  return(exp)
+}
+
+abc = sample(2:10,3)*sample(c(-1,1),3,T)
+a = abc[1]
+b = abc[2]
+c = abc[3]
+quadex = fixer(paste0(a,"t^2+",b,"t+",c))
+
+fracex = fixer(paste0("\\lim_{h\\to 0}\\frac{\\left(",a,"(t+h)^2+",b,"(t+h)+",c,"\\right)-\\left(",a,"t^2+",b,"t+",c,"\\right)}{h}"))
+
+fracex2 = fixer(paste0("\\lim_{h\\to 0}\\frac{",a,"(t+h)^2+",b,"(t+h)+",c,"+",-a,"t^2+",-b,"t+",-c,"}{h}"))
+
+fracex2b = fixer(paste0("\\lim_{h\\to 0}\\frac{",a,"(t^2+2th+h^2)+",b,"(t+h)+",c,"+",-a,"t^2+",-b,"t+",-c,"}{h}"))
+
+fracex3 = fixer(paste0("\\lim_{h\\to 0}\\frac{",a,"t^2+",2*a,"th+",a,"h^2+",b,"(t+h)+",c,"+",-a,"t^2+",-b,"t+",-c,"}{h}"))
+
+fracex4 = fixer(paste0("\\lim_{h\\to 0}\\frac{",a,"t^2+",2*a,"th+",a,"h^2+",b,"t+",b,"h+",c,"+",-a,"t^2+",-b,"t+",-c,"}{h}"))
+
+fracex5 = fixer(paste0("\\lim_{h\\to 0}\\frac{",2*a,"th+",a,"h^2+",b,"h}{h}"))
+
+fracex6 = fixer(paste0("\\lim_{h\\to 0}\\frac{(",2*a,"t+",a,"h+",b,")\\cdot h}{h}"))
+
+fracex7 = fixer(paste0("\\lim_{h\\to 0}\\left(",2*a,"t+",a,"h+",b,"\\right)"))
+
+fracex8 = fixer(paste0(2*a,"t+",a,"\\cdot 0+",b))
+
+fracex9 = fixer(paste0(2*a,"t+",b))
+
+al = -20:20
+sol1 = paste0(1*(al==2*a),collapse="")
+sol2 = paste0(1*(al==b),collapse="")
+al = paste0("* ",al,collapse="\n")
+```
+
+Question
+========
+
+Let $x(t)$ represent a train's position as a function of time. For some train during some period of time, the position can be modeled with a quadratic function.
+
+$$x(t) = `r quadex`$$
+
+The velocity $v(t)$ is also a function of time. The velocity function is the [**derivative**](https://en.wikipedia.org/wiki/Derivative#As_a_limit) (with respect to time) of the position function. The derivative can be defined using a limit.
+
+$$v(t) ~=~ \lim_{h\to 0}\frac{x(t+h)-x(t)}{h}$$
+
+Using this definition (and simplifying), you will find that $v(t)$ is a linear function in time, which depends on the acceleration $a$ and the initial velocity $v_0$.
+
+$$v(t) ~=~ at+v_0$$
+
+Determine $a$ and $v_0$.
+
+* $a=$ ##ANSWER1##
+* $v_0=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+
+$$v(t)~=~`r fracex`$$
+
+We cannot simply replace $h$ with $0$, because we cannot divide by $0$. Instead we will simplify.
+
+Distribute away the outer parentheses.
+
+$$v(t)~=~`r fracex2`$$
+
+Expand the squared sum. (Remember [FOIL](https://en.wikipedia.org/wiki/FOIL_method).)
+
+$$v(t)~=~`r fracex2b`$$
+
+Distribute.
+
+$$v(t)~=~`r fracex4`$$
+
+Combine like terms in numerator.
+
+$$v(t)~=~`r fracex5`$$
+
+All the terms in the numerator have a shared factor ($h$). Factor out $h$ from the numerator.
+
+$$v(t)~=~`r fracex6`$$
+
+Eliminate common factor from numerator and denominator.
+
+$$v(t)~=~`r fracex7`$$
+
+Now, since there is no possibility of dividing by $0$, we can substitute $0$ for $h$.
+
+$$v(t)~=~`r fracex8`$$
+
+Simplify.
+
+$$v(t)~=~`r fracex9`$$
+
+So, $a=`r 2*a`$ and $v_0=`r b`$.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: lim_def_quad

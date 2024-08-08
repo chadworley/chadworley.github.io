@@ -1,0 +1,151 @@
+```{r,echo=FALSE}
+while(T){
+  m = round(runif(1,1.2,1.9),1)
+  n = round(runif(1,0.1,0.3),1)
+  p = round(runif(1,0.1,0.5),1)
+  q = round(runif(1,0.3,0.9),1)
+  B = sample(5:40,1)
+  C = sample(1:4,1)
+  t = 0
+  dt = 0.1
+  stillgood = T
+  for(i in 1:101){
+    B = c(B,B[i]+(m*B[i]-n*B[i]*C[i])*dt)
+    C = c(C,C[i]+(p*B[i]*C[i]-q*C[i])*dt)
+    t = c(t,t[i]+dt)
+    if(is.nan(B[i+1]) || B[i+1]<1 || C[i+1]<1){
+      stillgood=F
+      break
+    }
+  }
+  if(stillgood && B[101]<1000 && B[101]>1 && C[101]<1000 && C[101]>0.5 && max(B)>max(C)){break}
+}
+
+if(sample(1:2,1)==1){
+  ch = "bunnies"
+  sy = "b(10)"
+  sol = B[101]
+} else {
+  ch = "coyotes"
+  sy = "c(10)"
+  sol = C[101]
+}
+
+```
+
+
+Question
+========
+
+The [Lotka–Volterra equations](https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations) are used to simulate population sizes of predators and prey in an area.
+
+Let's say prey are bunnies and the predators are coyotes, and the following rate equations hold.
+
+$$\frac{\Delta b}{\Delta t} = `r m` b-`r n`bc$$
+$$\frac{\Delta c}{\Delta t} = `r p`bc-`r q`c$$
+
+* Initial values:
+  * $b(0)=`r B[1]`$ thousand bunnies
+  * $c(0)=`r C[1]`$ thousand coyotes
+* Euler's method step:
+  * $\Delta t = `r dt`$ years
+  
+Use Euler's method to estimate the number of **`r ch`** (in thousands) after 10 years. The tolerance is $\pm 0.01$ thousand `r ch`.
+
+
+
+Solution
+========
+
+```{r,echo=F,fig.dim=c(6,6)}
+plot(t,B,type="l",ylim=c(0,max(c(B,C))),xlab="time (years)",ylab="pop count (thousands)",col="blue")
+lines(t,C,col="red")
+legend("bottom",c("bunnies","coyotes"),col=c("blue","red"),lty=c(1,1))
+```
+\
+
+<style>
+table.brd td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd th{
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd {
+  border: 3px solid black;
+}
+</style>
+
+Use a spreadsheet with formulas. It should match these rows shown.
+
+<table class="brd">
+  <tr>
+    <th>$t$</th>
+    <th>$b$</th>
+    <th>$c$</th>
+    <th>$\Delta t$</th>
+    <th>$\Delta b ~=~ (`r m` b-`r n`bc)\Delta t$</th>
+    <th>$\Delta c ~=~ (`r p`bc-`r q`c)\Delta t$</th>
+  </tr>
+  <tr>
+    <td>`r t[1]`</td>
+    <td>`r B[1]`</td>
+    <td>`r C[1]`</td>
+    <td>`r t[2]-t[1]`</td>
+    <td>`r B[2]-B[1]`</td>
+    <td>`r C[2]-C[1]`</td>
+  </tr>
+  <tr>
+    <td>`r t[2]`</td>
+    <td>`r B[2]`</td>
+    <td>`r C[2]`</td>
+    <td>`r t[3]-t[2]`</td>
+    <td>`r B[3]-B[2]`</td>
+    <td>`r C[3]-C[2]`</td>
+  </tr>
+  <tr>
+    <td>`r t[3]`</td>
+    <td>`r B[3]`</td>
+    <td>`r C[3]`</td>
+    <td>`r t[4]-t[3]`</td>
+    <td>`r B[4]-B[3]`</td>
+    <td>`r C[4]-C[3]`</td>
+  </tr>
+  <tr>
+    <td>`r t[4]`</td>
+    <td>`r B[4]`</td>
+    <td>`r C[4]`</td>
+    <td>`r t[5]-t[4]`</td>
+    <td>`r B[5]-B[4]`</td>
+    <td>`r C[5]-C[4]`</td>
+  </tr>
+  <tr>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+  </tr>
+  <tr>
+    <td>`r t[101]`</td>
+    <td>`r B[101]`</td>
+    <td>`r C[101]`</td>
+    <td>`r t[102]-t[101]`</td>
+    <td>`r B[102]-B[101]`</td>
+    <td>`r C[102]-C[101]`</td>
+  </tr>
+</table>
+
+So the answer is `r sol`, because there are `r sol` thousand `r ch` when $t=10$.
+
+Meta-information
+============
+extype: num
+exsolution: `r sol`
+exname: eulers_method_pred_prey
+extol: 0.01

@@ -1,0 +1,336 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+latdet = function(A){
+  pra = "\\begin{vmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{vmatrix}")
+  return(pra)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+lataug = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:3],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,'\\end{matrix}
+  \\;\\middle|\\;
+    \\,
+    \\begin{matrix}\n')
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,4:6],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+styleblock = '<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>'
+
+strt = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("")
+  } else {
+    return(as.character(s))
+  }
+}
+
+md = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("+")
+  } else if(s<0){
+    return(as.character(s))
+  } else {
+    return(paste0("+",s,collapse=""))
+  }
+}
+
+html_input_table = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    rs2 = paste0("<td>",rep("!!!",2),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td>",rs2,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+html_input_table_33 = function(an=1){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",paste0("##ANSWER",an:(an+2),"##"),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"</tr>")
+    an = an+3
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+prs = function(M,lets=c("x","y","z","q","r","s","t","u","v","w")){
+  s = "\\begin{align*}"
+  for(i in 1:dim(M)[1]){
+    row = ""
+    nc = dim(M)[2]
+    ls = lets[1:(nc-1)]
+    row = paste0(strt(M[i,1]),ls[1],collapse="")
+    for(j in 2:(nc-1)){
+      row = paste0(row,md(M[i,j]),ls[j],collapse="")
+    }
+    row = paste(row,"&=",M[i,nc],"\\\\\n",collapse="")
+    row = sub("0x+","",row,fixed=T)
+    row = sub("0x-","-",row,fixed=T)
+    row = sub("0y+","",row,fixed=T)
+    row = sub("0y-","-",row,fixed=T)
+    row = sub("+0z","",row,fixed=T)
+    row = sub("-0z","",row,fixed=T)
+    s = paste0(s,row,collapse="")
+  }
+  s = paste0(s,"\\end{align*}",collapse="")
+  return(s)
+}
+
+while(T){
+  A = matrix(sample(-9:9,9,F),3)
+  dA = round(det(A),3)
+  X = matrix(sample(-10:10,3),3)
+  B = A%*%X
+  M = cbind(A,B)
+  if(sum((dA==c((-10):(-2),2:10))==1) && sum(c(A)==0)==0 && abs(dA)<1000 && max(abs(c(B)))<11){break}
+}
+
+As = matrix(c("a","b","c",
+              "d","e","f",
+              "g","h","i"),3,byrow=T)
+Xs = matrix(c("x","y","z"),3)
+Bs = matrix(c("p","q","r"),3)
+
+Asx = As
+Asx[,1] = Bs
+Asy = As
+Asy[,2] = Bs
+Asz = As
+Asz[,3] = Bs
+
+Ax = A
+Ax[,1] = B
+Ay = A
+Ay[,2] = B
+Az = A
+Az[,3] = B
+
+dA = round(det(A),4)
+dAx = round(det(Ax),4)
+dAy = round(det(Ay),4)
+dAz = round(det(Az),4)
+
+ac = numeric()
+sols = character()
+nch = 2
+poss = sort(unique(c(A,B)))
+for(i in 1:9){
+  corr = c(t(A))[i]
+  wr2 = sample(poss,nch-1)
+  myl = sort(unique(c(corr,wr2)))
+  while(length(myl)<nch){
+    wr2 = sample(poss,nch-1)
+    myl = sort(unique(c(corr,wr2)))
+  }
+  ac = c(ac,myl)
+  sols = c(sols,paste0(1*(myl==corr),collapse=""))
+}
+for(i in 1:9){
+  corr = c(t(Ax))[i]
+  wr2 = sample(poss,nch-1)
+  myl = sort(unique(c(corr,wr2)))
+  while(length(myl)<nch){
+    wr2 = sample(poss,nch-1)
+    myl = sort(unique(c(corr,wr2)))
+  }
+  ac = c(ac,myl)
+  sols = c(sols,paste0(1*(myl==corr),collapse=""))
+}
+for(i in 1:9){
+  corr = c(t(Ay))[i]
+  wr2 = sample(poss,nch-1)
+  myl = sort(unique(c(corr,wr2)))
+  while(length(myl)<nch){
+    wr2 = sample(poss,nch-1)
+    myl = sort(unique(c(corr,wr2)))
+  }
+  ac = c(ac,myl)
+  sols = c(sols,paste0(1*(myl==corr),collapse=""))
+}
+for(i in 1:9){
+  corr = c(t(Az))[i]
+  wr2 = sample(poss,nch-1)
+  myl = sort(unique(c(corr,wr2)))
+  while(length(myl)<nch){
+    wr2 = sample(poss,nch-1)
+    myl = sort(unique(c(corr,wr2)))
+  }
+  ac = c(ac,myl)
+  sols = c(sols,paste0(1*(myl==corr),collapse=""))
+}
+
+poss = sort(unique(c(dA,dAx,dAy,dAz)))#,2*dA,3*dA,5*dA,ceiling(dA/2),ceiling(dA/3),ceiling(dA/5))
+poss = sort(unique(c(poss,-poss)))
+while(length(poss)<10){
+  neww = sample(1:100,1)
+  poss = sort(unique(c(poss,neww,-neww)))
+}
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==dA),collapse=""))
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==dAx),collapse=""))
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==dAy),collapse=""))
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==dAz),collapse=""))
+
+poss = sort(unique(c(X,-X)))
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==X[1]),collapse=""))
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==X[2]),collapse=""))
+ac = c(ac,poss)
+sols = c(sols,paste0(1*(poss==X[3]),collapse=""))
+
+al = paste0("* ",ac,collapse="\n")
+
+```
+
+Question
+========
+
+`r styleblock`
+
+Read [this about Cramer's rule](https://chadworley.github.io/precalculus/028_SOE_matrices/Cramer.html).
+
+
+Consider the following specific 3x3 system.
+
+$$`r prs(cbind(A,B))`$$
+
+Determine the elements of the coefficient matrix.
+
+$A =$ `r html_input_table_33(1)`
+
+The $A_1$ matrix is made by replacing the first column of $A$ with the constant vector.
+
+$A_1 =$ `r html_input_table_33(10)`
+
+The $A_2$ matrix is made by replacing the second column of $A$ with the constant vector.
+
+$A_2 =$ `r html_input_table_33(19)`
+
+The $A_3$ matrix is made by replacing the third column of $A$ with the constant vector.
+
+$A_3 =$ `r html_input_table_33(28)`
+
+We can evaluate the determinants.
+
+* $\det(A) =$ ##ANSWER37##
+* $\det(A_1) =$ ##ANSWER38##
+* $\det(A_2) =$ ##ANSWER39##
+* $\det(A_3) =$ ##ANSWER40##
+
+Solve the system.
+
+* $x=$ ##ANSWER41##
+* $y=$ ##ANSWER42##
+* $z=$ ##ANSWER43##
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+The constant vector is $`r lat(B)`$.
+
+$$A = `r lat(A)`$$
+$$A_1 = `r lat(Ax)`$$
+$$A_2 = `r lat(Ay)`$$
+$$A_3 = `r lat(Az)`$$
+
+* $\det(A)=`r dA`$
+* $\det(A_1)=`r dAx`$
+* $\det(A_2)=`r dAy`$
+* $\det(A_3)=`r dAz`$
+
+$$x~=~\frac{`r round(det(Ax),4)`}{`r round(det(A),4)`} ~=~ `r X[1]`$$
+$$y~=~\frac{`r round(det(Ay),4)`}{`r round(det(A),4)`} ~=~ `r X[2]`$$
+$$z~=~\frac{`r round(det(Az),4)`}{`r round(det(A),4)`} ~=~ `r X[3]`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(sols)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: cramers_rule

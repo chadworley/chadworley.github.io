@@ -1,0 +1,97 @@
+```{r,echo=F}
+a = sample(1:9,1)*sample(c(-1,1),1)
+b = sample(1:9,1)*sample(c(-1,1),1)
+z = paste0(a,"+",b,"i",collapse="")
+z = gsub("+-","-",z,fixed=T)
+z = gsub("+1i","+i",z,fixed=T)
+z = gsub("-1i","-i",z,fixed=T)
+
+z2 = paste0(a,"+",-b,"i",collapse="")
+z2 = gsub("+-","-",z2,fixed=T)
+z2 = gsub("+1i","+i",z2,fixed=T)
+z2 = gsub("-1i","-i",z2,fixed=T)
+# (x-(rp+ip*i))*(x-(rp-ip*i))
+# x^2-(rp-ip*i)x-(rp+ip*i)x+(rp+ip*i)(rp-ip*i)
+# x^2-2*rp*x+rp^2+ip^2
+A = 1
+B = -2*a
+C = a^2+b^2
+eq1 = paste0("0=x^2+",B,"x+",C,collapse="")
+eq1 = gsub("+-","-",eq1,fixed=T)
+eq2 = gsub("+-","-",paste0("0=x^2+",-B,"x+",C,collapse=""),fixed=T)
+eq3 = gsub("+-","-",paste0("0=x^2+",B,"x+",-C,collapse=""),fixed=T)
+eq4 = gsub("+-","-",paste0("0=x^2+",-B,"x+",-C,collapse=""),fixed=T)
+
+eq5 = paste0("0~=~x^2-",a,"x-",-b,"ix-",a,"x-",b,"ix+",a^2,"-",a*b,"i-",-a*b,"i-",b^2,"i^2")
+eq5 = gsub("--","+",eq5,fixed=T)
+eq5 = gsub("-1x","-x",eq5,fixed=T)
+eq5 = gsub("+1x","+x",eq5,fixed=T)
+eq5 = gsub("-1i","-i",eq5,fixed=T)
+eq5 = gsub("+1i","+i",eq5,fixed=T)
+
+eq6 = paste0("0~=~x^2-",a,"x-",-b,"ix-",a,"x-",b,"ix+",a^2,"-",a*b,"i-",-a*b,"i+",b^2)
+eq6 = gsub("--","+",eq6,fixed=T)
+eq6 = gsub("-1x","-x",eq6,fixed=T)
+eq6 = gsub("+1x","+x",eq6,fixed=T)
+eq6 = gsub("-1i","-i",eq6,fixed=T)
+eq6 = gsub("+1i","+i",eq6,fixed=T)
+
+eqs = sample(c(eq1,eq2,eq3,eq4))
+sol = paste0(1*(eqs==eq1),collapse="")
+let = c("A","B","C","D")[eqs==eq1]
+```
+
+Question
+========
+
+Which of the following has $`r z`$ as a solution?
+
+**(A)** $~~`r eqs[1]`$
+
+**(B)** $~~`r eqs[2]`$
+
+**(C)** $~~`r eqs[3]`$
+
+**(D)** $~~`r eqs[4]`$
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+
+
+Solution
+========
+
+A polynomial with real coefficients has complex roots that come in pairs called complex conjugates. So, both `r z` and `r z2` are solutions. From the two solutions, we can write the equation in factored form.
+
+$$0 ~=~ \big(x-(`r z`)\big)\big(x-(`r z2`)\big)$$
+
+You can FOIL.
+
+$$0 ~=~ x^2-(`r z2`)x-(`r z`)x+(`r z`)(`r z2`)$$
+
+You can distribute the linear terms and FOIL the product of complex numbers.
+
+$$`r eq5`$$
+
+Remember, $i^2=-1$.
+
+$$`r eq6`$$
+
+Combine like terms.
+
+$$`r eq1`$$
+
+So the answer is **`r let`**.
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: which_has_complex_sol

@@ -1,0 +1,1990 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>SQ 008_prob_of_ave_or_sum</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+h4.qqq {
+  background-color: black;
+  color: white;
+}
+ol.outermostlist{
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+<script type="text/javascript">
+const nv = 50;
+function loader(){
+  qs = document.body.getElementsByTagName("h4");
+  lnk = document.getElementById("linksies");
+  qs[0].parentElement.parentElement.classList.add("outermostlist");
+  for(let i=0;i<qs.length;i++){
+    if(i%2==0){
+      qs[i].innerHTML = "QUESTION  "+(Math.floor(i/2/nv+1)).toString()+" version "+((i/2)%nv+1).toString();
+      qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      qs[i].classList.add("qqq");
+      if(i%(2*nv)==0){
+        let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+        lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+        document.getElementById("tempid").id = newid;
+      }
+      qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      if(i%(2*nv)!=0){
+        qs[i].parentElement.style.display = "none";
+      }
+      }
+}
+}
+function shower(){
+  let x = this.nextSibling;
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    this.innerHTML = "Hide solution";
+  } else {
+    x.style.display = "none";
+    this.innerHTML = "Show solution";
+  }
+}
+function prev(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn-1+nv)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+function next(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn+1)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+</script>
+<body onLoad="loader()">
+<div style="display:none">
+\(\renewcommand{\hat}[1]{\widehat{#1}}\)
+</div>
+<h2 id="sqid">Shared Qs (008_prob_of_ave_or_sum)</h2>
+<div id="linksies"></div>
+<ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=67.44\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=17.26\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=71\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 67.03 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{17.26}{\sqrt{71}} = 2.0483851\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-0.41}{2.0483851}\]</span>
+<span class="math display">\[z = -0.2001577\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;-0.2002)=0.421 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=54.57\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=10.94\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=96\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 54.79 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{10.94}{\sqrt{96}} = 1.1165591\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.22}{1.1165591}\]</span>
+<span class="math display">\[z = 0.1970339\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;0.197)=0.578 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=32.5\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=14.46\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=32\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 33.27 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{14.46}{\sqrt{32}} = 2.556191\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.77}{2.556191}\]</span>
+<span class="math display">\[z = 0.3012294\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;0.3012)=0.618 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=47.37\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=13.87\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=72\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 0.82 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{13.87}{\sqrt{72}} = 1.6345952\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.82}{1.6345952}\]</span>
+<span class="math display">\[z = 0.5016533\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.5017)=0.384 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=82.99\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=15.96\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=25\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 1.92 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{15.96}{\sqrt{25}} = 3.192\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.92}{3.192}\]</span>
+<span class="math display">\[z = 0.6015038\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.6015)=0.548 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=71.37\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=18.05\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=62\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 0.92 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{18.05}{\sqrt{62}} = 2.2923523\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.92}{2.2923523}\]</span>
+<span class="math display">\[z = 0.4013345\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.4013)=0.688 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=66.02\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=13.67\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=94\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 67.57 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{13.67}{\sqrt{94}} = 1.4099528\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.55}{1.4099528}\]</span>
+<span class="math display">\[z = 1.0993275\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;1.0993)=0.864 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=78.01\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=15.85\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=88\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 82.57 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{15.85}{\sqrt{88}} = 1.6896157\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{4.56}{1.6896157}\]</span>
+<span class="math display">\[z = 2.6988386\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;2.6988)=0.003 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=56.51\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=10.97\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=80\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 1.1 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{10.97}{\sqrt{80}} = 1.2264833\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.1}{1.2264833}\]</span>
+<span class="math display">\[z = 0.8968732\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.8969)=0.63 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=38.55\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=10.53\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=25\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 1.05 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{10.53}{\sqrt{25}} = 2.106\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.05}{2.106}\]</span>
+<span class="math display">\[z = 0.4985755\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.4986)=0.618 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=56.3\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=10.53\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=28\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 60.48 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{10.53}{\sqrt{28}} = 1.989983\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{4.18}{1.989983}\]</span>
+<span class="math display">\[z = 2.1005205\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;2.1005)=0.018 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=29.59\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=18.81\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=40\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 0.89 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{18.81}{\sqrt{40}} = 2.9741221\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.89}{2.9741221}\]</span>
+<span class="math display">\[z = 0.299248\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.2992)=0.235 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=74.78\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=17.35\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=84\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 75.16 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{17.35}{\sqrt{84}} = 1.8930402\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.38}{1.8930402}\]</span>
+<span class="math display">\[z = 0.2007353\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;0.2007)=0.58 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=99.48\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=13.98\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=50\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 1.78 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{13.98}{\sqrt{50}} = 1.9770706\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.78}{1.9770706}\]</span>
+<span class="math display">\[z = 0.9003219\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.9003)=0.368 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=95.18\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=11.76\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=51\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 0.66 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{11.76}{\sqrt{51}} = 1.6467294\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.66}{1.6467294}\]</span>
+<span class="math display">\[z = 0.4007945\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.4008)=0.311 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=97.22\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=11.98\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=30\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 2.84 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{11.98}{\sqrt{30}} = 2.1872387\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{2.84}{2.1872387}\]</span>
+<span class="math display">\[z = 1.2984408\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;1.2984)=0.806 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=63.91\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=18.85\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=97\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 65.25 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{18.85}{\sqrt{97}} = 1.9139275\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.34}{1.9139275}\]</span>
+<span class="math display">\[z = 0.700131\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;0.7001)=0.242 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=94.08\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=16.34\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=76\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 97.45 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{16.34}{\sqrt{76}} = 1.8743265\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{3.37}{1.8743265}\]</span>
+<span class="math display">\[z = 1.7979791\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;1.798)=0.036 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=48.12\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=16.17\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=30\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 52.84 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{16.17}{\sqrt{30}} = 2.9522246\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{4.72}{2.9522246}\]</span>
+<span class="math display">\[z = 1.5987944\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;1.5988)=0.945 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=69.27\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=15.15\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=28\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 72.42 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{15.15}{\sqrt{28}} = 2.8630809\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{3.15}{2.8630809}\]</span>
+<span class="math display">\[z = 1.1002134\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;1.1002)=0.864 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=40.11\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=10.46\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=74\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 39.5 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{10.46}{\sqrt{74}} = 1.2159503\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-0.61}{1.2159503}\]</span>
+<span class="math display">\[z = -0.5016652\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-0.5017)=0.692 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=86.02\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=12.64\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=36\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 2.74 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{12.64}{\sqrt{36}} = 2.1066667\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{2.74}{2.1066667}\]</span>
+<span class="math display">\[z = 1.3006329\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;1.3006)=0.193 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=87.92\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=12.46\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=59\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 0.81 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{12.46}{\sqrt{59}} = 1.6221538\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.81}{1.6221538}\]</span>
+<span class="math display">\[z = 0.4993361\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.4993)=0.618 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=37.25\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=11.3\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=45\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 39.95 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{11.3}{\sqrt{45}} = 1.6845045\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{2.7}{1.6845045}\]</span>
+<span class="math display">\[z = 1.6028452\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;1.6028)=0.054 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=87.87\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=15.12\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=59\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 84.13 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{15.12}{\sqrt{59}} = 1.9684563\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-3.74}{1.9684563}\]</span>
+<span class="math display">\[z = -1.8999659\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;-1.9)=0.029 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=41.87\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=17.45\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=71\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 4.35 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{17.45}{\sqrt{71}} = 2.070934\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{4.35}{2.070934}\]</span>
+<span class="math display">\[z = 2.1005015\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;2.1005)=0.036 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=33.75\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=10.42\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=51\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 34.77 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{10.42}{\sqrt{51}} = 1.4590918\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.02}{1.4590918}\]</span>
+<span class="math display">\[z = 0.699065\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;0.6991)=0.242 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=97.82\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=10.81\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=64\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 99.58 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{10.81}{\sqrt{64}} = 1.35125\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.76}{1.35125}\]</span>
+<span class="math display">\[z = 1.3024977\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;1.3025)=0.904 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=44.7\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=12.33\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=91\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 1.81 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{12.33}{\sqrt{91}} = 1.2925352\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.81}{1.2925352}\]</span>
+<span class="math display">\[z = 1.4003487\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;1.4003)=0.839 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=73.58\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=10.85\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=95\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 0.89 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{10.85}{\sqrt{95}} = 1.1131865\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.89}{1.1131865}\]</span>
+<span class="math display">\[z = 0.7995066\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.7995)=0.576 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=34.16\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=15.7\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=98\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 35.75 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{15.7}{\sqrt{98}} = 1.5859395\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.59}{1.5859395}\]</span>
+<span class="math display">\[z = 1.0025603\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;1.0026)=0.158 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=49.06\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=19.36\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=25\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 1.55 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{19.36}{\sqrt{25}} = 3.872\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.55}{3.872}\]</span>
+<span class="math display">\[z = 0.4003099\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.4003)=0.311 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=58.52\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=13.17\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=76\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 3.32 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{13.17}{\sqrt{76}} = 1.5107026\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{3.32}{1.5107026}\]</span>
+<span class="math display">\[z = 2.1976529\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;2.1977)=0.972 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=63.14\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=10.94\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=87\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 1.64 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{10.94}{\sqrt{87}} = 1.1728911\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.64}{1.1728911}\]</span>
+<span class="math display">\[z = 1.3982543\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;1.3983)=0.162 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=80.91\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=16.53\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=68\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 1.4 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{16.53}{\sqrt{68}} = 2.0045569\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.4}{2.0045569}\]</span>
+<span class="math display">\[z = 0.6984087\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.6984)=0.515 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=41.6\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=11.55\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=65\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 2.29 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{11.55}{\sqrt{65}} = 1.4326012\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{2.29}{1.4326012}\]</span>
+<span class="math display">\[z = 1.5984909\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;1.5985)=0.89 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=35.66\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=19.08\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=30\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 1.74 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{19.08}{\sqrt{30}} = 3.4835155\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.74}{3.4835155}\]</span>
+<span class="math display">\[z = 0.4994954\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.4995)=0.617 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=87.74\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=16\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=93\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 92.05 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{16}{\sqrt{93}} = 1.6591227\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{4.31}{1.6591227}\]</span>
+<span class="math display">\[z = 2.5977584\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;2.5978)=0.005 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=96.56\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=10.55\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=41\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 0.82 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{10.55}{\sqrt{41}} = 1.6476332\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.82}{1.6476332}\]</span>
+<span class="math display">\[z = 0.4976836\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.4977)=0.619 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=35.16\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=17.72\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=54\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 30.1 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{17.72}{\sqrt{54}} = 2.4113866\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-5.06}{2.4113866}\]</span>
+<span class="math display">\[z = -2.0983778\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;-2.0984)=0.018 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=73.36\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=13.92\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=93\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 1.01 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{13.92}{\sqrt{93}} = 1.4434368\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.01}{1.4434368}\]</span>
+<span class="math display">\[z = 0.6997189\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.6997)=0.516 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=65.15\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=12.7\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=73\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 1.04 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{12.7}{\sqrt{73}} = 1.4864226\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.04}{1.4864226}\]</span>
+<span class="math display">\[z = 0.6996664\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.6997)=0.516 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=60.68\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=19.21\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=27\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 4.07 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{19.21}{\sqrt{27}} = 3.6969662\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{4.07}{3.6969662}\]</span>
+<span class="math display">\[z = 1.1009027\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;1.1009)=0.271 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=56.02\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=13.63\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=94\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 57.29 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{13.63}{\sqrt{94}} = 1.4058272\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.27}{1.4058272}\]</span>
+<span class="math display">\[z = 0.9033827\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;0.9034)=0.817 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=22.44\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=17.89\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=78\)</span> is taken, what is the probability the sample average is <strong>closer</strong> than 0.41 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{17.89}{\sqrt{78}} = 2.0256436\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.41}{2.0256436}\]</span>
+<span class="math display">\[z = 0.2024048\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.2024)=0.16 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=72.42\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=14.63\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=100\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 71.83 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{14.63}{\sqrt{100}} = 1.463\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-0.59}{1.463}\]</span>
+<span class="math display">\[z = -0.4032809\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-0.4033)=0.657 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=88.65\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=11.17\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=58\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 89.53 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{11.17}{\sqrt{58}} = 1.4666929\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.88}{1.4666929}\]</span>
+<span class="math display">\[z = 0.5999893\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;0.6)=0.274 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=48.48\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=13.18\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=47\)</span> is taken, what is the probability the sample average is <strong>less</strong> than 50.21 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{13.18}{\sqrt{47}} = 1.9225006\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.73}{1.9225006}\]</span>
+<span class="math display">\[z = 0.8998697\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;0.8999)=0.816 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=91.51\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=16.81\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=40\)</span> is taken, what is the probability the sample average is <strong>further</strong> than 1.06 grams from <span class="math inline">\(\mu\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{16.81}{\sqrt{40}} = 2.6578944\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{1.06}{2.6578944}\]</span>
+<span class="math display">\[z = 0.3988119\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.3988)=0.69 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A population of lizards has a mean weight of <span class="math inline">\(\mu=64.03\)</span> grams with a standard deviation of <span class="math inline">\(\sigma=18.17\)</span> grams.</p>
+<p>If a sample of size <span class="math inline">\(n=53\)</span> is taken, what is the probability the sample average is <strong>more</strong> than 68.27 grams?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the <a href="https://en.wikipedia.org/wiki/Standard_error" target="_blank">standard error</a> (of the mean).</p>
+<p><span class="math display">\[\text{SE} = \frac{\sigma}{\sqrt{n}} \]</span>
+<span class="math display">\[\text{SE} = \frac{18.17}{\sqrt{53}} = 2.4958414\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\bar{x}-\mu}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{4.24}{2.4958414}\]</span>
+<span class="math display">\[z = 1.6988259\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;1.6988)=0.045 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 6-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=3.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 2.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=96\)</span> rolls (96d6), what is the probability of getting a total <strong>more</strong> than 329.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=336 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.7078251)(\sqrt{96})\]</span></p>
+<p><span class="math display">\[\text{SE} = 16.7332005\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-6.5}{16.7332005}\]</span>
+<span class="math display">\[z = -0.3884493\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-0.3884)=0.651 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 20-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=10.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 33.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=64\)</span> rolls (64d20), what is the probability of getting a total <strong>more</strong> than 702.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=672 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (5.7662813)(\sqrt{64})\]</span></p>
+<p><span class="math display">\[\text{SE} = 46.1302504\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{30.5}{46.1302504}\]</span>
+<span class="math display">\[z = 0.6611714\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;0.6612)=0.254 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 12-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=6.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 11.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=81\)</span> rolls (81d12), what is the probability of getting a total <strong>more</strong> than 483.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=526.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (3.4520525)(\sqrt{81})\]</span></p>
+<p><span class="math display">\[\text{SE} = 31.0684728\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-43}{31.0684728}\]</span>
+<span class="math display">\[z = -1.3840397\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-1.384)=0.917 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 6-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=3.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 2.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=95\)</span> rolls (95d6), what is the probability of getting a total <strong>further</strong> than 11 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=332.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.7078251)(\sqrt{95})\]</span></p>
+<p><span class="math display">\[\text{SE} = 16.6458203\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{11}{16.6458203}\]</span>
+<span class="math display">\[z = 0.6608266\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.6608)=0.509 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 10-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=5.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 8.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=68\)</span> rolls (68d10), what is the probability of getting a total <strong>more</strong> than 359.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=374 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (2.8722813)(\sqrt{68})\]</span></p>
+<p><span class="math display">\[\text{SE} = 23.6854386\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-14.5}{23.6854386}\]</span>
+<span class="math display">\[z = -0.6121905\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-0.6122)=0.73 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 4-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=2.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 1.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=71\)</span> rolls (71d4), what is the probability of getting a total <strong>less</strong> than 172.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=177.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.118034)(\sqrt{71})\]</span></p>
+<p><span class="math display">\[\text{SE} = 9.4207218\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-5}{9.4207218}\]</span>
+<span class="math display">\[z = -0.5307449\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;-0.5307)=0.298 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 12-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=6.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 11.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=94\)</span> rolls (94d12), what is the probability of getting a total <strong>closer</strong> than 12.5 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=611 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (3.4520525)(\sqrt{94})\]</span></p>
+<p><span class="math display">\[\text{SE} = 33.468891\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{12.5}{33.468891}\]</span>
+<span class="math display">\[z = 0.3734812\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.3735)=0.291 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 6-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=3.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 2.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=45\)</span> rolls (45d6), what is the probability of getting a total <strong>further</strong> than 3 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=157.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.7078251)(\sqrt{45})\]</span></p>
+<p><span class="math display">\[\text{SE} = 11.4564392\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{3}{11.4564392}\]</span>
+<span class="math display">\[z = 0.2618615\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.2619)=0.793 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 6-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=3.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 2.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=42\)</span> rolls (42d6), what is the probability of getting a total <strong>more</strong> than 139.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=147 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.7078251)(\sqrt{42})\]</span></p>
+<p><span class="math display">\[\text{SE} = 11.0679718\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-7.5}{11.0679718}\]</span>
+<span class="math display">\[z = -0.6776309\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-0.6776)=0.751 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 12-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=6.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 11.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=50\)</span> rolls (50d12), what is the probability of getting a total <strong>more</strong> than 302.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=325 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (3.4520525)(\sqrt{50})\]</span></p>
+<p><span class="math display">\[\text{SE} = 24.4096975\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-22.5}{24.4096975}\]</span>
+<span class="math display">\[z = -0.9217648\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-0.9218)=0.822 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 12-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=6.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 11.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=70\)</span> rolls (70d12), what is the probability of getting a total <strong>further</strong> than 75.5 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=455 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (3.4520525)(\sqrt{70})\]</span></p>
+<p><span class="math display">\[\text{SE} = 28.8819436\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{75.5}{28.8819436}\]</span>
+<span class="math display">\[z = 2.61409\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;2.6141)=0.009 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 12-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=6.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 11.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=36\)</span> rolls (36d12), what is the probability of getting a total <strong>further</strong> than 2.5 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=234 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (3.4520525)(\sqrt{36})\]</span></p>
+<p><span class="math display">\[\text{SE} = 20.7123152\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{2.5}{20.7123152}\]</span>
+<span class="math display">\[z = 0.1207011\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.1207)=0.904 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 20-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=10.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 33.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=39\)</span> rolls (39d20), what is the probability of getting a total <strong>closer</strong> than 49 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=409.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (5.7662813)(\sqrt{39})\]</span></p>
+<p><span class="math display">\[\text{SE} = 36.0104152\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{49}{36.0104152}\]</span>
+<span class="math display">\[z = 1.3607174\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;1.3607)=0.826 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 10-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=5.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 8.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=37\)</span> rolls (37d10), what is the probability of getting a total <strong>further</strong> than 18 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=203.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (2.8722813)(\sqrt{37})\]</span></p>
+<p><span class="math display">\[\text{SE} = 17.4714052\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{18}{17.4714052}\]</span>
+<span class="math display">\[z = 1.0302549\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;1.0303)=0.303 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 4-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=2.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 1.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=70\)</span> rolls (70d4), what is the probability of getting a total <strong>further</strong> than 6.5 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=175 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.118034)(\sqrt{70})\]</span></p>
+<p><span class="math display">\[\text{SE} = 9.3541435\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{6.5}{9.3541435}\]</span>
+<span class="math display">\[z = 0.6948792\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.6949)=0.487 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 4-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=2.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 1.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=74\)</span> rolls (74d4), what is the probability of getting a total <strong>closer</strong> than 4.5 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=185 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.118034)(\sqrt{74})\]</span></p>
+<p><span class="math display">\[\text{SE} = 9.617692\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{4.5}{9.617692}\]</span>
+<span class="math display">\[z = 0.4678877\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.4679)=0.36 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 16-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=8.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 21.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=43\)</span> rolls (43d16), what is the probability of getting a total <strong>less</strong> than 377.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=365.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (4.6097722)(\sqrt{43})\]</span></p>
+<p><span class="math display">\[\text{SE} = 30.228298\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{12}{30.228298}\]</span>
+<span class="math display">\[z = 0.396979\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;0.397)=0.654 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 4-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=2.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 1.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=79\)</span> rolls (79d4), what is the probability of getting a total <strong>more</strong> than 193.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=197.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.118034)(\sqrt{79})\]</span></p>
+<p><span class="math display">\[\text{SE} = 9.9373035\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-4}{9.9373035}\]</span>
+<span class="math display">\[z = -0.4025237\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-0.4025)=0.656 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 4-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=2.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 1.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=77\)</span> rolls (77d4), what is the probability of getting a total <strong>more</strong> than 190.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=192.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.118034)(\sqrt{77})\]</span></p>
+<p><span class="math display">\[\text{SE} = 9.8107084\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-2}{9.8107084}\]</span>
+<span class="math display">\[z = -0.2038589\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-0.2039)=0.581 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 10-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=5.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 8.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=62\)</span> rolls (62d10), what is the probability of getting a total <strong>less</strong> than 326.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=341 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (2.8722813)(\sqrt{62})\]</span></p>
+<p><span class="math display">\[\text{SE} = 22.6163658\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-14.5}{22.6163658}\]</span>
+<span class="math display">\[z = -0.6411286\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;-0.6411)=0.261 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 16-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=8.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 21.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=87\)</span> rolls (87d16), what is the probability of getting a total <strong>further</strong> than 36 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=739.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (4.6097722)(\sqrt{87})\]</span></p>
+<p><span class="math display">\[\text{SE} = 42.9970929\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{36}{42.9970929}\]</span>
+<span class="math display">\[z = 0.8372659\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.8373)=0.402 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 4-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=2.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 1.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=77\)</span> rolls (77d4), what is the probability of getting a total <strong>closer</strong> than 9 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=192.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.118034)(\sqrt{77})\]</span></p>
+<p><span class="math display">\[\text{SE} = 9.8107084\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{9}{9.8107084}\]</span>
+<span class="math display">\[z = 0.9173649\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.9174)=0.641 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 6-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=3.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 2.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=40\)</span> rolls (40d6), what is the probability of getting a total <strong>less</strong> than 158.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=140 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.7078251)(\sqrt{40})\]</span></p>
+<p><span class="math display">\[\text{SE} = 10.8012345\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{18.5}{10.8012345}\]</span>
+<span class="math display">\[z = 1.7127672\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;1.7128)=0.957 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 10-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=5.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 8.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=55\)</span> rolls (55d10), what is the probability of getting a total <strong>further</strong> than 18 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=302.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (2.8722813)(\sqrt{55})\]</span></p>
+<p><span class="math display">\[\text{SE} = 21.3014084\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{18}{21.3014084}\]</span>
+<span class="math display">\[z = 0.8450145\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.845)=0.398 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 12-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=6.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 11.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=39\)</span> rolls (39d12), what is the probability of getting a total <strong>less</strong> than 288.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=253.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (3.4520525)(\sqrt{39})\]</span></p>
+<p><span class="math display">\[\text{SE} = 21.5580611\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{35}{21.5580611}\]</span>
+<span class="math display">\[z = 1.6235226\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;1.6235)=0.948 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 16-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=8.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 21.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=77\)</span> rolls (77d16), what is the probability of getting a total <strong>more</strong> than 650.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=654.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (4.6097722)(\sqrt{77})\]</span></p>
+<p><span class="math display">\[\text{SE} = 40.4505871\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-4}{40.4505871}\]</span>
+<span class="math display">\[z = -0.0988861\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-0.0989)=0.539 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 6-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=3.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 2.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=48\)</span> rolls (48d6), what is the probability of getting a total <strong>closer</strong> than 11.5 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=168 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.7078251)(\sqrt{48})\]</span></p>
+<p><span class="math display">\[\text{SE} = 11.8321596\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{11.5}{11.8321596}\]</span>
+<span class="math display">\[z = 0.9719274\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.9719)=0.669 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 6-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=3.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 2.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=56\)</span> rolls (56d6), what is the probability of getting a total <strong>less</strong> than 212.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=196 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.7078251)(\sqrt{56})\]</span></p>
+<p><span class="math display">\[\text{SE} = 12.780193\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{16.5}{12.780193}\]</span>
+<span class="math display">\[z = 1.2910603\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;1.2911)=0.902 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 4-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=2.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 1.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=32\)</span> rolls (32d4), what is the probability of getting a total <strong>more</strong> than 87.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=80 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.118034)(\sqrt{32})\]</span></p>
+<p><span class="math display">\[\text{SE} = 6.3245553\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{7.5}{6.3245553}\]</span>
+<span class="math display">\[z = 1.1858541\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;1.1859)=0.118 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 10-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=5.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 8.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=61\)</span> rolls (61d10), what is the probability of getting a total <strong>further</strong> than 17 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=335.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (2.8722813)(\sqrt{61})\]</span></p>
+<p><span class="math display">\[\text{SE} = 22.4332343\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{17}{22.4332343}\]</span>
+<span class="math display">\[z = 0.7578042\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.7578)=0.449 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 20-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=10.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 33.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=47\)</span> rolls (47d20), what is the probability of getting a total <strong>more</strong> than 508.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=493.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (5.7662813)(\sqrt{47})\]</span></p>
+<p><span class="math display">\[\text{SE} = 39.5316329\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{15}{39.5316329}\]</span>
+<span class="math display">\[z = 0.379443\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;0.3794)=0.352 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 20-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=10.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 33.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=60\)</span> rolls (60d20), what is the probability of getting a total <strong>more</strong> than 709.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=630 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (5.7662813)(\sqrt{60})\]</span></p>
+<p><span class="math display">\[\text{SE} = 44.6654229\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{79.5}{44.6654229}\]</span>
+<span class="math display">\[z = 1.7799003\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;1.7799)=0.038 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 16-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=8.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 21.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=93\)</span> rolls (93d16), what is the probability of getting a total <strong>further</strong> than 40 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=790.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (4.6097722)(\sqrt{93})\]</span></p>
+<p><span class="math display">\[\text{SE} = 44.4550335\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{40}{44.4550335}\]</span>
+<span class="math display">\[z = 0.8997856\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.8998)=0.368 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 20-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=10.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 33.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=81\)</span> rolls (81d20), what is the probability of getting a total <strong>further</strong> than 8 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=850.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (5.7662813)(\sqrt{81})\]</span></p>
+<p><span class="math display">\[\text{SE} = 51.8965317\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{8}{51.8965317}\]</span>
+<span class="math display">\[z = 0.1541529\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.1542)=0.877 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 8-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=4.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 5.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=89\)</span> rolls (89d8), what is the probability of getting a total <strong>closer</strong> than 5 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=400.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (2.2912878)(\sqrt{89})\]</span></p>
+<p><span class="math display">\[\text{SE} = 21.6159663\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{5}{21.6159663}\]</span>
+<span class="math display">\[z = 0.2313105\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.2313)=0.183 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 16-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=8.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 21.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=54\)</span> rolls (54d16), what is the probability of getting a total <strong>further</strong> than 34.5 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=459 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (4.6097722)(\sqrt{54})\]</span></p>
+<p><span class="math display">\[\text{SE} = 33.8747694\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{34.5}{33.8747694}\]</span>
+<span class="math display">\[z = 1.0184571\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;1.0185)=0.308 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 10-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=5.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 8.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=53\)</span> rolls (53d10), what is the probability of getting a total <strong>further</strong> than 8 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=291.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (2.8722813)(\sqrt{53})\]</span></p>
+<p><span class="math display">\[\text{SE} = 20.9105237\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{8}{20.9105237}\]</span>
+<span class="math display">\[z = 0.3825825\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.3826)=0.702 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 12-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=6.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 11.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=47\)</span> rolls (47d12), what is the probability of getting a total <strong>closer</strong> than 32 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=305.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (3.4520525)(\sqrt{47})\]</span></p>
+<p><span class="math display">\[\text{SE} = 23.6660798\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{32}{23.6660798}\]</span>
+<span class="math display">\[z = 1.3521462\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;1.3521)=0.824 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 4-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=2.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 1.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=89\)</span> rolls (89d4), what is the probability of getting a total <strong>less</strong> than 233.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=222.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.118034)(\sqrt{89})\]</span></p>
+<p><span class="math display">\[\text{SE} = 10.5475116\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{11}{10.5475116}\]</span>
+<span class="math display">\[z = 1.0429\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;1.0429)=0.852 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 20-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=10.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 33.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=77\)</span> rolls (77d20), what is the probability of getting a total <strong>further</strong> than 40 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=808.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (5.7662813)(\sqrt{77})\]</span></p>
+<p><span class="math display">\[\text{SE} = 50.598913\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{40}{50.598913}\]</span>
+<span class="math display">\[z = 0.7905308\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;0.7905)=0.429 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 8-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=4.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 5.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=39\)</span> rolls (39d8), what is the probability of getting a total <strong>further</strong> than 19 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=175.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (2.2912878)(\sqrt{39})\]</span></p>
+<p><span class="math display">\[\text{SE} = 14.309088\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{19}{14.309088}\]</span>
+<span class="math display">\[z = 1.3278275\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the two-tail probability.
+<span class="math display">\[P(|Z|&gt;1.3278)=0.184 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 6-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=3.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 2.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=89\)</span> rolls (89d6), what is the probability of getting a total <strong>closer</strong> than 11 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=311.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.7078251)(\sqrt{89})\]</span></p>
+<p><span class="math display">\[\text{SE} = 16.11159\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{11}{16.11159}\]</span>
+<span class="math display">\[z = 0.6827383\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.6827)=0.505 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 8-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=4.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 5.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=77\)</span> rolls (77d8), what is the probability of getting a total <strong>closer</strong> than 3 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=346.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (2.2912878)(\sqrt{77})\]</span></p>
+<p><span class="math display">\[\text{SE} = 20.1059693\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{3}{20.1059693}\]</span>
+<span class="math display">\[z = 0.1492094\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.1492)=0.119 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 20-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=10.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 33.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=38\)</span> rolls (38d20), what is the probability of getting a total <strong>less</strong> than 331.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=399 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (5.7662813)(\sqrt{38})\]</span></p>
+<p><span class="math display">\[\text{SE} = 35.5457452\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-67.5}{35.5457452}\]</span>
+<span class="math display">\[z = -1.8989615\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;-1.899)=0.029 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 6-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=3.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 2.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=42\)</span> rolls (42d6), what is the probability of getting a total <strong>closer</strong> than 3.5 pips from the expected total?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=147 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.7078251)(\sqrt{42})\]</span></p>
+<p><span class="math display">\[\text{SE} = 11.0679718\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{3.5}{11.0679718}\]</span>
+<span class="math display">\[z = 0.3162278\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the central probability.
+<span class="math display">\[P(|Z|&lt;0.3162)=0.248 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 4-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=2.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 1.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=99\)</span> rolls (99d4), what is the probability of getting a total <strong>more</strong> than 236.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=247.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (1.118034)(\sqrt{99})\]</span></p>
+<p><span class="math display">\[\text{SE} = 11.1242977\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-11}{11.1242977}\]</span>
+<span class="math display">\[z = -0.9888265\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-0.9888)=0.839 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 12-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=6.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 11.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=96\)</span> rolls (96d12), what is the probability of getting a total <strong>less</strong> than 615.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=624 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (3.4520525)(\sqrt{96})\]</span></p>
+<p><span class="math display">\[\text{SE} = 33.8230691\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-8.5}{33.8230691}\]</span>
+<span class="math display">\[z = -0.2513078\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;-0.2513)=0.401 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 20-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=10.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 33.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=45\)</span> rolls (45d20), what is the probability of getting a total <strong>less</strong> than 527.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=472.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (5.7662813)(\sqrt{45})\]</span></p>
+<p><span class="math display">\[\text{SE} = 38.6813909\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{55}{38.6813909}\]</span>
+<span class="math display">\[z = 1.4218723\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;1.4219)=0.922 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 12-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=6.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 11.9166667\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=31\)</span> rolls (31d12), what is the probability of getting a total <strong>less</strong> than 208.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=201.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (3.4520525)(\sqrt{31})\]</span></p>
+<p><span class="math display">\[\text{SE} = 19.2202151\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{7}{19.2202151}\]</span>
+<span class="math display">\[z = 0.3641999\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the leftward probability.
+<span class="math display">\[P(Z&lt;0.3642)=0.642 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Rolls from 16-sided <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution" target="_blank">dice</a> have a population mean of <span class="math inline">\(\mu=8.5\)</span> and population variance of <span class="math inline">\(\sigma^2 = 21.25\)</span>.</p>
+<p>If someone adds up <span class="math inline">\(n=81\)</span> rolls (81d16), what is the probability of getting a total <strong>more</strong> than 638.5 pips?</p>
+<p><em>Note: I have made a <a href="https://en.wikipedia.org/wiki/Continuity_correction" target="_blank">continuity correction</a> for you by using <a href="https://en.wikipedia.org/wiki/Half-integer" target="_blank">half-integer</a> boundaries.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Calculate the expected total.
+<span class="math display">\[\text{ET}=n\mu=688.5 \]</span></p>
+<p>Calculate the <a href="http://www2.stat.duke.edu/~banks/111-lectures.dir/lect8.pdf" target="_blank">standard error</a> (of the total).</p>
+<p><span class="math display">\[\text{SE} = \sigma\sqrt{n} \]</span>
+<span class="math display">\[\text{SE} = (4.6097722)(\sqrt{81})\]</span></p>
+<p><span class="math display">\[\text{SE} = 41.4879501\]</span></p>
+<p>Calculate the <span class="math inline">\(z\)</span> score.</p>
+<p><span class="math display">\[z = \frac{\sum x-\text{ET}}{\text{SE}}\]</span></p>
+<p><span class="math display">\[z = \frac{-50}{41.4879501}\]</span>
+<span class="math display">\[z = -1.2051692\]</span></p>
+<p>Use the <a href="https://chadworley.github.io/sn.html" target="_blank">standard normal probability calculator</a> to evaluate the rightward probability.
+<span class="math display">\[P(Z&gt;-1.2052)=0.886 \]</span></p>
+<br/>
+</div></li>
+</ol>
+</body>
+</html>
+

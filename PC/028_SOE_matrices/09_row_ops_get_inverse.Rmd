@@ -1,0 +1,361 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],\n            [",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+lataug = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:3],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,'\\end{matrix}
+  \\;\\middle|\\;
+    \\,
+    \\begin{matrix}\n')
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,4:6],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+styleblock = '<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 3px;
+margin: 3px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>'
+
+strt = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("")
+  } else {
+    return(as.character(s))
+  }
+}
+
+md = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("+")
+  } else if(s<0){
+    return(as.character(s))
+  } else {
+    return(paste0("+",s,collapse=""))
+  }
+}
+
+html_input_table = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    rs2 = paste0("<td>",rep("!!!",2),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td>",rs2,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+html_input_table_33 = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+while(T){
+  A = matrix(sample(1:10,9,T)*sample(c(-1,1),9,T),3)
+  if(abs(det(A))!=1){next}
+  Ainv = round(solve(A),3)
+  if(max(abs(Ainv))>10){next}
+  I = matrix(c(1,0,0,0,1,0,0,0,1),3)
+  rowops = character()
+  i = 1
+  M = cbind(A,I)
+  m = list(M)
+  ## step 1: Combine 1,2->2
+  if(M[2,1]==0){next}
+  if(M[2,1]!=0){
+    g = gcd(M[1,1],M[2,1])
+    a = M[2,1]/g
+    b = -M[1,1]/g
+    e22a = a*M[1,2]+b*M[2,2]
+    if(e22a==0 || a*M[1,3]+b*M[2,3]==0){
+      next
+    }
+    if(e22a<0){
+      a = -a
+      b = -b
+    }
+    rowop = paste0(strt(a),"R_1",md(b),"R_2\\to R_2")
+    rowops = c(rowops,rowop)
+    M[2,] = a*M[1,]+b*M[2,]
+    i = i+1
+    m[[i]] = M
+  }
+  ## step 2: Combine 1,3->3
+  if(M[3,1]==0){next}
+  if(M[3,1]!=0){
+    g = gcd(M[1,1],M[3,1])
+    a = M[3,1]/g
+    b = -M[1,1]/g
+    e32a = a*M[1,2]+b*M[3,2]
+    if(e32a==0){next}
+    if(e32a<0){
+      a = -a
+      b = -b
+    }
+    rowop = paste0(strt(a),"R_1",md(b),"R_3\\to R_3")
+    rowops = c(rowops,rowop)
+    M[3,] = a*M[1,]+b*M[3,]
+    i = i+1
+    m[[i]] = M
+  }
+  ## step 3: Combine 2,3->3
+  if(M[3,2]==0){next}
+  if(M[3,2]!=0){
+    g = gcd(M[2,2],M[3,2])
+    a = M[3,2]/g
+    b = -M[2,2]/g
+    e33a = a*M[2,3]+b*M[3,3]
+    if(e33a==0){next}
+    if(e33a<0){
+      a = -a
+      b = -b
+    }
+    rowop = paste0(strt(a),"R_2",md(b),"R_3\\to R_3")
+    rowops = c(rowops,rowop)
+    M[3,] = a*M[2,]+b*M[3,]
+    i = i+1
+    m[[i]] = M
+  }
+  ## step 4: Simplify 3
+  if(M[3,3]!=1){
+    rowop = paste0("R_3/(",M[3,3],")\\to R_3")
+    rowops = c(rowops,rowop)
+    M[3,] = M[3,]/M[3,3]
+    i = i+1
+    m[[i]] = M
+  }
+  ## step 5: C23,2
+  if(M[2,3]!=0){
+    g = gcd(M[2,3],M[3,3])
+    a = M[3,3]/g
+    b = -M[2,3]/g
+    e33a = a*M[2,2]+b*M[3,2]
+    if(e33a==0){next}
+    if(e33a<0){
+      a = -a
+      b = -b
+    }
+    rowop = paste0(strt(a),"R_2",md(b),"R_3\\to R_2")
+    rowops = c(rowops,rowop)
+    M[2,] = a*M[2,]+b*M[3,]
+    i = i+1
+    m[[i]] = M
+  }
+  ## step 6: Simplify 2
+  if(M[2,2]!=1){
+    rowop = paste0("R_2/(",M[2,2],")\\to R_2")
+    rowops = c(rowops,rowop)
+    M[2,] = M[2,]/M[2,2]
+    i = i+1
+    m[[i]] = M
+  }
+  ## step 7: C13,1
+  if(M[1,3]!=0){
+    g = gcd(M[1,3],M[3,3])
+    a = M[3,3]/g
+    b = -M[1,3]/g
+    e33a = a*M[1,1]+b*M[3,1]
+    if(e33a==0){next}
+    if(e33a<0){
+      a = -a
+      b = -b
+    }
+    rowop = paste0(strt(a),"R_1",md(b),"R_3\\to R_1")
+    rowops = c(rowops,rowop)
+    M[1,] = a*M[1,]+b*M[3,]
+    i = i+1
+    m[[i]] = M
+  }
+  ## step 8: C12,1
+  if(M[1,2]!=0){
+    g = gcd(M[1,2],M[2,2])
+    a = M[2,2]/g
+    b = -M[1,2]/g
+    e33a = a*M[1,1]+b*M[2,1]
+    if(e33a==0){next}
+    if(e33a<0){
+      a = -a
+      b = -b
+    }
+    rowop = paste0(strt(a),"R_1",md(b),"R_2\\to R_1")
+    rowops = c(rowops,rowop)
+    M[1,] = a*M[1,]+b*M[2,]
+    i = i+1
+    m[[i]] = M
+  }
+  ## step 9: Simp1
+  if(M[1,1]!=1){
+    rowop = paste0("R_1/(",M[1,1],")\\to R_1")
+    rowops = c(rowops,rowop)
+    M[1,] = M[1,]/M[1,1]
+    i = i+1
+    m[[i]] = M
+  }
+  if(abs(det(A))==1 && i<10){break}
+}
+
+ac = numeric()
+for(i in 1:length(m)){
+  ac = sort(unique(c(ac,unique(m[[i]]))))
+}
+
+acs = list()
+sols = character()
+nm = length(m)
+tac = character()
+for(i in 2:nm){
+  M = m[[i]]
+  aaa = c(t(M[,4:6]))
+  for(aa in aaa){
+    while(T){
+      aacc = sort(unique(c(aa,sample(ac,1))))
+      if(length(aacc)==2){break}
+    }
+    tac = c(tac,aacc)
+    sols=c(sols,paste0(1*(aa==aacc),collapse=""))
+  }
+}
+
+# M = m[[length(m)]]
+# aaa = c(t(M[,4:6]))
+# for(aa in aaa){
+#   tac = c(tac,-10:10)
+#   sols = c(sols,paste0(1*(-10:10==aa),collapse=""))
+# }
+
+al = paste0("* ",tac,collapse="\n")
+
+```
+
+Question
+========
+
+`r styleblock`
+
+Let $A$ be the 3x3 matrix below.
+
+$$A=`r lat(A)`$$
+
+To find the inverse of $A$, we can set up an augmented matrix with $A$ augmented with an identity matrix. We then use row operations to get to reduced row echelon form. (I'll dictate the row operations, and I'll take care of the first 3 columns.) The resulting 3x3 matrix (on the right of the augment) is the inverse of $A$.
+
+$$`r lataug(m[[1]])`$$
+
+```{r,echo=F,results='asis'}
+ans_num = 1
+for(i in 2:(length(m))){
+  cat(paste0("Row operation: $",rowops[i-1],"$\n\n"))
+  #cat(paste0("$$",lataug(ms[[i]]),"$$\n"))
+  mm = m[[i]]
+  hm = html_input_table()
+  for(j in 0:17){
+    if(j%%6<3){
+      rn = j%/%6+1
+      cn = j%%6+1
+      hm = sub("!!!",paste0(mm[rn,cn]),hm,fixed = T)
+    } else {
+      hm = sub("!!!",paste0("##ANSWER",ans_num,"##",collapse=""),hm,fixed = T)
+      ans_num=ans_num+1
+    }
+  }
+  cat(hm)
+  cat('\n\n')
+}
+# 
+# mm = m[[length(m)]]
+# hm = html_input_table_33()
+# for(j in 1:9){
+#   hm = sub("!!!",paste0("##ANSWER",ans_num,"##",collapse=""),hm,fixed = T)
+#   ans_num=ans_num+1
+# }
+
+```
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+
+
+So, the inverse of $A$, which is denoted as $A^{-1}$, has been found.
+
+$$A^{-1} = `r lat(Ainv)`$$
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(sols)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: row_ops_get_inverse

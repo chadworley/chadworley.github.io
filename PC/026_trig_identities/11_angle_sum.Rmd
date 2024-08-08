@@ -1,0 +1,135 @@
+```{r,echo=F,warning=F}
+ai = sample(1:4,1)
+a = c("\\frac{\\pi}{4}","\\frac{3\\pi}{4}",
+      "\\frac{5\\pi}{4}","\\frac{7\\pi}{4}")[ai]
+ad = c(45,135,225,315)[ai]
+sina = c("\\frac{\\sqrt{2}}{2}","\\frac{\\sqrt{2}}{2}",
+         "\\frac{-\\sqrt{2}}{2}","\\frac{-\\sqrt{2}}{2}")[ai]
+cosa = c("\\frac{\\sqrt{2}}{2}","\\frac{-\\sqrt{2}}{2}",
+         "\\frac{-\\sqrt{2}}{2}","\\frac{\\sqrt{2}}{2}")[ai]
+bi = sample(1:8,1)
+b = c("\\frac{\\pi}{6}","\\frac{\\pi}{3}",
+      "\\frac{2\\pi}{3}","\\frac{5\\pi}{6}",
+      "\\frac{7\\pi}{6}","\\frac{4\\pi}{3}",
+      "\\frac{5\\pi}{3}","\\frac{11\\pi}{6}")[bi]
+bd = c(30,60,120,150,210,240,300,330)[bi]
+sinb = c("\\frac{1}{2}","\\frac{\\sqrt{3}}{2}",
+         "\\frac{\\sqrt{3}}{2}","\\frac{1}{2}",
+         "\\frac{-1}{2}","\\frac{-\\sqrt{3}}{2}",
+         "\\frac{-\\sqrt{3}}{2}","\\frac{-1}{2}")[bi]
+cosb = c("\\frac{\\sqrt{3}}{2}","\\frac{1}{2}",
+         "\\frac{-1}{2}","\\frac{-\\sqrt{3}}{2}",
+         "\\frac{-\\sqrt{3}}{2}","\\frac{-1}{2}",
+         "\\frac{1}{2}","\\frac{\\sqrt{3}}{2}")[bi]
+
+ord = sample(1:2)
+fd = c(ad,bd)[ord[1]]
+sd = c(ad,bd)[ord[2]]
+wtf = sample(c("sin","cos"),1)
+if(sample(1:2,1)==1){
+  th = fd-sd
+  sym = "-"
+  tha = th*pi/180
+} else {
+  th = fd+sd
+  sym = "+"
+  tha = th*pi/180
+}
+
+wf = ord
+ang1 = c(ad,bd)[wf[1]]
+sin1 = c(sina,sinb)[wf[1]]
+cos1 = c(cosa,cosb)[wf[1]]
+ang2 = c(ad,bd)[wf[2]]
+sin2 = c(sina,sinb)[wf[2]]
+cos2 = c(cosa,cosb)[wf[2]]
+
+opts = c((sqrt(2)+sqrt(6))/4,
+         (-sqrt(2)+sqrt(6))/4,
+         (sqrt(2)-sqrt(6))/4,
+         -(sqrt(2)+sqrt(6))/4)
+
+if(wtf=="sin" && sym=="+"){
+  nans = sin(tha)
+  exp = paste0("\\left(",sin1,"\\cdot",cos2,"\\right)+\\left(",cos1,"\\cdot",sin2,"\\right)",collapse="")
+}
+if(wtf=="sin" && sym=="-"){
+  nans = sin(tha)
+  exp = paste0("\\left(",sin1,"\\cdot",cos2,"\\right)-\\left(",cos1,"\\cdot",sin2,"\\right)",collapse="")
+}
+if(wtf=="cos" && sym=="+"){
+  nans = cos(tha)
+  exp = paste0("\\left(",cos1,"\\cdot",cos2,"\\right)-\\left(",sin1,"\\cdot",sin2,"\\right)",collapse="")
+}
+if(wtf=="cos" && sym=="-"){
+  nans = cos(tha)
+  exp = paste0("\\left(",cos1,"\\cdot",cos2,"\\right)+\\left(",sin1,"\\cdot",sin2,"\\right)",collapse="")
+}
+
+sopts = c("\\frac{\\sqrt{2}+\\sqrt{6}}{4}",
+          "\\frac{\\sqrt{6}-\\sqrt{2}}{4}",
+          "\\frac{\\sqrt{2}-\\sqrt{6}}{4}",
+          "-\\frac{\\sqrt{2}+\\sqrt{6}}{4}")
+
+wo = which(abs(nans-opts)<0.01)
+
+wo2 = sample(1:2)
+
+angA = c(ang1,ang2)[wo2[1]]
+angB = c(ang1,ang2)[wo2[2]]
+sinA = c(sin1,sin2)[wo2[1]]
+sinB = c(sin1,sin2)[wo2[2]]
+cosA = c(cos1,cos2)[wo2[1]]
+cosB = c(cos1,cos2)[wo2[2]]
+
+```
+
+Question
+========
+
+The angle-sum and angle-difference identities:
+
+$$\sin(\alpha\pm\beta) ~=~ \sin(\alpha)\cos(\beta)\pm\cos(\alpha)\sin(\beta)$$
+$$\cos(\alpha\pm\beta) ~=~ \cos(\alpha)\cos(\beta)\mp\sin(\alpha)\sin(\beta)$$
+
+You know the following:
+
+\begin{align*}
+\sin(`r angA`^{\circ})&=`r sinA` & \sin(`r angB`^{\circ})&=`r sinB` \\\\
+\cos(`r angA`^{\circ})&=`r cosA` & \cos(`r angB`^{\circ})&=`r cosB`
+\end{align*}
+
+Determine $\`r wtf`(`r th`^{\circ})$ exactly.
+
+Choices:
+
+a. $`r sopts[1]`$
+b. $`r sopts[2]`$
+c. $`r sopts[3]`$
+d. $`r sopts[4]`$
+
+Answerlist
+--------
+
+* a
+* b
+* c
+* d
+
+
+Solution
+========
+
+
+$$\`r wtf`(`r fd`^{\circ}`r sym``r sd`^{\circ}) ~=~ `r exp`$$
+
+
+$$\`r wtf`(`r fd`^{\circ}`r sym``r sd`^{\circ}) ~=~ `r sopts[wo[1]]`$$
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: 1
+exname: string_animation

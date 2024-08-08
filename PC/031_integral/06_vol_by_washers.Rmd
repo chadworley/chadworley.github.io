@@ -1,0 +1,293 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  exp = gsub("{1}x^{0}","1",exp,fixed=T)
+  exp = gsub("{1}","{}",exp,fixed=T)
+  exp = gsub("x^{0}","{}",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  hk = rev(sort(sample(4:13,2)))
+  h = hk[1]
+  k = hk[2]
+  m = sample(2:5,1)
+  b = k-m*h
+  a = k/h^2
+  
+  xint = -b/m
+  
+  V = pi*(k^3/3/m^2+(2*abs(b)/2/m^2-h^2/2/k)*k^2+b^2/m^2*k)
+  if(V<9999){break}
+}
+
+```
+
+Question
+========
+
+A bowl is designed as the [revolution](https://en.wikipedia.org/wiki/Solid_of_revolution) of the region between 3 curves:
+$$z=`r m`x-`r abs(b)`$$
+
+$$z=\frac{`r k`}{`r h^2`}x^2$$
+
+$$z=0$$
+
+The revolution occurs around the $z$ axis. The bowl will be made of wood. 
+
+```{r,echo=F,fig.dim=c(7,7)}
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,h),ylim=c(0,h),xlab="x",ylab="z")
+for(i in 0:h){
+  abline(h=i,col="grey")
+  abline(v=i,col="grey")
+}
+arrows(0,0,0,h+0.2,length=0.05)
+arrows(0,0,h+0.2,0,length=0.05)
+x = seq(0,h,length.out=100)
+x2 = seq(-b/m,h,length.out=100)
+y1 = a*x^2
+y2 = m*x2+b
+lines(x,y1)
+lines(x2,y2)
+points(h,k,pch=19)
+polygon(c(x,rev(x2)),c(y1,rev(y2)),col=rgb(0.9,0.2,0.2,0.8))
+```
+\
+
+Notice the point of intersection is $(`r h`, `r k`)$. Below is a wireframe animation of the bowl.
+
+```{r,animation.hook="gifski",interval=0.3,echo=F,fig.dim=c(6,6)}
+curves = list()
+n = 12
+nframes = 8
+for(y in 0:k){
+  th = seq(0,2*pi,length.out=360)
+  x1 = (y-b)/m
+  nc = length(curves)
+  pnts = matrix(c(x1*cos(th),x1*sin(th),rep(y,length(th))),nrow=3,byrow=T)
+  curves[[nc+1]] = pnts
+  x2 = sqrt(y/a)
+  pnts = matrix(c(x2*cos(th),x2*sin(th),rep(y,length(th))),nrow=3,byrow=T)
+  curves[[nc+2]] = pnts
+}
+for(th in seq(0,2*pi,length.out=n)){
+  x = seq(0,h,length.out=100)
+  x2 = seq(xint,h,length.out=100)
+  z1 = m*x2+b
+  z2 = a*x^2
+  nc = length(curves)
+  pnts = matrix(c(x2*cos(th),x2*sin(th),z1),nrow=3,byrow=T)
+  curves[[nc+1]] = pnts
+  pnts = matrix(c(x*cos(th),x*sin(th),z2),nrow=3,byrow=T)
+  curves[[nc+2]] = pnts
+}
+
+getR = function(u,t){
+  ux = u[1]
+  uy = u[2]
+  uz = u[3]
+  f = cos(t)+ux^2*(1-cos(t))
+  g = ux*uy*(1-cos(t))-uz*sin(t)
+  h = ux*uz*(1-cos(t))+uy*sin(t)
+  i = uy*ux*(1-cos(t))+uz*sin(t)
+  j = cos(t)+uy^2*(1-cos(t))
+  k = uy*uz*(1-cos(t))-ux*sin(t)
+  l = uz*ux*(1-cos(t))-uy*sin(t)
+  m = uz*uy*(1-cos(t))+ux*sin(t)
+  n = cos(t)+uz^2*(1-cos(t))
+  R = matrix(c(f,g,h,i,j,k,l,m,n),3,byrow=T)
+  return(R)
+}
+u = c(0,0,1)
+t = 2*pi/n/nframes
+R = getR(u,t)
+tp = pi/2
+r = 0.4
+P = matrix(c(1,r*cos(tp),0,
+             0,r*sin(tp),1),2,byrow=T)
+X = curves
+for(i in 1:nframes){
+  par(pty="s")
+  plot(0,0,type="n",xlim=c(-h,h),ylim=c(-h/2,3*h/2),ann=F,axes=F)
+  for(j in 1:length(X)){
+    Xf = P%*%X[[j]]
+    lines(Xf[1,],Xf[2,],col="black",lwd=2)
+    X[[j]] = R%*%X[[j]]
+  }
+}
+```
+\
+
+Find the volume of the wood composing the bowl. I'd recommend using the [washer method](https://en.wikipedia.org/wiki/Disc_integration#Washer_method). The tolerance is $\pm 1$ cubic units.
+
+
+Solution
+========
+
+We will use the [washer method](https://en.wikipedia.org/wiki/Disc_integration#Washer_method). Notice we can approximate the shape with a bunch of thin washers.
+
+```{r,animation.hook="gifski",interval=0.5,echo=F,fig.dim=c(5,5)}
+dz = k/30
+zs = seq(dz,k-dz,dz)
+r1 = sqrt(zs/a)
+r2 = (zs-b)/m
+f = 0.4
+
+draw_washer = function(z,r1,r2,dz,perspective_ratio=0.5,col="red"){
+  N = 360
+  pr = perspective_ratio
+  th = seq(0,pi,length.out=N/2)
+  lines(r1*cos(th),z-dz+r1*pr*sin(th),lwd=2)
+  t = seq(0,pi,length.out=N/2)
+  for(i in 1:(length(t)-1)){
+    polygon(c(r1*cos(t[i]),r1*cos(t[i]),r1*cos(t[i+1]),r1*cos(t[i+1])),
+            c(z-dz+r1*pr*sin(t[i]),z+r1*pr*sin(t[i]),z+r1*pr*sin(t[i+1]),z-dz+r1*pr*sin(t[i+1])),
+            col=col,border=col)
+  }
+  t = seq(pi,2*pi,length.out=N/2)
+  for(i in 1:(length(t)-1)){
+    polygon(c(r2*cos(t[i]),r2*cos(t[i]),r2*cos(t[i+1]),r2*cos(t[i+1])),
+            c(z-dz+r2*pr*sin(t[i]),z+r2*pr*sin(t[i]),z+r2*pr*sin(t[i+1]),z-dz+r2*pr*sin(t[i+1])),
+            col=col,border=col)
+  }
+  th = seq(pi,2*pi,length.out=N/2)
+  lines(r2*cos(th),z-dz+r2*pr*sin(th))
+  t = seq(0,2*pi,length.out=N)
+  for(i in 1:(length(t)-1)){
+    polygon(c(r2*cos(t[i]),r2*cos(t[i+1]),r1*cos(t[i+1]),r1*cos(t[i])),
+            c(z+r2*pr*sin(t[i]),z+r2*pr*sin(t[i+1]),z+r1*pr*sin(t[i+1]),z+r1*pr*sin(t[i])),
+            col=col,border=col)
+  }
+  th = seq(0,2*pi,length.out=N)
+  lines(r1*cos(th),z+r1*pr*sin(th))
+  lines(r2*cos(th),z+r2*pr*sin(th))
+}
+
+nnn = 8
+spf = ceiling(length(zs)/nnn)
+
+for(kk in 1:(nnn+1)){
+  par(pty="s",mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(-h,h),ylim=c(-h/2,3*h/2),ann=F,axes=F)
+  for(i in 1:min(c(kk*spf,length(zs)))){
+    draw_washer(zs[i],r1[i],r2[i],dz,f,col=hsv(i/length(zs),0.7,0.5+0.1*i%%5))
+  }
+}
+
+```
+\
+
+Each washer has two radii (inner and outer) and an infinitesimal thickness.
+
+```{r,echo=F,fig.dim=c(6,3)}
+draw_washer = function(z,r1,r2,dz,perspective_ratio=0.5,col="red"){
+  N = 360
+  pr = perspective_ratio
+  th = seq(0,pi,length.out=N/2)
+  lines(r1*cos(th),z-dz+r1*pr*sin(th),lwd=2)
+  t = seq(0,pi,length.out=N/2)
+  for(i in 1:(length(t)-1)){
+    polygon(c(r1*cos(t[i]),r1*cos(t[i]),r1*cos(t[i+1]),r1*cos(t[i+1])),
+            c(z-dz+r1*pr*sin(t[i]),z+r1*pr*sin(t[i]),z+r1*pr*sin(t[i+1]),z-dz+r1*pr*sin(t[i+1])),
+            col=col,border=col)
+  }
+  t = seq(pi,2*pi,length.out=N/2)
+  for(i in 1:(length(t)-1)){
+    polygon(c(r2*cos(t[i]),r2*cos(t[i]),r2*cos(t[i+1]),r2*cos(t[i+1])),
+            c(z-dz+r2*pr*sin(t[i]),z+r2*pr*sin(t[i]),z+r2*pr*sin(t[i+1]),z-dz+r2*pr*sin(t[i+1])),
+            col=col,border=col)
+  }
+  th = seq(pi,2*pi,length.out=N/2)
+  lines(r2*cos(th),z-dz+r2*pr*sin(th))
+  t = seq(0,2*pi,length.out=N)
+  for(i in 1:(length(t)-1)){
+    polygon(c(r2*cos(t[i]),r2*cos(t[i+1]),r1*cos(t[i+1]),r1*cos(t[i])),
+            c(z+r2*pr*sin(t[i]),z+r2*pr*sin(t[i+1]),z+r1*pr*sin(t[i+1]),z+r1*pr*sin(t[i])),
+            col=col,border=col)
+  }
+  th = seq(0,2*pi,length.out=N)
+  lines(r1*cos(th),z+r1*pr*sin(th))
+  lines(r2*cos(th),z+r2*pr*sin(th))
+}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-0.5,0.5),ann=F,axes=F)
+
+draw_washer(0.05,0.5,0.9,0.1,col=rgb(0.9,0.9,0.9))
+text(1,0,"dz",cex=1.3)
+bmp = 0.01
+x0 = 0.93
+lines(c(x0-bmp,x0+bmp,x0,x0,x0+bmp,x0-bmp),
+      c(-0.05,-0.05,-0.05,0.05,0.05,0.05))
+lines(c(0,0.5),c(0.05,0.05),col="blue",lwd=3)
+text(0.25,0,"r",col="blue",cex=1.3)
+lines(c(0,0.9*cos(5*pi/6)),c(0.05,0.05+0.9*0.5*sin(5*pi/6)),col="red",lwd=3)
+text(-0.27,0.2,"R",col="red",cex=1.3)
+```
+\
+
+The infinitesimal volume for each washer can be expressed in terms of $r$, $R$, and $dz$.
+
+$$dV ~=~ \pi \left(R^2 - r^2\right) \, dz$$
+
+We need to express $R$ and $r$ as functions of $z$. Notice that $R$ is equivalent to $x$ in the linear equation and $r$ is equivalent to $x$ in the quadratic equation. Let's start by finding $R$ in terms of $z$.
+
+$$z = `r m`R-`r abs(b)`$$
+
+Solve for $R$.
+
+$$R = \frac{z+`r abs(b)`}{`r m`}$$
+
+Now, let's get $r$ in terms of $z$.
+
+$$z = \frac{`r k`}{`r h^2`}r^2$$
+
+Solve for $r$.
+
+$$r = \sqrt{\frac{`r h^2`z}{`r k`}}$$
+
+To get the volume, we need to sum up a bunch of washer volumes as $z$ progresses from 0 to `r k`. Notice, $`r k`$ comes from the intersection at (`r h`, `r k`).
+
+$$V = \int_{z=0}^{z=`r k`} dV$$
+
+$$V = \int_{0}^{`r k`} \pi\left(R^2-r^2\right)\,dz$$
+
+
+$$V = \int_{0}^{`r k`} \pi\left(\left(\frac{z+`r abs(b)`}{`r m`}\right)^2-\left(\sqrt{\frac{`r h^2`z}{`r k`}}\right)^2\right)\,dz$$
+
+A constant multiplier can be pulled out of an integral.
+
+$$V = \pi \int_{0}^{`r k`} \left(\left(\frac{z+`r abs(b)`}{`r m`}\right)^2-\left(\sqrt{\frac{`r h^2`z}{`r k`}}\right)^2\right)\,dz$$
+
+Honestly, at this point, you probably want to use Desmos. It understands definite integrals. You can get the integration symbol by typing `int`.
+
+If you want to work it out algebraically, remember [binomial expansion](https://en.wikipedia.org/wiki/Binomial_theorem).
+
+$$V = \pi \int_{0}^{`r k`} \left(\frac{1}{`r m^2`}z^2+\frac{`r 2*abs(b)`}{`r m^2`}z+\frac{`r b^2`}{`r m^2`}-\frac{`r h^2`}{`r k`}z\right)\,dz$$
+
+Combine like terms.
+
+$$V = \pi \int_{0}^{`r k`} \left(\frac{1}{`r m^2`}z^2+\left(\frac{`r 2*abs(b)`}{`r m^2`}-\frac{`r h^2`}{`r k`}\right)z+\frac{`r b^2`}{`r m^2`}\right)\,dz$$
+
+Use the antiderivative. We use the square brackets and rewriting the limits to remember to put them into the antiderivative (and take a difference).
+
+$$V = \pi  \left[\frac{1}{`r 3*m^2`}z^3+\left(\frac{`r 2*abs(b)`}{`r 2*m^2`}-\frac{`r h^2`}{`r 2*k`}\right)z^2+\frac{`r b^2`}{`r m^2`}z\right]_{0}^{`r k`}$$
+
+Plug in the limits and take a difference.
+
+$$V = \pi \left[ \left(\frac{1}{`r 3*m^2`}(`r k`)^3+\left(\frac{`r 2*abs(b)`}{`r 2*m^2`}-\frac{`r h^2`}{`r 2*k`}\right)(`r k`)^2+\frac{`r b^2`}{`r m^2`}(`r k`)\right)-\left(\frac{1}{`r 3*m^2`}(0)^3+\left(\frac{`r 2*abs(b)`}{`r 2*m^2`}-\frac{`r h^2`}{`r 2*k`}\right)(0)^2+\frac{`r b^2`}{`r m^2`}(0)\right) \right]$$
+
+Anything times 0 is 0.
+
+$$V = \pi \left(\frac{1}{`r 3*m^2`}(`r k`)^3+\left(\frac{`r 2*abs(b)`}{`r 2*m^2`}-\frac{`r h^2`}{`r 2*k`}\right)(`r k`)^2+\frac{`r b^2`}{`r m^2`}(`r k`)\right)$$
+
+$$V=`r V`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r V`
+exname: vol_by_washers
+extol: 1

@@ -1,0 +1,124 @@
+```{r,echo=F,warning=F}
+# Draw a bunch of alien worms
+NNN = 1200
+w = rep(0.2,NNN)
+h = sort(runif(NNN,0.2,1))
+di = runif(NNN,0,2*pi)
+hue = (runif(NNN,0,0.15)+runif(1))%%1
+
+num3 = sample(1:NNN)
+h3 = h[num3]
+di3 = di[num3]
+hu3 = hue[num3]
+
+sol = sample(c("01","10"),1)
+
+if(sol=="10"){
+  nums = sample(1:NNN,15*5)
+  H = h[nums]
+  HUE = hue[nums]
+  DI = di[nums]
+} else {
+  nrh = sample(2:3,1)
+  howwrong = sample(1:3,1)
+  if(howwrong==1){
+    nums = sample(c(sample(1:(NNN%/%2),15*5-nrh),sample((3*NNN%/%4):NNN,nrh)))
+    H = h[nums]
+    HUE = hue[nums]
+    DI = di[nums]
+  } else if(howwrong==2) {
+    nums = sample(c(sample(1:(NNN%/%4),nrh),sample((NNN%/%2):NNN,15*5-nrh)))
+    H = h[nums]
+    HUE = hue[nums]
+    DI = di[nums]
+  } else if(howwrong==3){
+    nums = sample((2*NNN%/%5):(3*NNN%/%5),15*5)
+    H = h[nums]
+    HUE = hue[nums]
+    DI = di[nums]
+  }
+}
+
+if(sol=="01"){
+  if(howwrong==2){
+    txt = "No, the sample is NOT representative. The heights are almost all tall."
+  } else if(howwrong==1) {
+    txt = "No, the sample is NOT representative. The heights are almost all short."
+  } else if(howwrong==3) {
+    txt = "No, the sample is NOT representative. The heights are all middling."
+  }
+} else {
+  txt = "Yes, the sample appears to be representative. There are similar proportions of small and tall in that sample as in the population."
+}
+
+
+```
+
+Question
+========
+
+On a distant planet, in an alien town, there are 1200 inhabitants with varying heights.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(pty="s",mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(0,20),ylim=c(0,20),axes=F,ann=F)
+th=seq(0,2*pi,pi/100)
+for(i in 1:(NNN/20)){
+  for(j in 1:20){
+    n = (i-1)*20+j
+    polygon(i/3+c(-w[n],-w[n],w[n],w[n])/2-0.5/3,
+            j+c(-h3[n],h3[n],h3[n],-h3[n])/2-1+h3[n]/2,
+            col=hsv(hu3[n],0.9,1),lwd=0.5)
+    polygon(i/3+0.06*cos(th)-0.5/3,
+            j+0.06*sin(th)+h3[n]/2-0.09-1+h3[n]/2,
+            col="white",lwd=0.3)
+    polygon(i/3+0.03*cos(di3[n])+0.03*cos(th)-0.5/3,
+            j+0.03*sin(di3[n])+h3[n]/2-0.09+0.03*sin(th)-1+h3[n]/2,
+            col="black",lwd=0.3)
+  }
+}
+```
+\
+
+A researcher gathers a sample ($n=75$) to estimate the average height and to estimate the variability of height. The sample is shown below.
+
+```{r,echo=F,fig.dim=c(1.5,1.5)}
+par(pty="s",mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(0,5),ylim=c(0,5),axes=F,ann=F)
+th=seq(0,2*pi,pi/100)
+for(i in 1:15){
+  for(j in 1:5){
+    n = (i-1)*5+j
+    polygon(i/3+c(-w[n],-w[n],w[n],w[n])/2-0.5/3,
+            j+c(-H[n],H[n],H[n],-H[n])/2-1+H[n]/2,
+            col=hsv(HUE[n],0.9,1),lwd=0.5)
+    polygon(i/3+0.06*cos(th)-0.5/3,
+            j+0.06*sin(th)+H[n]/2-0.09-1+H[n]/2,
+            col="white",lwd=0.3)
+    polygon(i/3+0.03*cos(DI[n])+0.03*cos(th)-0.5/3,
+            j+0.03*sin(DI[n])+H[n]/2-0.09+0.03*sin(th)-1+H[n]/2,
+            col="black",lwd=0.3)
+  }
+}
+```
+\
+
+Does the sample appear to be representative of the population? In other words, does it appear that a simple random sample was taken?
+
+Answerlist
+--------
+
+* Yes, the sample is representative of the population.
+* No, the sample is NOT representative of the population.
+
+Solution
+========
+
+`r txt`
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: is_sample_rprsnttv

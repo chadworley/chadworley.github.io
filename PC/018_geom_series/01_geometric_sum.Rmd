@@ -1,0 +1,70 @@
+```{r,echo=FALSE}
+options(scipen=99)
+g1 = sample(2:9,1)*10^sample(-1:2,1)
+r = 1+sample(1:20,1)/100*sample(c(-1,1),1)
+n = sample(10:30,1)
+Sn = g1*(1-r^n)/(1-r)
+```
+
+Question
+========
+
+A geometric sequence has a first term `r g1` and a common ratio `r r`. Find the sum of the first `r n` terms.
+
+The tolerance is $\pm 0.01$.
+
+(*We call the **sum** of a geometric sequence a [geometric series](https://en.wikipedia.org/wiki/Geometric_series).*)
+
+Solution
+========
+
+It might be helpful to reference [geometric series](https://en.wikipedia.org/wiki/Geometric_series). Identify the parameters.
+
+$$a = `r g1`$$
+
+$$r = `r r`$$
+
+Define the explicit formula to find the $n$th term.
+
+$$a_n = (`r g1`)(`r r`)^{(n-1)}$$
+
+The sum of the first `r n` terms could be donated with $S_{`r n`}$ or with the [upper-case Sigma summation operator](https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation).
+
+$$S_{`r n`} = \sum_{i=1}^{`r n`}(`r g1`)(`r r`)^{(i-1)} $$
+
+A constant factor (multiplier) can be brought in front of a summation operator.
+
+$$S_{`r n`} = `r g1`\sum_{i=1}^{`r n`}(`r r`)^{(i-1)} $$
+
+Just to be clear, we are attempting to find the following sum:
+
+$$S_{`r n`} = (`r g1`)\left(1+`r r`+`r r`^2+`r r`^3+\ldots+`r r`^{`r n-4`}+`r r`^{`r n-3`}+`r r`^{`r n-2`}+`r r`^{`r n-1`}\right) $$
+
+If you are cool, you might multiply both sides by `r r`, and distribute to all the terms in the summation.
+
+$$`r r`\cdot S_{`r n`} = (`r g1`)\left(`r r`+`r r`^2+`r r`^3+`r r`^4+\ldots+`r r`^{`r n-3`}+`r r`^{`r n-2`}+`r r`^{`r n-1`}+`r r`^{`r n`}\right) $$
+
+Subtract the previous two equations and simplify by eliminating the opposite terms.
+
+$$S_{`r n`} - `r r`\cdot S_{`r n`} = (`r g1`)(1-`r r`^{`r n`})$$
+
+Factor out $S_{`r n`}$ from the terms on the left side of the equation.
+
+$$S_{`r n`}(1-`r r`)= (`r g1`)(1-`r r`^{`r n`})$$
+
+Divide both sides by $(1-`r r`)$.
+
+$$S_{`r n`}= \frac{(`r g1`)(1-`r r`^{`r n`})}{(1-`r r`)}$$
+
+This process suggests the geometric series formula.
+
+$$S_n = \frac{a(1-r^n)}{1-r} $$
+
+$$S_{`r n`}= `r Sn`$$
+
+Meta-information
+============
+extype: num
+exsolution: `r Sn`
+extol: 0.01
+exname: geometric_series

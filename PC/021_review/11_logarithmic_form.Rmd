@@ -1,0 +1,71 @@
+```{r,echo=F}
+while(T){
+  sel = sample(2:12,2)
+  b = sel[1]
+  x = sel[2]
+  p = b^x
+  if(length(unique(c(b,x,p)))==3 && x^b != p && p<10000){break}
+}
+
+ops = sort(c(b,x,p))
+sol1 = paste0(1*(ops==b),collapse="")
+sol2 = paste0(1*(ops==p),collapse="")
+sol3 = paste0(1*(ops==x),collapse="")
+
+al = paste0("* ",ops,"\n",collapse="")
+```
+
+Question
+========
+
+You can verify the exponential relationship below.
+$$`r b`^{`r x`} = `r p`$$
+
+These same three numbers can be used to satisfy the following logarithmic equation.
+
+$$\log_{a}(b) = c$$
+
+Determine values for $a$, $b$, and $c$.
+
+* $a =$ ##ANSWER1##
+* $b =$ ##ANSWER2##
+* $c =$ ##ANSWER3##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+Personally, I prefer thinking this through algebraically. We can take a log of both sides.
+
+$$\log\left(`r b`^{`r x`}\right) = \log(`r p`)$$
+
+When the argument of a log function has an exponent, that exponent can be brought down as a factor outside the log function.
+
+$$`r x`\cdot\log(`r b`) = \log(`r p`)$$
+
+We can divide both sides by $\log(`r b`)$.
+$$`r x` = \frac{\log(`r p`)}{\log(`r b`)}$$
+
+Apply the change of base rule.
+$$`r x` = \log_{`r b`}(`r p`)$$
+Switch the sides.
+
+$$\log_{`r b`}(`r p`) = `r x`$$
+
+So, $a=`r b`$ and $b=`r p`$ and $c=`r x`$.
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: logarithmic_form

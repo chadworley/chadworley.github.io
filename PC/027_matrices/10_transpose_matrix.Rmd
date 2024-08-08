@@ -1,0 +1,78 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],\n            [",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+dims = sample(2:4,2)
+n = prod(dims)
+d = sample(1:n)
+A = matrix(d,dims[1])
+
+B1 = t(A)
+B2 = matrix(d,dims[1],byrow=T)
+B3 = matrix(d,dims[2])
+
+bs = list(B1,B2,B3,A)
+
+ord = sample(1:4)
+
+sol = paste0(1*(ord==1),collapse="")
+
+```
+
+Question
+========
+
+Let matrix $M$ be defined below:
+
+$$M = `r matpr(A)`$$
+
+Which matrix equals $M^\mathrm{T}$, the [transpose](https://en.wikipedia.org/wiki/Transpose) of $M$?
+
+$$A = `r matpr(bs[[ord[1]]])`$$
+$$B = `r matpr(bs[[ord[2]]])`$$
+$$C = `r matpr(bs[[ord[3]]])`$$
+$$D = `r matpr(bs[[ord[4]]])`$$
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+
+
+Solution
+========
+
+You can use [SageMath](https://sagecell.sagemath.org/).
+
+```
+M = matrix(`r matcc(A)`)
+print(M.transpose())
+```
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: transpose

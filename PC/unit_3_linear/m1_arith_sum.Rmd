@@ -1,0 +1,96 @@
+```{r data generation, echo = FALSE, results = "hide"}
+while(T){
+  d = sample(2:6,1)
+  a1 = sample(2:20,1)
+  n = sample(15:40,1)
+  an = a1+(n-1)*d
+  i = 1:n
+  a = a1+(i-1)*d
+  ave = (a1+an)/2
+  S = sum(a)
+  S2 = (a1+an)/2*n
+  if(round(ave)==ave){break}
+}
+```
+
+
+Question
+========
+
+
+Find the sum of the arithmetic series:
+$$`r a1`+`r a[2]`+`r a[3]`+\ldots+`r a[n-2]`+`r a[n-1]`+`r a[n]` $$
+
+
+Solution
+========
+
+The sum of an arithmetic series is found by averaging the first and last terms and multiplying by the number of terms.
+
+Determine the common difference.
+
+$$d ~=~ (`r a[2]`)-(`r a1`) ~=~ `r d`$$
+
+Find how many terms there are.
+
+$$a_{n} = a_1+(n-1)d $$
+$$`r a[n]`= `r a1`+(n-1)(`r d`)$$
+$$n=`r n`$$
+
+So,
+
+$$\sum_{i=1}^{`r n`} a_i ~=~ \frac{(`r a1`)+(`r an`)}{2} \cdot (`r n`)$$
+
+Evaluate.
+$$\sum_{i=1}^{`r n`} a_i ~=~ `r S`$$
+
+I think of an arithmetic series as representing stacks of coins in a stair pattern. Our goal is to count the coins.
+
+```{r,echo=FALSE}
+library(latex2exp)
+par(pty="s",mar=c(4,0.1,0.1,0.1))
+plot(0,0,type="n",xlim=c(0,n+1),ylim=c(0,round(max(a)+10,-1)),ylab="value",xlab="index")
+for(i in 1:n){
+  lines(c(i-0.5,i+0.5),c(0,0))
+  for(j in 1:a[i]){
+    lines(c(i-0.5,i-0.5,i+0.5,i+0.5),c(j-1,j,j,j-1))
+  }
+}
+abline(h=ave,lty=2,col="red")
+text(n/8,ave+an/25,paste0("average = ",ave,collapse=""),col="red")
+text(1,a1+an/10,TeX(paste0("$a_1=",a1,"$")),col="red")
+arrows(1,a1+an/15,1,a1+an/25,col="red",length=0.03)
+text(n-0.6,an+an/20,TeX(paste0("$a_{",n,"}=",an,"$")),col="red")
+# lines(c(n,n),c(an+an/25,an+an/15),col="red")
+```
+
+Because of the regularity of the step size, the average stack height is simply the average of the first and last stacks.
+
+If we redistribute the wealth, then all the stacks have the average height.
+
+```{r,echo=FALSE}
+par(pty="s",mar=c(4,0.1,0.1,0.1))
+plot(0,0,type="n",xlim=c(0,n+1),ylim=c(0,round(max(a)+10,-1)),ylab="value",xlab="index")
+for(i in 1:n){
+  lines(c(i-0.5,i+0.5),c(0,0))
+  for(j in 1:round(ave)){
+    if(j>a[i]){
+      lines(c(i-0.5,i-0.5,i+0.5,i+0.5),c(j-1,j,j,j-1),col="grey")
+    } else {
+      lines(c(i-0.5,i-0.5,i+0.5,i+0.5),c(j-1,j,j,j-1),col="black")
+    }
+  }
+}
+abline(h=ave,lty=2,col="red")
+text(n/8,ave+an/25,paste0("average = ",ave,collapse=""),col="red")
+text(n/2,an-5,TeX(paste0("$",ave,"\\cdot ",n,"=",S,"$")),col="red",cex = 3)
+```
+
+Thus, we just need to multiply the number of stacks by the average height. And the average height is simply the average of the first and last stack. $`r ave`\cdot`r n` = `r S`$.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r S`
+exname: arith_seq_find_sum

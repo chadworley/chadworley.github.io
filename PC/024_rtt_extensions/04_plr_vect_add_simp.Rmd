@@ -1,0 +1,222 @@
+```{r,echo=F}
+while(T){
+  rs = sample(11:99,2)/10
+  r1 = rs[1]
+  r2 = rs[2]
+  ds = sort(sample(11:79,2))
+  d1 = ds[1]
+  d2 = ds[2]
+  t1 = d1/180*pi
+  t2 = d2/180*pi
+  a1 = r1*cos(t1)
+  b1 = r1*sin(t1)
+  a2 = r2*cos(t2)
+  b2 = r2*sin(t2)
+  a3 = a1+a2
+  b3 = b1+b2
+  r3 = sqrt(a3^2+b3^2)
+  t3 = atan(b3/a3)
+  d3 = t3*180/pi
+  if(t3-t1>pi/20 && abs(r2-r1)<1/3*min(c(r1,r2)) && abs(r2-r1)>0.4 && r1!=r2 && round(r1)!=r1 && round(r2)!=r2 && b3<a3*1.5){break}
+}
+ans1 = round(d3)
+ans2 = round(r3,1)
+
+nch = 8
+which1 = sample(1:nch,1)
+which2 = sample(1:nch,1)
+st1 = 1
+st2 = 0.1
+
+ac1 = round(seq(ans1-(which1-1)*st1,ans1+(nch-which1)*st1,length.out=nch))
+ac2 = round(seq(ans2-(which2-1)*st2,ans2+(nch-which2)*st2,length.out=nch),1)
+
+al1 = paste0("* ",ac1,"\n",collapse="")
+al2 = paste0("* ",ac2,"\n",collapse="")
+
+sol1 = paste0(1*(ac1==ans1),collapse="")
+sol2 = paste0(1*(ac2==ans2),collapse="")
+```
+
+Question
+========
+
+A ship sailed `r r1` miles in a direction of `r d1`° North of East. The ship turned and sailed `r r2` miles in a direction `r d2`° North of East.
+
+
+```{r,echo=F,fig.width=8}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(c(0,a3,a3,0),c(0,b3,0,0),type="l",asp=1,ann=F,axes=F,lwd=1,col="grey")
+m = 0.03*a3
+lines(c(a3-m,a3-m,a3),c(0,m,m),col="grey")
+lines(c(0,a3),c(0,b3),col="grey",lwd=2)
+arrows(0,0,a3,b3,angle=10,length=0.2,lwd=3,col="grey")
+lines(c(0,a1,a1,0),c(0,0,b1,0),col="red",lwd=1)
+lines(c(0,a1),c(0,b1),col="red",lwd=3)
+arrows(0,0,a1,b1,angle=10,length=0.15,lwd=3,col="red")
+lines(c(a1-m,a1-m,a1),c(0,m,m),col="red")
+ths = seq(0,t1,length.out=100)
+lines((m+m/t1)*cos(ths),(m+m/t1)*sin(ths),col="red")
+text((3*m+m/t1)*cos(t1/2),(3*m+m/t1)*sin(t1/2),
+     paste0(d1,"°"),col="red",srt=t1/pi*180/2)
+text(a1/2+cos(t1+pi/2)*m,b1/2+sin(t1+pi/2)*m,
+     paste0(r1," mi"),srt=t1/pi*180,col="red")
+lines(c(a1,a3,a3,a1),c(b1,b1,b3,b1),col="blue",lwd=1)
+lines(c(a1,a3),c(b1,b3),col="blue",lwd=3)
+lines(c(a3-m,a3-m,a3),c(b1,b1+m,b1+m),col="blue")
+arrows(a1,b1,a3,b3,angle=10,length=0.15,lwd=3,col="blue")
+phs = seq(0,t2,length.out=100)
+lines(a1+(m+m/t2)*cos(phs),b1+(m+m/t2)*sin(phs),col="blue")
+text(a1+(3*m+m/t2)*cos(t2/2),b1+(3*m+m/t2)*sin(t2/2),
+     paste0(d2,"°"),col="blue",srt=t2/pi*180/2)
+text(a1+a2/2+m*cos(pi/2+t2),b1+b2/2+m*sin(pi/2+t2),
+     paste0(r2," mi"),col="blue",srt=t2/pi*180)
+```
+\
+
+The ship's captain suffers a terrible accident. The first officer radios for help and sets anchor, waiting for help while administering first aid.
+
+A helicopter, starting where the ship started, wishes to fly directly to the ship. What direction ($\theta$ rounded to nearest degree) and distance ($r$ rounded to nearest tenth of a mile) should the helicopter fly?
+
+
+```{r,echo=F,fig.width=8}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(c(0,a3,a3,0),c(0,b3,0,0),type="l",asp=1,ann=F,axes=F,lwd=1,col="grey")
+m = 0.03*a3
+red2 = rgb(1,0.8,0.8)
+blue2 = rgb(0.8,0.8,1)
+lines(c(0,a1,a1,0),c(0,0,b1,0),col=red2,lwd=1)
+lines(c(0,a1),c(0,b1),col=red2,lwd=3)
+arrows(0,0,a1,b1,angle=10,length=0.15,lwd=3,col=red2)
+lines(c(a1-m,a1-m,a1),c(0,m,m),col=red2)
+lines(c(a1,a3,a3,a1),c(b1,b1,b3,b1),col=blue2,lwd=1)
+lines(c(a1,a3),c(b1,b3),col=blue2,lwd=3)
+lines(c(a3-m,a3-m,a3),c(b1,b1+m,b1+m),col=blue2)
+arrows(a1,b1,a3,b3,angle=10,length=0.15,lwd=3,col=blue2)
+lines(c(0,a3,a3,0),c(0,b3,0,0))
+lines(c(a3-m,a3-m,a3),c(0,m,m),col="black")
+lines(c(0,a3),c(0,b3),col="black",lwd=2)
+arrows(0,0,a3,b3,angle=10,length=0.2,lwd=4,col="black")
+ws = seq(0,t3,length.out=100)
+lines((m+m/t3)*cos(ws),(m+m/t3)*sin(ws),lwd=2,col="black")
+text((3*m+m/t3)*cos(t3/2),(3*m+m/t3)*sin(t3/2),
+     TeX("$\\theta$"),col="black",srt=t3/pi*180/2,cex=1.2)
+text(a3/2+m*cos(pi/2+t3),b3/2+m*sin(pi/2+t3),
+     TeX("$r$"),col="black",srt=t3/pi*180,cex=1.2)
+```
+\
+
+
+* The direction: $\theta =$ ##ANSWER1##
+* The distance: $r =$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+Solution
+========
+
+Start by naming some lengths (the legs of the two small triangles).
+
+```{r,echo=F,fig.width=8}
+library(latex2exp)
+m = 0.03*a3
+par(mar=c(0,0,0,0))
+plot(c(0,a3,a3,0),c(0,b3,0,0),type="l",asp=1,ann=F,axes=F,lwd=1,col="grey",xlim=c(-2*m,a3+2*m),ylim=c(-2*m,b3+2*m))
+lines(c(a3-m,a3-m,a3),c(0,m,m),col="grey")
+lines(c(0,a3),c(0,b3),col="grey",lwd=2)
+arrows(0,0,a3,b3,angle=10,length=0.2,lwd=3,col="grey")
+lines(c(0,a1,a1,0),c(0,0,b1,0),col="red",lwd=1)
+lines(c(0,a1),c(0,b1),col="red",lwd=3)
+arrows(0,0,a1,b1,angle=10,length=0.15,lwd=3,col="red")
+lines(c(a1-m,a1-m,a1),c(0,m,m),col="red")
+ths = seq(0,t1,length.out=100)
+lines((m+m/t1)*cos(ths),(m+m/t1)*sin(ths),col="red")
+text((3*m+m/t1)*cos(t1/2),(3*m+m/t1)*sin(t1/2),
+     paste0(d1,"°"),col="red",srt=t1/pi*180/2)
+text(a1/2+cos(t1+pi/2)*m,b1/2+sin(t1+pi/2)*m,
+     paste0(r1," mi"),srt=t1/pi*180,col="red")
+text(a1/2,-m,"a",col="red")
+text(a1+m,b1/2,"b",col="red")
+lines(c(a1,a3,a3,a1),c(b1,b1,b3,b1),col="blue",lwd=1)
+lines(c(a1,a3),c(b1,b3),col="blue",lwd=3)
+lines(c(a3-m,a3-m,a3),c(b1,b1+m,b1+m),col="blue")
+arrows(a1,b1,a3,b3,angle=10,length=0.15,lwd=3,col="blue")
+phs = seq(0,t2,length.out=100)
+lines(a1+(m+m/t2)*cos(phs),b1+(m+m/t2)*sin(phs),col="blue")
+text(a1+(3*m+m/t2)*cos(t2/2),b1+(3*m+m/t2)*sin(t2/2),
+     paste0(d2,"°"),col="blue",srt=t2/pi*180/2)
+text(a1+a2/2+m*cos(pi/2+t2),b1+b2/2+m*sin(pi/2+t2),
+     paste0(r2," mi"),col="blue",srt=t2/pi*180)
+text(a1+a2/2,b1-m,"j",col="blue")
+text(a1+a2+m,b1+b2/2,"k",col="blue")
+```
+\
+
+Evaluate $a$, $b$, $j$, and $k$. Remember to set your calculator to DEGREE MODE.
+
+$$a ~=~ `r r1` \cos(`r d1`^\circ) ~=~ `r a1`$$
+$$b ~=~ `r r1` \sin(`r d1`^\circ) ~=~ `r b1`$$
+$$j ~=~ `r r2` \cos(`r d2`^\circ) ~=~ `r a2`$$
+$$k ~=~ `r r2` \sin(`r d2`^\circ) ~=~ `r b2`$$
+
+Name the lengths of the large triangle.
+
+```{r,echo=F,fig.width=8}
+library(latex2exp)
+m = 0.03*a3
+par(mar=c(0,0,0,0))
+plot(c(0,a3,a3,0),c(0,b3,0,0),type="l",asp=1,ann=F,axes=F,lwd=1,col="grey",xlim=c(-2*m,a3+2*m),ylim=c(-2*m,b3+2*m))
+red2 = rgb(1,0.8,0.8)
+blue2 = rgb(0.8,0.8,1)
+lines(c(0,a1,a1,0),c(0,0,b1,0),col=red2,lwd=1)
+lines(c(0,a1),c(0,b1),col=red2,lwd=3)
+arrows(0,0,a1,b1,angle=10,length=0.15,lwd=3,col=red2)
+lines(c(a1-m,a1-m,a1),c(0,m,m),col=red2)
+lines(c(a1,a3,a3,a1),c(b1,b1,b3,b1),col=blue2,lwd=1)
+lines(c(a1,a3),c(b1,b3),col=blue2,lwd=3)
+lines(c(a3-m,a3-m,a3),c(b1,b1+m,b1+m),col=blue2)
+arrows(a1,b1,a3,b3,angle=10,length=0.15,lwd=3,col=blue2)
+lines(c(0,a3,a3,0),c(0,b3,0,0))
+lines(c(a3-m,a3-m,a3),c(0,m,m),col="black")
+lines(c(0,a3),c(0,b3),col="black",lwd=2)
+arrows(0,0,a3,b3,angle=10,length=0.2,lwd=4,col="black")
+ws = seq(0,t3,length.out=100)
+lines((m+m/t3)*cos(ws),(m+m/t3)*sin(ws),lwd=2,col="black")
+text((3*m+m/t3)*cos(t3/2),(3*m+m/t3)*sin(t3/2),
+     TeX("$\\theta$"),col="black",srt=t3/pi*180/2,cex=1.2)
+text(a3/2+m*cos(pi/2+t3),b3/2+m*sin(pi/2+t3),
+     TeX("$r$"),col="black",srt=t3/pi*180,cex=1.2)
+text(a3/2,-m,"x",col="black")
+text(a3+m,b3/2,"y",col="black")
+```
+\
+
+Calculate $x$ and $y$.
+
+$$x~=~`r a1`+`r a2`~=~`r a3`$$
+$$y~=~`r b1`+`r b2`~=~`r b3`$$
+Calculate $\theta$. Remember to set your calculator to DEGREE MODE.
+
+$$\theta ~=~ \arctan\left(\frac{`r b3`}{`r a3`}\right) ~=~ `r d3`^\circ ~\approx~ `r ans1`^\circ$$
+
+Calculate $r$ by using [Pythagorean Theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem).
+
+$$r ~=~ \sqrt{`r a3`^2+`r b3`^2} ~=~ `r r3` ~\approx~ `r ans2` ~\mathrm{mi}$$
+
+Instead of using Pythagorean Theorem, you could have used trigonometry.
+
+$$r ~=~ \frac{`r a3`}{\cos(`r d3`^\circ)} ~=~ \frac{`r b3`}{\sin(`r d3`^\circ)} ~=~ `r r3` ~\approx~ `r ans2`~\mathrm{mi}$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: polar_vector_add_simple

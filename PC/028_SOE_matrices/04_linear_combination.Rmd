@@ -1,0 +1,225 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+while(T){
+  A = matrix(sample(-9:9,9),3)
+  X = matrix(sample(-9:9,3),3)
+  B = A %*% X
+  rws = sort(sample(1:3,2))
+  coln = sample(1:3,1)
+  jk = c(A[rws[2],coln],-A[rws[1],coln])
+  AA = A
+  BB = B
+  AA[rws[1],] = jk[1]*A[rws[1],]+jk[2]*A[rws[2],]
+  BB[rws[1],] = jk[1]*B[rws[1],]+jk[2]*B[rws[2],]
+  if(det(A)!=0 && max(abs(B))<10 && max(abs(AA))<10 && max(abs(BB))<10 &&
+     sum(jk==0)==0 && min(abs(jk))>1 && sum(A==0)<3 && sum(AA==0)<3 && sum(B==0)<2 && sum(BB==0)<2){break}
+}
+
+eqs = character()
+for(i in 1:3){
+  cof = A[i,]
+  a = cof[1]
+  b = cof[2]
+  c = cof[3]
+  eq = paste0(a,"x+",b,"y+",c,"z&=",B[i])
+  eq = gsub("+-","-",eq,fixed=T)
+  eq = gsub("1x","x",eq,fixed=T)
+  eq = gsub("1y","y",eq,fixed=T)
+  eq = gsub("1z","z",eq,fixed=T)
+  eq = gsub("0x+","",eq,fixed=T)
+  eq = gsub("0x","",eq,fixed=T)
+  eq = gsub("+0y","",eq,fixed=T)
+  eq = gsub("0y","",eq,fixed=T)
+  eq = gsub("+0z","",eq,fixed=T)
+  eqs = c(eqs,eq)
+}
+soe = paste0(eqs,collapse="\\\\\n")
+
+ac = -9:9
+
+al = paste0("* ",ac,collapse="\n")
+aal = paste0(rep(al,12),collapse="\n")
+
+sols = character()
+
+for(i in 1:3){
+  for(j in 1:3){
+    sols = c(sols,paste0(1*(ac==as.character(AA[i,j])),collapse=""))
+  }
+}
+for(i in 1:3){
+  sols = c(sols,paste0(1*(ac==as.character(BB[i])),collapse=""))
+}
+
+Xstr = matrix(c("x","y","z"),3)
+
+ord = sample(1:2)
+
+rsstr = paste0(jk[ord[1]],"R_{",rws[ord[1]],"}+",jk[ord[2]],"R_{",rws[ord[2]],"}\\rightarrow R_{",rws[1],"}")
+
+rsstr = gsub("1\\cdot","",rsstr,fixed=T)
+rsstr = gsub("+-","-",rsstr,fixed=T)
+
+```
+
+Question
+========
+
+There are 3 [elementary row operations](https://en.wikipedia.org/wiki/Elementary_matrix#Elementary_row_operations):
+
+* Row switch: $R_a \leftrightarrow R_b$
+* Row multiply: $k R_a \rightarrow R_a$
+* Row add: $R_a+kR_b \rightarrow R_a$
+
+Personally, I prefer to mix the multiply and add into "linear combination":
+
+* Linear combination: $jR_a + kR_b \rightarrow R_a$
+
+Both $j$ and $k$ should be nonzero.
+
+
+## Linear Combination
+
+Below is an [augmented matrix](https://en.wikipedia.org/wiki/Augmented_matrix#Solution_of_a_linear_system).
+
+
+$$
+\left[
+  \begin{matrix}
+    `r A[1,1]` & `r A[1,2]` & `r A[1,3]` \\
+    `r A[2,1]` & `r A[2,2]` & `r A[2,3]` \\
+    `r A[3,1]` & `r A[3,2]` & `r A[3,3]` \\
+  \end{matrix}
+  \;\middle|\;
+    \,
+    \begin{matrix}
+      `r B[1]`  \\
+      `r B[2]`  \\
+      `r B[3]`  \\
+    \end{matrix}
+\right]
+$$
+
+Show the result of the linear combination $`r rsstr`$:
+
+
+<style>
+select.question_input {
+width: 5em;
+}
+
+tr {height: 3em;}
+
+.matrix-container {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+
+<div class="matrix-container">
+  <table class="matrix">
+  <tr>
+  <td>##ANSWER1##</td><td>##ANSWER2##</td>
+  <td>##ANSWER3##</td><td class="lbtd">##ANSWER10##</td>
+  </tr>
+  <tr>
+  <td>##ANSWER4##</td><td>##ANSWER5##</td><td>##ANSWER6##</td><td class="lbtd">##ANSWER11##</td>
+  </tr>
+  <tr>
+  <td>##ANSWER7##</td><td>##ANSWER8##</td><td>##ANSWER9##</td><td class="lbtd">##ANSWER12##</td>
+  </tr>
+  </table>
+</div>
+
+
+
+Answerlist
+--------
+
+`r aal`
+
+
+Solution
+========
+
+The original matrix:
+
+$$
+\left[
+  \begin{matrix}
+    `r A[1,1]` & `r A[1,2]` & `r A[1,3]` \\
+    `r A[2,1]` & `r A[2,2]` & `r A[2,3]` \\
+    `r A[3,1]` & `r A[3,2]` & `r A[3,3]` \\
+  \end{matrix}
+  \;\middle|\;
+    \,
+    \begin{matrix}
+      `r B[1]`  \\
+      `r B[2]`  \\
+      `r B[3]`  \\
+    \end{matrix}
+\right]
+$$
+
+We wish to perform the linear combination $`r rsstr`$. 
+
+First, determine $`r jk[ord[1]]`$ times $R_{`r rws[ord[1]]`}$:
+$$`r jk[ord[1]]*A[rws[ord[1]],]`, `r jk[ord[1]]*B[rws[ord[1]]]`$$
+
+Second, determine $`r jk[ord[2]]`$ times $R_{`r rws[ord[2]]`}$:
+$$`r jk[ord[2]]*A[rws[ord[2]],]`, `r jk[ord[2]]*B[rws[ord[2]]]`$$
+
+Add corresponding values. 
+$$`r jk[ord[1]]*A[rws[ord[1]],]+jk[ord[2]]*A[rws[ord[2]],]`, `r jk[ord[1]]*B[rws[ord[1]]]+jk[ord[2]]*B[rws[ord[2]]]`$$
+
+Use those values as the new $R_{`r rws[1]`}$.
+
+
+$$
+\left[
+  \begin{matrix}
+    `r AA[1,1]` & `r AA[1,2]` & `r AA[1,3]` \\
+    `r AA[2,1]` & `r AA[2,2]` & `r AA[2,3]` \\
+    `r AA[3,1]` & `r AA[3,2]` & `r AA[3,3]` \\
+  \end{matrix}
+  \;\middle|\;
+    \,
+    \begin{matrix}
+      `r BB[1]`  \\
+      `r BB[2]`  \\
+      `r BB[3]`  \\
+    \end{matrix}
+\right]
+$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice
+exsolution: `r paste0(sols,collapse="|")`
+exname: SOE_matrix_form

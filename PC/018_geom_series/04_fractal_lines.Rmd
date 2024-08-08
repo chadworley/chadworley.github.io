@@ -1,0 +1,125 @@
+```{r,echo=FALSE}
+options(scipen=99)
+# k = 0.5
+# ths = c(-pi/4,pi/4)
+# d = 11
+# k = 0.32
+# ths = c(-pi/4,0,pi/4)
+# d = 8
+# k = 0.24
+# ths = c(-6*pi/24,-2*pi/24,2*pi/24,6*pi/24)
+# d = 6
+# k = 0.19
+# ths = c(-pi/4,-pi/8,0,pi/8,pi/4)
+# d = 5
+# k = 0.19
+# ths = c(-pi/2,-pi/4,0,pi/4,pi/2)
+# d = 5
+
+NN = sample(2:8,1)
+k = floor(100.0/NN)/100-sample(1:4,1)/100
+ths = seq(-pi+pi/(NN),pi-pi/(NN),2*pi/(NN))
+d = ceiling(log(0.001,k))+1
+xmin = 0
+xmax = 0
+ymin = -1
+ymax = 0
+x = list(0)
+y = list(0)
+t = list(pi/2)
+l = 1
+x1s = c(0)
+x2s = c(0)
+y1s = c(-1)
+y2s = c(0)
+cols = c(1)
+for(i in 2:d){
+  l = l*k
+  for(j in 1:length(x[[i-1]])){
+    xp = x[[i-1]][j]
+    yp = y[[i-1]][j]
+    tp = t[[i-1]][j]
+    for(th in ths){
+      tc = tp+th
+      xc = xp+l*cos(tc)
+      yc = yp+l*sin(tc)
+      x1s = c(x1s,xp)
+      x2s = c(x2s,xc)
+      y1s = c(y1s,yp)
+      y2s = c(y2s,yc)
+      cols = c(cols,i)
+      if(length(x)<i){
+        x[[i]] = xc
+        y[[i]] = yc
+        t[[i]] = tc
+      } else {
+        x[[i]] = c(x[[i]],xc)
+        y[[i]] = c(y[[i]],yc)
+        t[[i]] = c(t[[i]],tc)
+      }
+      if(xc<xmin){
+        xmin = xc
+      }
+      if(xc>xmax){
+        xmax = xc
+      }
+      if(yc<ymin){
+        ymin = yc
+      }
+      if(yc>ymax){
+        ymax = yc
+      }
+    }
+  }
+}
+xrange = xmax-xmin
+yrange = ymax-ymin
+xmid = (xmin+xmax)/2
+ymid = (ymin+ymax)/2
+rad = max(c(xrange,yrange))/2
+sol = 1/(1-NN*k)
+```
+
+Question
+========
+
+```{r,fig.dim=c(6,6),echo=FALSE}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",
+     xlim=c(xmid-rad,xmid+rad),
+     ylim=c(ymid-rad,ymid+rad),ann=F,axes=F)
+for(i in 1:length(x1s)){
+  lines(c(x1s[i],x2s[i]),c(y1s[i],y2s[i]))
+}
+```
+\
+
+The fractal above is composed of many line segments. The largest segment is 1 unit long. There are then `r NN` segments, each with a length of $k = `r k`$. To continue the pattern, there are `r NN^2` segments with length $k^2=`r k^2`$. Then, `r NN^3` segments with length $k^3$ and `r NN^4` with length $k^4$ etc...
+
+How much total length is needed to construct this fractal (with infinite depths of recursion)? Find the sum of all the lengths.
+
+In other words, if $k=`r k`$, evaluate the following:
+
+$$\sum_{i=0}^\infty(`r NN`k)^{i} ~=~ 1 + `r NN`k + `r NN^2`k^2 + `r NN^3`k^3 + \ldots ~=~ ~? $$
+
+The tolerance is $\pm 0.01$.
+
+Solution
+========
+
+This summation is a [geometric series](https://en.wikipedia.org/wiki/Geometric_series). In general, if $|r|<1$ then
+
+$$a + ar + ar^2 +ar^3 + ar^4 +\ldots + ar^{\infty} ~=~ \frac{a}{1-r} $$
+
+In our case, $a=1$ and $r=`r NN*k`$. Notice, to calculate the common ratio $r$, we multiply the [branching number](https://en.wikipedia.org/wiki/Branching_factor) (`r NN`) by the scaling factor ($k=`r k`$).
+
+$$\frac{1}{1-`r NN*k`} = `r sol`$$
+
+So, the total length of all the segments is `r sol` units.
+
+Meta-information
+============
+extype: num
+exsolution: `r sol`
+extol: 0.01
+exname: fractal_lines

@@ -1,0 +1,148 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+posright = sample(1:4,1)
+
+while(T){
+  p = round(runif(1,0.2,0.8),3)
+  n1 = sample(5:12,1)
+  n2 = sample(5:12,1)
+  n = n1*n2
+  x = (runif(n,0,1) < p)*1
+  phat = mean(x)
+  xbar = mean(x)
+  s = sqrt(xbar*(1-xbar))
+  LB = round(xbar-2*s/sqrt(n),3)
+  UB = round(xbar+2*s/sqrt(n),3)
+  lba = round(xbar-2*s/n,3)
+  uba = round(xbar+2*s/n,3)
+  lbb = round(xbar-s/sqrt(n),3) 
+  ubb = round(xbar+s/sqrt(n),3)
+  lbc = round(xbar-2*s,3)
+  ubc = round(xbar+2*s,3)
+  lbd = round(xbar-s,3)
+  ubd = round(xbar+s,3)
+  lbe = round(xbar-4*s/sqrt(n),3)
+  ube = round(xbar+4*s/sqrt(n),3)
+  lbf = round(xbar-s/sqrt(n)/2,3)
+  ubf = round(xbar+s/sqrt(n)/2,3)
+  lbh = round(xbar-s/sqrt(n)/4,3)
+  ubh = round(xbar+s/sqrt(n)/4,3)
+  lbi = round(xbar-8*s/sqrt(n),3)
+  ubi = round(xbar+8*s/sqrt(n),3)
+  lbj = round(xbar-2*sqrt(2)*s/sqrt(n),3)
+  ubj = round(xbar+2*sqrt(2)*s/sqrt(n),3)
+  lbk = round(xbar-2*sd(x)/sqrt(n),3)
+  ubk = round(xbar+2*sd(x)/sqrt(n),3)
+  
+  tightlb = c(lba,lbb,lbf,lbh)
+  tightub = c(uba,ubb,ubf,ubh)
+  widelb = c(lbc,lbd,lbe,lbi,lbj,lbk)
+  wideub = c(ubc,ubd,ube,ubi,ubj,ubk)
+  
+  tightpicks = sample(1:length(tightlb),posright-1)
+  widepicks = sample(1:length(widelb),4-posright)
+  
+  ansli1 = sort(c(tightlb[tightpicks],LB,widelb[widepicks]))
+  ansli2 = sort(c(tightub[tightpicks],UB,wideub[widepicks]))
+  
+  s1 = paste0((ansli1==LB)*1,collapse="")
+  s2 = paste0((ansli2==UB)*1,collapse="")
+  if(length(unique(ansli1))==4 && min(diff(ansli1))>0.01 && min(ansli1)>0 && max(ansli2)<1 && abs(0.5-LB)>0.02 && abs(0.5-UB)>0.02 ){break}
+}
+xmat = data.frame(matrix(x,ncol=min(c(n1,n2))))
+
+if(UB<0.5){s3="100"}else if(LB>0.5){s3="001"}else{s3="010"}
+```
+
+Question
+========
+
+In an upcoming election, there are only two candidates: Candidate A and Candidate B. Each of the millions of people who will vote is easy to contact, has a preferred candidate, will honestly tell a pollster their preferred candidate, and won't change their opinion before the election.
+
+(Imagine an overly simple election run-up.)
+
+A pollster asks a simple-random sample of voters if they will vote for Candidate A. The answers are coded as a 1 if they say "yes" and 0 if they say "no". The results are shown below. 
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+```{r tab_data, echo=FALSE, results="asis"}
+opts <- options(knitr.kable.NA = "")
+knitr::kable(xmat,col.names = NULL,format="html", align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+
+The approximate formula to calculate the boundaries of a confidence interval of a mean is still appropriate for this proportion, as long as you do **NOT** use Bessel's correction when calculating $s$.
+$$\text{CI boundaries} = \bar{x} \pm \frac{2s}{\sqrt{n}}$$
+
+This formula can also be rewritten in terms of $\hat{p}$, since $\bar{x}=\hat{p}$ and $s=\sqrt{\hat{p}(1-\hat{p})}$.
+$$\text{CI boundaries (proportion)} = \hat{p} \pm 2 \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+
+**Calculate the confidence-interval boundaries**.
+
+The confidence interval is  [##ANSWER1##, ##ANSWER2##].
+
+What conclusion will the pollster infer? 
+
+##ANSWER3##.
+
+
+Answerlist
+--------
+* `r ansli1[1]`
+* `r ansli1[2]`
+* `r ansli1[3]`
+* `r ansli1[4]`
+* `r ansli2[1]`
+* `r ansli2[2]`
+* `r ansli2[3]`
+* `r ansli2[4]`
+* Candidate A will lose!
+* A larger sample is needed to confidently predict the winner.
+* Candidate A will win!
+
+
+
+Solution
+========
+
+Determine the sample size (use `=count()` in spreadsheet.)
+$$n = `r n`$$
+
+Calculate the sample proportion (use `=average()` in spreadsheet).
+$$\hat{p}=\frac{`r sum(x)`}{`r length(x)`} = `r phat`$$
+
+Calculate the standard deviation (use the algebraic formula $s=\sqrt{\hat{p}(1-\hat{p})}$ or `=stdevp()` in spreadsheet.) Interestingly, we do **not** use the [Bessel correction](https://en.wikipedia.org/wiki/Bessel%27s_correction){target="_blank"} when calculating the sample standard deviation of a proportion. The reason has to do with the [degrees of freedom](https://en.wikipedia.org/wiki/Degrees_of_freedom_(statistics)){target="_blank"}.
+
+$$s = \sqrt{`r phat`(1-`r phat`)} = `r s`$$.
+
+* Lower boundary = $`r xbar`-2(`r s`)/\sqrt{`r n`} ~=~ `r LB`$
+* Upper boundary = $`r xbar`+2(`r s`)/\sqrt{`r n`} ~=~ `r UB`$
+
+$$\left[`r LB`,\,`r UB`\right] $$
+
+If the boundaries straddle 0.5, then the pollster needs more data. Otherwise, the pollster can predict the winner based on who has a higher sample proportion.
+
+
+Meta-information
+================
+extype: cloze
+exsolution: `r s1`|`r s2`|`r s3`
+exclozetype: schoice|schoice|schoice
+exname: confidence interval mean raw MC

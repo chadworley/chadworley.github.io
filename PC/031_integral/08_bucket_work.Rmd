@@ -1,0 +1,154 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  exp = gsub("{1}x^{0}","1",exp,fixed=T)
+  exp = gsub("{1}","{}",exp,fixed=T)
+  exp = gsub("x^{0}","{}",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  h0 = round(runif(1,11,99)) #m
+  l = round(runif(1,1,9),1) #N/m
+  b = round(runif(1,11,99)) #N
+  W = (b+l*h0)*h0-l/2*h0^2 #J
+  if(abs(log(h0*l/b))<2 && abs(log(h0*l/b))>0.05 && W<9999 && W>1000){break}
+}
+
+
+```
+
+Question
+========
+
+A bucket filled with water will be pulled up `r h0` meters from the bottom of a well. The bucket is pulled up by a heavy rope that connects the pulley to the bucket.  As the bucket is lifted, this rope's length decreases from `r h0` meters to 0 meters. The bucket and water together have a weight of `r b` [Newtons](https://en.wikipedia.org/wiki/Newton_(unit)). The rope has a [linear weight density](https://en.wikipedia.org/wiki/Linear_density) of `r l` Newtons per meter.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+
+draw_shell_back = function(z,r1,r2,h,perspective_ratio=0.5,col="red",nn=100){
+  t = seq(0,pi,length.out=nn)
+  pr = perspective_ratio
+  for(i in 1:(nn-1)){
+    polygon(c(r1*cos(t[i]),r1*cos(t[i+1]),r1*cos(t[i+1]),r1*cos(t[i])),
+            c(z+pr*r1*sin(t[i]),z+pr*r1*sin(t[i+1]),z+h+pr*r1*sin(t[i+1]),z+h+pr*r1*sin(t[i])),
+            col=col,border=col)
+    polygon(c(r1*cos(t[i]),r1*cos(t[i+1]),r2*cos(t[i+1]),r2*cos(t[i])),
+            c(z+h+pr*r1*sin(t[i]),z+h+pr*r1*sin(t[i+1]),z+h+pr*r2*sin(t[i+1]),z+h+pr*r2*sin(t[i])),
+            col=col,border=col)
+  }
+  lines(r1*cos(t),z+pr*r1*sin(t))
+  lines(r1*cos(t),z+h+pr*r1*sin(t))
+  lines(r2*cos(t),z+h+pr*r2*sin(t))
+}
+draw_shell_front = function(z,r1,r2,h,perspective_ratio=0.5,col="red",nn=100){
+  t = seq(pi,2*pi,length.out=nn)
+  pr = perspective_ratio
+  for(i in 1:(nn-1)){
+    polygon(c(r2*cos(t[i]),r2*cos(t[i+1]),r2*cos(t[i+1]),r2*cos(t[i])),
+            c(z+pr*r2*sin(t[i]),z+pr*r2*sin(t[i+1]),z+h+pr*r2*sin(t[i+1]),z+h+pr*r2*sin(t[i])),
+            col=col,border=col)
+    polygon(c(r1*cos(t[i]),r1*cos(t[i+1]),r2*cos(t[i+1]),r2*cos(t[i])),
+            c(z+h+pr*r1*sin(t[i]),z+h+pr*r1*sin(t[i+1]),z+h+pr*r2*sin(t[i+1]),z+h+pr*r2*sin(t[i])),
+            col=col,border=col)
+  }
+  lines(r2*cos(t),z+pr*r2*sin(t))
+  lines(r1*cos(t),z+h+pr*r1*sin(t))
+  lines(r2*cos(t),z+h+pr*r2*sin(t))
+  lines(c(-r2,-r2),c(z,z+h))
+  lines(c(r2,r2),c(z,z+h))
+}
+
+draw_bucket = function(z,s=1,pr=0.3,alpha=0.5){
+  draw_shell_back(z,1*s,1.3*s,2*s,pr,col=rgb(0.6,0.2,0.2,alpha))
+  draw_shell_back(z,0,1*s,1.8*s,pr,col=rgb(0,0,1,alpha))
+  draw_shell_front(z,0,1*s,1.8*s,pr,col=rgb(0,0,1,alpha))
+  draw_shell_front(z,1*s,1.3*s,2*s,pr,col=rgb(0.6,0.2,0.2,alpha))
+  th = seq(0,pi,pi/100)
+  lines(1.15*s*cos(th),1.15*s*sin(th)+z+2*s,lwd=3)
+  lines(c(0,0),c(1.15*s+z+2*s,9),lwd=4)
+}
+
+xx = seq(-2.5,2.5,0.01)
+polygon(c(-2.5,xx,2.5),c(-10,-7+0.1*sin(4*xx*pi),-10),col="blue")
+polygon(c(-3.5,-2.5,-2.5,-3.5),c(-10,-10,8,8),col="darkgrey")
+polygon(c(3.5,2.5,2.5,3.5),c(-10,-10,8,8),col="darkgrey")
+polygon(c(-10,-3.5,-3.5,-10),c(-10,-10,7,7),col=rgb(0.6,0.4,0.2))
+polygon(c(10,3.5,3.5,10),c(-10,-10,7,7),col=rgb(0.6,0.4,0.2))
+draw_bucket(-9,1,0.2,1)
+th = seq(0,2*pi,pi/100)
+
+polygon(c(-10,-10,10,10),c(-10,10,10,-10),col=rgb(1,1,1,0.7))
+draw_bucket(0,1,0.2,1)
+
+polygon(0.5*cos(th),9+0.5*sin(th),col="brown")
+
+lines(c(1.6,1.9,1.9,1.6),c(-9,-9,0,0)+3.15,lwd=2,col="red")
+text(2.1,-4.5+3.15,"x",cex=2,col="red",adj=0)
+
+lines(c(2.6,2.9,2.9,2.6),c(-9+3.15,-9+3.15,8.5,8.5),lwd=2,col="purple")
+text(3.1,-0.25+3.25/2,paste0(h0," m"),cex=2,col="purple",adj=0)
+
+
+```
+\
+
+Each infinitesimal bit of [work](https://en.wikipedia.org/wiki/Work_(physics)) can be calculated from the product of force times infinitesimal displacement (change in height).
+
+$$dW = F(x) \, dx$$
+
+Notice that the force needed to lift the water, without acceleration, equals the total weight of the bucket, water, and rope between the pulley and the bucket. Because the length of rope decreases, the total weight decreases, so it gets easier to lift the bucket each millimeter.
+
+
+The total work can be found by adding up all the infinitesimal bits of work. Find the total work in [Joules](https://en.wikipedia.org/wiki/Joule) (1 Joule equals 1 Newton$\cdot$meter). The tolerance is $\pm$ 100 [J](https://en.wikipedia.org/wiki/Joule).
+
+
+Solution
+========
+
+Figure out the force function. The weight of the bucket+water is always `r b` Newtons. The rope weight starts at `r l*h0` Newtons, but decreases to 0 as the bucket is lifted. To find the weight of the rope, you multiply the linear weight density by the length of the rope.
+
+$$F(x) = `r b`+`r l`\cdot(`r h0`-x)$$
+
+Write the integral with appropriate limits.
+
+$$W ~=~ \int_{x=0}^{x=`r h0`} dW$$
+
+Substitute.
+
+$$W ~=~ \int_{0}^{`r h0`} F(x)\,dx$$
+Substitute.
+
+$$W ~=~ \int_{0}^{`r h0`} \left(`r b`+`r l`\cdot(`r h0`-x)\right)\,dx$$
+
+Simplify.
+
+$$W ~=~ \int_{0}^{`r h0`} \left(`r b+l*h0`-`r l`x\right)\,dx$$
+
+Use the antiderivative.
+
+$$W ~=~ \left[`r b+l*h0`x-`r signif(l/2,3)`x^2\right]_{0}^{`r h0`}$$
+
+Use the limits.
+
+$$W ~=~ \left(`r b+l*h0`\cdot(`r h0`)-`r signif(l/2,3)`\cdot(`r h0`)^2\right)-\left(`r b+l*h0`\cdot(`r 0`)-`r signif(l/2,3)`\cdot(0)^2\right)$$
+
+Get rid of the zero terms.
+
+$$W ~=~ `r b+l*h0`\cdot(`r h0`)-`r signif(l/2,3)`\cdot(`r h0`)^2$$
+
+Evaluate.
+
+$$W ~=~ `r (b+l*h0)*h0-l/2*h0^2`$$
+
+So the work equals approximately `r round(W,-2)` J, or about `r signif(W/4184,2)` [food calories](https://en.wikipedia.org/wiki/Calorie#Nutrition).
+
+
+Meta-information
+============
+extype: num
+exsolution: `r W`
+exname: bucket_work
+extol: 100

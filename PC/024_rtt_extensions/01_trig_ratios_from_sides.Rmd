@@ -1,0 +1,107 @@
+```{r,echo=F}
+trips = list(c(3,4,5),
+             c(5, 12, 13),
+             c(8, 15, 17),
+             c(7, 24, 25),
+             c(20, 21, 29),
+             c(12, 35, 37),
+             c(9, 40, 41),
+             c(28, 45, 53),
+             c(11, 60, 61),
+             c(16, 63, 65),
+             c(33, 56, 65),
+             c(48, 55, 73),
+             c(13, 84, 85),
+             c(36, 77, 85),
+             c(39, 80, 89),
+             c(65, 72, 97))
+trp = trips[[sample(1:length(trips),1)]]
+a = trp[1]
+b = trp[2]
+c = trp[3]
+sols = c(a,c,b,c,a,b,c,a,c,b,b,a,
+         b,c,a,c,b,a,c,b,c,a,a,b)
+
+sols2 = character()
+for(i in 1:length(sols)){
+  sols2 = c(sols2,paste0(1*(c(a,b,c)==sols[i]),collapse=""))
+}
+
+al = paste0("* ",rep(list(a,b,c),24),"\n",collapse="")
+```
+
+Question
+========
+
+Consider the right triangle with lengths `r trp` and acute angles $\phi$ and $\theta$, where $\theta<\phi$. Find all the [trigonometric ratios](https://en.wikipedia.org/wiki/Trigonometric_functions#Right-angled_triangle_definitions). 
+
+```{r, echo=F, fig.dim=c(5,5)}
+library(latex2exp)
+par(pty="s",mar=c(0,0,0,0))
+a = trp[1]
+b = trp[2]
+c = trp[3]
+theta = atan(a/b)
+phi = atan(b/a)
+y1 = 0.5-a/b/2
+y2 = 0.5+a/b/2
+plot(c(0,1,1,0),c(y1,y1,y2,y1),type="l",lwd=2,xlim=c(-0.1,1.1),ylim=c(-0.1,1.1))
+lines(c(0.95,0.95,1),c(y1,y1+0.05,y1+0.05))
+text(0.5,y1-0.05,b)
+text(1.05,0.5,a)
+text(0.06/theta*cos(theta/2),y1+0.06/theta*sin(theta/2),TeX("$\\theta$"))
+text(1+0.06/phi*cos(3*pi/2-phi/2),y2+0.06/phi*sin(3*pi/2-phi/2),TeX("$\\phi$"))
+text(c/b/2*cos(theta)+0.05*cos(theta+pi/2),
+     y1+c/b/2*sin(theta)+0.05*sin(theta+pi/2),
+     c,
+     srt=theta/pi*180)
+
+
+```
+\
+
+
+
+* $\sin(\theta)$ = ##ANSWER1##/##ANSWER2##
+* $\cos(\theta)$ = ##ANSWER3##/##ANSWER4##
+* $\tan(\theta)$ = ##ANSWER5##/##ANSWER6##
+* $\csc(\theta)$ = ##ANSWER7##/##ANSWER8##
+* $\sec(\theta)$ = ##ANSWER9##/##ANSWER10##
+* $\cot(\theta)$ = ##ANSWER11##/##ANSWER12##
+* $\sin(\phi)$ = ##ANSWER13##/##ANSWER14##
+* $\cos(\phi)$ = ##ANSWER15##/##ANSWER16##
+* $\tan(\phi)$ = ##ANSWER17##/##ANSWER18##
+* $\csc(\phi)$ = ##ANSWER19##/##ANSWER20##
+* $\sec(\phi)$ = ##ANSWER21##/##ANSWER22##
+* $\cot(\phi)$ = ##ANSWER23##/##ANSWER24##
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+This is definitional. It is also exhaustive and tediuous. Sorry?
+
+* $\sin(\theta) = \frac{`r a`}{`r c`}$
+* $\cos(\theta) = \frac{`r b`}{`r c`}$
+* $\tan(\theta) = \frac{`r a`}{`r b`}$
+* $\csc(\theta) = \frac{`r c`}{`r a`}$
+* $\sec(\theta) = \frac{`r c`}{`r b`}$
+* $\cot(\theta) = \frac{`r b`}{`r a`}$
+* $\sin(\phi) = \frac{`r b`}{`r c`}$
+* $\cos(\phi) = \frac{`r a`}{`r c`}$
+* $\tan(\phi) = \frac{`r b`}{`r a`}$
+* $\csc(\phi) = \frac{`r c`}{`r b`}$
+* $\sec(\phi) = \frac{`r c`}{`r a`}$
+* $\cot(\phi) = \frac{`r a`}{`r b`}$
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",24),collapse="|")`
+exsolution: `r paste0(sols2,collapse="|")`
+exname: trig_ratios_from_sides

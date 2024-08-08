@@ -1,0 +1,269 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  exp = gsub("{1}x^{0}","1",exp,fixed=T)
+  exp = gsub("{1}","{}",exp,fixed=T)
+  exp = gsub("x^{0}","{}",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  ab = sort(round(sample(5:95,2)/10,1))
+  a = ab[1]
+  b = ab[2]
+  xx = 0.5
+  yy = xx^a-xx^b
+  ans = 1/(2*a+1)-2/(a+b+1)+1/(2*b+1)
+  
+  #\frac{1}{`r 2*a+1`}-\frac{2}{`r a+b+1`}+\frac{1}{`r 2*b+1`}
+  if(b-a>0.3 && yy>0.3 && b%%1!=0 && a%%1!=0 && ans>0.002){break}
+}
+
+
+
+```
+
+Question
+========
+
+A 3D shape's base is the 2D region enclosed by $y=0$ and $y=f(x)=x^{`r a`}-x^{`r b`}$ on the $xy$ plane. For every plane perpendicular to the $x$ axis, with $0<x<1$, there is a square cross section. 
+
+I have attempted to draw this below.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(pty="s")
+xs = seq(0,1,0.01)
+y1 = xs*0
+y2 = xs^a-xs^b
+tp = pi/4
+r = 0.7
+P = matrix(c(1,r*cos(tp),0,
+             0,r*sin(tp),1),2,byrow=T)
+curve1 = matrix(c(xs,y2,y2),nrow=3,byrow=T)
+flat1 = P%*%curve1
+curve2 = matrix(c(xs,y2,y1),nrow=3,byrow=T)
+flat2 = P%*%curve2
+curve3 = matrix(c(xs,y1,y1),nrow=3,byrow=T)
+flat3 = P%*%curve3
+curve4 = matrix(c(xs,y1,y2),nrow=3,byrow=T)
+flat4 = P%*%curve4
+
+X = matrix(c(xs-0.5,rev(xs)-0.5,xs-0.5,rev(xs)-0.5,
+             y2,rev(y2),y1,rev(y1),
+             y2,rev(y1),y1,rev(y2)),
+           nrow=3,byrow=T)
+
+crossx = numeric()
+crossy = numeric()
+crossz = numeric()
+for(x in seq(0.1,0.9,0.1)){
+  z = x^a-x^b
+  crossx = c(crossx,rep(x,5))
+  crossy = c(crossy,0,0,z,z,0)
+  crossz = c(crossz,0,z,z,0,0)
+}
+C = matrix(c(crossx-0.5,crossy,crossz),3,byrow=3)
+
+xx = 0.5
+yy = xx^a-xx^b
+sq1 = matrix(c(xx,xx,xx,xx,xx,
+               0,0,yy,yy,0,
+               0,yy,yy,0,0),nrow=3,byrow=T)
+flsq1 = P%*%sq1
+
+plot(flat1[1,],flat1[2,],type="l",xlim=c(-0.1,1.2),ylim=c(-0.1,1.2),xlab="x",ylab="z")
+
+for(x in seq(0,1,0.001)){
+  y = x^a-x^b
+  sq = matrix(c(x,x,x,x,x,
+               0,0,y,y,0,
+               0,y,y,0,0),nrow=3,byrow=T)
+  flsq = P%*%sq
+  polygon(flsq[1,],flsq[2,],col="red",border="red",lwd=1)
+}
+# for(x in seq(0,1,0.01)){
+#   y = x^a-x^b
+#   sq = matrix(c(x,x,x,x,x,
+#                0,0,y,y,0,
+#                0,y,y,0,0),nrow=3,byrow=T)
+#   flsq = P%*%sq
+#   polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=0.5)
+# }
+
+lines(flat1[1,],flat1[2,],col=rgb(0,0,0,1))
+lines(flat2[1,],flat2[2,],col=rgb(0,0,0,1))
+lines(flat3[1,],flat3[2,],col=rgb(0,0,0,1))
+lines(flat4[1,],flat4[2,],col=rgb(0,0,0,1))
+
+for(x in seq(0.1,0.9,0.2)){
+  y = x^a-x^b
+  sq = matrix(c(x,x,x,x,x,
+               0,0,y,y,0,
+               0,y,y,0,0),nrow=3,byrow=T)
+  flsq = P%*%sq
+  polygon(flsq[1,],flsq[2,],border="black",lwd=2)
+}
+```
+\
+
+And here is a spinning animation. Does that help?
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(6,6)}
+getR = function(u,t){
+  ux = u[1]
+  uy = u[2]
+  uz = u[3]
+  f = cos(t)+ux^2*(1-cos(t))
+  g = ux*uy*(1-cos(t))-uz*sin(t)
+  h = ux*uz*(1-cos(t))+uy*sin(t)
+  i = uy*ux*(1-cos(t))+uz*sin(t)
+  j = cos(t)+uy^2*(1-cos(t))
+  k = uy*uz*(1-cos(t))-ux*sin(t)
+  l = uz*ux*(1-cos(t))-uy*sin(t)
+  m = uz*uy*(1-cos(t))+ux*sin(t)
+  n = cos(t)+uz^2*(1-cos(t))
+  R = matrix(c(f,g,h,i,j,k,l,m,n),3,byrow=T)
+  return(R)
+}
+tp = pi/2
+r = 0.2
+P = matrix(c(1,r*cos(tp),0,
+             0,r*sin(tp),1),2,byrow=T)
+n = 20
+par(pty="s",mar=c(0,0,0,0))
+u = c(0,0,1)
+t = 2*pi/n
+R = getR(u,t)
+Xc = X
+Cc = C
+for(i in 1:n){
+  plot(0,0,type="n",axes=F,ann=F,xlim=c(-0.7,0.7),ylim=c(-0.4,1))
+  Xc_flat = P%*%Xc
+  lines(Xc_flat[1,],Xc_flat[2,])
+  Cc_flat = P%*%Cc
+  lines(Cc_flat[1,],Cc_flat[2,])
+  Xc = R%*%Xc
+  Cc = R%*%Cc
+}
+```
+\
+
+
+Find the volume of the shape; the tolerance is $\pm 0.001$ cubic units. You might find [this video](https://www.khanacademy.org/math/ap-calculus-ab/ab-applications-of-integration-new/ab-8-7/v/volume-with-cross-sections-intro) helpful. The general topic is "[volume from cross sections](https://en.wikibooks.org/wiki/Calculus/Volume)"; you might try a variety of resources by searching this phrase in your favorite search engine.
+
+
+Solution
+========
+
+The volume can be found by accumulating the volumes of many "slabs", where each slab is a square with some infinitesimal thickness.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(pty="s",mar=c(0,0,0,0))
+tp = pi/6
+r = 0.5
+P = matrix(c(1,r*cos(tp),0,
+             0,r*sin(tp),1),2,byrow=T)
+plot(0,0,type="n",xlim=c(0,1.1),ylim=c(0,1.1))
+dx = 0.02
+xs = seq(0,1,0.01)
+for(x in seq(0,1-dx,dx)){
+  y = x^a-x^b
+  
+  sq = matrix(c(x+dx,x+dx,x,x,
+               0,y,y,0,
+               y,y,y,y),nrow=3,byrow=T)
+  flsq = P%*%sq
+  polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=1)
+  
+  sq = matrix(c(x+dx,x+dx,x,x,
+               0,0,0,0,
+               0,y,y,0),nrow=3,byrow=T)
+  flsq = P%*%sq
+  polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=1)
+  
+  sq = matrix(c(x+dx,x+dx,x+dx,x+dx,
+               0,0,y,y,
+               0,y,y,0),nrow=3,byrow=T)
+  flsq = P%*%sq
+  polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=1)
+}
+
+xs = seq(0,1,0.001)
+lines(xs,xs^a-xs^b,lwd=2)
+
+```
+\
+
+The volume of each slab depends on $x$. The width and height are each $f(x)$ and the thickness is an [infinitesimal](https://en.wikipedia.org/wiki/Infinitesimal) $dx$.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(pty="s",mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(0,1.2),ylim=c(0,1.2))
+dx=0.1
+x = 0.3
+y = 0.9
+sq = matrix(c(x+dx,x+dx,x,x,
+             0,y,y,0,
+             y,y,y,y),nrow=3,byrow=T)
+flsq = P%*%sq
+polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=1)
+
+sq = matrix(c(x+dx,x+dx,x,x,
+             0,0,0,0,
+             0,y,y,0),nrow=3,byrow=T)
+flsq = P%*%sq
+polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=1)
+
+sq = matrix(c(x+dx,x+dx,x+dx,x+dx,
+             0,0,y,y,
+             0,y,y,0),nrow=3,byrow=T)
+flsq = P%*%sq
+polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=1)
+text(0.26,y/2,"f(x)")
+text(0.48,y+0.15,"f(x)")
+text(0.75,y+0.27,"dx")
+```
+\
+
+So, we can find the infinitesimal volume as a function of $x$.
+
+$$dV = (f(x))^2 \,dx$$
+
+
+$$dV = (x^{`r a`}-x^{`r b`})^2 \,dx$$
+
+We need to sum up all the differential volumes from $x=0$ to $x=1$.
+
+$$V = \int_{x=0}^{x=1} dV$$
+
+
+$$V = \int_{0}^{1} (x^{`r a`}-x^{`r b`})^2 \,dx$$
+
+You can apply the [binomial theorem](https://en.wikipedia.org/wiki/Binomial_theorem).
+
+$$V = \int_{0}^{1} (x^{`r 2*a`}-2x^{`r a+b`}+x^{`r 2*b`}) \,dx$$
+
+Let $g(x)$ be an antiderivative of $(f(x))^2$ such that $g(0)=0$.
+
+$$g(x)~=~\frac{1}{`r 2*a+1`}x^{`r 2*a+1`}-\frac{2}{`r a+b+1`}x^{`r a+b+1`}+\frac{1}{`r 2*b+1`}x^{`r 2*b+1`}$$
+
+We use the antiderivative to find the definite integral.
+
+$$V = g(1)-g(0)$$
+
+$$V = \left(\frac{1}{`r 2*a+1`}(1)^{`r 2*a+1`}-\frac{2}{`r a+b+1`}(1)^{`r a+b+1`}+\frac{1}{`r 2*b+1`}(1)^{`r 2*b+1`}\right) - \left(\frac{1}{`r 2*a+1`}(0)^{`r 2*a+1`}-\frac{2}{`r a+b+1`}(0)^{`r a+b+1`}+\frac{1}{`r 2*b+1`}(0)^{`r 2*b+1`}\right)$$
+
+$$V = \left(\frac{1}{`r 2*a+1`}-\frac{2}{`r a+b+1`}+\frac{1}{`r 2*b+1`}\right) - \left(0-0+0\right)$$
+
+
+$$V ~=~ \frac{1}{`r 2*a+1`}-\frac{2}{`r a+b+1`}+\frac{1}{`r 2*b+1`}$$
+$$V \approx `r ans`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: volume_by_slabs
+extol: 0.001

@@ -1,0 +1,120 @@
+```{r data generation, echo = FALSE, results = "hide"}
+while(T){
+  X1 = sort(sample(0:9,4)*c(1,1,1,-1))
+  P1 = sample(1:4)/10
+  mu = sum(X1*P1)
+  sig = sqrt(sum(P1*(X1-mu)^2))
+
+  if(mu < 0 && mu > -5 && abs(mu)>0.02 && round(sig*10)==sig*10){
+    break
+  }
+}
+mu1 = round(10*mu)/10
+sig1 = round(10*sig)/10
+
+while(T){
+  X2 = sort(sample(0:9,4)*c(1,1,1,-1))
+  P2 = sample(1:4)/10
+  mu = sum(X2*P2)
+  sig = sqrt(sum(P2*(X2-mu)^2))
+
+  if(mu < 0 && mu > -5 && abs(mu)>0.02 && round(sig*10)==sig*10){
+    break
+  }
+}
+mu2 = round(10*mu)/10
+sig2 = round(10*sig)/10
+
+sig3 = sqrt(sig1^2+sig2^2)
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+Joe will play two lotteries, with the following profit distributions, mean, and standard deviations.
+
+### Lottery 1
+```{r tab_data, echo=FALSE, results="asis"}
+ct = data.frame(X1,P1)
+colnames(ct) = c("$x_i$","$p_i$")
+knitr::kable(ct,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+$$\mu_1 = `r mu1`$$
+$$\sigma_1 = `r sig1`$$
+
+### Lottery 2
+```{r tab_data2, echo=FALSE, results="asis"}
+ct = data.frame(X2,P2)
+colnames(ct) = c("$x_i$","$p_i$")
+knitr::kable(ct,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+$$\mu_2 = `r mu2`$$
+$$\sigma_2 = `r sig2`$$
+
+## Total of both lotteries
+
+There are many possible outcomes for the total of both lotteries. Each pairing of outcomes is a possibility, giving a profit (from the sum of the two profits) and a chance (from the product of the two chances).
+
+```{r,echo=F}
+poss = numeric()
+prob = numeric()
+for(i in 1:4){
+  for(j in 1:4){
+    xx = X1[i]+X2[j]
+    pp = P1[i]*P2[j]
+    poss = c(poss,xx)
+    prob = c(prob,pp)
+  }
+}
+```
+
+```{r tab_data3, echo=FALSE, results="asis"}
+ct = data.frame(poss,prob)
+colnames(ct) = c("profit","chance")
+knitr::kable(ct,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+Notice, some possible profits show up more than once; these could be collapsed by adding their probabilities. It would still be a pain to analyze by hand. Luckily, there are some very nice properties when considering the sum of  [random variables](https://en.wikipedia.org/wiki/Random_variable){target="_blank"}.
+
+$$\mu = \mu_1 + \mu_2$$
+
+$$\sigma^2 = (\sigma_1)^2+(\sigma_2)^2$$
+
+$$\sigma = \sqrt{(\sigma_1)^2+(\sigma_2)^2} $$
+
+Find the [population standard deviation](https://en.wikipedia.org/wiki/Standard_deviation#Discrete_random_variable){target="_blank"} of the profit distribution when Joe plays both lotteries, arriving at a combined profit by adding the two random [independent](https://en.wikipedia.org/wiki/Independence_(probability_theory)){target="_blank"} profits.
+
+Solution
+========
+
+This looks much worse than it is. 
+$$\sigma = \sqrt{(`r sig1`)^2+(`r sig2`)^2} = `r sig3` $$
+
+Notice, there is no simple formula like this for the [average absolute deviation](https://en.wikipedia.org/wiki/Average_absolute_deviation) of a sum of random variables. This is the **key** reason to use standard deviation (and variance) as our measure of spread. 
+
+
+
+Meta-information
+================
+extype: num
+exsolution: `r sig3`
+exname: sig_pop_int
+extol: 0.1

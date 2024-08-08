@@ -1,0 +1,93 @@
+---
+title: "006_sd_project"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+### (1) Calculate $\sigma$ with spreadsheet of population with equally-probable outcomes.
+
+The goal is to find the population standard deviation ($\sigma$) of a 20-sided die.
+
+$$\sigma = \sqrt{\frac{1}{N}\sum\limits_{i=1}^N(x_i-\mu)^2}$$
+where $x_i$ represents the $i$th equally-likely outcome in the population with $N$ possibilities.
+
+1. In A1, write `1`
+2. In A2, write `=A1+1`, and drag down to fill A1:A20
+3. In A22, write `n`
+4. In A23, write `=count(A1:A20)`
+5. In A25, write `mu`
+6. In A26, write `=sum(A1:A20)/A23`
+7. In B1, write `=(A1-A$26)^2`, and drag down to fill B1:B20
+8. In D2, write `pop variance`
+9. In D3, write `=sum(B1:B20)/A23`
+10. In D5, write `pop sd`
+11. In D6, write `=sqrt(D3)`
+
+
+
+### (2) Calculate $s$ with spreadsheet
+
+The goal is to generate 10 measurements of the [standard normal random variable](https://en.wikipedia.org/wiki/Standard_normal_table#Normal_and_standard_normal_distribution){target="_blank"} ($Z$) and calculate the Bessel-corrected sample standard deviation ($s$) using a spreadsheet.
+
+$$s=\sqrt{\frac{1}{n-1}\sum\limits_{i=1}^n(x_i-\bar{x})^2}$$
+where $x_i$ represents the $i$th element of the sample with $n$ measurements.
+
+1. Make a new tab named `samsd`
+1. In A1, write `"x"`
+2. Generate a column of 10 measurements of $Z$ using `=norminv(rand(),0,1)` in A2:A11
+3. In A13, write `"xbar"`
+4. In A14, use `=average(A2:A11)` to calculate the sample mean
+5. In A16, write `"n"`
+6. In A17, write `=count(A2:A11)`
+7. In B1, write `"x-xbar"`
+8. In B2, write `=A2-A$14`, and drag the formula down for B2:B11
+9. In C1, write `"(x-xbar)^2"`
+10. In C2, write `=B2^2`, and drag the formula down for C2:C11
+11. In C13, write `"sample variance"`
+12. In C14, write `=sum(C2:C11)/(A17-1)`
+13. In C16, write `"sample standard deviation"`
+14. In C17, write `=sqrt(C14)`
+15. In C18, write `=stdev(A2:A11)`
+
+Now, go back to the first tab, where we calculated the population standard deviation.
+
+1. In D7, write `=stdevp(A1:A20)`.
+
+
+## (3) Calculate $\sigma$ from a discrete probability distribution
+
+$$\sigma = \sqrt{\sum\limits_{i=1}^Np_i(x_i-\mu)^2} $$
+
+where $\mu = \sum\limits_{i=1}^Np_ix_i$ and $N$ is the number of possibilities.
+
+1. Open a third tab, named `popsd2`
+1. In A1, type `x`
+1. In A2, type `31`
+1. In A3, type `32`
+1. In A4, type `33`
+1. In A5, type `34`
+1. In B1, type `p`
+1. In B2, type `0.4`
+1. In B3, type `0.2`
+1. In B4, type `0.3`
+1. In B5, type `0.1`
+1. In C1, type `x*p`
+1. In C2, type `=A2*B2` and drag to fill C2:C5
+1. In C7, type `mu`
+1. In C8, type `=sum(C2:C5)`
+1. In D1, type `p*(x-mu)^2`
+1. In D2, type `=B2*(A2-C$8)^2` and drag to fill D2:D5
+1. In D7, type `sigma^2`
+1. In D8, type `=sum(D2:D5)`
+1. In D10, type `sigma`
+1. In D11, type `=sqrt(D8)`
+
+## (4) Submit your spreadsheet!
+
+On canvas, submit the spreadsheet.
+
+

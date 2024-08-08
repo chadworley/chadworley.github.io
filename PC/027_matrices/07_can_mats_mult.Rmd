@@ -1,0 +1,83 @@
+```{r,echo=F,warning=F}
+canmult = sample(c(T,F),1)
+dims = sample(2:6,4)
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+s1 = ""
+if(canmult==T){
+  dims[3]=dims[2]
+  s2 = paste0("The dimensions of the product $C=AB$ would be $",dims[1],"\\times",dims[4],"$.",collapse="")
+} else {
+  s1 = "NOT"
+  s2 = ""
+  whichtrick = sample(1:5,1)
+  if(whichtrick==1){
+    dims[1]==dims[3]
+  } else if(whichtrick==2){
+    dims[2]==dims[4]
+  } else if(whichtrick==3){
+    dims[1]==dims[4]
+  } else if(whichtrick==4){
+    dims[1]==dims[3]
+    dims[2]==dims[4]
+  }
+}
+a = matrix(sample(-9:9,prod(dims[1:2]),T),nrow = dims[1])
+b = matrix(sample(-9:9,prod(dims[3:4]),T),nrow = dims[3])
+pra = matpr(a)
+prb = matpr(b)
+
+ac = 1:10
+sol1 = paste0(1*(ac==dims[1]),collapse="")
+sol2 = paste0(1*(ac==dims[2]),collapse="")
+sol3 = paste0(1*(ac==dims[3]),collapse="")
+sol4 = paste0(1*(ac==dims[4]),collapse="")
+sol5 = paste0(1*(c(T,F)==canmult),collapse="")
+al = paste0("* ",ac,collapse="\n")
+```
+
+Question
+========
+
+If the dimensions of matrix $A$ are $m\times n$ and the dimensions of matrix $B$ are $p\times q$, then the [matrix-multiplication](https://en.wikipedia.org/wiki/Matrix_multiplication) $AB$ is only possible if $n=p$.
+
+$$A=`r pra`$$
+$$B=`r prb`$$
+
+* $\mathrm{dim}(A)=$ ##ANSWER1##$\times$##ANSWER2##
+* $\mathrm{dim}(B)=$ ##ANSWER3##$\times$##ANSWER4##
+* Is the product $AB$ defined? ##ANSWER5##
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+* Yes, the matrices can be multiplied.
+* No, the matrices cannot be multiplied.
+
+Solution
+========
+
+* The dimensions of $A$ are $`r dims[1]`\times`r dims[2]`$.
+* The dimensions of $B$ are $`r dims[3]`\times`r dims[4]`$.
+* The number of columns of $A$ is `r s1` equal to the number of rows of $B$, so we can `r s1` find the product $AB$.
+
+`r s2`
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`
+exname: can_mult_mats

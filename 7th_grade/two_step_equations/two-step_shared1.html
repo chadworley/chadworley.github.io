@@ -1,0 +1,690 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>SQ two-step</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+h4.qqq {
+  background-color: black;
+  color: white;
+}
+ol.outermostlist{
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+<script type="text/javascript">
+const nv = 50;
+function loader(){
+  qs = document.body.getElementsByTagName("h4");
+  lnk = document.getElementById("linksies");
+  qs[0].parentElement.parentElement.classList.add("outermostlist");
+  for(let i=0;i<qs.length;i++){
+    if(i%2==0){
+      qs[i].innerHTML = "QUESTION  "+(Math.floor(i/2/nv+1)).toString()+" version "+((i/2)%nv+1).toString();
+      qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      qs[i].classList.add("qqq");
+      if(i%(2*nv)==0){
+        let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+        lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+        document.getElementById("tempid").id = newid;
+      }
+      qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      if(i%(2*nv)!=0){
+        qs[i].parentElement.style.display = "none";
+      }
+      }
+}
+}
+function shower(){
+  let x = this.nextSibling;
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    this.innerHTML = "Hide solution";
+  } else {
+    x.style.display = "none";
+    this.innerHTML = "Show solution";
+  }
+}
+function prev(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn-1+nv)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+function next(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn+1)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+</script>
+<body onLoad="loader()">
+<div style="display:none">
+\(\renewcommand{\hat}[1]{\widehat{#1}}\)
+</div>
+<h2 id="sqid">Shared Qs (two-step)</h2>
+<div id="linksies"></div>
+<ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[2=\frac{x-7}{2}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 2 equals the result when we start with <span class="math inline">\(x\)</span> and then subtract 7 and then divide by 2. In order to undo those operations, apply the inverse operations in reverse order: multiply by 2 and then add 7.</p>
+<p><span class="math display">\[x = 2\cdot 2+7\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=11\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[5=\frac{x}{2}+3\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 5 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 2 and then add 3. In order to undo those operations, apply the inverse operations in reverse order: subtract 3 and then multiply by 2.</p>
+<p><span class="math display">\[x = (5-3)\cdot 2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[11=\frac{x}{5}+9\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 11 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 5 and then add 9. In order to undo those operations, apply the inverse operations in reverse order: subtract 9 and then multiply by 5.</p>
+<p><span class="math display">\[x = (11-9)\cdot 5\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[48=(x+7)\cdot 4\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 48 equals the result when we start with <span class="math inline">\(x\)</span> and then add 7 and then multiply by 4. In order to undo those operations, apply the inverse operations in reverse order: divide by 4 and then subtract 7.</p>
+<p><span class="math display">\[x = \frac{48}{4}-7\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[36=(x+2)\cdot 6\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 36 equals the result when we start with <span class="math inline">\(x\)</span> and then add 2 and then multiply by 6. In order to undo those operations, apply the inverse operations in reverse order: divide by 6 and then subtract 2.</p>
+<p><span class="math display">\[x = \frac{36}{6}-2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[6=\frac{x}{5}+4\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 6 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 5 and then add 4. In order to undo those operations, apply the inverse operations in reverse order: subtract 4 and then multiply by 5.</p>
+<p><span class="math display">\[x = (6-4)\cdot 5\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[5=\frac{x+6}{3}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 5 equals the result when we start with <span class="math inline">\(x\)</span> and then add 6 and then divide by 3. In order to undo those operations, apply the inverse operations in reverse order: multiply by 3 and then subtract 6.</p>
+<p><span class="math display">\[x = 3\cdot 5-6\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[2=\frac{x}{2}-4\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 2 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 2 and then subtract 4. In order to undo those operations, apply the inverse operations in reverse order: add 4 and then multiply by 2.</p>
+<p><span class="math display">\[x = (2+4)\cdot 2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=12\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[2=\frac{x-5}{3}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 2 equals the result when we start with <span class="math inline">\(x\)</span> and then subtract 5 and then divide by 3. In order to undo those operations, apply the inverse operations in reverse order: multiply by 3 and then add 5.</p>
+<p><span class="math display">\[x = 3\cdot 2+5\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=11\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[48=(x-2)\cdot 6\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 48 equals the result when we start with <span class="math inline">\(x\)</span> and then subtract 2 and then multiply by 6. In order to undo those operations, apply the inverse operations in reverse order: divide by 6 and then add 2.</p>
+<p><span class="math display">\[x = \frac{48}{6}+2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[69=6 x+3\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 69 equals the result when we start with <span class="math inline">\(x\)</span> and then multiply by 6 and then add 3. In order to undo those operations, apply the inverse operations in reverse order: subtract 3 and then divide by 6.</p>
+<p><span class="math display">\[x = \frac{69-3}{6}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=11\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[16=(x-9)\cdot 8\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 16 equals the result when we start with <span class="math inline">\(x\)</span> and then subtract 9 and then multiply by 8. In order to undo those operations, apply the inverse operations in reverse order: divide by 8 and then add 9.</p>
+<p><span class="math display">\[x = \frac{16}{8}+9\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=11\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[32=3 x+5\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 32 equals the result when we start with <span class="math inline">\(x\)</span> and then multiply by 3 and then add 5. In order to undo those operations, apply the inverse operations in reverse order: subtract 5 and then divide by 3.</p>
+<p><span class="math display">\[x = \frac{32-5}{3}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[3=\frac{x+7}{6}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 3 equals the result when we start with <span class="math inline">\(x\)</span> and then add 7 and then divide by 6. In order to undo those operations, apply the inverse operations in reverse order: multiply by 6 and then subtract 7.</p>
+<p><span class="math display">\[x = 6\cdot 3-7\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=11\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[32=(x+5)\cdot 4\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 32 equals the result when we start with <span class="math inline">\(x\)</span> and then add 5 and then multiply by 4. In order to undo those operations, apply the inverse operations in reverse order: divide by 4 and then subtract 5.</p>
+<p><span class="math display">\[x = \frac{32}{4}-5\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[7=4 x-5\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 7 equals the result when we start with <span class="math inline">\(x\)</span> and then multiply by 4 and then subtract 5. In order to undo those operations, apply the inverse operations in reverse order: add 5 and then divide by 4.</p>
+<p><span class="math display">\[x = \frac{7+5}{4}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[9=\frac{x}{6}+7\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 9 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 6 and then add 7. In order to undo those operations, apply the inverse operations in reverse order: subtract 7 and then multiply by 6.</p>
+<p><span class="math display">\[x = (9-7)\cdot 6\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=12\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[52=9 x-2\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 52 equals the result when we start with <span class="math inline">\(x\)</span> and then multiply by 9 and then subtract 2. In order to undo those operations, apply the inverse operations in reverse order: add 2 and then divide by 9.</p>
+<p><span class="math display">\[x = \frac{52+2}{9}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[2=\frac{x-2}{3}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 2 equals the result when we start with <span class="math inline">\(x\)</span> and then subtract 2 and then divide by 3. In order to undo those operations, apply the inverse operations in reverse order: multiply by 3 and then add 2.</p>
+<p><span class="math display">\[x = 3\cdot 2+2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[2=\frac{x+3}{5}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 2 equals the result when we start with <span class="math inline">\(x\)</span> and then add 3 and then divide by 5. In order to undo those operations, apply the inverse operations in reverse order: multiply by 5 and then subtract 3.</p>
+<p><span class="math display">\[x = 5\cdot 2-3\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[3=\frac{x+5}{4}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 3 equals the result when we start with <span class="math inline">\(x\)</span> and then add 5 and then divide by 4. In order to undo those operations, apply the inverse operations in reverse order: multiply by 4 and then subtract 5.</p>
+<p><span class="math display">\[x = 4\cdot 3-5\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[10=\frac{x}{6}+8\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 10 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 6 and then add 8. In order to undo those operations, apply the inverse operations in reverse order: subtract 8 and then multiply by 6.</p>
+<p><span class="math display">\[x = (10-8)\cdot 6\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=12\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[2=\frac{x}{3}-2\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 2 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 3 and then subtract 2. In order to undo those operations, apply the inverse operations in reverse order: add 2 and then multiply by 3.</p>
+<p><span class="math display">\[x = (2+2)\cdot 3\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=12\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[42=9 x+6\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 42 equals the result when we start with <span class="math inline">\(x\)</span> and then multiply by 9 and then add 6. In order to undo those operations, apply the inverse operations in reverse order: subtract 6 and then divide by 9.</p>
+<p><span class="math display">\[x = \frac{42-6}{9}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[6=\frac{x+3}{2}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 6 equals the result when we start with <span class="math inline">\(x\)</span> and then add 3 and then divide by 2. In order to undo those operations, apply the inverse operations in reverse order: multiply by 2 and then subtract 3.</p>
+<p><span class="math display">\[x = 2\cdot 6-3\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[11=\frac{x}{2}+7\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 11 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 2 and then add 7. In order to undo those operations, apply the inverse operations in reverse order: subtract 7 and then multiply by 2.</p>
+<p><span class="math display">\[x = (11-7)\cdot 2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[2=\frac{x-3}{2}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 2 equals the result when we start with <span class="math inline">\(x\)</span> and then subtract 3 and then divide by 2. In order to undo those operations, apply the inverse operations in reverse order: multiply by 2 and then add 3.</p>
+<p><span class="math display">\[x = 2\cdot 2+3\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[4=\frac{x+5}{2}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 4 equals the result when we start with <span class="math inline">\(x\)</span> and then add 5 and then divide by 2. In order to undo those operations, apply the inverse operations in reverse order: multiply by 2 and then subtract 5.</p>
+<p><span class="math display">\[x = 2\cdot 4-5\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[3=\frac{x}{2}-3\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 3 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 2 and then subtract 3. In order to undo those operations, apply the inverse operations in reverse order: add 3 and then multiply by 2.</p>
+<p><span class="math display">\[x = (3+3)\cdot 2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=12\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[5=\frac{x+3}{2}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 5 equals the result when we start with <span class="math inline">\(x\)</span> and then add 3 and then divide by 2. In order to undo those operations, apply the inverse operations in reverse order: multiply by 2 and then subtract 3.</p>
+<p><span class="math display">\[x = 2\cdot 5-3\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[65=9 x+2\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 65 equals the result when we start with <span class="math inline">\(x\)</span> and then multiply by 9 and then add 2. In order to undo those operations, apply the inverse operations in reverse order: subtract 2 and then divide by 9.</p>
+<p><span class="math display">\[x = \frac{65-2}{9}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[3=\frac{x-4}{2}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 3 equals the result when we start with <span class="math inline">\(x\)</span> and then subtract 4 and then divide by 2. In order to undo those operations, apply the inverse operations in reverse order: multiply by 2 and then add 4.</p>
+<p><span class="math display">\[x = 2\cdot 3+4\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[69=9 x-3\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 69 equals the result when we start with <span class="math inline">\(x\)</span> and then multiply by 9 and then subtract 3. In order to undo those operations, apply the inverse operations in reverse order: add 3 and then divide by 9.</p>
+<p><span class="math display">\[x = \frac{69+3}{9}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[21=5 x+6\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 21 equals the result when we start with <span class="math inline">\(x\)</span> and then multiply by 5 and then add 6. In order to undo those operations, apply the inverse operations in reverse order: subtract 6 and then divide by 5.</p>
+<p><span class="math display">\[x = \frac{21-6}{5}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[8=\frac{x+9}{2}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 8 equals the result when we start with <span class="math inline">\(x\)</span> and then add 9 and then divide by 2. In order to undo those operations, apply the inverse operations in reverse order: multiply by 2 and then subtract 9.</p>
+<p><span class="math display">\[x = 2\cdot 8-9\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[9=(x-5)\cdot 9\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 9 equals the result when we start with <span class="math inline">\(x\)</span> and then subtract 5 and then multiply by 9. In order to undo those operations, apply the inverse operations in reverse order: divide by 9 and then add 5.</p>
+<p><span class="math display">\[x = \frac{9}{9}+5\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[3=\frac{x-4}{2}\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 3 equals the result when we start with <span class="math inline">\(x\)</span> and then subtract 4 and then divide by 2. In order to undo those operations, apply the inverse operations in reverse order: multiply by 2 and then add 4.</p>
+<p><span class="math display">\[x = 2\cdot 3+4\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[11=\frac{x}{4}+8\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 11 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 4 and then add 8. In order to undo those operations, apply the inverse operations in reverse order: subtract 8 and then multiply by 4.</p>
+<p><span class="math display">\[x = (11-8)\cdot 4\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=12\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[28=(x+2)\cdot 4\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 28 equals the result when we start with <span class="math inline">\(x\)</span> and then add 2 and then multiply by 4. In order to undo those operations, apply the inverse operations in reverse order: divide by 4 and then subtract 2.</p>
+<p><span class="math display">\[x = \frac{28}{4}-2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[20=(x+3)\cdot 4\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 20 equals the result when we start with <span class="math inline">\(x\)</span> and then add 3 and then multiply by 4. In order to undo those operations, apply the inverse operations in reverse order: divide by 4 and then subtract 3.</p>
+<p><span class="math display">\[x = \frac{20}{4}-3\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[19=4 x-5\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 19 equals the result when we start with <span class="math inline">\(x\)</span> and then multiply by 4 and then subtract 5. In order to undo those operations, apply the inverse operations in reverse order: add 5 and then divide by 4.</p>
+<p><span class="math display">\[x = \frac{19+5}{4}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[66=8 x-6\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 66 equals the result when we start with <span class="math inline">\(x\)</span> and then multiply by 8 and then subtract 6. In order to undo those operations, apply the inverse operations in reverse order: add 6 and then divide by 8.</p>
+<p><span class="math display">\[x = \frac{66+6}{8}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[8=\frac{x}{2}+6\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 8 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 2 and then add 6. In order to undo those operations, apply the inverse operations in reverse order: subtract 6 and then multiply by 2.</p>
+<p><span class="math display">\[x = (8-6)\cdot 2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[11=\frac{x}{6}+9\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 11 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 6 and then add 9. In order to undo those operations, apply the inverse operations in reverse order: subtract 9 and then multiply by 6.</p>
+<p><span class="math display">\[x = (11-9)\cdot 6\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=12\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[48=(x-2)\cdot 6\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 48 equals the result when we start with <span class="math inline">\(x\)</span> and then subtract 2 and then multiply by 6. In order to undo those operations, apply the inverse operations in reverse order: divide by 6 and then add 2.</p>
+<p><span class="math display">\[x = \frac{48}{6}+2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[9=\frac{x}{2}+4\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 9 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 2 and then add 4. In order to undo those operations, apply the inverse operations in reverse order: subtract 4 and then multiply by 2.</p>
+<p><span class="math display">\[x = (9-4)\cdot 2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[24=(x+8)\cdot 2\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 24 equals the result when we start with <span class="math inline">\(x\)</span> and then add 8 and then multiply by 2. In order to undo those operations, apply the inverse operations in reverse order: divide by 2 and then subtract 8.</p>
+<p><span class="math display">\[x = \frac{24}{2}-8\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[12=\frac{x}{2}+7\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 12 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 2 and then add 7. In order to undo those operations, apply the inverse operations in reverse order: subtract 7 and then multiply by 2.</p>
+<p><span class="math display">\[x = (12-7)\cdot 2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[2=\frac{x}{2}-3\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 2 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 2 and then subtract 3. In order to undo those operations, apply the inverse operations in reverse order: add 3 and then multiply by 2.</p>
+<p><span class="math display">\[x = (2+3)\cdot 2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve the equation below.
+<span class="math display">\[7=\frac{x}{3}+5\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know that 7 equals the result when we start with <span class="math inline">\(x\)</span> and then divide by 3 and then add 5. In order to undo those operations, apply the inverse operations in reverse order: subtract 5 and then multiply by 3.</p>
+<p><span class="math display">\[x = (7-5)\cdot 3\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[x=6\]</span></p>
+<br/>
+</div></li>
+</ol>
+</body>
+</html>
+

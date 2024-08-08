@@ -1,0 +1,157 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+while(T){
+  n1 = sample(30:50,1)
+  n2 = sample(30:50,1)
+  p1 = runif(1,0.3,0.7)
+  semax = sqrt(p1*(1-p1)/max(c(n1,n2)))
+  p2 = p1+sample(c(-1,1),1)*semax*5
+  p2 = min(c(p2,0.8))
+  p2 = max(c(p2,0.2))
+  sig1 = sqrt(p1*(1-p1))
+  sig2 = sqrt(p2*(1-p2))
+  mu1 = p1
+  mu2 = p2
+  x1 = (runif(n1)<p1)*1
+  x2 = (runif(n2)<p2)*1
+  xbar1 = mean(x1)
+  xbar2 = mean(x2)
+  phat1 = xbar1
+  phat2 = xbar2
+  s1 = sqrt(phat1*(1-phat1))
+  s2 = sqrt(phat2*(1-phat2))
+  SE1 = s1/sqrt(n1)
+  SE2 = s2/sqrt(n2)
+  LB1 = round(xbar1-2*SE1,3)
+  UB1 = round(xbar1+2*SE1,3)
+  LB2 = round(xbar2-2*SE2,3)
+  UB2 = round(xbar2+2*SE2,3)
+  arediff = (UB1<LB2 || UB2<LB1)
+  bounds = sort(c(LB1,LB2,UB1,UB2))
+  wfs = c(1/4,1/4*sqrt(2),1/2,1/sqrt(2),sqrt(2),2,2*sqrt(2),4)
+  wfs1 = sample(wfs,3)
+  wfs2 = sample(wfs,3)
+  lb1opts = round(sort(c(LB1,xbar1-SE1*wfs1)),3)
+  lb2opts = round(sort(c(LB2,xbar2-SE2*wfs2)),3)
+  ub1opts = round(sort(c(UB1,xbar1+SE1*wfs1)),3)
+  ub2opts = round(sort(c(UB2,xbar2+SE2*wfs2)),3)
+  if(min(diff(bounds))>0.01 && abs(xbar1-xbar2)>0.01
+     && min(diff(lb1opts))>0.01
+     && min(diff(lb2opts))>0.01
+     && min(diff(ub1opts))>0.01
+     && min(diff(ub2opts))>0.01){break}
+}
+
+isrightlb1 = (lb1opts==LB1)
+isrightlb2 = (lb2opts==LB2)
+isrightub1 = (ub1opts==UB1)
+isrightub2 = (ub2opts==UB2)
+
+slb1 = paste0(isrightlb1*1,collapse="")
+sub1 = paste0(isrightub1*1,collapse="")
+slb2 = paste0(isrightlb2*1,collapse="")
+sub2 = paste0(isrightub2*1,collapse="")
+
+x1df = x1
+x2df = x2
+len = max(c(length(x1df),length(x2df)))
+if(length(x1)<length(x2)){
+  x1df = c(x1df,rep(NA,len-length(x1df)))
+}
+if(length(x1)>length(x2)){
+  x2df = c(x2df,rep(NA,len-length(x2df)))
+}
+
+if(arediff && xbar1<xbar2){
+  ss = "100"
+  sss = "Population 1 has a significantly lower average weight."
+} else if(arediff && xbar1>xbar2){
+  ss = "010"  
+  sss = "Population 1 has a significantly higher average weight."
+} else {
+  ss = "001"
+  sss = "These data (and methodology) do not show a significant difference."
+  }
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+Individuals from two simple-random samples (from two populations) were asked a binary question. A response of "yes" was coded with a 1. A response of "no" was coded with a 0. All participants answered yes or no. The raw data are shown below.
+
+```{r tab_data, echo=FALSE, results="asis"}
+opts <- options(knitr.kable.NA = "")
+mydf = data.frame(x1df,x2df)
+colnames(mydf) = c("Sample 1 (from Population 1)","Sample 2 (from Population 2)")
+knitr::kable(mydf,format="html", align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+Construct a 95% [**confidence interval**](https://en.wikipedia.org/wiki/Confidence_interval){target="blank"} for each population's proportion of "yes".
+
+$$\text{CI bounds} = \hat{p} \pm 2\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} $$
+
+The confidence interval for Population 1's proportion is [##ANSWER1##, ##ANSWER2##].
+
+The confidence interval for Population 2's proportion is [##ANSWER3##, ##ANSWER4##].
+
+Is there is a significant difference in proportions?
+
+##ANSWER5##
+
+Answerlist
+--------
+* `r lb1opts[1]`
+* `r lb1opts[2]`
+* `r lb1opts[3]`
+* `r lb1opts[4]`
+* `r ub1opts[1]`
+* `r ub1opts[2]`
+* `r ub1opts[3]`
+* `r ub1opts[4]`
+* `r lb2opts[1]`
+* `r lb2opts[2]`
+* `r lb2opts[3]`
+* `r lb2opts[4]`
+* `r ub2opts[1]`
+* `r ub2opts[2]`
+* `r ub2opts[3]`
+* `r ub2opts[4]`
+* Population 1 has a lower population proportion.
+* Population 1 has a higher population proportion.
+* These data (and method) do not show a significant difference.
+
+Solution
+========
+
+The confidence interval for Population 1 is [`r LB1`, `r UB1`].
+
+The confidence interval for Population 2 is [`r LB2`, `r UB2`].
+
+`r sss`
+
+
+Meta-information
+================
+extype: cloze
+exsolution: `r slb1`|`r sub1`|`r slb2`|`r sub2`|`r ss`
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exname: CI 2 means MC

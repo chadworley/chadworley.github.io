@@ -1,0 +1,248 @@
+```{r,echo=FALSE}
+Ti = round(runif(1,10,30),0)
+B = round(runif(1,0.11,0.5),2)
+if(B==1){
+  B = 1.1
+}
+C = round(B*Ti+runif(1,2,8),0)
+dt = 0.1
+Tf = Ti+(-B*Ti+C)*dt
+
+Ts = c(Ti)
+ts = c(0)
+
+for(i in 1:101){
+  TT = Ts[i]
+  tt = ts[i]
+  TT2 = (-B*TT+C)*dt+TT
+  tt2 = ts[i]+dt
+  Ts = c(Ts,TT2)
+  ts = c(ts,tt2)
+}
+
+```
+
+
+Question
+========
+
+Let's learn how to use [Euler's method](https://en.wikipedia.org/wiki/Euler_method) to simulate the changing temperature of a pot of water that is simultaneously cooled by air and warmed by a heater (and well-stirred). The basic idea of Euler's method is that during a short amount of time, we can assume the **average rate of change is approximately equal to the instantaneous rate of change at the beginning** of the time interval.
+
+Let's say that when $t=0$ min, the water temperature is `r Ti`°C.
+
+$$T(0) = `r Ti` $$
+The air-cooling rate is [proportional to the difference](https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling) between the temperatures; let's say the proportionality constant for air cooling is `r B` min$^{-1}$. Remember, this proportionality constant depends on many things, like the size of pot and speed of wind. Let's say the heater warms at a steady rate, so if the pot were insulated the temperature would steadily increase at `r C`°C/min. If we plot temperature versus time, the rate of change is the slope (rise over run), so we know how to calculate the slope $\frac{\Delta T}{\Delta t}$ if we know the temperature $T$.
+
+$$\frac{\Delta T}{\Delta t} ~\approx~ -`r B` T+`r C`$$
+
+
+
+Let's use a step size of $\Delta t=`r dt`$ min. We typically work in a table (or a spreadsheet). Here are the first few rounds of calculations. Notice it is important to [maintain as many digits](https://en.wikipedia.org/wiki/Euler_method#Rounding_errors) as possible during the steps.
+
+<style>
+table.brd td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd th{
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd {
+  border: 3px solid black;
+}
+</style>
+
+<table class="brd">
+  <tr>
+    <th>$t$</th> 
+    <th>$T$</th>
+    <th>$\Delta t$</th>
+    <th>$\Delta T ~=~ (-`r B`T+`r C`)\cdot\Delta t$
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>`r Ti`</td>
+    <td>`r dt`</td>
+    <td>`r (-B*Ti+C)*dt`</td>
+  </tr>
+  <tr>
+    <td>`r ts[2]`</td>
+    <td>`r Ts[2]`</td>
+    <td>`r dt`</td>
+    <td>`r (-B*Ts[2]+C)*dt`</td>
+  </tr>
+  <tr>
+    <td>`r ts[3]`</td>
+    <td>`r Ts[3]`</td>
+    <td>`r dt`</td>
+    <td>`r (-B*Ts[3]+C)*dt`</td>
+  </tr>
+  <tr>
+    <td>`r ts[4]`</td>
+    <td>`r Ts[4]`</td>
+    <td>`r dt`</td>
+    <td>`r (-B*Ts[4]+C)*dt`</td>
+  </tr>
+</table>
+
+Notice, in each row, we add $T$ and $\Delta T$ to get the next $T$. In other words, $T(t+\Delta t) ~=~ T(t)+\Delta T$. For example $T(0.1) = `r Ti`+`r Ts[2]-Ts[1]` = `r Ts[2]`$.
+
+* Continue the table, using Euler's method, to estimate $T(10)$, the temperature after 10 minutes. The tolerance is $\pm 0.01$.
+
+
+
+Solution
+========
+
+Your spreadsheet should look something like this (in formula-view mode). The vertical dots ($\vdots$) indicate rows that you should calculate, but I felt unnecessary to show. You should be able to drag the formulas down.
+
+<style>
+table.sol td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.sol td.fc{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+  background-color: #aaaaaa;
+}
+table.sol th{
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+  background-color: #aaaaaa;
+}
+table.sol {
+  border: 3px solid black;
+}
+
+</style>
+
+<table class="sol">
+  <tr>
+    <th> </th>
+    <th>A</th> 
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+  </tr>
+  <tr>
+    <td class="fc">1</td>
+    <td> 0 </td>
+    <td> `r Ti` </td>
+    <td> `r dt` </td>
+    <td> = (-`r B` * B1 + `r C`)*C1 </td>
+  </tr>
+  <tr>
+    <td class="fc">2</td>
+    <td> =A1+C1 </td>
+    <td> =B1+D1 </td>
+    <td> =`r dt` </td>
+    <td> = (-`r B` * B2 + `r C`)*C2 </td>
+  </tr>
+  <tr>
+    <td class="fc">3</td>
+    <td> =A2+C2 </td>
+    <td> =B2+D2 </td>
+    <td> =`r dt` </td>
+    <td> = (-`r B` * B3 + `r C`)*C3 </td>
+  </tr>
+  <tr>
+    <td class="fc">4</td>
+    <td> =A3+C3 </td>
+    <td> =B3+D3 </td>
+    <td> =`r dt` </td>
+    <td> = (-`r B` * B4 + `r C`)*C4 </td>
+  </tr>
+  <tr>
+    <td>$\vdots$</td>
+    <td> $\vdots$ </td>
+    <td> $\vdots$ </td>
+    <td> $\vdots$ </td>
+    <td> $\vdots$ </td>
+  </tr>
+  <tr>
+    <td class="fc">101</td>
+    <td> =A100+C100 </td>
+    <td> =B100+D100 </td>
+    <td> =`r dt` </td>
+    <td> = (-`r B` * B100 + `r C`)*C100 </td>
+  </tr>
+</table>
+
+In the cell-value view:
+
+<table class="sol">
+  <tr>
+    <th> </th>
+    <th>A</th> 
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+  </tr>
+  <tr>
+    <td class="fc">1</td>
+    <td>0</td>
+    <td>`r Ti`</td>
+    <td>`r dt`</td>
+    <td>`r (-B*Ti+C)*dt`</td>
+  </tr>
+  <tr>
+    <td class="fc">2</td>
+    <td>`r ts[2]`</td>
+    <td>`r Ts[2]`</td>
+    <td>`r dt`</td>
+    <td>`r (-B*Ts[2]+C)*dt`</td>
+  </tr>
+  <tr>
+    <td class="fc">3</td>
+    <td>`r ts[3]`</td>
+    <td>`r Ts[3]`</td>
+    <td>`r dt`</td>
+    <td>`r (-B*Ts[3]+C)*dt`</td>
+  </tr>
+  <tr>
+    <td class="fc">4</td>
+    <td>`r ts[4]`</td>
+    <td>`r Ts[4]`</td>
+    <td>`r dt`</td>
+    <td>`r (-B*Ts[4]+C)*dt`</td>
+  </tr>
+  <tr>
+    <td>$\vdots$</td>
+    <td> $\vdots$ </td>
+    <td> $\vdots$ </td>
+    <td> $\vdots$ </td>
+    <td> $\vdots$ </td>
+  </tr>
+  <tr>
+    <td class="fc">101</td>
+    <td>`r ts[101]`</td>
+    <td>`r Ts[101]`</td>
+    <td>`r dt`</td>
+    <td>`r (-B*Ts[101]+C)*dt`</td>
+  </tr>
+</table>
+
+
+If you plot the temperatures, you should see a curve that seems to approach a horizontal asymptote. As the temperature difference between the water and air increases, eventually the cooling rate perfectly opposes the heating rate, so the temperature holds steady.
+
+```{r,echo=F,fig.dim=c(6,6)}
+plot(ts[0:100],Ts[0:100],type="l",xlab="time (min)",ylab="Temp (Celsius)")
+```
+\
+
+So, $T(10) \approx `r round(Ts[101],2)`$.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r Ts[101]`
+exname: eulers_method_water
+extol: 0.01

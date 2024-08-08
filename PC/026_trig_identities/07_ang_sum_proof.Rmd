@@ -1,0 +1,143 @@
+```{r,echo=F,warning=F}
+while(T){
+  a = round(runif(1,pi/10,pi/4-0.1),3)
+  b = round(runif(1,pi/10,pi/4-0.1),3)
+  if(abs(diff(c(a,b)))>0.1){break}
+}
+p = round(cos(b),3)
+q = round(sin(b),3)
+r = round(cos(a)*cos(b),3)
+s = round(sin(a)*cos(b),3)
+t = round(cos(a)*sin(b),3)
+u = round(sin(a)*sin(b),3)
+v = round(cos(a+b),3)
+w = round(sin(a+b),3)
+ans = c(p,q,r,s,t,u,v,w)
+al = numeric()
+sol = c()
+for(i in 1:length(ans)){
+  wc = sample(1:5,1)
+  al = c(al,ans[i]+0.003*(1:5-wc))
+  sol = c(sol,paste0(1*(wc==1:5),collapse=""))
+}
+newal = sort(c(a,b,a+b,a-b,b-a))
+al = c(al,newal)
+sol = c(sol,paste0(1*(newal==a),collapse=""))
+newal = sort(c(a,b,a+b,a-b,b-a))
+al = c(al,newal)
+sol = c(sol,paste0(1*(newal==a+b),collapse=""))
+
+al = paste0("* ",al,collapse="\n")
+ect = paste0(rep("schoice",length(al)),collapse="|")
+exsol = paste0(sol,collapse="|")
+```
+
+Question
+========
+
+In the diagram below, let $\alpha=`r a`$ radians and $\beta=`r b`$ radians. Find all the lengths (to the nearest thousandth) and angle measures $\theta$ and $\phi$. Use unrounded values for all intermediate calculations.
+
+```{r,fig.dim=c(7,7),echo=F}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",ann=F,axes=F,xlim=c(-0.1,1.1),ylim=c(-0.1,1.1))
+yma = sin(a+b)
+xma = cos(a)*cos(b)
+lines(c(0,xma,xma,0,0),c(0,0,yma,yma,0))
+lines(c(0,xma),c(0,sin(a)*cos(b)))
+lines(c(0,cos(a+b),xma),c(0,sin(a+b),sin(a)*cos(b)))
+lines(c(xma-0.02,xma-0.02,xma),c(0,0.02,0.02))
+xc = cos(a)*cos(b)
+yc = sin(a)*cos(b)
+x1 = xc+0.02*cos(a+pi)
+y1 = yc+0.02*sin(a+pi)
+x2 = xc+0.02*sqrt(2)*cos(a+3*pi/4)
+y2 = yc+0.02*sqrt(2)*sin(a+3*pi/4)
+x3 = xc+0.02*cos(a+pi/2)
+y3 = yc+0.02*sin(a+pi/2)
+lines(c(x1,x2,x3),c(y1,y2,y3))
+lines(c(xma,xma-0.02,xma-0.02),c(yma-0.02,yma-0.02,yma))
+xmid = cos(a+b)/2
+ymid = sin(a+b)/2
+text(xmid+0.03*cos(a+b+pi/2),ymid+0.03*sin(a+b+pi/2),"1")
+text(0.05/a*cos(a/2),0.05/a*sin(a/2),TeX("$\\alpha$"))
+text(0.05/b*cos(a+b/2),0.05/b*sin(a+b/2),TeX("$\\beta$"))
+xmid = cos(a)/2
+ymid = sin(a)/2
+text(xmid+0.03*cos(a+pi/2),ymid+0.03*sin(a+pi/2),"p")
+
+xs = c(xma,cos(a+b))
+ys = c(sin(a)*cos(b),yma)
+th = atan2(diff(ys),diff(xs))
+anngg = (th-pi/2)/2
+text(xma+0.03/anngg*cos(anngg+pi/2),
+     sin(a)*cos(b)+0.03/anngg*sin(anngg+pi/2),
+     TeX("$\\theta$"))
+xs = c(0,cos(a+b))
+ys = c(0,yma)
+th = atan(yma/cos(a+b))
+anngg = (th)/2
+text(xs[2]+0.03/anngg*cos(anngg+pi),
+     ys[2]+0.03/anngg*sin(anngg+pi),
+     TeX("$\\phi$"))
+
+get_spot = function(xs,ys,r=0.03){
+  xmid = mean(xs)
+  ymid = mean(ys)
+  th = atan2(diff(ys),diff(ys))
+  return(c(xmid+r*cos(th+pi/2),ymid+r*cos(th+pi/2)))
+}
+xy = get_spot(c(xma,cos(a+b)),c(sin(a)*cos(b),yma))
+text(xy[1],xy[2],"q")
+text(xma/2,-0.03,"r")
+text(xma+0.03,sin(a)*cos(b)/2,"s")
+text(xma+0.03,sin(a)*cos(b)+cos(a)*sin(b)/2,"t")
+text(xma-sin(a)*sin(b)/2,yma+0.03,"u")
+text(cos(a+b)/2,yma+0.03,"v")
+text(-0.03,yma/2,"w")
+```
+\
+
+* $p=$ ##ANSWER1##
+* $q=$ ##ANSWER2##
+* $r=$ ##ANSWER3##
+* $s=$ ##ANSWER4##
+* $\theta=$ ##ANSWER9##
+* $t=$ ##ANSWER5##
+* $u=$ ##ANSWER6##
+* $\phi=$ ##ANSWER10##
+* $v=$ ##ANSWER7##
+* $w=$ ##ANSWER8##
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+The correct values are shown below.
+
+* $p=`r p`$
+* $q=`r q`$
+* $r=`r r`$
+* $s=`r s`$
+* $\theta=`r a`$
+* $t=`r t`$
+* $u=`r u`$
+* $\phi=`r a+b`$
+* $v=`r v`$
+* $w=`r w`$
+
+You might find [this](https://en.wikipedia.org/wiki/List_of_trigonometric_identities#/media/File:AngleAdditionDiagramSine.svg) helpful.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r ect`
+exsolution: `r exsol`
+exname: angle_sum_proof

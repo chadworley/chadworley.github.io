@@ -1,0 +1,67 @@
+```{r data generation, echo = FALSE, results = "hide"}
+mu = runif(1,200,800)
+sig = runif(1,10,70)
+n = sample(8:12,1)
+x = round(rnorm(n,mu,sig),1)
+correct_val_1 = round(mean(x),1)
+correct_val_2 = round(sd(x),1)
+num_under_1 = sample(0:3,1)
+num_under_2 = sample(0:3,1)
+mults_1 = c(0,sample(-1:-5,num_under_1),sample(1:5,3-num_under_1))
+mults_2 = c(0,sample(-1:-5,num_under_2),sample(1:5,3-num_under_2))
+choices_1 = sort(correct_val_1+0.2*mults_1)
+choices_2 = sort(correct_val_2+0.2*mults_2)
+ans1 = paste0((choices_1==correct_val_1)*1,collapse="")
+ans2 = paste0((choices_2==correct_val_2)*1,collapse="")
+```
+
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+A biologist investigated a population of turtles. They weighed turtles from a simple-random sample; those weights are shown below in grams.
+
+```{r tab_data, echo=FALSE, results="asis"}
+opts <- options(knitr.kable.NA = "")
+mydf = data.frame(x)
+colnames(mydf) = c("Turtle weights (g)")
+knitr::kable(mydf,format="html", align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+Find the sample mean, $\bar{x}$.
+
+Answerlist
+--------
+* `r choices_1[1]`
+* `r choices_1[2]`
+* `r choices_1[3]`
+* `r choices_1[4]`
+
+Solution
+========
+
+The correct answers was $\bar{x} = `r correct_val_1`$.
+
+Meta-information
+================
+extype: schoice
+exsolution: `r ans1`
+exname: find sample mean
+exshuffle: FALSE

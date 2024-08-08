@@ -1,0 +1,189 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("+-","-",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  abcd = sample(2:10,4)*sample(c(-1,1),4,T)
+  a = abcd[1]
+  b = abcd[2]
+  c = abcd[3]
+  d = abcd[4]
+  p = 3*a
+  q = 2*b
+  r = c
+  j = 6*a
+  a0 = 2*b
+  if(abs(j)<31 && abs(3*a)<31 && abs(2*b)<31 && abs(c)<31){break}
+}
+
+cubeex = fixer(paste0(a,"t^3+",b,"t^2+",c,"t+",d))
+fracex = fixer(paste0("\\lim_{h\\to 0}\\frac{\\left(",a,"(t+h)^3+",b,"(t+h)^2+",c,"(t+h)+",d,"\\right)-\\left(",a,"t^3+",b,"t^2+",c,"t+",d,"\\right)}{h}"))
+fracex2 = fixer(paste0("\\lim_{h\\to 0}\\frac{",a,"(t+h)^3+",b,"(t+h)^2+",c,"(t+h)+",d,"+",-a,"t^3+",-b,"t^2+",-c,"t+",-d,"}{h}"))
+fracex3 = fixer(paste0("\\lim_{h\\to 0}\\frac{",a,"(t^3+3t^2h+3th^2+h^3)+",b,"(t^2+2th+h^2)+",c,"(t+h)+",d,"+",-a,"t^3+",-b,"t^2+",-c,"t+",-d,"}{h}"))
+fracex4 = fixer(paste0("\\lim_{h\\to 0}\\frac{",a,"t^3+",3*a,"t^2h+",3*a,"th^2+",a,"h^3+",b,"t^2+",2*b,"th+",b,"h^2+",c,"t+",c,"h+",d,"+",-a,"t^3+",-b,"t^2+",-c,"t+",-d,"}{h}"))
+fracex5 = fixer(paste0("\\lim_{h\\to 0}\\frac{",3*a,"t^2h+",3*a,"th^2+",a,"h^3+",2*b,"th+",b,"h^2+",c,"h}{h}"))
+fracex6 = fixer(paste0("\\lim_{h\\to 0}\\frac{\\left(",3*a,"t^2+",3*a,"th+",a,"h^2+",2*b,"t+",b,"h+",c,"\\right)\\cdot h}{h}"))
+fracex7 = fixer(paste0("\\lim_{h\\to 0}\\left(",3*a,"t^2+",3*a,"th+",a,"h^2+",2*b,"t+",b,"h+",c,"\\right)"))
+fracex8 = fixer(paste0(3*a,"t^2+",3*a,"t\\cdot 0+",a,"\\cdot 0^2+",2*b,"t+",b,"\\cdot 0+",c))
+fracex9 = fixer(paste0(3*a,"t^2+",2*b,"t+",c))
+
+ex1 = fixer(paste0("\\lim_{h\\to 0}\\frac{\\left(",p,"(t+h)^2+",q,"(t+h)+",r,"\\right)-\\left(",p,"t^2+",q,"t+",r,"\\right)}{h}"))
+ex2 = fixer(paste0("\\lim_{h\\to 0}\\frac{",p,"(t+h)^2+",q,"(t+h)+",r,"+",-p,"t^2+",-q,"t+",-r,"}{h}"))
+ex3 = fixer(paste0("\\lim_{h\\to 0}\\frac{",p,"(t^2+2th+h^2)+",q,"(t+h)+",r,"+",-p,"t^2+",-q,"t+",-r,"}{h}"))
+ex4 = fixer(paste0("\\lim_{h\\to 0}\\frac{",p,"t^2+",j,"th+",p,"h^2+",q,"t+",q,"h+",r,"+",-p,"t^2+",-q,"t+",-r,"}{h}"))
+ex5 = fixer(paste0("\\lim_{h\\to 0}\\frac{",j,"th+",p,"h^2+",q,"h}{h}"))
+ex6 = fixer(paste0("\\lim_{h\\to 0}\\frac{(",j,"t+",p,"h+",q,")\\cdot h}{h}"))
+ex7 = fixer(paste0("\\lim_{h\\to 0}\\left(",j,"t+",p,"h+",q,"\\right)"))
+ex8 = fixer(paste0(j,"t+",p,"\\cdot 0+",q))
+ex9 = fixer(paste0(j,"t+",a0))
+
+
+
+al = -30:30
+sol1 = paste0(1*(al==3*a),collapse="")
+sol2 = paste0(1*(al==2*b),collapse="")
+sol3 = paste0(1*(al==c),collapse="")
+sol4 = paste0(1*(al==j),collapse="")
+sol5 = paste0(1*(al==a0),collapse="")
+al = paste0("* ",al,collapse="\n")
+```
+
+Question
+========
+
+A train's position $x(t)$ as a function of time $t$ can be modeled with a cubic function.  $$x(t) = `r cubeex`$$
+
+The velocity $v(t)$ is also a function of time. The velocity function is the [**derivative**](https://en.wikipedia.org/wiki/Derivative#As_a_limit) (with respect to time) of the position function. The derivative can be defined using a [limit](https://en.wikipedia.org/wiki/Limit_(mathematics)).
+
+$$v(t) ~=~ \lim_{h\to 0}\frac{x(t+h)-x(t)}{h}$$
+
+Using this definition (and simplifying), you will find that $v(t)$ is a quadratic function in time.
+
+$$v(t) ~=~ pt^2+qt+r$$
+
+Determine $p$ and $q$ and $r$.
+
+* $p=$ ##ANSWER1##
+* $q=$ ##ANSWER2##
+* $r=$ ##ANSWER3##
+
+The acceleration is the **derivative** of velocity.
+
+$$a(t) = \lim_{h\to 0} \frac{v(t+h)-v(t)}{h}$$
+
+Using this definition (and simplifying), you will find that $a(t)$ is a linear function in time.
+
+$$a(t)~=~jt+a_0$$
+
+where $j$ is the [jerk](https://en.wikipedia.org/wiki/Jerk_(physics)) and $a_0$ is the initial acceleration.
+
+Determine $j$ and $a_0$.
+
+* $j=$ ##ANSWER4##
+* $a_0=$ ##ANSWER5##
+
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+
+Solution
+========
+
+
+$$v(t)~=~`r fracex`$$
+
+We cannot simply replace $h$ with $0$, because we cannot divide by $0$. Instead we will simplify.
+
+Distribute away the outer parentheses.
+
+$$v(t)~=~`r fracex2`$$
+
+Apply the rules of [binomial expansion](https://en.wikipedia.org/wiki/Binomial_theorem).
+
+$$v(t)~=~`r fracex3`$$
+
+Distribute.
+
+$$v(t)~=~`r fracex4`$$
+
+Combine like terms in numerator.
+
+$$v(t)~=~`r fracex5`$$
+
+All the terms in the numerator have a shared factor ($h$). Factor out $h$ from the numerator.
+
+$$v(t)~=~`r fracex6`$$
+
+Eliminate common factor from numerator and denominator.
+
+$$v(t)~=~`r fracex7`$$
+
+Now, since there is no possibility of dividing by $0$, we can substitute $0$ for $h$.
+
+$$v(t)~=~`r fracex8`$$
+
+Simplify.
+
+$$v(t)~=~`r fracex9`$$
+
+So, $p=`r 3*a`$ and $q=`r 2*b`$ and $r=`r c`$.
+
+
+## Acceleration function
+
+$$a(t) = \lim_{h\to 0} \frac{v(t+h)-v(t)}{h}$$
+
+$$a(t)~=~`r ex1`$$
+
+
+Distribute away the outer parentheses.
+
+$$a(t)~=~`r ex2`$$
+
+Expand the squared sum. (Remember [FOIL](https://en.wikipedia.org/wiki/FOIL_method).)
+
+$$a(t)~=~`r ex3`$$
+
+Distribute.
+
+$$a(t)~=~`r ex4`$$
+
+Combine like terms in numerator.
+
+$$a(t)~=~`r ex5`$$
+
+All the terms in the numerator have a shared factor ($h$). Factor out $h$ from the numerator.
+
+$$a(t)~=~`r ex6`$$
+
+Eliminate common factor from numerator and denominator.
+
+$$a(t)~=~`r ex7`$$
+
+Now, since there is no possibility of dividing by $0$, we can substitute $0$ for $h$.
+
+$$a(t)~=~`r ex8`$$
+
+Simplify.
+
+$$a(t)~=~`r ex9`$$
+
+So, $j=`r j`$ and $a_0=`r a0`$.
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`
+exname: lim_def_cub

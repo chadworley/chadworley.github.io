@@ -1,0 +1,233 @@
+---
+output: 
+  pdf_document:
+    extra_dependencies: ["fancyhdr"]
+fontsize: 12pt
+params:
+  num: "9999"
+  mytitle: "PC 026 NO-CALC Mastery"
+geometry: "left=3cm,right=3cm,top=3cm,bottom=3cm"
+---
+
+```{r,echo=F}
+set.seed(as.numeric(params$num))
+```
+
+\setlength{\headheight}{18.0pt}
+
+\fancyhead[L]{\sc{`r params$mytitle` v`r params$num`}}
+\fancyhead[R]{\bf \large Name:\hspace{2in}}
+\fancyfoot[R]{\sc Page \thepage ~ of 4}
+\fancyfoot[C]{}
+\pagestyle{fancy}
+
+
+## Question 1
+
+In terms of $\alpha$ and $\beta$, express all the lengths and other angle measures ($\theta$ and $\phi$).
+
+\vspace{-25pt}
+
+```{r,fig.dim=c(3,3),echo=F,fig.align='center'}
+library(latex2exp)
+a = pi/8
+b = pi/5
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",ann=F,axes=F,xlim=c(-0.1,1.1),ylim=c(-0.1,1.1))
+yma = sin(a+b)
+xma = cos(a)*cos(b)
+lines(c(0,xma,xma,0,0),c(0,0,yma,yma,0))
+lines(c(0,xma),c(0,sin(a)*cos(b)))
+lines(c(0,cos(a+b),xma),c(0,sin(a+b),sin(a)*cos(b)))
+lines(c(xma-0.02,xma-0.02,xma),c(0,0.02,0.02))
+xc = cos(a)*cos(b)
+yc = sin(a)*cos(b)
+x1 = xc+0.02*cos(a+pi)
+y1 = yc+0.02*sin(a+pi)
+x2 = xc+0.02*sqrt(2)*cos(a+3*pi/4)
+y2 = yc+0.02*sqrt(2)*sin(a+3*pi/4)
+x3 = xc+0.02*cos(a+pi/2)
+y3 = yc+0.02*sin(a+pi/2)
+lines(c(x1,x2,x3),c(y1,y2,y3))
+lines(c(xma,xma-0.02,xma-0.02),c(yma-0.02,yma-0.02,yma))
+xmid = cos(a+b)/2
+ymid = sin(a+b)/2
+text(xmid+0.03*cos(a+b+pi/2),ymid+0.03*sin(a+b+pi/2),"1")
+text(0.06/a*cos(a/2),0.06/a*sin(a/2),TeX("$\\alpha$"))
+text(0.06/b*cos(a+b/2),0.06/b*sin(a+b/2),TeX("$\\beta$"))
+xmid = cos(a)/2
+ymid = sin(a)/2
+text(xmid+0.03*cos(a+pi/2),ymid+0.03*sin(a+pi/2),"p")
+
+xs = c(xma,cos(a+b))
+ys = c(sin(a)*cos(b),yma)
+th = atan2(diff(ys),diff(xs))
+anngg = (th-pi/2)/2
+text(xma+0.03/anngg*cos(anngg+pi/2),
+     sin(a)*cos(b)+0.03/anngg*sin(anngg+pi/2),
+     TeX("$\\theta$"))
+xs = c(0,cos(a+b))
+ys = c(0,yma)
+th = atan(yma/cos(a+b))
+anngg = (th)/2
+text(xs[2]+0.03/anngg*cos(anngg+pi),
+     ys[2]+0.03/anngg*sin(anngg+pi),
+     TeX("$\\phi$"))
+
+get_spot = function(xs,ys,r=0.03){
+  xmid = mean(xs)
+  ymid = mean(ys)
+  th = atan2(diff(ys),diff(ys))
+  return(c(xmid+r*cos(th+pi/2),ymid+r*cos(th+pi/2)))
+}
+xy = get_spot(c(xma,cos(a+b)),c(sin(a)*cos(b),yma))
+text(xy[1],xy[2],"q")
+text(xma/2,-0.03,"r")
+text(xma+0.03,sin(a)*cos(b)/2,"s")
+text(xma+0.03,sin(a)*cos(b)+cos(a)*sin(b)/2,"t")
+text(xma-sin(a)*sin(b)/2,yma+0.03,"u")
+text(cos(a+b)/2,yma+0.03,"v")
+text(-0.03,yma/2,"w")
+```
+\
+
+\vspace{-30pt}
+
+\renewcommand{\arraystretch}{2.3}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Variable & \hfill ~~~~~~~~~~~~~~~~~~~~~Algebraic expression~~~~~~~~~~~~~~~~~~~~~ \hfill\\
+\hline \hline
+$p ~=$ & \\
+\hline
+$q ~=$ & \\
+\hline
+$r ~=$ & \\
+\hline
+$s ~=$ & \\
+\hline
+$\theta ~=$ & \\
+\hline
+$t ~=$ & \\
+\hline
+$u ~=$ & \\
+\hline
+$\phi ~=$ & \\
+\hline
+$v ~=$ & \\
+\hline
+$w ~=$ & \\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+## Question 2
+
+The angle-sum and angle-difference identities are listed below:
+
+$$\sin(\alpha\pm\beta) ~=~ \sin(\alpha)\cos(\beta)\pm\cos(\alpha)\sin(\beta)$$
+$$\cos(\alpha\pm\beta) ~=~ \cos(\alpha)\cos(\beta)\mp\sin(\alpha)\sin(\beta)$$
+
+```{r,echo=F,}
+ai = sample(1:4,1)
+a = c("\\frac{\\pi}{4}","\\frac{3\\pi}{4}",
+      "\\frac{5\\pi}{4}","\\frac{7\\pi}{4}")[ai]
+ad = c(45,135,225,315)[ai]
+sina = c("\\frac{\\sqrt{2}}{2}","\\frac{\\sqrt{2}}{2}",
+         "\\frac{-\\sqrt{2}}{2}","\\frac{-\\sqrt{2}}{2}")[ai]
+cosa = c("\\frac{\\sqrt{2}}{2}","\\frac{-\\sqrt{2}}{2}",
+         "\\frac{-\\sqrt{2}}{2}","\\frac{\\sqrt{2}}{2}")[ai]
+bi = sample(1:8,1)
+b = c("\\frac{\\pi}{6}","\\frac{\\pi}{3}",
+      "\\frac{2\\pi}{3}","\\frac{5\\pi}{6}",
+      "\\frac{7\\pi}{6}","\\frac{4\\pi}{3}",
+      "\\frac{5\\pi}{3}","\\frac{11\\pi}{6}")[bi]
+bd = c(30,60,120,150,210,240,300,330)[bi]
+sinb = c("\\frac{1}{2}","\\frac{\\sqrt{3}}{2}",
+         "\\frac{\\sqrt{3}}{2}","\\frac{1}{2}",
+         "\\frac{-1}{2}","\\frac{-\\sqrt{3}}{2}",
+         "\\frac{-\\sqrt{3}}{2}","\\frac{-1}{2}")[bi]
+cosb = c("\\frac{\\sqrt{3}}{2}","\\frac{1}{2}",
+         "\\frac{-1}{2}","\\frac{-\\sqrt{3}}{2}",
+         "\\frac{-\\sqrt{3}}{2}","\\frac{-1}{2}",
+         "\\frac{1}{2}","\\frac{\\sqrt{3}}{2}")[bi]
+
+ord = sample(1:2)
+fd = c(ad,bd)[ord[1]]
+sd = c(ad,bd)[ord[2]]
+wtf = sample(c("sin","cos"),1)
+if(sample(1:2,1)==1){
+  th = fd-sd
+} else {
+  th = fd+sd
+}
+
+wf = sample(1:2)
+ang1 = c(ad,bd)[wf[1]]
+sin1 = c(sina,sinb)[wf[1]]
+cos1 = c(cosa,cosb)[wf[1]]
+ang2 = c(ad,bd)[wf[2]]
+sin2 = c(sina,sinb)[wf[2]]
+cos2 = c(cosa,cosb)[wf[2]]
+```
+
+
+You know the following:
+
+\begin{align*}
+\sin(`r ang1`^{\circ})&=`r sin1` & \sin(`r ang2`^{\circ})&=`r sin2` \\\\
+\cos(`r ang1`^{\circ})&=`r cos1` & \cos(`r ang2`^{\circ})&=`r cos2`
+\end{align*}
+
+Determine $\`r wtf`(`r th`^{\circ})$ exactly.
+
+\newpage
+
+## Question 3
+
+Prove the (sine) double-angle identity: $\sin(2x) = 2\sin(x)\cos(x)$
+
+*(Hint: start with an angle-sum formula from Question 2.)*
+
+\vfill 
+
+## Question 4
+
+Prove the (cosine) double-angle identity: $\cos(2x) = 2\cos^2(x)-1$
+
+*(Hint: start with an angle-sum formula from Question 2. Also, you will need to use the Pythagorean Identity: $\sin^2(x)+\cos^2(x)=1$)*
+
+\vfill
+
+\newpage
+
+## Question 5
+
+Prove the (cosine) half-angle identity: $\cos\left(\frac{\,y\,}{2}\right) = \pm\sqrt{\frac{1+\cos(y)}{2}}$.
+
+*(Hint: start with the double-angle identity from Question 4.)*
+
+\vfill
+
+## Question 6
+
+```{r,echo=F}
+while(T){
+  y = round(runif(1,10,85),0)*2
+  yo2 = y/2
+  cosy = round(cos(y*pi/180),2)
+  if(sum(yo2==c(30,45,60,90))==0){break}
+}
+```
+
+Given $\cos(`r y`^{\circ})\approx`r cosy`$, what is $\cos(`r yo2`^{\circ})$? Please set up an expression, but do **not** try to simplify or evaluate a decimal approximation.
+
+*(Hint: $`r y`/2=`r yo2`$.)*
+
+\vfill
+
+
+

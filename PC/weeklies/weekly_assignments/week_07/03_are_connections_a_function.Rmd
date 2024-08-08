@@ -1,0 +1,131 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# We ask: if A is function of B (50% chance yes)
+#         if B is function of A (50% chance yes)
+#         if relation is one-to-one (if prior both yes then yes)
+# versions: 1=nono, 2=yesno, 3=noyes, 4=yesyes
+
+shouldAafoB = sample(c(F,T),1)
+shouldBafoA = sample(c(F,T),1)
+
+while(T){
+  n = sample(6:8,1)
+  A = sample(0:9,n,T)
+  B = sample(0:9,n,T)
+  afa = character()
+  afb = character()
+  bfa = character()
+  bfb = character()
+  ifAafoB = T
+  ifBafoA = T
+  afbads = ""
+  bfbads = ""
+  for(i in 1:n){
+    a = as.character(A[i])
+    b = as.character(B[i])
+    if(!(a %in% afa)){
+      afa = c(afa,a)
+      afb = c(afb,b)
+    } else {
+      pos = which(afa==a)
+      if(afb[pos]!=b){
+        ifBafoA = F
+        afbads = paste0("(",c(a,a),", ",c(afb[pos],b),")",collapse=" and ")
+      }
+    }
+    if(!(b %in% bfb)){
+      bfb = c(bfb,b)
+      bfa = c(bfa,a)
+    } else {
+      pos = which(bfb==b)
+      if(bfa[pos]!=a){
+        ifAafoB = F
+        bfbads = paste0("(",c(bfa[pos],a),", ",c(b,b),")",collapse=" and ")
+      }
+    }
+  }
+  mystr = paste("(",A,", ",B,")\n\n",collapse="")
+  if(ifAafoB==shouldAafoB && 
+     ifBafoA==shouldBafoA && 
+     length(unique(A)) >= length(A)-2 &&
+     length(unique(A)) < length(A) && 
+     length(unique(B)) >= length(B)-2 && 
+     length(unique(B)) < length(B) ){
+    break
+  }
+}
+
+if(!ifBafoA && !ifAafoB){
+  ans1 = "01"
+  ans2 = "01"
+  ans3 = "01"
+  sol = paste0("An $x$ value has two different connections, so $y$ is not a function of $x$. For example: ",afbads,"\n\n Also, a $y$ value has two different connections, so $x$ is not a function of $y$. For example: ",bfbads,"\n\n We would need both to be function of the other to have a one-to-one function. Neither is, so we don't even have a function in either direction.")
+}
+if(ifBafoA && !ifAafoB){
+  ans1 = "10"
+  ans2 = "01"
+  ans3 = "01"
+  sol = paste0("Every $x$ value has only one connection, so $y$ is a function of $x$. \n\n A $y$ value has two connections, so $x$ is not a function of $y$. For example: ",bfbads," \n\n Because $x$ is not a function of $y$, these connections are inconsistent with a one-to-one function.")
+}
+if(!ifBafoA && ifAafoB){
+  ans1 = "01"
+  ans2 = "10"
+  ans3 = "01"
+  sol = paste0("An $x$ value has two connections, so $y$ is not a function of $x$. For example: ",afbads,"\n\n Every $y$ value has only one connection, so $x$ is a function of $y$. \n\n Because $y$ is not a function of $x$, these connections are inconsistent with a one-to-one function.")
+}
+if(ifBafoA && ifAafoB){
+  ans1 = "10"
+  ans2 = "10"
+  ans3 = "10"
+  sol = "Every $x$ value has only one connection, and vice versa. This means $y$ is a function of $x$ and $x$ is a function of $y$, and the connections are consistent with a one-to-one function."
+}
+```
+
+Question
+========
+
+```{r,echo=FALSE,fig.dim=c(5,5)}
+par(pty="s")
+plot(0,0,type="n",axes = F,asp=1,xlim=c(0,10),ylim=c(0,10),ann=FALSE)
+for(i in 0:9){
+  text(0,i,i)
+  text(10,i,i)
+}
+text(0,10,"x",cex=2)
+text(10,10,"y",cex=2)
+for(i in 1:n){
+  lines(c(0.5,9.5),c(A[i],B[i]))
+}
+```
+\
+
+Are these connections consistent with $y$ being a function of $x$? ##ANSWER1##
+
+Are these connections consistent with $x$ being a function of $y$? ##ANSWER2##
+
+Are these connections consistent with a one-to-one function? ##ANSWER3##
+
+
+Answerlist
+--------
+
+* Yes
+* No
+* Yes
+* No
+* Yes
+* No
+
+
+Solution
+========
+
+If any value of $x$ has two different connections, then $y$ is not a function of $x$. If any value of $y$ has two different connections, then $x$ is not a function of $y$.
+
+`r sol`
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`
+exname: are_connections_a_function

@@ -1,0 +1,139 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("{1}","",exp,fixed=T)
+  exp = gsub("{-1}","-",exp,fixed=T)
+  exp = gsub("{","",exp,fixed=T)
+  exp = gsub("}","",exp,fixed=T)
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("--","+",exp,fixed=T)
+  return(exp)
+}
+fixer2 = function(exp){
+  exp = gsub("{1}","",exp,fixed=T)
+  exp = gsub("{-1}","-",exp,fixed=T)
+  exp = gsub("{","",exp,fixed=T)
+  exp = gsub("}","",exp,fixed=T)
+  exp = gsub("+-","-",exp,fixed=T)
+  exp = gsub("--","+",exp,fixed=T)
+  return(exp)
+}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+fracs = c(1,1/2,1/3,1/4,1/5,2/3,2/5,3/4,3/5,4/5,2,3,4,5,3/2,5/2,4/3,5/3,5/4)
+
+nums = c(1,1,1,1,1,2,2,3,3,4,2,3,4,5,3,5,4,5,5)
+dens = c(1,2,3,4,5,3,5,4,5,5,1,1,1,1,2,2,3,3,4)
+
+nums = c(nums,-nums)
+dens = c(dens,dens)
+fracs = c(fracs,-fracs)
+
+while(T){
+  h = sample(2:7,1)*sample(c(-1,1),1)
+  a = 3*sample(1:6,1)
+  b = 2*sample(1:10,1)*sample(c(-1,1),1)
+  c = -(a*h^2+b*h)+sample(1:15,1)*sample(c(-1,1),1)
+  m = a*h^2+b*h+c
+  A = round(a/3)
+  B = round(b/2)
+  C = round(c)
+  D = -(A*h^3+B*h^2+C*h)+sample(1:15,1)*sample(c(-1,1),1)
+  k = A*h^3+B*h^2+C*h+D
+  ntr = k-m*h
+  if(abs(m)>0 && abs(m)<11 && abs(C)<30 && abs(D)<50 && abs(ntr)<11){break}
+}
+
+# $$adh^2+bdh+cd = n$$
+# $$Ah^3+Bh^2+Ch+D$$
+
+exp1 = fixer(paste0("{",A,"}x^3+{",B,"}x^2+{",C,"}x+",D))
+exp2 = fixer2(paste0("{",a,"}x^2+{",b,"}x+",c))
+
+ac = -10:10
+
+sol1 = paste0(1*(ac==m),collapse="")
+sol2 = paste0(1*(ac==ntr),collapse="")
+
+al = paste0("* ",ac,collapse="\n")
+```
+
+Question
+========
+
+Let $f(x)=`r exp1`$. A tangent line is drawn through $(`r h`, `r k`)$. Find the equation of the tangent line in slope-intercept form ($y=mx+b$).
+
+* $m=$ ##ANSWER1##
+* $b=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+
+Solution
+========
+
+We were given $f(x)=`r exp1`$. Differentiate to find the derivative.
+
+$$f'(x)=`r exp2`$$
+
+Find the instantaneous rate of change at $x=`r h`$.
+
+$$f'(`r h`) = `r m`$$
+The derivative of $f(x)$ at $x=`r h`$ equals the slope of the tangent line.
+$$m=`r m`$$
+
+```{r,echo=F}
+sif = fixer(paste0("y={",m,"}x+",ntr))
+sifb = fixer(paste0("y={",m,"}x+b"))
+psf = fixer(paste0("y={",m,"}(x+",-h,")+",k))
+psf2 = fixer(paste0("y={",m,"}x+",-m*h,"+",k))
+```
+
+At this stage there are two good options. We either substitute into $y=mx+b$ with $y=`r k`$, $m=`r m`$, and $x=`r h`$ to find $b$ or simplify the point-slope ($y=m(x-x_0)+y_0$) form into slope-intercept form.
+
+### Option 1: plug point $(`r h`, `r k`)$ into $`r sifb`$ to get $b$
+
+We already know the slope.
+$$`r sifb`$$
+We know the line must go through point $(`r h`, `r k`)$.
+$$`r k`=(`r m`)(`r h`)+b$$
+
+$$`r k`=`r m*h`+b$$
+
+$$`r k-m*h`=b$$
+
+So the tangent line is expressed with the equation $`r sif`$
+
+### Option 2: simplify point-slope form
+
+We already know a point (`r h`,`r k`) and the slope, $m=`r m`$, of the line. Plug into $y=m(x-x_0)+y_0$.
+
+$$`r psf`$$
+
+Distribute.
+$$`r psf2`$$
+Combine the constants.
+$$`r sif`$$
+
+### Answer
+
+$$m=`r m`$$
+$$b=`r ntr`$$
+
+So, the equation of the tangent line is known:
+
+$$`r sif`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: get_tangent_slope_int

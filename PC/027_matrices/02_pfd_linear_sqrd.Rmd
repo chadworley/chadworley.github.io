@@ -1,0 +1,82 @@
+```{r,echo=F,warning=F}
+ABa = sample(2:9,3)*sample(c(-1,1),3,T)
+A = ABa[1]
+B = ABa[2]
+a = ABa[3]
+p = A
+q = A*a+B
+numer = paste0(p,"x+",q,collapse="")
+numer = gsub("+-","-",numer,fixed=T)
+denom = paste0("(x+",a,")^2",collapse="")
+denom = gsub("+-","-",denom,fixed=T)
+bot1 = paste0("(x+",a,")",collapse="")
+bot1 = gsub("+-","-",bot1,fixed=T)
+bot2 = paste0("(x+",a,")^2",collapse="")
+bot2 = gsub("+-","-",bot2,fixed=T)
+
+ac = -10:10
+al = paste0("* ",ac,collapse="\n")
+sol1 = paste0(1*(ac==A),collapse="")
+sol2 = paste0(1*(ac==B),collapse="")
+
+exp1 = paste0("Ax+(",a,"A+B)",collapse="")
+#exp1 = gsub("+-","-",exp1,fixed=T)
+```
+
+Question
+========
+
+In Calculus, when [integrating](https://en.wikipedia.org/wiki/Integral) [rational expressions](https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions), it is often helpful to perform [partial-fraction decomposition](https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions). One version of partial-fraction decomposition occurs when there is a squared linear factor.
+
+The procedure can be exemplified by trying to determine constants $A$ and $B$ to satisfy the equation below **for all** values of $x$ (with restriction $x\ne `r -a`$). It should be said that knowing/remembering how to set up the equation below is the hardest part of partial-fraction decomposition.
+
+$$\frac{`r numer`}{`r denom`} ~=~ \frac{A}{`r bot1`}+\frac{B}{`r bot2`}$$
+
+* $A=$ ##ANSWER1##
+* $B=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+
+Solution
+========
+
+$$\frac{`r numer`}{`r denom`} ~=~ \frac{A}{`r bot1`}+\frac{B}{`r bot2`}$$
+
+Multiply both sides by $`r denom`$.
+
+$$`r numer` ~=~ A`r bot1`+B$$
+
+Expand. Recognize the linear coefficient and the constant.
+
+$$`r numer` ~=~ `r exp1`$$
+
+The corresponding coefficients must be equal for the equation to be true for all $x$.
+
+$$\begin{align}
+`r A` ~&=~ A \\
+`r q` ~&=~ `r a`A+B
+\end{align}$$
+
+We already have $A$. Substitute to get $B$.
+$$`r q` ~=~ `r a`(`r A`)+B$$
+
+Multiply `r a` and `r A`.
+
+$$`r q` ~=~ `r a*A`+B$$
+
+Add $`r -a*A`$ to both sides.
+
+$$`r B` ~=~ B$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: pfd_linear_sqrd

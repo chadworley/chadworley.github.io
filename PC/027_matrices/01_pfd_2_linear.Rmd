@@ -1,0 +1,111 @@
+```{r,echo=F,warning=F}
+while(T){
+  ABab = sample(2:9,4)*sample(c(-1,1),4,T)
+  A = ABab[1]
+  B = ABab[2]
+  a = ABab[3]
+  b = ABab[4]
+  if(abs(A+B)>1 && abs(a-b)>1){break}
+}
+
+
+numer = paste0(A+B,"x+",A*b+B*a,collapse="")
+numer = gsub("+-","-",numer,fixed=T)
+
+bot1 = paste0("x+",a,collapse="")
+bot1 = gsub("+-","-",bot1,fixed=T)
+bot2 = paste0("x+",b,collapse="")
+bot2 = gsub("+-","-",bot2,fixed=T)
+
+
+denom = paste0("(",bot1,")(",bot2,")",collapse="")
+denom = gsub("+-","-",denom,fixed=T)
+
+ac = -10:10
+al = paste0("* ",ac,collapse="\n")
+
+exp1 = paste0(b,"A+",a,"B")
+exp1 = gsub("+-","-",exp1,fixed=T)
+
+exp2 = paste0(-b,"A+",-b,"B")
+exp2 = gsub("+-","-",exp2,fixed=T)
+
+exp3 = paste0("A+",B,collapse="")
+exp3 = gsub("+-","-",exp3,fixed=T)
+
+sol1 = paste0(1*(A==ac),collapse="")
+sol2 = paste0(1*(B==ac),collapse="")
+```
+
+Question
+========
+
+In Calculus, when [integrating](https://en.wikipedia.org/wiki/Integral) [rational expressions](https://en.wikipedia.org/wiki/Algebraic_fraction#Rational_fractions), it is often helpful to perform [partial-fraction decomposition](https://openstax.org/books/precalculus-2e/pages/9-4-partial-fractions). The simplest version of partial-fraction decomposition occurs when there are two distinct linear factors.
+
+The procedure can be exemplified by trying to determine constants $A$ and $B$ to satisfy the equation below **for all** values of $x$ (with restrictions $x\ne `r -a`$ and $x\ne `r -b`$).
+
+$$\frac{`r numer`}{`r denom`} = \frac{A}{`r bot1`}+\frac{B}{`r bot2`}$$
+
+* $A=$ ##ANSWER1##
+* $B=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+We are trying to find $A$ and $B$, to make both sides of the equation equivalent expressions.
+
+$$\frac{`r numer`}{`r denom`} ~=~ \frac{A}{`r bot1`}+\frac{B}{`r bot2`}$$
+
+Multiply both sides by $`r denom`$.
+
+$$\frac{`r numer`}{`r denom`} \cdot `r denom` ~=~ \left(\frac{A}{`r bot1`}+\frac{B}{`r bot2`}\right) \cdot `r denom`$$
+
+Simplify.
+
+$$`r numer` = A(`r bot2`)+B(`r bot1`)$$
+
+Expand the right side of the equation. Gather the linear coefficient and the constant.
+
+$$`r numer` = (A+B)x+(`r exp1`)$$
+The equation must be true FOR ALL values of $x$. This means the linear coefficients must be equal, and the constants must be equal.
+
+$$\begin{align}
+`r A+B` &= A + B \\
+`r b*A+a*B` &= `r exp1`\\  
+\end{align}$$
+
+Use elimination. Multiply the first equation by `r -b`.
+
+$$\begin{align}
+`r -b*(A+B)` &= `r exp2` \\
+\oplus~~~~ `r b*A+a*B` &= `r exp1`\\
+\hline
+`r -b*(A+B)+b*A+a*B` &= `r (a-b)`B
+\end{align}$$
+
+Divide both sides by `r a-b`.
+
+$$`r B` = B$$
+
+Plug that value into $`r A+B` = A + B$.
+
+$$`r A+B` = `r exp3`$$
+
+Add `r -B` to both sides.
+
+$$`r A` = A$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: pfd_2_linear

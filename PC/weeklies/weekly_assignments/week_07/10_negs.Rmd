@@ -1,0 +1,85 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+cf = sample(c(-5,-4,-3,-2,2,3,4,5),4)
+a = round(cf[1])
+b = round(cf[2])
+c = round(cf[3])
+d = round(cf[4])
+
+isnegf = sample(c(T,F),1)
+if(isnegf){
+  an = -a
+  bn = -b
+  cn = -c
+  dn = -d
+  qex = "-f(x)"
+  anst = "Multiply the whole expression by $(-1)$."
+} else {
+  an = -a
+  bn = b
+  cn = -c
+  dn = d
+  qex = "f(-x)"
+  anst = "Substitute $-x$ for $x$ and simplify."
+}
+al = -5:5
+al2 = character()
+for(i in al){
+  if(i<0){
+    al2 = c(al2,paste0(i))
+  } else {
+    al2 = c(al2,paste0("+",i))
+  }
+}
+ans1 = paste0(1*(al==an),collapse="")
+ans2 = paste0(1*(al==bn),collapse="")
+ans3 = paste0(1*(al==cn),collapse="")
+ans4 = paste0(1*(al==dn),collapse="")
+apast = paste0("* ",al,"\n",collapse="")
+bpast = paste0("* ",al2,"\n",collapse="")
+```
+
+
+
+Question
+========
+
+```{python, echo = FALSE, results = "hide"}
+from sympy import *
+x,a = symbols("x a")
+exp = int(r.a)*x**3+int(r.b)*x**2+int(r.c)*x+int(r.d)
+exp2 = int(r.an)*x**3+int(r.bn)*x**2+int(r.cn)*x+int(r.dn)
+lexp = latex(exp)
+lexp2 = latex(exp2)
+```
+
+
+Let function $f$ be defined as follows:
+$$f(x) ~=~ `r py$lexp`$$
+Simplify $`r qex`$.
+
+Your answer: ##ANSWER1## $x^3$ ##ANSWER2## $x^2$ ##ANSWER3## $x$ ##ANSWER4##
+
+Answerlist
+--------
+
+`r apast`
+`r bpast`
+`r bpast`
+`r bpast`
+
+
+Solution
+========
+
+`r anst`
+
+$$`r qex` ~=~ `r py$lexp2`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`|`r ans4`
+exname: negs

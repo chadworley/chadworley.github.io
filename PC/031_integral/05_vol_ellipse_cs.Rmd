@@ -1,0 +1,302 @@
+```{r,echo=F,warning=F}
+options(scipen=999)
+fixer = function(exp){
+  exp = gsub("+{-","-{",exp,fixed=T)
+  exp = gsub("{1}x^{0}","1",exp,fixed=T)
+  exp = gsub("{1}","{}",exp,fixed=T)
+  exp = gsub("x^{0}","{}",exp,fixed=T)
+  return(exp)
+}
+
+while(T){
+  ps = round(10^runif(2,-0.5,0.5),2)
+  a = ps[1]
+  b = ps[2]
+  V = pi/(a+b+1)
+  if(abs(diff(c(a,b)))>0.2 && V>0.2){break}
+}
+
+xs = seq(0,1,0.01)
+ys = xs^a
+zs = xs^b
+
+zero = rep(0,length(xs))
+
+X1 = matrix(c(rev(xs),xs,zero,zero,rev(zs),-zs),3,byrow=T)
+X2 = matrix(c(rev(xs),xs,rev(ys),-ys,zero,zero),3,byrow=T)
+X = list(X1,X2)
+n = 180
+t = seq(0,2*pi,length.out=n)
+for(x in seq(0.1,1,0.1)){
+  xs = rep(x,length(t))
+  ry = x^a
+  rz = x^b
+  ys = ry*cos(t)
+  zs = rz*sin(t)
+  cl = length(X)
+  X[[cl+1]] = matrix(c(xs,ys,zs),nrow=3,byrow=T)
+}
+
+Y = list()
+for(x in seq(0.01,1,0.01)){
+  xs = rep(x,length(t))
+  ry = x^a
+  rz = x^b
+  ys = ry*cos(t)
+  zs = rz*sin(t)
+  cl = length(Y)
+  Y[[cl+1]] = matrix(c(xs,ys,zs),nrow=3,byrow=T)
+}
+
+```
+
+Question
+========
+
+A 3D shape is produced with elliptical cross sections. As $x$ progresses from along the interval $[0,1]$, the cross section perpendicular to the $x$ axis will be an ellipse with axes (and radii) parallel to the $y$ and $z$ axes. The (maximum and minimum) radii are power functions with respect to $x$.
+
+$$r_1(x) ~=~ x^{`r a`}$$
+$$r_2(x) ~=~ x^{`r b`}$$
+
+```{r,echo=F,fig.dim=c(6,6)}
+getR = function(u,t){
+  ux = u[1]
+  uy = u[2]
+  uz = u[3]
+  f = cos(t)+ux^2*(1-cos(t))
+  g = ux*uy*(1-cos(t))-uz*sin(t)
+  h = ux*uz*(1-cos(t))+uy*sin(t)
+  i = uy*ux*(1-cos(t))+uz*sin(t)
+  j = cos(t)+uy^2*(1-cos(t))
+  k = uy*uz*(1-cos(t))-ux*sin(t)
+  l = uz*ux*(1-cos(t))-uy*sin(t)
+  m = uz*uy*(1-cos(t))+ux*sin(t)
+  n = cos(t)+uz^2*(1-cos(t))
+  R = matrix(c(f,g,h,i,j,k,l,m,n),3,byrow=T)
+  return(R)
+}
+tp = pi/4
+r = 0.05
+P = matrix(c(1,r*cos(tp),0,
+             0,r*sin(tp),1),2,byrow=T)
+par(pty="s")
+u = c(0,0,1)
+Xc = X
+Yc = Y
+plot(0,0,type="n",xlim=c(-0.5,1.5),ylim=c(-1,1),xlab="x",ylab="z")
+for(j in 1:length(Yc)){
+  Yc_flat = P%*%Yc[[j]]
+  polygon(Yc_flat[1,],Yc_flat[2,],col="red",border="red",lwd=3)
+}
+abline(h=0)
+abline(v=0)
+lines(c(-sqrt(2)/4,sqrt(2)/4),c(-sqrt(2)/4,sqrt(2)/4))
+for(j in 1:length(Xc)){
+  Xc_flat = P%*%Xc[[j]]
+  lines(Xc_flat[1,],Xc_flat[2,],lwd=2)
+}
+```
+\
+
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(6,6)}
+getR = function(u,t){
+  ux = u[1]
+  uy = u[2]
+  uz = u[3]
+  f = cos(t)+ux^2*(1-cos(t))
+  g = ux*uy*(1-cos(t))-uz*sin(t)
+  h = ux*uz*(1-cos(t))+uy*sin(t)
+  i = uy*ux*(1-cos(t))+uz*sin(t)
+  j = cos(t)+uy^2*(1-cos(t))
+  k = uy*uz*(1-cos(t))-ux*sin(t)
+  l = uz*ux*(1-cos(t))-uy*sin(t)
+  m = uz*uy*(1-cos(t))+ux*sin(t)
+  n = cos(t)+uz^2*(1-cos(t))
+  R = matrix(c(f,g,h,i,j,k,l,m,n),3,byrow=T)
+  return(R)
+}
+tp = pi/4
+r = 0.2
+P = matrix(c(1,r*cos(tp),0,
+             0,r*sin(tp),1),2,byrow=T)
+n = 20
+par(pty="s",mar=c(0,0,0,0))
+u = c(0,0,1)
+t = 2*pi/n
+R = getR(u,t)
+Xc = X
+Yc = Y
+for(i in 1:n){
+  plot(0,0,type="n",axes=F,ann=F,xlim=c(-1.5,1.5),ylim=c(-1.5,1.5))
+  for(j in 1:length(Yc)){
+    Yc_flat = P%*%Yc[[j]]
+    polygon(Yc_flat[1,],Yc_flat[2,],col="red",border="red",lwd=3)
+    Yc[[j]] = R%*%Yc[[j]]
+  }
+  for(j in 1:length(Xc)){
+    Xc_flat = P%*%Xc[[j]]
+    lines(Xc_flat[1,],Xc_flat[2,])
+    Xc[[j]] = R%*%Xc[[j]]
+  }
+}
+```
+\
+
+Find the volume of the shape. The tolerance is $\pm 0.01$ cubic units. 
+
+As a hint, I'll remind you that the area of an ellipse is found by multiplying the radii by each other and pi: $A=\pi\cdot r_1 \cdot r_2$.
+
+
+Solution
+========
+
+Imagine breaking the 3D shape into a bunch of elliptical slices with infinitesimal thickness $dx$.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(pty="s",mar=c(0,0,0,0))
+tp = -pi/6
+r = 0.3
+P = matrix(c(1,r*cos(tp),0,
+             0,r*sin(tp),1),2,byrow=T)
+plot(0,0,type="n",xlim=c(-0.5,1.5),ylim=c(-1,1))
+dx = 0.05
+nd = 100
+th = seq(0,2*pi,length.out=nd)
+for(x in rev(seq(0,1-dx,dx))){
+  y = x^a
+  z = x^b
+  sq = matrix(c(rep(x+dx,nd),y*cos(th),z*sin(th)),nrow=3,byrow=T)
+  flsq = P%*%sq
+  polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=1)
+  for(i in 1:(length(th)-1)){
+    xs = c(x,x,x+dx,x+dx)
+    ys = c(y*cos(th[i]),y*cos(th[i+1]),y*cos(th[i+1]),y*cos(th[i]))
+    zs = c(z*sin(th[i]),z*sin(th[i+1]),z*sin(th[i+1]),z*sin(th[i]))
+    sq = matrix(c(xs,ys,zs),nrow=3,byrow=T)
+    flsq = P%*%sq
+    polygon(flsq[1,],flsq[2,],col="red",border=NA,lwd=1)
+  }
+  sq = matrix(c(rep(x,nd),y*cos(th),z*sin(th)),nrow=3,byrow=T)
+  flsq = P%*%sq
+  polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=1)
+}
+abline(h=0)
+abline(v=0)
+xs = seq(0,1,0.001)
+ys = xs^a
+zs = xs^b
+sq = matrix(c(xs,rep(0,length(xs)),zs),nrow=3,byrow=T)
+flsq = P%*%sq
+lines(flsq[1,],flsq[2,],col="black",lwd=2)
+sq = matrix(c(xs,rep(0,length(xs)),-zs),nrow=3,byrow=T)
+flsq = P%*%sq
+lines(flsq[1,],flsq[2,],col="black",lwd=2)
+sq = matrix(c(xs,ys,rep(0,length(xs))),nrow=3,byrow=T)
+flsq = P%*%sq
+lines(flsq[1,],flsq[2,],col="black",lwd=2)
+sq = matrix(c(xs,-ys,rep(0,length(xs))),nrow=3,byrow=T)
+flsq = P%*%sq
+lines(flsq[1,],flsq[2,],col="black",lwd=1,lty=3)
+
+```
+\
+
+Each elliptical slab has an infinitesimal volume.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(pty="s",mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(-0.5,1.5),ylim=c(-1,1))
+abline(h=0)
+abline(v=0)
+dx = 0.1
+x = 0.5
+y = x^a
+z = x^b
+if(y>z){
+  y=1.3
+  z=0.95
+} else {
+  y=0.7
+  z=0.95
+}
+th = seq(0,2*pi,length.out=300)
+xs = rep(x,length(th))
+ys = y*cos(th)
+zs = z*sin(th)
+sq = matrix(c(xs+dx,ys,zs),nrow=3,byrow=T)
+flsq = P%*%sq
+polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=1)
+for(i in 1:(length(th)-1)){
+  xs1 = c(x,x,x+dx,x+dx)
+  ys1 = c(y*cos(th[i]),y*cos(th[i+1]),y*cos(th[i+1]),y*cos(th[i]))
+  zs1 = c(z*sin(th[i]),z*sin(th[i+1]),z*sin(th[i+1]),z*sin(th[i]))
+  sq = matrix(c(xs1,ys1,zs1),nrow=3,byrow=T)
+  flsq = P%*%sq
+  polygon(flsq[1,],flsq[2,],col="red",border=NA,lwd=1)
+}
+sq = matrix(c(xs,ys,zs),nrow=3,byrow=T)
+flsq = P%*%sq
+polygon(flsq[1,],flsq[2,],col="red",border="black",lwd=3)
+
+xs = c(x,x)
+ys = c(0,y)
+zs = c(0,0)
+sq = matrix(c(xs,ys,zs),nrow=3,byrow=T)
+flsq = P%*%sq
+lines(flsq[1,],flsq[2,],col="black",lwd=3)
+
+xs = c(x,x)
+ys = c(0,0)
+zs = c(0,z)
+sq = matrix(c(xs,ys,zs),nrow=3,byrow=T)
+flsq = P%*%sq
+lines(flsq[1,],flsq[2,],col="black",lwd=3)
+
+lines(c(0,x),c(0,0))
+library(latex2exp)
+text(x-0.05,z/2,TeX("$r_2$"))
+
+sq = P%*%matrix(c(x-0.07,2*y/3,0))
+text(sq[1,],sq[2,],TeX("$r_1$"))
+
+text(x+dx/2,z+0.05,"dx")
+```
+\
+
+$$dV = \pi r_1 r_2 \, dx$$
+
+$$dV = \pi x^{`r a`} x^{`r b`} \, dx$$
+
+$$dV = \pi x^{`r a+b`} \, dx$$
+
+To get the total volume, we need to **S**um up all the infinitesimal volumes as $x$ varies from 0 to 1.
+
+$$V = \int_{x=0}^{x=1} dV$$
+
+$$V = \int_{0}^{1} \pi x^{`r a+b`} \, dx$$
+
+Find antiderivitive $g(x)$ so that $g'(x)=\pi x^{`r a+b`}$ and $g(0)=0$ (so the constant of integration is 0).
+
+$$g(x) = \frac{\pi}{`r a+b+1`} x^{`r a+b+1`}$$
+
+The total volume can be expressed in terms of function $g$.
+
+$$V = g(1)-g(0)$$
+
+Evaluate.
+
+$$V = \frac{\pi}{`r a+b+1`} (1)^{`r a+b+1`}-\frac{\pi}{`r a+b+1`} (0)^{`r a+b+1`}$$
+
+
+$$V = \frac{\pi}{`r a+b+1`}$$
+
+$$V\approx `r V`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r V`
+exname: vol_ellipse_cs
+extol: 0.01

@@ -1,0 +1,68 @@
+```{r,echo=FALSE}
+options(scipen=99)
+g1 = sample(2:9,1)*10^sample(-1:2,1)*sample(c(-1,1),1)
+r = (1+sample(1:20,1)/100*sample(c(-1,1),1))*(sample(c(-1,1),1))
+n = sample(10:30,1)
+Sn = g1*(1-r^n)/(1-r)
+
+if(sign(g1*r^3)<0){
+  pm = "-"
+} else {
+  pm = "+"
+}
+
+gs = paste0(g1,"~+~",g1*r,"~+~",g1*r^2,"~",pm,"~\\ldots",collapse="")
+gs = gsub("+~-","-~",gs,fixed=TRUE)
+
+if(abs(r)<1){
+  smbl = "<"
+  cd = "converges"
+  sol = "10"
+} else {
+  smbl = ">"
+  cd = "diverges"
+  sol = "01"
+}
+```
+
+Question
+========
+
+An infinite geometric series converges if and only if $|r|<1$. A convergent series will approach a finite value as more terms are added; a divergent series will approach infinity. **Is the following geometric series convergent?**
+
+$$`r gs`$$
+
+Answerlist
+--------
+
+* Yes, the series converges.
+* No, the series diverges.
+
+
+Solution
+========
+
+Determine the common ratio by dividing the second term by the first term.
+
+$$r = \frac{`r g1*r`}{`r g1`} = `r r`$$
+
+Notice, this is the same as the ratio of the third and second terms.
+
+$$r ~=~ \frac{`r g1*r^2`}{`r g1*r`} ~=~ `r r`$$
+
+Determine the absolute value of the common ratio.
+
+$$|r| ~=~ |`r r`| ~=~ `r abs(r)`$$
+
+Compare the absolute common ratio to 1. If it is less than 1, the series converges; otherwise, the series diverges.
+
+$$|`r r`| `r smbl` 1$$
+
+So, **the series `r cd`.**
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: geometric_convergence

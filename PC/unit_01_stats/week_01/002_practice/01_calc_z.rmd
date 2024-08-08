@@ -1,0 +1,111 @@
+```{r,data,generation,echo=FALSE,results="hide"}
+while(T){
+  while(T){
+    X = sort(sample(0:9,4)*c(1,1,1,-1))
+    P = sample(1:4)/10
+    
+    mu = sum(X*P)
+    sig = sqrt(sum(P*(X-mu)^2))
+    n = 25 #sample(22:40,1)
+    ET = mu*n
+    SET = sig*sqrt(n)
+  
+    if(mu < -0.01 && mu >- 1){
+      break
+    }
+  }
+  
+  X2 = as.character(X)
+  P2 = as.character(P)
+  X3 = paste0(X2,sep="",collapse='\\*')
+  P3 = paste0(P2,sep="",collapse='\\*')
+  
+  zlo = 0
+  zhi = 0
+  totlo = 0
+  tothi = 0
+  while(zlo==0 || zhi==0){
+    tottemp = sum(sample(X,25,T,P))
+    ztemp = (tottemp-ET)/SET
+    if(ztemp>1 && ztemp<2){
+      zlo = ztemp
+      totlo = tottemp
+    }
+    if(ztemp>3.03 && ztemp<4){
+      zhi = ztemp
+      tothi = tottemp
+    }
+  }
+  choice = sample(1:2,1)
+  tot = c(totlo,tothi)[choice]
+  z = c(zlo,zhi)[choice]
+  if(tot>0){break}
+}
+html = paste0("https://chadworley.github.io/cltsim.html?poss=",X3,"&wght=",P3)
+```
+
+
+Question
+========
+
+A lottery offers the following payout scheme:
+
+<style>
+table td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table th{
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table {
+  border: 3px solid black;
+  width: 60%;
+}
+</style>
+
+| profit | chance |
+|:---:|:---:|
+| `r X[1]` | `r P[1]` |
+| `r X[2]` | `r P[2]` |
+| `r X[3]` | `r P[3]` |
+| `r X[4]` | `r P[4]` |
+
+To analyze this [discrete probability distribution](https://en.wikipedia.org/wiki/Probability_mass_function){target="_blank"}, you can use this link: 
+
+[`r html`](`r html`){target="_blank"}
+
+A friend claims, "I only played that lottery $n=`r n`$ times, and I've won $\sum x = `r tot`$ dollars." You wish to judge whether your friend is making an outlandish claim. To do this, you calculate a $z$ score.
+
+$$z = \frac{\sum x - n\mu}{\sigma\sqrt{n}}$$
+
+A typical $z$ score is between $-2$ and $2$ (this happens 95\% of the time). A $z$ score less than $-3$ or more than $3$ is quite unlikely (less than 0.3% of the time). 
+
+Is your friend's claim typical or outlandish? To answer this, calculate a $z$ score accurate to the hundredths place.
+
+$$z=\,?$$
+
+
+Solution
+========
+
+Use the link to determine the population mean $\mu=`r mu`$ and population standard deviation $\sigma = `r sig`$.
+
+$$z = \frac{\sum x - n\mu}{\sigma\sqrt{n}}$$
+
+$$z = \frac{(`r tot`)-(`r n`)(`r mu`)}{(`r sig`)\sqrt{`r n`}} $$
+
+$$z = \frac{(`r tot`)-(`r ET`)}{(`r SET`)} $$
+
+$$z = `r sprintf("%.2f", z)` $$
+
+
+Meta-information
+================
+extype: num
+exsolution: `r z`
+exname: calc_z_easy
+extol: 0.01

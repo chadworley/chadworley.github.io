@@ -1,0 +1,172 @@
+```{r data generation, echo = FALSE, results = "hide"}
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+posright = sample(1:4,1)
+
+NAMES = c("Aarav","Ace","Acelyn","Adam","Addelynn","Adria","Adrian","Adrianna","Adriel","Aiden","Aiyla","Alani","Alayna","Alejandro","Alessio","Alexa","Alexander","Alexandre","Alexandro","Alias","Alice","Alina","Allison","Allyssa","Alonzo","Alyson","Amanda","Amara","Amari","Amelia","Amira","Anaise","Anasofia","Andres","Andrew","Angel","Angelo","Annabelle","Annie","Anthony","Anyla","Archer","Arianna","Ariel","Arjunreddy","Arlo","Aron","Asher","Asher","Ashrith","Ashton","Athalia","Atreyu","Aubrey","Audrey","August","Austin","Ava","Avery","Axel","Ayan","Ayman","Bailey","Baylon","Beckham","Bella","Benjamin","Bennett","Bensen","Bentley","Blair","Blaire","Blake","Bleu","Brady","Brandon","Brayden","Brennan","Brody","Brooks","Bryce","Brynnlee","Caleb","Cali","Callan","Callie","Camila","Carson","Carter","Case","Castiel","Cataleya","Caterina","Celena","Charles","Charlotte","Chase","Chelsea","Chloe","Christian","Christopher","Clara","Clayton","Cohen","Colbie","Colin","Conner","Connor","Cooper","Cruz","Dailyn","Daleyza","Daliah","Damian","Daniel","Dante","Dario","David","Dayanara","Declan","Devin","Diego","Donovan","Dorothy","Dylan","Easton","Edrick","Edward","Eithan","Elaine","Eleanor","Elena","Eli","Elianna","Elias","Elijah","Eliza","Elizabeth","Ella","Elliana","Ellie","Elliot","Emani","Emersyn","Emery","Emilee","Emir","Emma","Ericka","Essa","Ethan","Eva","Evangeline","Eve","Evelyn","Everett","Everleigh","Everly","Ezra","Fanny","Felicity","Fernanda","Fernando","Fiona","Fletcher","Forest","Francesca","Gabriella","Gael","Gerard","Giselle","Gittel","Grace","Grant","Gregory","Griselda","Gustavo","Hadden","Haelynn","Hailey","Haisleigh","Haley","Hannah","Harley","Harper","Hartley","Haven","Hayden","Henry","Hubert","Hudson","Hugo","Hunter","Hunter","Ibrahim","Ina","India","Indigo","Ira","Iris","Isaac","Isabel","Isabella","Isadora","Iskra","Ismael","Ita","Italia","Ivan","Ivar","Ivy","Jack","Jackson","Jacob","Jaden","Jaelani","Jahsiah","James","Jameson","Janiyah","Jasmine","Jaxon","Jaxson","Jaxton","Jayden","Jayla","Jaylon","Jeanette","Jeffrey","Jeniyah","Jesus","Jetson","Jett","Jibril","Joaquin","Joel","Joelle","Joely","John","Johnny","Jolene","Joli","Jolie","Jonah","Jonathan","Jordan","Jordan","Joseph","Joshua","Josiah","Journey","Jru","Juan","Judah","Julia","Julian","Julianne","Juliette","Julissa","Julius","June","Kade","Kaiden","Kaidyn","Kalani","Kameron","Kareem","Karim","Karson","Kason","Katherine","Kayan","Kaycee","Kayde","Kayden","Kayleigh","Kenley","Kenneth","Kenslee","Kerrington","Khloe","Kian","Kieran","Kimber","King","Kingston","Kinley","Klaudia","Kora","Kristina","Kylan","Kyra","Kyran","Kyren","Lachlan","Laila","Landon","Laney","Laura","Lauren","Layla","Lea","Leighton","Leo","Leonardo","Levi","Liam","Lianna","Lidia","Lincoln","Lluvia","Logan","Logan","Lorenzo","Luca","Lucas","Lucia","Luciana","Lucy","Luis","Luke","Lun","Luna","Lydia","Lyla","Mabelle","Macoy","Maddison","Maddox","Madelyn","Madison","Maisie","Makayla","Makiyah","Malcolm","Malik","Maliya","Manuel","Marco","Mariana","Mark","Marlee","Martin","Maryfer","Mateo","Matias","Matteo","Matthew","Maverick","Max","Maxwell","Maya","Mayeli","Meadow","Melody","Menno","Mia","Micah","Michael","Mika","Mikai","Mila","Milan","Milena","Miles","Mira","Miranda","Mohammad","Moises","Monte","Muhammad","Myles","Nadia","Natalia","Natalin","Nathan","Neymar","Nickson","Noah","Noah","Noble","Nolan","Nora","Norah","Nori","Novak","Oakleigh","Oakley","Oakley","Oaklyn","Octavia","Odin","Olive","Oliver","Olivia","Omar","Oscar","Otto","Owen","Paislee","Paisley","Pauline","Paxton","Penelope","Polette","Presley","Promise","Raegan","Raelynn","Ramir","Ramon","Richard","Riley","Riley","River","Riya","Roma","Roman","Royal","Ruben","Ruby","Ruth","Ryan","Ryder","Ryker","Rylie","Saheed","Samantha","Sandra","Santiago","Sarah","Sarita","Savanna","Sawyer","Scarlett","Sebastian","Sephora","Serene","Serenity","Shoshana","Shreya","Sidney","Skye","Skylar","Sloane","Sofia","Sophia","Sophie","Stella","Steve","Stormy","Sullivan","Sylvia","Taylor","Taylor","Thea","Theodore","Thiago","Thomas","Timothy","Tobin","Triniti","Tristan","Tucker","Tulip","Turner","Unique","Uri","Valery","Valor","Vincent","Violet","Waylon","Wayne","Wendy","Whitman","Wilfredo","William","Willie","Willow","Wilson","Winston","Wyatt","Xavier","Xitlali","Xzander","Yeiden","Zacarias","Zachariah","Zachary","Zahra","Zaina","Zamir","Zara","Zayvon","Zechariah","Zina","Zoe","Zoey","Zuri")
+n = sample(25:30,1)
+NAME = sort(sample(NAMES,n,replace=F))
+speeds = runif(n,3,13) #mph
+x1 = round(1/speeds*60*60)
+while(T){
+  sigd = runif(1,20,50)
+  SEd = sigd/sqrt(n)
+  MEd = 2*SEd
+  mud = sample(c(-MEd,MEd),1)
+  d = rnorm(n,mud,sigd)
+  x2 = round(x1+d)
+  t = abs(mean(d))/(sd(d)/sqrt(n))
+  cumulative = pt(t,n-1)
+  pval = 2*(1-cumulative)
+  if(pval<0.2 & pval>0.005 & abs(pval-0.05)>0.01){break}
+}
+xdf = data.frame(NAME,x1,x2)
+colnames(xdf) = c("name","x1","x2")
+
+xdf2 = data.frame(NAME,x1,x2,x2-x1)
+colnames(xdf2) = c("name","x1","x2","x2-x1")
+
+x = x2-x1
+
+xbar = mean(x)
+s = sd(x)
+LB = round(xbar-2*s/sqrt(n),1)
+UB = round(xbar+2*s/sqrt(n),1)
+
+lba = round(xbar-2*s/n,1)
+uba = round(xbar+2*s/n,1)
+lbb = round(xbar-s/sqrt(n),1) 
+ubb = round(xbar+s/sqrt(n),1)
+lbc = round(xbar-2*s,1)
+ubc = round(xbar+2*s,1)
+lbd = round(xbar-s,1)
+ubd = round(xbar+s,1)
+lbe = round(xbar-4*s/sqrt(n),1)
+ube = round(xbar+4*s/sqrt(n),1)
+lbf = round(xbar-s/sqrt(n)/2,1)
+ubf = round(xbar+s/sqrt(n)/2,1)
+lbh = round(xbar-s/sqrt(n)/4,1)
+ubh = round(xbar+s/sqrt(n)/4,1)
+
+tightlb = c(lba,lbb,lbf,lbh)
+tightub = c(uba,ubb,ubf,ubh)
+widelb = c(lbc,lbd,lbe)
+wideub = c(ubc,ubd,ube)
+
+
+tightpicks = sample(1:length(tightlb),posright-1)
+widepicks = sample(1:length(widelb),4-posright)
+
+ansli1 = sort(c(tightlb[tightpicks],LB,widelb[widepicks]))
+ansli2 = sort(c(tightub[tightpicks],UB,wideub[widepicks]))
+
+s1 = paste0((ansli1==LB)*1,collapse="")
+s2 = paste0((ansli2==UB)*1,collapse="")
+
+if(UB<0){s3="100"}else if(LB>0){s3="001"}else{s3="010"}
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+A study asked a sample of individuals from a population to time a mile run (in seconds). After a month, the same sample of individuals timed another mile run. You are asked to calculate a 95% confidence interval for the mean change of times of the population to investigate whether fitness changed (in the population).
+
+```{r tab1, results="asis"}
+knitr::kable(xdf,format="html",table.attr='class="bordered-table"', align = "lcc",row.names=F)
+```
+
+
+The researcher will later consult a statistician for a more precise method, but for now they will use a quick method to estimate the 95% confidence interval:
+$$\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} $$
+
+Because we have paired data, we need to first find the change for each participant. Those changes are then used to find $\bar{x}$ and $s$.
+
+
+The lower boundary is ##ANSWER1##.
+
+The upper boundary is ##ANSWER2##.
+
+What inference does the researcher make? ##ANSWER3##
+
+
+Answerlist
+--------
+* `r ansli1[1]`
+* `r ansli1[2]`
+* `r ansli1[3]`
+* `r ansli1[4]`
+* `r ansli2[1]`
+* `r ansli2[2]`
+* `r ansli2[3]`
+* `r ansli2[4]`
+* Running times significantly decreased on average. (Fitness of population improved.)
+* A larger sample size would be needed to detect a change, or there is no change.
+* Running times significantly increased on average. (Fitness of population worsened.)
+
+
+
+Solution
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:1px solid #000000;
+    padding: 4px;
+}
+</style>
+
+Find the differences.
+
+```{r tab2, results="asis"}
+knitr::kable(xdf2,format="html",table.attr='class="bordered-table"', align = "lccc",row.names=F)
+```
+
+
+Find the sample mean of the differences (use `=average()` in spreadsheet.)
+$$\bar{x}=`r xbar`$$
+Find the sample standard deviation (use `=stdev()` in spreadsheet.)
+$$s = `r s`$$
+Find the sample size (use `=count()` in spreadsheet.)
+$$n = `r n`$$
+
+Plug the numbers into the expressions.
+
+* Lower bound = $`r xbar`-2(`r s`)/\sqrt{`r n`} ~=~ `r LB`$
+* Upper bound = $`r xbar`+2(`r s`)/\sqrt{`r n`} ~=~ `r UB`$
+
+If the confidence interval straddles 0, then no significant change is detected. If the entire confidence interval is negative, then a significant decrease is detected. If the entire confidence interval is positive, then a significant increase is detected.
+
+
+Meta-information
+================
+extype: cloze
+exsolution: `r s1`|`r s2`|`r s3`
+exclozetype: schoice|schoice|schoice
+exname: CI paired data raw MC

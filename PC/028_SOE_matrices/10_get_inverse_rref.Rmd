@@ -1,0 +1,208 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],\n            [",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+lataug = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:3],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,'\\end{matrix}
+  \\;\\middle|\\;
+    \\,
+    \\begin{matrix}\n')
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,4:6],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+styleblock = '<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>'
+
+strt = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("")
+  } else {
+    return(as.character(s))
+  }
+}
+
+md = function(s){
+  if(s==-1){
+    return("-")
+  } else if(s==1){
+    return("+")
+  } else if(s<0){
+    return(as.character(s))
+  } else {
+    return(paste0("+",s,collapse=""))
+  }
+}
+
+html_input_table = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    rs2 = paste0("<td>",rep("!!!",2),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td>",rs2,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+html_input_table_33 = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:3){
+    rs = paste0("<td>",rep("!!!",3),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+while(T){
+  A = matrix(sample(1:10,9,T)*sample(c(-1,1),9,T),3)
+  if(abs(det(A))!=1){next}
+  Ainv = round(solve(A),3)
+  if(max(abs(Ainv))>10){next}
+  break
+}
+I = matrix(c(1,0,0,0,1,0,0,0,1),3)
+
+tac = numeric()
+sols = character()
+aaa = c(t(Ainv))
+for(aa in aaa){
+  tac = c(tac,-10:10)
+  sols = c(sols,paste0(1*(-10:10==aa),collapse=""))
+}
+
+al = paste0("* ",tac,collapse="\n")
+
+m1 = cbind(A,I)
+
+```
+
+Question
+========
+
+`r styleblock`
+
+Let $A$ be the 3x3 matrix below.
+
+$$A=`r lat(A)`$$
+
+To find the inverse of $A$, we can set up an augmented matrix with $A$ augmented with an identity matrix. We then use row operations to get to reduced row echelon form. We can get a computer algebra system to work through the row operations for us.
+
+Here is the augmented matrix to start:
+
+$$`r lataug(m1)`$$
+
+To copy this into [sagemath](https://sagecell.sagemath.org/):
+
+```
+A = matrix(`r matcc(cbind(A,I))`)
+```
+
+In sagemath, matrices have a method `rref()` that uses row operations to convert a matrix to [reduced row echelon form](https://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form).
+
+Please determine the [inverse](https://en.wikipedia.org/wiki/Invertible_matrix) ($A^{-1}$).
+
+```{r,echo=F,results='asis'}
+ans_num = 1
+hm = html_input_table_33()
+for(j in 1:9){
+  hm = sub("!!!",paste0("##ANSWER",ans_num,"##",collapse=""),hm,fixed = T)
+  ans_num=ans_num+1
+}
+```
+
+$A^{-1}=$`r hm`
+
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+Use [sagemath](https://sagecell.sagemath.org/).
+
+```
+A = matrix(`r matcc(cbind(A,I))`)
+B = A.rref()
+pretty_print(B)
+```
+
+The inverse:
+
+$$A^{-1}=`r lat(Ainv)`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(sols)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: get_inverse_rref

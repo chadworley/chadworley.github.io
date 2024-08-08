@@ -1,0 +1,349 @@
+---
+output: 
+  pdf_document:
+    extra_dependencies: ["fancyhdr","multicol"]
+fontsize: 12pt
+params:
+  num: "1234"
+  mytitle: "PC 029 NO-CALC Mastery"
+  showsol: True
+geometry: "left=3cm,right=3cm,top=3cm,bottom=3cm"
+---
+
+```{r,echo=F}
+library(latex2exp)
+
+set.seed(as.numeric(params$num))
+showsol = params$showsol
+
+fixer = function(exp){
+  exp = gsub("--","+",exp,fixed=T)
+  return(exp)
+}
+
+makegrid = function(){
+  plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+  for(i in -10:10){
+    if(i!=0 && abs(i)!=5){
+      lines(c(i,i),c(-10,10),col="grey")
+      lines(c(-10,10),c(i,i),col="grey")
+    }
+    if(i!=0 && abs(i)==5){
+      lines(c(i,i),c(-10,10),col="darkgrey",lwd=1.3)
+      lines(c(-10,10),c(i,i),col="darkgrey",lwd=1.3)
+    }
+  }
+  arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+  arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+}
+
+aa = numeric()
+bb = numeric()
+hh = numeric()
+kk = numeric()
+eh = numeric()
+hv = numeric()
+eqs = character()
+x1s = list()
+y1s = list()
+x2s = list()
+y2s = list()
+th = seq(0,2*pi,length.out=1000)
+eps = 0.00001
+th1 = seq(-pi/2+eps,pi/2-eps,length.out=1000)
+th2 = seq(pi/2+eps,3*pi/2-eps,length.out=1000)
+th3 = seq(eps,pi-eps,length.out=1000)
+th4 = seq(pi+eps,2*pi-eps,length.out=1000)
+
+while(T){
+  hkab = sample(1:8,4)
+  h = hkab[1]*sample(c(-1,1),1)
+  k = hkab[2]*sample(c(-1,1),1)
+  a = hkab[3]
+  b = hkab[4]
+  if(abs(h)+a<10 && abs(k)+b<10 && a>1 && b>1){break}
+}
+aa = c(aa,a)
+bb = c(bb,b)
+hh = c(hh,h)
+kk = c(kk,k)
+eh = c(eh,1)
+hv = c(hv,0)
+eqs = c(eqs,fixer(paste0("\\frac{(x-",h,")^2}{",a^2,"}+\\frac{(y-",k,")^2}{",b^2,"}=1",collapse="")))
+x1s[[1]] = h+a*cos(th)
+y1s[[1]] = k+b*sin(th)
+x2s[[1]] = numeric()
+y2s[[1]] = numeric()
+
+while(T){
+  hkab = sample(1:8,4)
+  h = hkab[1]*sample(c(-1,1),1)
+  k = hkab[2]*sample(c(-1,1),1)
+  a = hkab[3]
+  b = hkab[4]
+  c = sqrt(a^2+b^2)
+  ishor = sample(c(T,F),1)
+  if(ishor){
+    maxx = abs(h)+c
+    maxy = abs(k)+b
+    hvhv = 1
+  } else {
+    maxx = abs(h)+a
+    maxy = abs(k)+c
+    hvhv = 2
+  }
+  if(maxx<9 && maxy<9 && a>1 && b>1){break}
+}
+aa = c(aa,a)
+bb = c(bb,b)
+hh = c(hh,h)
+kk = c(kk,k)
+eh = c(eh,2)
+hv = c(hv,hvhv)
+if(hvhv==1){
+  eqs = c(eqs,fixer(paste0("\\frac{(x-",h,")^2}{",a^2,"}-\\frac{(y-",k,")^2}{",b^2,"}=1",collapse="")))
+  x1s[[2]] = h+a/cos(th1)
+  y1s[[2]] = k+b*tan(th1)
+  x2s[[2]] = h+a/cos(th2)
+  y2s[[2]] = k+b*tan(th2)
+} else {
+  eqs = c(eqs,fixer(paste0("-\\frac{(x-",h,")^2}{",a^2,"}+\\frac{(y-",k,")^2}{",b^2,"}=1",collapse="")))
+  x1s[[2]] = h+a*tan(th1)
+  y1s[[2]] = k+b/cos(th1)
+  x2s[[2]] = h+a*tan(th2)
+  y2s[[2]] = k+b/cos(th2)
+}
+
+
+while(T){
+  hkab = sample(1:8,4)
+  h = hkab[1]*sample(c(-1,1),1)
+  k = hkab[2]*sample(c(-1,1),1)
+  a = hkab[3]
+  b = hkab[4]
+  if(abs(h)+a<10 && abs(k)+b<10 && a>1 && b>1){break}
+}
+aa = c(aa,a)
+bb = c(bb,b)
+hh = c(hh,h)
+kk = c(kk,k)
+eh = c(eh,1)
+hv = c(hv,0)
+eqs = c(eqs,fixer(paste0("\\frac{(x-",h,")^2}{",a^2,"}+\\frac{(y-",k,")^2}{",b^2,"}=1",collapse="")))
+x1s[[3]] = h+a*cos(th)
+y1s[[3]] = k+b*sin(th)
+x2s[[3]] = numeric()
+y2s[[3]] = numeric()
+
+while(T){
+  hkab = sample(1:8,4)
+  h = hkab[1]*sample(c(-1,1),1)
+  k = hkab[2]*sample(c(-1,1),1)
+  a = hkab[3]
+  b = hkab[4]
+  c = sqrt(a^2+b^2)
+  ishor = sample(c(T,F),1)
+  if(ishor){
+    maxx = abs(h)+c
+    maxy = abs(k)+b
+    hvhv = 1
+  } else {
+    maxx = abs(h)+a
+    maxy = abs(k)+c
+    hvhv = 2
+  }
+  if(maxx<9 && maxy<9 && a>1 && b>1){break}
+}
+aa = c(aa,a)
+bb = c(bb,b)
+hh = c(hh,h)
+kk = c(kk,k)
+eh = c(eh,2)
+hv = c(hv,hvhv)
+if(hvhv==1){
+  eqs = c(eqs,fixer(paste0("\\frac{(x-",h,")^2}{",a^2,"}-\\frac{(y-",k,")^2}{",b^2,"}=1",collapse="")))
+  x1s[[4]] = h+a/cos(th1)
+  y1s[[4]] = k+b*tan(th1)
+  x2s[[4]] = h+a/cos(th2)
+  y2s[[4]] = k+b*tan(th2)
+} else {
+  eqs = c(eqs,fixer(paste0("-\\frac{(x-",h,")^2}{",a^2,"}+\\frac{(y-",k,")^2}{",b^2,"}=1",collapse="")))
+  x1s[[4]] = h+a*tan(th1)
+  y1s[[4]] = k+b/cos(th1)
+  x2s[[4]] = h+a*tan(th2)
+  y2s[[4]] = k+b/cos(th2)
+}
+
+ord = c(sample(c(1,2)),sample(c(3,4)))
+
+if(showsol){
+  soltxt = "SOL"
+} else {
+  soltxt = ""
+}
+
+```
+
+\setlength{\headheight}{18.0pt}
+\fancyhead[L]{\sc{`r params$mytitle` v`r params$num` `r soltxt`}}
+\fancyhead[R]{\bf \large Name:\hspace{2in}}
+\fancyfoot[R]{\sc Page \thepage ~ of 2}
+\fancyfoot[C]{}
+\pagestyle{fancy}
+
+
+## Question 1
+
+Please write the equation of the conic section graphed below. You can assume all vertices and co-vertices are on integer gridpoints.
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+par(mar=c(0,0,0,0),pty="s",mfrow=c(1,2))
+makegrid()
+w = ord[1]
+a = aa[w]
+b = bb[w]
+h = hh[w]
+k = kk[w]
+if(eh[w]==2){
+  lines(c(h-a,h-a,h+a,h+a,h-a),c(k-b,k+b,k+b,k-b,k-b),col="darkgreen",lty=1,lwd=2)
+  m = b/a
+  xxx = c(-11,11)
+  yyy = m*(xxx-h)+k
+  lines(xxx,yyy,col="red",lty=1,lwd=2)
+  m = -b/a
+  xxx = c(-11,11)
+  yyy = m*(xxx-h)+k
+  lines(xxx,yyy,col="red",lty=1,lwd=2)
+}
+x = x1s[[w]]
+y = y1s[[w]]
+lines(x,y,lwd=3,col="blue")
+x = x2s[[w]]
+y = y2s[[w]]
+lines(x,y,lwd=3,col="blue")
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+if(showsol){
+  text(0,0,TeX(paste0("$",eqs[w],"$",collapse="")))
+}
+```
+\
+
+
+## Question 2
+
+Please write the equation of the conic section graphed below. You can assume all vertices and co-vertices are on integer gridpoints.
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+par(mar=c(0,0,0,0),pty="s",mfrow=c(1,2))
+makegrid()
+w = ord[2]
+a = aa[w]
+b = bb[w]
+h = hh[w]
+k = kk[w]
+if(eh[w]==2){
+  lines(c(h-a,h-a,h+a,h+a,h-a),c(k-b,k+b,k+b,k-b,k-b),col="darkgreen",lty=1,lwd=2)
+  m = b/a
+  xxx = c(-11,11)
+  yyy = m*(xxx-h)+k
+  lines(xxx,yyy,col="red",lty=1,lwd=2)
+  m = -b/a
+  xxx = c(-11,11)
+  yyy = m*(xxx-h)+k
+  lines(xxx,yyy,col="red",lty=1,lwd=2)
+}
+x = x1s[[w]]
+y = y1s[[w]]
+lines(x,y,lwd=3,col="blue")
+x = x2s[[w]]
+y = y2s[[w]]
+lines(x,y,lwd=3,col="blue")
+
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+if(showsol){
+  text(0,0,TeX(paste0("$",eqs[w],"$",collapse="")))
+}
+```
+\
+
+\newpage
+
+## Question 3
+
+Graph the conic section represented by the equation. For a hyperbola, please include the central rectangle and the asymptotes.
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+par(mar=c(0,0,0,0),pty="s",mfrow=c(1,2))
+makegrid()
+w = ord[3]
+if(showsol){
+  th = seq(0,2*pi,length.out=1000)
+  a = aa[w]
+  b = bb[w]
+  h = hh[w]
+  k = kk[w]
+  if(eh[w]==2){
+    lines(c(h-a,h-a,h+a,h+a,h-a),c(k-b,k+b,k+b,k-b,k-b),col="darkgreen",lty=1,lwd=2)
+    m = b/a
+    xxx = c(-11,11)
+    yyy = m*(xxx-h)+k
+    lines(xxx,yyy,col="red",lty=1,lwd=2)
+    m = -b/a
+    xxx = c(-11,11)
+    yyy = m*(xxx-h)+k
+    lines(xxx,yyy,col="red",lty=1,lwd=2)
+  }
+  x = x1s[[w]]
+  y = y1s[[w]]
+  lines(x,y,lwd=3,col="blue")
+  x = x2s[[w]]
+  y = y2s[[w]]
+  lines(x,y,lwd=3,col="blue")
+  
+}
+
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+text(0,0,TeX(paste0("$",eqs[w],"$",collapse="")))
+```
+\
+
+
+## Question 4
+
+Graph the conic section represented by the equation. For a hyperbola, please include the central rectangle and the asymptotes.
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+par(mar=c(0,0,0,0),pty="s",mfrow=c(1,2))
+makegrid()
+w = ord[4]
+if(showsol){
+  th = seq(0,2*pi,length.out=1000)
+  a = aa[w]
+  b = bb[w]
+  h = hh[w]
+  k = kk[w]
+  if(eh[w]==2){
+    lines(c(h-a,h-a,h+a,h+a,h-a),c(k-b,k+b,k+b,k-b,k-b),col="darkgreen",lty=1,lwd=2)
+    m = b/a
+    xxx = c(-11,11)
+    yyy = m*(xxx-h)+k
+    lines(xxx,yyy,col="red",lty=1,lwd=2)
+    m = -b/a
+    xxx = c(-11,11)
+    yyy = m*(xxx-h)+k
+    lines(xxx,yyy,col="red",lty=1,lwd=2)
+  }
+  x = x1s[[w]]
+  y = y1s[[w]]
+  lines(x,y,lwd=3,col="blue")
+  x = x2s[[w]]
+  y = y2s[[w]]
+  lines(x,y,lwd=3,col="blue")
+  
+}
+
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+text(0,0,TeX(paste0("$",eqs[w],"$",collapse="")))
+```
+\
+

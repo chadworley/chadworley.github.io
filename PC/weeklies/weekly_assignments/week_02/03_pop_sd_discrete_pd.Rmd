@@ -1,0 +1,142 @@
+```{r data generation, echo = FALSE, results = "hide"}
+while(T){
+  X = sort(sample(0:9,4)*c(1,1,1,-1))
+  P = sample(1:4)/10
+  mu = sum(X*P)
+  sig = sqrt(sum(P*(X-mu)^2))
+
+  if(mu < 0 && mu > -5 && abs(mu)>0.02 && round(sig*10)==sig*10){
+    break
+  }
+}
+mu = round(10*mu)/10
+sig = round(10*sig)/10
+prods = X*P
+diffs = (X-mu)
+sqd = (X-mu)^2
+vprods = P*(X-mu)^2
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+A lottery has the [discrete probability distribution](https://en.wikipedia.org/wiki/Probability_mass_function){target="_blank"} below.
+
+```{r tab_data, echo=FALSE, results="asis"}
+ct = data.frame(X,P)
+colnames(ct) = c("$x_i$","$p_i$")
+knitr::kable(ct,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+Find the population standard deviation. To do this first calculate the population mean.
+
+$$\mu = \sum\limits_{i=1}^{n}p_ix_i$$
+
+Calculate the variance.
+
+$$\sigma^2 = \sum\limits_{i=1}^{n}p_i(x_i-\mu)^2$$
+
+Finally, take the square root of the variance to get the standard deviation.
+
+$$\sigma = \sqrt{\sigma^2}$$
+
+
+Solution
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+Calculate the mean.
+
+$$\mu = `r paste0("(",X,")(",P,")",collapse="+")` $$
+$$\mu = `r paste0(prods,collapse="+")` $$
+$$\mu = `r mu` $$
+
+Next, calculate the variance.
+
+$$\sigma^2 = `r paste0("(",P,")(",X,"-(",mu,"))^2",collapse="+")` $$
+
+$$\sigma^2 = `r paste0("(",P,")(",diffs,")^2",collapse="+")` $$
+
+$$\sigma^2 = `r paste0("(",P,")(",sqd,")",collapse="+")` $$
+
+$$\sigma^2 = `r paste0(vprods,collapse="+")` $$
+
+$$\sigma^2 = `r sum(vprods)`$$
+Get the standard deviation by taking the square root of the variance.
+
+$$\sigma = `r sqrt(sum(vprods))`$$
+
+It is probably better to use a table.
+
+```{r tab_data2, echo=FALSE, results="asis"}
+X2 = c(paste(X),"","","")
+P2 = c(paste(P),"","","")
+prod2 = c(paste(X*P),"","$\\mu$",paste(sum(X*P)))
+diff2 = c(paste(X-mu),"","","")
+sqd2 = c(paste((X-mu)^2),"","","")
+vp2 = c(paste(P*(X-mu)^2),"","$\\sigma^2$",paste(sum(P*(X-mu)^2)))
+ct = data.frame(X2,P2,prod2,diff2,sqd2,vp2)
+colnames(ct) = c("$x_i$","$p_i$","$(x_i)(p_i)$","$x_i-\\mu$","$(x_i-\\mu)^2$","$p_i(x_i-\\mu)^2$")
+knitr::kable(ct,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+$$\sigma = \sqrt{`r sum(P*(X-mu)^2)`} = `r sig` $$
+
+Realistically, it is best to use a spreadsheet to do the arithmetic for you. It would look something like:
+
+|     |     |    A     |   B      |     C      |    D      |      E        | F |
+|:---:|:---:|:--------:|:--------:|:----------:|:---------:|:-------------:|:---:|
+|  1  |     | $x_i$    | $p_i$    | $x_ip_i$   | $x_i-\mu$ | $(x_i-\mu)^2$ | $p_i(x_i-\mu)^2$ |
+|  2  |     | `r X[1]` | `r P[1]` |   =A2*B2   |  =A2-C$8  |   =D2^2       | =B2*F2  |
+|  3  |     | `r X[2]` | `r P[2]` |   =A3*B3   |  =A3-C$8  |   =D3^2       | =B3*F3  |
+|  4  |     | `r X[3]` | `r P[3]` |   =A4*B4   |  =A4-C$8  |   =D4^2       | =B4*F4  |
+|  5  |     | `r X[4]` | `r P[4]` |   =A5*B5   |  =A5-C$8  |   =D5^2       | =B5*F5  |
+|  6  |     |          |          |            |           |               |         |
+|  7  |     |          |          |  mu        |           |               | variance|
+|  8  |     |          |          | =sum(C2:C5)|           |               | =sum(F2:F5) |
+|  9  |     |          |          |            |           |               |         |
+|  10 |     |          |          |            |           |               | st dev  |
+|  11 |     |          |          |            |           |               | =sqrt(F8) |
+
+
+
+
+
+Meta-information
+================
+extype: num
+exsolution: `r sig`
+exname: sig_pop_int
+extol: 0.1

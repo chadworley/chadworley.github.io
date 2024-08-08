@@ -1,0 +1,172 @@
+```{r,echo=F,warning=F}
+fixer = function(exp){
+  exp = gsub("--","+",exp,fixed=T)
+  exp = gsub("(x-0)","x",exp,fixed=T)
+  exp = gsub("(y-0)","y",exp,fixed=T)
+  return(exp)
+}
+
+# hk = sample(-6:6,2)
+# h = hk[1]
+# k = hk[2]
+# ab = sample(2:(10-max(abs(hk))),2)
+# r1 = ab[1]
+# r2 = ab[2]
+
+while(T){
+  alldem = sample(2:9,4)
+  h = alldem[1]*sample(c(-1,1),1)
+  k = alldem[2]*sample(c(-1,1),1)
+  r1 = alldem[3]
+  r2 = alldem[4]
+  maxx = abs(h)+r1
+  maxy = abs(k)+r2
+  if(maxx<11 && maxy<11){break}
+}
+
+anssimp = paste0("\\frac{(x-",h,")^2}{",r1^2,"}+\\frac{(y-",k,")^2}{",r2^2,"}=1",collapse="")
+anssimp = gsub("--","+",anssimp,fixed=T)
+anssimp = gsub("(x-0)","x",anssimp,fixed=T)
+anssimp = gsub("(y-0)","y",anssimp,fixed=T)
+
+achk = -10:10
+acrs = 1:10
+
+solh = paste0(1*(achk==h),collapse="")
+solk = paste0(1*(achk==k),collapse="")
+solr1 = paste0(1*(acrs==r1),collapse="")
+solr2 = paste0(1*(acrs==r2),collapse="")
+
+hkl = min(abs(c(h,k)))
+hkb = max(abs(c(h,k)))
+rl = min(c(r1,r2))
+rb = max(c(r1,r2))
+
+hs = c(-hkl,-hkl,hkl,hkl,
+       -hkb,-hkb,hkb,hkb,
+       -hkl,-hkl,hkl,hkl,
+       -hkb,-hkb,hkb,hkb)
+ks = c(-hkb,hkb,-hkb,hkb,
+       -hkl,hkl,-hkl,hkl,
+       -hkb,hkb,-hkb,hkb,
+       -hkl,hkl,-hkl,hkl)
+r1s = c(rep(rl,8),rep(rb,8))
+r2s = c(rep(rb,8),rep(rl,8))
+ord = 1:16
+
+EE = character()
+for(i in 1:length(ord)){
+  j = ord[i]
+  hz = hs[j]
+  kz = ks[j]
+  r1z = r1s[j]
+  r2z = r2s[j]
+  exp1 = paste0("\\frac{(x-",hz,")^2}{",r1z^2,"}+\\frac{(y-",kz,")^2}{",r2z^2,"}=1",collapse="")
+  exp1 = fixer(exp1)
+  EE = c(EE,exp1)
+}
+ace = LETTERS[1:16]
+solex = paste0(1*(EE==anssimp),collapse="")
+```
+
+Question
+========
+
+An [ellipse](https://en.wikipedia.org/wiki/Ellipse) is the set of ($x$, $y$) points that satisfy the equation below.
+
+$$\frac{(x-h)^2}{(r_1)^2}+\frac{(y-k)^2}{(r_2)^2}=1$$
+
+where the center is $(h,k)$, the horizontal radius is $r_1$, and the vertical radius is $r_2$.
+
+Determine the parameters of the ellipse in the graph below. You can assume all parameters are integers.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2)
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2)
+th = seq(0,2*pi,length.out=1000)
+x = h+r1*cos(th)
+y = k+r2*sin(th)
+polygon(x,y,border="blue",lwd=2)
+```
+\
+
+* $h=$ ##ANSWER1##
+* $k=$ ##ANSWER2##
+* $r_1=$ ##ANSWER3##
+* $r_2=$ ##ANSWER4##
+
+Which of the following equations would give the graph above?
+
+$$\begin{align}
+A&:~~`r EE[1]` & B&:~~`r EE[2]`  & C&:~~`r EE[3]`  & D&:~~`r EE[4]` \\
+E&:~~`r EE[5]` & F&:~~`r EE[6]`  & G&:~~`r EE[7]`  & H&:~~`r EE[8]` \\
+I&:~~`r EE[9]` & J&:~~`r EE[10]`  & K&:~~`r EE[11]`  & L&:~~`r EE[12]` \\
+M&:~~`r EE[13]` & N&:~~`r EE[14]`  & O&:~~`r EE[15]`  & P&:~~`r EE[16]` \\
+\end{align}$$
+
+Equation ##ANSWER5##
+
+Answerlist
+--------
+
+`r paste0("* ",achk,collapse="\n")`
+`r paste0("* ",achk,collapse="\n")`
+`r paste0("* ",acrs,collapse="\n")`
+`r paste0("* ",acrs,collapse="\n")`
+`r paste0("* ",ace,collapse="\n")`
+
+
+Solution
+========
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in 1:10){
+  abline(h=i,lty=2,col="grey")
+  abline(h=-i,lty=2,col="grey")
+  abline(v=i,lty=2,col="grey")
+  abline(v=-i,lty=2,col="grey")
+}
+arrows(-10.5,0,10.5,0,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+arrows(0,-10.5,0,10.5,length=0.1,angle=15,code=3,lwd=2,col="darkgrey")
+th = seq(0,2*pi,length.out=1000)
+x = h+r1*cos(th)
+y = k+r2*sin(th)
+polygon(x,y,border="blue")
+lines(c(h,h+r1),c(k,k),col="purple",lwd=2)
+text(h+r1/2,k-0.4,r1,col="purple",cex=1.2)
+lines(c(h,h),c(k,k+r2),col="darkgreen",lwd=2)
+text(h-0.4,k+r2/2,r2,col="darkgreen",cex=1.2)
+points(h,k,col="red",pch=19)
+text(h-0.1,k-0.2,paste0("(",h,",",k,")"),adj=c(1,1),col="red",cex=1.2)
+
+```
+\
+
+So:
+$$\begin{align}
+h &= `r h`\\\\
+k &= `r k`\\\\
+r_1 &= `r r1`\\\\
+r_2 &= `r r2`
+\end{align}$$
+
+Substitute those numbers into the equation:
+
+$$`r anssimp`$$
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r solh`|`r solk`|`r solr1`|`r solr2`|`r solex`
+exname: ellipse_get_pams

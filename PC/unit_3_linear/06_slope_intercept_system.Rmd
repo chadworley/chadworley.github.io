@@ -1,0 +1,103 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+while(T){
+  mn = sample(c(-9:-1,1:9),2)
+  md = sample(1:5,2)
+  b = sample(c(-8:-1,1:8),2)
+  m1 = mn[1]/md[1]
+  m2 = mn[2]/md[2]
+  b1 = b[1]
+  b2 = b[2]
+  x = (b2-b1)/(m1-m2)
+  y = m1*x+b1
+  if(round(x)==x && 
+     round(y)==y && 
+     abs(x)<11 && 
+     abs(y)<11 && 
+     abs(x)>0 && 
+     abs(y)>0 && x!=y){break}
+}
+x = round(x)
+y = round(y)
+al = -10:10
+als = paste0("* ",al,"\n",collapse="")
+
+ans1 = paste0(1*(x==al),collapse="")
+ans2 = paste0(1*(y==al),collapse="")
+```
+
+
+Question
+========
+
+```{python,echo=FALSE}
+from sympy import *
+x = symbols("x")
+lex1 = latex(r.mn[0]*x/r.md[0]+r.b1)
+lex2 = latex(r.mn[1]*x/r.md[1]+r.b2)
+lex3 = latex(r.mn[0]*x/r.md[0]-r.mn[1]*x/r.md[1]+r.b1-r.b2)
+lex4 = latex(r.mn[0]*x/r.md[0]-r.mn[1]*x/r.md[1])
+```
+
+Solve the system:
+$$y = `r py$lex1`$$
+$$y = `r py$lex2`$$
+
+Your answers:
+
+* $x=$ ##ANSWER1##
+* $y=$ ##ANSWER2##
+
+Answerlist
+--------
+`r als`
+`r als`
+
+
+Solution
+========
+
+Eliminate $y$ by subtracting the second equation from the first.
+$$0 = `r py$lex3`$$
+
+Subtract `r b1-b2` from both sides.
+
+$$`r b2-b1` = `r py$lex4`$$
+
+Multiply/divide to solve for $x$.
+
+$$x = `r x`$$
+
+Plug in `r x` for $x$ in either original equation.
+
+$$y = `r gsub("x",paste0("(",x,")",collapse=""),py$lex1)`$$
+
+$$y = `r y`$$
+
+You can also solve this by graphing!
+
+```{r,fig.dim=c(6,6),echo=FALSE,results="asis"}
+library(latex2exp)
+par(pty="s")
+plot(0,0,type="n",xlim=c(-10,10),ylim=c(-10,10),lwd=2,ylab=TeX("$y$"),xlab=TeX("$x$"))
+for(j in seq(-10,10,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+xx = seq(-10,10,1)
+y1 = m1*xx+b1
+y2 = m2*xx+b2
+lines(xx,y1,col="blue",lwd=4)
+lines(xx,y2,col="red",lwd=4)
+```
+\
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r ans1`|`r ans2`
+exname: solve_lin_sys

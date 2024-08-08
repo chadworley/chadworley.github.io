@@ -1,0 +1,90 @@
+```{r,echo=FALSE}
+hl = -sample(2:8,1)
+lowy = sample(1:5,1)
+lowx = sample((1-2*hl):(20),1)
+hiy = lowy*4
+```
+
+
+Question
+========
+
+The doubling time of an exponentially growing function is the amount of time it takes for the population to double. 
+
+```{r,echo=FALSE,fig.dim=c(6,6)}
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,20),ylim=c(0,20),xlab="t (minutes)",ylab="y (billions)")
+for(i in 1:20){
+  if(i%%5==0){
+    abline(h=i,lty=2)
+    abline(v=i,lty=2)
+  } else {
+    abline(h=i,lty=3)
+    abline(v=i,lty=3)
+  }
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+t = seq(-1,21,0.01)
+y = hiy*(1/2)^((t-lowx)/hl)
+lines(t,y,lwd=3,col="blue")
+# points(c(lowx-2*hl,lowx-hl,lowx,lowx+hl,lowx+2*hl),c(hiy*4,hiy*2,hiy,hiy/2,hiy/4),col="blue",pch=19)
+# if(round(100*hiy/8)/100==round(hiy/8)){
+#   points(lowx+3*hl,hiy/8,col="blue",pch=19)
+# }
+```
+\
+
+What is the doubling time (in minutes) of the exponential function graphed above? (The answer is an integer.)
+
+
+Solution
+========
+
+The doubling time is `r -hl` minutes.
+
+```{r,echo=FALSE,fig.dim=c(6,6)}
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,20),ylim=c(0,20),xlab="t (minutes)",ylab="y (billions)")
+for(i in 1:20){
+  if(i%%5==0){
+    abline(h=i,lty=2)
+    abline(v=i,lty=2)
+  } else {
+    abline(h=i,lty=3)
+    abline(v=i,lty=3)
+  }
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+t = seq(-1,21,0.01)
+y = hiy*(1/2)^((t-lowx)/hl)
+lines(t,y,lwd=3,col="blue")
+points(c(lowx-2*hl,lowx-hl,lowx,lowx+hl,lowx+2*hl),c(hiy*4,hiy*2,hiy,hiy/2,hiy/4),col="blue",pch=19)
+if(round(100*hiy/8)/100==round(hiy/8)){
+  points(lowx+3*hl,hiy/8,col="blue",pch=19)
+}
+lines(c(lowx,lowx),c(hiy,hiy/2),col="red",lwd=2)
+text(lowx-0.5,3*hiy/4,hiy/2,col="red")
+lines(c(lowx,lowx),c(hiy/2,0),col="red",lwd=1,lty=2)
+text(lowx-0.5,hiy/4,hiy/2,col="red")
+lines(c(lowx,lowx+hl),c(hiy/2,hiy/2),col="darkgreen",lwd=2)
+text(lowx+hl/2,hiy/2-0.5,-hl,col="darkgreen")
+lines(c(lowx+hl,lowx+hl),c(hiy/2,hiy/4),col="red",lwd=2)
+text(lowx+hl-0.5,3*hiy/8,hiy/4,col="red")
+lines(c(lowx+hl,lowx+hl),c(hiy/4,0),col="red",lwd=1,lty=2)
+text(lowx+hl-0.5,hiy/8,hiy/4,col="red")
+lines(c(lowx+hl,lowx+2*hl),c(hiy/4,hiy/4),col="darkgreen",lwd=2)
+text(lowx+3*hl/2,hiy/4-0.5,-hl,col="darkgreen")
+```
+\
+
+Every `r -hl` minutes, the population doubles again. 
+
+
+Meta-information
+============
+extype: num
+exsolution: `r -hl`
+exname: doubling_time_from_graph
+extol: 0.1

@@ -1,0 +1,306 @@
+```{r,echo=F,warning=F}
+# A*sin(Bx+C)+D
+while(T){
+  A = round(exp(runif(1,log(1/3),log(3))),2)
+  P = round(exp(runif(1,log(1/3/4),log(3/4))),2)*4
+  B = 2*pi/P
+  ps = runif(1,pi/8,2*pi-pi/8)
+  hs = round(ps/B,2)
+  Ba = round(2*pi/P,2)
+  C = ps
+  C1 = hs*B
+  Ca = round(C1,2)
+  D = round(runif(1,-0.8,0.8),2)
+  x0 = -hs
+  x1s = P/4-hs+P*(0:2)
+  x2s = 3*P/4-hs+P*(0:2)
+  x1 = round(min(x1s[x1s>0]),2)
+  x2 = round(min(x2s[x2s>0]),2)
+  y1 = round(A*sin(B*x1+C)+D,2)
+  y2 = round(A*sin(B*x2+C)+D,2)
+  if(round(A,0)!=A && round(P,0)!=P && round(Ba,0)!=Ba &&
+     round(hs,0)!=hs && round(D,0)!=D && round(Ca,0)!=Ca && abs(y1)>0.1 && abs(y2)>0.1 && abs(D)>0.1){break}
+}
+
+w1 = sample(1:5,1)
+ac1 = round(A,2)+(1:5-w1)*0.03
+al1 = paste0("* ",sprintf("%.2f",ac1),collapse="\n")
+sol1 = paste0(1*(1:5==w1),collapse="")
+
+w2 = sample(1:5,1)
+ac2 = round(B,2)+(1:5-w2)*0.03
+al2 = paste0("* ",sprintf("%.2f",ac2),collapse="\n")
+sol2 = paste0(1*(1:5==w2),collapse="")
+
+w3 = sample(1:5,1)
+ac3 = round(Ca,2)+(1:5-w3)*0.03
+al3 = paste0("* ",sprintf("%.2f",ac3),collapse="\n")
+sol3 = paste0(1*(1:5==w3),collapse="")
+
+w4 = sample(1:5,1)
+ac4 = round(D,2)+(1:5-w4)*0.03
+al4 = paste0("* ",sprintf("%.2f",ac4),collapse="\n")
+sol4 = paste0(1*(1:5==w4),collapse="")
+
+```
+
+Question
+========
+
+To generate the plot below, four parameters ($A$, $B$, $C$, and $D$) were randomly selected and plugged into the following [sinusoidal](https://en.wikipedia.org/wiki/Sine_wave) function:
+
+$$y(t) = A\sin(Bt+C)+D$$
+
+where 
+$$A>0$$
+and
+$$0\le C < 2 \pi$$
+
+```{r,echo=F,fig.dim=c(8,4)}
+t = seq(-ceiling(abs(P)),ceiling(abs(P)),length.out=1000)
+xlo = -P*1.3
+xhi = P*1.3
+ylo = floor(min(c(0),D-A))-1
+yhi = ceiling(max(c(0,D+A)))+1
+plot(t,A*sin(B*t+C)+D,type="l",
+     xlim=c(xlo,xhi),
+     ylim=c(ylo,yhi),
+     xlab="t",
+     ylab="y"
+     )
+arrows(xlo,0,xhi,0,length=0.05,angle=15,code=3)
+arrows(0,ylo,0,yhi,length=0.05,angle=15,code=3)
+lines(t,A*sin(B*t+C)+D,lwd=2,col="blue")
+
+# points(P/4-hs,A*sin(pi/2)+D,pch=19,col="red")
+# text(P/4-hs,A*sin(pi/2)+D+0.5,
+#      paste0("(",P/4-hs,", ",A*sin(pi/2)+D,")",collapse=""),
+#      col="red")
+# points(3*P/4-hs,A*sin(3*pi/2)+D,pch=19,col="purple")
+# text(3*P/4-hs,A*sin(3*pi/2)+D-0.5,
+#      paste0("(",3*P/4-hs,", ",A*sin(3*pi/2)+D,")",collapse=""),
+#      col="purple")
+points(x1,y1,pch=19,col="red")
+text(x1,y1+0.5,
+     paste0("(",x1,", ",y1,")",collapse=""),
+     col="red")
+points(x2,y2,pch=19,col="purple")
+text(x2,y2-0.5,
+     paste0("(",x2,", ",y2,")",collapse=""),
+     col="purple")
+```
+\
+
+The first maximum is $(`r x1`, `r y1`)$ and the first minimum is $(`r x2`, `r y2`)$. Determine the values of the parameters (rounded to the nearest hundredth).
+
+* $A =$ ##ANSWER1##
+* $B =$ ##ANSWER2##
+* $C =$ ##ANSWER3##
+* $D =$ ##ANSWER4##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al3`
+`r al4`
+
+
+Solution
+========
+
+* $A = `r sprintf("%.2f",A)`$
+* $B = `r sprintf("%.2f",Ba)`$
+* $C = `r sprintf("%.2f",Ca)`$
+* $D = `r sprintf("%.2f",D)`$
+
+Remember the parameterization with easy-to-identify parameters:
+
+$$y(t) = A\sin\left(\frac{2\pi}{P}(t+L)\right)+D$$
+
+* $A$ is amplitude: half the difference of max and min ($y$ values)
+* $D$ is vertical offset: half the sum of max and min ($y$ values)
+* $P$ is the period: the difference of times of neighboring peaks
+* $L$ is the left shift: the opposite of the time on the midline, to left of $t=0$, with a positive slope.
+
+If we distribute the product in the argument of the function:
+
+$$y(t) = A\sin\left(\frac{2\pi}{P}t+\frac{2\pi L}{P}\right)+D$$
+
+
+The easiest parameters to find are $A$ and $D$. With the given parameterization, $A$ is the [(semi-)amplitude](https://en.wikipedia.org/wiki/Amplitude#Semi-amplitude) and $D$ is the [vertical shift](https://en.wikipedia.org/wiki/DC_bias) of the [midline](https://www.khanacademy.org/math/algebra2/x2ec2f6f830c9fb89:trig/x2ec2f6f830c9fb89:amp-mid-period/a/midline-amplitude-and-period-review).
+
+$$A ~=~ \frac{(`r y1`)-(`r y2`)}{2} ~=~ `r A`$$
+
+$$D ~=~ \frac{(`r y1`)+(`r y2`)}{2} ~=~ `r D`$$
+
+```{r,echo=F,fig.dim=c(8,4)}
+t = seq(-ceiling(abs(P)),
+        ceiling(abs(P)),
+        length.out=1000)
+xlo = -ceiling(P)
+xhi = ceiling(P)
+ylo = floor(min(c(0),D-A))-1
+yhi = ceiling(max(c(0,D+A)))+1
+plot(t,A*sin(B*t+C)+D,type="l",
+     xlim=c(xlo,xhi),
+     ylim=c(ylo,yhi),
+     xlab="t",
+     ylab="y"
+     )
+arrows(xlo,0,xhi,0,length=0.05,angle=15,code=3)
+arrows(0,ylo,0,yhi,length=0.05,angle=15,code=3)
+lines(t,A*sin(B*t+C)+D,lwd=2,col="black")
+
+# points(P/4-hs,A*sin(pi/2)+D,pch=19,col="red")
+# text(P/4-hs,A*sin(pi/2)+D+0.5,
+#      paste0("(",P/4-hs,", ",A*sin(pi/2)+D,")",collapse=""),
+#      col="red")
+# points(3*P/4-hs,A*sin(3*pi/2)+D,pch=19,col="purple")
+# text(3*P/4-hs,A*sin(3*pi/2)+D-0.5,
+#      paste0("(",3*P/4-hs,", ",A*sin(3*pi/2)+D,")",collapse=""),
+#      col="purple")
+points(x1,y1,pch=19,col="grey")
+text(x1,y1+0.5,
+     paste0("(",x1,", ",y1,")",collapse=""),
+     col="grey")
+points(x2,y2,pch=19,col="grey")
+text(x2,y2-0.5,
+     paste0("(",x2,", ",y2,")",collapse=""),
+     col="grey")
+
+abline(h=D,lty=2,col="red")
+if(D>0){
+  xa2s = 3*P/4-hs-P*(0:2)
+  xa2 = min(xa2s[xa2s>xlo])
+  text(xa2,D+0.5,paste0("y=",D,collapse=""),col="red")
+} else {
+  xa2s = P/4-hs-P*(0:2)
+  xa2 = min(xa2s[xa2s>xlo])
+  text(xa2,D-0.5,paste0("y=",D,collapse=""),col="red")
+}
+
+lines(c(x1,x1),c(D,y1),col="blue")
+text(x1+P/12,(D+y1)/2,"A",col="blue")
+```
+\
+
+In the given parameterization, $B$ represents the [angular frequency](https://en.wikipedia.org/wiki/Angular_frequency). It is inversely proportional to the period, which is easy to determine from the 2 given points. The two marked points are half a period away from each other (in time). 
+$$P ~=~ 2\cdot(`r max(c(x1,x2))`-`r min(c(x1,x2))`) ~=~ `r P`$$
+
+```{r,echo=F,fig.dim=c(8,4)}
+t = seq(-ceiling(abs(P)),
+        ceiling(abs(P)),
+        length.out=1000)
+xlo = -ceiling(P)
+xhi = ceiling(P)
+ylo = floor(min(c(0),D-A))-1
+yhi = ceiling(max(c(0,D+A)))+1
+plot(t,A*sin(B*t+C)+D,type="l",
+     xlim=c(xlo,xhi),
+     ylim=c(ylo,yhi),
+     xlab="t",
+     ylab="y"
+     )
+arrows(xlo,0,xhi,0,length=0.05,angle=15,code=3)
+arrows(0,ylo,0,yhi,length=0.05,angle=15,code=3)
+lines(t,A*sin(B*t+C)+D,lwd=2,col="black")
+
+# points(P/4-hs,A*sin(pi/2)+D,pch=19,col="red")
+# text(P/4-hs,A*sin(pi/2)+D+0.5,
+#      paste0("(",P/4-hs,", ",A*sin(pi/2)+D,")",collapse=""),
+#      col="red")
+# points(3*P/4-hs,A*sin(3*pi/2)+D,pch=19,col="purple")
+# text(3*P/4-hs,A*sin(3*pi/2)+D-0.5,
+#      paste0("(",3*P/4-hs,", ",A*sin(3*pi/2)+D,")",collapse=""),
+#      col="purple")
+
+abline(h=D,lty=2,col="grey")
+lines(c(x0,x0+P),c(D+A+0.3,D+A+0.3),lwd=2,col="red")
+lines(c(x0,x0),c(ylo,yhi),lwd=2,col="red",lty=3)
+lines(c(x0+P,x0+P),c(ylo,yhi),lwd=2,col="red",lty=3)
+text(x0+P/2,D+A+0.7,paste0("P=",P),col="red")
+```
+\
+
+You can calculate the angular frequency by dividing $2\pi$ by the period.
+
+$$B = \frac{2\pi}{`r P`} = `r 2*pi/P`$$
+We round to the hundredths place.
+
+$$B \approx `r Ba`$$
+
+With the given parameterization, $C$ represents [the phase](https://en.wikipedia.org/wiki/Sine_wave#Sinusoid_form) (in radians), representing how far into the cycle the wave is when $t=0$. It will be proportional to the horizontal shift. The horizontal shift is to the left, because a positive $C$ is added inside the argument. The parent function (sine) has a point at the origin with a positive slope. Find the analogous point (on the midline with positive slope) to the left of the vertical axis.
+
+```{r,echo=F}
+n = round((min(c(x1,x2))-x0)/(P/4))
+```
+
+First, determine the quarter period is $P/4 = `r P/4`$. Then, recognize that the key point is `r n` quarter periods before the first given point. So, to find the $t$ value of the key point: $$`r min(c(x1,x2))`-`r n`\cdot`r P/4` ~=~ `r x0`$$
+And so the key point is at $(`r x0`, `r D`)$.
+
+```{r,echo=F,fig.dim=c(8,4)}
+t = seq(-ceiling(abs(P)),
+        ceiling(abs(P)),
+        length.out=1000)
+xlo = -ceiling(P)
+xhi = ceiling(P)
+ylo = floor(min(c(0),D-A))-1
+yhi = ceiling(max(c(0,D+A)))+1
+plot(t,A*sin(B*t+C)+D,type="l",
+     xlim=c(xlo,xhi),
+     ylim=c(ylo,yhi),
+     xlab="t",
+     ylab="y"
+     )
+arrows(xlo,0,xhi,0,length=0.05,angle=15,code=3)
+arrows(0,ylo,0,yhi,length=0.05,angle=15,code=3)
+lines(t,A*sin(B*t+C)+D,lwd=2,col="black")
+
+x00 = -C/B
+
+n = round((min(c(x1,x2))-x0)/(P/4))
+
+abline(h=D,col="grey",lty=2)
+for(i in 0:n){
+  abline(v=x00+i*P/4,col="grey",lty=2)
+}
+for(i in -20:20){
+  points(x00+i*P/4,A*sin(B*(x00+i*P/4)+C)+D,pch=19,col="grey")
+}
+
+if(x1<x2){
+  points(x1,y1,pch=19,col="red",cex=1.2)
+  text(x1,y1+0.5,
+      paste0("(",x1,", ",y1,")",collapse=""),
+      col="red")
+} else {
+  points(x2,y2,pch=19,col="purple",cex=1.2)
+  text(x2,y2-0.5,
+      paste0("(",x2,", ",y2,")",collapse=""),
+      col="purple")
+}
+
+points(x00,D,col="blue",pch=19,cex=1.3)
+text(x00-P/4,D+A/2,paste0("(",x0,", ",D,")",collapse=""),
+     col="blue")
+
+```
+\
+
+The sine function was shifted `r hs` time units to the left. If we divide `r hs` by the period and multiply by $2\pi$, it tells us the phase.
+
+$$C = \frac{`r hs`}{`r P`}\cdot 2\pi = `r C1`$$
+
+Round to the nearest hundredth:
+
+$$C \approx `r Ca`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: sinusoidal_params

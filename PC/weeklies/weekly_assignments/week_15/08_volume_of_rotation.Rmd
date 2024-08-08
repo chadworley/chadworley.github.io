@@ -1,0 +1,236 @@
+```{r,echo=FALSE}
+dz = sample(c(0.02,0.04,0.05),1)
+zper = seq(0,1,dz/10)
+z = seq(0,1,dz)
+P = runif(1,0.5,2)
+A = round(runif(1,0.1,0.4),2)
+B = round(2*pi/P,2)
+C = round(runif(1,0,2*pi),2)
+D = round(runif(1,0.45,0.6),2)
+r = A*sin(B*z+C)+D
+rper = A*sin(B*zper+C)+D
+V = c(0)
+for(i in 1:length(z)){
+  V = c(V,V[i]+2*pi*r[i]^2*dz)
+}
+```
+
+
+Question
+========
+
+A potter has thrown a vase with the following profile on the inside. You will determine the volume of water it can hold. Its height is 1 meter tall.
+
+$$r ~=~ `r A`\sin(`r B`z+`r C`)+`r D`$$
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(pty="s")
+plot(rper,zper,type="l",xlim=c(0,1),ylim=c(0,1),xlab="r (meters)",ylab="z (meters)",col="blue",lwd=2)
+```
+\
+
+To determine the volume, we first break the volume into many discs. In this case, we will estimate the volume  using a height of $\Delta z = `r dz`$ for each disc.
+
+```{r,echo=F,fig.dim=c(6,6)}
+disc = function(rr,zz,dz,col="red",brdr="black"){
+  th = seq(0,2*pi,pi/50)
+  th2 = seq(pi,2*pi,pi/50)
+  xx = rr*cos(th)
+  yy = 0.15*rr*sin(th)+zz
+  xx2 = rr*cos(th2)
+  yy2 = 0.15*rr*sin(th2)+zz
+  polygon(xx,yy,col=col,border=brdr)
+  polygon(c(xx2,rev(xx2)),c(yy2,rev(yy2)+dz),col=col,border=brdr)
+  polygon(xx,yy+dz,col=col,border=brdr)
+}
+par(pty="s")
+plot(r,z,type="n",xlim=c(-1,1),ylim=c(-0.5,1.5))
+for(i in 1:(length(r)-1)){
+  disc(r[i],z[i],dz)
+}
+lines(rper,zper,col="blue",lwd=2)
+```
+\
+
+Each disc's volume adds a small amount to the total volume. We know the formula for how much volume is added with each disc.
+
+
+```{r,echo=F,fig.dim=c(3,1)}
+par(mar=c(0,0,0,0))
+library(latex2exp)
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-0.2,0.4),ann=F,axes=F)
+h = 0.2
+w = 0.8
+disc(w,0,h,"white","black")
+lines(c(0,w),c(h,h),lwd=3,col="purple")
+text(w/2,h+0.05,TeX("$r$"),col="purple")
+lines(c(w,w),c(0,h),lwd=3,col="darkgreen")
+text(w+0.1,h/2,TeX("$\\Delta z$"),col="darkgreen")
+```
+\
+
+$$\Delta V = \pi r^2 \cdot \Delta z$$
+
+Estimate the volume of water (in cubic meters) by using $\Delta z = `r dz`$. Your table should look like the following:
+
+<style>
+table.brd td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd th{
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd {
+  border: 3px solid black;
+}
+</style>
+
+<table class="brd">
+  <tr>
+    <th>$z$</th> 
+    <th>$r=`r A`\cdot\sin(`r B`z+`r C`)+`r D`$</th> 
+    <th>$V$</th>
+    <th>$\Delta z$</th>
+    <th>$\Delta V = 2\pi r^2\cdot\Delta z$</th>
+  </tr>
+  <tr>
+    <td>`r z[1]`</td>
+    <td>`r r[1]`</td>
+    <td>`r V[1]`</td>
+    <td>`r dz`</td>
+    <td>`r V[2]-V[1]`</td>
+  </tr>
+  <tr>
+    <td>`r z[2]`</td>
+    <td>`r r[2]`</td>
+    <td>`r V[2]`</td>
+    <td>`r dz`</td>
+    <td>`r V[3]-V[2]`</td>
+  </tr>
+  <tr>
+    <td>`r z[3]`</td>
+    <td>`r r[3]`</td>
+    <td>`r V[3]`</td>
+    <td>`r dz`</td>
+    <td>`r V[4]-V[3]`</td>
+  </tr>
+  <tr>
+    <td>`r z[4]`</td>
+    <td>`r r[4]`</td>
+    <td>`r V[4]`</td>
+    <td>`r dz`</td>
+    <td>`r V[5]-V[4]`</td>
+  </tr>
+  <tr>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+  </tr>
+  <tr>
+    <td>`r z[length(z)]`</td>
+    <td>`r r[length(z)]`</td>
+    <td>???</td>
+    <td> `r dz` </td>
+    <td>  </td>
+  </tr>
+</table>
+
+The tolerance is $\pm 0.01$ cubic meters.
+
+
+Solution
+========
+
+<style>
+table.brd td{
+  border: 1px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd th{
+  border: 2px solid black;
+  padding: 5px;
+  text-align: center;
+}
+table.brd {
+  border: 3px solid black;
+}
+</style>
+
+<table class="brd">
+  <tr>
+    <th>$z$</th> 
+    <th>$r=`r A`\cdot\sin(`r B`z+`r C`)+`r D`$</th> 
+    <th>$V$</th>
+    <th>$\Delta z$</th>
+    <th>$\Delta V = 2\pi r^2\cdot\Delta z$</th>
+  </tr>
+  <tr>
+    <td>`r z[1]`</td>
+    <td>`r r[1]`</td>
+    <td>`r V[1]`</td>
+    <td>`r dz`</td>
+    <td>`r V[2]-V[1]`</td>
+  </tr>
+  <tr>
+    <td>`r z[2]`</td>
+    <td>`r r[2]`</td>
+    <td>`r V[2]`</td>
+    <td>`r dz`</td>
+    <td>`r V[3]-V[2]`</td>
+  </tr>
+  <tr>
+    <td>`r z[3]`</td>
+    <td>`r r[3]`</td>
+    <td>`r V[3]`</td>
+    <td>`r dz`</td>
+    <td>`r V[4]-V[3]`</td>
+  </tr>
+  <tr>
+    <td>`r z[4]`</td>
+    <td>`r r[4]`</td>
+    <td>`r V[4]`</td>
+    <td>`r dz`</td>
+    <td>`r V[5]-V[4]`</td>
+  </tr>
+  <tr>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+    <td>$\vdots$</td>
+  </tr>
+  <tr>
+    <td>`r z[length(z)-1]`</td>
+    <td>`r r[length(z)-1]`</td>
+    <td>`r V[length(z)-1]`</td>
+    <td> `r dz` </td>
+    <td>`r V[length(z)]-V[length(z)-1]`</td>
+  </tr>
+  <tr>
+    <td>`r z[length(z)]`</td>
+    <td>`r r[length(z)]`</td>
+    <td>**`r V[length(z)]`**</td>
+    <td> `r dz` </td>
+    <td>`r V[length(z)+1]-V[length(z)]`</td>
+  </tr>
+</table>
+
+Notice that because the height is 1 meter and $\Delta z = `r dz`$ meters, there are $\frac{1}{`r dz`} = `r round(1/dz)`$ discs whose volumes are added.
+
+In our table, we calculated an extra disc's volume (`r V[length(V)]-V[length(r)]`), but this should not be added to the total.
+
+This vase can hold approximately `r V[length(z)]` cubic meters.
+
+Meta-information
+============
+extype: num
+exsolution: `r V[length(z)]`
+exname: volume_of_rotation
+extol: 0.01

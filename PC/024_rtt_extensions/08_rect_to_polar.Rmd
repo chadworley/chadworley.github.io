@@ -1,0 +1,152 @@
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+while(T){
+  rdn = sample(5:15,1)
+  rnf = sample((rdn%/%2+1):(rdn*2-1),1)
+  ttx = paste0("\\frac{",rnf,"\\pi}{",rdn,"}",collapse = "")
+  t = rnf*pi/rdn
+  r = sample(310:750,1)/100
+  x = r*cos(t)
+  y = r*sin(t)
+  xa = round(x,2)
+  ya = round(y,2)
+  n = 8
+  d = 0.05
+  r = round(sqrt(xa^2+ya^2),2)
+  t = round((atan2(ya,xa)+2*pi)%%(2*pi),2)
+  ru = sqrt(xa^2+ya^2)
+  tu = (atan2(ya,xa)+2*pi)%%(2*pi)
+  which1 = sample(1:n,1)
+  ac1 = round(seq(r-d*(which1-1),r+d*(n-which1),length.out=n),2)
+  which2 = sample(1:n,1)
+  ac2 = round(seq(t-d*(which2-1),t+d*(n-which2),length.out=n),2)
+  al1 = paste0("* ",ac1,collapse="\n")
+  al2 = paste0("* ",ac2,collapse="\n")
+  sol1 = paste0(1*(ac1==r),collapse="")
+  sol2 = paste0(1*(ac2==t),collapse="")
+  if(gcd2(rdn,rnf)==1 && abs(x)>1.2 && abs(y)>1.2 &&
+     abs(x)<4.5 && abs(y)<4.5 && round(r,1)!=r && sum(ac1==r)==1 && sum(ac2==t)==1){break}
+}
+```
+
+Question
+========
+
+A point on a Cartesian plane is given in [rectangular coordinates](https://en.wikipedia.org/wiki/Cartesian_coordinate_system):
+$$x = `r xa`$$
+$$y=`r ya`$$
+
+```{r,echo=F,fig.dim=c(8,8)}
+library(latex2exp)
+par(pty="s")
+plot(x,y,xlim=c(-5,5),ylim=c(-5,5))
+arrows(-5,0,5,0,length=0.1,angle=8,code=3,lwd=1)
+arrows(0,-5,0,5,length=0.1,angle=8,code=3,lwd=1)
+lines(c(0,x,x,0),c(0,0,y,0),lwd=2,col="purple")
+lines(c(0,x),c(0,y),lwd=3,col="red")
+text(x/2+0.5*cos(t+pi/2*sign(x*y)),
+     y/2+0.5*sin(t+pi/2*sign(x*y)),"r",col="red",cex=1.5)
+th = seq(0,t,length.out=100)
+lines(cos(th),sin(th),col="blue")
+arrows(cos(th[99]),sin(th[99]),cos(th[100]),sin(th[100]),col="blue",length=0.05,angle=20,lwd=2)
+text(1.4*cos(t/2),1.4*sin(t/2),TeX("$\\theta$"),col="blue",cex=1.5)
+points(x,y,pch=19,col="purple",cex=1.3)
+text(x,y+sign(y)/2,"(x,y)",col="purple")
+```
+\
+
+
+Please determine the polar coordinates ($r$ and $\theta$), enforcing $0\le\theta<2\pi$.
+
+* The radius: $r=$ ##ANSWER1##
+* The angle: $\theta=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+
+
+Solution
+========
+
+First, get the radius, using [Pythagorean Theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem).
+
+$$r = \sqrt{(`r abs(xa)`)^2+(`r abs(ya)`)^2}$$
+
+$$r \approx `r r`$$
+
+
+```{r,echo=FALSE}
+if(t<3*pi/2){
+  refinit = "\\pi"
+  refnmr = abs(rnf-rdn)
+} else {
+  refinit = "2\\pi"
+  refnmr = abs(rnf-2*rdn)
+}
+refnmrt = paste0(refnmr)
+if(refnmrt=="1"){refnmrt=""}
+```
+
+Finding the [reference angle](https://courses.lumenlearning.com/csn-precalculus/chapter/reference-angles/) by using the arctan function with the quotient of the absolute values of the rectangular coordinates.
+
+$$\phi ~=~ \arctan\left(\frac{`r abs(ya)`}{`r abs(xa)`}\right)$$
+
+$$\phi ~=~ `r atan(abs(ya)/abs(xa))`$$
+
+```{r,echo=F,fig.dim=c(8,8)}
+library(latex2exp)
+par(pty="s")
+plot(x,y,xlim=c(-5,5),ylim=c(-5,5))
+arrows(-5,0,5,0,length=0.1,angle=8,code=3,lwd=1)
+arrows(0,-5,0,5,length=0.1,angle=8,code=3,lwd=1)
+lines(c(0,x,x,0),c(0,0,y,0),lwd=2,col="purple")
+lines(c(0,x),c(0,y),lwd=3,col="red")
+text(x/2+0.5*cos(t+pi/2*sign(x*y)),
+     y/2+0.5*sin(t+pi/2*sign(x*y)),"r",col="red",cex=1.5)
+if(t<3*pi/2){t2=pi}else{t2=2*pi}
+th = seq(t2,t,length.out=100)
+lines(cos(th),sin(th),col="blue")
+text(1.4*cos(th[50]),1.4*sin(th[50]),TeX("$\\phi$"),col="blue",cex=1)
+points(x,y,pch=19,col="purple",cex=1.3)
+text(x,y+sign(y)/2,"(x,y)",col="purple")
+```
+\
+
+```{r,echo=FALSE}
+qn = t%/%(pi/2)+1
+qstr = c("I","II","III","IV")[qn]
+if(qn==2){
+  addstr = "find the difference of $\\pi$ minus $\\phi$"
+  mathop = "\\theta = \\pi-\\phi"
+}
+if(qn==3){
+  addstr = "add $\\pi$ and $\\phi$"
+  mathop = "\\theta = \\pi+\\phi"
+}
+if(qn==4){
+  addstr = "find the difference of $2\\pi$ minus $\\phi$"
+  mathop = "\\theta = 2\\pi-\\phi"
+}
+```
+
+**Because the point is in quadrant `r qstr`**, we `r addstr` to get $\theta$.
+$$`r mathop`$$
+
+$$\theta\approx`r t`$$
+
+Unfortunately, you cannot simply use $\arctan\left(\frac{`r ya`}{`r xa`}\right)$ to get the angle $\theta$. This is because tangent is not a one-to-one function, so arctangent has a restricted range, from $\frac{-\pi}{2}$ to $\frac{\pi}{2}$.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: rect_to_polar
