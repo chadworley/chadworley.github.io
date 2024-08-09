@@ -1,0 +1,520 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>u01</title>
+<style type="text/css">
+body{font-family: Arial, Helvetica, Sans;}
+h4.qqq {
+  background-color: black;
+  color: white;
+}
+ol.outermostlist{
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+}
+</style>
+<meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+<script type="text/javascript">
+const nv = 5;
+function loader(){
+  qs = document.body.getElementsByTagName("h4");
+  lnk = document.getElementById("linksies");
+  qs[0].parentElement.parentElement.classList.add("outermostlist");
+  for(let i=0;i<qs.length;i++){
+    if(i%2==0){
+      qs[i].innerHTML = "QUESTION  "+(Math.floor(i/2/nv+1)).toString()+" version "+((i/2)%nv+1).toString();
+      qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      qs[i].classList.add("qqq");
+      if(i%(2*nv)==0){
+        let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+        lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+        document.getElementById("tempid").id = newid;
+      }
+      qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+      if(i%(2*nv)!=0){
+        qs[i].parentElement.style.display = "none";
+      }
+      }
+}
+}
+function shower(){
+  let x = this.nextSibling;
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    this.innerHTML = "Hide solution";
+  } else {
+    x.style.display = "none";
+    this.innerHTML = "Show solution";
+  }
+}
+function prev(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn-1+nv)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+function next(){
+  let x = this.parentElement;
+  let prefix = x.id.split("v")[0]
+  let vn = parseInt(x.id.split("v")[1]);
+  let new_vn = (vn+1)%nv;
+  if(new_vn==0){
+    new_vn = nv;
+  }
+  let y = document.getElementById(prefix+"v"+new_vn.toString());
+  x.style.display = "none";
+  y.style.display = "block";
+  document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+}
+</script>
+<body onLoad="loader()">
+<div style="display:none">
+\(\renewcommand{\hat}[1]{\widehat{#1}}\)
+</div>
+<h2 id="sqid">Shared Qs (u01)</h2>
+<div id="linksies"></div>
+<ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based on a random sample from that population.</em></p>
+<p>Below are some important definitions:</p>
+<ul>
+<li>Sample: A smaller group taken from the population.</li>
+<li>Sample Statistic: A number that describes the sample.</li>
+<li>Population: The entire group of interest.</li>
+<li>Population Parameter: A number that describes the entire population.</li>
+</ul>
+<p>In Statistics, we learn a process for making inferences about population parameters based
+on a random sample from that population. For a simple parameter, like an average or proportion, the sample statistic will be a best-guess estimate for the corresponding population parameter (for estimating the population’s <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, we will use <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a> to find a best-guess estimate from the sample). Later, we will also learn how to express the amount of uncertainty in the estimation. (See <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence interval</a> and <a href="https://en.wikipedia.org/wiki/Margin_of_error">margin of error</a> to preview how we express uncertainty about the population parameter.)</p>
+<p>For now, let’s practice identifying the sample, statistic, population, and parameter.</p>
+<h3 id="scenario">Scenario</h3>
+<p>A farmer wants to estimate the average number of apples on each tree in their orchard. They randomly select <span class="math inline">\(5\)</span> trees and count the total number of apples on each tree. They find an average of <span class="math inline">\(36\)</span> apples per tree.</p>
+<p>The four concepts are described in random order below.</p>
+<ol style="list-style-type: lower-alpha">
+<li>The average of <span class="math inline">\(36\)</span> apples per tree found in the sample</li>
+<li>All the trees in the orchard</li>
+<li>The average number of apples on each tree in the orchard</li>
+<li>The <span class="math inline">\(5\)</span> trees the farmer selected</li>
+</ol>
+<p>Match the concept to the description.</p>
+<ol style="list-style-type: decimal">
+<li>Sample = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Statistic = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Population = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Parameter = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>Sample = d = The <span class="math inline">\(5\)</span> trees the farmer selected</li>
+<li>Sample Statistic = a = The average of <span class="math inline">\(36\)</span> apples per tree found in the sample</li>
+<li>Population = b = All the trees in the orchard</li>
+<li>Population Parameter = c = The average number of apples on each tree in the orchard</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based on a random sample from that population.</em></p>
+<p>Below are some important definitions:</p>
+<ul>
+<li>Sample: A smaller group taken from the population.</li>
+<li>Sample Statistic: A number that describes the sample.</li>
+<li>Population: The entire group of interest.</li>
+<li>Population Parameter: A number that describes the entire population.</li>
+</ul>
+<p>In Statistics, we learn a process for making inferences about population parameters based
+on a random sample from that population. For a simple parameter, like an average or proportion, the sample statistic will be a best-guess estimate for the corresponding population parameter (for estimating the population’s <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, we will use <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a> to find a best-guess estimate from the sample). Later, we will also learn how to express the amount of uncertainty in the estimation. (See <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence interval</a> and <a href="https://en.wikipedia.org/wiki/Margin_of_error">margin of error</a> to preview how we express uncertainty about the population parameter.)</p>
+<p>For now, let’s practice identifying the sample, statistic, population, and parameter.</p>
+<h3 id="scenario">Scenario</h3>
+<p>A baker is interested in the average number of chocolate chips in a cookie they bake. They take a sample of <span class="math inline">\(5\)</span> cookies and find an average of <span class="math inline">\(18\)</span> chocolate chips per cookie.</p>
+<p>The four concepts are described in random order below.</p>
+<ol style="list-style-type: lower-alpha">
+<li>The average number of chocolate chips in a cookie</li>
+<li>The average of <span class="math inline">\(18\)</span> chocolate chips per cookie found in the sample</li>
+<li>The <span class="math inline">\(5\)</span> cookies that the baker selected</li>
+<li>All the chocolate chip cookies the baker bakes</li>
+</ol>
+<p>Match the concept to the description.</p>
+<ol style="list-style-type: decimal">
+<li>Sample = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Statistic = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Population = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Parameter = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>Sample = c = The <span class="math inline">\(5\)</span> cookies that the baker selected</li>
+<li>Sample Statistic = b = The average of <span class="math inline">\(18\)</span> chocolate chips per cookie found in the sample</li>
+<li>Population = d = All the chocolate chip cookies the baker bakes</li>
+<li>Population Parameter = a = The average number of chocolate chips in a cookie</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based on a random sample from that population.</em></p>
+<p>Below are some important definitions:</p>
+<ul>
+<li>Sample: A smaller group taken from the population.</li>
+<li>Sample Statistic: A number that describes the sample.</li>
+<li>Population: The entire group of interest.</li>
+<li>Population Parameter: A number that describes the entire population.</li>
+</ul>
+<p>In Statistics, we learn a process for making inferences about population parameters based
+on a random sample from that population. For a simple parameter, like an average or proportion, the sample statistic will be a best-guess estimate for the corresponding population parameter (for estimating the population’s <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, we will use <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a> to find a best-guess estimate from the sample). Later, we will also learn how to express the amount of uncertainty in the estimation. (See <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence interval</a> and <a href="https://en.wikipedia.org/wiki/Margin_of_error">margin of error</a> to preview how we express uncertainty about the population parameter.)</p>
+<p>For now, let’s practice identifying the sample, statistic, population, and parameter.</p>
+<h3 id="scenario">Scenario</h3>
+<p>A gardener wants to know the average number of flowers on each sunflower in their garden. They randomly select <span class="math inline">\(15\)</span> sunflowers and count the number of flowers on each sunflower. They find an average of <span class="math inline">\(35\)</span> flowers per sunflower.</p>
+<p>The four concepts are described in random order below.</p>
+<ol style="list-style-type: lower-alpha">
+<li>The average number of flowers on each sunflower in the garden</li>
+<li>The <span class="math inline">\(15\)</span> sunflowers that the gardener selected</li>
+<li>The average of <span class="math inline">\(35\)</span> flowers per sunflower found in the sample</li>
+<li>All the sunflowers in the garden</li>
+</ol>
+<p>Match the concept to the description.</p>
+<ol style="list-style-type: decimal">
+<li>Sample = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Statistic = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Population = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Parameter = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>Sample = b = The <span class="math inline">\(15\)</span> sunflowers that the gardener selected</li>
+<li>Sample Statistic = c = The average of <span class="math inline">\(35\)</span> flowers per sunflower found in the sample</li>
+<li>Population = d = All the sunflowers in the garden</li>
+<li>Population Parameter = a = The average number of flowers on each sunflower in the garden</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based on a random sample from that population.</em></p>
+<p>Below are some important definitions:</p>
+<ul>
+<li>Sample: A smaller group taken from the population.</li>
+<li>Sample Statistic: A number that describes the sample.</li>
+<li>Population: The entire group of interest.</li>
+<li>Population Parameter: A number that describes the entire population.</li>
+</ul>
+<p>In Statistics, we learn a process for making inferences about population parameters based
+on a random sample from that population. For a simple parameter, like an average or proportion, the sample statistic will be a best-guess estimate for the corresponding population parameter (for estimating the population’s <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, we will use <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a> to find a best-guess estimate from the sample). Later, we will also learn how to express the amount of uncertainty in the estimation. (See <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence interval</a> and <a href="https://en.wikipedia.org/wiki/Margin_of_error">margin of error</a> to preview how we express uncertainty about the population parameter.)</p>
+<p>For now, let’s practice identifying the sample, statistic, population, and parameter.</p>
+<h3 id="scenario">Scenario</h3>
+<p>A farmer wants to estimate the average number of apples on each tree in their orchard. They randomly select <span class="math inline">\(5\)</span> trees and count the total number of apples on each tree. They find an average of <span class="math inline">\(36\)</span> apples per tree.</p>
+<p>The four concepts are described in random order below.</p>
+<ol style="list-style-type: lower-alpha">
+<li>The average number of apples on each tree in the orchard</li>
+<li>The <span class="math inline">\(5\)</span> trees the farmer selected</li>
+<li>All the trees in the orchard</li>
+<li>The average of <span class="math inline">\(36\)</span> apples per tree found in the sample</li>
+</ol>
+<p>Match the concept to the description.</p>
+<ol style="list-style-type: decimal">
+<li>Sample = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Statistic = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Population = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Parameter = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>Sample = b = The <span class="math inline">\(5\)</span> trees the farmer selected</li>
+<li>Sample Statistic = d = The average of <span class="math inline">\(36\)</span> apples per tree found in the sample</li>
+<li>Population = c = All the trees in the orchard</li>
+<li>Population Parameter = a = The average number of apples on each tree in the orchard</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based on a random sample from that population.</em></p>
+<p>Below are some important definitions:</p>
+<ul>
+<li>Sample: A smaller group taken from the population.</li>
+<li>Sample Statistic: A number that describes the sample.</li>
+<li>Population: The entire group of interest.</li>
+<li>Population Parameter: A number that describes the entire population.</li>
+</ul>
+<p>In Statistics, we learn a process for making inferences about population parameters based
+on a random sample from that population. For a simple parameter, like an average or proportion, the sample statistic will be a best-guess estimate for the corresponding population parameter (for estimating the population’s <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, we will use <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a> to find a best-guess estimate from the sample). Later, we will also learn how to express the amount of uncertainty in the estimation. (See <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence interval</a> and <a href="https://en.wikipedia.org/wiki/Margin_of_error">margin of error</a> to preview how we express uncertainty about the population parameter.)</p>
+<p>For now, let’s practice identifying the sample, statistic, population, and parameter.</p>
+<h3 id="scenario">Scenario</h3>
+<p>A factory manager wants to know how many of their light bulbs are defective. They test <span class="math inline">\(100\)</span> randomly selected light bulbs and find that <span class="math inline">\(5\)</span> are defective.</p>
+<p>The four concepts are described in random order below.</p>
+<ol style="list-style-type: lower-alpha">
+<li>The percentage of all light bulbs produced in the factory that are defective</li>
+<li>The <span class="math inline">\(100\)</span> light bulbs that the manager tested</li>
+<li><span class="math inline">\(5\%\)</span> of the light bulbs in the sample are defective</li>
+<li>All the light bulbs produced in the factory</li>
+</ol>
+<p>Match the concept to the description.</p>
+<ol style="list-style-type: decimal">
+<li>Sample = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Statistic = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Population = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Parameter = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>Sample = b = The <span class="math inline">\(100\)</span> light bulbs that the manager tested</li>
+<li>Sample Statistic = c = <span class="math inline">\(5\%\)</span> of the light bulbs in the sample are defective</li>
+<li>Population = d = All the light bulbs produced in the factory</li>
+<li>Population Parameter = a = The percentage of all light bulbs produced in the factory that are defective</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<h3 id="background">Background</h3>
+<p>You are expected to differentiate between surveys, experiments, and observational studies. I’ve produced some definitions below.</p>
+<ul>
+<li>Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.</li>
+<li>Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a <a href="https://en.wikipedia.org/wiki/Treatment_and_control_groups">control</a>.</li>
+<li>Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.</li>
+</ul>
+<p>Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don’t worry, I didn’t make any tricky scenarios like that in this question.</p>
+<p>But there is a super important difference between experiments and observational studies. In an <a href="https://en.wikipedia.org/wiki/Observational_study">observational study</a>, the goal is to find <a href="https://en.wikipedia.org/wiki/Correlation">correlations</a> between variables. However, <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">CORRELATION IS NOT CAUSATION</a>! In order to prove <a href="https://en.wikipedia.org/wiki/Causality">causation</a>, an <a href="https://en.wikipedia.org/wiki/Experiment">experiment</a> must be run, ideally a doubly-blind <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">randomized controlled experiment</a>. These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.</p>
+<h3 id="actual-questions">Actual questions</h3>
+<p>For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>An anthropologist wanted to understand the cultural practices of a remote tribe. They lived with the tribe for an extended period, observing their daily routines, rituals, and beliefs.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A teacher wanted to test the effectiveness of different assessment methods on student learning. They assessed students using different methods, such as multiple-choice tests, essays, and projects. They then compared student performance on each assessment method, determining which method was most effective in measuring student understanding.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A technology company wanted to gather feedback from users on their new mobile app. They sent out emails to a sample of users, asking them to complete a questionnaire about their experience with the app.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-4">Scenario 4</h3>
+<p>A wildlife biologist was interested in studying the migration patterns of a species of bird. They tracked the birds’ movements using GPS tags, analyzing their flight paths, stopover locations, and environmental factors influencing their migration.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-5">Scenario 5</h3>
+<p>A gaming company was curious about player preferences for different game modes. They tracked player activity within the game, noting the time spent in each mode and the frequency of gameplay.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answers:</p>
+<ol style="list-style-type: decimal">
+<li>observational study</li>
+<li>experiment</li>
+<li>survey</li>
+<li>observational study</li>
+<li>survey</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<h3 id="background">Background</h3>
+<p>You are expected to differentiate between surveys, experiments, and observational studies. I’ve produced some definitions below.</p>
+<ul>
+<li>Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.</li>
+<li>Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a <a href="https://en.wikipedia.org/wiki/Treatment_and_control_groups">control</a>.</li>
+<li>Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.</li>
+</ul>
+<p>Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don’t worry, I didn’t make any tricky scenarios like that in this question.</p>
+<p>But there is a super important difference between experiments and observational studies. In an <a href="https://en.wikipedia.org/wiki/Observational_study">observational study</a>, the goal is to find <a href="https://en.wikipedia.org/wiki/Correlation">correlations</a> between variables. However, <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">CORRELATION IS NOT CAUSATION</a>! In order to prove <a href="https://en.wikipedia.org/wiki/Causality">causation</a>, an <a href="https://en.wikipedia.org/wiki/Experiment">experiment</a> must be run, ideally a doubly-blind <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">randomized controlled experiment</a>. These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.</p>
+<h3 id="actual-questions">Actual questions</h3>
+<p>For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A doctor wanted to compare the effectiveness of two different pain relief medications. They divided patients with pain into two groups, each receiving a different medication. They then measured patients’ pain levels using a validated scale, comparing the results between the groups to determine which medication provided better pain relief.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A travel agency wanted to get insights into customer satisfaction with their vacation packages. They emailed a selection of clients after their trips, asking them to rate their experience and provide suggestions for improvement.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>An author wanted to understand reader responses to their latest novel. They sent out postcards to a sample of readers, asking them to rate the book’s plot, characters, and overall writing style.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-4">Scenario 4</h3>
+<p>A scientist was curious about the effects of different types of light on plant growth. They exposed plants to different wavelengths of light, observing their growth patterns, leaf size, and overall health.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-5">Scenario 5</h3>
+<p>A researcher was interested in understanding the interactions between different species of birds in a forest. They spent time observing the birds in their natural habitat, noting their feeding patterns, social interactions, and competition for resources.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answers:</p>
+<ol style="list-style-type: decimal">
+<li>experiment</li>
+<li>survey</li>
+<li>survey</li>
+<li>observational study</li>
+<li>observational study</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<h3 id="background">Background</h3>
+<p>You are expected to differentiate between surveys, experiments, and observational studies. I’ve produced some definitions below.</p>
+<ul>
+<li>Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.</li>
+<li>Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a <a href="https://en.wikipedia.org/wiki/Treatment_and_control_groups">control</a>.</li>
+<li>Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.</li>
+</ul>
+<p>Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don’t worry, I didn’t make any tricky scenarios like that in this question.</p>
+<p>But there is a super important difference between experiments and observational studies. In an <a href="https://en.wikipedia.org/wiki/Observational_study">observational study</a>, the goal is to find <a href="https://en.wikipedia.org/wiki/Correlation">correlations</a> between variables. However, <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">CORRELATION IS NOT CAUSATION</a>! In order to prove <a href="https://en.wikipedia.org/wiki/Causality">causation</a>, an <a href="https://en.wikipedia.org/wiki/Experiment">experiment</a> must be run, ideally a doubly-blind <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">randomized controlled experiment</a>. These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.</p>
+<h3 id="actual-questions">Actual questions</h3>
+<p>For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A marketing firm wanted to understand consumer preferences for a new line of cosmetics. They sent out questionnaires to a sample of potential customers, asking them about their favorite colors, textures, and ingredients.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A wildlife biologist was interested in studying the migration patterns of a species of bird. They tracked the birds’ movements using GPS tags, analyzing their flight paths, stopover locations, and environmental factors influencing their migration.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A scientist wanted to test the effectiveness of a new vaccine against a specific disease. They divided participants into two groups, one receiving the vaccine and the other receiving a placebo. They then exposed the participants to the disease and tracked their health, comparing the incidence of the disease in each group to determine the vaccine’s efficacy.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-4">Scenario 4</h3>
+<p>A scientist wanted to test the effectiveness of a new vaccine against a specific disease. They divided participants into two groups, one receiving the vaccine and the other receiving a placebo. They then exposed the participants to the disease and tracked their health, comparing the incidence of the disease in each group to determine the vaccine’s efficacy.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-5">Scenario 5</h3>
+<p>A meteorologist was interested in studying the formation of thunderstorms. They tracked weather patterns using radar and satellites, observing the formation of clouds, the movement of air currents, and the development of lightning.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answers:</p>
+<ol style="list-style-type: decimal">
+<li>survey</li>
+<li>observational study</li>
+<li>experiment</li>
+<li>experiment</li>
+<li>observational study</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<h3 id="background">Background</h3>
+<p>You are expected to differentiate between surveys, experiments, and observational studies. I’ve produced some definitions below.</p>
+<ul>
+<li>Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.</li>
+<li>Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a <a href="https://en.wikipedia.org/wiki/Treatment_and_control_groups">control</a>.</li>
+<li>Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.</li>
+</ul>
+<p>Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don’t worry, I didn’t make any tricky scenarios like that in this question.</p>
+<p>But there is a super important difference between experiments and observational studies. In an <a href="https://en.wikipedia.org/wiki/Observational_study">observational study</a>, the goal is to find <a href="https://en.wikipedia.org/wiki/Correlation">correlations</a> between variables. However, <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">CORRELATION IS NOT CAUSATION</a>! In order to prove <a href="https://en.wikipedia.org/wiki/Causality">causation</a>, an <a href="https://en.wikipedia.org/wiki/Experiment">experiment</a> must be run, ideally a doubly-blind <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">randomized controlled experiment</a>. These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.</p>
+<h3 id="actual-questions">Actual questions</h3>
+<p>For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A news organization was curious about public opinion on a recent event. They conducted a phone poll, asking respondents about their views on the event and its potential impact.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A hospital wanted to gather feedback from patients about their experience with their medical care. They sent out satisfaction surveys to patients after their hospital visits, asking them to rate their experience with doctors, nurses, and other staff, as well as the hospital’s facilities and overall care.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A teacher wanted to compare the effectiveness of two different teaching methods on student comprehension. They divided their students into two groups, each receiving instruction using a different method. They then assessed student understanding using a standardized test, comparing the performance of the two groups.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-4">Scenario 4</h3>
+<p>An astronomer wanted to observe the formation of new stars in a nebula. They used powerful telescopes to capture images of the nebula, studying the processes involved in star birth and evolution.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-5">Scenario 5</h3>
+<p>A psychologist wanted to study the development of children in a preschool setting. They observed children’s interactions with each other and with teachers, noting their social skills, communication skills, and cognitive development.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answers:</p>
+<ol style="list-style-type: decimal">
+<li>survey</li>
+<li>survey</li>
+<li>experiment</li>
+<li>observational study</li>
+<li>observational study</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<h3 id="background">Background</h3>
+<p>You are expected to differentiate between surveys, experiments, and observational studies. I’ve produced some definitions below.</p>
+<ul>
+<li>Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.</li>
+<li>Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a <a href="https://en.wikipedia.org/wiki/Treatment_and_control_groups">control</a>.</li>
+<li>Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.</li>
+</ul>
+<p>Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don’t worry, I didn’t make any tricky scenarios like that in this question.</p>
+<p>But there is a super important difference between experiments and observational studies. In an <a href="https://en.wikipedia.org/wiki/Observational_study">observational study</a>, the goal is to find <a href="https://en.wikipedia.org/wiki/Correlation">correlations</a> between variables. However, <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">CORRELATION IS NOT CAUSATION</a>! In order to prove <a href="https://en.wikipedia.org/wiki/Causality">causation</a>, an <a href="https://en.wikipedia.org/wiki/Experiment">experiment</a> must be run, ideally a doubly-blind <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">randomized controlled experiment</a>. These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.</p>
+<h3 id="actual-questions">Actual questions</h3>
+<p>For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>An anthropologist wanted to understand the cultural practices of a remote tribe. They lived with the tribe for an extended period, observing their daily routines, rituals, and beliefs.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A researcher wanted to study the impact of different types of music on memory. They divided participants into three groups, each listening to a different genre of music while memorizing a list of words. They then tested the participants’ recall, comparing their memory performance across the three groups.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>An oceanographer wanted to study the impact of pollution on marine life. They collected water samples from different locations in the ocean, analyzing their chemical composition and observing the presence of pollutants and their effects on marine organisms.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-4">Scenario 4</h3>
+<p>A fashion designer wanted to assess customer interest in a new clothing line. They conducted a survey at a fashion show, asking attendees about their preferred styles, colors, and fabrics.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-5">Scenario 5</h3>
+<p>A local library was interested in learning about the reading habits of its patrons. They provided a form for patrons to fill out, asking them about their favorite genres, authors, and preferred formats.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answers:</p>
+<ol style="list-style-type: decimal">
+<li>observational study</li>
+<li>experiment</li>
+<li>observational study</li>
+<li>survey</li>
+<li>survey</li>
+</ol>
+<br/>
+</div></li>
+</ol>
+</body>
+</html>
+

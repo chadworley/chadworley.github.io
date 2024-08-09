@@ -1,0 +1,259 @@
+```{r,echo=F}
+# S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.
+
+surveys = c("A marketing firm wanted to understand consumer preferences for a new line of cosmetics. They sent out questionnaires to a sample of potential customers, asking them about their favorite colors, textures, and ingredients.",
+"A local library was interested in learning about the reading habits of its patrons. They provided a form for patrons to fill out, asking them about their favorite genres, authors, and preferred formats.",
+"A school district wanted to gather feedback from parents about their children's educational experience. They distributed surveys to parents, asking them about their satisfaction with teachers, curriculum, and school facilities.",
+"A political party was curious about public opinion on a proposed policy change. They conducted phone interviews with a representative sample of voters, asking them about their views on the issue and potential consequences.",
+"A restaurant owner wanted to understand customer preferences for new menu items. They placed comment cards on tables, inviting diners to provide feedback on their meals and suggest new dishes.",
+"A technology company wanted to gather feedback from users on their new mobile app. They sent out emails to a sample of users, asking them to complete a questionnaire about their experience with the app.",
+"A fitness center was interested in understanding its members' fitness goals and motivation. They handed out questionnaires at the front desk, asking members about their reasons for joining, preferred workout routines, and desired fitness outcomes.",
+"A travel agency wanted to get insights into customer satisfaction with their vacation packages. They emailed a selection of clients after their trips, asking them to rate their experience and provide suggestions for improvement.",
+"A musician wanted to know which songs their fans enjoyed the most. They set up an online poll, allowing fans to vote for their favorite tracks from the musician's latest album.",
+"An author wanted to understand reader responses to their latest novel. They sent out postcards to a sample of readers, asking them to rate the book's plot, characters, and overall writing style.",
+"A social media platform wanted to learn about user preferences for different content formats. They sent out surveys to a representative sample of users, asking them about their preferred types of posts, videos, and stories.",
+"A gaming company was interested in understanding player feedback on their new game release. They emailed players who had downloaded the game, asking them to complete a questionnaire about their experience.",
+"A fashion designer wanted to assess customer interest in a new clothing line. They conducted a survey at a fashion show, asking attendees about their preferred styles, colors, and fabrics.",
+"A news organization was curious about public opinion on a recent event. They conducted a phone poll, asking respondents about their views on the event and its potential impact.",
+"A financial advisor wanted to understand client investment goals and risk tolerance. They held one-on-one meetings with clients, asking them about their financial objectives, desired return on investment, and comfort levels with different investment strategies.",
+"A hospital wanted to gather feedback from patients about their experience with their medical care. They sent out surveys to patients after their hospital visits, asking them about their interactions with doctors, nurses, and other staff.",
+"A museum was interested in learning about visitor preferences for different exhibits. They distributed questionnaires to visitors, asking them about their favorite exhibits, the time they spent exploring each exhibit, and their overall satisfaction with the museum experience.",
+"A software developer wanted to get feedback from users on their new software update. They sent out emails to a sample of users, asking them to complete a questionnaire about the update's functionality, usability, and overall performance.",
+"A musician wanted to gauge fan interest in attending their upcoming concerts. They sent out emails to their mailing list, asking fans to indicate their preferred dates, locations, and ticket prices.",
+"An author was interested in understanding reader responses to their latest book. They set up an online forum, allowing readers to discuss the book and share their opinions on the plot, characters, and themes.",
+"A social media platform wanted to learn about user engagement with different types of content. They analyzed user data, tracking the number of likes, comments, and shares for different types of posts.",
+"A gaming company was curious about player preferences for different game modes. They tracked player activity within the game, noting the time spent in each mode and the frequency of gameplay.",
+"A fashion designer wanted to assess customer preferences for different clothing styles. They observed customers in their retail stores, noting the types of clothing they browsed and the items they purchased.",
+"A news organization wanted to understand how readers reacted to a particular news story. They tracked website analytics, measuring the number of page views, time spent on the page, and social media shares.",
+"A financial advisor was interested in understanding client investment goals and risk tolerance. They conducted one-on-one meetings with clients, listening to their financial objectives and asking questions about their investment preferences and comfort levels with different investment strategies.",
+"A hospital wanted to gather feedback from patients about their experience with their medical care. They conducted exit interviews with patients, asking them about their interactions with doctors, nurses, and other staff, as well as their overall satisfaction with the hospital's services.",
+"A museum was interested in learning about visitor preferences for different exhibits. They conducted focus groups with visitors, discussing their favorite exhibits, the time they spent exploring each exhibit, and their overall satisfaction with the museum experience.",
+"A software developer wanted to get feedback from users on their new software update. They held online forums and discussion groups, allowing users to share their feedback and ask questions about the update's functionality, usability, and performance.",
+"A musician wanted to gauge fan interest in attending their upcoming concerts. They hosted online polls and surveys, asking fans to indicate their preferred dates, locations, and ticket prices, as well as their willingness to purchase tickets.",
+"An author was interested in understanding reader responses to their latest book. They hosted book signings and events, engaging with readers in person and collecting feedback about their experiences reading the book.",
+"A social media platform wanted to learn about user engagement with different types of content. They conducted A/B testing, comparing the performance of different content formats and layouts to understand which elements drove the most engagement.",
+"A gaming company was curious about player preferences for different game modes. They conducted user surveys, asking players about their favorite game modes, the reasons for their preferences, and their suggestions for improving the game.",
+"A fashion designer wanted to assess customer preferences for different clothing styles. They conducted online surveys, asking respondents about their preferred colors, patterns, silhouettes, and overall style preferences.",
+"A news organization wanted to understand how readers reacted to a particular news story. They conducted focus groups with readers, discussing their reactions to the story, their understanding of the information presented, and their opinions on the reporting.",
+"A financial advisor was interested in understanding client investment goals and risk tolerance. They conducted online surveys, asking clients about their financial objectives, investment horizons, and comfort levels with different investment strategies.",
+"A hospital wanted to gather feedback from patients about their experience with their medical care. They sent out satisfaction surveys to patients after their hospital visits, asking them to rate their experience with doctors, nurses, and other staff, as well as the hospital's facilities and overall care.",
+"A museum was interested in learning about visitor preferences for different exhibits. They conducted exit interviews with visitors, asking them about their favorite exhibits, the time they spent exploring each exhibit, and their suggestions for improving the museum experience.",
+"A software developer wanted to get feedback from users on their new software update. They held beta testing sessions, allowing a group of users to try the update before its official release and provide feedback on its performance, functionality, and usability.",
+"A musician wanted to gauge fan interest in attending their upcoming concerts. They sent out promotional emails to their mailing list, inviting fans to RSVP to specific concerts and providing details about the event.",
+"An author was interested in understanding reader responses to their latest book. They hosted book clubs and online discussions, allowing readers to share their thoughts and opinions on the book, engage in meaningful conversations, and provide feedback.",
+"A social media platform wanted to learn about user engagement with different types of content. They conducted A/B testing, comparing the performance of different content formats and layouts to understand which elements drove the most engagement.",
+"A gaming company was curious about player preferences for different game modes. They conducted user surveys, asking players about their favorite game modes, the reasons for their preferences, and their suggestions for improving the game.",
+"A fashion designer wanted to assess customer preferences for different clothing styles. They conducted online surveys, asking respondents about their preferred colors, patterns, silhouettes, and overall style preferences.",
+"A news organization wanted to understand how readers reacted to a particular news story. They conducted focus groups with readers, discussing their reactions to the story, their understanding of the information presented, and their opinions on the reporting.",
+"A financial advisor was interested in understanding client investment goals and risk tolerance. They conducted online surveys, asking clients about their financial objectives, investment horizons, and comfort levels with different investment strategies.",
+"A hospital wanted to gather feedback from patients about their experience with their medical care. They sent out satisfaction surveys to patients after their hospital visits, asking them to rate their experience with doctors, nurses, and other staff, as well as the hospital's facilities and overall care.",
+"A museum was interested in learning about visitor preferences for different exhibits. They conducted exit interviews with visitors, asking them about their favorite exhibits, the time they spent exploring each exhibit, and their suggestions for improving the museum experience.",
+"A software developer wanted to get feedback from users on their new software update. They held beta testing sessions, allowing a group of users to try the update before its official release and provide feedback on its performance, functionality, and usability.",
+"A musician wanted to gauge fan interest in attending their upcoming concerts. They sent out promotional emails to their mailing list, inviting fans to RSVP to specific concerts and providing details about the event.",
+"An author was interested in understanding reader responses to their latest book. They hosted book clubs and online discussions, allowing readers to share their thoughts and opinions on the book, engage in meaningful conversations, and provide feedback.")
+
+
+
+
+experis = c("A scientist wanted to test the effectiveness of a new fertilizer on plant growth. They planted two groups of identical plants, one group receiving the new fertilizer and the other receiving a standard fertilizer. They then measured the height and leaf size of the plants over time, comparing the growth of the two groups.",
+"A researcher wanted to study the impact of different types of music on memory. They divided participants into three groups, each listening to a different genre of music while memorizing a list of words. They then tested the participants' recall, comparing their memory performance across the three groups.",
+"A teacher wanted to compare the effectiveness of two different teaching methods on student comprehension. They divided their students into two groups, each receiving instruction using a different method. They then assessed student understanding using a standardized test, comparing the performance of the two groups.",
+"A doctor wanted to test the effectiveness of a new medication for treating a specific ailment. They divided patients with the ailment into two groups, one receiving the medication and the other receiving a placebo. They tracked patients' symptoms and recovery rates, comparing the outcomes of the two groups.",
+"A company wanted to see if a new advertising campaign would increase sales. They measured sales of a product before launching the campaign and then measured sales again after the campaign was implemented. They compared sales figures before and after the campaign to determine its impact.",
+"A researcher wanted to understand the effects of exercise on mood. They divided participants into two groups, one participating in a regular exercise program and the other not exercising. They then measured participants' mood using a validated questionnaire, comparing the results between the two groups.",
+"A psychologist wanted to test the effectiveness of a new therapy for treating depression. They divided participants with depression into two groups, one receiving the therapy and the other receiving a standard treatment. They then measured participants' depression symptoms using a validated scale, comparing the results between the two groups.",
+"A farmer wanted to test the effectiveness of a new pesticide on crop yields. They divided their field into two sections, one treated with the pesticide and the other left untreated. They then measured crop yields in each section, comparing the results to determine the pesticide's impact.",
+"A scientist wanted to test the effectiveness of a new vaccine against a specific disease. They divided participants into two groups, one receiving the vaccine and the other receiving a placebo. They then exposed the participants to the disease and tracked their health, comparing the incidence of the disease in each group to determine the vaccine's efficacy.",
+"A company wanted to see if a new website design would attract more visitors. They measured website traffic before implementing the new design and then measured traffic again after the redesign. They compared the number of visitors before and after the redesign to assess the design's effectiveness.",
+"A researcher wanted to study the impact of different types of music on heart rate. They divided participants into groups, each listening to a different genre of music. They then measured participants' heart rate, comparing the results between the groups to determine the impact of music on heart rate.",
+"A teacher wanted to test the effectiveness of different teaching strategies on student engagement. They divided their students into groups, each receiving instruction using a different strategy. They then observed student engagement in the classroom, comparing the levels of participation and interest between the groups.",
+"A doctor wanted to compare the effectiveness of two different pain relief medications. They divided patients with pain into two groups, each receiving a different medication. They then measured patients' pain levels using a validated scale, comparing the results between the groups to determine which medication provided better pain relief.",
+"A company wanted to test the effectiveness of different marketing campaigns on product sales. They launched separate campaigns targeting different audiences and then measured sales for each campaign. They compared sales figures to determine which campaign was most effective in generating sales.",
+"A researcher wanted to understand the effects of different diets on athletic performance. They divided athletes into groups, each consuming a different diet. They then measured athletes' performance on a series of athletic tests, comparing the results between the groups to determine the impact of diet on athletic performance.",
+"A teacher wanted to test the effectiveness of different classroom management techniques on student behavior. They implemented different management techniques in different classrooms, observing student behavior in each classroom. They compared the levels of disruptive behavior and positive classroom participation to determine which management technique was most effective.",
+"A doctor wanted to compare the effectiveness of different treatments for a specific medical condition. They divided patients with the condition into groups, each receiving a different treatment. They then tracked patients' symptoms and recovery rates, comparing the outcomes of the groups to determine which treatment was most effective.",
+"A company wanted to test the effectiveness of different product designs on customer satisfaction. They developed different designs for a product and then offered the product to customers in different groups, each receiving a different design. They then collected customer feedback on each design, comparing the satisfaction ratings to determine which design was most appealing to customers.",
+"A researcher wanted to study the effects of different levels of exercise on cognitive function. They divided participants into groups, each engaging in a different level of exercise. They then tested participants' cognitive abilities using a standardized test, comparing the results between the groups to determine the impact of exercise on cognitive function.",
+"A teacher wanted to test the effectiveness of different assessment methods on student learning. They assessed students using different methods, such as multiple-choice tests, essays, and projects. They then compared student performance on each assessment method, determining which method was most effective in measuring student understanding.",
+"A scientist wanted to test the effectiveness of a new fertilizer on plant growth. They planted two groups of identical plants, one group receiving the new fertilizer and the other receiving a standard fertilizer. They then measured the height and leaf size of the plants over time, comparing the growth of the two groups.",
+"A researcher wanted to study the impact of different types of music on memory. They divided participants into three groups, each listening to a different genre of music while memorizing a list of words. They then tested the participants' recall, comparing their memory performance across the three groups.",
+"A teacher wanted to compare the effectiveness of two different teaching methods on student comprehension. They divided their students into two groups, each receiving instruction using a different method. They then assessed student understanding using a standardized test, comparing the performance of the two groups.",
+"A doctor wanted to test the effectiveness of a new medication for treating a specific ailment. They divided patients with the ailment into two groups, one receiving the medication and the other receiving a placebo. They tracked patients' symptoms and recovery rates, comparing the outcomes of the two groups.",
+"A company wanted to see if a new advertising campaign would increase sales. They measured sales of a product before launching the campaign and then measured sales again after the campaign was implemented. They compared sales figures before and after the campaign to determine its impact.",
+"A researcher wanted to understand the effects of exercise on mood. They divided participants into two groups, one participating in a regular exercise program and the other not exercising. They then measured participants' mood using a validated questionnaire, comparing the results between the two groups.",
+"A psychologist wanted to test the effectiveness of a new therapy for treating depression. They divided participants with depression into two groups, one receiving the therapy and the other receiving a standard treatment. They then measured participants' depression symptoms using a validated scale, comparing the results between the two groups.",
+"A farmer wanted to test the effectiveness of a new pesticide on crop yields. They divided their field into two sections, one treated with the pesticide and the other left untreated. They then measured crop yields in each section, comparing the results to determine the pesticide's impact.",
+"A scientist wanted to test the effectiveness of a new vaccine against a specific disease. They divided participants into two groups, one receiving the vaccine and the other receiving a placebo. They then exposed the participants to the disease and tracked their health, comparing the incidence of the disease in each group to determine the vaccine's efficacy.",
+"A company wanted to see if a new website design would attract more visitors. They measured website traffic before implementing the new design and then measured traffic again after the redesign. They compared the number of visitors before and after the redesign to assess the design's effectiveness.",
+"A researcher wanted to study the impact of different types of music on heart rate. They divided participants into groups, each listening to a different genre of music. They then measured participants' heart rate, comparing the results between the groups to determine the impact of music on heart rate.",
+"A teacher wanted to test the effectiveness of different teaching strategies on student engagement. They divided their students into groups, each receiving instruction using a different strategy. They then observed student engagement in the classroom, comparing the levels of participation and interest between the groups.",
+"A doctor wanted to compare the effectiveness of two different pain relief medications. They divided patients with pain into two groups, each receiving a different medication. They then measured patients' pain levels using a validated scale, comparing the results between the groups to determine which medication provided better pain relief.",
+"A company wanted to test the effectiveness of different marketing campaigns on product sales. They launched separate campaigns targeting different audiences and then measured sales for each campaign. They compared sales figures to determine which campaign was most effective in generating sales.",
+"A researcher wanted to understand the effects of different diets on athletic performance. They divided athletes into groups, each consuming a different diet. They then measured athletes' performance on a series of athletic tests, comparing the results between the groups to determine the impact of diet on athletic performance.",
+"A teacher wanted to test the effectiveness of different classroom management techniques on student behavior. They implemented different management techniques in different classrooms, observing student behavior in each classroom. They compared the levels of disruptive behavior and positive classroom participation to determine which management technique was most effective.",
+"A doctor wanted to compare the effectiveness of different treatments for a specific medical condition. They divided patients with the condition into groups, each receiving a different treatment. They then tracked patients' symptoms and recovery rates, comparing the outcomes of the groups to determine which treatment was most effective.",
+"A company wanted to test the effectiveness of different product designs on customer satisfaction. They developed different designs for a product and then offered the product to customers in different groups, each receiving a different design. They then collected customer feedback on each design, comparing the satisfaction ratings to determine which design was most appealing to customers.",
+"A researcher wanted to study the effects of different levels of exercise on cognitive function. They divided participants into groups, each engaging in a different level of exercise. They then tested participants' cognitive abilities using a standardized test, comparing the results between the groups to determine the impact of exercise on cognitive function.",
+"A teacher wanted to test the effectiveness of different assessment methods on student learning. They assessed students using different methods, such as multiple-choice tests, essays, and projects. They then compared student performance on each assessment method, determining which method was most effective in measuring student understanding.",
+"A scientist wanted to test the effectiveness of a new fertilizer on plant growth. They planted two groups of identical plants, one group receiving the new fertilizer and the other receiving a standard fertilizer. They then measured the height and leaf size of the plants over time, comparing the growth of the two groups.",
+"A researcher wanted to study the impact of different types of music on memory. They divided participants into three groups, each listening to a different genre of music while memorizing a list of words. They then tested the participants' recall, comparing their memory performance across the three groups.",
+"A teacher wanted to compare the effectiveness of two different teaching methods on student comprehension. They divided their students into two groups, each receiving instruction using a different method. They then assessed student understanding using a standardized test, comparing the performance of the two groups.",
+"A doctor wanted to test the effectiveness of a new medication for treating a specific ailment. They divided patients with the ailment into two groups, one receiving the medication and the other receiving a placebo. They tracked patients' symptoms and recovery rates, comparing the outcomes of the two groups.",
+"A company wanted to see if a new advertising campaign would increase sales. They measured sales of a product before launching the campaign and then measured sales again after the campaign was implemented. They compared sales figures before and after the campaign to determine its impact.",
+"A researcher wanted to understand the effects of exercise on mood. They divided participants into two groups, one participating in a regular exercise program and the other not exercising. They then measured participants' mood using a validated questionnaire, comparing the results between the two groups.",
+"A psychologist wanted to test the effectiveness of a new therapy for treating depression. They divided participants with depression into two groups, one receiving the therapy and the other receiving a standard treatment. They then measured participants' depression symptoms using a validated scale, comparing the results between the two groups.",
+"A farmer wanted to test the effectiveness of a new pesticide on crop yields. They divided their field into two sections, one treated with the pesticide and the other left untreated. They then measured crop yields in each section, comparing the results to determine the pesticide's impact.",
+"A scientist wanted to test the effectiveness of a new vaccine against a specific disease. They divided participants into two groups, one receiving the vaccine and the other receiving a placebo. They then exposed the participants to the disease and tracked their health, comparing the incidence of the disease in each group to determine the vaccine's efficacy.",
+"A company wanted to see if a new website design would attract more visitors. They measured website traffic before implementing the new design and then measured traffic again after the redesign. They compared the number of visitors before and after the redesign to assess the design's effectiveness.")
+
+
+obsstus = c("A wildlife biologist wanted to study the behavior of a group of wolves in their natural habitat. They spent weeks observing the wolves, noting their hunting patterns, social interactions, and communication signals.",
+"An astronomer wanted to observe the movement of planets in our solar system. They used powerful telescopes to track the planets' orbits, measuring their speed and position relative to the sun.",
+"A sociologist was interested in understanding the social dynamics of a particular community. They spent time observing people in public spaces, noting their interactions, behaviors, and communication patterns.",
+"A psychologist wanted to study the development of children in a preschool setting. They observed children's interactions with each other and with teachers, noting their social skills, communication skills, and cognitive development.",
+"A meteorologist was interested in studying the formation of thunderstorms. They tracked weather patterns using radar and satellites, observing the formation of clouds, the movement of air currents, and the development of lightning.",
+"A geologist was curious about the rock formations in a particular canyon. They spent time exploring the canyon, examining the rocks, noting their composition, and studying the geological processes that formed the canyon.",
+"An oceanographer wanted to study the impact of pollution on marine life. They collected water samples from different locations in the ocean, analyzing their chemical composition and observing the presence of pollutants and their effects on marine organisms.",
+"A researcher was interested in understanding the interactions between different species of birds in a forest. They spent time observing the birds in their natural habitat, noting their feeding patterns, social interactions, and competition for resources.",
+"A scientist was curious about the effects of different types of light on plant growth. They exposed plants to different wavelengths of light, observing their growth patterns, leaf size, and overall health.",
+"An anthropologist wanted to understand the cultural practices of a remote tribe. They lived with the tribe for an extended period, observing their daily routines, rituals, and beliefs.",
+"A wildlife biologist was interested in studying the migration patterns of a species of bird. They tracked the birds' movements using GPS tags, analyzing their flight paths, stopover locations, and environmental factors influencing their migration.",
+"An astronomer wanted to observe the formation of new stars in a nebula. They used powerful telescopes to capture images of the nebula, studying the processes involved in star birth and evolution.",
+"A sociologist was interested in understanding the impact of social media on political discourse. They analyzed online conversations, noting the topics discussed, the language used, and the spread of information.",
+"A psychologist wanted to study the behavior of people in a stressful situation. They observed people during a public speaking event, noting their nonverbal communication, emotional reactions, and coping mechanisms.",
+"A meteorologist was interested in studying the formation of hurricanes. They tracked hurricane development using radar and satellites, observing the formation of clouds, the movement of air currents, and the development of storms.",
+"A geologist was curious about the rock formations in a particular canyon. They spent time exploring the canyon, examining the rocks, noting their composition, and studying the geological processes that formed the canyon.",
+"An oceanographer wanted to study the impact of pollution on marine life. They collected water samples from different locations in the ocean, analyzing their chemical composition and observing the presence of pollutants and their effects on marine organisms.",
+"A researcher was interested in understanding the interactions between different species of birds in a forest. They spent time observing the birds in their natural habitat, noting their feeding patterns, social interactions, and competition for resources.",
+"A scientist was curious about the effects of different types of light on plant growth. They exposed plants to different wavelengths of light, observing their growth patterns, leaf size, and overall health.",
+"An anthropologist wanted to understand the cultural practices of a remote tribe. They lived with the tribe for an extended period, observing their daily routines, rituals, and beliefs.",
+"A wildlife biologist was interested in studying the migration patterns of a species of bird. They tracked the birds' movements using GPS tags, analyzing their flight paths, stopover locations, and environmental factors influencing their migration.",
+"An astronomer wanted to observe the formation of new stars in a nebula. They used powerful telescopes to capture images of the nebula, studying the processes involved in star birth and evolution.",
+"A sociologist was interested in understanding the impact of social media on political discourse. They analyzed online conversations, noting the topics discussed, the language used, and the spread of information.",
+"A psychologist wanted to study the behavior of people in a stressful situation. They observed people during a public speaking event, noting their nonverbal communication, emotional reactions, and coping mechanisms.",
+"A meteorologist was interested in studying the formation of hurricanes. They tracked hurricane development using radar and satellites, observing the formation of clouds, the movement of air currents, and the development of storms.",
+"A geologist was curious about the rock formations in a particular canyon. They spent time exploring the canyon, examining the rocks, noting their composition, and studying the geological processes that formed the canyon.",
+"An oceanographer wanted to study the impact of pollution on marine life. They collected water samples from different locations in the ocean, analyzing their chemical composition and observing the presence of pollutants and their effects on marine organisms.",
+"A researcher was interested in understanding the interactions between different species of birds in a forest. They spent time observing the birds in their natural habitat, noting their feeding patterns, social interactions, and competition for resources.",
+"A scientist was curious about the effects of different types of light on plant growth. They exposed plants to different wavelengths of light, observing their growth patterns, leaf size, and overall health.",
+"An anthropologist wanted to understand the cultural practices of a remote tribe. They lived with the tribe for an extended period, observing their daily routines, rituals, and beliefs.",
+"A wildlife biologist was interested in studying the migration patterns of a species of bird. They tracked the birds' movements using GPS tags, analyzing their flight paths, stopover locations, and environmental factors influencing their migration.",
+"An astronomer wanted to observe the formation of new stars in a nebula. They used powerful telescopes to capture images of the nebula, studying the processes involved in star birth and evolution.",
+"A sociologist was interested in understanding the impact of social media on political discourse. They analyzed online conversations, noting the topics discussed, the language used, and the spread of information.",
+"A psychologist wanted to study the behavior of people in a stressful situation. They observed people during a public speaking event, noting their nonverbal communication, emotional reactions, and coping mechanisms.",
+"A meteorologist was interested in studying the formation of hurricanes. They tracked hurricane development using radar and satellites, observing the formation of clouds, the movement of air currents, and the development of storms.",
+"A geologist was curious about the rock formations in a particular canyon. They spent time exploring the canyon, examining the rocks, noting their composition, and studying the geological processes that formed the canyon.",
+"An oceanographer wanted to study the impact of pollution on marine life. They collected water samples from different locations in the ocean, analyzing their chemical composition and observing the presence of pollutants and their effects on marine organisms.",
+"A researcher was interested in understanding the interactions between different species of birds in a forest. They spent time observing the birds in their natural habitat, noting their feeding patterns, social interactions, and competition for resources.",
+"A scientist was curious about the effects of different types of light on plant growth. They exposed plants to different wavelengths of light, observing their growth patterns, leaf size, and overall health.",
+"An anthropologist wanted to understand the cultural practices of a remote tribe. They lived with the tribe for an extended period, observing their daily routines, rituals, and beliefs.",
+"A wildlife biologist was interested in studying the migration patterns of a species of bird. They tracked the birds' movements using GPS tags, analyzing their flight paths, stopover locations, and environmental factors influencing their migration.",
+"An astronomer wanted to observe the formation of new stars in a nebula. They used powerful telescopes to capture images of the nebula, studying the processes involved in star birth and evolution.",
+"A sociologist was interested in understanding the impact of social media on political discourse. They analyzed online conversations, noting the topics discussed, the language used, and the spread of information.",
+"A psychologist wanted to study the behavior of people in a stressful situation. They observed people during a public speaking event, noting their nonverbal communication, emotional reactions, and coping mechanisms.",
+"A meteorologist was interested in studying the formation of hurricanes. They tracked hurricane development using radar and satellites, observing the formation of clouds, the movement of air currents, and the development of storms.",
+"A geologist was curious about the rock formations in a particular canyon. They spent time exploring the canyon, examining the rocks, noting their composition, and studying the geological processes that formed the canyon.",
+"An oceanographer wanted to study the impact of pollution on marine life. They collected water samples from different locations in the ocean, analyzing their chemical composition and observing the presence of pollutants and their effects on marine organisms.",
+"A researcher was interested in understanding the interactions between different species of birds in a forest. They spent time observing the birds in their natural habitat, noting their feeding patterns, social interactions, and competition for resources.",
+"A scientist was curious about the effects of different types of light on plant growth. They exposed plants to different wavelengths of light, observing their growth patterns, leaf size, and overall health.",
+"An anthropologist wanted to understand the cultural practices of a remote tribe. They lived with the tribe for an extended period, observing their daily routines, rituals, and beliefs.")
+
+s1 = sample(surveys,2)
+e1 = sample(experis,2)
+o1 = sample(obsstus,2)
+
+prompts = c(s1,e1,o1)
+types = c(1,1,2,2,3,3)
+wrds = c("survey","experiment","observational study")
+
+
+
+ro = sample(1:6,5) #which 5 to show and in which order (random order)
+
+al = "* Survey\n* Experiment\n* Observational Study\n"
+
+poss = c(1,2,3)
+
+sol1 = paste0(1*(poss==types[ro[1]]),collapse="")
+sol2 = paste0(1*(poss==types[ro[2]]),collapse="")
+sol3 = paste0(1*(poss==types[ro[3]]),collapse="")
+sol4 = paste0(1*(poss==types[ro[4]]),collapse="")
+sol5 = paste0(1*(poss==types[ro[5]]),collapse="")
+
+```
+
+Question
+========
+
+*S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.*
+
+### Background
+
+You are expected to differentiate between surveys, experiments, and observational studies. I've produced some definitions below.
+
+* Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.
+* Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a [control](https://en.wikipedia.org/wiki/Treatment_and_control_groups).
+* Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.
+
+Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don't worry, I didn't make any tricky scenarios like that in this question.
+
+But there is a super important difference between experiments and observational studies. In an [observational study](https://en.wikipedia.org/wiki/Observational_study), the goal is to find [correlations](https://en.wikipedia.org/wiki/Correlation) between variables. However, [CORRELATION IS NOT CAUSATION](https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation)! In order to prove [causation](https://en.wikipedia.org/wiki/Causality), an [experiment](https://en.wikipedia.org/wiki/Experiment) must be run, ideally a doubly-blind [randomized controlled experiment](https://en.wikipedia.org/wiki/Randomized_controlled_trial). These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.
+
+### Actual questions
+
+For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.
+
+### Scenario 1
+
+`r prompts[ro[1]]`
+
+##ANSWER1##
+
+### Scenario 2
+
+`r prompts[ro[2]]`
+
+##ANSWER2##
+
+### Scenario 3
+
+`r prompts[ro[3]]`
+
+##ANSWER3##
+
+### Scenario 4
+
+`r prompts[ro[4]]`
+
+##ANSWER4##
+
+### Scenario 5
+
+`r prompts[ro[5]]`
+
+##ANSWER5##
+
+Answerlist
+--------
+
+`r paste(rep(al,5),collapse="")`
+
+
+Solution
+========
+
+The answers:
+
+1. `r wrds[types[ro[1]]]`
+2. `r wrds[types[ro[2]]]`
+3. `r wrds[types[ro[3]]]`
+4. `r wrds[types[ro[4]]]`
+5. `r wrds[types[ro[5]]]`
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`
+exname: survey_experi_obstu
