@@ -1,0 +1,667 @@
+```{r,echo=F}
+# S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.
+
+QM <- data.frame(goal = character(), biased = character(), unbiased = character())
+
+# 1
+QM <- rbind(QM, c("A bakery owner wants to know how many customers buy croissants on average each day.", 
+                "The owner decides to focus on Saturdays, as they believe that's the busiest day for croissant sales.",
+                "The owner chooses five days from the month by picking slips of paper out of a hat, each slip containing a different day of the month."))
+
+# 2
+QM <- rbind(QM, c("A pet store owner wants to know what percentage of their customers own cats.",
+                "The owner surveys customers as they are leaving the store, asking those who are carrying pet food bags.",
+                "The owner uses a random number generator to select 10 receipts from the past month, ensuring each receipt has an equal chance of being chosen."))
+
+# 3
+QM <- rbind(QM, c("A librarian wants to know the average number of books borrowed by library members each month.",
+                "The librarian focuses on the books borrowed by children, because children are the most common patrons.",
+                "The librarian assigns each library member a number, then uses a random number generator to select 20 numbers, corresponding to the 20 members whose borrowing records will be examined."))
+
+# 4
+QM <- rbind(QM, c("A teacher wants to know the average number of hours students spend studying each week.",
+                "The teacher asks a random set of students who attend the after-school study group.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 5
+QM <- rbind(QM, c("A restaurant owner wants to know how many customers order their most popular dish each night.",
+                "The owner checks orders from Friday and Saturday nights, because those nights have the most orders, so there is more data.",
+                "The owner randomly selects twenty nights from the upcoming year."))
+
+# 6
+QM <- rbind(QM, c("A clothing store manager wants to know the average amount spent by customers.",
+                "The manager examines receipts from customers who used discount coupons.",
+                "The manager uses a computer program to randomly select 10 receipts from the past month, ensuring each receipt has an equal chance of being chosen."))
+
+# 7
+QM <- rbind(QM, c("A zookeeper wants to know the average weight of the zoo's penguins.",
+                "The zookeeper weighs penguins that are swimming in the enclosure.",
+                "The zookeeper uses a die to randomly select 5 penguins from the enclosure, ensuring each penguin has an equal chance of being chosen."))
+
+# 8
+QM <- rbind(QM, c("A gardener wants to know the average height of the sunflowers in their garden.",
+                "The gardener measures sunflowers planted in the center of the garden.",
+                "The gardener closes their eyes and walks randomly through the garden, measuring the height of the first 10 sunflowers they encounter."))
+
+# 9
+QM <- rbind(QM, c("A park ranger wants to know the average number of visitors to a specific trail each day.",
+                "The ranger counts visitors who park in the designated lot for that specific trail.",
+                "The ranger selects five days of the month by drawing numbered slips of paper from a hat, ensuring each day has an equal chance of being selected."))
+
+# 10
+QM <- rbind(QM, c("A musician wants to know the average number of people who attend their concerts.",
+                "The musician checks attendance records for concerts held in larger venues.",
+                "The musician uses a random number generator to select three concerts from the tour schedule, ensuring each concert has an equal chance of being chosen."))
+
+# 11
+QM <- rbind(QM, c("A scientist wants to know the average lifespan of a certain species of butterfly.",
+                "The scientist observes butterflies in a specific area of the field where there are more flowers.",
+                "The scientist sets up a grid in the field and uses a random number generator to select 10 grid squares, capturing and tagging butterflies within those squares."))
+
+# 12
+QM <- rbind(QM, c("A construction manager wants to know the average number of bricks used per day on a construction site.",
+                "The manager counts bricks used by the team working on the most visible part of the project.",
+                "The manager writes the name of each team on a separate piece of paper, puts the papers in a bowl, and has a worker draw five names at random."))
+
+# 13
+QM <- rbind(QM, c("A doctor wants to know the average blood pressure of patients in a clinic.",
+                "The doctor measures the blood pressure of patients who have scheduled appointments for specific types of checkups.",
+                "The doctor uses a random number generator to select 10 patient records from the clinic database, ensuring each patient has an equal chance of being chosen."))
+
+# 14
+QM <- rbind(QM, c("A farmer wants to know the average weight of the pumpkins in their field.",
+                "The farmer weighs pumpkins that are located in the rows closest to the water source.",
+                "The farmer divides the field into sections and uses a random number generator to select 10 sections, then randomly selects one pumpkin from each chosen section."))
+
+# 15
+QM <- rbind(QM, c("A teacher wants to know the average number of words students write in their essays.",
+                "The teacher grades essays submitted by students who are known for writing longer essays.",
+                "The teacher uses a deck of cards to randomly select five essays from all the submitted work, ensuring each essay has an equal chance of being chosen."))
+
+# 16
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who use a coupon.",
+                "The owner checks the receipts from customers who purchased items on sale.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 17
+QM <- rbind(QM, c("A chef wants to know the average number of customers who order dessert.",
+                "The chef checks orders from customers who ordered the most expensive entrees.",
+                "The chef writes down the time of each order on a slip of paper, puts the papers in a hat, and has a server draw five slips at random, then checks the orders from those times."))
+
+# 18
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend watching TV per day.",
+                "The researcher surveys people they meet at a local library.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 19
+QM <- rbind(QM, c("A social worker wants to know the average number of children in a family.",
+                "The social worker asks families who are participating in a community center program.",
+                "The social worker uses a random number generator to select 5 families from the city records, ensuring each family has an equal chance of being chosen."))
+
+# 20
+QM <- rbind(QM, c("A biologist wants to know the average height of oak trees in a forest.",
+                "The biologist measures oak trees that are located near a particular stream in the forest.",
+                "The biologist divides the forest into sections and uses a random number generator to select 10 sections, then randomly selects one oak tree from each chosen section."))
+
+# 21
+QM <- rbind(QM, c("A salesperson wants to know the average number of sales they make each week.",
+                "The salesperson checks the sales records for days when they are actively involved in a sales promotion.",
+                "The salesperson writes each day of the week on a separate piece of paper, puts the papers in a bowl, and has a colleague draw three names at random."))
+
+# 22
+QM <- rbind(QM, c("A museum curator wants to know the average number of visitors to the museum each day.",
+                "The curator counts visitors who enter the museum during a special exhibition.",
+                "The curator uses a random number generator to select five hours of the day, ensuring each hour has an equal chance of being chosen, and then counts the visitors during those hours."))
+
+# 23
+QM <- rbind(QM, c("A dog groomer wants to know the average weight of dogs they groom.",
+                "The groomer weighs dogs that are scheduled for specific types of grooming services.",
+                "The groomer uses a deck of cards to randomly select five appointments from their schedule, ensuring each dog has an equal chance of being chosen."))
+
+# 24
+QM <- rbind(QM, c("A website developer wants to know the average number of users who visit their website each day.",
+                "The developer checks the website analytics for hours when the website is running a specific ad campaign.",
+                "The developer uses a coin flip to decide whether to check the website analytics for the first or second half of each hour, and then randomly selects three hours from the day to examine."))
+
+# 25
+QM <- rbind(QM, c("A teacher wants to know the average score on a recent test.",
+                "The teacher grades tests submitted by students who have historically performed well on tests.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random, then grades those tests."))
+
+# 26
+QM <- rbind(QM, c("A gardener wants to know the average number of tomatoes on each tomato plant.",
+                "The gardener counts tomatoes on plants that are located in a specific section of the garden that received extra sunlight.",
+                "The gardener uses a random number generator to select 10 tomato plants from the garden, ensuring each plant has an equal chance of being chosen."))
+
+# 27
+QM <- rbind(QM, c("A librarian wants to know the average number of books checked out each day.",
+                "The librarian checks the checkout records for books in a specific genre.",
+                "The librarian uses a die to select a random hour of the day, then examines all checkouts from that hour, ensuring each book has an equal chance of being included."))
+
+# 28
+QM <- rbind(QM, c("A pet sitter wants to know the average number of hours they spend walking dogs each day.",
+                "The pet sitter checks the time spent walking dogs that are large breeds.",
+                "The pet sitter writes each dog's name on a separate piece of paper, puts the papers in a bowl, and has a child draw three names at random."))
+
+# 29
+QM <- rbind(QM, c("A musician wants to know the average number of songs they play at each concert.",
+                "The musician checks the setlist for concerts that are held in specific types of venues.",
+                "The musician uses a random number generator to select three concerts from the tour schedule, ensuring each concert has an equal chance of being chosen."))
+
+# 30
+QM <- rbind(QM, c("A chef wants to know the average number of ingredients used in each dish.",
+                "The chef counts ingredients used in dishes that are considered to be the most popular on the menu.",
+                "The chef uses a deck of cards to randomly select five dishes from the menu, ensuring each dish has an equal chance of being chosen."))
+
+# 31
+QM <- rbind(QM, c("A store manager wants to know the average number of customers who return items.",
+                "The manager checks the returns from customers who made purchases on a specific holiday.",
+                "The manager uses a random number generator to select 10 receipts from the past month, ensuring each receipt has an equal chance of being chosen."))
+
+# 32
+QM <- rbind(QM, c("A teacher wants to know the average number of minutes students spend completing their homework.",
+                "The teacher asks students who have completed their homework early.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 33
+QM <- rbind(QM, c("A researcher wants to know the average number of books people read each year.",
+                "The researcher surveys people they meet at a local bookstore.",
+                "The researcher uses a random number generator to select 10 people from the city records, ensuring each person has an equal chance of being chosen."))
+
+# 34
+QM <- rbind(QM, c("A gardener wants to know the average number of flowers on each rose bush.",
+                "The gardener counts flowers on rose bushes planted in a specific area of the garden that receives more sunlight.",
+                "The gardener uses a die to randomly select 5 rose bushes from the garden, ensuring each bush has an equal chance of being chosen."))
+
+# 35
+QM <- rbind(QM, c("A zookeeper wants to know the average lifespan of the zoo's chimpanzees.",
+                "The zookeeper checks the records of chimpanzees who have been at the zoo for a longer period of time.",
+                "The zookeeper uses a deck of cards to randomly select 5 chimpanzees from the zoo records, ensuring each chimpanzee has an equal chance of being chosen."))
+
+# 36
+QM <- rbind(QM, c("A musician wants to know the average number of hours they practice each day.",
+                "The musician tracks their practice time on days when they are preparing for a specific performance.",
+                "The musician writes each day of the week on a separate piece of paper, puts the papers in a bowl, and has a friend draw three names at random."))
+
+# 37
+QM <- rbind(QM, c("A veterinarian wants to know the average weight of dogs they see.",
+                "The veterinarian weighs dogs who are scheduled for specific types of checkups.",
+                "The veterinarian uses a random number generator to select 10 patient records from the clinic database, ensuring each dog has an equal chance of being chosen."))
+
+# 38
+QM <- rbind(QM, c("A chef wants to know the average number of customers who order a specific dish.",
+                "The chef checks orders from customers who have ordered the dish on previous occasions.",
+                "The chef writes down the time of each order on a slip of paper, puts the papers in a hat, and has a server draw five slips at random, then checks the orders from those times."))
+
+# 39
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend working each week.",
+                "The researcher surveys people they meet at a local coffee shop.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 40
+QM <- rbind(QM, c("A teacher wants to know the average number of words students read in their reading assignments.",
+                "The teacher asks students who have finished their reading assignments early.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 41
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who use a loyalty card.",
+                "The owner checks the loyalty card usage for customers who have made purchases over a certain amount.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 42
+QM <- rbind(QM, c("A gardener wants to know the average number of leaves on each plant.",
+                "The gardener counts leaves on plants located in a specific area of the garden that receives more water.",
+                "The gardener closes their eyes and walks randomly through the garden, counting the leaves on the first 10 plants they encounter."))
+
+# 43
+QM <- rbind(QM, c("A musician wants to know the average number of times they play a specific song in a month.",
+                "The musician checks their setlist for concerts where they played the song multiple times.",
+                "The musician uses a random number generator to select three concerts from the tour schedule, ensuring each concert has an equal chance of being chosen."))
+
+# 44
+QM <- rbind(QM, c("A biologist wants to know the average number of eggs laid by a specific bird species.",
+                "The biologist observes nests located near a particular stream in the forest.",
+                "The biologist divides the forest into sections and uses a random number generator to select 10 sections, then randomly selects one bird nest from each chosen section."))
+
+# 45
+QM <- rbind(QM, c("A teacher wants to know the average number of hours students spend working on their projects.",
+                "The teacher asks students who have already finished their projects.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 46
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend exercising each week.",
+                "The researcher surveys people they meet at a local gym.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 47
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who purchase a specific product.",
+                "The owner checks the sales records for customers who have purchased the product on previous occasions.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 48
+QM <- rbind(QM, c("A gardener wants to know the average number of fruits on each fruit tree.",
+                "The gardener counts fruits on trees located in a specific area of the garden that receives more sunlight.",
+                "The gardener uses a die to randomly select 5 fruit trees from the garden, ensuring each tree has an equal chance of being chosen."))
+
+# 49
+QM <- rbind(QM, c("A musician wants to know the average number of songs they write each year.",
+                "The musician checks their songwriting records for years when they were actively touring.",
+                "The musician writes each year on a separate piece of paper, puts the papers in a bowl, and has a friend draw three names at random."))
+
+# 50
+QM <- rbind(QM, c("A veterinarian wants to know the average number of times a cat visits the clinic each year.",
+                "The veterinarian checks the records of cats who have been visiting the clinic for a longer period of time.",
+                "The veterinarian uses a random number generator to select 10 patient records from the clinic database, ensuring each cat has an equal chance of being chosen."))
+
+# 51
+QM <- rbind(QM, c("A chef wants to know the average number of customers who order appetizers.",
+                "The chef checks orders from customers who have ordered the most expensive main courses.",
+                "The chef writes down the time of each order on a slip of paper, puts the papers in a hat, and has a server draw five slips at random, then checks the orders from those times."))
+
+# 52
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend commuting each day.",
+                "The researcher surveys people they meet on public transportation.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 53
+QM <- rbind(QM, c("A teacher wants to know the average number of words students write in their journals.",
+                "The teacher asks students who have written more extensive journal entries.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 54
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who use a gift card.",
+                "The owner checks the gift card usage for customers who have made purchases during specific promotions.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 55
+QM <- rbind(QM, c("A gardener wants to know the average number of buds on each flower.",
+                "The gardener counts buds on flowers located in a specific area of the garden that receives more water.",
+                "The gardener closes their eyes and walks randomly through the garden, counting the buds on the first 10 flowers they encounter."))
+
+# 56
+QM <- rbind(QM, c("A musician wants to know the average number of concerts they play each month.",
+                "The musician checks their concert schedule for months when they were touring in specific regions.",
+                "The musician uses a random number generator to select three months from the past year, ensuring each month has an equal chance of being chosen."))
+
+# 57
+QM <- rbind(QM, c("A biologist wants to know the average number of seeds in a specific fruit.",
+                "The biologist examines fruits from plants located near a particular stream in the forest.",
+                "The biologist divides the forest into sections and uses a random number generator to select 10 sections, then randomly selects one fruit from each chosen section."))
+
+# 58
+QM <- rbind(QM, c("A teacher wants to know the average number of hours students spend working on their homework.",
+                "The teacher asks students who have completed their homework early.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 59
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend reading each week.",
+                "The researcher surveys people they meet at a local library.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 60
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who use a discount code.",
+                "The owner checks the discount code usage for customers who have made purchases during specific promotions.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 61
+QM <- rbind(QM, c("A gardener wants to know the average number of petals on each flower.",
+                "The gardener counts petals on flowers located in a specific area of the garden that receives more sunlight.",
+                "The gardener closes their eyes and walks randomly through the garden, counting the petals on the first 10 flowers they encounter."))
+
+# 62
+QM <- rbind(QM, c("A musician wants to know the average number of songs they play in an hour.",
+                "The musician checks their setlist for concerts where they played a shorter set.",
+                "The musician uses a random number generator to select three concerts from the tour schedule, ensuring each concert has an equal chance of being chosen."))
+
+# 63
+QM <- rbind(QM, c("A biologist wants to know the average number of leaves on a specific plant.",
+                "The biologist examines plants located near a particular stream in the forest.",
+                "The biologist divides the forest into sections and uses a random number generator to select 10 sections, then randomly selects one plant from each chosen section."))
+
+# 64
+QM <- rbind(QM, c("A teacher wants to know the average number of minutes students spend completing their assignments.",
+                "The teacher asks students who have finished their assignments early.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 65
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend cooking each week.",
+                "The researcher surveys people they meet at a local cooking class.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 66
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who use a rewards program.",
+                "The owner checks the rewards program usage for customers who have made purchases over a certain amount.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 67
+QM <- rbind(QM, c("A gardener wants to know the average number of branches on each shrub.",
+                "The gardener counts branches on shrubs located in a specific area of the garden that receives more sunlight.",
+                "The gardener closes their eyes and walks randomly through the garden, counting the branches on the first 10 shrubs they encounter."))
+
+# 68
+QM <- rbind(QM, c("A musician wants to know the average number of instruments they play.",
+                "The musician checks the instruments they play for concerts where they perform with a larger band.",
+                "The musician uses a random number generator to select three concerts from the tour schedule, ensuring each concert has an equal chance of being chosen."))
+
+# 69
+QM <- rbind(QM, c("A biologist wants to know the average number of flowers on a specific plant.",
+                "The biologist examines plants located near a particular stream in the forest.",
+                "The biologist divides the forest into sections and uses a random number generator to select 10 sections, then randomly selects one plant from each chosen section."))
+
+# 70
+QM <- rbind(QM, c("A teacher wants to know the average number of minutes students spend completing their quizzes.",
+                "The teacher asks students who have finished their quizzes early.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 71
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend cleaning each week.",
+                "The researcher surveys people they meet at a local cleaning supply store.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 72
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who use a credit card.",
+                "The owner checks the credit card usage for customers who have made purchases over a certain amount.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 73
+QM <- rbind(QM, c("A gardener wants to know the average number of leaves on each tree.",
+                "The gardener counts leaves on trees located in a specific area of the garden that receives more water.",
+                "The gardener closes their eyes and walks randomly through the garden, counting the leaves on the first 10 trees they encounter."))
+
+# 74
+QM <- rbind(QM, c("A musician wants to know the average number of albums they record each year.",
+                "The musician checks their recording records for years when they were actively touring.",
+                "The musician writes each year on a separate piece of paper, puts the papers in a bowl, and has a friend draw three names at random."))
+
+# 75
+QM <- rbind(QM, c("A veterinarian wants to know the average number of times a dog visits the clinic each year.",
+                "The veterinarian checks the records of dogs who have been visiting the clinic for a longer period of time.",
+                "The veterinarian uses a random number generator to select 10 patient records from the clinic database, ensuring each dog has an equal chance of being chosen."))
+
+# 76
+QM <- rbind(QM, c("A chef wants to know the average number of customers who order salads.",
+                "The chef checks orders from customers who have ordered the most expensive entrees.",
+                "The chef writes down the time of each order on a slip of paper, puts the papers in a hat, and has a server draw five slips at random, then checks the orders from those times."))
+
+# 77
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend reading each day.",
+                "The researcher surveys people they meet at a local bookstore.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 78
+QM <- rbind(QM, c("A teacher wants to know the average number of words students write in their stories.",
+                "The teacher asks students who have written longer stories.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 79
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who use a debit card.",
+                "The owner checks the debit card usage for customers who have made purchases over a certain amount.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 80
+QM <- rbind(QM, c("A gardener wants to know the average number of fruits on each citrus tree.",
+                "The gardener counts fruits on trees located in a specific area of the garden that receives more sunlight.",
+                "The gardener uses a die to randomly select 5 citrus trees from the garden, ensuring each tree has an equal chance of being chosen."))
+
+# 81
+QM <- rbind(QM, c("A musician wants to know the average number of concerts they play each year.",
+                "The musician checks their concert schedule for years when they were touring in specific regions.",
+                "The musician uses a random number generator to select three years from the past decade, ensuring each year has an equal chance of being chosen."))
+
+# 82
+QM <- rbind(QM, c("A biologist wants to know the average number of leaves on a specific fern.",
+                "The biologist examines ferns located near a particular stream in the forest.",
+                "The biologist divides the forest into sections and uses a random number generator to select 10 sections, then randomly selects one fern from each chosen section."))
+
+# 83
+QM <- rbind(QM, c("A teacher wants to know the average number of minutes students spend completing their projects.",
+                "The teacher asks students who have already finished their projects.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 84
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend exercising each week.",
+                "The researcher surveys people they meet at a local gym.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 85
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who purchase a specific product.",
+                "The owner checks the sales records for customers who have purchased the product on previous occasions.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 86
+QM <- rbind(QM, c("A gardener wants to know the average number of fruits on each apple tree.",
+                "The gardener counts fruits on trees located in a specific area of the garden that receives more sunlight.",
+                "The gardener uses a die to randomly select 5 apple trees from the garden, ensuring each tree has an equal chance of being chosen."))
+
+# 87
+QM <- rbind(QM, c("A musician wants to know the average number of songs they write each year.",
+                "The musician checks their songwriting records for years when they were actively touring.",
+                "The musician writes each year on a separate piece of paper, puts the papers in a bowl, and has a friend draw three names at random."))
+
+# 88
+QM <- rbind(QM, c("A veterinarian wants to know the average number of times a cat visits the clinic each year.",
+                "The veterinarian checks the records of cats who have been visiting the clinic for a longer period of time.",
+                "The veterinarian uses a random number generator to select 10 patient records from the clinic database, ensuring each cat has an equal chance of being chosen."))
+
+# 89
+QM <- rbind(QM, c("A chef wants to know the average number of customers who order appetizers.",
+                "The chef checks orders from customers who have ordered the most expensive main courses.",
+                "The chef writes down the time of each order on a slip of paper, puts the papers in a hat, and has a server draw five slips at random, then checks the orders from those times."))
+
+# 90
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend commuting each day.",
+                "The researcher surveys people they meet on public transportation.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 91
+QM <- rbind(QM, c("A teacher wants to know the average number of words students write in their journals.",
+                "The teacher asks students who have written more extensive journal entries.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 92
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who use a gift card.",
+                "The owner checks the gift card usage for customers who have made purchases during specific promotions.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 93
+QM <- rbind(QM, c("A gardener wants to know the average number of buds on each flower.",
+                "The gardener counts buds on flowers located in a specific area of the garden that receives more water.",
+                "The gardener closes their eyes and walks randomly through the garden, counting the buds on the first 10 flowers they encounter."))
+
+# 94
+QM <- rbind(QM, c("A musician wants to know the average number of concerts they play each month.",
+                "The musician checks their concert schedule for months when they were touring in specific regions.",
+                "The musician uses a random number generator to select three months from the past year, ensuring each month has an equal chance of being chosen."))
+
+# 95
+QM <- rbind(QM, c("A biologist wants to know the average number of seeds in a specific fruit.",
+                "The biologist examines fruits from plants located near a particular stream in the forest.",
+                "The biologist divides the forest into sections and uses a random number generator to select 10 sections, then randomly selects one fruit from each chosen section."))
+
+# 96
+QM <- rbind(QM, c("A teacher wants to know the average number of hours students spend working on their homework.",
+                "The teacher asks students who have completed their homework early.",
+                "The teacher writes each student's name on a separate piece of paper, puts the papers in a bowl, and has a student draw five names at random."))
+
+# 97
+QM <- rbind(QM, c("A researcher wants to know the average number of hours people spend reading each week.",
+                "The researcher surveys people they meet at a local library.",
+                "The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen."))
+
+# 98
+QM <- rbind(QM, c("A store owner wants to know the average number of customers who use a discount code.",
+                "The owner checks the discount code usage for customers who have made purchases during specific promotions.",
+                "The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included."))
+
+# 99
+QM <- rbind(QM, c("A gardener wants to know the average number of petals on each flower.",
+                "The gardener counts petals on flowers located in a specific area of the garden that receives more sunlight.",
+                "The gardener closes their eyes and walks randomly through the garden, counting the petals on the first 10 flowers they encounter."))
+
+
+N = dim(QM)[1]
+ii = sample(1:N,3)
+
+q1 = QM[ii[1],]
+g1 = q1[[1]]
+b1 = q1[[2]]
+u1 = q1[[3]]
+s1 = sample(c(T,F),1)
+if(s1){
+  opt1a = u1
+  opt1b = b1
+  sol1a = "01"
+  sol1b = "10"
+  w1a = "unbiased"
+  w1b = "biased"
+} else {
+  opt1a = b1
+  opt1b = u1
+  sol1a = "10"
+  sol1b = "01"
+  w1a = "biased"
+  w1b = "unbiased"
+}
+
+q2 = QM[ii[2],]
+g2 = q2[[1]]
+b2 = q2[[2]]
+u2 = q2[[3]]
+s2 = sample(c(T,F),1)
+if(s2){
+  opt2a = u2
+  opt2b = b2
+  sol2a = "01"
+  sol2b = "10"
+  w2a = "unbiased"
+  w2b = "biased"
+} else {
+  opt2a = b2
+  opt2b = u2
+  sol2a = "10"
+  sol2b = "01"
+  w2a = "biased"
+  w2b = "unbiased"
+}
+
+q3 = QM[ii[3],]
+g3 = q3[[1]]
+b3 = q3[[2]]
+u3 = q3[[3]]
+s3 = sample(c(T,F),1)
+if(s3){
+  opt3a = u3
+  opt3b = b3
+  sol3a = "01"
+  sol3b = "10"
+  w3a = "unbiased"
+  w3b = "biased"
+} else {
+  opt3a = b3
+  opt3b = u3
+  sol3a = "10"
+  sol3b = "01"
+  w3a = "biased"
+  w3b = "unbiased"
+}
+
+
+```
+
+Question
+========
+
+*S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.*
+
+When choosing who to survey, test, or observe, it is important the sample is representative of the population. The ideal method is a [simple random sample](https://en.wikipedia.org/wiki/Simple_random_sample), but sometimes a true simple random sample is difficult to achieve in practice. Other methods can introduce [selection bias](https://en.wikipedia.org/wiki/Selection_bias), where the population is unevenly sampled, so the sample is not representatitve of the population.
+
+In each of the scenarios below, identify which sampling method would be more biased and which is closer to a simple random sample (unbiased).
+
+### Scenario 1
+
+`r g1`
+
+| sample method 1 | sample method 2 |
+|:---:|:---:|
+| `r opt1a` | `r opt1b` |
+| ##ANSWER1## | ##ANSWER2## |
+
+
+### Scenario 2
+
+`r g2`
+
+| sample method 1 | sample method 2 |
+|:---:|:---:|
+| `r opt2a` | `r opt2b` |
+| ##ANSWER3## | ##ANSWER4## |
+
+
+### Scenario 3
+
+`r g3`
+
+| sample method 1 | sample method 2 |
+|:---:|:---:|
+| `r opt3a` | `r opt3b` |
+| ##ANSWER5## | ##ANSWER6## |
+
+
+Answerlist
+--------
+
+* biased
+* unbiased
+* biased
+* unbiased
+* biased
+* unbiased
+* biased
+* unbiased
+* biased
+* unbiased
+* biased
+* unbiased
+
+
+Solution
+========
+
+
+### Scenario 1
+
+`r g1`
+
+| sample method 1 | sample method 2 |
+|:---:|:---:|
+| `r opt1a` | `r opt1b` |
+| **`r w1a`** | **`r w1b`** |
+
+
+### Scenario 2
+
+`r g2`
+
+| sample method 1 | sample method 2 |
+|:---:|:---:|
+| `r opt2a` | `r opt2b` |
+| **`r w2a`** | **`r w2b`** |
+
+
+### Scenario 3
+
+`r g3`
+
+| sample method 1 | sample method 2 |
+|:---:|:---:|
+| `r opt3a` | `r opt3b` |
+| **`r w3a`** | **`r w3b`** |
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1a`|`r sol1b`|`r sol2a`|`r sol2b`|`r sol3a`|`r sol3b`
+exname: survey_experi_obstu

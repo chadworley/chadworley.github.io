@@ -3,7 +3,9 @@ library("exams")
 outdir = "./"
 genname = "u01"
 probs = c("01_sam_stat_pop_prop.Rmd",
-          "02_survey_experi_obsstu.Rmd")
+          "02_survey_experi_obsstu.Rmd",
+          "03_sample_bias.Rmd",
+          "04_corr_or_cause.Rmd")
 
 nvers = 5
 ps = character(0)

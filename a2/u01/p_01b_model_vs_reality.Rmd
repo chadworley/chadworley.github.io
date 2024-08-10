@@ -1,0 +1,123 @@
+---
+title: "Model vs. Reality with Dice"
+subtitle: "*S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.*"
+output:
+  revealjs::revealjs_presentation:
+    theme: simple
+    highlight: haddock
+    center: true
+    transition: fade
+---
+
+## Introduction
+
+Today we're going to compare a real-world observation with a model of the world.
+
+## The Model
+
+A fair die should, in the long run, land on each of its six sides with equal proportions.
+
+Each roll should be independent of the die's history, meaning the previous rolls do not influence the next roll.
+
+We call this a [discrete-uniform distribution](https://en.wikipedia.org/wiki/Discrete_uniform_distribution).
+
+On a google spreadsheet, this can be simulated with the following function:
+
+`=RANDBETWEEN(1,6)`
+
+
+## The Simulation
+
+* We'll simulate 100 dice (in cells A1 to CV1) and record the mean of the results. (Using `=AVERAGE(A1:CV1)`).
+* We'll repeat this process a total of 1000 times, generating 1000 means.
+
+
+## The 1000 means, each from rolling 100 6-sided dice:
+
+```{r,echo=F,fig.dim=c(5,5)}
+x = sample(1:6,100*1000,T)
+x = matrix(x,1000)
+xbars = apply(x,1,mean)
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+xs = (1:20)/21
+ys = rev((1:50)/51)
+for(i in 1:50){
+  for(j in 1:20){
+    n = (i-1)*20+j
+    text(xs[j],ys[i],xbars[n],cex=0.5)
+  }
+}
+```
+
+## Histograms are useful
+
+```{r, echo=F}
+hist(xbars,main="1000 repetitions of (100d6)/100",xlab="mean")
+```
+
+## Interval of Typical Means
+
+* We can also define an **interval of typical means** as the middle 95% of the simulated means.
+* Sort the means. Eliminate the lowest 25 and highest 25, leaving the middle 950 means.
+
+## Eliminate lowest 2.5% and highest 2.5%
+
+```{r,echo=F,fig.dim=c(5,5)}
+sxb = sort(xbars)
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+xs = (1:20)/21
+ys = rev((1:50)/51)
+for(i in 1:50){
+  for(j in 1:20){
+    n = (i-1)*20+j
+    text(xs[j],ys[i],sxb[n],cex=0.5)
+    if((n<=25)||(n>975)){
+    xlo = xs[j]-1/21/3
+    xhi = xs[j]+1/21/3
+    ylo = ys[i]-1/51/3
+    yhi = ys[i]+1/51/3
+      lines(c(xlo,xhi),c(ylo,yhi),col="red")
+    }
+    if(n==26 || n==975){
+    xlo = xs[j]-1/21/2
+    xhi = xs[j]+1/21/2
+    ylo = ys[i]-1/51/2
+    yhi = ys[i]+1/51/2
+      polygon(c(xlo,xlo,xhi,xhi),c(ylo,yhi,yhi,ylo),border="blue")
+    }
+  }
+}
+```
+
+## Dotplot and interval of typical means
+
+```{r, echo=F, fig.dim=c(6,6)}
+stripchart(sxb,method="stack",offset=1,pch=19,cex=0.3,ylim=c(1,1.4),col="black")
+stripchart(sxb[1:25],method="stack",offset=1,pch=19,cex=0.3,ylim=c(1,1.4),col="red",add=T)
+stripchart(sxb[976:1000],method="stack",offset=1,pch=19,cex=0.3,ylim=c(1,1.4),col="red",add=T)
+text(sxb[26],1.25,sxb[26],col="blue")
+lines(c(sxb[26],sxb[26]),c(1.1,1.2),col="blue")
+text(sxb[975],1.25,sxb[975],col="blue")
+lines(c(sxb[975],sxb[975]),c(1.1,1.2),col="blue")
+```
+
+
+## Margin of Error
+
+We can define the **margin of error** as the radius of the middle 950 averages in our simulation.
+
+In other words, take all the averages, sort them, and find the 26th and 975th values.
+
+
+
+
+## The Observation
+
+We will make a real-world observation: rolling 100 dice, and getting a sample mean.
+
+
+## Conclusion
+
+If our observation falls within the interval of typical means or within the margin of error, we can say that it is consistent with our model. If not, it might suggest that our observation is not a typical outcome of the model.
