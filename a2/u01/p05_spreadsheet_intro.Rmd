@@ -1,0 +1,155 @@
+---
+title: "Introduction to Google Sheets"
+subtitle: "*S-ID.A: Summarize, represent, and interpret data on a single count or measurement variable. Use calculators, spreadsheets, and other technology as appropriate.*"
+output:
+  revealjs::revealjs_presentation:
+    theme: simple
+    transition: slide
+    center: true
+    slideNumber: true
+---
+
+## Welcome to Google Sheets!
+
+
+* Today, we'll explore the power of Google Sheets for analyzing data.
+* We'll learn how to use cell references, basic functions, and explore data insights.
+
+## Cell References
+
+* Each cell in a spreadsheet has a unique address: **[Column Letter][Row Number]**
+* **Example:** Cell A1 is at the intersection of column A and row 1.
+* To refer to a cell's value, simply type its address: `=A1`
+
+## Cell-reference Example
+
+* **Challenge:** Try entering `=A1+B2` in an empty cell to see the result!
+
+```{r,echo=F}
+xxx = sample(10:40,12)
+xxx = matrix(xxx,ncol=3)
+data = data.frame(xxx)
+```
+
+```{r fig.width=5,fig.height=5,echo=F}
+draw_ss = function(df,widths=rep(1,length(df[1,])+1)){
+  xline = c(0,cumsum(widths)/sum(widths))
+  nrow = length(df[,1])
+  ncol = length(df[1,])
+  xtex = (xline[2:(ncol+3)]+xline[1:(ncol+2)])/2
+  par(mar=c(0,0,0,0))
+  plot(0,0,type="n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+  hi = 1:((nrow+2)*2+1)
+  vi = 1:((ncol+1)*2+1)
+  hpos = seq(1,0,length.out=(nrow+2)*2+1)
+  vpos = seq(0,1,length.out=(ncol+1)*2+1)
+  hlin = hpos[hi%%2==1]
+  ytex = hpos[hi%%2==0]
+  vlin = vpos[vi%%2==1]
+  #xtex = vpos[vi%%2==0]
+  abline(h=hlin)
+  abline(h=hlin[2],lwd=3)
+  abline(v=xline)
+  abline(v=xline[2],lwd=3)
+  for(i in 2:(ncol+2)){
+    text(xtex[i],ytex[1],LETTERS[i-1],col=rgb(0.5,0.5,0.5))
+    #text(xtex[i],ytex[2],colnames(df)[i-1])
+  }    
+  for(i in 2:(nrow+2)){
+    text(xtex[1],ytex[i],i-1,col=rgb(0.5,0.5,0.5))
+  }
+  for(i in 1:nrow){
+    for(j in 1:ncol){
+      text(xtex[j+1],ytex[i+1],df[i,j])
+    }
+  }
+}
+draw_ss(data)
+```
+\
+
+
+## COUNT Function
+
+* **Syntax:** `=COUNT(range)`
+* **Purpose:**  Counts the number of cells in a range that contain numbers.
+* **Example:** `=COUNT(A1:A10)` counts the numbers in cells A1 through A10.
+
+## COUNT example
+
+What would be the result of putting `=COUNT(A1:B3)` in an empty cell?
+
+```{r fig.width=5,fig.height=5,echo=F}
+draw_ss(data)
+```
+\
+
+## SUM Function
+
+* **Syntax:** `=SUM(range)`
+* **Purpose:** Adds the values of all cells in a range.
+* **Example:** `=SUM(B2:B10)` sums the values in cells B2 through B10.
+
+## SUM example
+
+What would be the result of putting `=SUM(A1:B2)` in an empty cell?
+
+```{r fig.width=5,fig.height=5,echo=F}
+draw_ss(data)
+```
+\
+
+## AVERAGE Function
+
+* **Syntax:** `=AVERAGE(range)`
+* **Purpose:** Calculates the average (mean) of values in a range.
+* **Example:** `=AVERAGE(C1:C5)` calculates the average of values in cells C1 through C5.
+
+## MEDIAN Function
+
+* **Syntax:** `=MEDIAN(range)`
+* **Purpose:** Finds the middle value in a sorted range.
+* **Example:** `=MEDIAN(D1:D8)` finds the median value in cells D1 through D8.
+
+## COUNTIF Function
+
+* **Syntax:** `=COUNTIF(range, criteria)`
+* **Purpose:** Counts the number of cells in a range that meet a specific condition.
+* **Example:** `=COUNTIF(A1:A10, ">10")` counts cells in A1:A10 with values greater than 10.
+
+## COUNTIF Example
+
+```{r,echo=F}
+xl = sort(c(xxx))
+bb = xl[5]
+```
+
+What would be the result of putting ``=COUNTIF(A1:C3,"<=`r bb`")`` in an empty cell?
+
+```{r fig.width=5,fig.height=5,echo=F}
+draw_ss(data)
+```
+\
+
+
+## Sorting Your Data
+
+* **Need to organize your data in a specific order?**
+* **Google Sheets' Sort tool makes it easy!**
+* **To sort:**
+    * Select the range of data you want to sort.
+    * Go to **Data > Sort Range**.
+    * Choose the column you want to sort by and the sorting order (ascending or descending). 
+    * Click **Sort**. 
+* **Example:** Sort a list of student names alphabetically, or a column of test scores from highest to lowest.
+
+
+## Practice Time
+
+* 
+
+## Conclusion
+
+* You've learned to use basic functions in Google Sheets!
+* These tools empower you to analyze data effectively.
+* Explore further with more functions and features!
