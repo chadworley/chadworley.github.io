@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two List Reshuffler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        #outputTable {
+            display: none; /* Initially hidden */
+            max-height: 300px;
+            overflow-y: auto; /* Scrollable */
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Two List Reshuffler</h1>
+    <label for="list1">List 1 (comma-separated):</label><br>
+    <textarea id="list1" rows="5" cols="30"></textarea><br><br>
+    
+    <label for="list2">List 2 (comma-separated):</label><br>
+    <textarea id="list2" rows="5" cols="30"></textarea><br><br>
+    
+    <label for="reshuffles">Number of reshufflings:</label>
+    <input type="number" id="reshuffles" value="1000" min="1" max="10000"><br><br>
+    
+    <button onclick="reshuffle()">Reshuffle</button>
+    
+    
+    <h2>Output</h2>
+  <button id="copyButton" style="display:none;" onclick="copyToClipboard()">Copy to Clipboard</button>
+    <div id="outputTable">
+        <table>
+            <thead>
+                <tr id="headerRow"></tr>
+            </thead>
+            <tbody id="outputBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function reshuffle() {
+            const list1 = document.getElementById("list1").value.split(',').map(x => x.trim());
+            const list2 = document.getElementById("list2").value.split(',').map(x => x.trim());
+            const reshuffles = parseInt(document.getElementById("reshuffles").value, 10) || 1000;
+
+            const outputBody = document.getElementById("outputBody");
+            const headerRow = document.getElementById("headerRow");
+            outputBody.innerHTML = ''; // Clear previous output
+            headerRow.innerHTML = ''; // Clear previous headers
+            document.getElementById("copyButton").style.display = 'inline'; // Show copy button
+
+            // Create header cells for Group 1
+            list1.forEach(() => {
+                const th = document.createElement('th');
+                th.textContent = 'Group 1';
+                headerRow.appendChild(th);
+            });
+
+            // Add empty delimiter cell
+            headerRow.appendChild(document.createElement('th'));
+
+            // Create header cells for Group 2
+            list2.forEach(() => {
+                const th = document.createElement('th');
+                th.textContent = 'Group 2';
+                headerRow.appendChild(th);
+            });
+
+            for (let i = 0; i < reshuffles; i++) {
+                const combined = [...list1, ...list2].sort(() => Math.random() - 0.5);
+                const group1 = combined.slice(0, list1.length);
+                const group2 = combined.slice(list1.length, list1.length + list2.length);
+
+                const row = document.createElement('tr');
+
+                // Add elements of Group 1
+                group1.forEach(element => {
+                    const cell = document.createElement('td');
+                    cell.textContent = element;
+                    row.appendChild(cell);
+                });
+
+                // Add empty cell between groups
+                row.appendChild(document.createElement('td'));
+
+                // Add elements of Group 2
+                group2.forEach(element => {
+                    const cell = document.createElement('td');
+                    cell.textContent = element;
+                    row.appendChild(cell);
+                });
+
+                outputBody.appendChild(row);
+            }
+
+            document.getElementById("outputTable").style.display = 'block'; // Show the table
+        }
+
+        function copyToClipboard() {
+            const tempTextArea = document.createElement('textarea');
+            const outputHtml = document.getElementById("outputTable").innerText;
+            tempTextArea.value = outputHtml;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+            alert('Data copied to clipboard!');
+        }
+    </script>
+</body>
+</html>
