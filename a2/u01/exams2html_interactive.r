@@ -12,7 +12,8 @@ probs = c("01_sam_stat_pop_prop.Rmd",
           "08_make_hist_see_shape.Rmd",
           "09_ME_dice_tots.Rmd",
           "10_prop_test_sim.Rmd",
-          "11_resample_mean_ME.Rmd")
+          "11_resample_mean_ME.Rmd",
+          "12_reshuffle_two_mean.Rmd")
 
 nvers = 5
 ps = character(0)

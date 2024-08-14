@@ -34,14 +34,114 @@ names = sort(sample(names_vector,2))
 p1 = names[1]
 p2 = names[2]
 
-mu = 220
-sig = 20
+is_diff_signif = sample(c(T,F),1)
+
+if(is_diff_signif){
+    bnds = c(960,999)
+    bt = c(950,1000)
+    bi = 5
+    q7sol = "10"
+    q8sol = "10"
+    sym = "<"
+    sigwrd = ""
+} else {
+    bi = sample(1:4,1)
+    bnds = list(c(605,695),c(705,795),c(805,895),c(902,948))[[bi]]
+    bt = list(c(600,700),c(700,800),c(800,900),c(900,950))[[bi]]
+    q7sol = "01"
+    q8sol = "01"
+    sym = "\\ge"
+    sigwrd = "NOT"
+}
+
+posses = list(c(600,700),c(700,800),c(800,900),c(900,950),c(950,1000))
+solbnd = posses[[bi]]
+
+q4al = c("* (600,700)\n* (700,800)\n* (800,900)\n* (900,950)\n* (950,1000)")
+q5al = c("* (0,50)\n* (50,100)\n* (100,200)\n* (200,300)\n* (300,400)")
+q6al = c("* (0,0.05)\n* (0.05,0.1)\n* (0.1,0.2)\n* (0.2,0.3)\n* (0.3,0.4)")
+q7al = c("* Yes. The observed difference is significant.\n* No. The observed difference is not significant.")
+q8al = c("* Yes.\n* No.")
+
+q4sol = paste0(1*(1:5==bi),collapse="")
+q5sol = paste0(1*(1:5==(6-bi)),collapse="")
+q6sol = paste0(1*(1:5==(6-bi)),collapse="")
+
+
 
 while(T){
-  
+    mu = 220
+    siga = sample(8:30,1)
+    sigb = siga*2^runif(1,-1,1)
+    sig = sample(c(siga,sigb))
+    ns = sample(6:12,2)
+    app_mes = sig*2/sqrt(ns)
+    app_me_diff = sqrt(sum(app_mes^2))*sample(c(-1,1),1)
+    mu1 = mu-app_me_diff/2
+    mu2 = mu+app_me_diff/2
+    n1 = ns[1]
+    n2 = ns[2]
+    sig1 = sig[1]
+    sig2 = sig[2]
+    sam1 = round(rnorm(n1,mu1,sig1))
+    sam2 = round(rnorm(n2,mu2,sig2))
+    xbd = abs(mean(sam2)-mean(sam1))
+    rsd = numeric()
+    howmany = numeric()
+    for(i in 1:100){
+        for(i in 1:1000){
+            shuff = sample(c(sam1,sam2))
+            rs1 = shuff[1:n1]
+            rs2 = shuff[(n1+1):(n1+n2)]
+            rsd = c(rsd,abs(mean(rs2)-mean(rs1)))
+        }
+        howmany = c(howmany,sum(rsd<xbd))
+        rsd = numeric()
+        if(min(howmany)<bnds[1]+1 || max(howmany)>bnds[2]-1 || xbd<1){
+            break
+        }
+    }
+    if(length(howmany)==100){break}
+}
+
+xbar1 = round(mean(sam1),3)
+xbar2 = round(mean(sam2),3)
+obs_adm = abs(xbar2-xbar1)
+
+opts_al_sol = function(value,del,nchoice){
+    bbb = nchoice-1
+    opts = value-sample(0:bbb,1)*del+(0:bbb)*del
+    al = paste0("* ",opts,collapse="\n")
+    sol = paste0(1*(value==opts),collapse="")
+    return(list(opts,al,sol))
+}
+
+xbar1oas = opts_al_sol(xbar1,1,4)
+xbar2oas = opts_al_sol(xbar2,1,4) 
+odoas = opts_al_sol(abs(xbar2-xbar1),1,4)
+
+ALs = character()
+SOLs = character()
+
+for(i in 1:5){
+    b1b2 = posses[[i]]
 }
 
 
+
+if(xbar1>xbar2){
+    better = p1
+    worse = p2
+} else {
+    better = p2
+    worse = p1
+}
+
+if(is_diff_signif){
+    q8sent = paste0("Because the difference is significant, and we know ",better," scored higher, we can say ",better," is a more skilled archer than ",worse,".")
+} else {
+    q8sent = paste0("Because the difference is NOT significant, we are left with two possibilities: either they are equally skilled archers or need more data to detect the difference in skill.")
+}
 
 ```
 
@@ -50,18 +150,232 @@ Question
 
 *S-IC.B.5: Use data from a randomized experiment to compare two treatments; use simulations to decide if differences between parameters are significant.*
 
-`r p1` and `r p2` wonder if they are equally skilled at archery.
+`r p1` and `r p2` wonder if they are equally skilled at archery. They decide to compare this year's scores using a two-tail [approximate permutation test](https://en.wikipedia.org/wiki/Permutation_test), using a significance level of 5%.
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+
+```{r tab_data, echo=FALSE, results="asis"}
+opts <- options(knitr.kable.NA = "")
+ml = max(length(sam1),length(sam2))
+sa1 = c(sam1,rep(NA,ml-length(sam1)+1))
+sa2 = c(sam2,rep(NA,ml-length(sam2)+1))
+mydf = data.frame(sa1,sa2)
+colnames(mydf) = c(p1,p2)
+knitr::kable(mydf,format="html", align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+```{r,echo=F}
+sampool = c(sam1,sam2)
+lo = floor(min(sampool)/10)*10
+hi = ceiling(max(sampool)/10)*10
+plot1 <- hist(sam1,breaks=seq(lo,hi,10),plot=F)                    
+plot2 <- hist(sam2,breaks=seq(lo,hi,10),plot=F)
+dens1 = (plot1$counts)/n1
+dens2 = (plot2$counts)/n2
+mxden = max(c(dens1,dens2))
+plot(plot1, col=rgb(0,0,1,1/4), xlim=c(lo,hi), ylim=c(0,max(c(plot1$counts,plot2$counts))*1.1),
+     main=paste0(""),
+     xlab="score",xaxt = "n")
+plot(plot2, col=rgb(1,0,0,1/4), add=T)
+cnts1 = numeric()
+axis(1,at=seq(lo,hi,10))
+legend("topleft",legend=c(p1,p2),fill=c(rgb(0,0,1,1/4),rgb(1,0,0,1/4)),)
+```
+\
+
+To run the test, first calculate the observed absolute difference of sample means.
+
+* `r p1`'s sample mean = $\bar{x}_1 =$ ##ANSWER1##
+* `r p2`'s sample mean = $\bar{x}_2 =$ ##ANSWER2##
+* The absolute difference = $|\bar{x}_2 - \bar{x}_1| =$ ##ANSWER3##
+
+## Permutation Test
+
+1. Reshuffle those two samples 1000 times. I'd recommend [this tool](https://chadworley.github.io/a2/tools/two_list_reshuffler.html), which wants comma-separated data, so here are the samples in that format:
+
+    `r paste0(sam1,collapse=", ")`
+
+    `r paste0(sam2,collapse=", ")`
+
+    Notice this reshuffling is equivalent to putting all the scores on cards, shuffling them all together, and then dealing into two piles (repeated 1000 times). Notice, `r p1` had `r n1` scores, so one pile always gets `r n1` numbers, and the other pile gets `r n2` numbers. We are simulating the hypothesis that maybe both people's sample came from equivalent populations with a difference of sample means from natural variation, not unequal skill. We will then see if the observed difference is copacetic with the simulated differences.
+
+2. Paste the 1000 rows into a spreadsheet.
+3. For each row, find the absolute difference of the means. Remember, spreadsheets have `=ABS()` for absolute value and `=AVERAGE()` to find a mean.
+4. How many times was the simulation's absolute difference of means smaller than the observed absolute difference of means. (Choose an interval.)
+
+* ##ANSWER4##
+
+5. How many times was the simulation's difference as big or bigger than the observation's difference? (Choose an interval.)
+
+* ##ANSWER5##
+
+6. What **proportion** of the time was the simulation as big or bigger? (In statistics this is called the $p$-value.) (Choose an interval.)
+
+* ##ANSWER6##
+
+7. If the $p$-value is less than 0.05, then the difference is significant. Otherwise, the difference is not significant. Is the difference significant?
+
+* ##ANSWER7##
+
+8. So, then, can we conclude that `r better` is significantly better than `r worse` at archery?
+
+* ##ANSWER8##
+
+Answerlist
+--------
+
+`r xbar1oas[2]`
+`r xbar2oas[2]`
+`r odoas[2]`
+`r q4al`
+`r q5al`
+`r q6al`
+`r q7al`
+`r q8al`
 
 
 
 Solution
 ========
 
+* $\bar{x}_1= `r xbar1`$
+* $\bar{x}_2= `r xbar2`$
+* $|\bar{x}_2-\bar{x}_1| = `r obs_adm`$
+* Your number of sim diffs less than the obs diff "should" be between `r min(howmany)` and `r max(howmany)`. So you would pick interval $(`r solbnd[1]`,`r solbnd[2]`)$.
+* Your number of sim diffs greater than or equal to the obs diff "should" be between `r min(1000-howmany)` and `r max(1000-howmany)`. So you would pick interval $(`r 1000-solbnd[2]`,`r 1000-solbnd[1]`)$.
+* Your $p$-value should be between `r min(1000-howmany)/1000` and `r max(1000-howmany)/1000`. So, you would pick interval $(`r round((1000-solbnd[2])/1000,4)`,`r round((1000-solbnd[1])/1000,4)`)$
+* `r if(is_diff_signif){"Yes. The difference is significant."}else{"No. The difference is not significant."}`
+* `r if(is_diff_signif){paste0("Yes. There is a detectible difference, and ",better," scored higher on average",collapse="")}else{"No. They either have equal population means or need more data to detect the difference."}`
+
+### Sample means (Questions 1 and 2)
+
+$$\bar{x}_1=\frac{`r paste0(sam1,collapse="+")`}{`r n1`} = `r xbar1`$$
+
+$$\bar{x}_2=\frac{`r paste0(sam2,collapse="+")`}{`r n2`} = `r xbar2`$$
+
+### Observed absolute difference of means (Question 3)
+
+$$|\bar{x}_2-\bar{x}_1| ~=~ |`r xbar2`-`r xbar1`| ~=~ `r obs_adm`$$
+
+### Simulation  (Question 4)
+
+1. Use the [two-list reshuffler](https://chadworley.github.io/a2/tools/two_list_reshuffler.html) with 1000 rows. You'll notice that `r p1` had `r n1` scores and `r p2` had `r n2` scores. You should picture each score written on a card in a deck of `r n1+n2` cards. You then shuffle the cards and deal them back into two piles with `r n1` cards and `r n2` cards.
+
+```{r,echo=F}
+LETS = c(LETTERS)
+for(i in LETTERS){
+  LETS = c(LETS,paste0(i,LETTERS))
+}
+g1r = LETS[n1]
+g2l = LETS[n1+2]
+g2r = LETS[n1+n2+2]
+col_adm = LETS[n1+n2+4]
+col_test = LETS[n1+n2+5]
+col_work = LETS[n1+n2+6]
+```
+
+2. Copy all the data into a [new spreadsheet](https://sheets.new). Click on A1 and paste (`ctrl+v`) to use A2:`r g2r`1001 to hold the data. (The first row with be a header with labels.)
+
+3. With each repetition (row) you should find an absolute difference of means. You might need to add some more columns to the right of the data to follow these instructions. 
+    * *An easy way to add a bunch of columns: press `ctrl+a`, maybe twice, to highlight all rows and columns; click `Insert>Columns>Columns to the right`.*
+
+    In cell `r col_adm`2, calculate the absolute difference of means with ``=ABS(AVERAGE(A2:`r g1r`2)-AVERAGE(A`r g2l`2:`r g2r`2))``. Hit Enter. Select `r col_adm`2. Hit `ctrl+shift+down` and `ctrl+enter` to copy the formula down the whole column. You now have the 1000 simulated differences.
+
+4. Personally, I would now sort the sheet by column `r col_adm`.
+
+5. Now, we want to compare each (absolute) difference to the observed difference of `r obs_adm`. To do that, in cell `r col_test`2 write ``=IF(`r col_adm`2 < `r obs_adm`, 1, 0)``. Hit `Enter`. Click back on cell `r col_test`2; type `ctrl+shift+down` and `ctrl+enter` to copy the formula down. 
+
+6. Count how many 1s (trues) there are. In cell `r col_work`2, write ``=SUM(`r col_test`:`r col_test`)`` to count up the ones.
+    * I should mention that you could have just used ``=COUNTIF(`r col_adm`:`r col_adm`,"<`r obs_adm`")``.
+    
+    You have your answer to question 4. I've made a visualization of my simulation. Your simulated data will be different but similar.
+    
+    ```{r,fig.dim=c(6,6),echo=F}
+while(T){
+    rsd = numeric()
+    for(i in 1:1000){
+        shuff = sample(c(sam1,sam2))
+        rs1 = shuff[1:n1]
+        rs2 = shuff[(n1+1):(n1+n2)]
+        rsd = c(rsd,abs(mean(rs2)-mean(rs1)))
+    }
+    plt1 = hist(rsd,plot = F,breaks=100)
+    num = sum(plt1$counts[plt1$mids<obs_adm])
+    num2 = num
+    if(bnds[1]<num && num<bnds[2]){
+        break
+    }
+}
+
+plot(0,0,"n",
+    xlim=c(0,max(c(plt1$breaks,rsd))),
+    ylim=c(-max(plt1$counts)/10,max(plt1$counts)*1.1),
+    main="1000 shuffles vs. observation",
+    xlab="absolute difference of means",
+    ylab="frequency")
+for(i in 1:length(plt1$mids)){
+    for(j in 1:plt1$counts[i]){
+        if(plt1$mids[i]<obs_adm){
+            col = rgb(0,0,1,0.5)
+        } else {
+            col = rgb(1,0,0,0.5)
+        }
+        if(plt1$counts[i]>0){
+            points(plt1$mids[i],j,pch=19,cex=0.2,col=col)
+        }
+    }
+}
+bbb = max(plt1$counts)/10
+bb2 = bbb*10
+abline(h=0)
+polygon(c(0,0,obs_adm,obs_adm),c(0,bb2*1.05,bb2*1.05,0),border="blue")
+text(obs_adm/2,bb2*1.075,num2,col="blue")
+polygon(c(obs_adm,obs_adm,max(c(plt1$breaks,rsd)),max(c(plt1$breaks,rsd))),c(0,bb2*1.05,bb2*1.05,0),border="red")
+text((obs_adm+max(rsd))/2,bb2*1.075,1000-num2,col="red")
+lines(c(obs_adm,obs_adm),c(bb2*1.05,-bbb/2),col="purple")
+text(obs_adm,-3*bbb/4,sprintf("%.3f",obs_adm),col="purple")  
+    ```
+    \
+
+    For these instructions, we will say the answer to question 4 is `r num2`.
+    
+## Question 5    
+    
+To get the answer to question 5, give the absolute difference between your answer to question 4 and 1000. So, for my simulation: $1000-`r num2`=`r 1000-num2`$.
+
+## Question 6
+
+Divide your answer to question 5 by 1000. So, for my simulation:
+$$p\mathrm{-value} = `r (1000-num2)/1000`$$
+
+## Question 7
+
+Because $p-\mathrm{value} `r sym` 0.05$, we say the difference is `r sigwrd` significant.
+
+## Question 8
+
+``r q8sent`
 
 
 Meta-information
 ================
 extype: cloze
-exclozetype: schoice|schoice|schoice|schoice
-exsolution: 
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r xbar1oas[3]`|`r xbar2oas[3]`|`r odoas[3]`|`r q4sol`|`r q5sol`|`r q6sol`|`r q7sol`|`r q8sol`
 exname: reshuffle_two_mean_test
