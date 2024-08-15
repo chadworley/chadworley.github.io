@@ -2,11 +2,162 @@
 <html>
 <head>
     <title>SAT</title>
+    <script>
+        let allImages = []; // Store all available images
+        let currentSet = []; // Store the currently allowed images when "Restrict Set" is checked
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialImage = urlParams.get('image');
+            const imageSelect = document.getElementById('imageSelect');
+            const imgDisplay = document.getElementById('imageDisplay');
+
+            // Collect all available images and populate the dropdown
+            const options = imageSelect.options;
+            allImages = Array.from(options).map(option => option.value.replace('.png', ''));
+
+            // If there's a specific image in the URL, use it; otherwise, select a random one
+            if (initialImage) {
+                imageSelect.value = initialImage + ".png"; // Append .png for proper display
+                showImage(initialImage + ".png");
+            } else {
+                selectRandomImage();
+            }
+
+            const randomButton = document.getElementById('randomButton');
+            randomButton.onclick = function() {
+                selectRandomImage();
+            }
+            
+            // Listen for the checkbox
+            const filterCheckbox = document.getElementById('filterCheckbox');
+            filterCheckbox.onchange = function() {
+                if (filterCheckbox.checked) {
+                    restrictImages();
+                } else {
+                    resetDropdown();
+                }
+            };
+            
+            // Listen for dropdown change
+            imageSelect.onchange = function() {
+                showImage(this.value);
+            };
+
+            // Listen for keyboard arrow keys
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'ArrowLeft') {
+                    goToPreviousImage();
+                } else if (event.key === 'ArrowRight') {
+                    goToNextImage();
+                }
+            });
+        };
+
+        function restrictImages() {
+            const st = prompt("Enter stems separated by commas (e.g., 01_302, 01_405):");
+            if (!st) return;  // If no input is provided, return
+
+            const stems = st.split(',').map(s => s.trim());
+            const imageSelect = document.getElementById('imageSelect');
+
+            currentSet = stems; // Update the current set for navigation
+
+            // Update dropdown to show only allowed images
+            for (let i = 0; i < imageSelect.options.length; i++) {
+                const filename = imageSelect.options[i].value.replace('.png', '');
+                imageSelect.options[i].style.display = stems.includes(filename) ? 'block' : 'none';
+            }
+
+            // Reset selection if it was hidden
+            if (!stems.includes(imageSelect.value.replace('.png', ''))) {
+                selectRandomImage(); // Select a random image from filtered ones
+            }
+        }
+
+        function resetDropdown() {
+            const imageSelect = document.getElementById('imageSelect');
+            currentSet = []; // Clear the current set
+            for (let i = 0; i < imageSelect.options.length; i++) {
+                imageSelect.options[i].style.display = 'block'; // Show all options
+            }
+        }
+
+        function selectRandomImage() {
+            const imageSelect = document.getElementById('imageSelect');
+            const filteredImages = Array.from(imageSelect.options)
+                                        .filter(option => option.style.display !== 'none');
+            if (filteredImages.length > 0) {
+                const randomIndex = Math.floor(Math.random() * filteredImages.length);
+                const randomImage = filteredImages[randomIndex].value;
+
+                imageSelect.value = randomImage; // Show random image
+                showImage(randomImage);
+            }
+        }
+
+        function showImage(imageName) {
+            const imgDisplay = document.getElementById('imageDisplay');
+            imgDisplay.src = imageName; // Displays the selected image
+            imgDisplay.alt = "Selected Image"; // Adding alt text for accessibility
+
+            // Update the URL without reloading
+            const baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            const newUrl = baseUrl + "?image=" + imageName.replace(".png", ""); // Remove '.png' for the URL
+            window.history.replaceState(null, '', newUrl);
+        }
+
+        function goToNextImage() {
+            const imageSelect = document.getElementById('imageSelect');
+            const currentIndex = imageSelect.selectedIndex;
+
+            // Find the next visible image
+            for (let i = currentIndex + 1; i < imageSelect.options.length; i++) {
+                if (imageSelect.options[i].style.display !== 'none') {
+                    imageSelect.selectedIndex = i;
+                    showImage(imageSelect.options[i].value);
+                    return;
+                }
+            }
+
+            // Wrap around if at the end
+            for (let i = 0; i < currentIndex; i++) {
+                if (imageSelect.options[i].style.display !== 'none') {
+                    imageSelect.selectedIndex = i;
+                    showImage(imageSelect.options[i].value);
+                    return;
+                }
+            }
+        }
+
+        function goToPreviousImage() {
+            const imageSelect = document.getElementById('imageSelect');
+            const currentIndex = imageSelect.selectedIndex;
+
+            // Find the previous visible image
+            for (let i = currentIndex - 1; i >= 0; i--) {
+                if (imageSelect.options[i].style.display !== 'none') {
+                    imageSelect.selectedIndex = i;
+                    showImage(imageSelect.options[i].value);
+                    return;
+                }
+            }
+
+            // Wrap around if at the beginning
+            for (let i = imageSelect.options.length - 1; i > currentIndex; i--) {
+                if (imageSelect.options[i].style.display !== 'none') {
+                    imageSelect.selectedIndex = i;
+                    showImage(imageSelect.options[i].value);
+                    return;
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <label for="imageSelect">Question ID:</label>
     <select id="imageSelect">
- <option value="01_301.png">01_301</option>
+        <option value="01_301.png">01_301</option>
  <option value="01_302.png">01_302</option>
  <option value="01_303.png">01_303</option>
  <option value="01_304.png">01_304</option>
@@ -803,18 +954,14 @@
  <option value="14_226.png">14_226</option>
  <option value="14_227.png">14_227</option>
     </select>
-    <br><br>
-    <img id="selectedImage" src="01_301.png" alt="Selected Image">
+    <button id="randomButton">Randomize!</button>
+    <button onclick="goToPreviousImage()">&#10094; Previous</button>
+    <button onclick="goToNextImage()">Next &#10095;</button>
     
-    <script>
-        const imageSelect = document.getElementById('imageSelect');
-        const selectedImage = document.getElementById('selectedImage');
-        
-        imageSelect.addEventListener('change', function() {
-            const selectedOption = imageSelect.options[imageSelect.selectedIndex];
-            const imageName = selectedOption.value;
-            selectedImage.src = imageName;
-        });
-    </script>
+    <div style="margin-top: 10px;">
+        <input type="checkbox" id="filterCheckbox"> Restrict Set
+    </div>
+    
+    <img id="imageDisplay" src="" alt="Selected Image" style="display: block; margin-top: 20px;">
 </body>
 </html>
