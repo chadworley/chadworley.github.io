@@ -3,6 +3,8 @@ import time
 from datetime import datetime, timedelta
 import os
 
+#
+
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
 headers = {"Authorization": f"Bearer {access_token}"}
@@ -17,7 +19,9 @@ def set_quiz_ass(name,avt,dut):
     data = {'quiz[due_at]': dut,
             "quiz[unlock_at]": avt,
             "quiz[shuffle_answers]": 0,
-            "quiz[published]": 1}
+            "quiz[published]": 1,
+            "quiz[notify_of_update]":0,
+            "quiz[allowed_attempts]":3}
     response = requests.put(url+str(myid),data=data,headers=headers)
     url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"
     response = requests.get(url,data=searchdata,headers=headers)
@@ -45,7 +49,7 @@ for i in range(0,30):
         avts[ddel]=day.strftime("%Y-%m-%d")+"T12:00:00Z"
         duts[ddel]=(day+timedelta(days=1)).strftime("%Y-%m-%d")+"T03:59:00Z"
 
-for i in range(5,18):
+for i in range(1,3):
     name = "ET_"+"{:03d}".format(i)
     avt = avts[i]
     dut = duts[i]
