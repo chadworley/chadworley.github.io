@@ -1,8 +1,8 @@
 library("exams")
 
 outdir = "./"
-genname = "frieze"
-probs = c("01_recognize_Frieze_group.Rmd")
+genname = "transforms"
+probs = c("02_tra_rot_gli_mir.Rmd")
 
 nvers = 10
 ps = character(0)
