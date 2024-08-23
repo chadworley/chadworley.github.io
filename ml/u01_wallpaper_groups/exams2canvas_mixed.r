@@ -3,9 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "u01_"
 
-probs = c("01_recognize_Frieze_group.Rmd")
+probs = c("02_tra_rot_gli_mir.Rmd")
 
-pnts = 10
+pnts = 8
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
