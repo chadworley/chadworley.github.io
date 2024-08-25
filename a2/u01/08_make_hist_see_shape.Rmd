@@ -23,6 +23,8 @@ x = data[,type]
 
 ans1 = paste0((type==ord)*1,collapse="")
 ans2 = paste0((1:5==type)*1,collapse="")
+
+y = lapply(x, function(xx) sprintf("%5.2f",xx))
 ```
 
 
@@ -33,31 +35,7 @@ Question
 
 A sample of size $n=`r n`$ was taken from an unknown population. The sample is shown below:
 
-<style type="text/css" rel="stylesheet">
-.bordered-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    border:2px solid #000000;
-}
-.bordered-table th {
-    border:2px solid #000000;
-    padding: 4px;
-}
-.bordered-table td{
-    border:1px solid #000000;
-    padding: 4px;
-}
-</style>
-
-```{r tab1, results="asis",echo=FALSE,warning=F}
-library('kableExtra')
-y = lapply(x, function(xx) sprintf("%5.2f",xx))
-data2 = data.frame(matrix(y,ncol=1))
-colnames(data2) = c("x")
-knitr::kable(data2,format="html",table.attr='class="bordered-table"',row.names = T, align = "lcc")%>%
-    kable_styling() %>%
-    scroll_box(width = "500px", height = "500px")
-```
+`r paste0(y,collapse=",")`
 
 Use those data to draw a histogram. 
 
