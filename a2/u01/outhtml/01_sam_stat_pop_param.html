@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>01_sam_stat_pop_param</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 5;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">01_sam_stat_pop_param</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based on a random sample from that population.</em></p>
+<h3 id="background-and-future-connections">Background and future connections</h3>
+<p>Below are some important definitions:</p>
+<ul>
+<li>Sample: A smaller group taken from the population.</li>
+<li>Sample Statistic: A number that describes the sample.</li>
+<li>Population: The entire group of interest.</li>
+<li>Population Parameter: A number that describes the entire population.</li>
+</ul>
+<p>In Statistics, we learn a process for making inferences about population parameters based
+on a random sample from that population. For a simple parameter, like an average or proportion, the sample statistic will be a best-guess estimate for the corresponding population parameter (for estimating the population’s <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, we will use <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a> to find a best-guess estimate from the sample). Later, we will also learn how to express the amount of uncertainty in the estimation. (See <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence interval</a> and <a href="https://en.wikipedia.org/wiki/Margin_of_error">margin of error</a> to preview how we express uncertainty about the population parameter.)</p>
+<p>For now, let’s practice identifying the sample, statistic, population, and parameter.</p>
+<h3 id="actual-question">Actual Question</h3>
+<p>A park ranger wants to know the average age of all the oak trees in a forest. They randomly select <span class="math inline">\(20\)</span> oak trees and find an average age of <span class="math inline">\(100\)</span> years.</p>
+<p>The four concepts are described in random order below.</p>
+<ol style="list-style-type: lower-alpha">
+<li>All the oak trees in the forest</li>
+<li>The <span class="math inline">\(20\)</span> oak trees that the ranger selected</li>
+<li>The average age of <span class="math inline">\(100\)</span> years found in the sample of oak trees</li>
+<li>The average age of all the oak trees in the forest</li>
+</ol>
+<p>Match the concept to the description.</p>
+<ol style="list-style-type: decimal">
+<li>Sample = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Statistic = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Population = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Parameter = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>Sample = b = The <span class="math inline">\(20\)</span> oak trees that the ranger selected</li>
+<li>Sample Statistic = c = The average age of <span class="math inline">\(100\)</span> years found in the sample of oak trees</li>
+<li>Population = a = All the oak trees in the forest</li>
+<li>Population Parameter = d = The average age of all the oak trees in the forest</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based on a random sample from that population.</em></p>
+<h3 id="background-and-future-connections">Background and future connections</h3>
+<p>Below are some important definitions:</p>
+<ul>
+<li>Sample: A smaller group taken from the population.</li>
+<li>Sample Statistic: A number that describes the sample.</li>
+<li>Population: The entire group of interest.</li>
+<li>Population Parameter: A number that describes the entire population.</li>
+</ul>
+<p>In Statistics, we learn a process for making inferences about population parameters based
+on a random sample from that population. For a simple parameter, like an average or proportion, the sample statistic will be a best-guess estimate for the corresponding population parameter (for estimating the population’s <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, we will use <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a> to find a best-guess estimate from the sample). Later, we will also learn how to express the amount of uncertainty in the estimation. (See <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence interval</a> and <a href="https://en.wikipedia.org/wiki/Margin_of_error">margin of error</a> to preview how we express uncertainty about the population parameter.)</p>
+<p>For now, let’s practice identifying the sample, statistic, population, and parameter.</p>
+<h3 id="actual-question">Actual Question</h3>
+<p>A librarian is interested in the average number of pages in all the books in the library’s children’s section. They randomly select <span class="math inline">\(15\)</span> books from the children’s section and find an average of <span class="math inline">\(80\)</span> pages per book.</p>
+<p>The four concepts are described in random order below.</p>
+<ol style="list-style-type: lower-alpha">
+<li>All the books in the library’s children’s section</li>
+<li>The average of <span class="math inline">\(80\)</span> pages per book found in the sample</li>
+<li>The average number of pages in all the books in the library’s children’s section</li>
+<li>The <span class="math inline">\(15\)</span> books that the librarian selected</li>
+</ol>
+<p>Match the concept to the description.</p>
+<ol style="list-style-type: decimal">
+<li>Sample = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Statistic = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Population = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Parameter = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>Sample = d = The <span class="math inline">\(15\)</span> books that the librarian selected</li>
+<li>Sample Statistic = b = The average of <span class="math inline">\(80\)</span> pages per book found in the sample</li>
+<li>Population = a = All the books in the library’s children’s section</li>
+<li>Population Parameter = c = The average number of pages in all the books in the library’s children’s section</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based on a random sample from that population.</em></p>
+<h3 id="background-and-future-connections">Background and future connections</h3>
+<p>Below are some important definitions:</p>
+<ul>
+<li>Sample: A smaller group taken from the population.</li>
+<li>Sample Statistic: A number that describes the sample.</li>
+<li>Population: The entire group of interest.</li>
+<li>Population Parameter: A number that describes the entire population.</li>
+</ul>
+<p>In Statistics, we learn a process for making inferences about population parameters based
+on a random sample from that population. For a simple parameter, like an average or proportion, the sample statistic will be a best-guess estimate for the corresponding population parameter (for estimating the population’s <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, we will use <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a> to find a best-guess estimate from the sample). Later, we will also learn how to express the amount of uncertainty in the estimation. (See <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence interval</a> and <a href="https://en.wikipedia.org/wiki/Margin_of_error">margin of error</a> to preview how we express uncertainty about the population parameter.)</p>
+<p>For now, let’s practice identifying the sample, statistic, population, and parameter.</p>
+<h3 id="actual-question">Actual Question</h3>
+<p>A scientist wants to know the average size of all the leaves on a tree. They collect <span class="math inline">\(30\)</span> leaves from the tree and measure their area. The average area of the leaves in their sample is <span class="math inline">\(10\)</span> square centimeters.</p>
+<p>The four concepts are described in random order below.</p>
+<ol style="list-style-type: lower-alpha">
+<li>The <span class="math inline">\(30\)</span> leaves that the scientist collected</li>
+<li>The average size of all the leaves on the tree</li>
+<li>All the leaves on the tree</li>
+<li>The average area of <span class="math inline">\(10\)</span> square centimeters found in the sample of leaves</li>
+</ol>
+<p>Match the concept to the description.</p>
+<ol style="list-style-type: decimal">
+<li>Sample = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Statistic = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Population = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Parameter = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>Sample = a = The <span class="math inline">\(30\)</span> leaves that the scientist collected</li>
+<li>Sample Statistic = d = The average area of <span class="math inline">\(10\)</span> square centimeters found in the sample of leaves</li>
+<li>Population = c = All the leaves on the tree</li>
+<li>Population Parameter = b = The average size of all the leaves on the tree</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based on a random sample from that population.</em></p>
+<h3 id="background-and-future-connections">Background and future connections</h3>
+<p>Below are some important definitions:</p>
+<ul>
+<li>Sample: A smaller group taken from the population.</li>
+<li>Sample Statistic: A number that describes the sample.</li>
+<li>Population: The entire group of interest.</li>
+<li>Population Parameter: A number that describes the entire population.</li>
+</ul>
+<p>In Statistics, we learn a process for making inferences about population parameters based
+on a random sample from that population. For a simple parameter, like an average or proportion, the sample statistic will be a best-guess estimate for the corresponding population parameter (for estimating the population’s <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, we will use <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a> to find a best-guess estimate from the sample). Later, we will also learn how to express the amount of uncertainty in the estimation. (See <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence interval</a> and <a href="https://en.wikipedia.org/wiki/Margin_of_error">margin of error</a> to preview how we express uncertainty about the population parameter.)</p>
+<p>For now, let’s practice identifying the sample, statistic, population, and parameter.</p>
+<h3 id="actual-question">Actual Question</h3>
+<p>A librarian wants to know what percentage of the available books in the library are overdue. They randomly choose <span class="math inline">\(50\)</span> books from the shelves and note whether each book is overdue. <span class="math inline">\(10\)</span> of the <span class="math inline">\(50\)</span> books are overdue.</p>
+<p>The four concepts are described in random order below.</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(20\%\)</span> of the books in the sample are overdue</li>
+<li>The percentage of books in the library that are overdue</li>
+<li>The <span class="math inline">\(50\)</span> books the librarian selected</li>
+<li>All the books in the library</li>
+</ol>
+<p>Match the concept to the description.</p>
+<ol style="list-style-type: decimal">
+<li>Sample = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Statistic = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Population = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Parameter = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>Sample = c = The <span class="math inline">\(50\)</span> books the librarian selected</li>
+<li>Sample Statistic = a = <span class="math inline">\(20\%\)</span> of the books in the sample are overdue</li>
+<li>Population = d = All the books in the library</li>
+<li>Population Parameter = b = The percentage of books in the library that are overdue</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based on a random sample from that population.</em></p>
+<h3 id="background-and-future-connections">Background and future connections</h3>
+<p>Below are some important definitions:</p>
+<ul>
+<li>Sample: A smaller group taken from the population.</li>
+<li>Sample Statistic: A number that describes the sample.</li>
+<li>Population: The entire group of interest.</li>
+<li>Population Parameter: A number that describes the entire population.</li>
+</ul>
+<p>In Statistics, we learn a process for making inferences about population parameters based
+on a random sample from that population. For a simple parameter, like an average or proportion, the sample statistic will be a best-guess estimate for the corresponding population parameter (for estimating the population’s <a href="https://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>, we will use <a href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a> to find a best-guess estimate from the sample). Later, we will also learn how to express the amount of uncertainty in the estimation. (See <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence interval</a> and <a href="https://en.wikipedia.org/wiki/Margin_of_error">margin of error</a> to preview how we express uncertainty about the population parameter.)</p>
+<p>For now, let’s practice identifying the sample, statistic, population, and parameter.</p>
+<h3 id="actual-question">Actual Question</h3>
+<p>A teacher randomly selected <span class="math inline">\(25\)</span> students from their class and found that <span class="math inline">\(10\)</span> of them had been to Disneyland. They wanted to estimate the percentage of all students in their class who have been to Disneyland.</p>
+<p>The four concepts are described in random order below.</p>
+<ol style="list-style-type: lower-alpha">
+<li>The <span class="math inline">\(25\)</span> students that the teacher selected</li>
+<li>The percentage of all students in the teacher’s class who have been to Disneyland</li>
+<li>All the students in the teacher’s class</li>
+<li>The <span class="math inline">\(40\%\)</span> of students in the sample who have been to Disneyland</li>
+</ol>
+<p>Match the concept to the description.</p>
+<ol style="list-style-type: decimal">
+<li>Sample = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Statistic = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Population = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+<li>Parameter = <select><option>--------</option><option> a</option><option>b</option><option>c</option><option>d </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>Sample = a = The <span class="math inline">\(25\)</span> students that the teacher selected</li>
+<li>Sample Statistic = d = The <span class="math inline">\(40\%\)</span> of students in the sample who have been to Disneyland</li>
+<li>Population = c = All the students in the teacher’s class</li>
+<li>Population Parameter = b = The percentage of all students in the teacher’s class who have been to Disneyland</li>
+</ul>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

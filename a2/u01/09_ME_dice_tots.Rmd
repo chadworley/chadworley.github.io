@@ -2,26 +2,41 @@
 # S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.
 
 while(T){
-  n = sample(6:15,1)
-  countwrds = c("one","two","three","four","five","six","seven","eight","nine","ten","eleven",
+    n = sample(6:15,1)
+    countwrds = c("one","two","three","four","five","six","seven","eight","nine","ten","eleven",
                 "twelve","thirteen","fourteen","fifteen")
-  cn = countwrds[n]
-  d = sample(c(4,6,8,10,12,20),1)
-  sig = sqrt((d^2-1)/12)
-  ME = 1.96*sig*sqrt(n)
-  EV = (d+1)/2*n
-  B1 = round(EV-ME)
-  B2 = round(EV+ME)
-  x = sample(1:d,n*10000,T)
-  x = matrix(x,ncol=n)
-  tots = sort(apply(x,1,sum))
-  b1 = tots[251]
-  b2 = tots[9750]
-  me = round((b2-b1)/2,1)
-  
-  obs = sample(4:10,1)*sample(c(-1,1),1)+sample(c(b1,b2),1)
-  isin = abs(obs-EV)<ME
-  if(n!=d && !(n==10 && d==6) && B1>12 && obs>n && obs<n*d && me>9){break}
+    cn = countwrds[n]
+    d = sample(c(4,6,8,10,12,20),1)
+    sig = sqrt((d^2-1)/12)
+    ME = 1.96*sig*sqrt(n)
+    EV = (d+1)/2*n
+    B1 = round(EV-ME)
+    B2 = round(EV+ME)
+    x = sample(1:d,n*10000,T)
+    xs = matrix(x,1000,byrow = T)
+    x = matrix(x,ncol=n)
+    tots = sort(apply(x,1,sum))
+    
+    b1 = tots[251]
+    b2 = tots[9750]
+    me = round((b2-b1)/2,1)
+    
+    reps = 1000
+    x2 = sample(1:d,n*1000*reps,T)
+    xs2 = matrix(x2,ncol=n)
+    tots2 = matrix(apply(xs2,1,sum),ncol=1000)
+    lows = numeric()
+    highs = numeric()
+    for(row in 1:reps){
+        ts = sort(tots2[row,])
+        lows = c(lows,ts[26])
+        highs = c(highs,ts[975])
+    }
+    da = max(c(max(lows)-min(lows),max(highs)-min(highs)))+1
+    
+    obs = sample(da:(2*da),1)*sample(c(-1,1),1)+sample(c(b1,b2),1)
+    isin = abs(obs-EV)<ME
+    if(n!=d && !(n==10 && d==6) && B1>12 && obs>n && obs<n*d && me>9 && da<me/2){break}
 }
 
 
@@ -37,15 +52,15 @@ if(isin){
 }
 
 
-b1opts = b1+sample(-3:0,1)*3+(0:3)*3
+b1opts = b1+sample(-3:0,1)*da+(0:3)*da
 b1al = paste0("* ",b1opts,collapse="\n")
 b1sol = paste0(1*(b1opts==b1),collapse="")
 
-b2opts = b2+sample(-3:0,1)*3+(0:3)*3
+b2opts = b2+sample(-3:0,1)*da+(0:3)*da
 b2al = paste0("* ",b2opts,collapse="\n")
 b2sol = paste0(1*(b2opts==b2),collapse="")
 
-meopts = me+sample(-3:0,1)*3+(0:3)*3
+meopts = me+sample(-2:0,1)*da+(0:3)*da
 meal = paste0("* ",meopts,collapse="\n")
 mesol = paste0(1*(meopts==me),collapse="")
 
@@ -69,6 +84,7 @@ Your values might differ slightly from the options; pick the closest.
 Now, as a statistician, you've decided that another player's collection of `r cn` `r d`-sided dice look suspicious. You decide to run a quick test by rolling them all. You decide ahead of time that if the total is inside the interval you will stay quiet. However, if the total is outside the interval, you will shout "guilty!"
 
 When you roll them, you get a total of `r obs`. What do you do? ##ANSWER4##
+
 
 
 Answerlist

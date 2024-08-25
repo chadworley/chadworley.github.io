@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>02_survey_experi_obsstu</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 5;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">02_survey_experi_obsstu</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<h3 id="background-and-future-connections">Background and future connections</h3>
+<p>You are expected to differentiate between surveys, experiments, and observational studies. I’ve produced some definitions below.</p>
+<ul>
+<li>Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.</li>
+<li>Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a <a href="https://en.wikipedia.org/wiki/Treatment_and_control_groups">control</a>.</li>
+<li>Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.</li>
+</ul>
+<p>Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don’t worry, I didn’t make any tricky scenarios like that in this question.</p>
+<p>But there is a super important difference between experiments and observational studies. In an <a href="https://en.wikipedia.org/wiki/Observational_study">observational study</a>, the goal is to find <a href="https://en.wikipedia.org/wiki/Correlation">correlations</a> between variables. However, <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">CORRELATION IS NOT CAUSATION</a>! In order to prove <a href="https://en.wikipedia.org/wiki/Causality">causation</a>, an <a href="https://en.wikipedia.org/wiki/Experiment">experiment</a> must be run, ideally a doubly-blind <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">randomized controlled experiment</a>. These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.</p>
+<h3 id="actual-questions">Actual questions</h3>
+<p>For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A psychologist wanted to study the behavior of people in a stressful situation. They observed people during a public speaking event, noting their nonverbal communication, emotional reactions, and coping mechanisms.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A financial advisor was interested in understanding client investment goals and risk tolerance. They conducted online surveys, asking clients about their financial objectives, investment horizons, and comfort levels with different investment strategies.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A scientist wanted to test the effectiveness of a new fertilizer on plant growth. They planted two groups of identical plants, one group receiving the new fertilizer and the other receiving a standard fertilizer. They then measured the height and leaf size of the plants over time, comparing the growth of the two groups.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-4">Scenario 4</h3>
+<p>A doctor wanted to compare the effectiveness of two different pain relief medications. They divided patients with pain into two groups, each receiving a different medication. They then measured patients’ pain levels using a validated scale, comparing the results between the groups to determine which medication provided better pain relief.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-5">Scenario 5</h3>
+<p>A political party was curious about public opinion on a proposed policy change. They conducted phone interviews with a representative sample of voters, asking them about their views on the issue and potential consequences.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answers:</p>
+<ol style="list-style-type: decimal">
+<li>observational study</li>
+<li>survey</li>
+<li>experiment</li>
+<li>experiment</li>
+<li>survey</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<h3 id="background-and-future-connections">Background and future connections</h3>
+<p>You are expected to differentiate between surveys, experiments, and observational studies. I’ve produced some definitions below.</p>
+<ul>
+<li>Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.</li>
+<li>Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a <a href="https://en.wikipedia.org/wiki/Treatment_and_control_groups">control</a>.</li>
+<li>Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.</li>
+</ul>
+<p>Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don’t worry, I didn’t make any tricky scenarios like that in this question.</p>
+<p>But there is a super important difference between experiments and observational studies. In an <a href="https://en.wikipedia.org/wiki/Observational_study">observational study</a>, the goal is to find <a href="https://en.wikipedia.org/wiki/Correlation">correlations</a> between variables. However, <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">CORRELATION IS NOT CAUSATION</a>! In order to prove <a href="https://en.wikipedia.org/wiki/Causality">causation</a>, an <a href="https://en.wikipedia.org/wiki/Experiment">experiment</a> must be run, ideally a doubly-blind <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">randomized controlled experiment</a>. These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.</p>
+<h3 id="actual-questions">Actual questions</h3>
+<p>For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A financial advisor was interested in understanding client investment goals and risk tolerance. They conducted one-on-one meetings with clients, listening to their financial objectives and asking questions about their investment preferences and comfort levels with different investment strategies.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>An anthropologist wanted to understand the cultural practices of a remote tribe. They lived with the tribe for an extended period, observing their daily routines, rituals, and beliefs.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>An oceanographer wanted to study the impact of pollution on marine life. They collected water samples from different locations in the ocean, analyzing their chemical composition and observing the presence of pollutants and their effects on marine organisms.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-4">Scenario 4</h3>
+<p>A company wanted to see if a new advertising campaign would increase sales. They measured sales of a product before launching the campaign and then measured sales again after the campaign was implemented. They compared sales figures before and after the campaign to determine its impact.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-5">Scenario 5</h3>
+<p>A scientist wanted to test the effectiveness of a new fertilizer on plant growth. They planted two groups of identical plants, one group receiving the new fertilizer and the other receiving a standard fertilizer. They then measured the height and leaf size of the plants over time, comparing the growth of the two groups.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answers:</p>
+<ol style="list-style-type: decimal">
+<li>survey</li>
+<li>observational study</li>
+<li>observational study</li>
+<li>experiment</li>
+<li>experiment</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<h3 id="background-and-future-connections">Background and future connections</h3>
+<p>You are expected to differentiate between surveys, experiments, and observational studies. I’ve produced some definitions below.</p>
+<ul>
+<li>Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.</li>
+<li>Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a <a href="https://en.wikipedia.org/wiki/Treatment_and_control_groups">control</a>.</li>
+<li>Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.</li>
+</ul>
+<p>Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don’t worry, I didn’t make any tricky scenarios like that in this question.</p>
+<p>But there is a super important difference between experiments and observational studies. In an <a href="https://en.wikipedia.org/wiki/Observational_study">observational study</a>, the goal is to find <a href="https://en.wikipedia.org/wiki/Correlation">correlations</a> between variables. However, <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">CORRELATION IS NOT CAUSATION</a>! In order to prove <a href="https://en.wikipedia.org/wiki/Causality">causation</a>, an <a href="https://en.wikipedia.org/wiki/Experiment">experiment</a> must be run, ideally a doubly-blind <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">randomized controlled experiment</a>. These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.</p>
+<h3 id="actual-questions">Actual questions</h3>
+<p>For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A fashion designer wanted to assess customer preferences for different clothing styles. They conducted online surveys, asking respondents about their preferred colors, patterns, silhouettes, and overall style preferences.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A scientist wanted to test the effectiveness of a new fertilizer on plant growth. They planted two groups of identical plants, one group receiving the new fertilizer and the other receiving a standard fertilizer. They then measured the height and leaf size of the plants over time, comparing the growth of the two groups.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A doctor wanted to compare the effectiveness of two different pain relief medications. They divided patients with pain into two groups, each receiving a different medication. They then measured patients’ pain levels using a validated scale, comparing the results between the groups to determine which medication provided better pain relief.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-4">Scenario 4</h3>
+<p>An author was interested in understanding reader responses to their latest book. They hosted book clubs and online discussions, allowing readers to share their thoughts and opinions on the book, engage in meaningful conversations, and provide feedback.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-5">Scenario 5</h3>
+<p>A psychologist wanted to study the behavior of people in a stressful situation. They observed people during a public speaking event, noting their nonverbal communication, emotional reactions, and coping mechanisms.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answers:</p>
+<ol style="list-style-type: decimal">
+<li>survey</li>
+<li>experiment</li>
+<li>experiment</li>
+<li>survey</li>
+<li>observational study</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<h3 id="background-and-future-connections">Background and future connections</h3>
+<p>You are expected to differentiate between surveys, experiments, and observational studies. I’ve produced some definitions below.</p>
+<ul>
+<li>Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.</li>
+<li>Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a <a href="https://en.wikipedia.org/wiki/Treatment_and_control_groups">control</a>.</li>
+<li>Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.</li>
+</ul>
+<p>Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don’t worry, I didn’t make any tricky scenarios like that in this question.</p>
+<p>But there is a super important difference between experiments and observational studies. In an <a href="https://en.wikipedia.org/wiki/Observational_study">observational study</a>, the goal is to find <a href="https://en.wikipedia.org/wiki/Correlation">correlations</a> between variables. However, <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">CORRELATION IS NOT CAUSATION</a>! In order to prove <a href="https://en.wikipedia.org/wiki/Causality">causation</a>, an <a href="https://en.wikipedia.org/wiki/Experiment">experiment</a> must be run, ideally a doubly-blind <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">randomized controlled experiment</a>. These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.</p>
+<h3 id="actual-questions">Actual questions</h3>
+<p>For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A news organization wanted to understand how readers reacted to a particular news story. They conducted focus groups with readers, discussing their reactions to the story, their understanding of the information presented, and their opinions on the reporting.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A researcher wanted to study the effects of different levels of exercise on cognitive function. They divided participants into groups, each engaging in a different level of exercise. They then tested participants’ cognitive abilities using a standardized test, comparing the results between the groups to determine the impact of exercise on cognitive function.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A software developer wanted to get feedback from users on their new software update. They held beta testing sessions, allowing a group of users to try the update before its official release and provide feedback on its performance, functionality, and usability.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-4">Scenario 4</h3>
+<p>A researcher wanted to understand the effects of exercise on mood. They divided participants into two groups, one participating in a regular exercise program and the other not exercising. They then measured participants’ mood using a validated questionnaire, comparing the results between the two groups.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-5">Scenario 5</h3>
+<p>An anthropologist wanted to understand the cultural practices of a remote tribe. They lived with the tribe for an extended period, observing their daily routines, rituals, and beliefs.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answers:</p>
+<ol style="list-style-type: decimal">
+<li>survey</li>
+<li>experiment</li>
+<li>survey</li>
+<li>experiment</li>
+<li>observational study</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<h3 id="background-and-future-connections">Background and future connections</h3>
+<p>You are expected to differentiate between surveys, experiments, and observational studies. I’ve produced some definitions below.</p>
+<ul>
+<li>Survey: Data is gathered by asking (randomly selected) individuals about their traits, actions, or views.</li>
+<li>Experiment: A sample is (randomly) divided into groups. Each group receives a different treatment, and the effects are compared. Ideally, one group is a <a href="https://en.wikipedia.org/wiki/Treatment_and_control_groups">control</a>.</li>
+<li>Observational Study: Researchers measure or observe (randomly selected) individuals without influencing them.</li>
+</ul>
+<p>Personally, I think there can be overlap between surveys and the other two. For example, you could run an experiment by sending two different surveys out to random people to investigate the way wording influences responses. Don’t worry, I didn’t make any tricky scenarios like that in this question.</p>
+<p>But there is a super important difference between experiments and observational studies. In an <a href="https://en.wikipedia.org/wiki/Observational_study">observational study</a>, the goal is to find <a href="https://en.wikipedia.org/wiki/Correlation">correlations</a> between variables. However, <a href="https://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">CORRELATION IS NOT CAUSATION</a>! In order to prove <a href="https://en.wikipedia.org/wiki/Causality">causation</a>, an <a href="https://en.wikipedia.org/wiki/Experiment">experiment</a> must be run, ideally a doubly-blind <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">randomized controlled experiment</a>. These randomized controlled experiments were essential for bringing medicine from witchcraft to modern, beginning around 1900, which is also around the time that Statistics was developed. In fact, in case it is not clear by now, scientific research and Statistics are deeply intertwined.</p>
+<h3 id="actual-questions">Actual questions</h3>
+<p>For each scenario, decide whether the situation describes a survey, an observational study, or an experiment.</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A sociologist was interested in understanding the impact of social media on political discourse. They analyzed online conversations, noting the topics discussed, the language used, and the spread of information.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A musician wanted to gauge fan interest in attending their upcoming concerts. They hosted online polls and surveys, asking fans to indicate their preferred dates, locations, and ticket prices, as well as their willingness to purchase tickets.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A hospital wanted to gather feedback from patients about their experience with their medical care. They sent out satisfaction surveys to patients after their hospital visits, asking them to rate their experience with doctors, nurses, and other staff, as well as the hospital’s facilities and overall care.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-4">Scenario 4</h3>
+<p>A news organization wanted to understand how readers reacted to a particular news story. They tracked website analytics, measuring the number of page views, time spent on the page, and social media shares.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<h3 id="scenario-5">Scenario 5</h3>
+<p>A company wanted to see if a new advertising campaign would increase sales. They measured sales of a product before launching the campaign and then measured sales again after the campaign was implemented. They compared sales figures before and after the campaign to determine its impact.</p>
+<p><select><option>--------</option><option> Survey</option><option>Experiment</option><option>Observational Study </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The answers:</p>
+<ol style="list-style-type: decimal">
+<li>observational study</li>
+<li>survey</li>
+<li>survey</li>
+<li>observational study</li>
+<li>experiment</li>
+</ol>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

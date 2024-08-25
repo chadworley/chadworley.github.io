@@ -1,0 +1,750 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>03_sample_bias</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 5;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">03_sample_bias</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<p>When choosing who to survey, test, or observe, it is important the sample is representative of the population. The ideal method is a <a href="https://en.wikipedia.org/wiki/Simple_random_sample">simple random sample</a>, but sometimes a true simple random sample is difficult to achieve in practice. Other methods can introduce <a href="https://en.wikipedia.org/wiki/Selection_bias">selection bias</a>, where the population is unevenly sampled, so the sample is not representatitve of the population.</p>
+<p>In each of the scenarios below, identify which sampling method would be more biased and which is closer to a simple random sample (unbiased).</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A musician wants to know the average number of instruments they play.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The musician checks the instruments they play for concerts where they perform with a larger band.</td>
+<td align="center">The musician uses a random number generator to select three concerts from the tour schedule, ensuring each concert has an equal chance of being chosen.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A researcher wants to know the average number of hours people spend working each week.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen.</td>
+<td align="center">The researcher surveys people they meet at a local coffee shop.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A bakery owner wants to know how many customers buy croissants on average each day.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The owner chooses five days from the month by picking slips of paper out of a hat, each slip containing a different day of the month.</td>
+<td align="center">The owner decides to focus on Saturdays, as they believe that’s the busiest day for croissant sales.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<h3 id="scenario-1-1">Scenario 1</h3>
+<p>A musician wants to know the average number of instruments they play.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The musician checks the instruments they play for concerts where they perform with a larger band.</td>
+<td align="center">The musician uses a random number generator to select three concerts from the tour schedule, ensuring each concert has an equal chance of being chosen.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>biased</strong></td>
+<td align="center"><strong>unbiased</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-2-1">Scenario 2</h3>
+<p>A researcher wants to know the average number of hours people spend working each week.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The researcher uses a phone directory and selects 10 phone numbers at random, ensuring each person has an equal chance of being chosen.</td>
+<td align="center">The researcher surveys people they meet at a local coffee shop.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-3-1">Scenario 3</h3>
+<p>A bakery owner wants to know how many customers buy croissants on average each day.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The owner chooses five days from the month by picking slips of paper out of a hat, each slip containing a different day of the month.</td>
+<td align="center">The owner decides to focus on Saturdays, as they believe that’s the busiest day for croissant sales.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<p>When choosing who to survey, test, or observe, it is important the sample is representative of the population. The ideal method is a <a href="https://en.wikipedia.org/wiki/Simple_random_sample">simple random sample</a>, but sometimes a true simple random sample is difficult to achieve in practice. Other methods can introduce <a href="https://en.wikipedia.org/wiki/Selection_bias">selection bias</a>, where the population is unevenly sampled, so the sample is not representatitve of the population.</p>
+<p>In each of the scenarios below, identify which sampling method would be more biased and which is closer to a simple random sample (unbiased).</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A musician wants to know the average number of times they play a specific song in a month.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The musician uses a random number generator to select three concerts from the tour schedule, ensuring each concert has an equal chance of being chosen.</td>
+<td align="center">The musician checks their setlist for concerts where they played the song multiple times.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A farmer wants to know the average weight of the pumpkins in their field.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The farmer divides the field into sections and uses a random number generator to select 10 sections, then randomly selects one pumpkin from each chosen section.</td>
+<td align="center">The farmer weighs pumpkins that are located in the rows closest to the water source.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A biologist wants to know the average number of leaves on a specific fern.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The biologist divides the forest into sections and uses a random number generator to select 10 sections, then randomly selects one fern from each chosen section.</td>
+<td align="center">The biologist examines ferns located near a particular stream in the forest.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<h3 id="scenario-1-1">Scenario 1</h3>
+<p>A musician wants to know the average number of times they play a specific song in a month.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The musician uses a random number generator to select three concerts from the tour schedule, ensuring each concert has an equal chance of being chosen.</td>
+<td align="center">The musician checks their setlist for concerts where they played the song multiple times.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-2-1">Scenario 2</h3>
+<p>A farmer wants to know the average weight of the pumpkins in their field.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The farmer divides the field into sections and uses a random number generator to select 10 sections, then randomly selects one pumpkin from each chosen section.</td>
+<td align="center">The farmer weighs pumpkins that are located in the rows closest to the water source.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-3-1">Scenario 3</h3>
+<p>A biologist wants to know the average number of leaves on a specific fern.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The biologist divides the forest into sections and uses a random number generator to select 10 sections, then randomly selects one fern from each chosen section.</td>
+<td align="center">The biologist examines ferns located near a particular stream in the forest.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<p>When choosing who to survey, test, or observe, it is important the sample is representative of the population. The ideal method is a <a href="https://en.wikipedia.org/wiki/Simple_random_sample">simple random sample</a>, but sometimes a true simple random sample is difficult to achieve in practice. Other methods can introduce <a href="https://en.wikipedia.org/wiki/Selection_bias">selection bias</a>, where the population is unevenly sampled, so the sample is not representatitve of the population.</p>
+<p>In each of the scenarios below, identify which sampling method would be more biased and which is closer to a simple random sample (unbiased).</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A store owner wants to know the average number of customers who purchase a specific product.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The owner checks the sales records for customers who have purchased the product on previous occasions.</td>
+<td align="center">The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A salesperson wants to know the average number of sales they make each week.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The salesperson checks the sales records for days when they are actively involved in a sales promotion.</td>
+<td align="center">The salesperson writes each day of the week on a separate piece of paper, puts the papers in a bowl, and has a colleague draw three names at random.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A store owner wants to know the average number of customers who use a gift card.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included.</td>
+<td align="center">The owner checks the gift card usage for customers who have made purchases during specific promotions.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<h3 id="scenario-1-1">Scenario 1</h3>
+<p>A store owner wants to know the average number of customers who purchase a specific product.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The owner checks the sales records for customers who have purchased the product on previous occasions.</td>
+<td align="center">The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>biased</strong></td>
+<td align="center"><strong>unbiased</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-2-1">Scenario 2</h3>
+<p>A salesperson wants to know the average number of sales they make each week.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The salesperson checks the sales records for days when they are actively involved in a sales promotion.</td>
+<td align="center">The salesperson writes each day of the week on a separate piece of paper, puts the papers in a bowl, and has a colleague draw three names at random.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>biased</strong></td>
+<td align="center"><strong>unbiased</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-3-1">Scenario 3</h3>
+<p>A store owner wants to know the average number of customers who use a gift card.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included.</td>
+<td align="center">The owner checks the gift card usage for customers who have made purchases during specific promotions.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<p>When choosing who to survey, test, or observe, it is important the sample is representative of the population. The ideal method is a <a href="https://en.wikipedia.org/wiki/Simple_random_sample">simple random sample</a>, but sometimes a true simple random sample is difficult to achieve in practice. Other methods can introduce <a href="https://en.wikipedia.org/wiki/Selection_bias">selection bias</a>, where the population is unevenly sampled, so the sample is not representatitve of the population.</p>
+<p>In each of the scenarios below, identify which sampling method would be more biased and which is closer to a simple random sample (unbiased).</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A gardener wants to know the average number of leaves on each tree.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The gardener closes their eyes and walks randomly through the garden, counting the leaves on the first 10 trees they encounter.</td>
+<td align="center">The gardener counts leaves on trees located in a specific area of the garden that receives more water.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A store owner wants to know the average number of customers who use a debit card.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included.</td>
+<td align="center">The owner checks the debit card usage for customers who have made purchases over a certain amount.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A store owner wants to know the average number of customers who purchase a specific product.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included.</td>
+<td align="center">The owner checks the sales records for customers who have purchased the product on previous occasions.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<h3 id="scenario-1-1">Scenario 1</h3>
+<p>A gardener wants to know the average number of leaves on each tree.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The gardener closes their eyes and walks randomly through the garden, counting the leaves on the first 10 trees they encounter.</td>
+<td align="center">The gardener counts leaves on trees located in a specific area of the garden that receives more water.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-2-1">Scenario 2</h3>
+<p>A store owner wants to know the average number of customers who use a debit card.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included.</td>
+<td align="center">The owner checks the debit card usage for customers who have made purchases over a certain amount.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-3-1">Scenario 3</h3>
+<p>A store owner wants to know the average number of customers who purchase a specific product.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The owner picks a day at random from the past week and examines every receipt from that day, ensuring each customer has an equal chance of being included.</td>
+<td align="center">The owner checks the sales records for customers who have purchased the product on previous occasions.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.B.3: Recognize the purposes of and differences among sample surveys, experiments, and observational studies; explain how randomization relates to each.</em></p>
+<p>When choosing who to survey, test, or observe, it is important the sample is representative of the population. The ideal method is a <a href="https://en.wikipedia.org/wiki/Simple_random_sample">simple random sample</a>, but sometimes a true simple random sample is difficult to achieve in practice. Other methods can introduce <a href="https://en.wikipedia.org/wiki/Selection_bias">selection bias</a>, where the population is unevenly sampled, so the sample is not representatitve of the population.</p>
+<p>In each of the scenarios below, identify which sampling method would be more biased and which is closer to a simple random sample (unbiased).</p>
+<h3 id="scenario-1">Scenario 1</h3>
+<p>A veterinarian wants to know the average weight of dogs they see.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The veterinarian weighs dogs who are scheduled for specific types of checkups.</td>
+<td align="center">The veterinarian uses a random number generator to select 10 patient records from the clinic database, ensuring each dog has an equal chance of being chosen.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-2">Scenario 2</h3>
+<p>A gardener wants to know the average number of flowers on each rose bush.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The gardener uses a die to randomly select 5 rose bushes from the garden, ensuring each bush has an equal chance of being chosen.</td>
+<td align="center">The gardener counts flowers on rose bushes planted in a specific area of the garden that receives more sunlight.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-3">Scenario 3</h3>
+<p>A chef wants to know the average number of customers who order appetizers.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The chef writes down the time of each order on a slip of paper, puts the papers in a hat, and has a server draw five slips at random, then checks the orders from those times.</td>
+<td align="center">The chef checks orders from customers who have ordered the most expensive main courses.</td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+<td align="center"><select><option>--------</option><option> biased</option><option>unbiased </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<h3 id="scenario-1-1">Scenario 1</h3>
+<p>A veterinarian wants to know the average weight of dogs they see.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The veterinarian weighs dogs who are scheduled for specific types of checkups.</td>
+<td align="center">The veterinarian uses a random number generator to select 10 patient records from the clinic database, ensuring each dog has an equal chance of being chosen.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>biased</strong></td>
+<td align="center"><strong>unbiased</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-2-1">Scenario 2</h3>
+<p>A gardener wants to know the average number of flowers on each rose bush.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The gardener uses a die to randomly select 5 rose bushes from the garden, ensuring each bush has an equal chance of being chosen.</td>
+<td align="center">The gardener counts flowers on rose bushes planted in a specific area of the garden that receives more sunlight.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="scenario-3-1">Scenario 3</h3>
+<p>A chef wants to know the average number of customers who order appetizers.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">sample method 1</th>
+<th align="center">sample method 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">The chef writes down the time of each order on a slip of paper, puts the papers in a hat, and has a server draw five slips at random, then checks the orders from those times.</td>
+<td align="center">The chef checks orders from customers who have ordered the most expensive main courses.</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>unbiased</strong></td>
+<td align="center"><strong>biased</strong></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
