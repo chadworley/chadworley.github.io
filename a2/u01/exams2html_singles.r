@@ -1,24 +1,13 @@
 library("exams")
 
-pppsss = c("01_sam_stat_pop_param.Rmd",
-           "02_survey_experi_obsstu.Rmd",
-           "03_sample_bias.Rmd",
-           "04_corr_or_cause.Rmd",
-           "05_basic_data_analysis.Rmd",
-           "06_big_data_analysis.Rmd",
-           "07_read_histogram.Rmd",
-           "08_make_hist_see_shape.Rmd",
-           "09_ME_dice_tots.Rmd",
-           "10_prop_test_sim.Rmd",
-           "11_resample_mean_ME.Rmd",
-           "12_reshuffle_two_mean.Rmd")
+pppsss = c("06_sd_pop_int.Rmd","07_sd_sam_int.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
     genname = strsplit(ppss,".",T)[[1]][1]
     probs = ppss
 
-    nvers = 5
+    nvers = 8
     ps = character(0)
     for(prob in probs){
       ps = c(ps,rep(prob,nvers))

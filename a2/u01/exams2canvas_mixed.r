@@ -3,9 +3,10 @@ n = 30
 outdir = "outcanvas"
 genname = "u01_"
 
-probs = c("08_make_hist_see_shape.Rmd")
+probs = c("06_sd_pop_int.Rmd",
+          "07_sd_sam_int.Rmd")
 
-pnts = c(3)
+pnts = c(3,3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
@@ -20,14 +21,7 @@ for(i in 1:length(probs)){
                cloze = list(enumerate = FALSE))
 }
 
-# probs = list(c("01_SOE_matrix_form.Rmd","02_SOE_augmented_form.Rmd"),
-#              "06_RREF_sagemath.Rmd",
-#              "08_check_if_inverse.Rmd",
-#              "11_use_inverse_to_solve.Rmd",
-#              "13_determinant_3x3.Rmd",
-#              "15_can_solve_sys.Rmd",
-#              "17_row_ops_equiv_mat_mult.Rmd"
-#              )
+
 # 
 # exams2canvas(probs,
 #              n=n,

@@ -1,0 +1,116 @@
+```{r data generation, echo = FALSE, results = "hide"}
+n = sample(4:6,1)
+tens = sample(3:8,1)
+while(T){
+  ones = sample(0:19,n,T)
+  x = tens*10+ones
+  mu = mean(x)
+  devs = (x-mu)
+  sqd = (x-mu)^2
+  v = mean(sqd)
+  sig = sqrt(v)
+  if(10*sig==round(10*sig) && sig>0 && round(mu)==mu && length(unique(sqd))>1){break}
+}
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+A lottery machine (population) will produce random numbers with replacement. It has `r n` balls, with the following numbers:
+
+```{r tab_data, echo=FALSE, results="asis"}
+X = c(paste(x))
+ct = data.frame(X)
+colnames(ct) = c("$x_i$")
+knitr::kable(ct,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+\
+
+
+Please calculate the population standard deviation. To do this, first calculate the population mean.
+
+$$\mu = \frac{\sum\limits_{i=1}^n x_i}{n}$$
+
+Calculate the population variance by averaging the squared deviations.
+$$\text{variance} = \sigma^2 = \frac{\sum\limits_{i=1}^n (x_i-\mu)^2}{n} $$
+
+Determine the population standard deviation by taking the square root of the population variance.
+$$\sigma = \sqrt{\sigma^2} $$
+
+
+Solution
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+Find the mean.
+$$\mu = \frac{`r paste0(x,collapse="+")`}{`r n`} = `r mu` $$
+
+Find the variance.
+
+```{r, echo=FALSE}
+s = paste0("(",x,"-",mu,")^2")
+s = paste0("(",devs,")^2",collapse="+")
+s2 = paste0("(",x,"-",mu,")^2")
+s2 = paste0(s2,collapse="+")
+```
+
+$$\sigma^2 = \frac{`r s2`}{`r n`} $$
+
+$$\sigma^2 = \frac{`r s`}{`r n`}$$
+
+$$\sigma^2 = \frac{`r paste0(sqd,collapse="+")`}{`r n`}$$
+
+$$\sigma^2 = `r v`$$
+Calculate the standard deviation.
+$$\sigma = \sqrt{`r v`} = `r sig` $$
+
+
+You might find it helpful to organize your work in a table.
+
+```{r tab1, echo=FALSE, results="asis"}
+X = c(paste(x),"","$\\sum\\limits_{i=1}^{n} x_i$",paste(sum(x)),"","$\\mu$",paste(mean(x)),"","","")
+deviations = c(paste(x-mu),"","","","","","","","","")
+squared_devs = c(paste(sqd),"","$\\sum\\limits_{i=1}^{n} (x_i-\\mu)^2$",paste(sum(sqd)),"","$\\sigma^2$",paste(mean(sqd)),"","$\\sigma$",paste(sig))
+ct = data.frame(X,deviations,squared_devs)
+colnames(ct) = c("$x_i$","$(x_i-\\mu)$","$(x_i-\\mu)^2$")
+knitr::kable(ct,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+\
+
+Meta-information
+================
+extype: num
+exsolution: `r sig`
+exname: sig_pop_int
+extol: 0

@@ -1,0 +1,221 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# S-ID.A: Summarize, represent, and interpret data on a single count or measurement variable. Use calculators, spreadsheets, and other technology as appropriate.
+
+
+```
+
+Question
+========
+
+*S-ID.A: Summarize, represent, and interpret data on a single count or measurement variable. Use calculators, spreadsheets, and other technology as appropriate.*
+
+A spinner was made to model a [continuous triangular distribution](https://en.wikipedia.org/wiki/Triangular_distribution). It was spun 50 times; those locations are marked.
+
+```{r,fig.dim=c(6,6),echo=F}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+t = seq(0,2*pi,pi/100)
+polygon(sin(t),cos(t))
+
+for(i in seq(a,b,bw)){
+  p = cdf(i,a,b,c)
+  ang = p*pi
+  lines(c(0.92,1)*sin(ang),c(0.92,1)*cos(ang),lwd=2)
+  lines(c(0.92,1)*sin(-ang),c(0.92,1)*cos(-ang),lwd=2)
+  if(abs(ang)>pi/20 && abs(ang)<19*pi/20){
+    text(0.87*sin(ang),0.87*cos(ang),i,cex=0.7)
+    text(0.87*sin(-ang),0.87*cos(-ang),i,cex=0.7)
+  }
+  if(ang==0){
+    text(0.87*sin(ang),0.87*cos(ang),i,cex=0.8,col="red")
+  }
+  if(ang==pi){
+    text(0.87*sin(ang),0.87*cos(ang),i,cex=0.8,col="blue")
+  }
+}
+
+for(i in a:b){
+  p = cdf(i,a,b,c)
+  ang = p*pi
+  lines(c(0.95,1)*sin(ang),c(0.95,1)*cos(ang))
+  lines(c(0.95,1)*sin(-ang),c(0.95,1)*cos(-ang))
+}
+
+for(i in seq(a,b,0.1)){
+  p = cdf(i,a,b,c)
+  ang = p*pi
+  lines(c(0.98,1)*sin(ang),c(0.98,1)*cos(ang),lwd=0.5)
+  lines(c(0.98,1)*sin(-ang),c(0.98,1)*cos(-ang),lwd=0.5)
+}
+
+i = 1
+for(u in uu){
+  ang = sample(c(-1,1),1)*pi*u
+  points(sin(ang)*1.02,cos(ang)*1.02,pch=19,cex=0.5,col=cols[i])
+  i = i+1
+}
+
+polygon(sin(t)*0.05,cos(t)*0.05,border="black",col="red")
+arrows(-0.7,-0.2,0.7,0.2,lwd=8,length=0.1,angle=25,col="black")
+arrows(-0.7,-0.2,0.7,0.2,lwd=6,length=0.1,angle=25,col="red")
+polygon(sin(t)*0.01,cos(t)*0.01,border="black",col="red")
+```
+\
+
+The name "triangular distribution" comes from the probability density curve.
+
+
+```{r,echo=F,fig.dim=c(6,4)}
+h = 1/wid*2
+plot(c(a,c,b),c(0,1/wid*2,0),"l",xlab="spin result",ylab="probability density",lwd=2,main="Triangular Density")
+for(x in seq(a,b,length.out=21)){
+  abline(v=x,col="grey")
+}
+for(y in seq(0,h,length.out=11)){
+  abline(h=y,col="grey")
+}
+polygon(c(a,c,b),c(0,1/wid*2,0),border=F,col=rgb(0,0,0,0.3))
+lines(c(a,c,b),c(0,1/wid*2,0),lwd=3)
+
+i = 1
+for(x in xx){
+  points(x,0,pch=19,cex=0.5,col=cols[i])
+  i = i+1
+}
+
+```
+\
+
+Notice that because the spinner is continuous, it generates data like `r qua(runif(1,0.1,0.9))` and `r qua(runif(1,0.1,0.9))`. Of course, a human would probably round to the nearest tenth or so.
+
+### Actual question
+
+The 50 spins were used to generate a histogram.
+
+```{r,echo=F}
+hist(xx,breaks=seq(a,b,bw),labels=T,ylim=c(0,max(cnts)*1.1),main="Histogram of 50 spins",xlab="spin result",xaxt = "n",xlim=c(a-1,b+1))
+
+bcs = rep(0,nb)
+for(i in 1:length(xx)){
+  x = xx[i]
+  col = cols[i]
+  j = ceiling((x-a)/bw)
+  bcs[j] = bcs[j]+1
+  points((j-0.5)*bw+a,bcs[j]-0.5,pch=19,cex=0.5,col=col)
+  lines(c((j-1)*bw+a,j*bw+a),c(bcs[j],bcs[j]),lwd=0.5,col=rgb(0,0,0,0.2))
+}
+
+axis(1,at=seq(a,b,bw))
+```
+\
+
+* How many spins were less than `r bp1`?
+  * $\#(x<`r bp1`) =$ ##ANSWER1##
+* What proportion of spins were less than `r bp1`?
+  * $\mathrm{proportion}(x<`r bp1`) =$ ##ANSWER2##
+* How many spins were more than `r bp2`?
+  * $\#(x>`r bp2`) =$ ##ANSWER3##
+* What proportion of spins were more than `r bp2`?
+  * $\mathrm{proportion}(x>`r bp2`) =$ ##ANSWER4##
+* How many spins were between `r bp3` and `r bp4`?
+  * $\#(`r bp3`<x<`r bp4`) =$ ##ANSWER5##
+* What proportion of spins were between `r bp3` and `r bp4`?
+  * $\mathrm{proportion}(`r bp3`<x<`r bp4`) =$ ##ANSWER6##
+
+Answerlist
+--------
+
+`r c1al`
+`r p1al`
+`r c2al`
+`r p2al`
+`r c3al`
+`r p3al`
+
+
+Solution
+========
+
+* $\#(x<`r bp1`) =$ `r c1`
+* $\mathrm{proportion}(x<`r bp1`) = \frac{`r c1`}{50} =$ `r c1/50`
+* $\#(x>`r bp2`) =$ `r c2`
+* $\mathrm{proportion}(x>`r bp2`) = \frac{`r c2`}{50} =$ `r c2/50`
+* $\#(`r bp3`<x<`r bp4`) =$ `r c3`
+* $\mathrm{proportion}(`r bp3`<x<`r bp4`) = \frac{`r c3`}{50} =$ `r c3/50`
+
+You might find the following visualizations helpful.
+
+```{r,echo=F}
+p1 <- hist(xx,breaks=seq(a,b,bw),plot=F)                    
+p2 <- hist(xx[xx<bp1],breaks=seq(a,b,bw),plot=F)
+g = max(cnts)*0.05
+plot(p1, col=rgb(0,0,0,1/8), xlim=c(a-1,b+1),ylim=c(0,max(cnts)*1.1),main=paste0("Spins less than ",bp1," are highlighted"),xlab="spin result",xaxt = "n")
+plot(p2, col=rgb(1,0,0,1/2), add=T)
+cnts1 = numeric()
+for(i in 1:length(cnts)){
+  x = bw*(i-0.5)+a
+  if(x<bp1){
+    text(x,cnts[i]+g,cnts[i],cex=1.1,col="red")
+    cnts1 = c(cnts1,cnts[i])
+  } else {
+    text(x,cnts[i]+g,cnts[i],cex=0.9,col="grey")
+  }
+}
+axis(1,at=seq(a,b,bw))
+```
+\
+
+$$`r paste0(cnts1,collapse="+")`=`r c1`$$
+
+```{r,echo=F}
+p1 <- hist(xx,breaks=seq(a,b,bw),plot=F)                    
+p2 <- hist(xx[xx>bp2],breaks=seq(a,b,bw),plot=F)
+g = max(cnts)*0.05
+plot(p1, col=rgb(0,0,0,1/8), xlim=c(a-1,b+1),ylim=c(0,max(cnts)*1.1),main=paste0("Spins more than ",bp2," are highlighted"),xlab="spin result",xaxt = "n")
+plot(p2, col=rgb(1,0,0,1/2), add=T)
+cnts2 = numeric()
+for(i in 1:length(cnts)){
+  x = bw*(i-0.5)+a
+  if(x>bp2){
+    text(x,cnts[i]+g,cnts[i],cex=1.1,col="red")
+    cnts2 = c(cnts2,cnts[i])
+  } else {
+    text(x,cnts[i]+g,cnts[i],cex=0.9,col="grey")
+  }
+}
+axis(1,at=seq(a,b,bw))
+```
+\
+
+$$`r paste0(cnts2,collapse="+")`=`r c2`$$
+
+```{r,echo=F}
+p1 <- hist(xx,breaks=seq(a,b,bw),plot=F)                    
+p2 <- hist(xx[abs(xx-mean(bs[3:4]))<(diff(bs[3:4])/2)],breaks=seq(a,b,bw),plot=F)
+g = max(cnts)*0.05
+plot(p1, col=rgb(0,0,0,1/8), xlim=c(a-1,b+1),ylim=c(0,max(cnts)*1.1),main=paste0("Spins between ",bp3," and ",bp4," are highlighted"),xlab="spin result",xaxt = "n")
+plot(p2, col=rgb(1,0,0,1/2), add=T)
+cnts3 = numeric()
+for(i in 1:length(cnts)){
+  x = bw*(i-0.5)+a
+  if(bp3<x && x<bp4){
+    text(x,cnts[i]+g,cnts[i],cex=1.1,col="red")
+    cnts3 = c(cnts3,cnts[i])
+  } else {
+    text(x,cnts[i]+g,cnts[i],cex=0.9,col="grey")
+  }
+}
+axis(1,at=seq(a,b,bw))
+```
+\
+
+$$`r paste0(cnts3,collapse="+")`=`r c3`$$
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r c1sol`|`r p1sol`|`r c2sol`|`r p2sol`|`r c3sol`|`r p3sol`
+exname: read_hist
