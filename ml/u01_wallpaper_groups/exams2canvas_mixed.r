@@ -3,9 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "u01_"
 
-probs = c("02_tra_rot_gli_mir.Rmd")
+probs = c("03_rotate_point.Rmd")
 
-pnts = 8
+pnts = 6
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
