@@ -1,0 +1,194 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# Find 2.5th percentile and 16th percentile and 50th percentile and 84th percentile and 97.5th percentile in a list of 1000 numbers.
+# We'll just find sort(x)[25,160,500,840,975]
+while(T){
+    ds = sort(sample(c(4,6,8,10,12,20),2))
+    d1 = ds[1]
+    d2 = ds[2]
+    ns = sample(c(5,7,9,11,13,14,15,16),2)
+    n1 = ns[1]
+    n2 = ns[2]
+    nrep = 200*sample(2:6,1)
+    
+    countwrds = c("one","two","three","four","five","six","seven","eight","nine","ten","eleven",
+                    "twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen",
+                  "nineteen","twenty")
+    
+    x1 = matrix(sample(1:d1,nrep*n1,T),nrow=nrep)
+    x2 = matrix(sample(1:d2,nrep*n2,T),nrow=nrep)
+    sums1 = apply(x1,1,sum)
+    sums2 = apply(x2,1,sum)
+    sums = sums1+sums2
+    
+    i1 = round(0.025*nrep)
+    i2 = round(0.16*nrep)
+    i3 = round(0.50*nrep)
+    i4 = round(0.84*nrep)
+    i5 = round(0.975*nrep)
+    
+    ss = sort(sums)
+    a1 = ss[i1]
+    a2 = ss[i2]
+    a3 = ss[i3]
+    a4 = ss[i4]
+    a5 = ss[i5]
+    if(a1==ss[i1-1] && a2==ss[i2-1] && a3==ss[i3-1] && a4==ss[i4-1] && a5==ss[i5-1] &&
+       a1==ss[i1+1] && a2==ss[i2+1] && a3==ss[i3+1] && a4==ss[i4+1] && a5==ss[i5+1] ){break}
+}
+
+alsol = function(ans,n=5,dx=1){
+    choices = ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx
+    al = paste0("* ",choices,collapse="\n")
+    sol = paste0(1*(ans==choices),collapse="")
+    return(data.frame(al,sol))
+}
+
+f1 = alsol(a1)
+f2 = alsol(a2)
+f3 = alsol(a3)
+f4 = alsol(a4)
+f5 = alsol(a5)
+
+```
+
+Question
+========
+
+Early probability theory explored what happens when you roll multiple dice. They did not have computers to run large simulations. We do.
+
+In table-top role-playing games, it is common to use [dice notation](https://en.wikipedia.org/wiki/Dice_notation). I simulated `r nrep` repetitions of rolling `r n1`d`r d1`+`r n2`d`r d2`. In each repetition, I rolled `r n1` `r countwrds[d1]`-sided dice and `r n2` `r countwrds[d2]`-sided dice and added up all the numbers to get a value. To analyze the distribution of these values, you will find **percentiles** using [nearest rank method](https://en.wikipedia.org/wiki/Percentile#The_nearest-rank_method).
+
+`r paste0(sums,collapse=", ")`
+
+You might find it helpful to use a [data wrangling tool](https://chadworley.github.io/a2/tools/data_wrangler.html) before pasting into a [spreadsheet](https://sheets.new). But you can also paste, click the dropdown menu, select `split text to columns`, select all, cut, and paste special (transpose).
+
+Once in the spreadsheet, you'll want to sort the data.
+
+### Find the following percentiles:
+
+* The 2.5th percentile = ##ANSWER1##
+* The 16th percentile = ##ANSWER2##
+* The 50th percentile = ##ANSWER3##
+* The 84th percentile = ##ANSWER4##
+* The 97.5th percentile = ##ANSWER5##
+
+Answerlist
+--------
+
+`r f1$al`
+`r f2$al`
+`r f3$al`
+`r f4$al`
+`r f5$al`
+
+Solution
+========
+
+* Get your data into column A of a spreadsheet, from A1 to A`r nrep`.
+* Sort your data using `Data`, `Sort sheet`, `Sort sheet by column A`.
+* Calculate the indices of the percentiles:
+    * For the 2.5th percentile: $0.025\cdot `r nrep`=`r i1`$
+    * For the 16th percentile: $0.16\cdot `r nrep`=`r i2`$
+    * For the 50th percentile: $0.6\cdot `r nrep`=`r i3`$
+    * For the 84th percentile: $0.84\cdot `r nrep`=`r i4`$
+    * For the 97.5th percentile: $0.975\cdot `r nrep`=`r i5`$
+* Find the values at those rows.
+    * The value in cell A$`r i1`$ should be $`r a1`$.
+    * The value in cell A$`r i2`$ should be $`r a2`$.
+    * The value in cell A$`r i3`$ should be $`r a3`$.
+    * The value in cell A$`r i4`$ should be $`r a4`$.
+    * The value in cell A$`r i5`$ should be $`r a5`$.
+
+You can see answers as the color changes in the sorted list below.
+
+```{r,echo=F,fig.dim=c(8,nrep/100)}
+par(mar=c(0,0,0,0))
+ib = c(i1,i2,i3,i4,i5)
+cb = c(a1,a2,a3,a4,a5)
+cols = c("red","orange","green","blue","cyan","violet")
+
+plot(0,0,type="n",axes=F,ann=F,xlim=c(-1,20),ylim=c(0,nrep/20+1))
+
+for(i in 0:(nrep-1)){
+    xpos = i%%20+0.5
+    ypos = nrep/20-i%/%20-0.5
+    text(xpos,ypos,ss[i+1],col=cols[1+sum(ib<(i+1))])
+}
+
+for(i in 1:20){
+    text(i-0.5,nrep/20+0.5,i,col="grey")
+}
+abline(h=nrep/20,col="black")
+abline(v=0,col="black")
+for(i in 1:round(nrep/20)){
+    text(-0.1,nrep/20+0.5-i,(i-1)*20,col="grey",adj=1)
+}
+text(-0.5,nrep/20+0.5,"+",cex=1.5)
+```
+\
+
+
+I've produced a dot plot that helps visualize these percentiles.
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(pty="s")
+tb = as.data.frame(table(ss))
+pss = unlist(lapply(as.vector(tb$ss),as.integer))
+cnt = as.vector(tb$Freq)
+rng1 = max(pss)-min(pss)
+rng2 = max(cnt)
+rng = max(c(rng1,rng2))
+midx = (max(pss)+min(pss))/2
+
+
+plot(0,0,type="n",xlim=c(midx-rng/2,midx+rng/2),ylim=c(0,rng),axes=F,xlab="Value",ylab="Count")
+k = 0
+for(i in 1:length(pss)){
+    for(j in 1:cnt[i]){
+        k=k+1
+        points(pss[i],j-0.5,cex=0.5,pch=19,col=cols[1+sum(ib<k)])
+    }
+}
+axis(1,at=cb)
+axis(2)
+```
+\
+
+You might notice the five answers are spaced evenly-ish.
+
+$$`r a2`-`r a1`=`r a2-a1`$$
+$$`r a3`-`r a2`=`r a3-a2`$$
+$$`r a4`-`r a3`=`r a4-a3`$$
+$$`r a5`-`r a4`=`r a5-a4`$$
+
+This is not a coincidence. Because each repetition of the simulation involves adding a bunch of [independent](https://en.wikipedia.org/wiki/Independence_(probability_theory)) random variables, we expect the output values to be [normally distributed](https://en.wikipedia.org/wiki/Normal_distribution).
+
+If you've studied a lot of probability, you might know about standard deviation. If you look up [discrete uniform distribution](https://en.wikipedia.org/wiki/Discrete_uniform_distribution), you can find the formula for the standard deviation for a `r d1`-sided die or a `r d2`-sided die.
+
+```{r echo=F}
+sdd1 = sqrt((d1^2-1)/12)
+sdd1p = round(sdd1,3)
+sdd2 = sqrt((d2^2-1)/12)
+sdd2p = round(sdd2,3)
+
+sdvals = sqrt(n1*sdd1^2+n2*sdd2^2)
+sdvalsp = round(sqrt(n1*sdd1^2+n2*sdd2^2),1)
+
+```
+
+$$\mathrm{SD(1d`r d1`)} = \sqrt{\frac{`r d1`^2-1}{12}} \approx `r sdd1p`$$
+$$\mathrm{SD(1d`r d2`)} = \sqrt{\frac{`r d2`^2-1}{12}} \approx `r sdd2p`$$
+
+If you've REALLY studied probability, you might know one of the [most important reasons](https://en.wikipedia.org/wiki/Algebra_of_random_variables#Variance_algebra_for_random_variables) we use standard deviation: *if random variables X and Y are independent, then  $\mathrm{SD(X+Y)=\sqrt{SD(X)^2+SD(Y)^2}}$*. This implies the following: 
+
+$$\mathrm{SD(`r n1`d`r d1`+`r n2`d`r d2`)} = \sqrt{`r n1`\cdot`r sdd1p`^2+`r n2`\cdot`r sdd2p`^2} \approx  `r sdvalsp`$$
+
+To learn more, read about the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem) and the [68-95-99.7 rule](https://en.wikipedia.org/wiki/68%E2%80%9395%E2%80%9399.7_rule).
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r f1$sol`|`r f2$sol`|`r f3$sol`|`r f4$sol`|`r f5$sol`
+exname: get_percentiles

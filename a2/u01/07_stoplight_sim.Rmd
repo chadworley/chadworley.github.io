@@ -1,0 +1,73 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.
+
+n = sample(6:12,1)
+p = sample(seq(20,50,5),1)/100
+t = sample(seq(0.5,5,0.5),1)
+
+mutt = sample(c(10,15,20,25,30,45),1)
+sigtt = round(runif(1,1,2),1)
+
+et = n*(1-p)*t/2
+
+mes = numeric()
+
+for(i in 1:1000){
+    x = (p<runif(n*1000))*t*runif(n*1000)
+    x = matrix(x,ncol=n)
+    sums = apply(x,1,sum)
+    sums = sums+rnorm(1000,mutt,sigtt)
+    ss = sort(sums)
+    lo = ss[25]
+    hi = ss[975]
+    mid = (hi+lo)/2
+    me = (hi-lo)/2
+    mes = c(mes,me)
+}
+tol = ceiling((max(mes)-min(mes))/2*100)/100
+ME = round((max(mes)+min(mes))/2,2)
+
+```
+
+Question
+========
+
+*S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.*
+
+You wish to simulate how long your morning commute takes. You break the commute into two parts.
+
+* Moving time
+    * Approximately normal with $\mu=`r mutt`$ minutes and $\sigma=`r sigtt`$ minutes.
+    * In a spreadsheet, this is simulated with ``=norminv(rand(),`r mutt`,`r sigtt`)``
+* Waiting time at `r n` intersections.
+    * Each intersection has a `r p` chance to be green. If the light is not green, you will wait up to `r t` minutes (following a uniform distribution).
+    * In a spreadsheet, **each** intersection is simulated with ``=if(rand()<`r p`, 0, rand()*`r t`)``
+
+Simulate 1000 repetitions. In each repetition, get the **total** time (moving and waiting). Find the 2.5th percentile and the 97.5th percentile to find the boundaries of the middle 95% of totals. Divide this interval's width by 2 to get the margin of error.
+
+What is your simulated **margin of error**?
+
+Solution
+========
+
+You should get a margin of error near `r ME` minutes. The tolerance should take anything from `r ME-tol` and `r ME+tol` minutes.
+
+I've shown a histogram of my simulation below.
+
+```{r,echo=F,fig.dim=c(8,8)}
+myplot = hist(ss,xlab="time (minutes)",main="Stop-light sim, 1000 repetitions")
+cnts = myplot$counts
+ydraw = max(cnts)/2
+lines(c(mid,mid,mid,hi,hi,hi),ydraw*c(0.95,1.05,1,1,1.05,0.95),col="red",lwd=3)
+mex = mean(c(mid,hi))
+text(mex,1.05*ydraw,round(me,3),col="red")
+```
+\
+
+
+Meta-information
+================
+extype: num
+exsolution: `r ME`
+exname: stoplight_sim
+extol: `r tol`

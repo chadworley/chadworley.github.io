@@ -1,0 +1,208 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# S-ID.A: Summarize, represent, and interpret data on a single count or measurement variable. Use calculators, spreadsheets, and other technology as appropriate.
+knitr::opts_chunk$set(echo = FALSE)
+options(scipen=100)
+
+# sample size
+# total
+# mean
+# median
+# a count <, <=, >, >=
+# a proportion <, <=, >, >=
+
+nopts = 8:12
+
+while(T){
+  n = sample(8:12,1)
+  a = sample(3:5,1)*10
+  w = sample(2:4,1)*10
+  b = a+w
+  x = sample(a:b,n,T)
+  
+  xlo = min(x)
+  xhi = max(x)
+  
+  tot = sum(x)
+  xbar = round(mean(x),1)
+  med = median(x)
+  b1 = sample(xlo:xhi,1)
+  cs = c(sum(x<b1),sum(x<=b1),sum(x>b1),sum(x>=b1))
+  b2 = sample(xlo:xhi,1)
+  cs2 = c(sum(x<b2),sum(x<=b2),sum(x>b2),sum(x>=b2))
+  ps = c(mean(x<b2),mean(x<=b2),mean(x>b2),mean(x>=b2))
+  
+  types = sample(1:4,2)
+  syms = c("<","\\le",">","\\ge")
+  wrds = c("less than","at most","greater than","at least")
+  cty = types[1]
+  pty = types[2]
+  cnt = cs[cty]
+  cnt2 = cs[pty]
+  prp = round(ps[pty],2)
+  csym = syms[cty]
+  psym = syms[pty]
+  cwrd = wrds[cty]
+  pwrd = wrds[pty]
+  if(cnt>1 && cnt<(n-1) && prp>0.08 && prp<0.92 && cnt!=cnt2){break}
+}
+
+nal = paste0("* ",nopts,collapse="\n")
+nsol = paste0(1*(nopts==n),collapse="")
+
+lowesttotopt = tot-sample(0:3,1)
+topts = lowesttotopt+0:3
+tal = paste0("* ",topts,collapse="\n")
+tsol = paste0(1*(topts==tot),collapse="")
+
+loxbaropt = xbar-sample(0:3,1)*0.2
+xbaropts = round(loxbaropt+0:3*0.2,1)
+xbaral = paste0("* ",xbaropts,collapse="\n")
+xbarsol = paste0(1*(xbaropts==xbar),collapse="")
+
+lomedopt = med-sample(0:3,1)*0.5
+medopts = round(lomedopt+0:3*0.5,1)
+medal = paste0("* ",medopts,collapse="\n")
+medsol = paste0(1*(medopts==med),collapse="")
+
+locopt = max(min(cnt-sample(0:3,1)*1,n-3),1)
+copts = round(locopt+0:3*1,0)
+cal = paste0("* ",copts,collapse="\n")
+csol = paste0(1*(copts==cnt),collapse="")
+
+lopopt = prp-sample(0:3,1)*0.02
+popts = round(lopopt+0:3*0.02,2)
+pal = paste0("* ",popts,collapse="\n")
+psol = paste0(1*(popts==prp),collapse="")
+
+```
+
+Question
+========
+
+*S-ID.A: Summarize, represent, and interpret data on a single count or measurement variable. Use calculators, spreadsheets, and other technology as appropriate.*
+
+A spinner was made to model a [discrete-uniform distribution](https://en.wikipedia.org/wiki/Discrete_uniform_distribution).
+
+```{r,fig.dim=c(6,6),echo=F}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,type="n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+W = w+1
+vals = a:b
+t = seq(0,2*pi,pi/100)
+t2 = seq(0,2*pi,length.out=(W+1))
+t3 = (t2[1:W]+t2[2:(W+1)])/2
+polygon(sin(t),cos(t))
+for(tt in t2){
+  lines(c(0,sin(tt)),c(0,cos(tt)))
+}
+for(i in 1:W){
+  text(sin(t3[i])*0.8,cos(t3[i])*0.8,vals[i])
+}
+polygon(sin(t)*0.05,cos(t)*0.05,border="black",col="red")
+arrows(-0.5,-0.2,0.5,0.2,lwd=8,length=0.1,angle=25,col="black")
+arrows(-0.5,-0.2,0.5,0.2,lwd=6,length=0.1,angle=25,col="red")
+polygon(sin(t)*0.01,cos(t)*0.01,border="black",col="red")
+```
+\
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+The spinner was spun a few times, producing the values below.
+
+```{r tab_data, echo=FALSE, results="asis"}
+opts <- options(knitr.kable.NA = "")
+mydf = data.frame(x)
+colnames(mydf) = c("x")
+knitr::kable(mydf,format="html", align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+Please help describe the values by finding a few statistics.
+
+### The sample size, $n$
+
+The sample size is simply a count of how many values are in the sample.
+
+* $n=$ ##ANSWER1##
+
+### The sample total, $\sum x$
+
+The sample total is found by adding up all the values. Informally, we write it as $\sum x$. More formally, we write it as $\sum\limits_{i=1}^n x_i$. Notice, both methods refer to the [summation operator](https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation).
+
+* $\sum x =$ ##ANSWER2##
+
+### The sample mean, $\bar{x}$
+
+The [sample mean](https://en.wikipedia.org/wiki/Arithmetic_mean), or in common parlance "the sample average", is found by dividing the sample total by the sample size. The symbol $\bar{x}$ is pronounced "x bar". Please round to the nearest tenth.
+$$\bar{x} = \frac{\sum x}{n}$$
+
+* $\bar{x}=$ ##ANSWER3##
+
+
+### The sample median
+
+The [median](https://en.wikipedia.org/wiki/Median) represents a boundary between the lower half of the values and the upper half of the values. This should be review. Remember, it helps to sort the data. We could write a formula using a [sort function](https://en.wikipedia.org/wiki/Sorting_algorithm) and [floor and ceiling functions](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions):
+
+$$\mathrm{median}(x) ~=~ \frac{\mathrm{sort}(x)_{\lceil n/2\rceil}+\mathrm{sort}(x)_{\lfloor n/2+1\rfloor}}{2}$$
+
+But, you'll probably just want to sort the values. Then, if the sample size is odd, find the middle value. If the sample size is even, find the mean of the two middle values.
+
+* $\mathrm{median}(x) =$ ##ANSWER4## 
+
+### A conditional count
+
+In data analysis, we often use [conditional counts](https://support.google.com/docs/answer/3093480?hl=en). In this case, I want you to count how many values are `r cwrd` `r b1`. I am using the # symbol to represent a count, and in the parentheses I am denoting a condition (with an inequality).
+
+* $\#(x `r csym` `r b1`) =$ ##ANSWER5##
+
+### A sample proportion
+
+What proportion of the values are `r pwrd` `r b2`? A proportion is a conditional count divided by the sample size. Please round to the nearest hundredth.
+
+* $\mathrm{proportion(x`r psym` `r b2`)}= \frac{\#(x`r psym` `r b2`)}{n} =$  ##ANSWER6##
+
+
+
+Answerlist
+--------
+
+`r nal`
+`r tal`
+`r xbaral`
+`r medal`
+`r cal`
+`r pal`
+
+
+Solution
+========
+
+$$n=`r n`$$
+$$\sum x=`r tot`$$
+$$\bar{x}=`r xbar`$$
+$$\mathrm{median}(x)=`r med`$$
+$$\#(x `r csym` `r b1`) = `r cnt`$$
+$$\mathrm{proportion}(x `r psym` `r b2`)=`r prp`$$
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r nsol`|`r tsol`|`r xbarsol`|`r medsol`|`r csol`|`r psol`
+exname: basic_data_analysis
