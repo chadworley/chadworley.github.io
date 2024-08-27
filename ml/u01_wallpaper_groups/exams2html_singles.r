@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("03_rotate_point.Rmd")
+pppsss = c("04_translate_point.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
