@@ -1,8 +1,7 @@
 library("exams")
-n = 20
+n = 30
 outdir = "outcanvas"
 genname = "u01_"
-
 probs = c("04_translate_point.Rmd")
 
 pnts = 8
