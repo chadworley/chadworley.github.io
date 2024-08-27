@@ -1,0 +1,306 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.
+
+prop_scens <- rbind(
+  c("students who pass a standardized test", "educational testing service", 0.75, "students", 
+    "a student who passes the standardized test", "a student who fails the standardized test"),
+  c("teachers who incorporate technology in their lessons", "education research group", 0.65, "teachers", 
+    "a teacher who uses technology in the classroom", "a teacher who avoids technology"),
+  c("dogs that are trained as service animals", "animal assistance organization", 0.80, "dogs", 
+    "a dog that is a service animal", "a dog that is not a service animal"),
+  c("cats that prefer wet food over dry food", "pet food survey", 0.70, "cats", 
+    "a cat that prefers wet food", "a cat that prefers dry food"),
+  c("drivers who use seat belts", "traffic safety organization", 0.90, "drivers", 
+    "a driver who always uses a seat belt", "a driver who never uses a seat belt"),
+  c("people who own at least one pet", "pet association", 0.60, "people", 
+    "a person who owns a pet", "a person who does not own a pet"),
+  c("hikers who prefer mountain trails", "outdoor recreation association", 0.55, "hikers", 
+    "a hiker who prefers mountain trails", "a hiker who prefers flat trails"),
+  c("people who visit national parks annually", "national parks service", 0.45, "people", 
+    "a person who visits national parks annually", "a person who never visits national parks"),
+  c("homeowners who have a garden", "gardening club", 0.40, "homeowners", 
+    "a homeowner who has a garden", "a homeowner who does not have a garden"),
+  c("cats that enjoy catnip", "veterinary research", 0.75, "cats", 
+    "a cat that enjoys catnip", "a cat that does not enjoy catnip"),
+  c("students who participate in science fairs", "educational committee", 0.65, "students", 
+    "a student who participates in science fairs", "a student who does not participate"),
+  c("dogs that are adopted from shelters", "animal rescue organizations", 0.45, "dogs", 
+    "a dog that is adopted from a shelter", "a dog that is not adopted from a shelter"),
+  c("people who believe in animal rights", "animal advocacy group", 0.70, "people", 
+    "a person who believes in animal rights", "a person who does not believe in animal rights"),
+  c("teachers who provide after-school tutoring", "school district", 0.50, "teachers", 
+    "a teacher who provides after-school tutoring", "a teacher who does not provide tutoring"),
+  c("volunteers who work at animal shelters", "community organization", 0.55, "volunteers", 
+    "a volunteer who works at an animal shelter", "a volunteer who does not work at an animal shelter"),
+  c("drivers who prefer electric vehicles", "transportation study", 0.25, "drivers", 
+    "a driver who prefers electric vehicles", "a driver who prefers gas vehicles"),
+  c("people who regularly attend yoga classes", "fitness research group", 0.60, "people", 
+    "a person who attends yoga classes", "a person who does not attend yoga classes"),
+  c("frogs that thrive in urban environments", "wildlife preservation society", 0.30, "frogs", 
+    "a frog that thrives in urban environments", "a frog that does not thrive in urban environments"),
+  c("people who enjoy pet therapy", "mental health professionals", 0.65, "people", 
+    "a person who enjoys pet therapy", "a person who does not enjoy pet therapy"),
+  c("students who choose online learning", "educational researchers", 0.40, "students", 
+    "a student who chooses online learning", "a student who prefers in-person learning"),
+  c("animals in zoos that are bred successfully", "zoological association", 0.80, "animals in zoos", 
+    "an animal in a zoo that is bred successfully", "an animal in a zoo that is not bred successfully"),
+  c("people who own reptiles as pets", "reptile enthusiasts club", 0.20, "people", 
+    "a person who owns a reptile as a pet", "a person who does not own a reptile"),
+  c("students who participate in sports teams", "school athletics department", 0.75, "students", 
+    "a student who participates in sports teams", "a student who does not participate in sports"),
+  c("people who cook healthy meals at home", "nutrition association", 0.70, "people", 
+    "a person who cooks healthy meals", "a person who does not cook healthy meals"),
+  c("cats that are indoor only", "pet owner survey", 0.65, "cats", 
+    "a cat that is indoor only", "a cat that is allowed outdoors"),
+  c("drivers using rideshare apps", "transportation research firm", 0.55, "drivers", 
+    "a driver who uses rideshare apps", "a driver who does not use rideshare apps"),
+  c("dogs that enjoy swimming", "pet behavior study", 0.60, "dogs", 
+    "a dog that enjoys swimming", "a dog that does not enjoy swimming"),
+  c("hikers who prefer solo hikes", "hiking club", 0.50, "hikers", 
+    "a hiker who prefers solo hikes", "a hiker who prefers group hikes"),
+  c("homeowners who have energy-efficient appliances", "energy star program", 0.75, "homeowners", 
+    "a homeowner with energy-efficient appliances", "a homeowner without energy-efficient appliances"),
+  c("animals that benefit from wildlife corridors", "environmental protection agency", 0.65, "animals", 
+    "an animal that benefits from wildlife corridors", "an animal that does not benefit from wildlife corridors"),
+  c("people who follow a gluten-free diet", "health survey", 0.30, "people", 
+    "a person who follows a gluten-free diet", "a person who does not follow a gluten-free diet"),
+  c("cats that are shy around strangers", "animal behavior study", 0.55, "cats", 
+    "a cat that is shy around strangers", "a cat that is outgoing around strangers"),
+  c("students who study abroad", "university administration", 0.40, "students", 
+    "a student who studies abroad", "a student who does not study abroad"),
+  c("people who regularly donate to wildlife charities", "charity organization", 0.60, "people", 
+    "a person who regularly donates to wildlife charities", "a person who does not donate to wildlife charities"),
+  c("drivers who use public transportation", "urban planning department", 0.45, "drivers", 
+    "a driver who uses public transportation", "a driver who does not use public transportation"),
+  c("dogs that are trained for competitive sports", "dog trainers association", 0.50, "dogs", 
+    "a dog that is trained for competitive sports", "a dog that is not trained for competitive sports"),
+  c("frogs that are part of conservation programs", "frog conservation project", 0.35, "frogs", 
+    "a frog in a conservation program", "a frog not in a conservation program"),
+  c("people who understand the importance of biodiversity", "ecological organization", 0.80, "people", 
+    "a person who understands the importance of biodiversity", "a person who does not understand it"),
+  c("students who are enrolled in art classes", "art school survey", 0.65, "students", 
+    "a student enrolled in art classes", "a student not enrolled in art classes"),
+  c("animals in sanctuaries that receive proper care", "animal sanctuary organization", 0.90, "animals in sanctuaries", 
+    "an animal in a sanctuary that receives proper care", "an animal in a sanctuary that does not receive proper care"),
+  c("homeowners who engage in community cleanup days", "local council", 0.55, "homeowners", 
+    "a homeowner who engages in community cleanup", "a homeowner who does not engage in cleanup"),
+  c("people who adopt rescue animals", "animal welfare organization", 0.75, "people", 
+    "a person who adopts a rescue animal", "a person who does not adopt rescue animals"),
+  c("drivers who participate in carpooling", "environmental group", 0.60, "drivers", 
+    "a driver who participates in carpooling", "a driver who does not carpool"),
+  c("cats that interact well with other pets", "pet behavior research", 0.70, "cats", 
+    "a cat that interacts well with other pets", "a cat that does not interact well"),
+  c("students who are members of student government", "educational association", 0.40, "students", 
+    "a student who is a member of student government", "a student who is not a member"),
+  c("drivers who participate in eco-driving courses", "transportation organization", 0.65, "drivers", 
+    "a driver who participates in eco-driving", "a driver who does not participate"),
+  c("people who are aware of endangered species", "wildlife awareness group", 0.70, "people", 
+    "a person who is aware of endangered species", "a person who is unaware of endangered species"),
+  c("frogs that are part of educational programs", "environmental education group", 0.50, "frogs", 
+    "a frog in an educational program", "a frog not in an educational program"),
+  c("animals in zoos that receive proper care", "zoological society", 0.90, "animals in zoos", 
+    "an animal in a zoo that receives proper care", "an animal in a zoo that does not receive proper care"),
+  c("homeowners who utilize rainwater harvesting", "sustainability group", 0.30, "homeowners", 
+    "a homeowner who utilizes rainwater harvesting", "a homeowner who does not utilize it"),
+  c("people who grow their own herbs", "culinary gardening group", 0.75, "people", 
+    "a person who grows their own herbs", "a person who does not grow their own herbs")
+)
+
+prop_scens <- data.frame(prop_scens, stringsAsFactors = FALSE)
+names(prop_scens) <- c("scenario", "authority", "proportion", "subject", "affirmative_example", "negative_example")
+
+while(T){
+  n = sample(c(10,12,14,15,16,18,20,22,24),1)
+  i = sample(1:dim(prop_scens)[1],1)
+  scn = prop_scens[i,]
+  thing = scn[[1]]
+  auth = scn[[2]]
+  p = max(min(as.numeric(scn[[3]])+0.01*sample(-10:10,1),0.9),0.1)
+  subj = scn[[4]]
+  aff = scn[[5]]
+  neg = scn[[6]]
+  ev = p*n
+  me = 2*sqrt(p*(1-p))*sqrt(n)
+  lo = floor(ev-me)
+  hi = ceiling(ev+me)
+  if((hi-lo)>4 && (lo>2 || n-hi>2)){break}
+}
+
+N = 10000
+xxx = sort(rbinom(N,n,p))
+lb = xxx[round(N*0.025+1)]
+ub = xxx[round(N*0.975)]
+
+while(T){
+  lbopts = lb-sample(0:3,1)*3+(0:3)*3
+  if(lbopts[1]>=0){break}
+}
+while(T){
+  ubopts = ub-sample(0:3,1)*3+(0:3)*3
+  if(ubopts[4]<=n){break}
+}
+
+lbal = paste0("* ",lbopts,collapse="\n")
+ubal = paste0("* ",ubopts,collapse="\n")
+lbsol = paste0(1*(lbopts==lb),collapse="")
+ubsol = paste0(1*(ubopts==ub),collapse="")
+
+me = round((ub-lb)/2,1)
+while(T){
+  meopts = me-sample(0:3,1)*3+(0:3)*3
+  if(meopts[1]>=0){break}
+}
+meal = paste0("* ",meopts,collapse="\n")
+mesol = paste0(1*(meopts==me),collapse="")
+
+isin = sample(c(T,F),1)
+
+if(isin){
+  ns = sample(c(lb+2,lb+3,ub-3,ub-2),1)
+  sigsol = "01"
+  sigwrd = "did not find significant difference"
+  w2 = ""
+} else {
+  ons = c(lb-2:5,ub+2:5)
+  ons = ons[ons>0]
+  ons = ons[ons<n]
+  ns = sample(ons,1)
+  sigsol = "10"
+  sigwrd = "found significant difference"
+  w2 = "NOT"
+}
+
+data = sample(c(rep(1,ns),rep(0,n-ns)))
+
+```
+
+Question
+========
+
+*S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.*
+
+You have heard from a good authority (`r auth`) that a few years ago a survey showed that in Berkshire County the proportion of `r thing` is $p=`r p`$. You think that maybe the population proportion has changed with the times. You decide to test your hunch by getting a [simple random sample](https://en.wikipedia.org/wiki/Simple_random_sample) of the `r subj` in Berkshire County.
+
+But, you don't just start gathering data. You need to have a clear test in mind before gathering any data; otherwise you might change the test in response to the data (see [post hoc analysis](https://en.wikipedia.org/wiki/Post_hoc_analysis)). 
+
+## Decide on test
+
+First, you decide on a sample size. You carefully balance your expectations of time, cost, and enthusiasm to decide on a sample size of $n=`r n`$.
+
+For your test, you decide on a [significance level](https://en.wikipedia.org/wiki/Statistical_significance) of 5%. You will use a simulation (with $p=`r p`$) to find an interval of the middle 95% of outcomes. Then,
+
+* If the observed result is **outside** the interval, you will conclude the current proportion is not equal $`r p`$.
+  * You will say that you "**found a significant difference**" between the old proportion and the new proportion.
+* Otherwise, if the observed result is **inside** the interval, you will conclude that there remain two possibilities:
+  * The current proportion still equals `r p`.
+  * You need more data to detect the difference.
+  * In this case, you can just say you "**did not find a significant difference**". 
+
+### Simulation
+
+With the sample size $n=`r n`$ in mind you are able to run a (repeated) simulation while assuming $p=`r p`$. To do that in a [spreadsheet](https://sheets.new), each cell will use ``=IF(RAND()<`r p`,1,0)``, which uses `1` for affirmative and `0` for negative.
+
+* The simulation shows `1` for `r aff`
+* The simulation shows `0` for `r neg`
+* To simulate checking `r n` `r subj`, use ``=IF(RAND()<`r p`,1,0)`` in all cells in range A1:`r LETTERS[n]`1.
+* To count how many of the `r n` `r subj` are `r aff`, in cell `r LETTERS[n+2]`1, use ``=sum(A1:`r LETTERS[n]`1)``
+* Repeat the simulation in rows 1 to 1000. Highlight A1:`r LETTERS[n]`1, `ctrl+shift+down`, and `ctrl+enter`.
+* To get result of each row, highlight `r LETTERS[n+2]`1, `ctrl+shift+down`, and `ctrl+enter`.
+* Freeze the simulation with `ctrl+a`, `ctrl+c`, and `ctrl+shift+v`.
+* To sort, highlight column `r LETTERS[n+2]`. Click `Data`, ``Sort Sheet by column `r LETTERS[n+2]```.
+* Because you have 1000 repetitions, and $0.025\cdot1000=25$, drop the lowest 25 and the highest 25 results. In other words, get the numbers in `r LETTERS[n+2]`26 and `r LETTERS[n+2]`975. Those two numbers indicate the interval of typical results.
+
+Based on your simulation, what are the most reasonable boundaries of the interval of typical (middle 95%) results?
+
+* Lower boundary = ##ANSWER1##
+* Upper boundary = ##ANSWER2##
+
+Let's also get a margin of error by halving the difference of those boundaries.
+
+* Margin of error = ##ANSWER3##
+
+## Collect data
+
+Phew! You've set your study design and you've simulated a model. Now you go collect data to see if it behaves like the model. Here are your raw data:
+
+```{r,echo=F,results='asis'}
+cat(paste0(data,collapse=", "))
+```
+
+What do you conclude?
+
+* Conclusion = ##ANSWER4##
+
+
+Answerlist
+--------
+
+`r lbal`
+`r ubal`
+`r meal`
+* Found significant difference!
+* Did not find significant difference.
+
+
+Solution
+========
+
+Remember, your simulation may have given slightly different numbers. Pick the closest.
+
+* Lower boundary of middle 95% of simulated results = `r lb`
+* Upper boundary of middle 95% of simulated results = `r ub`
+* Margin of error $= \frac{`r ub`-`r lb`}{2} = `r me`$
+* Because your survey had `r ns` affirmatives, and `r ns` is `r w2` between `r lb` and `r ub`, conclusion = `r sigwrd`
+
+Here is a visualization of a simulation like yours. The red dots represent those that are considered unusual enough to be excluded from the interval of typical results. Remember, we keep the middle 95% and get rid of the lowest 2.5% and the highest 2.5%. This is how we do a two-tail significance test with a significance level of 5% (and in this class we will stick to these percentages).
+
+```{r,fig.dim=c(6,10),echo=F}
+while(T){
+  tots = sort(rbinom(1000,n,p))
+  b1 = tots[26]
+  b2 = tots[975]
+  if(b1==lb && b2==ub){break}
+}
+stripchart(tots,method="stack",offset=0.7,pch=19,cex=0.2,xlim=c(min(tots),max(tots)),ylim=c(0.9,3),col="black")
+stripchart(tots[1:25],method="stack",offset=0.7,pch=19,cex=0.2,ylim=c(1,1.4),col="red",add=T)
+stripchart(tots[976:1000],method="stack",offset=0.7,pch=19,cex=0.2,ylim=c(1,1.4),col="red",add=T)
+text(tots[26],0.92,tots[26],col="blue")
+lines(c(tots[26],tots[26]),c(0.94,1),col="blue")
+text(tots[975],0.92,tots[975],col="blue")
+lines(c(tots[975],tots[975]),c(0.94,1),col="blue")
+x1 = mean(c(b1,b2))
+
+lines(c(x1,x1,x1,b2,b2,b2),c(-0.01,0.01,0,0,0.01,-0.01)+0.98,lwd=3,col="purple")
+# text(mean(c(x1,b2)),0.96,"ME",col="purple")
+text(mean(c(x1,b2)),0.92,(b2-b1)/2,col="purple")
+```
+\
+
+It might also help to see all the results of my simulation.
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,21),ylim=c(0,51))
+for(j in 1:50){
+  for(i in 1:20){
+    k = (j-1)*20+i
+    text(i,51-j,tots[k],cex=0.5,col="black")
+    if(k<26 || k>975){
+      lines(c(i-0.3,i+0.3),51-c(j+0.5,j-0.5),col="red")
+    }
+    if(k==26 || k==975){
+      polygon(c(i-0.3,i-0.3,i+0.3,i+0.3),51-c(j+0.5,j-0.5,j-0.5,j+0.5),border="blue")
+    }
+  }
+}
+```
+\
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r lbsol`|`r ubsol`|`r mesol`|`r sigsol`
+exname: prop_test_sim

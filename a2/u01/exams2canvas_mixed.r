@@ -3,11 +3,13 @@ n = 30
 outdir = "outcanvas"
 genname = "u01_"
 
-probs = c("05_sample_percentiles.Rmd",
-          "06_ME_dice_tots.Rmd",
-          "07_stoplight_sim.Rmd")
+probs = c("05_basic_data_analysis.Rmd",
+          "06_big_data_analysis.Rmd",
+          "07_read_histogram.Rmd",
+          "08_identify_shape.Rmd",
+          "09_make_hist_see_shape.Rmd")
 
-pnts = c(5,5,5)
+pnts = c(5,5,5,2,4)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
