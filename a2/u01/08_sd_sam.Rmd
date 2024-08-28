@@ -1,0 +1,115 @@
+```{r data generation, echo = FALSE, results = "hide"}
+n = sample(5:8,1)
+tens = sample(3:8,1)
+while(T){
+  ones = sample(0:19,n,T)
+  x = tens*10+ones
+  xbar = mean(x)
+  devs = round(x-xbar,1)
+  sqd = round((x-xbar)^2,2)
+  v = sum(sqd)/(n-1)
+  sig = sqrt(v)
+  if(100*sig==round(100*sig) && sig>0 && round(10*xbar)==10*xbar && length(unique(sqd))>1){break}
+}
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+A small sample was gathered. The measurements are below.
+
+```{r tab_data, echo=FALSE, results="asis"}
+X = c(paste(x))
+ct = data.frame(X)
+colnames(ct) = c("$x_i$")
+knitr::kable(ct,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+
+
+Please calculate the sample standard deviation. To do this, first calculate the sample mean.
+
+$$\bar{x} = \frac{\sum\limits_{i=1}^n x_i}{n}$$
+
+Calculate the sample variance by dividing the sum of the squared deviations by $n-1$. This subtlety (of replacing the denominator with $n-1$ instead of $n$) is called [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction){target="_blank"}. This provides an unbiased estimation of the population's variance when the population's mean is also unknown.
+$$\text{sample variance (with Bessel correction)} = s^2 = \frac{\sum\limits_{i=1}^n (x_i-\bar{x})^2}{n-1} $$
+
+Determine the sample standard deviation by taking the square root of the sample variance.
+$$s = \sqrt{s^2} $$
+
+
+Solution
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+Find the sample mean.
+$$\bar{x} = \frac{`r paste0(x,collapse="+")`}{`r n`} = `r xbar` $$
+
+Find the sample variance (with Bessel's correction).
+
+```{r, echo=FALSE}
+s = paste0("(",x,"-",xbar,")^2")
+s = paste0("(",devs,")^2",collapse="+")
+s2 = paste0("(",x,"-",xbar,")^2")
+s2 = paste0(s2,collapse="+")
+```
+
+$$s^2 = \frac{`r s2`}{`r n-1`} $$
+
+$$s^2 = \frac{`r s`}{`r n-1`}$$
+
+$$s^2 = \frac{`r paste0(sqd,collapse="+")`}{`r n-1`}$$
+
+$$s^2 = `r v` $$
+Calculate the sample standard deviation (with Bessel's correction).
+$$s = \sqrt{`r v`} = `r sig` $$
+
+
+You might find it helpful to organize your work in a table.
+
+```{r tab1, echo=FALSE, results="asis"}
+X = c(paste(x),"","$n$",paste(sum(n)),"","$\\sum\\limits_{i=1}^{n} x_i$",paste(sum(x)),"","$\\bar{x}$",paste(mean(x)))
+deviations = c(paste(devs),"","","","","","","","","")
+squared_devs = c(paste(sqd),"","$\\sum\\limits_{i=1}^{n} (x_i-\\bar{x})^2$",paste(sum(sqd)),"","$s^2=\\frac{1}{n-1}\\sum\\limits_{i=1}^{n} (x_i-\\bar{x})^2$",paste(sum(sqd)/(n-1)),"","$s$",paste(sig))
+ct = data.frame(X,deviations,squared_devs)
+colnames(ct) = c("$x_i$","$(x_i-\\bar{x})$","$(x_i-\\bar{x})^2$")
+knitr::kable(ct,format="html",table.attr='class="bordered-table"', align = "cccc",row.names=F)
+```
+\
+
+Meta-information
+================
+extype: num
+exsolution: `r sig`
+exname: sig_pop_int
+extol: 0

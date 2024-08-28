@@ -1,140 +1,61 @@
 ```{r,echo=F}
-while(T){
-    x1 = round(runif(10,0,1),2)
-    y1 = round(runif(10,0,1),2)
-    hs = runif(10)
-    x = c(-x1,-x1,x1,x1)
-    y = c(-y1,y1,-y1,y1)
-    h = c(hs,hs,hs,hs)
-    r = round(runif(1,2,3),1)
-    th1 = round(sample(0:3,1)*pi/2+runif(1,pi/12,pi/2-pi/12),2)
-    th2 = th1+pi/2
-    
-    rn = sample(1:length(x),1)
-    x0 = x[rn]
-    y0 = y[rn]
-    Dx = round(r*cos(th1),2)
-    Dy = round(r*sin(th1),2)
-    x1 = round(x0+Dx,2)
-    y1 = round(y0+Dy,2)
-    hrn = h[rn]
-    
-    alsol = function(ans,n=5,dx=1){
-        choices = round(ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx,2)
-        al = paste0("* ",choices,collapse="\n")
-        sol = paste0(1*(round(ans,2)==choices),collapse="")
-        return(data.frame(al,sol))
-    }
-    
-    fx = alsol(x1,5,0.03)
-    fy = alsol(y1,5,0.03)
-    if(abs(Dx)>0.2 && abs(Dy)>0.2){break}
-}
 
+x = runif(40,-1,1)
+y = runif(40,-1,1)
+h = runif(40,0,1)
 
+th = round(sample(0:7,1)*pi/4+runif(1,pi/20,pi/4-pi/20),2)
+m = tan(th)
 
 ```
 
 Question
 ========
 
-A wallpaper was made by using repeated translations. I have depicted the translation of point $(`r x0`, `r y0`)$ in the direction $\theta=`r th1`$ (radians) by a distance of $r=`r r`$. 
-
-```{r,echo=F,fig.dim=c(8,8)}
+```{r,echo=F,fig.dim=c(4,4)}
 par(mar=c(0,0,0,0),pty="s")
-plot(0,0,type="n",axes=F,ann=F,xlim=c(-4,4),ylim=c(-4,4))
-for(i in -8:8){
-    for(j in -8:8){
-        dx = i*r*cos(th1)+j*r*cos(th2)
-        dy = i*r*sin(th1)+j*r*sin(th2)
-        points(x+dx,y+dy,col=hsv(h,1,0.9,1),pch=19)
-    }
-}
-points(x,y,col=hsv(h,1,0.9,1),pch=19)
+plot(0,0,"n",ann=F,axes=F,xlim=c(-1.4,1.4),ylim=c(-1.4,1.4))
 
-points(x1,y1,col=hsv(hrn,1,0.9,1),pch=19)
-arrows(x0,y0,x1,y1,lwd=2)
+arrows(-1.2,0,1.2,0,col=rgb(0.95,0.95,0.95),code = 3)
+arrows(0,-1.2,0,1.2,col=rgb(0.95,0.95,0.95),code=3)
+
+#points(x,y,pch=19,col=hsv(h,0.7,0.7,0.3))
+
+
+# x*cos(th)^2*(1-tan(th)^2)+y*
+
+xp = (x*(1-m^2)+y*2*m)/(1+m^2)
+yp = (x*2*m+y*(m^2-1))/(1+m^2)
+
+xx = c(x,xp)
+yy = c(y,yp)
+hh = c(h,h)
+
+xx1 = xx[yy<m*xx]
+yy1 = yy[yy<m*xx]
+hh1 = hh[yy<m*xx]
+
+xx2 = (xx1*(1-m^2)+yy1*2*m)/(1+m^2)
+yy2 = (xx1*2*m+yy1*(m^2-1))/(1+m^2)
+
+xa = c(xx1,xx2)
+ya = c(yy1,yy2)
+
+points(xa,ya,col=hsv(c(hh1,hh1),1,1),pch=19)
+abline(0,m)
+
 ```
 \
 
 
-What are the coordinates of the point at the end of the arrow (the result of the translation)?
-
-* The horizontal coordinate, $x'=$ ##ANSWER1##
-* The vertical coordinate, $y'=$ ##ANSWER2##
-
-Answerlist
---------
-
-`r fx$al`
-`r fy$al`
 
 Solution
 ========
 
-To find the changes of translation, we can use trigonometry.
-
-$$\Delta x = r\cdot \cos(\theta)$$
-$$\Delta y = r\cdot \sin(\theta)$$
-
-Let's evaluate those changes.
-
-$$\Delta x ~=~ `r r`\cdot \cos(`r th1`) ~=~ `r round(Dx,2)`$$
-$$\Delta y ~=~ `r r`\cdot \sin(`r th1`) ~=~ `r round(Dy,2)`$$
-
-We can then add these changes to the original point.
-
-```{r,echo=F}
-if(Dx<0){
-    st1 = paste0(x0,"-",abs(Dx),collapse="") 
-} else {
-    st1 = paste0(x0,"+",abs(Dx),collapse="") 
-}
-if(Dy<0){
-    st2 = paste0(y0,"-",abs(Dy),collapse="") 
-} else {
-    st2 = paste0(y0,"+",abs(Dy),collapse="") 
-}
-
-```
-
-$$x' ~=~ x+\Delta x ~=~`r st1` ~=~ `r x1`$$
-$$y' ~=~ y+\Delta y ~=~ `r st2` ~=~ `r y1`$$
-
-Here is a picture with $\Delta x$ and $\Delta y$ depicted.
-
-```{r,echo=F,fig.dim=c(8,8)}
-par(mar=c(0,0,0,0),pty="s")
-plot(0,0,type="n",axes=F,ann=F,xlim=c(-4,4),ylim=c(-4,4))
-for(i in -8:8){
-    for(j in -8:8){
-        dx = i*r*cos(th1)+j*r*cos(th2)
-        dy = i*r*sin(th1)+j*r*sin(th2)
-        points(x+dx,y+dy,col=hsv(h,0.1,0.9,1),pch=19)
-    }
-}
-
-p1tx = x0+0.2*cos(th1+pi)
-p1ty = y0+0.2*sin(th1+pi)
-text(p1tx,p1ty,paste0("(",x0,", ",y0,")"),adj=max(0,sign(cos(th1))),cex=1)
-p2tx = x1+0.2*cos(th1)
-p2ty = y1+0.2*sin(th1)
-text(p2tx,p2ty,paste0("(",x1,", ",y1,")"),adj=-sign(cos(th1))/2+0.5,cex=1)
-points(x0,y0,pch=19,cex=1)
-points(x1,y1,pch=19,cex=1)
-
-arrows(x0,y0,x1,y0,lwd=2,col="blue",length=0.2,angle=10)
-text(mean(c(x0,x1)),y0-0.2*sign(sin(th1)),Dx,col="blue",cex=1)
-arrows(x1,y0,x1,y1,lwd=2,col="red",length=0.2,angle=10)
-text(x1+0.1*sign(cos(th1)),mean(c(y0,y1)),Dy,col="red",cex=1,adj=-sign(cos(th1))/2+0.5)
-arrows(x0,y0,x1,y1,lwd=3,col="purple",length=0.2,angle=10)
-
-```
-\
 
 Meta-information
 ============
 extype: cloze
 exclozetype: schoice|schoice
-exsolution: `r fx$sol`|`r fy$sol`
+exsolution: 1
 exname: translate_point
