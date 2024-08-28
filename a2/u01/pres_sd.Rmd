@@ -1,0 +1,161 @@
+---
+title: "Standard deviation"
+output:
+  slidy_presentation:
+    theme: cerulean
+---
+
+## What is standard deviation?
+
+* Standard deviation is a measure of variability.
+* Standard deviation is approximately the **average distance from mean**.
+
+## Mean absolute deviation 
+
+* [MAD](https://en.wikipedia.org/wiki/Average_absolute_deviation) is a more intuitive concept. It is the average distance from mean.
+* Example data set: 42, 44, 45, 46, 48
+* The mean is 45.
+* The absolute differences are 3, 1, 0, 1, 3
+* Find the average of those absolute differences:
+$$\frac{3+1+0+1+3}{5}=1.6$$
+* This says on average the values are 1.6 units away from 45.
+
+## Standard deviation
+
+* Same example data set: 42, 44, 45, 46, 48
+* The mean is still 45.
+* The **[squared](https://en.wikipedia.org/wiki/Square_(algebra))** differences are 9, 1, 0, 1, 9
+* The [variance](https://en.wikipedia.org/wiki/Variance) equals the average of those squared differences.
+$$\mathrm{variance}=\sigma^2=\frac{9+1+0+1+9}{5}=4$$
+* The standard deviation is the square root of the variance.
+$$\mathrm{SD}=\sigma=\sqrt{4}=2$$
+
+## That seems complicated.
+
+* It is. But standard deviation has a super useful property:
+$$\sigma_{X+Y}=\sqrt{(\sigma_X)^2+(\sigma_Y)^2}$$
+* That might not look like much, but it is an absolutely essential component to the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), which I will try to exemplify.
+
+## Let's roll 9d12+7d20 repeated 1000 times
+
+```{r,echo=F,fig.dim=c(6,4)}
+set.seed(0)
+d1 = 12
+d2 = 20
+n1 = 9
+n2 = 7
+nrep = 1000
+x1 = matrix(sample(1:d1,nrep*n1,T),nrow=nrep)
+x2 = matrix(sample(1:d2,nrep*n2,T),nrow=nrep)
+sums1 = apply(x1,1,sum)
+sums2 = apply(x2,1,sum)
+sums = sums1+sums2
+ss = sort(sums)
+
+par(mar=c(3,3,0,0))
+
+tb = as.data.frame(table(ss))
+pss = unlist(lapply(as.vector(tb$ss),as.integer))
+cnt = as.vector(tb$Freq)
+rng1 = max(pss)-min(pss)
+rng2 = max(cnt)
+rng = max(c(rng1,rng2))
+midx = (max(pss)+min(pss))/2
+plot(0,0,type="n",xlim=c(midx-rng/2,midx+rng/2),ylim=c(0,rng/3),axes=F,xlab="Value",ylab="Count")
+k = 0
+for(i in 1:length(pss)){
+    for(j in 1:cnt[i]){
+        k=k+1
+        points(pss[i],j-0.5,cex=0.5,pch=19)
+    }
+}
+axis(1)
+axis(2)
+
+#9d12+7d20
+sda = sqrt((12^2-1)/12)
+sdb = sqrt((20^2-1)/12)
+sdc = sqrt(9*sda^2+7*sdb^2)
+xmid = 9*6.5+7*10.5
+
+xxx = seq(min(pss),max(pss),0.1)
+yyy = dnorm(xxx,xmid,sdc)*1000
+lines(xxx,yyy,col="red",lwd=3)
+
+
+x1sd = xmid+sdc
+y1sd = dnorm(x1sd,xmid,sdc)*1000
+lines(c(xmid,x1sd),rep(y1sd,2),col="red",lwd=2)
+text(mean(c(xmid,x1sd)),y1sd*0.9,round(sdc,1),col="red",cex=1.5)
+axis(1,xmid,col="red")
+
+```
+\
+
+You can predict the red ([normal](https://en.wikipedia.org/wiki/Normal_distribution)) curve before running the simulation.
+
+## How to predict the normal approximation?
+
+* There is a shortcut formula for finding the SD of an [$N$-sided die](https://en.wikipedia.org/wiki/Discrete_uniform_distribution).
+$$\mathrm{SD(1dN)}=\sqrt{\frac{N^2-1}{12}}$$
+* So I know the SD of 1d12 and SD of 1d20.
+$$\mathrm{SD(1d12)} \approx `r round(sda,2)`$$
+$$\mathrm{SD(1d20)} \approx `r round(sdb,2)`$$
+* The super useful property (with a bit of a hand wave) gives me the SD of 9d12+7d20.
+$$\mathrm{SD(9d12+7d20)} = \sqrt{9\cdot `r round(sda,2)`^2+7\cdot `r round(sdb,2)`^2} = `r round(sdc,1)`$$
+
+## What about the center of the normal approximation
+
+* Finding the center (132) is the easy part. It's based on expected value (means).
+* The mean of 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 is $\mu_{1d12}=$**6.5**.
+* The mean of 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 is $\mu_{1d20}=$**10.5**.
+* $9\cdot6.5+7\cdot10.5 = `r 9*6.5+7*10.5`$
+
+
+## But how would you know to use a **normal** approximation
+
+* "Totals and means are normally distributed!"
+* "Totals and means are normally distributed!"
+* "Totals and means are normally distributed!"
+* *As long as those totals or means have enough bits getting added together and those bits are [independent](https://en.wikipedia.org/wiki/Independence_(probability_theory)). And there are probably some other disclaimers... but for now...*
+* "Totals and means are normally distributed!"
+* It does not matter what the underlying distributions are. If each repetition involves adding together (or averaging) a bunch of [independent random variables](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables), you can expect the totals (or means) of the repetitions to be normally distributed.
+
+
+## What?
+
+* Standard deviation is a measure of spread (variability).
+* Standard deviation is very similar to the **average absolute deviation**.
+* The formula for standard deviation:
+$$\sigma = \sqrt{\frac{\sum (x-\mu)^2}{n}}$$
+* Standard deviation is a kind of complicated statistic to calculate, but we still use it because it is useful.
+* Specifically, SD is a key element to the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), which is probably the most important concept in Statistics.
+
+## Estimating SD from a histogram
+
+* Let's say we have three different distributions: a bell, a uniform, and a bimodal.
+* They all sit between 200 and 260, so their ranges are approximately 60.
+
+```{r,echo=F,fig.dim=c(8,8)}
+set.seed(0)
+x1 = round(rnorm(1000,330,9.3))-100
+x2 = sample(300:360,1000,T)-100
+x3 = rnorm(1000,330,9.4)
+x3 = (sign(x3-330)*30+330)+((330-x3)/30)^2*30*sign(330-x3)-100
+par(mfrow=c(3,1))
+
+hist(x1,main="Bell: SD approx 60/6 = 10",xlim=c(0,360))
+hist(x2,main="Uniform: SD approx 60/4 = 15",xlim=c(0,360))
+hist(x3,main="Bimodal: SD approx 60/2 = 30",xlim=c(0,360))
+
+```
+
+
+
+
+
+
+
+
+
+
