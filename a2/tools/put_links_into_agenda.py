@@ -3,15 +3,11 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-08-29 8:00:00"]*4
-dut = ["2024-08-29 23:59:00"]*4
-front = "u01_"
-files = ["09_read_histogram.Rmd",
-         "10_identify_shape.Rmd",
-         "11_make_hist_see_shape.Rmd",
-         "12_sample_percentiles.Rmd"]
+front = ""
+files = ["ET_007.html"]
 
 practice_url_front = "https://chadworley.github.io/a2/u01/outhtml/"
+agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
@@ -19,38 +15,41 @@ headers = {"Authorization": f"Bearer {access_token}"}
 course_id = '1314'
 canvas_url = 'https://bart.instructure.com'
 
-def set_quiz_ass(name,avt,dut,assdesc=" "):
+def get_ass_id(name):
     searchdata = {"search_term":name}
-    url = f"{canvas_url}/api/v1/courses/{course_id}/quizzes/"
-    response = requests.get(url,data=searchdata,headers=headers)
-    myid = response.json()[0]["id"]
-    data = {'quiz[due_at]': dut,
-            "quiz[unlock_at]": avt,
-            "quiz[shuffle_answers]": 0,
-            "quiz[published]": 1,
-            "quiz[notify_of_update]":0,
-            "quiz[allowed_attempts]":10}
-    response = requests.put(url+str(myid),data=data,headers=headers)
     url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"
     response = requests.get(url,data=searchdata,headers=headers)
     assid = response.json()[0]['id']
-    data = {'assignment[post_to_sis]': 1,
-            'assignment[description]':assdesc}
-    url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"+str(assid)
-    response = requests.put(url,data=data,headers=headers)
+    return(assid)
+# 
+# def set_quiz_ass(name,avt,dut,assdesc=" "):
+#     searchdata = {"search_term":name}
+#     url = f"{canvas_url}/api/v1/courses/{course_id}/quizzes/"
+#     response = requests.get(url,data=searchdata,headers=headers)
+#     myid = response.json()[0]["id"]
+#     data = {'quiz[due_at]': dut,
+#             "quiz[unlock_at]": avt,
+#             "quiz[shuffle_answers]": 0,
+#             "quiz[published]": 1,
+#             "quiz[notify_of_update]":0,
+#             "quiz[allowed_attempts]":10}
+#     response = requests.put(url+str(myid),data=data,headers=headers)
+#     url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"
+#     response = requests.get(url,data=searchdata,headers=headers)
+#     assid = response.json()[0]['id']
+#     data = {'assignment[post_to_sis]': 1,
+#             'assignment[description]':assdesc}
+#     url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"+str(assid)
+#     response = requests.put(url,data=data,headers=headers)
 
 
 for i in range(len(files)):
-    A = datetime.strptime(avt[i],"%Y-%m-%d %H:%M:%S")
-    D = datetime.strptime(dut[i],"%Y-%m-%d %H:%M:%S")
-    A = A+timedelta(hours=4)
-    D = D+timedelta(hours=4)
-    A = A.strftime("%Y-%m-%dT%H:%M:%SZ")
-    D = D.strftime("%Y-%m-%dT%H:%M:%SZ")
     pref = files[i].split(".")[0]
     name = front+pref
-    assdesc = "<a href='"+practice_url_front+pref+".html'>practice</a>"
-    set_quiz_ass(name,A,D,assdesc)
+    theid = get_ass_id(name)
+    link1 = practice_url_front+pref+".html"
+    link2 = f"{canvas_url}/api/v1/courses/{course_id}/assignments/{theid}"
+    print("* "+name+" [Canvas]("+link2+")/[public]("+link1+")")
 
 
 
