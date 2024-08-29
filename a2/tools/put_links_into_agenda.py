@@ -3,8 +3,12 @@ import time
 from datetime import datetime, timedelta
 import os
 
-front = ""
-files = ["ET_007.html"]
+
+front = "u01_"
+files = ["09_read_histogram.Rmd",
+         "10_identify_shape.Rmd",
+         "11_make_hist_see_shape.Rmd",
+         "12_sample_percentiles.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u01/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
@@ -17,7 +21,7 @@ canvas_url = 'https://bart.instructure.com'
 
 def get_ass_id(name):
     searchdata = {"search_term":name}
-    url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"
+    url = f"{canvas_url}/api/v1/courses/{course_id}/quizzes/"
     response = requests.get(url,data=searchdata,headers=headers)
     assid = response.json()[0]['id']
     return(assid)
@@ -48,7 +52,7 @@ for i in range(len(files)):
     name = front+pref
     theid = get_ass_id(name)
     link1 = practice_url_front+pref+".html"
-    link2 = f"{canvas_url}/api/v1/courses/{course_id}/assignments/{theid}"
+    link2 = f"{canvas_url}/courses/{course_id}/quizzes/{theid}"
     print("* "+name+" [Canvas]("+link2+")/[public]("+link1+")")
 
 
