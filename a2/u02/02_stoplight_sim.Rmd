@@ -27,19 +27,19 @@ for(i in 1:1000){
 tol = ceiling((max(mes)-min(mes))/2*100)/100
 ME = round((max(mes)+min(mes))/2,2)
 
+
+
 ```
 
 Question
 ========
 
-*S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.*
-
-You wish to simulate how long your morning commute takes. You break the commute into two parts.
+You wish to simulate how long your morning commute takes. You break the commute into two parts:
 
 * Moving time
     * Approximately normal with $\mu=`r mutt`$ minutes and $\sigma=`r sigtt`$ minutes.
     * In a spreadsheet, this is simulated with ``=norminv(rand(),`r mutt`,`r sigtt`)``
-* Waiting time at `r n` intersections.
+* Waiting time due to `r n` intersections.
     * Each intersection has a `r p` chance to be green. If the light is not green, you will wait up to `r t` minutes (following a uniform distribution).
     * In a spreadsheet, **each** intersection is simulated with ``=if(rand()<`r p`, 0, rand()*`r t`)``
 
@@ -55,7 +55,7 @@ You should get a margin of error near `r ME` minutes. The tolerance should take 
 I've shown a histogram of my simulation below.
 
 ```{r,echo=F,fig.dim=c(8,8)}
-myplot = hist(ss,xlab="time (minutes)",main="Stop-light sim, 1000 repetitions")
+myplot = hist(ss,xlab="time (minutes)",main="Commute sim, 1000 repetitions")
 cnts = myplot$counts
 ydraw = max(cnts)/2
 lines(c(mid,mid,mid,hi,hi,hi),ydraw*c(0.95,1.05,1,1,1.05,0.95),col="red",lwd=3)
@@ -63,6 +63,21 @@ mex = mean(c(mid,hi))
 text(mex,1.05*ydraw,round(me,3),col="red")
 ```
 \
+
+```{r, echo=F}
+cc = LETTERS[n+1]
+tc = LETTERS[n+3]
+```
+
+
+* In a spreadsheet, put ``=norminv(rand(),`r mutt`,`r sigtt`)`` in cells A1:A1000.
+* Put ``=if(rand()<`r p`, 0, rand()*`r t`)`` in cells B1:`r cc`1000.
+* In cell `r tc`1, put ``=sum(A1:`r cc`1)``. Drag formula down to cell `r tc`1000.
+* Freeze the simulation by copying everything and pasting **values only**.
+* Sort sheet by column `r tc`.
+* Find the values at `r tc`25 and `r tc`975. These are the boundaries of the interval of typical totals.
+* Subtract those boundaries and divide the result by 2 to find the margin of error.
+
 
 
 Meta-information

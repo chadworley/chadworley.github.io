@@ -1,0 +1,118 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.
+
+isin = sample(c(T,F),1)
+
+while(T){
+    mu = round(runif(1,100,800),-1)
+    sig = round(runif(1,5,30),0)
+    n = sample(6:15,1)
+    
+    los = numeric()
+    his = numeric()
+    mes = numeric()
+    
+    for(i in 1:1000){
+        xbs = numeric()
+        for(j in 1:1000){
+            xbs = c(xbs,mean(rnorm(n,mu,sig)))
+        }
+        xbs = sort(xbs)
+        los = c(los,xbs[25])
+        his = c(his,xbs[975])
+        mes = c(mes,(xbs[975]-xbs[25])/2)
+    }
+    melos = (max(los)-min(los))/2
+    mehis = (max(his)-min(his))/2
+    memes = (max(mes)-min(mes))/2
+    explo = (max(los)+min(los))/2
+    exphi = (max(his)+min(his))/2
+    expme = (max(mes)+min(mes))/2
+    
+    isfree = F
+    for(i in 1:100){
+        xbar = round(mean(rnorm(n,mu,sig)),2)
+        if(isin && abs(xbar-mu)<(expme-1.1*memes) && 
+           abs(xbar-mu)>(expme-2*memes)){
+            sol3 = "10"
+            isfree = T
+            a3 = "yes"
+            break
+            }
+        if(!isin && abs(xbar-mu)>(expme+1.1*memes) &&
+           abs(xbar-mu)<(expme+2*memes)){
+            sol3 = "01"
+            isfree=T
+            a3 = "no"
+            break
+            }
+    }
+    if(isfree){break}
+}
+
+alsol = function(ans,n=5,dx=1){
+    choices = ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx
+    al = paste0("* ",choices,collapse="\n")
+    sol = paste0(1*(ans==choices),collapse="")
+    return(data.frame(al,sol))
+}
+a1 = round(explo,1)
+a2 = round(exphi,1)
+
+f1 = alsol(a1,5,round(melos*2,1))
+f2 = alsol(a2,5,round(mehis*2,1))
+
+```
+
+Question
+========
+
+*S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.*
+
+On an alien planet, adult blue-coated bullfrogs' masses are normally distributed with a mean equaling $\mu=`r mu`$ grams and a standard deviation equaling $\sigma=`r sig`$ grams. You can simulate measuring a random bullfrog's mass with ``=NORMINV(RAND(),`r mu`,`r sig`)`` in a spreadsheet.
+
+You "cultivate" some of these bullfrogs on your spaceship. You find that in a sample of $n=`r n`$ adult bullfrogs, you get a sample mean $\bar{x}=`r xbar`$ grams.
+
+You wonder whether the spaceship conditions have caused a [significant](https://en.wikipedia.org/wiki/Statistical_significance) change in average mass. To answer this, you repeatedly simulate the [null hypothesis](https://en.wikipedia.org/wiki/Null_hypothesis). To do this, you simulate getting the mean mass from `r n` adults from the alien planet, and repeat that simulation 1000 times. From those 1000 repetitions, you will get 1000 means. Find the 2.5th percentile and the 97.5th percentile to get the interval of typical means. (Pick the closest answer.)
+
+* Lower boundary of interval of typical means: ##ANSWER1##
+* Upper boundary of interval of typical means: ##ANSWER2##
+
+Is the result of a sample mean equaling $\bar{x}=`r xbar`$ grams, with sample size of $n=`r n`$ bullfrogs, consistent with the simulation's interval of typical means?
+
+* Is the result consistent with simulation? ##ANSWER3##
+
+
+Answerlist
+--------
+
+`r f1$al`
+`r f2$al`
+* Yes
+* No
+
+
+Solution
+========
+
+```{r, echo=F}
+cc = LETTERS[n]
+mc = LETTERS[n+2]
+pc = LETTERS[n+3]
+```
+
+* In cells A1:`r cc`1000, put ``=NORMINV(RAND(),`r mu`,`r sig`)``. Notice each row has `r n` bullfrog masses.
+* In cell `r mc`1 put ``=AVERAGE(A1:`r cc`1)``. Drag the formula down through cell `r mc`1000. You now have 1000 means.
+* In cell `r pc`1, put ``=PERCENTILE(`r mc`1:`r mc`1000,0.025)``. This is your lower boundary of the interval of typical means. Find the closest answer.
+* In cell `r pc`2, put ``=PERCENTILE(`r mc`1:`r mc`1000,0.975)``. This is your upper boundary of the interval of typical means. Find the closest answer.
+* If the result ($\bar{x}=`r xbar`$) is inside the interval, the last answer is YES. Otherwise, the last answer is NO.
+
+The best answers are: `r a1`, `r a2`, and "`r a3`".
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r f1$sol`|`r f2$sol`|`r sol3`
+exname: simulated_means

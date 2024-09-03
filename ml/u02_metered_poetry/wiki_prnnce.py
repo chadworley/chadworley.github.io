@@ -31,7 +31,6 @@ for line in wl:
 
 print(len(pdict))
 print(len(wikiwrds))
-
 print(wikiwrds)
 
 
