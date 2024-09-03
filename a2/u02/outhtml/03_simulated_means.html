@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>03_simulated_means</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">03_simulated_means</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.</em></p>
+<p>On an alien planet, adult blue-coated bullfrogs’ masses are normally distributed with a mean equaling <span class="math inline">\(\mu=360\)</span> grams and a standard deviation equaling <span class="math inline">\(\sigma=19\)</span> grams. You can simulate measuring a random bullfrog’s mass with <code>=NORMINV(RAND(),360,19)</code> in a spreadsheet.</p>
+<p>You “cultivate” some of these bullfrogs on your spaceship. You find that in a sample of <span class="math inline">\(n=6\)</span> adult bullfrogs, you get a sample mean <span class="math inline">\(\bar{x}=346.76\)</span> grams.</p>
+<p>You wonder whether the spaceship conditions have caused a <a href="https://en.wikipedia.org/wiki/Statistical_significance">significant</a> change in average mass. To answer this, you repeatedly simulate the <a href="https://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis</a>. To do this, you simulate getting the mean mass from 6 adults from the alien planet, and repeat that simulation 1000 times. From those 1000 repetitions, you will get 1000 means. Find the 2.5th percentile and the 97.5th percentile to get the interval of typical means. (Pick the closest answer.)</p>
+<ul>
+<li>Lower boundary of interval of typical means: <select><option>--------</option><option> 332.2</option><option>336.4</option><option>340.6</option><option>344.8</option><option>349 </option></select></li>
+<li>Upper boundary of interval of typical means: <select><option>--------</option><option> 366.1</option><option>370.6</option><option>375.1</option><option>379.6</option><option>384.1 </option></select></li>
+</ul>
+<p>Is the result of a sample mean equaling <span class="math inline">\(\bar{x}=346.76\)</span> grams, with sample size of <span class="math inline">\(n=6\)</span> bullfrogs, consistent with the simulation’s interval of typical means?</p>
+<ul>
+<li>Is the result consistent with simulation? <select><option>--------</option><option> Yes</option><option>No </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>In cells A1:F1000, put <code>=NORMINV(RAND(),360,19)</code>. Notice each row has 6 bullfrog masses.</li>
+<li>In cell H1 put <code>=AVERAGE(A1:F1)</code>. Drag the formula down through cell H1000. You now have 1000 means.</li>
+<li>In cell I1, put <code>=PERCENTILE(H1:H1000,0.025)</code>. This is your lower boundary of the interval of typical means. Find the closest answer.</li>
+<li>In cell I2, put <code>=PERCENTILE(H1:H1000,0.975)</code>. This is your upper boundary of the interval of typical means. Find the closest answer.</li>
+<li>If the result (<span class="math inline">\(\bar{x}=346.76\)</span>) is inside the interval, the last answer is YES. Otherwise, the last answer is NO.</li>
+</ul>
+<p>The best answers are: 344.8, 375.1, and “yes”.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.</em></p>
+<p>On an alien planet, adult blue-coated bullfrogs’ masses are normally distributed with a mean equaling <span class="math inline">\(\mu=420\)</span> grams and a standard deviation equaling <span class="math inline">\(\sigma=25\)</span> grams. You can simulate measuring a random bullfrog’s mass with <code>=NORMINV(RAND(),420,25)</code> in a spreadsheet.</p>
+<p>You “cultivate” some of these bullfrogs on your spaceship. You find that in a sample of <span class="math inline">\(n=7\)</span> adult bullfrogs, you get a sample mean <span class="math inline">\(\bar{x}=441.6\)</span> grams.</p>
+<p>You wonder whether the spaceship conditions have caused a <a href="https://en.wikipedia.org/wiki/Statistical_significance">significant</a> change in average mass. To answer this, you repeatedly simulate the <a href="https://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis</a>. To do this, you simulate getting the mean mass from 7 adults from the alien planet, and repeat that simulation 1000 times. From those 1000 repetitions, you will get 1000 means. Find the 2.5th percentile and the 97.5th percentile to get the interval of typical means. (Pick the closest answer.)</p>
+<ul>
+<li>Lower boundary of interval of typical means: <select><option>--------</option><option> 389.4</option><option>395.2</option><option>401</option><option>406.8</option><option>412.6 </option></select></li>
+<li>Upper boundary of interval of typical means: <select><option>--------</option><option> 428.1</option><option>433.2</option><option>438.3</option><option>443.4</option><option>448.5 </option></select></li>
+</ul>
+<p>Is the result of a sample mean equaling <span class="math inline">\(\bar{x}=441.6\)</span> grams, with sample size of <span class="math inline">\(n=7\)</span> bullfrogs, consistent with the simulation’s interval of typical means?</p>
+<ul>
+<li>Is the result consistent with simulation? <select><option>--------</option><option> Yes</option><option>No </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>In cells A1:G1000, put <code>=NORMINV(RAND(),420,25)</code>. Notice each row has 7 bullfrog masses.</li>
+<li>In cell I1 put <code>=AVERAGE(A1:G1)</code>. Drag the formula down through cell I1000. You now have 1000 means.</li>
+<li>In cell J1, put <code>=PERCENTILE(I1:I1000,0.025)</code>. This is your lower boundary of the interval of typical means. Find the closest answer.</li>
+<li>In cell J2, put <code>=PERCENTILE(I1:I1000,0.975)</code>. This is your upper boundary of the interval of typical means. Find the closest answer.</li>
+<li>If the result (<span class="math inline">\(\bar{x}=441.6\)</span>) is inside the interval, the last answer is YES. Otherwise, the last answer is NO.</li>
+</ul>
+<p>The best answers are: 401, 438.3, and “no”.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.</em></p>
+<p>On an alien planet, adult blue-coated bullfrogs’ masses are normally distributed with a mean equaling <span class="math inline">\(\mu=580\)</span> grams and a standard deviation equaling <span class="math inline">\(\sigma=9\)</span> grams. You can simulate measuring a random bullfrog’s mass with <code>=NORMINV(RAND(),580,9)</code> in a spreadsheet.</p>
+<p>You “cultivate” some of these bullfrogs on your spaceship. You find that in a sample of <span class="math inline">\(n=15\)</span> adult bullfrogs, you get a sample mean <span class="math inline">\(\bar{x}=576.32\)</span> grams.</p>
+<p>You wonder whether the spaceship conditions have caused a <a href="https://en.wikipedia.org/wiki/Statistical_significance">significant</a> change in average mass. To answer this, you repeatedly simulate the <a href="https://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis</a>. To do this, you simulate getting the mean mass from 15 adults from the alien planet, and repeat that simulation 1000 times. From those 1000 repetitions, you will get 1000 means. Find the 2.5th percentile and the 97.5th percentile to get the interval of typical means. (Pick the closest answer.)</p>
+<ul>
+<li>Lower boundary of interval of typical means: <select><option>--------</option><option> 574.1</option><option>575.3</option><option>576.5</option><option>577.7</option><option>578.9 </option></select></li>
+<li>Upper boundary of interval of typical means: <select><option>--------</option><option> 580.3</option><option>581.7</option><option>583.1</option><option>584.5</option><option>585.9 </option></select></li>
+</ul>
+<p>Is the result of a sample mean equaling <span class="math inline">\(\bar{x}=576.32\)</span> grams, with sample size of <span class="math inline">\(n=15\)</span> bullfrogs, consistent with the simulation’s interval of typical means?</p>
+<ul>
+<li>Is the result consistent with simulation? <select><option>--------</option><option> Yes</option><option>No </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>In cells A1:O1000, put <code>=NORMINV(RAND(),580,9)</code>. Notice each row has 15 bullfrog masses.</li>
+<li>In cell Q1 put <code>=AVERAGE(A1:O1)</code>. Drag the formula down through cell Q1000. You now have 1000 means.</li>
+<li>In cell R1, put <code>=PERCENTILE(Q1:Q1000,0.025)</code>. This is your lower boundary of the interval of typical means. Find the closest answer.</li>
+<li>In cell R2, put <code>=PERCENTILE(Q1:Q1000,0.975)</code>. This is your upper boundary of the interval of typical means. Find the closest answer.</li>
+<li>If the result (<span class="math inline">\(\bar{x}=576.32\)</span>) is inside the interval, the last answer is YES. Otherwise, the last answer is NO.</li>
+</ul>
+<p>The best answers are: 575.3, 584.5, and “yes”.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.</em></p>
+<p>On an alien planet, adult blue-coated bullfrogs’ masses are normally distributed with a mean equaling <span class="math inline">\(\mu=350\)</span> grams and a standard deviation equaling <span class="math inline">\(\sigma=12\)</span> grams. You can simulate measuring a random bullfrog’s mass with <code>=NORMINV(RAND(),350,12)</code> in a spreadsheet.</p>
+<p>You “cultivate” some of these bullfrogs on your spaceship. You find that in a sample of <span class="math inline">\(n=14\)</span> adult bullfrogs, you get a sample mean <span class="math inline">\(\bar{x}=343.01\)</span> grams.</p>
+<p>You wonder whether the spaceship conditions have caused a <a href="https://en.wikipedia.org/wiki/Statistical_significance">significant</a> change in average mass. To answer this, you repeatedly simulate the <a href="https://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis</a>. To do this, you simulate getting the mean mass from 14 adults from the alien planet, and repeat that simulation 1000 times. From those 1000 repetitions, you will get 1000 means. Find the 2.5th percentile and the 97.5th percentile to get the interval of typical means. (Pick the closest answer.)</p>
+<ul>
+<li>Lower boundary of interval of typical means: <select><option>--------</option><option> 337.6</option><option>339.1</option><option>340.6</option><option>342.1</option><option>343.6 </option></select></li>
+<li>Upper boundary of interval of typical means: <select><option>--------</option><option> 350.3</option><option>351.8</option><option>353.3</option><option>354.8</option><option>356.3 </option></select></li>
+</ul>
+<p>Is the result of a sample mean equaling <span class="math inline">\(\bar{x}=343.01\)</span> grams, with sample size of <span class="math inline">\(n=14\)</span> bullfrogs, consistent with the simulation’s interval of typical means?</p>
+<ul>
+<li>Is the result consistent with simulation? <select><option>--------</option><option> Yes</option><option>No </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>In cells A1:N1000, put <code>=NORMINV(RAND(),350,12)</code>. Notice each row has 14 bullfrog masses.</li>
+<li>In cell P1 put <code>=AVERAGE(A1:N1)</code>. Drag the formula down through cell P1000. You now have 1000 means.</li>
+<li>In cell Q1, put <code>=PERCENTILE(P1:P1000,0.025)</code>. This is your lower boundary of the interval of typical means. Find the closest answer.</li>
+<li>In cell Q2, put <code>=PERCENTILE(P1:P1000,0.975)</code>. This is your upper boundary of the interval of typical means. Find the closest answer.</li>
+<li>If the result (<span class="math inline">\(\bar{x}=343.01\)</span>) is inside the interval, the last answer is YES. Otherwise, the last answer is NO.</li>
+</ul>
+<p>The best answers are: 343.6, 356.3, and “no”.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.</em></p>
+<p>On an alien planet, adult blue-coated bullfrogs’ masses are normally distributed with a mean equaling <span class="math inline">\(\mu=750\)</span> grams and a standard deviation equaling <span class="math inline">\(\sigma=13\)</span> grams. You can simulate measuring a random bullfrog’s mass with <code>=NORMINV(RAND(),750,13)</code> in a spreadsheet.</p>
+<p>You “cultivate” some of these bullfrogs on your spaceship. You find that in a sample of <span class="math inline">\(n=12\)</span> adult bullfrogs, you get a sample mean <span class="math inline">\(\bar{x}=743.81\)</span> grams.</p>
+<p>You wonder whether the spaceship conditions have caused a <a href="https://en.wikipedia.org/wiki/Statistical_significance">significant</a> change in average mass. To answer this, you repeatedly simulate the <a href="https://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis</a>. To do this, you simulate getting the mean mass from 12 adults from the alien planet, and repeat that simulation 1000 times. From those 1000 repetitions, you will get 1000 means. Find the 2.5th percentile and the 97.5th percentile to get the interval of typical means. (Pick the closest answer.)</p>
+<ul>
+<li>Lower boundary of interval of typical means: <select><option>--------</option><option> 736.5</option><option>738.5</option><option>740.5</option><option>742.5</option><option>744.5 </option></select></li>
+<li>Upper boundary of interval of typical means: <select><option>--------</option><option> 749.7</option><option>751.6</option><option>753.5</option><option>755.4</option><option>757.3 </option></select></li>
+</ul>
+<p>Is the result of a sample mean equaling <span class="math inline">\(\bar{x}=743.81\)</span> grams, with sample size of <span class="math inline">\(n=12\)</span> bullfrogs, consistent with the simulation’s interval of typical means?</p>
+<ul>
+<li>Is the result consistent with simulation? <select><option>--------</option><option> Yes</option><option>No </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>In cells A1:L1000, put <code>=NORMINV(RAND(),750,13)</code>. Notice each row has 12 bullfrog masses.</li>
+<li>In cell N1 put <code>=AVERAGE(A1:L1)</code>. Drag the formula down through cell N1000. You now have 1000 means.</li>
+<li>In cell O1, put <code>=PERCENTILE(N1:N1000,0.025)</code>. This is your lower boundary of the interval of typical means. Find the closest answer.</li>
+<li>In cell O2, put <code>=PERCENTILE(N1:N1000,0.975)</code>. This is your upper boundary of the interval of typical means. Find the closest answer.</li>
+<li>If the result (<span class="math inline">\(\bar{x}=743.81\)</span>) is inside the interval, the last answer is YES. Otherwise, the last answer is NO.</li>
+</ul>
+<p>The best answers are: 742.5, 757.3, and “yes”.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.</em></p>
+<p>On an alien planet, adult blue-coated bullfrogs’ masses are normally distributed with a mean equaling <span class="math inline">\(\mu=510\)</span> grams and a standard deviation equaling <span class="math inline">\(\sigma=29\)</span> grams. You can simulate measuring a random bullfrog’s mass with <code>=NORMINV(RAND(),510,29)</code> in a spreadsheet.</p>
+<p>You “cultivate” some of these bullfrogs on your spaceship. You find that in a sample of <span class="math inline">\(n=15\)</span> adult bullfrogs, you get a sample mean <span class="math inline">\(\bar{x}=522.35\)</span> grams.</p>
+<p>You wonder whether the spaceship conditions have caused a <a href="https://en.wikipedia.org/wiki/Statistical_significance">significant</a> change in average mass. To answer this, you repeatedly simulate the <a href="https://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis</a>. To do this, you simulate getting the mean mass from 15 adults from the alien planet, and repeat that simulation 1000 times. From those 1000 repetitions, you will get 1000 means. Find the 2.5th percentile and the 97.5th percentile to get the interval of typical means. (Pick the closest answer.)</p>
+<ul>
+<li>Lower boundary of interval of typical means: <select><option>--------</option><option> 483.5</option><option>487.4</option><option>491.3</option><option>495.2</option><option>499.1 </option></select></li>
+<li>Upper boundary of interval of typical means: <select><option>--------</option><option> 516.4</option><option>520.5</option><option>524.6</option><option>528.7</option><option>532.8 </option></select></li>
+</ul>
+<p>Is the result of a sample mean equaling <span class="math inline">\(\bar{x}=522.35\)</span> grams, with sample size of <span class="math inline">\(n=15\)</span> bullfrogs, consistent with the simulation’s interval of typical means?</p>
+<ul>
+<li>Is the result consistent with simulation? <select><option>--------</option><option> Yes</option><option>No </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>In cells A1:O1000, put <code>=NORMINV(RAND(),510,29)</code>. Notice each row has 15 bullfrog masses.</li>
+<li>In cell Q1 put <code>=AVERAGE(A1:O1)</code>. Drag the formula down through cell Q1000. You now have 1000 means.</li>
+<li>In cell R1, put <code>=PERCENTILE(Q1:Q1000,0.025)</code>. This is your lower boundary of the interval of typical means. Find the closest answer.</li>
+<li>In cell R2, put <code>=PERCENTILE(Q1:Q1000,0.975)</code>. This is your upper boundary of the interval of typical means. Find the closest answer.</li>
+<li>If the result (<span class="math inline">\(\bar{x}=522.35\)</span>) is inside the interval, the last answer is YES. Otherwise, the last answer is NO.</li>
+</ul>
+<p>The best answers are: 495.2, 524.6, and “yes”.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.</em></p>
+<p>On an alien planet, adult blue-coated bullfrogs’ masses are normally distributed with a mean equaling <span class="math inline">\(\mu=180\)</span> grams and a standard deviation equaling <span class="math inline">\(\sigma=13\)</span> grams. You can simulate measuring a random bullfrog’s mass with <code>=NORMINV(RAND(),180,13)</code> in a spreadsheet.</p>
+<p>You “cultivate” some of these bullfrogs on your spaceship. You find that in a sample of <span class="math inline">\(n=8\)</span> adult bullfrogs, you get a sample mean <span class="math inline">\(\bar{x}=187.6\)</span> grams.</p>
+<p>You wonder whether the spaceship conditions have caused a <a href="https://en.wikipedia.org/wiki/Statistical_significance">significant</a> change in average mass. To answer this, you repeatedly simulate the <a href="https://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis</a>. To do this, you simulate getting the mean mass from 8 adults from the alien planet, and repeat that simulation 1000 times. From those 1000 repetitions, you will get 1000 means. Find the 2.5th percentile and the 97.5th percentile to get the interval of typical means. (Pick the closest answer.)</p>
+<ul>
+<li>Lower boundary of interval of typical means: <select><option>--------</option><option> 161.7</option><option>164</option><option>166.3</option><option>168.6</option><option>170.9 </option></select></li>
+<li>Upper boundary of interval of typical means: <select><option>--------</option><option> 186.7</option><option>189.1</option><option>191.5</option><option>193.9</option><option>196.3 </option></select></li>
+</ul>
+<p>Is the result of a sample mean equaling <span class="math inline">\(\bar{x}=187.6\)</span> grams, with sample size of <span class="math inline">\(n=8\)</span> bullfrogs, consistent with the simulation’s interval of typical means?</p>
+<ul>
+<li>Is the result consistent with simulation? <select><option>--------</option><option> Yes</option><option>No </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>In cells A1:H1000, put <code>=NORMINV(RAND(),180,13)</code>. Notice each row has 8 bullfrog masses.</li>
+<li>In cell J1 put <code>=AVERAGE(A1:H1)</code>. Drag the formula down through cell J1000. You now have 1000 means.</li>
+<li>In cell K1, put <code>=PERCENTILE(J1:J1000,0.025)</code>. This is your lower boundary of the interval of typical means. Find the closest answer.</li>
+<li>In cell K2, put <code>=PERCENTILE(J1:J1000,0.975)</code>. This is your upper boundary of the interval of typical means. Find the closest answer.</li>
+<li>If the result (<span class="math inline">\(\bar{x}=187.6\)</span>) is inside the interval, the last answer is YES. Otherwise, the last answer is NO.</li>
+</ul>
+<p>The best answers are: 170.9, 189.1, and “yes”.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p><em>S-IC.A.2: Decide if a specified model is consistent with results from a given data-generating process, e.g., using simulation.</em></p>
+<p>On an alien planet, adult blue-coated bullfrogs’ masses are normally distributed with a mean equaling <span class="math inline">\(\mu=630\)</span> grams and a standard deviation equaling <span class="math inline">\(\sigma=24\)</span> grams. You can simulate measuring a random bullfrog’s mass with <code>=NORMINV(RAND(),630,24)</code> in a spreadsheet.</p>
+<p>You “cultivate” some of these bullfrogs on your spaceship. You find that in a sample of <span class="math inline">\(n=8\)</span> adult bullfrogs, you get a sample mean <span class="math inline">\(\bar{x}=648.87\)</span> grams.</p>
+<p>You wonder whether the spaceship conditions have caused a <a href="https://en.wikipedia.org/wiki/Statistical_significance">significant</a> change in average mass. To answer this, you repeatedly simulate the <a href="https://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis</a>. To do this, you simulate getting the mean mass from 8 adults from the alien planet, and repeat that simulation 1000 times. From those 1000 repetitions, you will get 1000 means. Find the 2.5th percentile and the 97.5th percentile to get the interval of typical means. (Pick the closest answer.)</p>
+<ul>
+<li>Lower boundary of interval of typical means: <select><option>--------</option><option> 608.8</option><option>613.1</option><option>617.4</option><option>621.7</option><option>626 </option></select></li>
+<li>Upper boundary of interval of typical means: <select><option>--------</option><option> 627.1</option><option>631.9</option><option>636.7</option><option>641.5</option><option>646.3 </option></select></li>
+</ul>
+<p>Is the result of a sample mean equaling <span class="math inline">\(\bar{x}=648.87\)</span> grams, with sample size of <span class="math inline">\(n=8\)</span> bullfrogs, consistent with the simulation’s interval of typical means?</p>
+<ul>
+<li>Is the result consistent with simulation? <select><option>--------</option><option> Yes</option><option>No </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>In cells A1:H1000, put <code>=NORMINV(RAND(),630,24)</code>. Notice each row has 8 bullfrog masses.</li>
+<li>In cell J1 put <code>=AVERAGE(A1:H1)</code>. Drag the formula down through cell J1000. You now have 1000 means.</li>
+<li>In cell K1, put <code>=PERCENTILE(J1:J1000,0.025)</code>. This is your lower boundary of the interval of typical means. Find the closest answer.</li>
+<li>In cell K2, put <code>=PERCENTILE(J1:J1000,0.975)</code>. This is your upper boundary of the interval of typical means. Find the closest answer.</li>
+<li>If the result (<span class="math inline">\(\bar{x}=648.87\)</span>) is inside the interval, the last answer is YES. Otherwise, the last answer is NO.</li>
+</ul>
+<p>The best answers are: 613.1, 646.3, and “no”.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
