@@ -5,9 +5,7 @@ import os
 
 
 front = "u02_"
-files = ["01_ME_dice_tots.Rmd",
-         "02_stoplight_sim.Rmd",
-         "03_simulated_means.Rmd"]
+files = ["04_prop_test_sim.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u02/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
