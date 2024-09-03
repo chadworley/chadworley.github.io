@@ -31,7 +31,6 @@ def set_quiz_ass(name,avt,dut):
     response = requests.put(url,data=data,headers=headers)
 
 noET = ["2024-09-02",
-        "2024-09-04",
         "2024-09-16",
         "2024-10-14"]
 
