@@ -31,6 +31,7 @@ def set_quiz_ass(name,avt,dut):
     response = requests.put(url,data=data,headers=headers)
 
 noET = ["2024-09-02",
+        "2024-09-05",
         "2024-09-16",
         "2024-10-14"]
 
@@ -48,7 +49,7 @@ for i in range(0,30):
         avts[ddel]=day.strftime("%Y-%m-%d")+"T12:00:00Z"
         duts[ddel]=(day+timedelta(days=1)).strftime("%Y-%m-%d")+"T03:59:00Z"
 
-for i in range(6,18):
+for i in range(10,18):
     name = "ET_"+"{:03d}".format(i)
     avt = avts[i]
     dut = duts[i]
