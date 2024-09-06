@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chess ELO Rating Calculator</title>
+</head>
+<body>
+  <h1>Chess ELO Rating Calculator</h1>
+  <label for="player1">Player 1 ELO:</label>
+  <input type="number" id="player1" value="1200"><br>
+  <label for="player2">Player 2 ELO:</label>
+  <input type="number" id="player2" value="1200"><br>
+  <label for="result">Result:</label>
+  <select id="result">
+    <option value="1">Player 1 Won</option>
+    <option value="0.5">Draw</option>
+    <option value="0">Player 2 Won</option>
+  </select><br>
+  <button onclick="calculateELO()">Calculate</button>
+  <p id="result1"></p>
+  <p id="result2"></p>
+
+  <script>
+    function calculateELO() {
+      let player1Elo = parseInt(document.getElementById("player1").value);
+      let player2Elo = parseInt(document.getElementById("player2").value);
+      let result = parseFloat(document.getElementById("result").value);
+
+      let kFactor = 32; // Adjust this if needed
+
+      // Formula for expected score
+      let expectedScore1 = 1 / (1 + Math.pow(10, (player2Elo - player1Elo) / 400));
+      let expectedScore2 = 1 / (1 + Math.pow(10, (player1Elo - player2Elo) / 400));
+
+      // Calculate new ELOs
+      let newElo1 = player1Elo + kFactor * (result - expectedScore1);
+      let newElo2 = player2Elo + kFactor * ((1 - result) - expectedScore2);
+
+      // Display results
+      document.getElementById("result1").innerHTML = `Player 1 New ELO: ${newElo1.toFixed(0)}`;
+      document.getElementById("result2").innerHTML = `Player 2 New ELO: ${newElo2.toFixed(0)}`;
+    }
+  </script>
+  
+  Note: This is a simplified implementation. Real ELO calculations involve more factors, such as tournament strength and player history.
+</body>
+</html>
