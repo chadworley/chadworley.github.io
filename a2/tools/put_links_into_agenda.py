@@ -5,7 +5,8 @@ import os
 
 
 front = "u02_"
-files = ["04_prop_test_sim.Rmd"]
+files = ["05_resample_mean_ME.Rmd","06_reshuffle_two_mean.Rmd"]
+
 
 practice_url_front = "https://chadworley.github.io/a2/u02/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

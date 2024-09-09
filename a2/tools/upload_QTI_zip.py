@@ -6,7 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID
-file_path_list = ["u02_04_prop_test_sim.zip"]
+file_path_list = ["u02_05_resample_mean_ME.zip","u02_06_reshuffle_two_mean.zip"]
 canvas_url = 'https://bart.instructure.com'
 
 for file_path in file_path_list:
