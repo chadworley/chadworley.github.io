@@ -22,9 +22,9 @@ gcd <- function(...) Reduce(gcd2, c(...))
 primes = c(2,3,5,7,11,13)
 fullprimes = c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
 for(i in 1:1000){
-    thegcd = sample(1:12,1)
+    thegcd = sample(1:13,1)
     while(T){
-        ab = sample(10:99,2)
+        ab = sample(8:40,2)
         a = ab[1]
         b = ab[2]
         G = gcd(a,b)

@@ -19,7 +19,7 @@ gcd2 <- function(a, b) {
 }
 gcd <- function(...) Reduce(gcd2, c(...))
 
-primes = c(2,3,5,7,11,13)
+primes = c(2,3,5,7)
 for(i in 1:1000){
     while(T){
         thegcd = sample(2:12,1)
