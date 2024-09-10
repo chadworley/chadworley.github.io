@@ -2,6 +2,7 @@
 title: "Project Coin Spin"
 author: "Chad Worley"
 date: "2024 Sep 9"
+output: pdf_document
 ---
 
 # Summary
@@ -10,13 +11,17 @@ Our class investigated whether spinning pennies (like a top) has a 50% chance of
 
 # Simulation
 
-We decided on a sample size of 200 spins. To run the simulation, we used a spreadsheet. Each fair spin was simulated with `=IF(RAND()<0.5,1,0)`. This command was used in an array of cells with 200 columns and 1000 rows. Each row is one repetition of the simulation. From those 1000 repetitions, we got 1000 proportions. As expected, because we simulated a fair coin, those proportions were near 0.5. We generated a histogram of those proportions.
+We decided on a sample size of 200 spins. To run the simulation, we used a spreadsheet. Each fair spin was simulated with `=IF(RAND()<0.5,1,0)`. This command was used in an array of cells with 200 columns and 1000 rows. Each row is one repetition of the simulation. From those 1000 repetitions, we got 1000 proportions. The simulation can be seen here: [https://fake.link](https://fake.link)
 
-```{r,echo=F}
+As expected, because we simulated a fair coin, those proportions were near 0.5. We generated a histogram of those proportions.
+
+```{r,echo=F,fig.dim=c(4,4),fig.align='center'}
 set.seed(3)
 x = rbinom(1000,200,0.5)/200
-hist(x,main="1000 Repetitions of Spinning 200 Fair Coins",
-     xlab="Proportion Heads",breaks=seq(0.35,0.65,0.02))
+hist(x,
+     main="1000 Repetitions: Spin 200 Fair Coins",
+     xlab="Proportion Heads",
+     breaks=seq(0.35,0.65,0.02))
 lb = sort(x)[25]
 ub = sort(x)[975]
 ME = (ub-lb)/2
