@@ -11,7 +11,7 @@
 
 
 
-<title>08_CI_2_means_raw_MC.knit</title>
+<title>03_CI_mean_raw_MC.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -369,381 +369,284 @@ border:2px solid #000000;
 padding: 4px;
 }
 </style>
-<p>A biologist investigated two populations of turtles (on two different
-islands). They weighed turtles from <a href="https://en.wikipedia.org/wiki/Simple_random_sample" target="_blank">simple-random samples</a>; those weights are shown below
-in grams.</p>
+<p>A scientist measured weights of a <a href="https://en.wikipedia.org/wiki/Simple_random_sample" target="_blank">simple-random sample</a> of a newly discovered organism.
+Those weights are given below (in grams):</p>
 <table class="bordered-table">
 <thead>
 <tr>
 <th style="text-align:center;">
-Island_1
-</th>
-<th style="text-align:center;">
-Island_2
+x
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center;">
-662.4
-</td>
-<td style="text-align:center;">
-661.1
+72.9
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-611.7
-</td>
-<td style="text-align:center;">
-667.1
+73.0
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-694.3
-</td>
-<td style="text-align:center;">
-615.3
+72.3
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-572.2
-</td>
-<td style="text-align:center;">
-672.5
+75.8
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-687.0
-</td>
-<td style="text-align:center;">
-662.2
+81.9
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-695.0
-</td>
-<td style="text-align:center;">
-649.3
+73.7
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-665.1
-</td>
-<td style="text-align:center;">
-583.3
+73.2
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-618.5
-</td>
-<td style="text-align:center;">
-525.8
+76.0
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-634.3
-</td>
-<td style="text-align:center;">
-683.8
+75.9
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-648.6
-</td>
-<td style="text-align:center;">
-584.2
+72.5
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-682.0
-</td>
-<td style="text-align:center;">
-603.0
+73.4
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-663.7
-</td>
-<td style="text-align:center;">
-686.1
+77.1
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-674.2
-</td>
-<td style="text-align:center;">
-659.5
+72.3
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-606.1
-</td>
-<td style="text-align:center;">
-660.2
+72.5
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-660.0
-</td>
-<td style="text-align:center;">
-628.0
+74.6
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-658.3
-</td>
-<td style="text-align:center;">
-591.2
+81.9
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-708.2
-</td>
-<td style="text-align:center;">
-736.7
+78.4
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-659.1
-</td>
-<td style="text-align:center;">
-551.0
+79.1
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-732.4
-</td>
-<td style="text-align:center;">
-621.5
+74.9
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-549.7
-</td>
-<td style="text-align:center;">
-635.0
+72.5
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-596.5
-</td>
-<td style="text-align:center;">
-713.3
+72.2
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-691.9
-</td>
-<td style="text-align:center;">
-585.0
+72.3
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-725.6
-</td>
-<td style="text-align:center;">
-591.0
+72.7
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-631.7
-</td>
-<td style="text-align:center;">
-553.1
+72.8
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-698.2
-</td>
-<td style="text-align:center;">
-677.0
+75.2
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-646.7
-</td>
-<td style="text-align:center;">
-621.3
+72.8
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-659.4
-</td>
-<td style="text-align:center;">
-647.2
+72.3
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-661.3
-</td>
-<td style="text-align:center;">
-618.8
+72.2
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-693.8
-</td>
-<td style="text-align:center;">
-746.7
+72.2
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-625.4
-</td>
-<td style="text-align:center;">
-616.4
+76.9
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-691.9
-</td>
-<td style="text-align:center;">
-621.9
+73.4
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-695.8
-</td>
-<td style="text-align:center;">
-625.7
+72.2
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-644.1
-</td>
-<td style="text-align:center;">
-687.6
+79.2
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-705.8
-</td>
-<td style="text-align:center;">
-637.1
+72.3
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-</td>
-<td style="text-align:center;">
-688.5
+74.7
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-</td>
-<td style="text-align:center;">
-594.3
+74.3
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
+73.2
 </td>
+</tr>
+<tr>
 <td style="text-align:center;">
-716.0
+72.3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+72.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+72.3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+74.7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+72.3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+75.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+75.1
 </td>
 </tr>
 </tbody>
 </table>
 <p><br />
 </p>
-<p>The scientist hopes to construct a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="blank"><strong>confidence interval</strong></a> for each
-island’s average turtle weight.</p>
+<p>The scientist hopes to construct a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="blank"><strong>confidence interval</strong></a> of the
+organism’s <a href="https://en.wikipedia.org/wiki/Statistical_population#Mean" target="_blank"><em>population mean</em></a> weight (<span class="math inline">\(\mu\)</span>).</p>
 <p>The scientist will later consult a statistician for a more precise
 method, but for now they will use a quick method to estimate the 95%
 confidence interval: <span class="math display">\[\text{CI boundaries} =
 \bar{x}\pm \frac{2s}{\sqrt{n}} \]</span></p>
-<p>The confidence interval for Island 1’s average weight is
+<p>In <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals" target="_blank">interval notation</a>, the confidence interval is
 [##ANSWER1##, ##ANSWER2##].</p>
-<p>The confidence interval for Island 2’s average weight is
-[##ANSWER3##, ##ANSWER4##].</p>
-<p>The biologist wonders if there is a significant difference in mean
-weights.</p>
-<ul>
-<li>If confidence intervals overlap:
-<ul>
-<li>the difference of means is not significant</li>
-<li>a more advanced technique or larger sample sizes could show
-significance.</li>
-</ul></li>
-<li>If the confidence intervals do <strong>NOT</strong> overlap:
-<ul>
-<li>the difference of means is significant.</li>
-</ul></li>
-</ul>
-<p>What inference is made?</p>
-<p>##ANSWER5##</p>
 <div id="answerlist" class="section level2">
 <h2>Answerlist</h2>
 <ul>
-<li>631.6</li>
-<li>646</li>
-<li>650.2</li>
-<li>657.8</li>
-<li>662.9</li>
-<li>670.5</li>
-<li>674.7</li>
-<li>689</li>
-<li>621.5</li>
-<li>626.4</li>
-<li>632.4</li>
-<li>634.1</li>
-<li>642.5</li>
-<li>644.3</li>
-<li>650.2</li>
-<li>655.2</li>
-<li>Island 1 has a lower average weight.</li>
-<li>Island 1 has a higher average weight.</li>
-<li>These data (and methodology) do not show a significant
-difference.</li>
+<li>69.2</li>
+<li>73.5</li>
+<li>73.9</li>
+<li>74.2</li>
+<li>74.4</li>
+<li>74.7</li>
+<li>75.1</li>
+<li>79.4</li>
 </ul>
 </div>
 </div>
 <div id="solution" class="section level1">
 <h1>Solution</h1>
-<p>The confidence interval for Island 1 is [646, 674.7].</p>
-<p>The confidence interval for Island 2 is [621.5, 655.2].</p>
-<p>These data (and methodology) do not show a significant
-difference.</p>
+<p>Find the sample mean (use <code>=average()</code> in spreadsheet.)
+<span class="math display">\[\bar{x}=74.3068182\]</span> Find the sample
+standard deviation (use <code>=stdev()</code> in spreadsheet.) <span class="math display">\[s = 2.5656404\]</span> Find the sample size (use
+<code>=count()</code> in spreadsheet.) <span class="math display">\[n =
+44\]</span></p>
+<p>Plug the numbers into the expressions.</p>
+<ul>
+<li>Lower bound = <span class="math inline">\(74.3068182-2(2.5656404)/\sqrt{44} ~=~
+73.5\)</span></li>
+<li>Upper bound = <span class="math inline">\(74.3068182+2(2.5656404)/\sqrt{44} ~=~
+75.1\)</span></li>
+</ul>
+<p>Using <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals" target="_blank">interval notation</a>, the 95% confidence interval is
+[73.5, 75.1].</p>
 </div>
 <div id="meta-information" class="section level1">
 <h1>Meta-information</h1>
-<p>extype: cloze exsolution: 0100|0010|1000|0001|001 exclozetype:
-schoice|schoice|schoice|schoice|schoice exname: CI 2 means MC</p>
+<p>extype: cloze exsolution: 0100|0010 exclozetype: schoice|schoice
+exname: confidence interval simple MC</p>
 </div>
 
 

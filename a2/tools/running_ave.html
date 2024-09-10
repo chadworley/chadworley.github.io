@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Discrete Probability Distribution</title>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+  input[type="text"] {
+    width: 100%;
+  }
+  #histogramSettings, #histogram {
+    display: none; /* Initially hide histogram settings and plot */
+  }
+</style>
+</head>
+<body>
+
+<h1>Discrete Probability Distribution</h1>
+
+<label for="values">Values:</label>
+<input type="text" id="values" placeholder="Enter values separated by commas">
+<br>
+<label for="weights">Weights:</label>
+<input type="text" id="weights" placeholder="Enter weights separated by commas">
+<br>
+<button onclick="updateDistribution()">Update</button>
+
+<div id="distribution"></div>
+
+<div id="circleGraph"></div>
+
+<div id="stats">
+  <div id="expectedValue"></div>
+  <div id="variance"></div>
+  <div id="standardDeviation"></div>
+</div>
+
+<label for="sampleSize">Sample Size:</label>
+<input type="number" id="sampleSize" min="1" max="1000" value="100">
+<button onclick="generateSample()">Generate Sample</button>
+<button onclick="clearData()">Clear</button>
+
+<div id="sampleTable"></div>
+
+<div id="cumulativeAverageGraph"></div>
+
+<script>
+  // Global variables to store data
+  var values = [];
+  var probabilities = [];
+  var samples = []; 
+  var currentHistogramIndex = 0;
+  // Function to update the distribution when the "Update" button is clicked
+  function updateDistribution() {
+    // Get values and weights from the input fields
+    values = document.getElementById("values").value.split(",").map(Number);
+    var weights = document.getElementById("weights").value.split(",").map(Number);
+
+    // Normalize weights to probabilities
+    var totalWeight = weights.reduce((a, b) => a + b, 0);
+    probabilities = weights.map(w => w / totalWeight);
+
+    // Update the probability distribution table
+    updateProbabilityTable();
+
+    // Create the circle graph
+    createCircleGraph();
+
+    // Calculate and display statistics
+    calculateAndDisplayStatistics();
+
+    // Clear any previous samples
+    samples = [];
+    document.getElementById("sampleTable").innerHTML = "";
+
+    // Clear any previous cumulative average graph and histogram
+    Plotly.purge('cumulativeAverageGraph');
+  }
+
+  // Function to clear all generated data when the "Clear" button is clicked
+  function clearData() {
+    // Clear the samples and sample table
+    samples = [];
+    document.getElementById("sampleTable").innerHTML = "";
+
+    // Update the cumulative average graph
+    updateCumulativeAverageGraph();
+  }
+
+  // Function to update the probability table
+  function updateProbabilityTable() {
+    var distributionHTML = "<table><tr><th>Value</th><th>Probability</th></tr>";
+    for (var i = 0; i < values.length; i++) {
+      distributionHTML += "<tr><td>" + values[i] + "</td><td>" + probabilities[i].toFixed(3) + "</td></tr>";
+    }
+    distributionHTML += "</table>";
+    document.getElementById("distribution").innerHTML = distributionHTML;
+  }
+
+  // Function to create the circle graph
+  function createCircleGraph() {
+    var data = [{
+      values: probabilities,
+      labels: values,
+      type: 'pie'
+    }];
+    var layout = {
+      title: 'Probability Distribution'
+    };
+    Plotly.newPlot('circleGraph', data, layout);
+  }
+
+  // Function to calculate and display statistics
+  function calculateAndDisplayStatistics() {
+    var expectedValue = 0;
+    var variance = 0;
+    for (var i = 0; i < values.length; i++) {
+      expectedValue += values[i] * probabilities[i];
+    }
+    for (var i = 0; i < values.length; i++) {
+      variance += Math.pow(values[i] - expectedValue, 2) * probabilities[i];
+    }
+    var standardDeviation = Math.sqrt(variance);
+
+    document.getElementById("expectedValue").innerHTML = "Expected Value (\u03BC): " + expectedValue.toFixed(3);
+    document.getElementById("variance").innerHTML = "Variance: " + variance.toFixed(3);
+    document.getElementById("standardDeviation").innerHTML = "Standard Deviation (\u03C3): " + standardDeviation.toFixed(3);
+  }
+
+  // Function to generate a sample when the "Generate Sample" button is clicked
+  function generateSample() {
+    var sampleSize = parseInt(document.getElementById("sampleSize").value, 10);
+
+    // Generate the sample using probabilities
+    var sample = [];
+    for (var i = 0; i < sampleSize; i++) {
+      var randomNum = Math.random();
+      var cumulativeProbability = 0;
+      for (var j = 0; j < probabilities.length; j++) {
+        cumulativeProbability += probabilities[j];
+        if (randomNum <= cumulativeProbability) {
+          sample.push(values[j]);
+          break;
+        }
+      }
+    }
+    samples.push(sample);
+
+    // Update the sample table
+    updateSampleTable();
+
+    // Update the cumulative average graph
+    updateCumulativeAverageGraph();
+  }
+
+  // Function to update the sample table
+  function updateSampleTable() {
+    var sampleTableHTML = "<table><tr><th>Sample</th></tr>";
+    for (var i = 0; i < samples.length; i++) {
+      sampleTableHTML += "<tr><td>" + samples[i].join(", ") + "</td></tr>";
+    }
+    sampleTableHTML += "</table>";
+    document.getElementById("sampleTable").innerHTML = sampleTableHTML;
+  }
+
+  // Function to update the cumulative average graph
+  function updateCumulativeAverageGraph() {
+    // Calculate cumulative averages for all samples
+    var cumulativeAverages = calculateCumulativeAverages(samples);
+    var expectedValue = parseFloat(document.getElementById("expectedValue").innerHTML.split(": ")[1]);
+    var standardDeviation = parseFloat(document.getElementById("standardDeviation").innerHTML.split(": ")[1]);
+    
+    // Create traces for each sample
+    var traces = [];
+    for (var i = 0; i < cumulativeAverages.length; i++) {
+      var trace = {
+        x: Array.from({ length: cumulativeAverages[i].length }, (_, j) => j + 1),
+        y: cumulativeAverages[i],
+        type: 'scatter',
+        mode: 'lines', // Remove dots from the curve
+        name: 'Sample ' + (i + 1)
+      };
+      traces.push(trace);
+    }
+
+    // Calculate and add margin of error traces
+    var upperBound = Array.from({ length: cumulativeAverages[0].length }, (_, j) => expectedValue + (2 * standardDeviation / Math.sqrt(j + 1)));
+    var lowerBound = Array.from({ length: cumulativeAverages[0].length }, (_, j) => expectedValue - (2 * standardDeviation / Math.sqrt(j + 1)));
+
+    traces.push({
+      x: Array.from({ length: cumulativeAverages[0].length }, (_, j) => j + 1),
+      y: upperBound,
+      type: 'scatter',
+      mode: 'lines',
+      line: { color: 'red', dash: 'dash' },
+      name: 'Margin of Error (Upper)'
+    });
+
+    traces.push({
+      x: Array.from({ length: cumulativeAverages[0].length }, (_, j) => j + 1),
+      y: lowerBound,
+      type: 'scatter',
+      mode: 'lines',
+      line: { color: 'red', dash: 'dash' },
+      name: 'Margin of Error (Lower)'
+    });
+
+    // Layout for the plot
+    var layout = {
+      title: 'Cumulative Averages',
+      xaxis: {
+        title: 'n' // Label the x-axis as "n"
+      },
+      yaxis: {
+        title: 'Cumulative Average'
+      },
+      showlegend: true // Show the legend
+    };
+
+    // Add an explanation for the margin of error curves
+    layout.annotations = [
+      {
+        xref: 'paper',
+        yref: 'paper',
+        x: 0.9,
+        y: 0.1,
+        text: 'Margin of Error: μ ± 2σ/√n',
+        showarrow: false
+      }
+    ];
+
+    // Create the plot
+    Plotly.newPlot('cumulativeAverageGraph', traces, layout);
+  }
+
+  // Function to calculate cumulative averages for each sample
+  function calculateCumulativeAverages(samples) {
+    var cumulativeAverages = [];
+    for (var i = 0; i < samples.length; i++) {
+      var cumulativeAverage = [];
+      var sum = 0;
+      for (var j = 0; j < samples[i].length; j++) {
+        sum += samples[i][j];
+        cumulativeAverage.push(sum / (j + 1));
+      }
+      cumulativeAverages.push(cumulativeAverage);
+    }
+    return cumulativeAverages;
+  }
+</script>
+</body>
+</html>

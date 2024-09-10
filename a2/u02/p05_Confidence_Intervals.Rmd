@@ -1,0 +1,44 @@
+---
+title: "Confidence Intervals"
+output: slidy_presentation
+---
+
+# Confidence Intervals *(of a mean)*
+
+* A [confidence interval](https://en.wikipedia.org/wiki/Confidence_interval) is used to express uncertainty about a population mean (or proportion).
+* Imagine repeating the process of:
+    * Gathering a simple random sample,
+    * calculating the sample mean ($\bar{x}$) and sample standard deviation ($s$),
+    * calculating a confidence interval (lower boundary and upper boundary) using [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) (if $n$ is small) or $\bar{x}\pm\frac{2s}{\sqrt{n}}$ if $n$ is sufficiently large.
+* The true population mean ($\mu$) will be in the confidence interval 95% of the time.
+* It is best to stay away from saying, "There is a 95% chance $\mu$ is within the interval."
+    * [Frequentists](https://en.wikipedia.org/wiki/Frequentist_inference) will say you are wrong.
+    * [Bayesians](https://en.wikipedia.org/wiki/Bayesian_inference) will probably be more forgiving.
+    * [Misinterpretations are common](https://en.wikipedia.org/wiki/Confidence_interval#Common_misunderstandings), even among professionals.
+* If the boundaries are $a$ and $b$, you can say, "The 95% confidence interval of the population mean is $(a,b)$." Some textbooks will suggest saying, "We are 95% confident the population mean is between $a$ and $b$." 
+
+# Margin of error
+
+* Up to now, when we calculated a margin of error, it was from a simulation with known parameters. We repeated 1000 times, found the 2.5th and 97.5th percentiles, and calculated half their difference.
+* I have hinted at the formula when population parameters are known and the sample size is large.
+$$\text{If } n>20$$
+$$\mathrm{ME} = \frac{2\sigma}{\sqrt{n}}$$
+* That 2 is a magic number. Technically a 95% interval should use 1.96, but 2 is close enough for us.
+* More commonly, a margin of error is estimated from a sample. In real-world applications, the population parameters (like $\mu$ and $\sigma$) are unknown. If the sample size is large, we can simply assume $s$ estimates $\sigma$.
+$$\text{If } n>20$$
+$$\mathrm{ME} \approx \frac{2 s}{\sqrt{n}}$$
+
+# Interval of Typical Means vs Confidence Interval
+
+* In this class, we've used the phrase "interval of typical means" to indicate the boundaries of the middle 95% of means from a simulation. When the means were bell shaped, we could have used a simple-ish formula to find this interval.
+$$\text{interval of typical means} = \mu \pm \frac{2\sigma}{\sqrt{n}}$$
+* A very similar idea is the "95% confidence interval." However, it uses the sample statistics instead of the population parameters. Notice, it is centered around the **SAMPLE** mean, and it uses an approximate margin of error.
+$$\text{A 95% confidence interval} = \bar{x} \pm \frac{2s}{\sqrt{n}}$$
+
+# Bootstrapping
+
+* When the sample size is low and the distribution is not bell shaped, a more robust technique is [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)). 
+
+
+
+
