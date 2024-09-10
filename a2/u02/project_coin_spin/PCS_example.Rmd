@@ -1,0 +1,80 @@
+---
+title: "Project Coin Spin"
+author: "Chad Worley"
+date: "2024 Sep 9"
+---
+
+# Summary
+
+Our class investigated whether spinning pennies (like a top) has a 50% chance of landing heads. This investigation involved two stages: a repeated simulation of a fair coin and a real sample gathered by spinning pennies. We then compared our simulations to the observation. We were able to conclude, quite confidently, that the pennies do not have a 50% chance of landing heads when spun like a top.
+
+# Simulation
+
+We decided on a sample size of 200 spins. To run the simulation, we used a spreadsheet. Each fair spin was simulated with `=IF(RAND()<0.5,1,0)`. This command was used in an array of cells with 200 columns and 1000 rows. Each row is one repetition of the simulation. From those 1000 repetitions, we got 1000 proportions. As expected, because we simulated a fair coin, those proportions were near 0.5. We generated a histogram of those proportions.
+
+```{r,echo=F}
+set.seed(3)
+x = rbinom(1000,200,0.5)/200
+hist(x,main="1000 Repetitions of Spinning 200 Fair Coins",
+     xlab="Proportion Heads",breaks=seq(0.35,0.65,0.02))
+lb = sort(x)[25]
+ub = sort(x)[975]
+ME = (ub-lb)/2
+```
+\
+
+We found the 2.5th percentile and the 97.5th percentile of the proportions.
+
+* The 2.5th percentile was `r sort(x)[25]`.
+* The 97.5th percentile was `r sort(x)[975]`.
+
+So, when a fair coin is spun 200 times, we expect the proportion of heads to be between `r sort(x)[25]` and `r sort(x)[975]`. This interval of typical proportions accounts for the middle 95% of proportions when spinning 200 fair coins. Although it is possible for 200 fair coins to produce a proportion outside this interval, the probability is quite low (about 5%). In practice, if we see a sample of 200 coins producing a proportion outside this interval, we might question the fairness of the coins.
+
+If we take half the difference of these percentiles, we get the simulated margin of error.
+
+$$\mathrm{ME} = \frac{`r sort(x)[975]`-`r sort(x)[25]`}{2} = `r ME`$$
+
+This margin of error represents the "radius" of the middle 95% of proportions. So, we think that a fair coin spun 200 times will have a proportion of heads within `r ME` from 0.5.
+
+The formulaic margin of error can be calculated from the given expression.
+
+$$2\cdot \frac{\sqrt{0.5\cdot(1-0.5)}}{\sqrt{200}} = `r round(2*0.5/sqrt(200),3)`$$
+
+Notice the simulation's margin of error matches closely with the formulaic margin of error.
+
+# Sample
+
+```{r,echo=F}
+set.seed(666)
+x2 = 0.33*200 #rbinom(1,200,0.345)
+p2 = x2/200
+```
+
+As a class we spun 200 pennies. We spun pennies on smooth plastic tables, and we only counted spins that spun for at least 5 seconds before wobbling. The pennies all had the Lincoln memorial on the back, but the years varied from 1956 to 2008. In those 200 spins, we got `r x2` heads. Our sample proportion was calculated by dividing the number of heads by the number of spins.
+
+$$\widehat{p} = \frac{`r x2`}{200} = `r p2`$$
+
+# Analysis
+
+We see the sample proportion is not consistent with the simulated proportions. We can make this numerical by either (1) checking whether the observed proportion is within the simulated interval of typical proportions or (2) by comparing the observed deviation to the margin of error.
+
+1. The observed sample proportion was $`r p2`$. This observation was not consistent with our simulated interval of typical proportions, which was $[`r lb`, `r ub`]$.
+
+2. We calculated a difference between 0.5 and our observed sample proportion. This difference could be called a deviation or an error.
+$$|`r p2`-0.5| = `r abs(p2-0.5)`$$
+Notice this deviation is bigger than the simulated margin of error.
+$$`r abs(p2-0.5)` > `r ME`$$
+
+One way or another, we clearly see that the sample proportion is not consistent with the simulation. 
+
+# Conclusion
+
+Because the physical observation (the sample proportion) is not consistent with the model (the simulated proportions), we can conclude the model is not accurate. The model's single parameter (other than sample size) was that each flip was a 50% chance of landing heads. We can conclude this parameter is not accurate.
+
+So, we conclude the probability is **NOT** 50%. When we spin a penny on a table, the probability that it lands heads is not 0.5.
+
+Notice, we do not know what the probability is. We could guess that it is approximately `r 100*p2`%. We will soon learn how to give a confidence interval around our best guess to indicate how uncertain we are of the true probability. But for now, we have completed a [statistical hypothesis test](https://en.wikipedia.org/wiki/Statistical_hypothesis_test) and concluded that the [null hypothesis](https://en.wikipedia.org/wiki/Null_hypothesis) is false.
+
+
+
+
