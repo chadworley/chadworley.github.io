@@ -11,7 +11,7 @@
 
 
 
-<title>Project Dice</title>
+<title>05_resample_mean_ME.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,93 +348,159 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Project Dice</h1>
 
 </div>
 
 
-<div id="overview" class="section level1">
-<h1>Overview</h1>
-<p>You have been given a 6-sided die. This is a 3D-printed die, and it
-might be weighted such that the average is not 3.5. You will roll the
-die 50 times (on a surface that causes the die to bounce) and collect
-the data.</p>
-<p>You will generate a 95% confidence interval using two different
-techniques:</p>
+<div id="question" class="section level1">
+<h1>Question</h1>
+<p><em>S-IC.B.4: Use data from a sample survey to estimate a population
+mean or proportion; develop a margin of error through the use of
+simulation models for random sampling.</em></p>
+<p>A scientist wants to estimate the average mass of adult lab rats
+under certain conditions. She randomly selects a sample of <span class="math inline">\(n=11\)</span> mice from the population, and finds
+their masses in grams, to the nearest gram.</p>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+border-collapse: collapse;
+border-spacing: 0;
+border:2px solid #000000;
+}
+.bordered-table th {
+border:2px solid #000000;
+padding: 4px;
+}
+.bordered-table td{
+border:2px solid #000000;
+padding: 4px;
+}
+</style>
+<table class="bordered-table">
+<tbody>
+<tr>
+<td style="text-align:center;">
+438
+</td>
+<td style="text-align:center;">
+440
+</td>
+<td style="text-align:center;">
+448
+</td>
+<td style="text-align:center;">
+408
+</td>
+<td style="text-align:center;">
+450
+</td>
+<td style="text-align:center;">
+386
+</td>
+<td style="text-align:center;">
+423
+</td>
+<td style="text-align:center;">
+443
+</td>
+<td style="text-align:center;">
+381
+</td>
+<td style="text-align:center;">
+441
+</td>
+<td style="text-align:center;">
+434
+</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+<p>Your goals are:</p>
 <ul>
-<li>Bootstrapping</li>
-<li>Using the confidence-interval formula: <span class="math inline">\(\bar{x}\pm \frac{2s}{\sqrt{n}}\)</span></li>
+<li>Decide a best estimate for the population mean. (Hint: the sample
+mean.)</li>
+<li>Find a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval">confidence
+interval</a> by <a href="https://en.wikipedia.org/wiki/Resampling_(statistics)#Bootstrap">resampling</a>
+1000 times.</li>
+<li>Find the margin of error (by dividing the interval width by 2).</li>
 </ul>
-<p>Lastly, you will determine whether you have enough evidence to
-conclude the expected value (population mean) is not 3.5.</p>
-</div>
-<div id="report" class="section level1">
-<h1>Report</h1>
-<p>This report can be shorter than the report for Project Coin Spin. I
-want the following:</p>
+<p>Your answers (pick closest to your answer):</p>
 <ul>
-<li>Title</li>
-<li>Name</li>
-<li>A summary of the project. Something like, “I was handed a 6-sided
-die and told to get a 95% confidence interval of the die’s population
-mean (expected value). I was instructed to use both bootstrapping and a
-formula, so I ended up with two confidence intervals.”</li>
-<li>Raw roll data as a comma-separated list or a table (in the doc). I
-should be able to copy and paste the data easily.</li>
-<li>Description of the bootstrapping algorithm.</li>
-<li>Link to spreadsheet (for bootstrapping and sample mean <span class="math inline">\(\bar{x}\)</span> and sample standard deviation
-<span class="math inline">\(s\)</span>)</li>
-<li>State the confidence interval (both boundaries) from the
-bootstrapping algorithm.</li>
-<li>Declare the sample size (<span class="math inline">\(n\)</span>),
-the sample mean (<span class="math inline">\(\bar{x}\)</span>), and the
-sample standard deviation (<span class="math inline">\(s\)</span>) using
-math typesetting (using <code>Insert</code>, <code>Equation</code> in
-the doc).</li>
-<li>Typeset the confidence-interval formula.</li>
-<li>State the confidence interval (both boundaries) from the
-formula.</li>
-<li>State whether the confidence intervals are in rough agreement (I
-think they probably will be).</li>
-<li>Conclusion about the <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a>
-of your die.
-<ul>
-<li>If you confidence intervals do not contain 3.5, you can conclude the
-expected value is NOT 3.5.</li>
-<li>If a confidence interval does contain 3.5, you are left with two
-possibilities, both of which should be stated:
-<ul>
-<li>You need more data to show the expected value is not 3.5.</li>
-<li>The expected value is 3.5.</li>
-</ul></li>
-</ul></li>
+<li>What is the best estimate for the population mean? ##ANSWER1##
+grams.</li>
+<li>Lower boundary of confidence interval = ##ANSWER2## grams.</li>
+<li>Upper boundary of confidence interval = ##ANSWER3## grams.</li>
+<li>Margin of error = ##ANSWER4##</li>
 </ul>
-<p><strong>Export your report as a pdf</strong> to submit on Canvas.</p>
-</div>
-<div id="spreadsheet" class="section level1">
-<h1>Spreadsheet</h1>
+<div id="answerlist" class="section level2">
+<h2>Answerlist</h2>
 <ul>
-<li>Put your sample data in column A, in range A1:A50.</li>
-<li>In cell B1, use formula <code>=COUNT(A1:A50)</code>. This is your
-sample size (<span class="math inline">\(n\)</span>).</li>
-<li>In cell B2, use formula <code>=AVERAGE(A1:A50)</code>. This is your
-sample mean (<span class="math inline">\(\bar{x}\)</span>).</li>
-<li>In cell B3, use formula <code>=STDEV(A1:A50)</code>. This is your
-sample standard deviation (<span class="math inline">\(s\)</span>).</li>
-<li>In cell B4, use formula <code>B2-2*B3/sqrt(B1)</code> to get
-formulaic lower boundary of confidence interval.</li>
-<li>In cell B5, use formula <code>B2+2*B3/sqrt(B1)</code> to get
-formulaic upper boundary of confidence interval.</li>
-<li>Insert 30 extra columns.</li>
-<li>In cells D1:BA1000, use formula
-<code>=INDEX($A$1:$A$50,RANDBETWEEN(1,50),1)</code> to resample 1000
-times.</li>
-<li>In cell BC1, use formula <code>=AVERAGE(D1:BA1)</code>. Drag the
-formula down through BC1000.</li>
-<li>Calculate the 2.5th and 97.5th percentiles of the resampled means.
-These are your boundaries of your bootstrap 95% confidence
+<li>427</li>
+<li>429</li>
+<li>431</li>
+<li>433</li>
+<li>435</li>
+<li>412</li>
+<li>418</li>
+<li>424</li>
+<li>430</li>
+<li>436</li>
+<li>421</li>
+<li>427</li>
+<li>433</li>
+<li>439</li>
+<li>445</li>
+<li>14</li>
+<li>20</li>
+<li>26</li>
+<li>32</li>
+<li>38</li>
+</ul>
+</div>
+</div>
+<div id="solution" class="section level1">
+<h1>Solution</h1>
+<ul>
+<li>The best guess for the population mean is the sample mean. <span class="math inline">\(\bar{x}=427\)</span>.</li>
+<li>The lower boundary = 412</li>
+<li>The upper boundary = 439</li>
+<li>The margin of error <span class="math inline">\(= \frac{439-412}{2}
+= 14\)</span></li>
+</ul>
+<p>Use a <a href="https://sheets.new">new spreadsheet</a>.</p>
+<ul>
+<li>Paste data into A1:K1.</li>
+<li>To find sample mean, in cell C3, type
+<code>=AVERAGE(A1:K1)</code>.</li>
+<li>The key formula for resampling will be
+<code>=INDEX($A$1:$K$1,1,RANDBETWEEN(1,11))</code>.</li>
+<li>In all cells from O1 to Z1, put the formula.</li>
+<li>Notice there are 11 values, just like the original sample. However
+there will be more repetition, because these 11 values are made by
+resampling <a href="https://en.wikipedia.org/wiki/Sampling_(statistics)#Replacement_of_selected_units">with
+replacement</a>.</li>
+<li>To repeat 1000 times, select range O1:Z1 and use
+<code>ctrl+shift+down</code> and <code>ctrl+enter</code>.</li>
+<li>Now, we want an average for each row. In M1 write
+<code>=AVERAGE(O1:Z1)</code>.</li>
+<li>Copy the average formula down for all rows. You now have 1000
+averages from resampling.</li>
+<li>Freeze the page with <code>ctrl+a</code> to select everything,
+<code>ctrl+c</code> to copy, and <code>ctrl+shift+v</code> to paste
+values only.</li>
+<li>Sort column M.</li>
+<li>In an empty cell, type <code>=M25</code>. In another empty cell,
+type <code>=M975</code>. These are the boundaries of the 95% confidence
 interval.</li>
 </ul>
+<p>To find the margin of error, find half the difference of the
+boundaries.</p>
+</div>
+<div id="meta-information" class="section level1">
+<h1>Meta-information</h1>
+<p>extype: cloze exclozetype: schoice|schoice|schoice|schoice
+exsolution: 10000|10000|00010|10000 exname: resample_mean_ME</p>
 </div>
 
 

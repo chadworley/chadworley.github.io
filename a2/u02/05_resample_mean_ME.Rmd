@@ -12,7 +12,7 @@ while(T){
   for(i in 1:1000){
     xx = matrix(sample(x,n*1000,T),nrow=1000)
     avs = sort(apply(xx,1,mean))
-    lb = avs[26]
+    lb = avs[25]
     lbs = c(lbs,lb)
     ub = avs[975]
     ubs = c(ubs,ub)
@@ -27,7 +27,7 @@ while(T){
   
   dlb = max(lbs)-min(lbs)
   dub = max(ubs)-min(ubs)
-  del = round(max(dlb,dub),0)
+  del = ceiling(max(dlb,dub))+1
   
   xbopts = round(xbar+(-sample(0:4,1)+0:4)*2)
   xbal = paste0("* ",xbopts,collapse="\n")
@@ -42,7 +42,7 @@ while(T){
   lbsol = paste0(1*(lb==lbopts),collapse="")
   ubsol = paste0(1*(ub==ubopts),collapse="")
   mesol = paste0(1*(me==meopts),collapse="")
-  if(del>0 && min(meopts)>0){break}
+  if(del>1 && min(meopts)>0){break}
 }
 
 

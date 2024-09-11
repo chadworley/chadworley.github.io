@@ -3,11 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "u02_"
 
-probs = list("06_CI_mean.Rmd",
-             "07_CI_mean_raw.Rmd",
-             "08_CI_interpret.Rmd")
+probs = c("05_resample_mean_ME.Rmd")
 
-pnts = c(2,3,2)
+pnts = c(5)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
@@ -23,7 +21,6 @@ for(i in 1:length(probs)){
 }
 
 
-# 
 # exams2canvas(probs,
 #              n=n,
 #              dir=outdir,
