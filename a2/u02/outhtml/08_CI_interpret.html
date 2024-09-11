@@ -1,0 +1,354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>08_CI_interpret</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">08_CI_interpret</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist collects a sample (with sample size <span class="math inline">\(n=206\)</span>) from a population. Each individual’s weight is measured, and summary statistics are calculated: <span class="math inline">\(\bar{x}=33.9\)</span> and <span class="math inline">\(s=7.8\)</span>. The scientist calculates a 95% confidence interval for the mean weight (in grams).</p>
+<p><span class="math display">\[\text{confidence interval} = \left[32.8,\, 35\right] \]</span></p>
+<p>A correct interpretation is:</p>
+<ol style="list-style-type: lower-alpha">
+<li>If the same population were sampled repeatedly, and each time a confidence interval was calculated, then the sample mean will be between the boundaries approximately 95% of the time.</li>
+<li>When <span class="math inline">\(\mu\)</span> is measured repeatedly, it will be between these boundaries (32.8 and 35) approximately 95% of the time.</li>
+<li>If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that <span class="math inline">\(\bar{x}\)</span> will be between the new boundaries.</li>
+<li>If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that <span class="math inline">\(\mu\)</span> will be between the new boundaries.</li>
+</ol>
+<br/>
+<ol type="a">
+<li>
+a
+</li>
+<li>
+b
+</li>
+<li>
+c
+</li>
+<li>
+d
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Correct answer: “If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that <span class="math inline">\(\mu\)</span> will be between the new boundaries.”</p>
+<p>Check the meaning of <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="_blank">confidence interval</a>.</p>
+<p>Notice the meaning is quite subtle and confusing. Most importantly a confidence interval allows us to indicate our uncertainty of <span class="math inline">\(\mu\)</span>. We have a pretty good guess (<span class="math inline">\(\mu \approx \bar{x}\)</span>), and we have an idea that it’s probably not further off than the margin of error (<span class="math inline">\(\text{ME}\approx \frac{2s}{\sqrt{n}}\)</span>).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist collects a sample (with sample size <span class="math inline">\(n=124\)</span>) from a population. Each individual’s weight is measured, and summary statistics are calculated: <span class="math inline">\(\bar{x}=25.9\)</span> and <span class="math inline">\(s=7.3\)</span>. The scientist calculates a 95% confidence interval for the mean weight (in grams).</p>
+<p><span class="math display">\[\text{confidence interval} = \left[24.6,\, 27.2\right] \]</span></p>
+<p>A correct interpretation is:</p>
+<ol style="list-style-type: lower-alpha">
+<li>There is a 95% chance that <span class="math inline">\(\mu\)</span> is between 24.6 and 27.2. (Hint: this is wrong, but the reasoning is <a href="https://en.wikipedia.org/wiki/Foundations_of_statistics#Bayesian_inference_versus_frequentist_inference">super subtle and slightly controversial</a>.)</li>
+<li>If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that <span class="math inline">\(\mu\)</span> will be between the new boundaries.</li>
+<li>When <span class="math inline">\(\mu\)</span> is measured repeatedly, it will be between these boundaries (24.6 and 27.2) approximately 95% of the time.</li>
+<li>The boundaries are determined by a process that will place <span class="math inline">\(\bar{x}\)</span> between the boundaries 95% of the time.</li>
+</ol>
+<br/>
+<ol type="a">
+<li>
+a
+</li>
+<li>
+b
+</li>
+<li>
+c
+</li>
+<li>
+d
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Correct answer: “If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that <span class="math inline">\(\mu\)</span> will be between the new boundaries.”</p>
+<p>Check the meaning of <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="_blank">confidence interval</a>.</p>
+<p>Notice the meaning is quite subtle and confusing. Most importantly a confidence interval allows us to indicate our uncertainty of <span class="math inline">\(\mu\)</span>. We have a pretty good guess (<span class="math inline">\(\mu \approx \bar{x}\)</span>), and we have an idea that it’s probably not further off than the margin of error (<span class="math inline">\(\text{ME}\approx \frac{2s}{\sqrt{n}}\)</span>).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist collects a sample (with sample size <span class="math inline">\(n=256\)</span>) from a population. Each individual’s weight is measured, and summary statistics are calculated: <span class="math inline">\(\bar{x}=21.3\)</span> and <span class="math inline">\(s=4.5\)</span>. The scientist calculates a 95% confidence interval for the mean weight (in grams).</p>
+<p><span class="math display">\[\text{confidence interval} = \left[20.7,\, 21.9\right] \]</span></p>
+<p>A correct interpretation is:</p>
+<ol style="list-style-type: lower-alpha">
+<li>If the same population were sampled repeatedly, and each time a confidence interval was calculated, then the sample mean will be between the boundaries approximately 95% of the time.</li>
+<li>When <span class="math inline">\(\mu\)</span> is measured repeatedly, it will be between these boundaries (20.7 and 21.9) approximately 95% of the time.</li>
+<li>The boundaries are determined by a process that will include <span class="math inline">\(\mu\)</span> between the boundaries 95% of the time.</li>
+<li>There is a 95% chance that <span class="math inline">\(\mu\)</span> is between 20.7 and 21.9. (Hint: this is wrong, but the reasoning is <a href="https://en.wikipedia.org/wiki/Foundations_of_statistics#Bayesian_inference_versus_frequentist_inference">super subtle and slightly controversial</a>.)</li>
+</ol>
+<br/>
+<ol type="a">
+<li>
+a
+</li>
+<li>
+b
+</li>
+<li>
+c
+</li>
+<li>
+d
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Correct answer: “The boundaries are determined by a process that will include <span class="math inline">\(\mu\)</span> between the boundaries 95% of the time.”</p>
+<p>Check the meaning of <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="_blank">confidence interval</a>.</p>
+<p>Notice the meaning is quite subtle and confusing. Most importantly a confidence interval allows us to indicate our uncertainty of <span class="math inline">\(\mu\)</span>. We have a pretty good guess (<span class="math inline">\(\mu \approx \bar{x}\)</span>), and we have an idea that it’s probably not further off than the margin of error (<span class="math inline">\(\text{ME}\approx \frac{2s}{\sqrt{n}}\)</span>).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist collects a sample (with sample size <span class="math inline">\(n=81\)</span>) from a population. Each individual’s weight is measured, and summary statistics are calculated: <span class="math inline">\(\bar{x}=84.5\)</span> and <span class="math inline">\(s=23.5\)</span>. The scientist calculates a 95% confidence interval for the mean weight (in grams).</p>
+<p><span class="math display">\[\text{confidence interval} = \left[79.3,\, 89.7\right] \]</span></p>
+<p>A correct interpretation is:</p>
+<ol style="list-style-type: lower-alpha">
+<li>The population mean <span class="math inline">\(\mu\)</span> is between the boundaries.</li>
+<li>The boundaries are determined by a process that will include <span class="math inline">\(\mu\)</span> between the boundaries 95% of the time.</li>
+<li>There is a 95% chance that <span class="math inline">\(\mu\)</span> is between 79.3 and 89.7. (Hint: this is wrong, but the reasoning is <a href="https://en.wikipedia.org/wiki/Foundations_of_statistics#Bayesian_inference_versus_frequentist_inference">super subtle and slightly controversial</a>.)</li>
+<li>If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance the new sample mean will be between 79.3 and 89.7.</li>
+</ol>
+<br/>
+<ol type="a">
+<li>
+a
+</li>
+<li>
+b
+</li>
+<li>
+c
+</li>
+<li>
+d
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Correct answer: “The boundaries are determined by a process that will include <span class="math inline">\(\mu\)</span> between the boundaries 95% of the time.”</p>
+<p>Check the meaning of <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="_blank">confidence interval</a>.</p>
+<p>Notice the meaning is quite subtle and confusing. Most importantly a confidence interval allows us to indicate our uncertainty of <span class="math inline">\(\mu\)</span>. We have a pretty good guess (<span class="math inline">\(\mu \approx \bar{x}\)</span>), and we have an idea that it’s probably not further off than the margin of error (<span class="math inline">\(\text{ME}\approx \frac{2s}{\sqrt{n}}\)</span>).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist collects a sample (with sample size <span class="math inline">\(n=211\)</span>) from a population. Each individual’s weight is measured, and summary statistics are calculated: <span class="math inline">\(\bar{x}=87.5\)</span> and <span class="math inline">\(s=21\)</span>. The scientist calculates a 95% confidence interval for the mean weight (in grams).</p>
+<p><span class="math display">\[\text{confidence interval} = \left[84.6,\, 90.4\right] \]</span></p>
+<p>A correct interpretation is:</p>
+<ol style="list-style-type: lower-alpha">
+<li>If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that <span class="math inline">\(\bar{x}\)</span> will be between the new boundaries.</li>
+<li>If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance the new sample mean will be between 84.6 and 90.4.</li>
+<li>If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that <span class="math inline">\(\mu\)</span> will be between the new boundaries.</li>
+<li>The boundaries are determined by a process that will place <span class="math inline">\(\bar{x}\)</span> between the boundaries 95% of the time.</li>
+</ol>
+<br/>
+<ol type="a">
+<li>
+a
+</li>
+<li>
+b
+</li>
+<li>
+c
+</li>
+<li>
+d
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Correct answer: “If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that <span class="math inline">\(\mu\)</span> will be between the new boundaries.”</p>
+<p>Check the meaning of <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="_blank">confidence interval</a>.</p>
+<p>Notice the meaning is quite subtle and confusing. Most importantly a confidence interval allows us to indicate our uncertainty of <span class="math inline">\(\mu\)</span>. We have a pretty good guess (<span class="math inline">\(\mu \approx \bar{x}\)</span>), and we have an idea that it’s probably not further off than the margin of error (<span class="math inline">\(\text{ME}\approx \frac{2s}{\sqrt{n}}\)</span>).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist collects a sample (with sample size <span class="math inline">\(n=199\)</span>) from a population. Each individual’s weight is measured, and summary statistics are calculated: <span class="math inline">\(\bar{x}=51.3\)</span> and <span class="math inline">\(s=11.4\)</span>. The scientist calculates a 95% confidence interval for the mean weight (in grams).</p>
+<p><span class="math display">\[\text{confidence interval} = \left[49.7,\, 52.9\right] \]</span></p>
+<p>A correct interpretation is:</p>
+<ol style="list-style-type: lower-alpha">
+<li>When <span class="math inline">\(\mu\)</span> is measured repeatedly, it will be between these boundaries (49.7 and 52.9) approximately 95% of the time.</li>
+<li>There is a 95% chance that <span class="math inline">\(\mu\)</span> is between 49.7 and 52.9. (Hint: this is wrong, but the reasoning is <a href="https://en.wikipedia.org/wiki/Foundations_of_statistics#Bayesian_inference_versus_frequentist_inference">super subtle and slightly controversial</a>.)</li>
+<li>If the same population were sampled repeatedly, and each time a confidence interval was calculated, then the sample mean will be between the boundaries approximately 95% of the time.</li>
+<li>The boundaries are determined by a process that will include <span class="math inline">\(\mu\)</span> between the boundaries 95% of the time.</li>
+</ol>
+<br/>
+<ol type="a">
+<li>
+a
+</li>
+<li>
+b
+</li>
+<li>
+c
+</li>
+<li>
+d
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Correct answer: “The boundaries are determined by a process that will include <span class="math inline">\(\mu\)</span> between the boundaries 95% of the time.”</p>
+<p>Check the meaning of <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="_blank">confidence interval</a>.</p>
+<p>Notice the meaning is quite subtle and confusing. Most importantly a confidence interval allows us to indicate our uncertainty of <span class="math inline">\(\mu\)</span>. We have a pretty good guess (<span class="math inline">\(\mu \approx \bar{x}\)</span>), and we have an idea that it’s probably not further off than the margin of error (<span class="math inline">\(\text{ME}\approx \frac{2s}{\sqrt{n}}\)</span>).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist collects a sample (with sample size <span class="math inline">\(n=143\)</span>) from a population. Each individual’s weight is measured, and summary statistics are calculated: <span class="math inline">\(\bar{x}=40\)</span> and <span class="math inline">\(s=9.8\)</span>. The scientist calculates a 95% confidence interval for the mean weight (in grams).</p>
+<p><span class="math display">\[\text{confidence interval} = \left[38.4,\, 41.6\right] \]</span></p>
+<p>A correct interpretation is:</p>
+<ol style="list-style-type: lower-alpha">
+<li>If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that <span class="math inline">\(\bar{x}\)</span> will be between the new boundaries.</li>
+<li>There is a 95% chance that <span class="math inline">\(\mu\)</span> is between 38.4 and 41.6. (Hint: this is wrong, but the reasoning is <a href="https://en.wikipedia.org/wiki/Foundations_of_statistics#Bayesian_inference_versus_frequentist_inference">super subtle and slightly controversial</a>.)</li>
+<li>The boundaries are determined by a process that will include <span class="math inline">\(\mu\)</span> between the boundaries 95% of the time.</li>
+<li>The population mean <span class="math inline">\(\mu\)</span> is between the boundaries.</li>
+</ol>
+<br/>
+<ol type="a">
+<li>
+a
+</li>
+<li>
+b
+</li>
+<li>
+c
+</li>
+<li>
+d
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Correct answer: “The boundaries are determined by a process that will include <span class="math inline">\(\mu\)</span> between the boundaries 95% of the time.”</p>
+<p>Check the meaning of <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="_blank">confidence interval</a>.</p>
+<p>Notice the meaning is quite subtle and confusing. Most importantly a confidence interval allows us to indicate our uncertainty of <span class="math inline">\(\mu\)</span>. We have a pretty good guess (<span class="math inline">\(\mu \approx \bar{x}\)</span>), and we have an idea that it’s probably not further off than the margin of error (<span class="math inline">\(\text{ME}\approx \frac{2s}{\sqrt{n}}\)</span>).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist collects a sample (with sample size <span class="math inline">\(n=256\)</span>) from a population. Each individual’s weight is measured, and summary statistics are calculated: <span class="math inline">\(\bar{x}=28.2\)</span> and <span class="math inline">\(s=8\)</span>. The scientist calculates a 95% confidence interval for the mean weight (in grams).</p>
+<p><span class="math display">\[\text{confidence interval} = \left[27.2,\, 29.2\right] \]</span></p>
+<p>A correct interpretation is:</p>
+<ol style="list-style-type: lower-alpha">
+<li>The boundaries are determined by a process that will place <span class="math inline">\(\bar{x}\)</span> between the boundaries 95% of the time.</li>
+<li>If the entire process of gathering the sample and calculating the confidence interval is repeated, there is a 95% chance that <span class="math inline">\(\bar{x}\)</span> will be between the new boundaries.</li>
+<li>Prior to randomly collecting the sample, there was a 95% chance the (yet-to-be-determined) confidence interval would contain <span class="math inline">\(\mu\)</span>.</li>
+<li>There is a 95% chance that <span class="math inline">\(\mu\)</span> is between 27.2 and 29.2. (Hint: this is wrong, but the reasoning is <a href="https://en.wikipedia.org/wiki/Foundations_of_statistics#Bayesian_inference_versus_frequentist_inference">super subtle and slightly controversial</a>.)</li>
+</ol>
+<br/>
+<ol type="a">
+<li>
+a
+</li>
+<li>
+b
+</li>
+<li>
+c
+</li>
+<li>
+d
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Correct answer: “Prior to randomly collecting the sample, there was a 95% chance the (yet-to-be-determined) confidence interval would contain <span class="math inline">\(\mu\)</span>.”</p>
+<p>Check the meaning of <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="_blank">confidence interval</a>.</p>
+<p>Notice the meaning is quite subtle and confusing. Most importantly a confidence interval allows us to indicate our uncertainty of <span class="math inline">\(\mu\)</span>. We have a pretty good guess (<span class="math inline">\(\mu \approx \bar{x}\)</span>), and we have an idea that it’s probably not further off than the margin of error (<span class="math inline">\(\text{ME}\approx \frac{2s}{\sqrt{n}}\)</span>).</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

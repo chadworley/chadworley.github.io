@@ -1,7 +1,8 @@
 library("exams")
 
-pppsss = c("05_resample_mean_ME.Rmd",
-           "06_reshuffle_two_mean.Rmd")
+pppsss = c("06_CI_mean.Rmd",
+           "07_CI_mean_raw.Rmd",
+           "08_CI_interpret.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

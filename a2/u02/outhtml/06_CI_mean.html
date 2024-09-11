@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>06_CI_mean</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">06_CI_mean</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist has weighed 206 specimens of a newly discovered organism. Those weights have a <a href="https://en.wikipedia.org/wiki/Sample_mean_and_covariance#Definition_of_the_sample_mean" target="_blank"><em>sample mean</em></a> equaling <span class="math inline">\(\bar{x} =33.9\)</span> grams and a <a href="https://en.wikipedia.org/wiki/Unbiased_estimation_of_standard_deviation#Motivation" target="_blank">sample standard deviation</a> equaling <span class="math inline">\(s=7.8\)</span> grams. The scientist hopes to construct a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="blank"><strong>confidence interval</strong></a> of the organism’s <a href="https://en.wikipedia.org/wiki/Statistical_population#Mean" target="_blank"><em>population mean</em></a> (<span class="math inline">\(\mu\)</span>).</p>
+<p>The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
+<span class="math display">\[\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} \]</span></p>
+<p>The lower boundary is <select><option>--------</option><option> 18.3</option><option>26.1</option><option>31.7</option><option>32.8 </option></select>.</p>
+<p>The upper boundary is <select><option>--------</option><option> 35</option><option>36.1</option><option>41.7</option><option>49.5 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the numbers into the expressions.</p>
+<ul>
+<li>Lower bound = <span class="math inline">\(33.9-2(7.8)/\sqrt{206} ~=~ 32.8\)</span></li>
+<li>Upper bound = <span class="math inline">\(33.9+2(7.8)/\sqrt{206} ~=~ 35\)</span></li>
+</ul>
+<p>Using <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals" target="_blank">interval notation</a>, the 95% confidence interval is [32.8, 35].</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist has weighed 226 specimens of a newly discovered organism. Those weights have a <a href="https://en.wikipedia.org/wiki/Sample_mean_and_covariance#Definition_of_the_sample_mean" target="_blank"><em>sample mean</em></a> equaling <span class="math inline">\(\bar{x} =69.5\)</span> grams and a <a href="https://en.wikipedia.org/wiki/Unbiased_estimation_of_standard_deviation#Motivation" target="_blank">sample standard deviation</a> equaling <span class="math inline">\(s=18.9\)</span> grams. The scientist hopes to construct a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="blank"><strong>confidence interval</strong></a> of the organism’s <a href="https://en.wikipedia.org/wiki/Statistical_population#Mean" target="_blank"><em>population mean</em></a> (<span class="math inline">\(\mu\)</span>).</p>
+<p>The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
+<span class="math display">\[\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} \]</span></p>
+<p>The lower boundary is <select><option>--------</option><option> 31.7</option><option>67</option><option>69.2</option><option>69.3 </option></select>.</p>
+<p>The upper boundary is <select><option>--------</option><option> 69.7</option><option>69.8</option><option>72</option><option>107.3 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the numbers into the expressions.</p>
+<ul>
+<li>Lower bound = <span class="math inline">\(69.5-2(18.9)/\sqrt{226} ~=~ 67\)</span></li>
+<li>Upper bound = <span class="math inline">\(69.5+2(18.9)/\sqrt{226} ~=~ 72\)</span></li>
+</ul>
+<p>Using <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals" target="_blank">interval notation</a>, the 95% confidence interval is [67, 72].</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist has weighed 118 specimens of a newly discovered organism. Those weights have a <a href="https://en.wikipedia.org/wiki/Sample_mean_and_covariance#Definition_of_the_sample_mean" target="_blank"><em>sample mean</em></a> equaling <span class="math inline">\(\bar{x} =54.8\)</span> grams and a <a href="https://en.wikipedia.org/wiki/Unbiased_estimation_of_standard_deviation#Motivation" target="_blank">sample standard deviation</a> equaling <span class="math inline">\(s=15.7\)</span> grams. The scientist hopes to construct a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="blank"><strong>confidence interval</strong></a> of the organism’s <a href="https://en.wikipedia.org/wiki/Statistical_population#Mean" target="_blank"><em>population mean</em></a> (<span class="math inline">\(\mu\)</span>).</p>
+<p>The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
+<span class="math display">\[\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} \]</span></p>
+<p>The lower boundary is <select><option>--------</option><option> 23.4</option><option>39.1</option><option>49</option><option>51.9 </option></select>.</p>
+<p>The upper boundary is <select><option>--------</option><option> 57.7</option><option>60.6</option><option>70.5</option><option>86.2 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the numbers into the expressions.</p>
+<ul>
+<li>Lower bound = <span class="math inline">\(54.8-2(15.7)/\sqrt{118} ~=~ 51.9\)</span></li>
+<li>Upper bound = <span class="math inline">\(54.8+2(15.7)/\sqrt{118} ~=~ 57.7\)</span></li>
+</ul>
+<p>Using <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals" target="_blank">interval notation</a>, the 95% confidence interval is [51.9, 57.7].</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist has weighed 204 specimens of a newly discovered organism. Those weights have a <a href="https://en.wikipedia.org/wiki/Sample_mean_and_covariance#Definition_of_the_sample_mean" target="_blank"><em>sample mean</em></a> equaling <span class="math inline">\(\bar{x} =11.2\)</span> grams and a <a href="https://en.wikipedia.org/wiki/Unbiased_estimation_of_standard_deviation#Motivation" target="_blank">sample standard deviation</a> equaling <span class="math inline">\(s=2.6\)</span> grams. The scientist hopes to construct a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="blank"><strong>confidence interval</strong></a> of the organism’s <a href="https://en.wikipedia.org/wiki/Statistical_population#Mean" target="_blank"><em>population mean</em></a> (<span class="math inline">\(\mu\)</span>).</p>
+<p>The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
+<span class="math display">\[\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} \]</span></p>
+<p>The lower boundary is <select><option>--------</option><option> 6</option><option>8.6</option><option>10.8</option><option>11 </option></select>.</p>
+<p>The upper boundary is <select><option>--------</option><option> 11.4</option><option>11.6</option><option>13.8</option><option>16.4 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the numbers into the expressions.</p>
+<ul>
+<li>Lower bound = <span class="math inline">\(11.2-2(2.6)/\sqrt{204} ~=~ 10.8\)</span></li>
+<li>Upper bound = <span class="math inline">\(11.2+2(2.6)/\sqrt{204} ~=~ 11.6\)</span></li>
+</ul>
+<p>Using <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals" target="_blank">interval notation</a>, the 95% confidence interval is [10.8, 11.6].</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist has weighed 81 specimens of a newly discovered organism. Those weights have a <a href="https://en.wikipedia.org/wiki/Sample_mean_and_covariance#Definition_of_the_sample_mean" target="_blank"><em>sample mean</em></a> equaling <span class="math inline">\(\bar{x} =26.8\)</span> grams and a <a href="https://en.wikipedia.org/wiki/Unbiased_estimation_of_standard_deviation#Motivation" target="_blank">sample standard deviation</a> equaling <span class="math inline">\(s=8.2\)</span> grams. The scientist hopes to construct a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="blank"><strong>confidence interval</strong></a> of the organism’s <a href="https://en.wikipedia.org/wiki/Statistical_population#Mean" target="_blank"><em>population mean</em></a> (<span class="math inline">\(\mu\)</span>).</p>
+<p>The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
+<span class="math display">\[\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} \]</span></p>
+<p>The lower boundary is <select><option>--------</option><option> 18.6</option><option>23.2</option><option>25</option><option>26.3 </option></select>.</p>
+<p>The upper boundary is <select><option>--------</option><option> 27.3</option><option>28.6</option><option>30.4</option><option>35 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the numbers into the expressions.</p>
+<ul>
+<li>Lower bound = <span class="math inline">\(26.8-2(8.2)/\sqrt{81} ~=~ 25\)</span></li>
+<li>Upper bound = <span class="math inline">\(26.8+2(8.2)/\sqrt{81} ~=~ 28.6\)</span></li>
+</ul>
+<p>Using <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals" target="_blank">interval notation</a>, the 95% confidence interval is [25, 28.6].</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist has weighed 109 specimens of a newly discovered organism. Those weights have a <a href="https://en.wikipedia.org/wiki/Sample_mean_and_covariance#Definition_of_the_sample_mean" target="_blank"><em>sample mean</em></a> equaling <span class="math inline">\(\bar{x} =75.9\)</span> grams and a <a href="https://en.wikipedia.org/wiki/Unbiased_estimation_of_standard_deviation#Motivation" target="_blank">sample standard deviation</a> equaling <span class="math inline">\(s=21.4\)</span> grams. The scientist hopes to construct a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="blank"><strong>confidence interval</strong></a> of the organism’s <a href="https://en.wikipedia.org/wiki/Statistical_population#Mean" target="_blank"><em>population mean</em></a> (<span class="math inline">\(\mu\)</span>).</p>
+<p>The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
+<span class="math display">\[\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} \]</span></p>
+<p>The lower boundary is <select><option>--------</option><option> 33.1</option><option>54.5</option><option>67.7</option><option>71.8 </option></select>.</p>
+<p>The upper boundary is <select><option>--------</option><option> 80</option><option>84.1</option><option>97.3</option><option>118.7 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the numbers into the expressions.</p>
+<ul>
+<li>Lower bound = <span class="math inline">\(75.9-2(21.4)/\sqrt{109} ~=~ 71.8\)</span></li>
+<li>Upper bound = <span class="math inline">\(75.9+2(21.4)/\sqrt{109} ~=~ 80\)</span></li>
+</ul>
+<p>Using <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals" target="_blank">interval notation</a>, the 95% confidence interval is [71.8, 80].</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist has weighed 78 specimens of a newly discovered organism. Those weights have a <a href="https://en.wikipedia.org/wiki/Sample_mean_and_covariance#Definition_of_the_sample_mean" target="_blank"><em>sample mean</em></a> equaling <span class="math inline">\(\bar{x} =56.7\)</span> grams and a <a href="https://en.wikipedia.org/wiki/Unbiased_estimation_of_standard_deviation#Motivation" target="_blank">sample standard deviation</a> equaling <span class="math inline">\(s=15.7\)</span> grams. The scientist hopes to construct a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="blank"><strong>confidence interval</strong></a> of the organism’s <a href="https://en.wikipedia.org/wiki/Statistical_population#Mean" target="_blank"><em>population mean</em></a> (<span class="math inline">\(\mu\)</span>).</p>
+<p>The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
+<span class="math display">\[\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} \]</span></p>
+<p>The lower boundary is <select><option>--------</option><option> 41</option><option>53.1</option><option>54.9</option><option>56.3 </option></select>.</p>
+<p>The upper boundary is <select><option>--------</option><option> 57.1</option><option>58.5</option><option>60.3</option><option>72.4 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the numbers into the expressions.</p>
+<ul>
+<li>Lower bound = <span class="math inline">\(56.7-2(15.7)/\sqrt{78} ~=~ 53.1\)</span></li>
+<li>Upper bound = <span class="math inline">\(56.7+2(15.7)/\sqrt{78} ~=~ 60.3\)</span></li>
+</ul>
+<p>Using <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals" target="_blank">interval notation</a>, the 95% confidence interval is [53.1, 60.3].</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A scientist has weighed 61 specimens of a newly discovered organism. Those weights have a <a href="https://en.wikipedia.org/wiki/Sample_mean_and_covariance#Definition_of_the_sample_mean" target="_blank"><em>sample mean</em></a> equaling <span class="math inline">\(\bar{x} =53.1\)</span> grams and a <a href="https://en.wikipedia.org/wiki/Unbiased_estimation_of_standard_deviation#Motivation" target="_blank">sample standard deviation</a> equaling <span class="math inline">\(s=15.6\)</span> grams. The scientist hopes to construct a 95% <a href="https://en.wikipedia.org/wiki/Confidence_interval" target="blank"><strong>confidence interval</strong></a> of the organism’s <a href="https://en.wikipedia.org/wiki/Statistical_population#Mean" target="_blank"><em>population mean</em></a> (<span class="math inline">\(\mu\)</span>).</p>
+<p>The scientist will later consult a statistician for a more precise method, but for now she will use a quick method to estimate the 95% confidence interval:
+<span class="math display">\[\text{CI boundaries} = \bar{x}\pm \frac{2s}{\sqrt{n}} \]</span></p>
+<p>The lower boundary is <select><option>--------</option><option> 21.9</option><option>45.1</option><option>49.1</option><option>51.1 </option></select>.</p>
+<p>The upper boundary is <select><option>--------</option><option> 55.1</option><option>57.1</option><option>61.1</option><option>84.3 </option></select>.</p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the numbers into the expressions.</p>
+<ul>
+<li>Lower bound = <span class="math inline">\(53.1-2(15.6)/\sqrt{61} ~=~ 49.1\)</span></li>
+<li>Upper bound = <span class="math inline">\(53.1+2(15.6)/\sqrt{61} ~=~ 57.1\)</span></li>
+</ul>
+<p>Using <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals" target="_blank">interval notation</a>, the 95% confidence interval is [49.1, 57.1].</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
