@@ -5,7 +5,7 @@ import os
 
 
 front = "u02_"
-files = ["05_resample_mean_ME.Rmd","06_reshuffle_two_mean.Rmd"]
+files = ["06_CI_mean.Rmd","07_CI_mean_raw.Rmd","08_CI_interpret.Rmd"]
 
 
 practice_url_front = "https://chadworley.github.io/a2/u02/outhtml/"
