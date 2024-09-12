@@ -3,9 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "u02_"
 
-probs = c("09_reshuffle_two_mean.Rmd")
+probs = c("10_hyptest_2_means_data.Rmd")
 
-pnts = c(6)
+pnts = c(3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
