@@ -6,29 +6,83 @@ author: "Chad Worley"
 
 # Summary
 
-I was handed a 3D-printed 6-sided die with sides marked with 1, 2, 3, 4, 5, and 6 pips. Of course, it was immediately suspicious that the dice were 3D-printed, and my suspicions were confirmed because the teacher said that some of the dice might be weighted. We were instructed roll 50 rolls to generate confidence intervals of the population mean.
+I was handed a 3D-printed 6-sided die with sides marked with 1, 2, 3, 4, 5, and 6 pips. Of course, it was immediately suspicious that the dice were 3D-printed, and my suspicions were confirmed because the teacher said that some of the dice might be weighted. We were instructed to roll 50 rolls to generate confidence intervals of the population mean.
 
 With dice, the idea of a population mean is better phrased as the [expected value](https://en.wikipedia.org/wiki/Expected_value), or the long-run average that is expected after a million rolls. The goal is to make an inference about the expected value based on a sample of 50 rolls.
 
-# Data
+# Data and formulaic approach
 
 ```{r,echo=F}
 set.seed(123)
-x = sample(1:6,50,T)
+x = sample(1:6,50,T,prob = c(5,5,4,4,4,4))
 xbar = mean(x)
-s = sd(x)
+s = round(sd(x),3)
 n = 50
-lb = xbar-2*s/sqrt(n)
-ub = xbar+2*s/sqrt(n)
+flb = round(xbar-2*s/sqrt(n),3)
+fub = round(xbar+2*s/sqrt(n),3)
+fme = round(2*s/sqrt(n),2)
+xx = matrix(sample(x,50*1000,T),ncol = 50)
+means = sort(apply(xx,1,mean))
+blb = means[26]
+bub = means[975]
+bme = round((bub-blb)/2,2)
 ```
 
 I've pasted the raw data here as a comma-separated list:
 
 `r paste0(x,collapse=", ")`
 
+Below are some summary statistics:
+
+$$\text{sample size} = n = 50$$
+$$\text{sample mean} = \bar{x} = `r xbar`$$
+$$\text{sample standard deviation} = s = `r s`$$
+
+These were found in a spreadsheet using `=count()`, `=average()`, and `=stdev()`. That spreadsheet (which also contains the bootstrap resampling analysis) can be found at [https://fake.link](https://fake.link). From those numbers we can calculate the confidence interval using a formula.
+$$\bar{x}\pm \frac{2s}{\sqrt{n}} ~=~ `r xbar` \pm \frac{2\cdot `r s`}{\sqrt{50}}$$
+
+We find the boundaries:
+$$`r xbar` - \frac{2\cdot `r s`}{\sqrt{50}} = `r flb`$$
+$$`r xbar` + \frac{2\cdot `r s`}{\sqrt{50}} = `r fub`$$
+
+We can express the confidence interval in [interval notation](https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals).
+
+$$\text{formulaic confidence interval} = [`r flb`,`r fub`]$$
+
+We can find the margin of error by halving the difference.
+$$\text{formulaic margin of error} = \frac{`r fub`-`r flb`}{2} = `r fme`$$
+
+It should also be mentioned that the formulaic margin of error is also just $\frac{2s}{\sqrt{n}}$, the quantity that we added to and subtracted from the sample mean to generate the confidence interval.
+
+
 # Bootstrap
 
-Those rolls were put in a spreadsheet in cell range A1:A50. To resample, with replacement, from the sample, I used `=INDEX($A$1:$A$50,RANDBETWEEN(1,50),1)` in cell range D1:BA1000. This is equivalent to 1000 resamples, where each resample has 50 values (there are 50 columns and 1000 rows). For each row I calculated a resample mean. 
+Those rolls were put in a spreadsheet in cell range A1:A50. To resample, with replacement, from the sample, I used `=INDEX($A$1:$A$50,RANDBETWEEN(1,50),1)` in cell range D1:BA1000. This is equivalent to 1000 repetitions, where each repetition has 50 values (there are 50 columns and 1000 rows). Notice the 50 is not coincidental, I used 50 columns because the sample had 50 rolls.
+
+For each row I calculated a mean. Although the project description did not require a histogram, I found it helpful to generate a histogram of my resampled means.
+
+```{r,echo=F,fig.dim=c(6,4),fig.align='center'}
+hist(means,main="1000 resampled means",xlab="Mean of 50 'rolls' from resampling")
+
+```
+
+By finding the 2.5th percentile and the 97.5th percentile of these means, I generated my 95% confidence interval.
+$$\text{bootstrap confidence interval} = [`r round(blb,3)`,`r round(bub,3)`]$$
+By halving the difference, I find the margin of error.
+$$\text{bootstrap margin of error} = `r (round(bub,3)-round(blb,3))/2`$$
+
+# Analysis
+
+Both methods (formulaic and bootstrap) produced very similar confidence intervals and margins of error.
+
+A fair die should have an expected value equal to 3.5. My confidence intervals both contained 3.5 (because 3.5 is between the boundaries). So, my conclusion is that two possibilities remain:
+
+* The expected value of my die is, like a fair die, equal to 3.5, or
+* With more data, maybe I could show that my die's expected value is not equal 3.5.
+    
+Either way, we can say that we did **not** find a significant difference between our die's mean and 3.5.
+
+
 
 
 
