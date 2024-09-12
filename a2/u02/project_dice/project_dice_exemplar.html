@@ -9,6 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Chad Worley" />
 
 
 <title>Project Dice</title>
@@ -349,122 +350,29 @@ display: none;
 
 
 <h1 class="title toc-ignore">Project Dice</h1>
+<h4 class="author">Chad Worley</h4>
 
 </div>
 
 
-<div id="overview" class="section level1">
-<h1>Overview</h1>
-<p>You have been given a 6-sided die. This is a 3D-printed die, and it
-might be weighted such that the average is not 3.5. You will roll the
-die 50 times (on a surface that causes the die to bounce) and collect
-the data.</p>
-<p>You will generate a 95% confidence interval using two different
-techniques:</p>
-<ul>
-<li>Bootstrapping</li>
-<li>Using the confidence-interval formula: <span class="math inline">\(\bar{x}\pm \frac{2s}{\sqrt{n}}\)</span></li>
-</ul>
-<p>Lastly, you will determine whether you have enough evidence to
-conclude the expected value (population mean) is not 3.5.</p>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<p>I was handed a 3D-printed 6-sided die with sides marked with 1, 2, 3,
+4, 5, and 6 pips. Of course, it was immediately suspicious that the dice
+were 3D-printed, and my suspicions were confirmed because the teacher
+said that some of the dice might be weighted. We were instructed roll 50
+rolls to generate confidence intervals of the population mean.</p>
+<p>With dice, the idea of a population mean is better phrased as the <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a>,
+or the long-run average that is expected after a million rolls. The goal
+is to make an inference about the expected value based on a sample of 50
+rolls.</p>
 </div>
-<div id="report" class="section level1">
-<h1>Report</h1>
-<p>This report can be shorter than the report for Project Coin Spin. I
-want the following:</p>
-<ul>
-<li>Title</li>
-<li>Name</li>
-<li>A summary of the project. Something like, “I was handed a 6-sided
-die and told to get a 95% confidence interval of the die’s population
-mean (expected value). I was instructed to use both bootstrapping and a
-formula, so I ended up with two confidence intervals.”</li>
-<li>Raw roll data as a comma-separated list or a table (in the doc). I
-should be able to copy and paste the data easily.</li>
-<li>Description of the bootstrapping algorithm.</li>
-<li>Link to spreadsheet (for bootstrapping and sample mean <span class="math inline">\(\bar{x}\)</span> and sample standard deviation
-<span class="math inline">\(s\)</span>)</li>
-<li>State the confidence interval (both boundaries) from the
-bootstrapping algorithm.</li>
-<li>State the margin of error from the bootstrapping algorithm.</li>
-<li>Declare the sample size (<span class="math inline">\(n\)</span>),
-the sample mean (<span class="math inline">\(\bar{x}\)</span>), and the
-sample standard deviation (<span class="math inline">\(s\)</span>) using
-math typesetting (using <code>Insert</code>, <code>Equation</code> in
-the doc).</li>
-<li>Typeset the confidence-interval formula.</li>
-<li>State the confidence interval (both boundaries) from the
-formula.</li>
-<li>State the margin of error from the formulas.</li>
-<li>State whether the confidence intervals (formulaic and bootstrap) are
-in rough agreement (I think they probably will be).</li>
-<li>State whether the margins of error (formulaic and bootstrap) are in
-rough agreement (I think they probably will be).</li>
-<li>Conclusion about the <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a>
-of your die.
-<ul>
-<li>If you confidence intervals do not contain 3.5, you can conclude the
-expected value is NOT 3.5.</li>
-<li>If a confidence interval does contain 3.5, you are left with two
-possibilities, both of which should be stated:
-<ul>
-<li>You need more data to show the expected value is not 3.5.</li>
-<li>The expected value is 3.5.</li>
-</ul></li>
-</ul></li>
-</ul>
-<p><strong>Export your report as a pdf</strong> to submit on Canvas.</p>
-</div>
-<div id="spreadsheet" class="section level1">
-<h1>Spreadsheet</h1>
-<ul>
-<li>Put your sample data in column A, in range A1:A50.</li>
-<li>In cell B1, use formula <code>=COUNT(A1:A50)</code>. This is your
-sample size (<span class="math inline">\(n\)</span>).</li>
-<li>In cell B2, use formula <code>=AVERAGE(A1:A50)</code>. This is your
-sample mean (<span class="math inline">\(\bar{x}\)</span>).</li>
-<li>In cell B3, use formula <code>=STDEV(A1:A50)</code>. This is your
-sample standard deviation (<span class="math inline">\(s\)</span>).</li>
-<li>In cell B4, use formula <code>=B2-2*B3/sqrt(B1)</code> to get
-formulaic lower boundary of confidence interval.</li>
-<li>In cell B5, use formula <code>=B2+2*B3/sqrt(B1)</code> to get
-formulaic upper boundary of confidence interval.</li>
-<li>In cell B6, use formula <code>=(B5-B4)/2</code> to get the formulaic
-margin of error.</li>
-<li>Insert 30 extra columns.</li>
-<li>In cells D1:BA1000, use formula
-<code>=INDEX($A$1:$A$50,RANDBETWEEN(1,50),1)</code> to resample 1000
-times.</li>
-<li>In cell BC1, use formula <code>=AVERAGE(D1:BA1)</code>. Drag the
-formula down through BC1000.</li>
-<li>Calculate the 2.5th and 97.5th percentiles of the resampled means.
-These are your boundaries of your bootstrap 95% confidence interval. You
-can use <code>=PERCENTILE(BC1:BC1000,0.025)</code> and
-<code>=PERCENTILE(BC1:BC1000,0.975)</code> to find the boundaries of the
-interval.</li>
-<li>Calculate the margin of error by taking half the difference of those
-boundaries.</li>
-</ul>
-</div>
-<div id="what-is-a-confidence-interval" class="section level1">
-<h1>What is a confidence interval?</h1>
-<p>Remember that the goal of Statistics is to infer claims about
-population parameters based on sample statistics.</p>
-<ul>
-<li><em>S-IC.A.1: Understand statistics as a process for making
-inferences to be made about population parameters based on a random
-sample from that population.</em></li>
-</ul>
-<p>In this project you are estimating the die’s population mean (the
-expected value). To do this, you gathered a sample. From this sample you
-not only got the sample mean, but you also estimated how much
-variability would occur if you repeatedly gathered samples and
-calculated sample means. (See <a href="https://en.wikipedia.org/wiki/Sampling_distribution">sampling
-distribution</a>.)</p>
-<p>Since you’ve only rolled the die 50 times, you do not know the
-population mean. The only way you’d “know” the population mean is to
-roll 1,000,000 times. But, you are confident that the true population
-mean is within your confidence interval.</p>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>I’ve pasted the raw data here as a comma-separated list:</p>
+<p>3, 6, 3, 2, 2, 6, 3, 5, 4, 6, 6, 1, 2, 3, 5, 3, 3, 1, 4, 1, 1, 5, 3,
+2, 2, 1, 6, 3, 4, 6, 1, 3, 5, 4, 2, 5, 1, 1, 2, 3, 4, 5, 5, 3, 6, 1, 2,
+5, 5, 4</p>
 </div>
 
 

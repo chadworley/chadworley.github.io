@@ -1,0 +1,36 @@
+---
+title: "Project Dice"
+author: "Chad Worley"
+---
+
+
+# Summary
+
+I was handed a 3D-printed 6-sided die with sides marked with 1, 2, 3, 4, 5, and 6 pips. Of course, it was immediately suspicious that the dice were 3D-printed, and my suspicions were confirmed because the teacher said that some of the dice might be weighted. We were instructed roll 50 rolls to generate confidence intervals of the population mean.
+
+With dice, the idea of a population mean is better phrased as the [expected value](https://en.wikipedia.org/wiki/Expected_value), or the long-run average that is expected after a million rolls. The goal is to make an inference about the expected value based on a sample of 50 rolls.
+
+# Data
+
+```{r,echo=F}
+set.seed(123)
+x = sample(1:6,50,T)
+xbar = mean(x)
+s = sd(x)
+n = 50
+lb = xbar-2*s/sqrt(n)
+ub = xbar+2*s/sqrt(n)
+```
+
+I've pasted the raw data here as a comma-separated list:
+
+`r paste0(x,collapse=", ")`
+
+# Bootstrap
+
+Those rolls were put in a spreadsheet in cell range A1:A50. To resample, with replacement, from the sample, I used `=INDEX($A$1:$A$50,RANDBETWEEN(1,50),1)` in cell range D1:BA1000. This is equivalent to 1000 resamples, where each resample has 50 values (there are 50 columns and 1000 rows). For each row I calculated a resample mean. 
+
+
+
+
+

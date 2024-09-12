@@ -24,10 +24,13 @@ This report can be shorter than the report for Project Coin Spin. I want the fol
 * Description of the bootstrapping algorithm.
 * Link to spreadsheet (for bootstrapping and sample mean $\bar{x}$ and sample standard deviation $s$)
 * State the confidence interval (both boundaries) from the bootstrapping algorithm.
+* State the margin of error from the bootstrapping algorithm.
 * Declare the sample size ($n$), the sample mean ($\bar{x}$), and the sample standard deviation ($s$) using math typesetting (using `Insert`, `Equation` in the doc).
 * Typeset the confidence-interval formula.
 * State the confidence interval (both boundaries) from the formula.
-* State whether the confidence intervals are in rough agreement (I think they probably will be).
+* State the margin of error from the formulas.
+* State whether the confidence intervals (formulaic and bootstrap) are in rough agreement (I think they probably will be).
+* State whether the margins of error (formulaic and bootstrap) are in rough agreement (I think they probably will be).
 * Conclusion about the [expected value](https://en.wikipedia.org/wiki/Expected_value) of your die.
     * If you confidence intervals do not contain 3.5, you can conclude the expected value is NOT 3.5.
     * If a confidence interval does contain 3.5, you are left with two possibilities, both of which should be stated:
@@ -55,10 +58,39 @@ lc = lets[54]
 * In cell B3, use formula `=STDEV(A1:A50)`. This is your sample standard deviation ($s$).
 * In cell B4, use formula `=B2-2*B3/sqrt(B1)` to get formulaic lower boundary of confidence interval.
 * In cell B5, use formula `=B2+2*B3/sqrt(B1)` to get formulaic upper boundary of confidence interval.
+* In cell B6, use formula `=(B5-B4)/2` to get the formulaic margin of error.
 * Insert 30 extra columns.
 * In cells D1:BA1000, use formula `=INDEX($A$1:$A$50,RANDBETWEEN(1,50),1)` to resample 1000 times.
 * In cell BC1, use formula `=AVERAGE(D1:BA1)`. Drag the formula down through BC1000.
 * Calculate the 2.5th and 97.5th percentiles of the resampled means. These are your boundaries of your bootstrap 95% confidence interval. You can use `=PERCENTILE(BC1:BC1000,0.025)` and `=PERCENTILE(BC1:BC1000,0.975)` to find the boundaries of the interval.
+* Calculate the margin of error by taking half the difference of those boundaries.
+
+
+# What is a confidence interval?
+
+Remember that the goal of Statistics is to infer claims about population parameters based on sample statistics.
+
+* *S-IC.A.1: Understand statistics as a process for making inferences to be made about population parameters based
+on a random sample from that population.*
+
+In this project you are estimating the die's population mean (the expected value). To do this, you gathered a sample. From this sample you not only got the sample mean, but you also estimated how much variability would occur if you repeatedly gathered samples and calculated sample means. (See [sampling distribution](https://en.wikipedia.org/wiki/Sampling_distribution).)
+
+Since you've only rolled the die 50 times, you do not know the population mean. The only way you'd "know" the population mean is to roll 1,000,000 times. But, you are confident that the true population mean is within your confidence interval.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
