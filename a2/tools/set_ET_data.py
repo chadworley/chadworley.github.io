@@ -20,7 +20,8 @@ def set_quiz_ass(name,avt,dut):
             "quiz[unlock_at]": avt,
             "quiz[shuffle_answers]": 0,
             "quiz[published]": 1,
-            "quiz[show_correct_answers_last_attempt]":1,
+            "quiz[show_correct_answers_last_attempt]":0,
+            "quiz[show_correct_answers]":0,
             "quiz[notify_of_update]":0,
             "quiz[allowed_attempts]":3}
     response = requests.put(url+str(myid),data=data,headers=headers)
@@ -33,7 +34,6 @@ def set_quiz_ass(name,avt,dut):
 
 noET = ["2024-09-02",
         "2024-09-05",
-        "2024-09-16",
         "2024-10-14"]
 
 day1 = "2024-08-21 12:00:00"
@@ -50,7 +50,7 @@ for i in range(0,30):
         avts[ddel]=day.strftime("%Y-%m-%d")+"T12:00:00Z"
         duts[ddel]=(day+timedelta(days=1)).strftime("%Y-%m-%d")+"T03:59:00Z"
 
-for i in range(11,18):
+for i in range(16,20):
     name = "ET_"+"{:03d}".format(i)
     avt = avts[i]
     dut = duts[i]

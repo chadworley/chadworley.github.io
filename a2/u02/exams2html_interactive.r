@@ -1,21 +1,14 @@
 library("exams")
 
 outdir = "./"
-genname = "u01"
-probs = c("01_sam_stat_pop_prop.Rmd",
-          "02_survey_experi_obsstu.Rmd",
-          "03_sample_bias.Rmd",
-          "04_corr_or_cause.Rmd",
-          "05_basic_data_analysis.Rmd",
-          "06_big_data_analysis.Rmd",
-          "07_read_histogram.Rmd",
-          "08_make_hist_see_shape.Rmd",
-          "09_ME_dice_tots.Rmd",
-          "10_prop_test_sim.Rmd",
-          "11_resample_mean_ME.Rmd",
-          "12_reshuffle_two_mean.Rmd")
+genname = "u02"
+probs = c("03_simulated_means.Rmd",
+          "05_resample_mean_ME.Rmd",
+          "07_CI_mean_raw.Rmd",
+          "09_reshuffle_two_mean.Rmd",
+          "10_hyptest_2_means_data.Rmd")
 
-nvers = 5
+nvers = 3
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))
