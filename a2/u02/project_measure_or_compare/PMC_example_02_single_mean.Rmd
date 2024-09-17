@@ -1,0 +1,124 @@
+---
+title: "What is my average time to crochet a hat?"
+author: "Chad Worley"
+date: "2024 Sep 27"
+---
+
+
+# Research Question
+
+Since COVID, I have picked up crochet as a hobby. One of my favorite projects is making a beanie hat with medium weight yarn, specifically the Lion Brand Landscapes yarn. I appreciate that if I make the hat in continuous rounds, the gradient appears to make stripes with beautiful color combinations.
+
+I wondered what is my average time to crochet one of these beanie hats?
+
+# Data Acquisition
+
+For this project it is a bit strange to define the larger population. The larger population is the infinitely many hats I could crochet while still at my current skill level. I have been crocheting for years, so I do not think I am getting much faster or slower. But, in reality, will I ever even make 100 of these hats? Probably not.
+
+I can still try to estimate the true underlying [expected time](https://en.wikipedia.org/wiki/Expected_value) per hat.
+
+Many factors influence my crochet speed. How focused am I? Am I listening to fast music or a slow podcast? Is the yarn full of breaks? But also, I'm sure there is some natural fluctuations with no rhyme or reason.
+
+Because this is just a quick high-school project, I decided that by timing my next 6 hats, I think the sample is representative enough of the population.
+
+I started the timer whenever I picked up the project and I stopped the timer whenever I put the project down. I included the time of sewing in the ends. Below are the times (in minutes) of 6 hats:
+
+```{r,echo=F}
+set.seed(1)
+x = round(rnorm(6,3.5*60,30),0)
+datalist = paste0(x,collapse=", ")
+xbar = round(mean(x),2)
+s = round(sd(x),2)
+n = 6
+flb = round(xbar-2*s/sqrt(n),1)
+fub = round(xbar+2*s/sqrt(n),1)
+```
+
+`r datalist`
+
+
+# Analysis
+
+Two confidence intervals were determined using two techniques: formulas and bootstrapping.
+
+### Formulaic confidence interval
+
+The data were entered into a spreadsheet. The `=AVERAGE()` function produced the sample mean ($\bar{x}$). The `=STDEV()` function produced the sample standard deviation ($s$).
+$$\bar{x}=`r xbar`$$
+$$s=`r s`$$
+Of course, my sample size ($n$) was 6.
+$$n=6$$
+
+The formula for a confidence interval is shown below.
+$$\bar{x}\pm \frac{2s}{\sqrt{n}}$$
+By plugging in the values, I determined the confidence interval: $[`r flb`,`r fub`]$
+
+
+### Bootstrap confidence interval
+
+In bootstrapping, we resample, with replacement, from the original sample to generate many resamplings, each with the same sample size as the original. In other words, we use the [empirical distribution](https://en.wikipedia.org/wiki/Empirical_distribution_function) to generate a bunch of new possible samples. The goal is to estimate how much the sample means vary.
+
+The empirical distribution could be depicted with the spinner below.
+
+```{r,echo=F,fig.dim=c(5,5),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+th = seq(0,2*pi,pi/100)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+begs = seq(0,2*pi-2*pi/6,2*pi/6)
+mids = begs+pi/6
+for(i in begs){
+    lines(c(0,sin(i)),c(0,cos(i)))
+}
+for(i in 1:length(x)){
+    text(0.8*sin(mids[i]),0.8*cos(mids[i]),x[i])
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+```
+
+```{r,echo=F}
+rex = matrix(sample(x,6*10,T),nrow = 10)
+rep_num = 1:10
+spin_1 = rex[,1]
+spin_2 = rex[,2]
+spin_3 = rex[,3]
+spin_4 = rex[,4]
+spin_5 = rex[,5]
+spin_6 = rex[,6]
+average = apply(rex,1,mean)
+df = data.frame(rep_num,spin_1,spin_2,spin_3,spin_4,spin_5,spin_6,average)
+```
+
+We can imagine making many new samples with that empirical spinner.
+
+```{r,echo=F}
+kableExtra::kable(df)
+```
+
+
+
+To do this in a spreadsheet, I put the 6 original values in cell range A1:F1. To sample with replacement, I used the formula `=INDEX($A$1:$F$1,1,RANDBETWEEN(1,6))`. This formula was repeated in all cells in range A2:F1001 (to have 1000 repetitions). In cell H2, I used `=AVERAGE(A2:F2)`, and then dragged the formula down the whole column. Thus, in column H there were 1000 means. I've made a histogram of those means.
+
+```{r,echo=F,fig.dim=c(5,5)}
+rex = matrix(sample(x,6*1000,T),ncol=6)
+aves = apply(rex,1,mean)
+hist(aves,main="1000 bootstrap means",xlab="Resample mean")
+blb = round(quantile(aves,0.025),1)
+bub = round(quantile(aves,0.975),1)
+```
+
+By identifying the 2.5th percentile and the 97.5th percentile, we find the confidence interval: $[`r blb`,`r bub`]$.
+
+# Conclusion
+
+Both confidence intervals agree quite closely. Because we have a small sample size, I will stick with the bootstrap method as my final answer. My conclusion is that my expected time is between `r blb` and `r bub` minutes.
+
+Now, remember, the phrase "expected time" is a bit of a misnomer. We could say that we expect if I made a million hats (while keeping my skill level constant), we think the average time will be between `r blb` and `r bub` minutes.
+
+
+
+

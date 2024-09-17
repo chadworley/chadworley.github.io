@@ -1,0 +1,114 @@
+---
+title: "My Probability of Hitting the Bullseye"
+author: "Chad Worley"
+date: "2024 Sep 27"
+---
+
+# Research Question
+
+I like to practice archery. At least 3 times per week I set up at my backyard target and shoot a few dozen arrows. While I was shooting, I realized I could gather data to address the question, "What is my probability of hitting the bullseye?"
+
+# Data
+
+In this case, the population is all the arrows I could possibly shoot while at this skill level. Because I've been shooting consistently for years, I do not expect my skill level is changing rapidly. During a round of shooting, I might start off with a lower probability than midway through, and then I might get worse after getting tired. I don't have data to back that up, but it seems like a possibility. Also, some days I might be better than other days.
+
+In short, we can see the idea that I could take a simple random sample is impossible. However, because this is simply a high-school report that is more focused on the analysis, I decided to just use data from a single round of shooting 36 arrows. Maybe this round of 36 arrows is not truly representative of the larger population of the million arrows I could shoot, but for the sake of this project, it seemed good enough.
+
+Each arrow either hit a bullseye or missed the bullseye. A hit was marked with a 1, and a miss was marked with a 0. The raw data are shown below.
+
+```{r,echo=F}
+set.seed(1234)
+x = sample(c(0,1),36,T,c(0.7,0.3))
+datalist = paste0(x,collapse=", ")
+ns = sum(x)
+phat = round(ns/36,4)
+s = sqrt(phat*(1-phat))
+ME = round(2*s/sqrt(36),3)
+lb = round(phat-ME,3)
+ub = round(phat+ME,3)
+```
+
+`r datalist`
+
+By adding up the data, I found that I hit `r sum(x)` bullseyes and missed `r 36-sum(x)` times.
+
+# Analysis
+
+I calculated a confidence interval two different ways: formulaic and bootstrapping.
+
+## Formulaic
+
+First, we can determine the sample proportion.
+
+$$\widehat{p}=\frac{`r ns`}{36} = `r phat`$$
+
+Because I am investigating a proportion, I used the following formula to get a formulaic margin of error:
+$$\mathrm{ME} = 2\cdot \frac{\sqrt{`r phat`\cdot (1-`r phat`)}}{\sqrt{36}}\approx `r ME`$$
+
+To get my formulaic confidence interval, I subtract or add the margin of error to the sample proportion to get the boundaries.
+
+$$`r phat`-`r ME`=`r lb`$$
+$$`r phat`+`r ME`=`r ub`$$
+Formulaic confidence interval: [`r lb`,`r ub`].
+
+## Bootstrapping
+
+To run a bootstrap analysis to get a confidence interval, we assume that by resampling from the [empirical distribution](https://en.wikipedia.org/wiki/Empirical_distribution_function), we can get a good estimate of the margin of error. In this case, our empirical distribution is a [Bernoulli distribution](https://en.wikipedia.org/wiki/Bernoulli_distribution) with a probability of `r phat`.
+
+* My empirical distribution:
+
+| Possibility | Probability |
+|:---:|:---:|
+| 0 | `r 1-phat` |
+| 1 | `r phat` |
+
+Which is equivalent to getting data by spinning the spinner below (generated based on the 36 datapoints collected).
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+th = seq(0,2*pi,pi/100)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+begs = seq(0,2*pi-2*pi/36,2*pi/36)
+mids = begs+pi/36
+for(i in begs){
+    lines(c(0,sin(i)),c(0,cos(i)))
+}
+for(i in 1:length(x)){
+    text(0.9*sin(mids[i]),0.9*cos(mids[i]),x[i])
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+```
+
+Using a spreadsheet, I simulated 1000 repetitions of spinning the above spinner 36 times (with `=IF(RAND()<7/36,1,0)` for each spin). Each repetition generated a proportion. I've graphed those proportions below with a histogram.
+
+```{r,echo=F,fig.dim=c(5,5),fig.align='center'}
+rx = sample(c(0,1),36*1000,T,c(1-phat,phat))
+rx = matrix(rx,ncol=36)
+props = apply(rx,1,mean)
+blb = round(quantile(props,0.025),3)
+bub = round(quantile(props,0.975),3)
+bme = (bub-blb)/2
+hist(props,main="The 1000 proportions from bootstrapping",xlab="Proportion of hits in resample")
+```
+
+By finding the 2.5th percentile and the 97.5th percentile of these proportions, we get the confidence interval from bootstrapping.
+$$\text{2.5th percentile}=`r blb`$$
+$$\text{97.5th percentile}=`r bub`$$
+
+Thus my bootstrap confidence interval is $[`r blb`,`r bub`]$. I can get the margin of error by halfing the difference of those boundaries. 
+$$\text{bootstrap ME} = \frac{`r bub`-`r blb`}{2} = `r round(bme,2)`$$
+
+# Conclusion
+
+Both confidence intervals basically agree. Because the bootstrap method is more robust, I will continue with those specific numbers. My conclusion is pretty simple. I can say that I am 95% confident that my probability of hitting a bullseye is between `r blb` and `r bub`.
+
+I'll point out that this is a rather large confidence interval. In the future I would be interested in collecting more data to narrow in on the true probability. I'd also like to collect data from multiple days to average out the day-to-day variability.
+
+
+
+
