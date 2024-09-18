@@ -1,23 +1,23 @@
 library("exams")
 n = 30
 outdir = "outcanvas"
-genname = "effort_"
-probs = c("read_caliper.Rmd")
+genname = "read_caliper"
+probs = c("read_caliper.Rmd","read_caliper.Rmd","read_caliper.Rmd")
 
-pnts = c(5)
+pnts = c(5,5,5)
 
-stems = tools::file_path_sans_ext(sub(".*/", "", probs))
-names = paste0(genname,stems)
-for(i in 1:length(probs)){
-  exams2canvas(probs[i],
-               n=n,
-               dir=outdir,
-               points=pnts[i],
-               maxattempts = 10,
-               name=names[i],
-               template = "canvas_qti12.xml",
-               cloze = list(enumerate = FALSE))
-}
+# stems = tools::file_path_sans_ext(sub(".*/", "", probs))
+# names = paste0(genname,stems)
+# for(i in 1:length(probs)){
+#   exams2canvas(probs[i],
+#                n=n,
+#                dir=outdir,
+#                points=pnts[i],
+#                maxattempts = 10,
+#                name=names[i],
+#                template = "canvas_qti12.xml",
+#                cloze = list(enumerate = FALSE))
+# }
 
 # probs = list(c("01_SOE_matrix_form.Rmd","02_SOE_augmented_form.Rmd"),
 #              "06_RREF_sagemath.Rmd",
@@ -28,11 +28,11 @@ for(i in 1:length(probs)){
 #              "17_row_ops_equiv_mat_mult.Rmd"
 #              )
 # 
-# exams2canvas(probs,
-#              n=n,
-#              dir=outdir,
-#              points=c(10,10,10,10),
-#              maxattempts = 6,
-#              name=paste0(genname,"_mastery"),
-#              template = "canvas_qti12.xml",
-#              cloze = list(enumerate = FALSE))
+exams2canvas(probs,
+             n=n,
+             dir=outdir,
+             points=c(5,5,5),
+             maxattempts = 6,
+             name=paste0(genname,"_mastery"),
+             template = "canvas_qti12.xml",
+             cloze = list(enumerate = FALSE))

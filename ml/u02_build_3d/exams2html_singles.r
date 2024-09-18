@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("04_translate_point.Rmd")
+pppsss = c("read_caliper.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
