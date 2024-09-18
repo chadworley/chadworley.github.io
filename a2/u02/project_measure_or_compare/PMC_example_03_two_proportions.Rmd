@@ -1,0 +1,204 @@
+---
+title: "Is Mr. LaRocque or Mr. Worley better at freethrows?"
+author: "Chad Worley"
+date: "2024 Sep 27"
+---
+
+```{r,echo=F}
+n = 20
+```
+
+# Research Question
+
+When I was growing up, I played a fair amount of basketball, mostly pickup games during lunch and after school. I was lucky to be kind of tall, but I never got very good at shooting. I know Mr. LaRocque is pretty good at basketball, and honestly, I assumed we could prove he was better at shooting freethrows with very little data. However, I also thought there might be some strange chance I am better at freethrows.
+
+In short, my research question is whether we can show one of us is significantly better at freethrows.
+
+# Data Acquisition
+
+I assume that each of us has an underlying probability of hitting each freethrow. I also assume that each freethrow attempt is [independent and identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables). Of course this assumption is potentially invalid. Maybe I just had a bad day. Maybe my skill improved after warming up. However, for my analysis, I am assuming that I am taking a simple random sample from my infinitely long list of 0s and 1s (a 0 is a miss and a 1 is a hit) and also a random sample from LaRocque's infinitely long list of 0s and 1s.
+
+To gather data, Mr. LaRocque and I both took `r n` freethrows. Each successful freethrow was marked as a 1 and each miss was marked with a 0.
+
+```{r, echo=F}
+set.seed(1234)
+p1 = 0.4
+p2 = 0.7
+x1 = 1*(runif(n)<p1)
+x2 = 1*(runif(n)<p2)
+x1list = paste0(x1,collapse=", ")
+x2list = paste0(x2,collapse=", ")
+ns1 = sum(x1)
+ns2 = sum(x2)
+phat1 = mean(x1)
+phat2 = mean(x2)
+adp = abs(phat1-phat2)
+xpool = c(x1,x2)
+nspool = sum(xpool)
+ppool = mean(xpool)
+shuffadps = numeric()
+for(i in 1:1000){
+    xxx = sample(xpool)
+    shuffx1 = xxx[1:n]
+    shuffx2 = xxx[(n+1):(2*n)]
+    shuffp1 = mean(shuffx1)
+    shuffp2 = mean(shuffx2)
+    shuffadps = c(shuffadps,abs(shuffp2-shuffp1))
+}
+pval = sum(shuffadps>=adp)/1000
+```
+
+* Mr. Worley:
+`r x1list`
+    * Number hits: `r ns1`
+    * Sample proportion: `r phat1`
+
+* Mr. LaRocque:
+`r x2list`
+    * Number hits: `r ns2`
+    * Sample proportion: `r phat2`
+
+The sample proportions were calculated by dividing the number of hits by the number of attempts (`r n`).
+
+# Analysis
+
+I want to test the idea that maybe we are actually equally skilled at freethrows; maybe our difference in sample proportions could just be from random chance. This type of test is called a 2-proportion test. My first approach was a two-tailed [Monte Carlo permutation test](https://en.wikipedia.org/wiki/Permutation_test). To run this test, I first determined the absolute difference of proportions.
+
+$$|`r phat1`-`r phat2`| = `r adp`$$
+
+Metaphorically, I wrote all the 0s and 1s (from me and Mr. Larocque) on cards. I shuffled all the cards together and dealt into 2 piles (each pile got 20 cards). I calculated a proportion from of each each pile and calculated the absolute difference of those 2 proportions. I repeated this process 1000 times to get a list of 1000 absolute differences. To calculate a $p$-value, I then checked what proportion of those reshuffled absolute differences were as big or bigger than my observed absolute difference (`r adp`).
+
+$$p\mathrm{-value}=`r pval`$$
+
+Realistically, I do not have time to shuffle and count those cards 1000 times, so I used a [two-list reshuffler](https://chadworley.github.io/a2/tools/two_list_reshuffler.html) and a spreadsheet to accomplish the equivalent task. I generated a histogram of the absolute differences from the 1000 reshufflings. I've also marked (in red) the observed absolute difference of proportions.
+
+```{r,echo=F}
+hist(shuffadps,main="The absolute differences from 1000 reshufflings",xlab="Absolute difference of 2 proportions",breaks=seq(0,0.6,0.0333333),xlim=c(0,0.6))
+abline(v=adp,col="red",lwd=2)
+```
+
+## Alternative simulation-based analysis
+
+If instead of writing the numbers on cards I had made a spinner, then I would switch from sampling without replacement to sampling with replacement. I was interested in whether this change would change the resulting $p$-value. This strategy is a [bootstrap technique](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)).
+
+We can see the metaphorical spinner here:
+
+```{r,echo=F,fig.dim=c(4,4),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+th = seq(0,2*pi,pi/100)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+begs = seq(0,2*pi-2*pi/(2*n),2*pi/(2*n))
+mids = begs+pi/(2*n)
+for(i in begs){
+    lines(c(0,sin(i)),c(0,cos(i)))
+}
+for(i in 1:length(xpool)){
+    text(0.8*sin(mids[i]),0.8*cos(mids[i]),xpool[i])
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+```
+
+Out of the `r 2*n` total freethrows, `r ns1+ns2` were successful. That overall proportion is $`r ns1+ns2`/`r 2*n`=`r ppool`$. So, every time I spin that spinner, there is a `r ppool*100`% chance of getting a 1 and a `r 100-ppool*100`% chance of getting a 0.
+
+With that spinner, I repeatedly generated two groups of `r n`. For each repetition, I got a proportion from each group and found the absolute difference of those proportions. 
+
+```{r,echo=F}
+sns1 = rbinom(1000,n,ppool)
+sns2 = rbinom(1000,n,ppool)
+sadps = abs(sns1/n-sns2/n)
+hist(sadps,main="1000 absolute differences from respinning",xlab="Absolute difference of 2 proportions")
+abline(v=adp,col="red")
+spval = sum(1*(sadps>=adp))/1000
+```
+
+To calculate a $p$-value, I determine what proportion of those absolute differences are larger than (or equal to) the original observed absolute difference (`r adp`, marked as a red line on the histogram). This led to calculating another $p$-value.
+$$p\mathrm{-value} = `r spval`$$
+
+## Formulaic approach to analysis
+
+We can begin by using our 95% confidence-interval formula for a proportion. 
+
+$$\text{boundaries of }=\widehat{p} \pm 2\frac{\sqrt{\widehat{p}\cdot(1-\widehat{p})}}{\sqrt{n}}$$
+
+```{r,echo=F}
+wlb = round(phat1-2*sqrt(phat1*(1-phat1)/n),3)
+wub = round(phat1+2*sqrt(phat1*(1-phat1)/n),3)
+llb = round(phat2-2*sqrt(phat2*(1-phat2)/n),3)
+lub = round(phat2+2*sqrt(phat2*(1-phat2)/n),3)
+```
+
+* Mr. Worley's confidence interval: $[`r wlb`,`r wub`]$
+* Mr. LaRocque's confidence interval: $[`r llb`,`r lub`]$
+
+These confidence intervals overlap, suggesting that maybe we do not have a significant difference. If they did not overlap, we'd be confident there was a significant difference. However, if they just overlap a bit, it is still possible to find significance with $p$-values.
+
+Two test for the difference between 2 proportions, there are many options:
+
+* [Fischer's exact test](https://en.wikipedia.org/wiki/Fisher%27s_exact_test)
+* [Pearson's $\chi^2$ test with continuity correction](https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test)
+* [Pearson's $\chi^2$ test without continuity correction](https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test)
+* [Student's t test](https://en.wikipedia.org/wiki/Student%27s_t-test)
+* [Welch's t test](https://en.wikipedia.org/wiki/Student%27s_t-test)
+
+```{r,echo=F,results='hide'}
+pval1 = t.test(x1,x2)$p.value
+pval2 = fisher.test(matrix(c(ns1,n-ns1,ns2,n-ns2),2))$p.value
+pval3 = prop.test(c(ns1,ns2),c(n,n))$p.value
+pval4 = prop.test(c(ns1,ns2),c(n,n),correct = F)$p.value
+pval5 = t.test(x1,x2,var.equal = T)$p.value
+
+pval1 = round(pval1,3)
+pval2 = round(pval2,3)
+pval3 = round(pval3,3)
+pval4 = round(pval4,3)
+pval5 = round(pval5,3)
+```
+
+The only one we've covered in class is Welch's t test, so let's use that. In a spreadsheet I put my 0s and 1s in column A and LaRocque's 0s and 1s in column 2. Then I used `=T.TEST(A:A,B:B,2,3)` to get $p$-value$=`r pval1`$.
+
+Using [R](https://en.wikipedia.org/wiki/R_(programming_language)), I also generated a few other $p$-values from those other tests. (You can use R in a [SageCell](https://sagecell.sagemath.org/) by setting the language to R.)
+
+```{r,eval=FALSE,results='hide'}
+x1 = c(1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1)
+x2 = c(1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0)
+ns1 = sum(x1)
+n1 = length(x1)
+phat1 = mean(x1)
+ns2 = sum(x2)
+n2 = length(x2)
+phat2 = mean(x2)
+fisher.test(matrix(c(ns1,n1-ns1,ns2,n2-ns2),2))
+prop.test(c(ns1,ns2),c(n1,n2))
+prop.test(c(ns1,ns2),c(n1,n2),correct=FALSE)
+t.test(x1,x2,var.equal = T)
+t.test(x1,x2)
+```
+
+| test | $p$-value |
+|:---:|:---:|
+| Fischer's exact test | `r pval2` |
+| Pearson's $\chi^2$ test with continuity correction | `r pval3` |
+| Pearson's $\chi^2$ test without continuity correction | `r pval4` |
+| Student's t test | `r pval5` |
+| Welch's t test | `r pval1` |
+
+# Conclusion
+
+None of the methods produced a $p$-value less than 0.05. That means we did not find a significant difference, which leaves us with two possibilities:
+
+1. Mr. LaRocque and I are equally skilled at freethrows, or
+2. With more data we can prove that one of us is better at freethrows.
+
+It was interesting to see that most of the methods agreed pretty closely in determining $p$-values. However, there was actually more variation than I would have expected. I did look into this, and found [this stackexchange](https://stats.stackexchange.com/questions/535683/p-values-from-t-test-and-prop-test-differ-considerably) clarifying. I was surprised to see this quote:
+
+> Agostino et al. ("The Appropriateness of Some Common Procedures for Testing the Equality of Two Independent Binomial Populations", Am. Stat. 1988) investigated its application in this particular use case of comparing proportions and came to the conclusion that the uncorrected chi squared test or the t test should be used.
+
+I was surprised because I had assumed Fischer's exact test would be the preferred method, as it is "exact". In the [controversies](https://en.wikipedia.org/wiki/Fisher's_exact_test#Controversies) section of the wikipedia page, it explains that many statisticians consider the exact test too conservative (outputting high $p$-values).
+
+In short, you can just use the Welch's t test (and the Monte Carlo permutation test) for your project if you are comparing two proportions.
+
