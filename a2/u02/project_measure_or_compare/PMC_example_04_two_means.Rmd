@@ -22,7 +22,7 @@ set.seed(12)
 n = 20
 n1 = n
 n2 = n
-B = round(rnorm(20,8.5,2),1)
+B = round(rnorm(20,8.9,2),1)
 C = round(rnorm(20,9,1),1)
 xbarb = round(mean(B),2)
 xbarc = round(mean(C),2)
@@ -60,9 +60,9 @@ $$\bar{x}_\mathrm{B} = `r xbarb`$$
 $$\bar{x}_\mathrm{C} = `r xbarc`$$
 $$|\bar{x}_\mathrm{B}-\bar{x}_\mathrm{C}| = `r oad`$$
 
-### Bootstrap
+### Random permutation test
 
-To run a bootstrap test, we first copied the data into [this two-list reshuffler](https://chadworley.github.io/a2/tools/two_list_reshuffler.html). This reshuffler effectively shuffled all the numbers together and then split the numbers into two piles, and this process was repeated 1000 times. I copied the data to a spreadsheet so I could find the average of each pile in each repetition. Then, for each repetition, I found an absolute difference of means. I've plotted those below, along with the observed absolute difference marked as a red line.
+To run a permutation test, I first copied the data into [this two-list reshuffler](https://chadworley.github.io/a2/tools/two_list_reshuffler.html). This reshuffler effectively shuffled all the numbers together and then split the numbers into two piles, and this process was repeated 1000 times. I copied the data to a spreadsheet so I could find the average of each pile in each repetition. Then, for each repetition, I found an absolute difference of means. I've plotted those below, along with the observed absolute difference marked as a red line.
 
 ```{r,echo=F}
 xx = c(B,C)
@@ -73,13 +73,23 @@ for(i in 1:1000){
     m2 = mean(xxx[(n1+1):(n1+n2)])
     ads = c(ads,abs(m2-m1))
 }
-hist(ads,main="1000 reshufflings",xlab="Absolute difference of means")
+hist(ads,main="1000 reshufflings and observation (as red line)",xlab="Absolute difference of means")
 abline(v=oad,col="red")
+bspv = round(sum(ads>=oad)/1000,3)
 ```
 
+To calculate the $p$-value, I determined the proportion of the **reshuffled** absolute differences that were as big or bigger than the **observed** absolute differences.
 
-
-
+$$p\mathrm{-value}=`r bspv`$$
  
+### Formulaic test
+
+To run the formulaic test, I used a two-tailed [Welch's t test](https://en.wikipedia.org/wiki/Welch%27s_t-test). To do this with a spreadsheet, I copied Bob's distances into column A and Chad's distances into column B. Then I used the formula `=T.TEST(A:A,B:B,2,3)` to get the $p$-value.
+
+```{r,echo=F}
+fpv = t.test(B,C)$p.value
+```
+
+$$p\mathrm{-value}=`r fpv`$$
 
 
