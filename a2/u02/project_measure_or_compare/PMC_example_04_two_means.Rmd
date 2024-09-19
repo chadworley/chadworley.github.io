@@ -1,0 +1,85 @@
+---
+title: "Who can throw the rock farther?"
+author: "Chad Worley"
+---
+
+# Research Question
+
+When I was young and bored, there was a day some friends and I decided to see who could throw a large rock the farthest. At the time, the primal simplicity gave a hilarious undercurrent while we also earnestly got fully invested in our attempts to hurl a large rock as far as possible. It is impossible for me to think back to that afternoon without cracking a smile. 
+
+Hurling rocks also seemed like a fun opportunity for some data analysis. So, I invited over my childhood friend, Bob, for some hurling. I wanted a rematch, because if memory serves correctly, I lost to Bob many years ago.
+
+The research question is, "Can we detect a significant difference in how far, on average, Bob and Chad throw a large rock?"
+
+# Data Acquisition
+
+Quite simply, Bob and Chad each threw the rock 20 times. We carefully measured how far the rock ended up past a line we were not allowed to cross. When someone crossed the line, that throw was not counted. If the rock rolled after landing, we counted the final location after the roll. The distance was the closest distance to the line, so if the rock rolled sideways, that extra distance did not help increase the measured distance.
+
+We were concerned that the samples were not truly representative of clearly defined populations. However, we assumed that each throw was [independent and identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables). If that were true, then we are simply sampling from an infinitely long list of distances. Now, honestly, we got a bit tired by the end, so we worried that maybe our throws got shorter on the later throws.
+
+```{r,echo=F}
+set.seed(12)
+n = 20
+n1 = n
+n2 = n
+B = round(rnorm(20,8.5,2),1)
+C = round(rnorm(20,9,1),1)
+xbarb = round(mean(B),2)
+xbarc = round(mean(C),2)
+oad = abs(xbarb-xbarc)
+```
+
+* Bob's throws (in meters): `r B`
+* Chad's throws (in meters): `r C`
+
+
+```{r,echo=F,fig.align='center'}
+sampool = c(B,C)
+lo = floor(min(sampool))
+hi = ceiling(max(sampool))
+plot1 <- hist(B,breaks=seq(lo,hi,0.5),plot=F)
+plot2 <- hist(C,breaks=seq(lo,hi,0.5),plot=F)
+dens1 = (plot1$counts)/n1
+dens2 = (plot2$counts)/n2
+mxden = max(c(dens1,dens2))
+plot(plot1, col=rgb(0,0,1,1/4), xlim=c(lo,hi), ylim=c(0,max(c(plot1$counts,plot2$counts))*1.1),
+     main="Each threw the rock 20 times",
+     xlab="Distance",xaxt = "n")
+plot(plot2, col=rgb(1,0,0,1/4), add=T)
+cnts1 = numeric()
+axis(1,at=seq(lo,hi,10))
+legend("topleft",legend=c("Bob","Chad"),fill=c(rgb(0,0,1,1/4),rgb(1,0,0,1/4)))
+```
+\
+
+# Analysis
+
+We tested whether there was a significant difference in means. First, we found the observed means and the observed absolute difference of means.
+
+$$\bar{x}_\mathrm{B} = `r xbarb`$$
+$$\bar{x}_\mathrm{C} = `r xbarc`$$
+$$|\bar{x}_\mathrm{B}-\bar{x}_\mathrm{C}| = `r oad`$$
+
+### Bootstrap
+
+To run a bootstrap test, we first copied the data into [this two-list reshuffler](https://chadworley.github.io/a2/tools/two_list_reshuffler.html). This reshuffler effectively shuffled all the numbers together and then split the numbers into two piles, and this process was repeated 1000 times. I copied the data to a spreadsheet so I could find the average of each pile in each repetition. Then, for each repetition, I found an absolute difference of means. I've plotted those below, along with the observed absolute difference marked as a red line.
+
+```{r,echo=F}
+xx = c(B,C)
+ads = numeric()
+for(i in 1:1000){
+    xxx = sample(xx)
+    m1 = mean(xxx[1:n1])
+    m2 = mean(xxx[(n1+1):(n1+n2)])
+    ads = c(ads,abs(m2-m1))
+}
+hist(ads,main="1000 reshufflings",xlab="Absolute difference of means")
+abline(v=oad,col="red")
+```
+
+
+
+
+ 
+
+
