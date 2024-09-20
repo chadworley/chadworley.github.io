@@ -1,0 +1,638 @@
+---
+title: "Central Limit Theorem"
+author: "Chad Worley"
+date: "2024 Sep 20"
+output: slidy_presentation
+---
+
+# [Central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
+
+Let $X$ represent a [random variable](https://en.wikipedia.org/wiki/Random_variable) that generates [independent and identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) numbers. 
+
+* You can visualize $X$ as a spinner.
+* We can call $X$ the **population** that we sample from.
+
+That random variable has an expected value (or population mean) and standard deviation.
+$$\text{mean of }X=\mu$$
+$$\text{SD of }X=\sigma$$
+
+If we will average $n$ spins repeatedly, those averages will be **approximately normal** with the following parameters:
+$$\text{mean of normal approx}=\mu$$
+$$\text{SD of normal approx}=\frac{\sigma}{\sqrt{n}}$$
+
+*This is true even if $X$ is NOT normally distributed. The approximation gets better with larger $n$.*
+
+
+# Is the Central Limit Theorem important?
+
+* Yes.
+* Understanding the Central Limit Theorem is the most important step to unlocking the logic behind Statistics.
+* Even if the population is not normal, averages (and totals) will be approximately normal.
+* Remember how the normal (bell) curve kept showing up when we had averages of repetitions or sums of repetitions?
+
+# Example: Dice
+
+* Let random variable $X$ represent a fair 6-sided die. 
+
+```{r,echo=F,fig.dim=c(7,3),fig.align='center'}
+xs = 1:6
+par(mar=c(2,3,1,1),pty="s",mfrow=c(1,2))
+th = seq(0,2*pi,pi/100)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+begs = seq(0,2*pi-2*pi/(6),2*pi/(6))
+mids = begs+pi/(6)
+for(i in begs){
+    lines(c(0,sin(i)),c(0,cos(i)))
+}
+for(i in 1:length(xs)){
+    text(0.8*sin(mids[i]),0.8*cos(mids[i]),xs[i])
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+text(0,0,"X",cex=5)
+
+
+barplot(rep(1/6,6),1,names.arg=1:6,ylab="probability")
+
+
+mu = 3.5
+sig = sqrt(35/12)
+
+```
+
+$$\mu = \frac{1+2+3+4+5+6}{6} = 3.5$$
+$$\sigma = \sqrt{\frac{(-2.5)^2+(-1.5)^2+(-0.5)^2+0.5^2+1.5^2+2.5^2}{6}} = `r round(sig,4)`$$
+
+# Example: Dice... (2d6)/2
+
+* Let random variable $Y$ represent (2d6)/2, the average of 2 dice.
+* There are 36 equally likely outcomes.
+
+```{css, echo=F}
+td, th {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+.invisible {
+    border: none;
+    background-color:transparent;
+}
+.leftHeader {
+    font-weight: bold;
+    background-color:lightgray;
+    padding: 10px;
+}
+th {
+    background-color:lightgray;
+}
+```
+
+<table>
+    <thead>
+        <tr>
+            <th class="invisible"></th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="leftHeader">1</td>
+            <td>1</td>
+            <td>1.5</td>
+            <td>2</td>
+            <td>2.5</td>
+            <td>3</td>
+            <td>3.5</td>
+        </tr>
+        <tr>
+            <td class="leftHeader">2</td>
+            <td>1.5</td>
+            <td>2</td>
+            <td>2.5</td>
+            <td>3</td>
+            <td>3.5</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td class="leftHeader">3</td>
+            <td>2</td>
+            <td>2.5</td>
+            <td>3</td>
+            <td>3.5</td>
+            <td>4</td>
+            <td>4.5</td>
+        </tr>
+        <tr>
+            <td class="leftHeader">4</td>
+            <td>2.5</td>
+            <td>3</td>
+            <td>3.5</td>
+            <td>4</td>
+            <td>4.5</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td class="leftHeader">5</td>
+            <td>3</td>
+            <td>3.5</td>
+            <td>4</td>
+            <td>4.5</td>
+            <td>5</td>
+            <td>5.5</td>
+        </tr>
+        <tr>
+            <td class="leftHeader">6</td>
+            <td>3.5</td>
+            <td>4</td>
+            <td>4.5</td>
+            <td>5</td>
+            <td>5.5</td>
+            <td>6</td>
+        </tr>
+    </tbody>
+</table>
+
+
+```{r,echo=F,fig.dim=c(8,4),fig.align='center'}
+xs = c(rep(1,1),rep(1.5,2),rep(2,3),rep(2.5,4),rep(3,5),rep(3.5,6),rep(4,5),rep(4.5,4),rep(5,3),rep(5.5,2),rep(6,1))
+par(mar=c(0,0,0,0),pty="s",mfrow=c(1,2))
+th = seq(0,2*pi,pi/100)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+begs = seq(0,2*pi-2*pi/(36),2*pi/(36))
+mids = begs+pi/(36)
+for(i in begs){
+    lines(c(0,sin(i)),c(0,cos(i)))
+}
+for(i in 1:length(xs)){
+    text(0.8*sin(mids[i]),0.8*cos(mids[i]),xs[i])
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+text(0,0,"Y",cex=5)
+
+x = seq(1,6,0.5)
+p = c(1,2,3,4,5,6,5,4,3,2,1)/36
+cp = cumsum(p)
+acp = c(0,cp)
+mids = (acp[2:length(acp)]-acp[1:(length(acp)-1)])/2+acp[1:(length(acp)-1)]
+
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+for(cpp in cp){
+    lines(c(0,sin(2*pi*cpp)),c(0,cos(2*pi*cpp)))
+}
+for(i in 1:length(x)){
+    text(0.8*sin(2*pi*mids[i]),0.8*cos(2*pi*mids[i]),x[i])
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+text(0,0,"Y",cex=5)
+
+```
+
+```{r,echo=F,fig.dim=c(5,5)}
+barplot(p,names.arg = x,ylab="probability",xlab="ave of 2 dice")
+```
+
+$$\mu = \frac{1\cdot 1 +1.5\cdot 2 +2\cdot 3 +2.5\cdot 4 +3\cdot 5 +3.5\cdot 6 +4\cdot 5 +4.5\cdot 4 +5\cdot 3 +5.5\cdot 2 +6\cdot 1}{36} = 3.5$$
+
+* You can use the [standard deviation formula](https://en.wikipedia.org/wiki/Standard_deviation#Basic_examples) using all 36 possibilities to find $\sigma$.
+
+$$\sigma = `r round(sig/sqrt(2),4)`$$
+
+* We already learned [a shortcut](https://en.wikipedia.org/wiki/Algebra_of_random_variables#Variance_algebra_for_random_variables) to get $\sigma$ because we know the standard deviation of 1d6.
+
+$$\frac{\sqrt{`r round(sig,4)`^2+`r round(sig,4)`^2}}{2} = \frac{`r round(sig,4)`}{\sqrt{2}} = `r round(sig/sqrt(2),4)`$$
+
+
+# Example: Dice... (3d6)/3
+
+* What about the average of 3 dice?
+* If we have 3 dice, there are $`r 6^3`$ equally likely possibilities:
+
+```{r,echo=F}
+posses = numeric()
+aves = numeric()
+for(i in 1:6){
+    for(j in 1:6){
+        for(k in 1:6){
+            posses = c(posses,100*i+10*j+k)
+            aves = c(aves,round((i+j+k)/3,3))
+        }
+    }
+}
+pp = paste0(posses, collapse=", ")
+ap = paste0(aves, collapse=", ")
+
+mt = table(aves)
+aposs = round(seq(1,6,0.33333333333333),2)
+acnt = c(1,3,6,10,15,21,25,27,27,25,21,15,10,6,3,1)
+aprb = round(acnt/6^3,3)
+```
+
+`r pp`
+
+* We can find those averages.
+
+`r ap`
+
+* We can count how many times each average shows up.
+
+| average | count | probability | density |
+|:---:|:---:|:---:|:---:|
+| 1 | 1 | `r round(1/216,3)` |  `r round(1/216,3)*3` |
+| 1.333 | 3 | `r round(3/216,3)` |  `r round(3/216,3)*3` |
+| 1.667 | 6 | `r round(6/216,3)` |  `r round(6/216,3)*3` |
+| 2 | 10 | `r round(10/216,3)` |  `r round(10/216,3)*3` |
+| 2.333 | 15 | `r round(15/216,3)` |  `r round(15/216,3)*3` |
+| 2.667 | 21 | `r round(21/216,3)` |  `r round(21/216,3)*3` |
+| 3 | 25 | `r round(25/216,3)` |  `r round(25/216,3)*3` |
+| 3.333 | 27 | `r round(27/216,3)` |  `r round(27/216,3)*3` |
+| 3.667 | 27 | `r round(27/216,3)` |  `r round(27/216,3)*3` |
+| 4 | 25 | `r round(25/216,3)` |  `r round(25/216,3)*3` |
+| 4.333 | 21 | `r round(21/216,3)` |  `r round(21/216,3)*3` |
+| 4.667 | 15 | `r round(15/216,3)` |  `r round(15/216,3)*3` |
+| 5 | 10 | `r round(10/216,3)` |  `r round(10/216,3)*3` |
+| 5.333 | 6 | `r round(6/216,3)` |  `r round(6/216,3)*3` |
+| 5.667 | 3 | `r round(3/216,3)` |  `r round(3/216,3)*3` |
+| 6 | 1 | `r round(1/216,3)` |  `r round(1/216,3)*3` |
+
+
+```{r,echo=F,fig.dim=c(6,6),fig.align='center'}
+cp = cumsum(aprb)
+x = aposs
+acp = c(0,cp)
+mids = (acp[2:length(acp)]-acp[1:(length(acp)-1)])/2+acp[1:(length(acp)-1)]
+
+par(mar=c(0,0,0,0),pty="s")
+th = seq(0,2*pi,pi/100)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+for(cpp in cp){
+    lines(c(0,sin(2*pi*cpp)),c(0,cos(2*pi*cpp)))
+}
+for(i in 1:length(x)){
+    if(aprb[i]>0.02){
+        text(0.8*sin(2*pi*mids[i]),0.8*cos(2*pi*mids[i]),x[i])
+    }
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+```
+
+```{r,echo=F,fig.dim=c(10,5)}
+barplot(aprb,names.arg = round(aposs,2),ylab="probability",xlab="ave of 3 dice",beside = T)
+```
+
+$$\mu = 3.5$$
+$$\sigma = \frac{`r sig`}{\sqrt{3}} = `r round(sig/sqrt(3),4)`$$
+
+# Example Dice... cumulative average
+
+```{r,echo=F}
+set.seed(2)
+x = sample(1:6,25,T)
+xpas = paste0(x,collapse=", ")
+```
+
+* I rolled a die 25 times: `r xpas`
+
+* As I went, I kept recalculating the average.
+
+$$\bar{x}_1 = \frac{`r x[1]`}{1} = `r mean(x[1])`$$
+$$\bar{x}_2 = \frac{`r paste0(x[1:2],collapse="+")`}{2} = `r mean(x[1:2])`$$
+$$\bar{x}_3 = \frac{`r paste0(x[1:3],collapse="+")`}{3} = `r mean(x[1:3])`$$
+$$\bar{x}_4 = \frac{`r paste0(x[1:4],collapse="+")`}{4} = `r mean(x[1:4])`$$
+$$\bar{x}_5 = \frac{`r paste0(x[1:5],collapse="+")`}{5} = `r mean(x[1:5])`$$
+$$\bar{x}_6 = \frac{`r paste0(x[1:6],collapse="+")`}{6} = `r mean(x[1:6])`$$
+
+* I plotted the average versus sample size. This is called a [cumulative average](https://en.wikipedia.org/wiki/Moving_average#Cumulative_average) curve or a running mean curve.
+
+```{r,echo=F}
+library(latex2exp)
+set.seed(2)
+x = sample(1:6,25,T)
+xpas = paste0(x,collapse=", ")
+ca = cumsum(x)/(1:length(x))
+plot(1:length(x),ca,"l",xlab="n",ylab=TeX("$\\bar{x}_n$"),ylim=c(1,6))
+abline(h=3.5,col="red",lty=3)
+```
+
+* Notice the cumulative average approaches $\mu=3.5$ as $n$ increases. This is a representation of the [law of large numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers).
+
+# Example Dice... overlapping cumulative-average curves
+
+* This time I rolled 100 dice to make a cumulative-average curve. Then I repeated that process 1000 times. I plotted those 1000 cumulative-average curves.
+
+```{r,echo=F,fig.dim=c(8,5)}
+library(latex2exp)
+set.seed(1)
+x = sample(1:6,100*1000,T)
+x = matrix(x,ncol=100)
+myfun = function(y){
+    return(cumsum(y)/(1:length(y)))
+}
+cx = list()
+for(i in 1:1000){
+    cx[[i]] = myfun(x[i,])
+}
+plot(0,0,"n",xlim=c(0,100),ylim=c(1,6),xlab="n",ylab=TeX("$\\bar{x}_n$"))
+for(i in 1:1000){
+    lines(1:100,cx[[i]],col=hsv((i/230)%%1,1,1,0.5))
+}
+abline(h=3.5,col="black",lty=3,lwd=3)
+
+xme = seq(0.1,100,0.1)
+ume = 3.5+2*sig/sqrt(xme)
+lme = 3.5-2*sig/sqrt(xme)
+
+lines(xme,ume,col="black",lwd=2)
+lines(xme,lme,col="black",lwd=2)
+
+text(60,5,TeX("$3.5+\\frac{2\\cdot 1.707}{\\sqrt{n}}$"))
+text(60,2,TeX("$3.5-\\frac{2\\cdot 1.707}{\\sqrt{n}}$"))
+
+text(90,5,TeX("$\\mu+\\frac{2 \\sigma}{\\sqrt{n}}$"))
+text(90,2,TeX("$\\mu-\\frac{2 \\sigma}{\\sqrt{n}}$"))
+
+text(20,5.5,"Color indicates\nrepetition")
+```
+
+* For each value of $n$, we can make a histogram of the 1000 current averages.
+
+```{r,echo=F}
+ma = t(simplify2array(cx))
+breaks = list()
+mids = list()
+counts = list()
+densities = list()
+for(i in 1:100){
+    bwm = min(i,20)
+    myhist = hist(ma[,i],breaks=seq(1-1/bwm/2,6+1/bwm/2,1/bwm),plot=F)
+    breaks[[i]] = myhist$breaks
+    counts[[i]] = myhist$counts
+    mids[[i]] = myhist$mids
+    densities[[i]] = myhist$density
+}
+
+plot(0,0,"n",xlim=c(0,7),ylim=c(0,2.5),xlab="ave",ylab="density",main="Histograms as n grows from 1 to 100")
+mycurves = list()
+xxx = rep(breaks[[1]],each=2)
+yyy = c(0,rep(densities[[1]],each=2),0)
+lines(xxx,yyy,lwd=3,col="purple")
+text(1,0.3,"n=1",col="purple")
+for(i in 2:100){
+    xxx = rep(breaks[[i]],each=2)
+    yyy = c(0,rep(densities[[i]],each=2),0)
+    lines(xxx,yyy,col=hsv(i/150,1,1))
+}
+xxx = rep(breaks[[100]],each=2)
+yyy = c(0,rep(densities[[100]],each=2),0)
+lines(xxx,yyy,lwd=3)
+text(4,2.2,"n=100",adj=0)
+text(1,2,"Color indicates n")
+xxx = seq(0,7,0.1)
+```
+
+* We could have predicted this shape based on probabilities.
+
+```{r,echo=F}
+poss = list()
+prob = list()
+dens = list()
+
+poss[[1]] = c(1,2,3,4,5,6)
+prob[[1]] = rep(1/6,6)
+dens[[1]] = prob[[1]]/diff(poss[[1]][1:2])
+
+for(i in 2:6){
+    oposs = poss[[i-1]]
+    oprob = prob[[i-1]]
+    nposs = c()
+    nprob = c()
+    for(j in 1:length(oposs)){
+        for(k in 1:6){
+            nposs = c(nposs,(oposs[j]*(i-1)+k)/i)
+            nprob = c(nprob,oprob[j]/6)
+        }
+    }
+    uposs = sort(unique(nposs))
+    uprob = numeric()
+    for(uposs1 in uposs){
+        uprob = c(uprob,sum(nprob[uposs1==nposs]))
+    }
+    poss[[i]] = uposs
+    prob[[i]] = uprob
+    dens[[i]] = prob[[i]]/diff(poss[[i]][1:2])
+}
+
+plot(0,0,type="n",xlim=c(0,7),ylim=c(0,0.6),xlab="average",ylab="density")
+xxx = seq(0,7,0.01)
+lines(xxx,dnorm(xxx,3.5,sqrt(35/12)/sqrt(6)),col="red")
+for(i in 1:6){
+    lines(poss[[i]],dens[[i]],lwd=2,col=hsv(i/6,1,0.5))
+    j = floor((length(poss[[i]])+1)/2)
+    text(3.5,dens[[i]][j]-0.03+0.01*(i==3),paste0("n=",i),col=hsv(i/6,1,0.5))
+}
+
+text(1,0.5,"Normal approx with",col="red")
+text(1,0.42,TeX("$\\mu=3.5$"),col="red")
+text(1,0.3,TeX("$\\sigma=\\frac{1.7078}{\\sqrt{6}}$"),col="red")
+```
+
+* Notice the normal approximation is quite close. It gets better as $n$ increases.
+* This animation might help.
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(3,3)}
+getR = function(u,t){
+  ux = u[1]
+  uy = u[2]
+  uz = u[3]
+  f = cos(t)+ux^2*(1-cos(t))
+  g = ux*uy*(1-cos(t))-uz*sin(t)
+  h = ux*uz*(1-cos(t))+uy*sin(t)
+  i = uy*ux*(1-cos(t))+uz*sin(t)
+  j = cos(t)+uy^2*(1-cos(t))
+  k = uy*uz*(1-cos(t))-ux*sin(t)
+  l = uz*ux*(1-cos(t))-uy*sin(t)
+  m = uz*uy*(1-cos(t))+ux*sin(t)
+  n = cos(t)+uz^2*(1-cos(t))
+  R = matrix(c(f,g,h,i,j,k,l,m,n),3,byrow=T)
+  return(R)
+}
+
+n = 40
+R = getR(c(0,0,1),2*pi/n)
+P = matrix(c(1,0,0,0,0,1),2,byrow = T)
+par(pty="s",mar=c(0,0,0,0))
+
+XX = list()
+for(i in 1:6){
+    mynums = numeric()
+    for(j in 1:length(poss[[i]])){
+        mynums = c(mynums,poss[[i]][j]-3.5,i-3.5,dens[[i]][j])
+    }
+    XX[[i]] = matrix(mynums,3)
+}
+
+
+XC = XX
+for(i in 1:n){
+    plot(0,0,type="n",axes=F,ann=F,xlim=c(-4,4),ylim=c(0,1))
+    for(j in 1:6){
+        Xc = XC[[j]]
+        Xc_flat = P%*%Xc
+        one = Xc_flat[1,][1]
+        nn = length(Xc_flat[1,])
+        las = Xc_flat[1,][nn]
+        one2 = Xc_flat[2,][1]
+        nn2 = length(Xc_flat[2,])
+        las2 = Xc_flat[2,][nn]
+        polygon(c(one,Xc_flat[1,],las),c(0,Xc_flat[2,],0),col=hsv(j/6,1,0.5,0.2),border=hsv(j/6,1,0.5))
+        XC[[j]] = R%*%Xc
+    }
+}
+```
+\
+
+# NOT JUST DICE!
+
+* But the central limit theorem is not just about dice. 
+* We can start with just about any spinner, and once $n>20$, the averages will be approximately normal.
+* You can even see the progression toward a normal (bell-shaped) curve when $n$ is small.
+
+* Fair coin
+
+```{r,echo=F,fig.dim=c(10,5)}
+par(mfrow=c(1,2),pty="s")
+xs = 0:1
+th = seq(0,2*pi,pi/100)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+begs = seq(0,2*pi-2*pi/(2),2*pi/(2))
+mids = begs+pi/(2)
+for(i in begs){
+    lines(c(0,sin(i)),c(0,cos(i)))
+}
+for(i in 1:length(xs)){
+    text(0.8*sin(mids[i]),0.8*cos(mids[i]),xs[i])
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+barplot(rep(1/2,2),1,names.arg=0:1,ylab="density")
+
+```
+
+* Average of two fair coins
+
+```{r,echo=F,fig.dim=c(10,5)}
+par(mfrow=c(1,2),pty="s")
+xs = c(0,0.5,0.5,1)
+th = seq(0,2*pi,pi/100)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+begs = seq(0,2*pi-2*pi/(4),2*pi/(4))
+mids = begs+pi/(4)
+for(i in begs){
+    lines(c(0,sin(i)),c(0,cos(i)))
+}
+for(i in 1:length(xs)){
+    text(0.8*sin(mids[i]),0.8*cos(mids[i]),xs[i])
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+barplot(c(0.25,0.5,0.25),1,names.arg=c(0,0.5,1),ylab="probability")
+
+```
+
+* Average of 3 fair coins (proportion heads after 3 flips)
+
+```{r,echo=F,fig.dim=c(10,5)}
+par(mfrow=c(1,2),pty="s")
+xs = c(0,0.333,0.333,0.333,0.667,0.667,0.667,1)
+nnn = length(xs)
+th = seq(0,2*pi,pi/100)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+begs = seq(0,2*pi-2*pi/(nnn),2*pi/(nnn))
+mids = begs+pi/(nnn)
+for(i in begs){
+    lines(c(0,sin(i)),c(0,cos(i)))
+}
+for(i in 1:length(xs)){
+    text(0.8*sin(mids[i]),0.8*cos(mids[i]),xs[i])
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+barplot(c(0.125,0.375,0.375,0.125),1,names.arg=c(0,0.333,0.667,1),ylab="probability")
+
+```
+
+* Average of 4 fair coins (proportion of heads after 4 flips)
+
+```{r,echo=F,fig.dim=c(10,5)}
+par(mfrow=c(1,2),pty="s")
+xs = c(0,rep(0.25,4),rep(0.5,6),rep(0.75,4),1)
+nnn = length(xs)
+th = seq(0,2*pi,pi/100)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+lines(cos(th),sin(th))
+begs = seq(0,2*pi-2*pi/(nnn),2*pi/(nnn))
+mids = begs+pi/(nnn)
+for(i in begs){
+    lines(c(0,sin(i)),c(0,cos(i)))
+}
+for(i in 1:length(xs)){
+    text(0.8*sin(mids[i]),0.8*cos(mids[i]),xs[i])
+}
+polygon(0.1*sin(th),0.1*cos(th),col="red")
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=7)
+arrows(-0.6,-0.1,0.6,0.1,length=0.1,angle=25,lwd=5,col="red")
+polygon(0.01*sin(th),0.01*cos(th),col="red")
+
+xcv = sort(unique(xs))
+ppp = numeric()
+for(vcx in xcv){
+    ppp=c(ppp,sum(xs==vcx)/length(xs))
+}
+
+barplot(ppp,1,names.arg=sort(unique(xs)),ylab="probability")
+
+```
+
+
+# Not just dice and coins
+
+
+
+
+

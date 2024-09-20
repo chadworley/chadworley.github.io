@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Random Number Generator</title>
+<meta charset="utf-8">
+</head>
+
+<script>
+  
+function myCreateFunction() {
+  var table = document.getElementById("table01");
+  var row = table.insertRow(table.rows.length);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  cell1.innerHTML = '<input type="text" id="A'+(table.rows.length-1)+'" onclick="this.select();" onchange="updateUrl();">';
+  cell2.innerHTML = '<input type="text" id="B'+(table.rows.length-1)+'" onclick="this.select();" onchange="calcProbs();">';
+  cell3.innerHTML = '<div id="C'+(table.rows.length-1)+'"=>';
+  calcProbs();
+}
+
+function myDeleteFunction() { 
+  var table = document.getElementById("table01");
+  table.deleteRow(table.rows.length-1);
+  calcProbs();
+}
+  
+function setTabLen(){
+  var len = Math.max(document.getElementById("nrow").value,1);
+  var tab = document.getElementById("table01");
+  var clen = tab.rows.length-1
+  if(clen < len){
+    for(var i=1;i<=(len-clen);i++){
+      myCreateFunction();
+    }
+  }
+  if(clen > len){
+    for(var i=1;i<=(clen-len);i++){
+      myDeleteFunction();
+    }
+  }
+  updateUrl();
+}
+  
+function calcProbs(){
+  var table = document.getElementById("table01");
+  var numrows = table.rows.length-1;
+  var txt = "";
+  var tot = 0;
+  var pf = 0;
+  for(var i=1;i<=numrows;i++)
+  {
+    pf = parseFloat(document.getElementById("B"+i).value);
+    if(!isNaN(pf)){
+      tot += pf;
+    }
+  }
+  if(tot>0){
+    for(var i=1;i<=numrows;i++)
+    {
+      pf = parseFloat(document.getElementById("B"+i).value);
+      if(!isNaN(pf)){
+        document.getElementById("C"+i).innerHTML=""+pf/tot;
+      } else {
+        document.getElementById("C"+i).innerHTML=""+0;
+      }
+    }
+  } else {
+    for(var i=1;i<=numrows;i++)
+    {
+      document.getElementById("C"+i).innerHTML=""+1.0/numrows;
+    }
+  }
+  updateUrl();
+}
+  
+function weightedChoice(array, weights) {
+  let s = weights.reduce((a, e) => a + e);
+  let r = Math.random() * s;
+  return array.find((e, i) => (r -= weights[i]) < 0);
+}
+
+
+  
+function getSample(){
+  var table = document.getElementById("table01");
+  var numrows = table.rows.length-1;
+  var poss = [];
+  var prob = [];
+  var pf = 0;
+  for(var i=1;i<=numrows;i++){
+    pf = parseFloat(document.getElementById("C"+i).innerHTML);
+    if(!isNaN(pf)){
+      if(pf>0){
+        poss.push(document.getElementById("A"+i).value);
+        prob.push(pf);
+      }
+    }
+  }
+  var n = document.getElementById("samsize").innerHTML;
+  const n2 = parseInt(n);
+  let rand = Array.apply(null, Array(n2)).map(() => weightedChoice(poss, prob));
+  
+  var txt = "";
+  const nr = parseInt(document.getElementById("numrs").value);
+  const nc = parseInt(document.getElementById("numcs").value);
+  var row = Array(nc);
+  for(var i=0;i<nr;i++){
+    row = rand.slice(nc*i, nc*(i+1));
+    txt += row.join("\t")
+    txt += "\n"
+  }
+  document.getElementById("samp").innerHTML = txt;
+  document.getElementById("samp").rows=nr;
+  document.getElementById("samp").cols=nc*8;
+  updateUrl();
+}
+
+function calcn(){
+  var nr = parseInt(document.getElementById("numrs").value);
+  var nc = parseInt(document.getElementById("numcs").value);
+  document.getElementById("samsize").innerHTML = nr*nc;
+  document.getElementById("samp").rows=nr;
+  document.getElementById("samp").cols=nc*8;
+  updateUrl();
+}
+  
+function copy() {
+  let textarea = document.getElementById("samp");
+  textarea.select();
+  document.execCommand("copy");
+  updateUrl();
+}
+  
+function setFromUrl() {
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var possPar = decodeURIComponent(urlParams.get("poss")).split("*");
+    var wghtPar = decodeURIComponent(urlParams.get("wght")).split("*");
+    var minlen = Math.min(possPar.length,wghtPar.length)
+    if(minlen>1){
+      document.getElementById("nrow").value=minlen;
+      setTabLen();
+      for(var i=1;i<=minlen;i++){
+        document.getElementById("A"+i).value = possPar[i-1];
+        document.getElementById("B"+i).value = wghtPar[i-1];
+      }
+    } else {
+      document.getElementById("nrow").value=2;
+      setTabLen();
+      document.getElementById("A1").value = "heads";
+      document.getElementById("B1").value = 49;
+      document.getElementById("A2").value = "tails";
+      document.getElementById("B2").value = 51;
+    }
+    var numrs = parseInt(decodeURIComponent(urlParams.get("numrs")));
+    var numcs = parseInt(decodeURIComponent(urlParams.get("numcs")));
+    if(isNaN(numrs)){
+      numrs = 10;
+    }
+    if(numrs<1){
+      numrs = 10;
+    }
+    if(isNaN(numcs)){
+      numcs = 1;
+    }
+    if(numcs<1){
+      numcs = 1;
+    }
+    document.getElementById("numrs").value=numrs;
+    document.getElementById("numcs").value=numcs;
+  updateUrl();
+}
+  
+function updateUrl() {
+  var queryString = window.location.search;
+  var urlParams = new URLSearchParams(queryString);
+  var table = document.getElementById("table01");
+  var numrows = table.rows.length-1;
+  var poss = [];
+  var wght = [];
+  var pf = 0;
+  for(var i=1;i<=numrows;i++){
+    poss.push(document.getElementById("A"+i).value);
+    wght.push(document.getElementById("B"+i).value);
+  }
+  var possURI = encodeURIComponent(poss.join("*"));
+  var wghtURI = encodeURIComponent(wght.join("*"));
+  var numrsURI = document.getElementById("numrs").value;
+  var numcsURI = document.getElementById("numcs").value;
+  urlParams.set("poss",possURI);
+  urlParams.set("wght",wghtURI);
+  urlParams.set("numrs",numrsURI);
+  urlParams.set("numcs",numcsURI);
+  window.history.replaceState("", "", window.location.pathname+"?poss="+possURI+"&wght="+wghtURI+"&numrs="+numrsURI+"&numcs="+numcsURI);
+}
+  
+</script>
+
+<body onload="setFromUrl();calcProbs();">
+<div id="rrr">
+</div>
+
+<h1>Discrete random variable</h1>
+
+<p></p>
+  
+<h4>
+  Define the population's probability distribution.
+  </h4>
+
+<p>
+  Number of possibilities: <input type="number" id="nrow" value=2 min=1  onchange="setTabLen()">
+  </p>
+  
+
+<table border="1" id="table01">
+   <tr>
+    <th>Possibilities</th>
+    <th>Weights</th>
+    <th>Probabilities</th>
+   </tr>
+   <tr>
+    <td><input type="text" id="A1" value="heads" onclick="this.select();" onchange="updateUrl();"></td>
+    <td><input type="text" id="B1" value=49 onclick="this.select();" onchange="calcProbs()"></td>
+    <td> <div id="C1">0.49</div> </td>
+   </tr>
+  <tr>
+    <td><input type="text" id="A2" value="tails" onclick="this.select();" onchange="updateUrl();"></td>
+    <td><input type="text" id="B2" value=51 onclick="this.select();" onchange="calcProbs()"></td>
+    <td> <div id="C2">0.51</div></td>
+   </tr>
+</table>
+
+
+  <p>
+    
+  </p>
+
+    <h4>
+      How many measurements? (sample array dimensions)
+  </h4>
+  number of rows = <input type="number" value=10 id="numrs" onchange="calcn()"> <br>
+  number of columns = <input type="number" value=5 id="numcs" onchange="calcn()"> <br>
+    n = <span id="samsize">50</span>
+  
+  <input type="button" value="Get sample!" onclick="getSample()">
+  
+  <input type="button" value="Copy text area (to paste into spreadsheet)" onclick="copy()">
+
+  <br>
+  
+<textarea id="samp" rows=20 cols=45></textarea><br>
+
+</body>
+</html>
