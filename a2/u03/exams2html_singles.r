@@ -1,9 +1,6 @@
 library("exams")
 
-pppsss = c("06_norm_fit_less.Rmd",
-           "07_norm_fit_more.Rmd",
-           "08_norm_fit_between.Rmd",
-           "09_calculate_z_from_sample_mean.Rmd")
+pppsss = c("09_calculate_z_from_sample_mean.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
@@ -17,7 +14,7 @@ for(ppss in pppsss){
     }
     
     main = function(){
-      set.seed(1)
+      set.seed(2)
       exams2html_interact(ps,
                      n=1,
                      dir=outdir,
