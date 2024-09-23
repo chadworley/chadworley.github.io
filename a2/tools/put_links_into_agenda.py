@@ -5,8 +5,7 @@ import os
 
 
 front = "u03_"
-files = ["06_norm_fit_less.Rmd","07_norm_fit_more.Rmd","08_norm_fit_between.Rmd","09_calculate_z_from_sample_mean.Rmd"]
-
+files = ["09_calculate_z_from_sample_mean.Rmd","10_compare_zs_means.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u03/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

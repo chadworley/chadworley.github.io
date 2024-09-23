@@ -1,14 +1,13 @@
 library("exams")
-n = 10
+n = 30
 outdir = "outcanvas"
 genname = "u03_"
 
-probs = c("09_calculate_z_from_sample_mean.Rmd",
-          "10_compare_zs_means.Rmd")
+probs = c("10_compare_zs_means.Rmd")
 
 # pm = list(probs,probs,probs,probs)
 
-pnts = c(6,8)
+pnts = c(8)
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
 for(i in 1:length(probs)){

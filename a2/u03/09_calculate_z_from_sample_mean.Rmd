@@ -56,6 +56,7 @@ mu = round(sum(probs*points),2)
 sigma = round(sqrt( sum((points-mu)^2*probs) ),2)
 
 
+
 #sample
 n = 12*sample(3:12,1)
 r = rarr(n,a,rmax)
@@ -63,7 +64,8 @@ t = runif(n,0,2*pi)
 pnt = points[ ceiling(r*10) ]
 tot = sum(pnt)
 xbar = round(tot/n,3)
-z = round((xbar-mu)/(sigma/sqrt(n)),2)
+se = round(sigma/sqrt(n),3)
+z = round((xbar-mu)/se,2)
 if(is.numeric(z) & z%%0.5>0.03 & z%%0.5<0.47){break}
 }
 
@@ -71,6 +73,7 @@ alsol = function(ans,n=5,dx=1,spri=NULL){
     choices = ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx
     al = paste0("* ",choices,collapse="\n")
     if(!is.null(spri)){
+        choices = round(ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx,spri)
         al = paste0("* ",sprintf(paste0("%.",spri,"f",collapse=""),choices),collapse="\n")
     }
     sol = paste0(1*(ans==choices),collapse="")
@@ -78,7 +81,7 @@ alsol = function(ans,n=5,dx=1,spri=NULL){
 }
 
 as1 = alsol(round(mu,2),5,0.01,2)
-as2 = alsol(round(sigma/sqrt(n),3),5,0.002,3)
+as2 = alsol(round(se,3),5,0.002,3)
 as3 = alsol(round(z,2),5,0.02,2)
 as4 = alsol(round(pnorm(z),4),5,0.0003,4)
 
@@ -266,6 +269,9 @@ To find the cumulative probability using a spreadsheet, you can use ``=NORM.DIST
 $$P(Z\le `r z`) ~=~ `r round(pnorm(z),4)`$$
 
 By comparing the $z$ score to the grade chart, you find the proper rating is `r g2[ans1]`.
+
+
+exsolution: `r as1$sol`|`r as2$sol`|`r as3$sol`|`r as4$sol`|`r ans`
 
 
 Meta-information
