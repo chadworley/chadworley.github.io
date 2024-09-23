@@ -6,7 +6,7 @@ Question #,Question Text,Answer 1,Answer 2,"Answer 3
 (Max: 300 seconds)","Correct Answer(s)
 (Only include Answer #)",,'
 
-fname = "lcm_easier.csv"
+fname = "gcf_lcm.csv"
 
 write(s,file=fname)
 
@@ -31,12 +31,22 @@ for(i in 1:1000){
             b = thegcd*pp[2]
             M = thegcd*pp[1]*pp[2]
             if(M>6 && M<50){break}
-        }  
+        } 
+        qstr = paste0("What is the Least Common Multiple of ",a," and ",b,"?")
+        ans = M
     }
-    
-    
-    qstr = paste0("What is the Least Common Multiple of ",a," and ",b,"?")
-    ans = M
+    else{
+        thegcd = sample(2:12,1)
+        while(T){
+            ab = sample(6:40,2)
+            a = ab[1]
+            b = ab[2]
+            G = gcd(a,b)
+            if(G==thegcd){break}
+        }
+        qstr = paste0("What is the Greatest Common Factor of ",a," and ",b,"?")
+        ans = thegcd
+    }
     q = paste0(i,',"',qstr,'",',ans,",,,,30,,,typing",collapse="")
     write(q,file=fname,append=TRUE)
 }

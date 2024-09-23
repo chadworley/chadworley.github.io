@@ -1,0 +1,234 @@
+```{r setup,echo=F}
+knitr::opts_chunk$set(echo = F)
+options(scipen=999)
+
+cols = c("red","yellow","orange","green","blue","purple")
+feats = c("backed","bellied","crested","legged","footed","headed","capped","eyed","toed","tailed")
+birds = c("woodpecker","chickadee","egret","eagle","sparrow","jay","vulture","heron","warbler",
+         "pigeon","hawk","falcon")
+
+col = sample(cols,1)
+feat = sample(feats,1)
+bird = sample(birds,1)
+
+bn = paste0(col,"-",feat," ",bird,collapse="")
+bns = paste0(col,"-",feat," ",bird,"s",collapse="")
+
+while(T){
+    mu = round(runif(1,11,99),2)
+    sig = round(runif(1,mu/20,mu/4),2)
+    n = sample(5:12,1)
+    x = round(rnorm(n,mu,sig),1)
+    xbar = mean(x)
+    s = sd(x)
+    xbarlo = floor(xbar*100)/100
+    xbarhi = ceiling(xbar*100)/100
+    slo = floor(s*100)/100
+    shi = ceiling(s*100)/100
+    
+    z = runif(1,-2,2)
+    b = round(xbar+s*z,1)
+    z = (b-xbar)/s
+    
+    p = 1-pnorm(z)
+    
+    lowp = p
+    hip = p
+    for(xb in c(xbarhi,xbarlo,xbar)){
+        for(si in c(s,slo,shi)){
+            zz = (b-xb)/si
+            pp = 1-pnorm(zz)
+            pplo = floor(pp*1000)/1000
+            pphi = ceiling(pp*1000)/1000
+            if(lowp>pplo){lowp=pplo}
+            if(hip<pphi){hip=pphi}
+        }
+    }
+    tol = max((hip-lowp)/2,0.01)
+    mid = (hip+lowp)/2
+    if(tol<0.03){break}
+}
+
+```
+
+Question
+========
+
+* **Learning objective** *S-ID.A.4: Use the mean and standard deviation of a data set to fit it to a normal distribution and to estimate population percentages. Recognize that there are data sets for which such a procedure is not appropriate. Use calculators, spreadsheets, and tables to estimate areas under the normal curve.*
+
+On an alien planet, you harvested a sample of adult `r bns`. You measured their lengths, in centimeters; those measurements are shown below.
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab_data, echo=FALSE, results="asis"}
+opts <- options(knitr.kable.NA = "")
+mydf = data.frame(matrix(sprintf("%.1f",x),ncol = 1))
+colnames(mydf) = rep("Length (cm)")
+knitr::kable(mydf,format="html", align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+Your boss asks you to use a **normal approximation** of the population to **estimate the proportion of adult `r bns` with lengths more than `r b` centimeters**.
+
+You say, "But we don't know the lengths are normally distributed. They could be bimodal, uniform, skewed, or even  non-normal-bell shaped. It does not seem appropriate to just assume the lengths of `r bns` are normally distributed."
+
+Your boss mumbles something about genetics and alleles and how the length is determined by a multitude of factors. She tells you to just do it. You don't find it super compelling, but then you remember she is your boss. Also, you figure you can at least state the assumptions clearly in the report. Besides, you know that there is a long history of assuming features like lengths and weights are normally distributed.
+
+To do the normal approximation:
+
+1. Calculate the sample mean and sample standard deviation.
+2. Assume those sample statistics ($\bar{x}$ and $s$) are good estimates of the corresponding normal-curve parameters ($\mu$ and $\sigma$).
+3. Find the area under the normal curve between $`r b`$ and $\infty$.
+
+* Approximately what proportion of `r bns` have lengths more than `r b` centimeters?
+
+Solution
+========
+
+The solution (if you do not round anything until the end) is `r 1-round(p,2)`, which expressed as a percentage is `r (1-round(p,2))*100`%.
+
+$$P(X>`r b`) ~=~ `r 1-round(p,4)` ~=~ `r (1-round(p,4))*100`\%$$
+
+First, find the sample statistics:
+
+* $\bar{x} = `r xbar`$
+* $s=`r s`$
+
+Then, find the area under a normal curve with parameters $\mu=`r xbar`$ and $\sigma=`r s`$ between $`r b`$ and $\infty$.
+
+Personally, I'd set up a spreadsheet to do this for me. To find normal-curve areas, you can use the [`NORM.DIST`](https://support.google.com/docs/answer/3094021?hl=en&sjid=18265436450876233546-NA#null) function.
+
+There is a concept that is worth reviewing first. A [cumulative distribution function](https://en.wikipedia.org/wiki/Cumulative_distribution_function) tells you the probability of the distribution producing a value less than (or equal to) a specified boundary. To find the area to the **right** of the boundary (to find probability of getting something MORE than a boundary), you need to realize that for a given boundary, the left area and right area add up to 100%. (The key word is [complementary event](https://en.wikipedia.org/wiki/Complementary_event).). That means we can get the right area by subtracting the left area from 1. 
+
+For example, let $X$ represent a normal random variable with $\mu=`r xbar`$ and $\sigma=`r s`$.
+
+$$X \sim N(`r sprintf("%.2f",round(xbar,2))`, `r sprintf("%.2f",round(s,2))`)$$
+
+We can find the left area (the cumulative probability) using ``=NORM.DIST(`r b`, `r xbar`, `r s`, TRUE)``.
+
+$$P(X\le `r b`) = `r round(pnorm(b,xbar,s),4)`$$
+
+```{r, fig.width=6, fig.height=3, fig.align='center'}
+par(mar=c(7,3,0,0))
+library(latex2exp)
+mu = round(xbar,3)
+sig = round(s,3)
+rv = "X"
+zr = (b-xbar)/s
+Z = seq(-3,3,0.001)
+plot(Z,dnorm(Z),type="l",xlim=c(-3,3),ylim=c(0,0.4),xlab="Z",ylab="density",axes=F,ann=F,lwd=3)
+axis(1,at=round(seq(-3,3,1),1),line=0)
+mtext("Z axis",1,0,at=-3.5)
+axis(1,at=round(seq(-3,3,1),1),labels=signif(seq(mu-3*sig,mu+3*sig,length.out=7),4),line=3)
+mtext(paste(rv,"axis",collapse=""),1,3,at=-3.5)
+abline(h=seq(0,0.4,0.05))
+for(zz in seq(-3,3,0.2)){
+  lines(c(zz,zz),c(0,0.4))
+}
+abline(h=0,lwd=3)
+if(!(zr %in% seq(-3,3,1))){
+  axis(1,at=zr,labels="",line=3)
+  mtext(b,1,4.9,at=zr)
+}
+polygon(c(Z[Z<=zr],zr,-3),c(dnorm(Z[Z<=zr]),0,0),col=rgb(1,0.5,0.5,0.5))
+mtext("density",2,line=1)
+text(max((-3+zr)/2,-2),0.2,round(pnorm(b,xbar,s),4),col="red",cex=3)
+```
+\
+
+To find the right area, we can just use the complement rule.
+
+$$P(X> `r b`) ~=~ 1-`r round(pnorm(b,xbar,s),4)` ~=~ `r 1-round(pnorm(b,xbar,s),4)`$$
+
+```{r, fig.width=6, fig.height=3, fig.align='center'}
+par(mar=c(7,3,0,0))
+library(latex2exp)
+mu = round(xbar,3)
+sig = round(s,3)
+rv = "X"
+zr = (b-xbar)/s
+Z = seq(-3,3,0.001)
+plot(Z,dnorm(Z),type="l",xlim=c(-3,3),ylim=c(0,0.4),xlab="Z",ylab="density",axes=F,ann=F,lwd=3)
+axis(1,at=round(seq(-3,3,1),1),line=0)
+mtext("Z axis",1,0,at=-3.5)
+axis(1,at=round(seq(-3,3,1),1),labels=signif(seq(mu-3*sig,mu+3*sig,length.out=7),4),line=3)
+mtext(paste(rv,"axis",collapse=""),1,3,at=-3.5)
+abline(h=seq(0,0.4,0.05))
+for(zz in seq(-3,3,0.2)){
+  lines(c(zz,zz),c(0,0.4))
+}
+abline(h=0,lwd=3)
+if(!(zr %in% seq(-3,3,1))){
+  axis(1,at=zr,labels="",line=3)
+  mtext(b,1,4.9,at=zr)
+}
+polygon(c(Z[Z>=zr],3,zr),c(dnorm(Z[Z>=zr]),0,0),col=rgb(0.5,0.5,1,0.5))
+mtext("density",2,line=1)
+text(min((3+zr)/2,2),0.2,round(1-pnorm(b,xbar,s),4),col="blue",cex=3)
+```
+\
+
+
+### Spreadsheet
+
+
+To find normal-curve area in a spreadsheet, use the [`NORM.DIST`](https://support.google.com/docs/answer/3094021?hl=en&sjid=18265436450876233546-NA#null) function. This function takes four arguments:
+
+* $x$: An upper boundary of the area
+* mean: The normal-curve mean ($\mu$)
+* standard_deviation: The normal-curve standard deviation ($\sigma$)
+* cumulative: A [boolean](https://en.wikipedia.org/wiki/Boolean_data_type) set to `TRUE` to find an area. (If it is set to `FALSE`, then we get the height of the curve at $x$, but that is not super useful except to graph the curve.)
+
+The `NORM.DIST` function returns the area under the normal curve from $-\infty$ to the given boundary.
+
+```{css,echo=F}
+.ss-table td {
+    background-color: rgb(238, 238, 238);
+    color: rgb(111, 111, 111);
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+  }
+.ss-table th, .ss-table td:first-child{
+    background-color: rgb(112, 196, 105);
+    color: white;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+
+```
+
+```{r spreadsheet}
+N = n+1
+A = c("length (cm)",sprintf("%.2f",x))
+B = c("xbar = sample mean","=AVERAGE(A:A)"," ","s = sample standard deviation","=STDEV(A:A)",rep(" ",N-5))
+C = c("b = boundary",b," "," "," ",rep(" ",N-5))
+D = c("P(X<b)","=NORM.DIST(C2,B2,B5,TRUE)"," ","P(X>b)","=1-D2",rep(" ",N-5))
+mydf = data.frame(A,B,C,D)
+knitr::kable(mydf, format = "html",row.names = T,table.attr='class="ss-table"')
+```
+\
+
+
+Meta-information
+================
+extype: num
+exsolution: `r mid`
+exname: norm_fit_less
+extol: `r tol`
