@@ -64,8 +64,8 @@ t = runif(n,0,2*pi)
 pnt = points[ ceiling(r*10) ]
 tot = sum(pnt)
 xbar = round(tot/n,3)
-se = round(sigma/sqrt(n),3)
-z = round((xbar-mu)/se,2)
+se = sigma/sqrt(n)
+z = (xbar-mu)/se
 if(is.numeric(z) & z%%0.5>0.03 & z%%0.5<0.47){break}
 }
 
@@ -82,8 +82,8 @@ alsol = function(ans,n=5,dx=1,spri=NULL){
 
 as1 = alsol(round(mu,2),5,0.01,2)
 as2 = alsol(round(se,3),5,0.002,3)
-as3 = alsol(round(z,2),5,0.02,2)
-as4 = alsol(round(pnorm(z),4),5,0.0003,4)
+as3 = alsol(round(z,2),5,0.03,2)
+as4 = alsol(round(pnorm(z),2),5,0.01,2)
 
 ```
 
@@ -227,7 +227,7 @@ $$z ~=~ \frac{\bar{x}-\mu}{\mathrm{SE}} ~=~ \frac{`r xbar`-`r mu`}{`r round(sigm
 
 The sampling distribution can be visualized, along with today's mean (`r xbar`) highlighted in red. The cumulative probability is the sum of the probabilities of scores less than (or equal) `r xbar`. Thus, the area highlighted in blue represents the cumulative probability.
 
-```{r fig.width=5,fig.height=4,fig.align='center'}
+```{r fig.width=5,fig.height=4}
 zzz = seq(-3,3,0.01)
 
 minx = floor(mu*n-3*sigma*sqrt(n))
