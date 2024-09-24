@@ -1,8 +1,9 @@
 ```{r data generation, echo = FALSE, results = "hide"}
 knitr::opts_chunk$set(echo = FALSE)
 options(scipen=100)
-n = sample(30:200,1)
-la = runif(1,0.55,0.99)
+n = sample(30:900,1)
+la = runif(1,0.01,0.99)
+mag = sample(-1:2,1)
 
 shape1 = 3^runif(1,-0.5,1)
 shape2 = 3^runif(1,-0.5,1)
@@ -21,7 +22,6 @@ mua = mu
 siga = sig/sqrt(n)
 zapp = round(qnorm(la),2)
 xa = round(mua+zapp*siga,2)
-d = round(xa-mua,2)
 z = (xa-mua)/siga
 zlo = floor(z*100)/100
 zhi = ceiling(z*100)/100
@@ -29,19 +29,8 @@ la = pnorm(z)
 lalo = round(pnorm(zlo),4)
 lahi = round(pnorm(zhi),4)
 
-ra = 1-la
-ralo = round(1-lalo,4)
-rahi = round(1-lahi,4)
+tol = max(abs(lahi-lalo)*1.1,0.002)
 
-ta = 2*ra
-talo = round(2*ralo,4)
-tahi = round(2*rahi,4)
-
-ca = 1-ta
-calo = round(1-talo,4)
-cahi = round(1-tahi,4)
-
-tol = max(abs(cahi-calo)*1.1,0.002)
 ```
 
 Question
@@ -97,17 +86,18 @@ text(0,0.2,"Random Variable X")
 ```
 \
 
-That spinner ($X$) will be fairly spun `r n` times, and the **sample mean** of the spins will be recorded. Determine the probability that the random sample mean is within $`r d`$ units from $\mu_{\bar{X}}$.
-$$P\left(\left|\bar{X}-\mu_{\bar{X}}\right|<`r d`\right) ~=~ \,? $$
+That spinner ($X$) will be fairly spun `r n` times, and the **sample mean** of the spins will be recorded. Determine the probability that the random sample mean is less than `r xa`.
+$$P\left(\bar{X}<`r xa`\right) ~=~ \,? $$
 
 (Even though single spins are **not** normally distributed, the random means will be normally distributed.
 See [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem){target="_blank"}.)
 
 
+
 Solution
 ========
 
-[video](https://vimeo.com/531941464){target="_blank"}
+[video](https://vimeo.com/531941126){target="_blank"}
 
 We use the central limit formulas for a random mean.
 $$\mu_{\bar{X}} = \mu_{X} = `r mu` $$
@@ -116,22 +106,26 @@ So, we think the random mean is normally distributed with a mean of `r mua` and 
 $$\bar{X} \sim N(`r mua`,\,`r siga`) $$
 
 Calculate a $z$-score for the boundary.
-$$z = \frac{`r d`}{`r siga`} = `r z` $$
+$$z = \frac{`r xa`-`r mua`}{`r siga`} = `r z` $$
 
 You can round that to $z=`r zlo`$ or $z=`r zhi`$. Any of the following probabilities will get credit.
-$$P(|Z| < `r z`) = `r ca` $$
-$$P(|Z| <  `r zlo`) = `r calo` $$
-$$P(|Z| <  `r zhi`) = `r cahi` $$
+$$P(Z < `r z`) = `r la` $$
+$$P(Z < `r zlo`) = `r lalo` $$
+$$P(Z < `r zhi`) = `r lahi` $$
+
+To get the probability, you can use a spreadsheet. Either will work:
+
+* ``=NORMDIST(`r z`,0,1,TRUE)``
+* ``=NORMDIST(`r xa`,`r mua`,`r siga`,TRUE)``
 
 
 Let's draw a sketch.
 
-```{r, fig.width=6, fig.height=3.5}
-par(mar=c(7,3,2,0))
+```{r, fig.width=6, fig.height=3}
+par(mar=c(7,3,0,0))
 library(latex2exp)
 Z = seq(-3,3,0.001)
-plot(Z,dnorm(Z),type="l",xlim=c(-3,3),ylim=c(0,0.4),xlab="",ylab="density",axes=F,lwd=3,
-     main=TeX(sprintf("$P(|%s-%s|<%s) = %.4f$","\\bar{X}",mua,d,round(ca,4))))
+plot(Z,dnorm(Z),type="l",xlim=c(-3,3),ylim=c(0,0.4),xlab="Z",ylab="density",axes=F,ann=F,lwd=3)
 axis(1,at=round(seq(-3,3,1),1),line=0)
 mtext("Z axis",1,0,at=-3.5)
 axis(1,at=round(seq(-3,3,1),1),labels=signif(seq(mua-3*siga,mua+3*siga,length.out=7),4),line=3)
@@ -140,15 +134,23 @@ abline(h=0,lwd=3)
 abline(h=seq(0,0.4,0.05),lwd=0.5)
 abline(v=seq(-3,3,0.2),lwd=0.5)
 
-polygon(c(Z[Z>=-z & Z<=z],z,-z),c(dnorm(Z[Z>=-z & Z<=z]),0,0),col=rgb(1,0.5,0.5,0.5))
+polygon(c(Z[Z<=z],z,-3),c(dnorm(Z[Z<=z]),0,0),col=rgb(1,0.5,0.5,0.5))
+
+text(-2.01,0.32,TeX(sprintf("$P(%s<%s) = %.4f$","\\bar{X}",xa,round(pnorm(z),4))))
+arrows(-1.6,0.3,(2*z-3)/3,max(dnorm((2*z-3)/3)/2,0.03),lwd=2)
 ```
 \
+
+
+
+
+
 
 
 
 Meta-information
 ================
 extype: num
-exsolution: `r ca`
-exname: prob ave near
-extol: `r tol`
+exsolution: `r la`
+exname: prob ave less
+extol: 0.01
