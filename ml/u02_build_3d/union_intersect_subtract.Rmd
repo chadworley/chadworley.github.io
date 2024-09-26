@@ -1,0 +1,163 @@
+```{r,echo=F}
+while(T){
+    while(T){
+        hwd = sample(15:99,3)
+        h = hwd[1]
+        w = hwd[2]
+        d = hwd[3]
+        R = sample(11:min(c(w,d)),1)
+        H = sample(floor(h/2):floor(h*2),1)
+        if(length(unique(c(h,w,d,R,H)))==5){break}
+    }
+    h = h/10
+    w = w/10
+    d = d/10
+    R = R/10
+    H = H/10
+    v1 = h*w*d
+    v2 = pi*R^2*H*0.9886 #sketchup uses a polygon not a circle...
+    vi = 1/4*pi*R^2*min(c(h,H))*0.9886039
+    vu = v1+v2-vi
+    v1m2 = v1-vi
+    v2m1 = v2-vi
+    v1 = round(v1,0)
+    v2 = round(v2,0)
+    vi = round(vi,0)
+    vu = round(vu,0)
+    v1m2 = round(v1m2,0)
+    v2m1 = round(v2m1,0)
+    if(min(c(vi,v1m2,v2m1))>60){break}
+}
+
+alsol = function(ans,n=5,dx=1,spri=NULL){
+    while(T){
+        choices = ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx
+        al = paste0("* ",choices,collapse="\n")
+        if(!is.null(spri)){
+            choices = round(ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx,spri)
+            al = paste0("* ",sprintf(paste0("%.",spri,"f",collapse=""),choices),collapse="\n")
+        }
+        sol = paste0(1*(ans==choices),collapse="")
+        if(min(choices)>0){break}
+    }
+    
+    return(data.frame(al,sol))
+}
+
+as1 = alsol(v1,5,20,0)
+as2 = alsol(v2,5,20,0)
+as3 = alsol(vu,5,20,0)
+as4 = alsol(vi,5,20,0)
+as5 = alsol(v1m2,5,20,0)
+as6 = alsol(v2m1,5,20,0)
+
+```
+
+
+Question
+========
+
+To answer this question, open a [new SketchUp](https://app.sketchup.com) with *Decimal - Meters* as your units. In this problem, assume all lengths are in meters and all volumes are in cubic meters.
+
+* Generate a rectangular prism, with $w=`r w`$, $d=`r d`$, and $h=`r h`$, with a corner on the origin:
+    * Draw a rectangle with one corner on the origin. Dimensions: `r w` by `r d`. Make sure the rectangle will pull up along the blue axis.
+    * Pull the rectangle up by `r h` meters (in direction of blue axis).
+    * Triple click the object to highlight everything.
+    * Right click and Make Group.
+* Generate a cylinder with radius $r=`r R`$ and height $h=`r H`$ so that the bottom face's center is at the origin.
+    * Draw a circle with radius $`r R`$ with its center at the origin. Make sure the circle will pull up along the blue axis.
+    * Pull the circle up by `r H` meters (in direction of blue axis).
+    * Triple click the object to highlight everything.
+    * Right click and Make Group.
+
+We will practice using the `Union`, `Intersection`, and `Subtract` functions in SketchUp. To find the volume of an object, click on it and then open the `Entity Info` (button is top-right of window). The volume will be shown there.
+
+
+```{r,echo=F,fig.dim=c(8,8)}
+yr = 0.1
+draw_cyl = function(r,h){
+    th = seq(0,2*pi,pi/100)
+    xb = r*cos(th)
+    yb = r*sin(th)
+    zb = rep(0,length(xb))
+    lines(xb+yr*yb,zb+yr*yb)
+    xb = r*cos(th)
+    yb = r*sin(th)
+    zb = rep(h,length(xb))
+    lines(xb+yr*yb,zb+yr*yb)
+    lines(c(-r,-r),c(0,h))
+    lines(c(r,r),c(0,h))
+}
+
+draw_box = function(x,y,z){
+    lines(c(0,x,x+yr*y,yr*y,0),c(0,0,yr*y,yr*y,0))
+    lines(c(0,x,x+yr*y,yr*y,0),c(z,z,z+yr*y,z+yr*y,z))
+    lines(c(0,0),c(0,z))
+    lines(c(x,x),c(0,z))
+    lines(c(y*yr,y*yr),c(y*yr,z+y*yr))
+    lines(c(x+y*yr,x+y*yr),c(y*yr,z+y*yr))
+}
+
+draw_quarter = function(R,h){
+    th = seq(0,pi/2,pi/100)
+    xb = R*cos(th)
+    yb = R*sin(th)
+    zb = rep(h,length(xb))
+    lines(xb+yr*yb,zb+yr*yb)
+}
+
+par(mar=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F,xlim=c(-R,max(c(w,d,h,H))*(1+yr)),ylim=c(-R,max(c(w,d,h,H))*(1+yr)))
+draw_cyl(R,H)
+draw_box(w,d,h)
+if(h<H){
+draw_quarter(R,h)
+}
+```
+\
+
+* What is the volume of the rectangular prism?
+* ##ANSWER1##  $\mathrm{m^3}$
+* What is the volume of the cylinder?
+* ##ANSWER2##  $\mathrm{m^3}$
+* What is the volume of the union between the prism and the cylinder?
+* ##ANSWER3##  $\mathrm{m^3}$
+* What is the volume of the intersection between the prism and the cylinder?
+* ##ANSWER4##  $\mathrm{m^3}$
+* What is the volume of the subtraction of the cylinder from prism? (click cylinder then prism)
+* ##ANSWER5##  $\mathrm{m^3}$
+* What is the volume of the subtraction of the prism from cylinder? (click prism then cylinder)
+* ##ANSWER6##  $\mathrm{m^3}$
+
+
+Answerlist
+--------
+
+`r as1$al`
+`r as2$al`
+`r as3$al`
+`r as4$al`
+`r as5$al`
+`r as6$al`
+
+
+Solution
+========
+
+* The volume of the rectangular prism: `r v1` $\mathrm{m^3}$
+* The volume of the cylinder: `r v2` $\mathrm{m^3}$
+* The volume of the union: `r vu` $\mathrm{m^3}$
+* The volume of the intersection: `r vi` $\mathrm{m^3}$
+* The volume of the subtraction of cylinder from prism: `r v1m2` $\mathrm{m^3}$
+* The volume of the subtraction of prism from cylinder: `r v2m1` $\mathrm{m^3}$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r as1$sol`|`r as2$sol`|`r as3$sol`|`r as4$sol`|`r as5$sol`|`r as6$sol`
+exname: union_intersect_subtract
+
+
