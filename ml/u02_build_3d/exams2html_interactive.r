@@ -1,8 +1,8 @@
 library("exams")
 
 outdir = "./"
-genname = "transforms"
-probs = c("02_tra_rot_gli_mir.Rmd")
+genname = "Venn_"
+probs = c("venn_rects.Rmd","venn_vol.Rmd","venn_clubs.Rmd")
 
 nvers = 10
 ps = character(0)

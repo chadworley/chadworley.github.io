@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("union_intersect_subtract.Rmd")
+pppsss = c("venn_rects.Rmd","venn_vol.Rmd","venn_clubs.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

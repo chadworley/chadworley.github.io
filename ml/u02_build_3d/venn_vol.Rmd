@@ -1,0 +1,136 @@
+```{r,echo=F}
+
+# set oA, oB, i, nAB
+# u = oA+oB+i
+# A = oA+i
+# B = oB+i
+# tot = u+nAB
+# oA, oB, i, u, A, B, nAB, tot   
+
+while(T){
+    da4 = sample(2:30,3)
+    oA = da4[1]
+    oB = da4[2]
+    I = da4[3]
+    U = oA+oB+I
+    A = oA+I
+    B = oB+I
+    a = c(oA,oB,I,U,A,B)
+    n = length(a)
+    whichgive = sample(1:n,3)
+    wa = numeric()
+    gottem = 1*(1:n==whichgive[1])+1*(1:n==whichgive[2])+1*(1:n==whichgive[3])
+    eqs = list(c(1,3,5),c(2,3,6),c(1,2,3,4))
+    for(i in 1:10){
+        for(eq in eqs){
+            if(sum(gottem[eq])+1==length(eq)){
+                for(j in eq){
+                    if(gottem[j]==0){
+                        gottem[j] = 1
+                        wa = c(wa,j)
+                    }
+                }
+            }
+        }
+    }
+    if(length(unique(a))==n && min(a)>=0 && sum(gottem)==n){break}
+}
+states = c(paste0("The volume remaining when object B is subtracted from object A is ",oA," cubic meters.",collapse=""),
+           paste0("The volume remaining when object A is subtracted from object B is ",oB," cubic meters.",collapse=""),
+           paste0("The volume of the intersection is ",I," cubic meters.",collapse=""),
+           paste0("The volume of the union is ",U," cubic meters.",collapse=""),
+           paste0("The volume of object A is ",A," cubic meters.",collapse=""),
+           paste0("The volume of object B is ",B," cubic meters.",collapse="")
+           )
+
+quests = c("What is the volume remaining when object B is subtracted from object A?",
+           "What is the volume remaining when object A is subtracted from object B?",
+           "What is the volume of the intersection?",
+           "What is the volume of the union?",
+           "What is the volume of object A?",
+           "What is the volume of object B?"
+           )
+
+# whichask = sample((1:n)[!(1:n %in% whichgive)]) ## use wa instead
+
+alsol = function(ans,n=5,dx=1,spri=NULL){
+    choices = ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx
+    al = paste0("* ",choices,collapse="\n")
+    if(!is.null(spri)){
+        choices = round(ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx,spri)
+        al = paste0("* ",sprintf(paste0("%.",spri,"f",collapse=""),choices),collapse="\n")
+    }
+    sol = paste0(1*(ans==choices),collapse="")
+    return(data.frame(al,sol))
+}
+
+as1 = alsol(a[wa[1]])
+as2 = alsol(a[wa[2]])
+as3 = alsol(a[wa[3]])
+
+
+```
+
+
+Question
+========
+
+In SketchUp, someone created two overlapping objects. Call them object A and object B. 
+
+* `r states[whichgive[1]]`
+* `r states[whichgive[2]]`
+* `r states[whichgive[3]]`
+
+Calculate the following volumes:
+
+* `r quests[wa[1]]` ##ANSWER1## $\mathrm{m^3}$
+* `r quests[wa[2]]` ##ANSWER2## $\mathrm{m^3}$
+* `r quests[wa[3]]` ##ANSWER3## $\mathrm{m^3}$
+
+Answerlist
+--------
+
+`r as1$al`
+`r as2$al`
+`r as3$al`
+
+
+Solution
+========
+
+* `r states[wa[1]]`
+* `r states[wa[2]]`
+* `r states[wa[3]]`
+
+
+```{r,echo=F,fig.dim=c(4,3)}
+circ = function(x0,y0,r,col=rgb(0,0,0,0)){
+    th = seq(0,2*pi,pi/100)
+    polygon(x0+r*cos(th),y0+r*sin(th),col=col)
+}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,8),ylim=c(0,6),axes=F,ann=F)
+circ(2.5,3,2.2,col=rgb(1,0,0,0.2))
+circ(5.5,3,2.2,col=rgb(0,0,1,0.2))
+circ(2.5,3,2.2)
+circ(5.5,3,2.2)
+text(2,3,oA)
+text(6,3,oB)
+text(4,3,I)
+lines(c(0.3,0.3,4.7,4.7),c(0.5,0.4,0.4,0.5))
+text(2.5,0.2,A)
+lines(c(3.3,3.3,7.7,7.7),c(0.3,0.2,0.2,0.3))
+text(5.5,0,B)
+lines(c(0.3,0.3,7.7,7.7),c(5.2,5.3,5.3,5.2))
+text(4,5.5,U)
+```
+\
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r as1$sol`|`r as2$sol`|`r as3$sol`
+exname: venn_vol
