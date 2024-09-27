@@ -1,0 +1,107 @@
+```{r,echo=F}
+
+while(T){
+    hw = sample(2:8,4,T)
+    h1 = hw[1]
+    w1 = hw[2]
+    h2 = hw[3]
+    w2 = hw[4]
+    x1 = sample(0:(10-w1),1)
+    y1 = sample(0:(10-h1),1)
+    x2 = sample(0:(10-w2),1)
+    y2 = sample(0:(10-h2),1)
+    mA = matrix(rep(0,100),10)
+    mB = matrix(rep(0,100),10)
+    mI = matrix(rep(0,100),10)
+    mU = matrix(rep(0,100),10)
+    moA = matrix(rep(0,100),10)
+    moB = matrix(rep(0,100),10)
+    for(i in 1:10){
+        for(j in 1:10){
+            if(i>x1 && i<=(x1+w1) && j>y1 && j<=(y1+h1)){
+                mA[j,i] = 1
+            }
+            if(i>x2 && i<=(x2+w2) && j>y2 && j<=(y2+h2)){
+                mB[j,i] = 1
+            }
+            if(mA[j,i]==1 && mB[j,i]==1){mI[j,i]=1}
+            if(mA[j,i]==1 || mB[j,i]==1){mU[j,i]=1}
+            if(mA[j,i]==1 && mB[j,i]==0){moA[j,i]=1}
+            if(mA[j,i]==0 && mB[j,i]==1){moB[j,i]=1}
+        }
+    }
+    A = sum(mA)
+    B = sum(mB)
+    I = sum(mI)
+    U = sum(mU)
+    oA = sum(moA)
+    oB = sum(moB)
+    nC = 100-U
+    aaa = c(oA,oB,I,U,A,B,nC)
+    if(length(unique(aaa))==7 && min(aaa)>0 && !(x1+w1/2==x2+w2/2 && y1+h1/2==y2+h2/2)){break}
+}
+
+a = sort(aaa)
+al = paste0("* ",a,"\n",collapse="")
+s1 = paste0(1*(a==A),collapse="")
+s2 = paste0(1*(a==B),collapse="")
+s3 = paste0(1*(a==I),collapse="")
+s4 = paste0(1*(a==U),collapse="")
+s5 = paste0(1*(a==oA),collapse="")
+s6 = paste0(1*(a==oB),collapse="")
+s7 = paste0(1*(a==nC),collapse="")
+
+```
+
+
+Question
+========
+
+Jason drew two overlapping rectangles on a 10x10 grid.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(0,10),ylim=c(0,10))
+for(i in 0:10){
+    lines(c(0,10),c(i,i),col="grey")
+    lines(c(i,i),c(0,10),col="grey")
+}
+polygon(c(x1,x1,x1+w1,x1+w1),c(y1,y1+h1,y1+h1,y1),col=rgb(1,0,0,0.2))
+polygon(c(x2,x2,x2+w2,x2+w2),c(y2,y2+h2,y2+h2,y2),col=rgb(0,0,1,0.2))
+text(x1+w1/2,y1+h1/2,"A",col="red",cex=2)
+text(x2+w2/2,y2+h2/2,"B",col="blue",cex=2)
+
+```
+\
+
+Let's call the red rectangle A and the blue rectangle B. Find the following areas:
+
+* Area covered by A = ##ANSWER1##
+* Area covered by B = ##ANSWER2##
+* Area covered by the intersection of A and B = ##ANSWER3##
+* Area covered by the union of A and B = ##ANSWER4##
+* Area covered by ONLY A (and not B) = ##ANSWER5##
+* Area covered by ONLY B (and not A) = ##ANSWER6##
+* Area not covered (neither A nor B) = ##ANSWER7##
+
+
+Solution
+========
+
+* Area covered by A = `r A`
+* Area covered by B = `r B`
+* Area covered by the intersection of A and B = `r I`
+* Area covered by the union of A and B = `r U`
+* Area covered by ONLY A (and not B) = `r oA`
+* Area covered by ONLY B (and not A) = `r oB`
+* Area not covered (neither A nor B) = `r nC`
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r s1`|`r s2`|`r s3`|`r s4`|`r s5`|`r s6`|`r s7`
+exname: venn_rects
+
