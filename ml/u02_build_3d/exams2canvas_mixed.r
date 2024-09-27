@@ -1,10 +1,10 @@
 library("exams")
 n = 30
 outdir = "outcanvas"
-genname = "uis_"
-probs = c("union_intersect_subtract.Rmd")
+genname = "VENN_"
+probs = c("venn_rects.Rmd","venn_vol.Rmd","venn_clubs.Rmd")
 
-pnts = c(5)
+pnts = c(4,4,4)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
