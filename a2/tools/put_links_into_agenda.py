@@ -5,7 +5,7 @@ import os
 
 
 front = "u03_"
-files = ["11_ave_less.Rmd","12_ave_more.Rmd"]
+files = ["_mastery.zip"]
 
 practice_url_front = "https://chadworley.github.io/a2/u03/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

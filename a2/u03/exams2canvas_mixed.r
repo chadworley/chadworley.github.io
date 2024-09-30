@@ -4,9 +4,6 @@ outdir = "outcanvas"
 genname = "u03_"
 
 probs = c("13_binomial_exact_approx.Rmd")
-
-# pm = list(probs,probs,probs,probs)
-
 pnts = c(5)
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
@@ -21,11 +18,14 @@ for(i in 1:length(probs)){
                cloze = list(enumerate = FALSE))
 }
 
-# 
+ 
+# pm = list(c("06_norm_fit_less.Rmd","07_norm_fit_more.Rmd","08_norm_fit_between.Rmd"),
+#           c("11_ave_less.Rmd","12_ave_more.Rmd"),
+#           c("13_binomial_exact_approx.Rmd"))
 # exams2canvas(pm,
 #              n=n,
 #              dir=outdir,
-#              points=c(2,2,2,2),
+#              points=c(5,5,5),
 #              maxattempts = 6,
 #              name=paste0(genname,"_mastery"),
 #              template = "canvas_qti12.xml",
