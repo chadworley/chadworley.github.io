@@ -3,10 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-09-23 8:00:00"]*2
-dut = ["2024-09-24 23:59:00"]*2
+avt = ["2024-09-30 8:00:00"]*2
+dut = ["2024-10-01 23:59:00"]*2
 front = "u03_"
-files = ["09_calculate_z_from_sample_mean.Rmd","10_compare_zs_means.Rmd"]
+files = ["11_ave_less.Rmd","12_ave_more.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u03/outhtml/"
 
