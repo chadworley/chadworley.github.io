@@ -1,0 +1,177 @@
+```{r data generation, echo = FALSE, results = "hide"}
+ndec = 3
+while(T){
+    n = sample(c(20,30,40,50,60,70,100),1)
+    p = sample(15:85,1)/100
+    mu = p*n
+    sig = sqrt(p*(1-p))*sqrt(n)
+    bmin = ceiling(mu-2*sig)
+    bmax = floor(mu+2*sig)
+    
+    lbrb = sample(bmin:bmax,2)+c(0.5,-0.5)
+    lb = lbrb[1]
+    rb = lbrb[2]
+    bb = sort(sample(bmin:bmax,2))+c(-0.5,0.5)
+    
+    el = round(pbinom(lb,n,p),ndec)
+    er = round(1-pbinom(rb,n,p),ndec)
+    eb = round(pbinom(bb[2],n,p)-pbinom(bb[1],n,p),ndec)
+    
+    nl = round(pnorm(lb,mu,sig),ndec)
+    nr = round(1-pnorm(rb,mu,sig),ndec)
+    nb = round(pnorm(bb[2],mu,sig)-pnorm(bb[1],mu,sig),ndec)
+    
+    choices = sort(c(el,nl,er,nr,eb,nb))
+    if(length(unique(choices))==6 && bb[2]-bb[1]>2 && min(choices)>0.01 && max(choices)<0.99 && min(diff(choices))>0.003) {break}
+}
+
+sch = sprintf("%.3f",choices)
+al = paste0("* ",sch,collapse="\n")
+
+san = sprintf("%.3f",c(el,nl,er,nr,eb,nb))
+
+sol1 = paste0(1*(choices==el),collapse="")
+sol2 = paste0(1*(choices==nl),collapse="")
+sol3 = paste0(1*(choices==er),collapse="")
+sol4 = paste0(1*(choices==nr),collapse="")
+sol5 = paste0(1*(choices==eb),collapse="")
+sol6 = paste0(1*(choices==nb),collapse="")
+
+```
+
+Question
+========
+
+Tyler has a `r p*100`% chance to hit each freethrow (so $p=`r p`$). Each freethrow is [independent](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables).
+
+Each day, Tyler attempts $n=`r n`$ freethrows. Each success gets 1 point. Each failure gets 0 points.
+
+We can predict the distribution of points per day . We will use 2 strategies:
+
+* An exact [binomial distribution](https://en.wikipedia.org/wiki/Binomial_distribution).
+* A normal approximation.
+
+```{r,echo=F,fig.dim=c(8,4)}
+plot(0,0,"n",xlim=c(mu-3*sig,mu+3*sig),ylim=c(0,dnorm(mu,mu,sig)),xlab="Points",ylab="Probability",main=paste0("Probability Distribution  n=",n," p=",p,collapse=""))
+xx = seq(mu-3*sig,mu+3*sig,sig/100)
+yy = dnorm(xx,mu,sig)
+lines(xx,yy,col="red")
+
+db = function(llx,lly,w,h,col="blue"){
+    lines(c(llx,llx,llx+w,llx+w,llx),c(lly,lly+h,lly+h,lly,lly),col=col)
+}
+
+for(i in round(mu-3*sig):round(mu+3*sig)){
+    h = dbinom(i,n,p)
+    db(i-0.5,0,1,h)
+}
+
+legend("topleft",legend=c("Exact binom","Norm approx"),col = c("blue","red"),lty = c(1,1))
+
+```
+
+* We can set up the exact binomial in [Desmos](https://www.desmos.com/calculator) using ``binomialdist(`r n`,`r p`)``
+
+To set up the normal approximation, we need to find the mean and the standard deviation.
+
+$$\mu = np$$
+$$\sigma = \sqrt{np(1-p)}$$
+
+* Once you get $\mu$ and $\sigma$, you can set up the normal approximation in [Desmos](https://www.desmos.com/calculator) using ``normaldist(``$\mu$``,``$\sigma$``)``
+
+
+Please find the following probabilities:
+
+1. Using the exact binomial, calculate $P(X<`r lb`)$. ##ANSWER1##
+2. Using the normal approximation, calculate $P(X<`r lb`)$. ##ANSWER2##
+3. Using the exact binomial, calculate $P(X>`r rb`)$. ##ANSWER3##
+4. Using the normal approximation, calculate $P(X>`r rb`)$. ##ANSWER4##
+5. Using the exact binomial, calculate $P(`r bb[1]`<X<`r bb[2]`)$. ##ANSWER5##
+6. Using the normal approximation, calculate $P(`r bb[1]`<X<`r bb[2]`)$. ##ANSWER6##
+
+*(Notice I already gave [half-integer](https://en.wikipedia.org/wiki/Half-integer) boundaries for the [continuity correction](https://en.wikipedia.org/wiki/Continuity_correction).)*
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+1. Exact: $P(X<`r lb`)=`r san[1]`$
+2. Approx: $P(X<`r lb`)\approx`r san[2]`$
+3. Exact: $P(X>`r rb`)=`r san[3]`$
+4. Approx: $P(X>`r rb`)\approx`r san[4]`$
+5. Exact: $P(`r bb[1]`<X<`r bb[2]`)=`r san[5]`$
+6. Approx: $P(`r bb[1]`<X<`r bb[2]`)\approx`r san[6]`$
+
+### Find $\mu$ and $\sigma$ for normal approximation
+
+$$\mu ~=~ pn ~=~ (`r p`)(`r n`) ~=~ `r mu`$$
+
+
+$$\sigma ~=~ \sqrt{np(1-p)} ~=~ \sqrt{(`r n`)(`r p`)(1-`r p`)} ~=~ `r sig`$$
+
+### 1.
+
+In Desmos:
+
+* Type in ``binomialdist(`r n`,`r p`)`` and click the magnifying glass.
+* Check the box `Find Cumulative Probability (CDF)`
+* Set Min$=-\infty$ and Max$=`r lb`$
+
+### 2.
+
+In Desmos:
+
+* Type in ``normaldist(`r mu`,`r sig`)`` and click the magnifying glass.
+* Check the box `Find Cumulative Probability (CDF)`
+* Set Min$=-\infty$ and Max$=`r lb`$
+
+### 3.
+
+In Desmos:
+
+* Type in ``binomialdist(`r n`,`r p`)`` and click the magnifying glass.
+* Check the box `Find Cumulative Probability (CDF)`
+* Set Min$=`r rb`$ and Max$=\infty$
+
+### 4.
+
+In Desmos:
+
+* Type in ``normaldist(`r mu`,`r sig`)`` and click the magnifying glass.
+* Check the box `Find Cumulative Probability (CDF)`
+* Set Min$=`r rb`$ and Max$=\infty$
+
+### 5.
+
+In Desmos:
+
+* Type in ``binomialdist(`r n`,`r p`)`` and click the magnifying glass.
+* Check the box `Find Cumulative Probability (CDF)`
+* Set Min$=`r bb[1]`$ and Max$=`r bb[2]`$
+
+### 6.
+
+In Desmos:
+
+* Type in ``normaldist(`r mu`,`r sig`)`` and click the magnifying glass.
+* Check the box `Find Cumulative Probability (CDF)`
+* Set Min$=`r bb[1]`$ and Max$=`r bb[2]`$
+
+
+
+Meta-information
+================
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`|`r sol6`
+exname: binom_exact_and_approx

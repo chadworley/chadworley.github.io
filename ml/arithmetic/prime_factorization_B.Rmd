@@ -1,0 +1,66 @@
+---
+title: "Prime Factorization... ... ...  Name:___________"
+output: pdf_document
+params:
+    seed = 1
+---
+
+```{r,echo=F,results='asis'}
+set.seed(params$seed)
+
+pgs = 2
+ppg = 5
+N = pgs*ppg
+
+while(T){
+    Ps = numeric()
+    sols = numeric()
+    primes = c(2,3,5,7,11,13,17,19,23)
+    for(i in 1:N){
+        while(T){
+            n = sample(3:6,1)
+            pp = sample(primes,n,T,c(10,3,5,2,1,1,1,1,1))
+            ps = sort(unique(pp))
+            cs = numeric()
+            for(i in 1:length(ps)){
+                cs = c(cs,sum(ps[i]==pp))
+            }
+            P = prod(pp)
+            sol1 = paste0(ps,"^{",cs,"}",collapse="\\cdot")
+            if(P<300 && sum(ps>5)<2){break}
+        }
+        Ps = c(Ps,P)
+        sols = c(sols,sol1)
+    }
+    if(length(unique(Ps))==N){break}
+}
+
+pgpg = character()
+
+for(i in 1:pgs){
+    jmin = floor((i-1)*N/pgs+1)
+    jmax = floor(i*N/pgs)
+    pgpg = c(pgpg,paste0(jmin:jmax,". Using a factor tree, find the prime factorization of ",Ps[jmin:jmax],".\n\n\\vfill\n\n",collapse=""))
+}
+prnt = paste0(pgpg,collapse="\n\n\\newpage\n\n")
+cat(prnt)
+
+cat("\n\n\\newpage\n\n")
+
+pgpg = character()
+for(i in 1:pgs){
+    jmin = floor((i-1)*N/pgs+1)
+    jmax = floor(i*N/pgs)
+    pgpg = c(pgpg,paste0(jmin:jmax,". Using a factor tree, find the prime factorization of ",Ps[jmin:jmax],".\n\n* $",sols[jmin:jmax],"$\n\\vfill\n\n",collapse=""))
+}
+prnt = paste0(pgpg,collapse="\n\n\\newpage\n\n")
+cat(prnt)
+
+```
+
+
+
+
+
+
+

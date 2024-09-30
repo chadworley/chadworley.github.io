@@ -6,7 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID
-file_path_list = ["u03_09_calculate_z_from_sample_mean.zip","u03_10_compare_zs_means.zip"]
+file_path_list = ["u03_13_binomial_exact_approx.zip"]
 # fpl = []
 # for i in range(22,50):
 #     fpl.append("ET_0"+str(i)+".zip")

@@ -3,11 +3,11 @@ n = 30
 outdir = "outcanvas"
 genname = "u03_"
 
-probs = c("11_ave_less.Rmd","12_ave_more.Rmd")
+probs = c("13_binomial_exact_approx.Rmd")
 
 # pm = list(probs,probs,probs,probs)
 
-pnts = c(5,5)
+pnts = c(5)
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
 for(i in 1:length(probs)){
