@@ -1,0 +1,142 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+poss = -6:6
+while(T){
+  r = sample(poss,3,TRUE)
+  if(sum(r==0)<1){break}
+}
+ex1 = paste0("(x-",r[1],")*(x-",r[2],")*(x-",r[3],")",collapse="")
+ex1 = gsub("--","+",ex1,fixed=TRUE)
+ex2 = paste0("(x-",r[1],")(x-",r[2],")(x-",r[3],")",collapse="")
+ex2 = gsub("--","+",ex2,fixed=TRUE)
+ex2 = gsub("-0","",ex2,fixed=TRUE)
+anli = paste0("* ",poss,"\n",collapse="")
+sol = rep(0,length(poss))
+for(rr in r){
+  sol[poss==rr] = 1
+}
+sol = paste0(sol,collapse="")
+a = 1
+b = -sum(r)
+c = r[1]*r[2]+r[2]*r[3]+r[1]*r[3]
+d = -r[1]*r[2]*r[3]
+```
+
+
+Question
+========
+
+```{python,echo=FALSE}
+from sympy import *
+x = symbols("x")
+qex = sympify(r.ex1)
+ex = expand(qex)
+qex = latex(ex)
+```
+
+Factor the cubic polynomial $`r py$qex`$ to find solutions to the cubic equation:
+$$`r py$qex`=0$$
+
+*Hint: all solutions are integers between `r min(poss)` and `r max(poss)`*.
+
+You might find the [rational root theorem](https://en.wikipedia.org/wiki/Rational_root_theorem) helpful. I'd recommend using [synthetic division](https://en.wikipedia.org/wiki/Synthetic_division) to check your guesses until you find one linear factor, then you'll just need to factor the quadratic factor into two linear factors.
+
+Answerlist
+-------
+`r anli`
+
+
+Solution
+========
+
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+
+```{r,echo=FALSE,results='asis'}
+rrr = sort(unique(r))
+for(i in 1:length(rrr)){
+  rr = rrr[i]
+  cat(paste0("## Possible successful route ",i,"\n\n",collapse=""))
+  cat("<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>")
+  cf = c(a,b,c,d)
+  bots = c(cf[1])
+  mids = numeric()
+  deg = length(cf)
+  for(i in 2:deg){
+    mids = c(mids,bots[i-1]*rr)
+    bots = c(bots,cf[i]+mids[i-1])
+  }
+  trs = paste0("* Guess that $(x-",rr,")$ is a factor:\n<table style='width:50%'><tr><td class='r'></td>",collapse="")
+  trs = gsub("--","+",trs,fixed=TRUE)
+  for(i in 1:deg){
+    trs = paste0(trs,"<td>",cf[i],"</td>")
+  }
+  trs = paste0(trs,"</tr><tr><td class='r'>",rr,"</td><td class='b'></td>")
+  for(i in (deg+2):(2*deg)){
+    trs = paste0(trs,"<td class='b'>",mids[i-deg-1],"</td>")
+  }
+  trs = paste0(trs,"</tr><tr><td class='r'> </td>")
+  for(i in (2*deg+1):(3*deg)){
+    trs = paste0(trs,"<td>",bots[i-2*deg],"</td>")
+  }
+  trs = paste0(trs,"</tr></table>\n")
+  cat(trs)
+  so = "Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form."
+  eq = paste0("$$(x-",rr,")(x^2+",bots[2],"x+",bots[3],")=0$$",collapse="")
+  eq = gsub("+-","-",eq,fixed=TRUE)
+  eq = gsub("--","+",eq,fixed=TRUE)
+  eq = gsub("+0x","",eq,fixed=TRUE)
+  eq = gsub("+0","",eq,fixed=TRUE)
+  eq = gsub("1x","x",eq,fixed=TRUE)
+  eq = gsub("(x-0)","x",eq,fixed=TRUE)
+  cat(so)
+  cat(eq)
+  cat("Then factor the quadratic expression to get the fully factored form of the equation.")
+  cat(paste0("$$",ex2,"=0$$"))
+  cat(paste0("Thus the solutions are: {",paste0(rrr,collapse=", "),"}"))
+  cat("\n\n")
+}
+```
+
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: cubic_easy

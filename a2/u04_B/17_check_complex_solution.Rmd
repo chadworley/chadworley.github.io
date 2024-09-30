@@ -1,0 +1,90 @@
+```{r,echo=F}
+ri = sample(c(-9:-2,2:9),2)
+rp = ri[1]
+ip = ri[2]
+# (x-(rp+ip*i))*(x-(rp-ip*i))
+# x^2-(rp-ip*i)x-(rp+ip*i)x+(rp+ip*i)(rp-ip*i)
+# x^2-2*rp*x+rp^2+ip^2
+a = 1
+br = -2*rp
+c = rp^2+ip^2
+
+issol = sample(c(T,F),1)
+if(issol){
+  dc = 0
+  b = br
+  fs = "Yay! The complex number satisfies the equation!"
+  sol = '10'
+} else {
+  dc = sample(1:10,1)*sample(c(-1,1),1)
+  b = br+sample(-2:2,1)
+  fs = "Nope! The complex number does not satisfy the equation!"
+  sol = '01'
+}
+
+c2 = c+dc
+
+if(ip<0){
+  z=paste0(rp,ip,"i",collapse="") 
+} else {
+  z=paste0(rp,"+",ip,"i",collapse="")
+}
+
+eq = paste0("z^2+",b,"z+",c2,"=0",collapse="")
+eq = gsub("+-","-",eq,fixed=T)
+
+eq2 = gsub("z",paste0("(",z,")",collapse=""),eq,fixed=T)
+
+eq3 = paste0(rp*rp,"+",rp*ip,"i+",rp*ip,"i+",ip*ip,"i^2+",
+             b*rp,"+",b*ip,"i+",c2,"=0",collapse="")
+eq3 = gsub("+-","-",eq3,fixed=T)
+
+eq4 = paste0(rp*rp,"+",rp*ip,"i+",rp*ip,"i+",-ip*ip,"+",
+             b*rp,"+",b*ip,"i+",c2,"=0",collapse="")
+eq4 = gsub("+-","-",eq4,fixed=T)
+
+eq5 = paste0(rp*rp-ip*ip+b*rp+c2,"+",2*rp*ip+b*ip,"i=0",collapse="")
+eq5 = gsub("+-","-",eq5,fixed=T)
+
+qtr = rp^2-ip^2
+qti = 2*rp*ip
+```
+
+Question
+--------
+
+Does the complex number $z=`r z`$ solve the equation below?
+
+$$`r eq`$$
+
+
+Answerlist
+========
+
+* Yes
+* No
+
+
+Solution
+--------
+
+Plug in $z=`r z`$. Since we are checking if this equation is true, we should probably put a question mark above the equal sign. I didn't, but keep in mind these equations might be wrong.
+
+$$`r eq2`$$
+
+Expand the terms. Use FOIL for the squared term.
+
+$$`r eq3`$$
+
+Remember $i^2=-1$.
+$$`r eq4`$$
+Combine like terms.
+$$`r eq5`$$
+`r fs`
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: check_complex_solution

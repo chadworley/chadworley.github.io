@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("10_compare_zs_means.Rmd")
+pppsss = c("11_ave_less.Rmd","12_ave_more.Rmd")
 
 # set.seed(1)
 # exams2html("09_calculate_z_from_sample_mean.Rmd",n=8)

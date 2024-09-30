@@ -40,7 +40,7 @@ tol = max(abs(lahi-lalo)*1.1,0.002)
 Question
 ========
 
-The continuous random variable $X$ follows the distribution shown by the density curve and spinner below. It has a mean of $\mu_{X}=`r mu`$ and standard deviation of $\sigma_{X}=`r sig`$.
+The continuous random variable $X$ follows the distribution shown by the density curve and spinner below. It has a mean of $\mu=`r mu`$ and standard deviation of $\sigma=`r sig`$.
 
 ```{r, fig.width=6,fig.height=3}
 x = seq(a-1,b+1,length.out=2000)
@@ -90,7 +90,7 @@ text(0,0.2,"Random Variable X")
 ```
 \
 
-That spinner ($X$) will be fairly spun `r n` times, and the **sample mean** of the spins will be recorded. Determine the probability that the random sample mean is more than `r xa`.
+That spinner ($X$) will be fairly spun `r n` times, and the **sample mean** ($\bar{X}$) of the spins will be recorded. Determine the probability that the random sample mean is more than `r xa`.
 $$P\left(\bar{X}>`r xa`\right) ~=~ \,? $$
 
 (Even though single spins are **not** normally distributed, the random means will be normally distributed.
@@ -100,26 +100,50 @@ See [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)
 Solution
 ========
 
-[video](https://vimeo.com/531941288){target="_blank"}
+* [(old) video](https://vimeo.com/531941288){target="_blank"}
 
-We use the central limit formulas for a random mean.
-$$\mu_{\bar{X}} = \mu_{X} = `r mu` $$
-$$\sigma_{\bar{X}} = \frac{\sigma_{X}}{\sqrt{n}} = \frac{`r sig`}{\sqrt{`r n`}} = `r siga`$$
-So, we think the random mean is normally distributed with a mean of `r mua` and a standard deviation of `r siga`.
+We use the central limit formulas for a random mean. The mean of the sampling distribution ($\mu_{\bar{x}}$) is equal to the mean of the population ($\mu$).
+
+$$\mu_{\bar{x}} = \mu = `r mu` $$
+
+The [standard error](https://en.wikipedia.org/wiki/Standard_error#Exact_value) ($\sigma_{\bar{x}}$) is found by dividing the population standard deviation ($\sigma$) by the square root of the sample size.
+
+$$\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}} = \frac{`r sig`}{\sqrt{`r n`}} = `r siga`$$
+
+So, we think the [random mean](https://en.wikipedia.org/wiki/Sampling_distribution) is normally distributed with a mean of `r mua` and a standard deviation of `r siga`.
 $$\bar{X} \sim N(`r mua`,\,`r siga`) $$
 
 Calculate a $z$-score for the boundary.
 $$z = \frac{`r xa`-`r mua`}{`r siga`} = `r z` $$
 
-You can round that to $z=`r zlo`$ or $z=`r zhi`$. Any of the following probabilities will get credit.
-$$P(Z > `r z`) = `r ra` $$
-$$P(Z > `r zlo`) = `r ralo` $$
-$$P(Z > `r zhi`) = `r rahi` $$
+You can round that to $z=`r zlo`$ or $z=`r zhi`$. You can then use a [z table](https://chadworley.github.io/a2/u03/ztable.pdf) to find the probability. Any of the following probabilities will get credit.
 
-To get the probability, you can use a spreadsheet. Either will work:
+* Remember the [complement rule](https://en.wikipedia.org/wiki/Complementary_event#Complement_rule).
+
+$$P(Z > `r z`)~=~ 1-`r la` ~=~ `r ra` $$
+$$P(Z > `r zlo`) ~=~ 1-`r lalo` ~=~`r ralo` $$
+$$P(Z > `r zhi`) ~=~ 1-`r lahi` ~=~ `r rahi` $$
+
+
+
+To get the probability, you can use a **spreadsheet**. Either will work:
 
 * ``=1-NORMDIST(`r z`,0,1,TRUE)``
 * ``=1-NORMDIST(`r xa`,`r mua`,`r siga`,TRUE)``
+
+To get the probability, you could also use **Desmos**. Either will work:
+
+* Use $z$ score:
+    * Make a standard normal curve with `normaldist(0,1)`.
+    * Click the magnifying glass with the + to get the normal curve to show nicely.
+    * Check the box labeled `Find Cumulative Probability (CDF)`
+    * Use `r z` as the minimum boundary. Use $\infty$ as the maximum boundary.
+* Use the given boundary:
+    * Make a sampling-distribution's normal curve with ``normaldist(`r mua`,`r siga`)``.
+    * Click the magnifying glass with the + to get the normal curve to show nicely.
+    * Check the box labeled `Find Cumulative Probability (CDF)`
+    * Use `r xa` as the minimum boundary. Use $\infty$ as the maximum boundary.
+
 
 
 Let's draw a sketch.
@@ -144,6 +168,7 @@ arrows(1.6,0.3,(2*z+3)/3,max(dnorm((2*z+3)/3)/2,0.03),lwd=2)
 ```
 \
 
+If you are struggling to get any of the above methods to work, you could also try this tool: [https://chadworley.github.io/a2/tools/clt.html](https://chadworley.github.io/a2/tools/clt.html).
 
 
 Meta-information

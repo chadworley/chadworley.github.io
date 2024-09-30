@@ -1,0 +1,71 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(exams)
+
+while(T){
+  p1 = round(runif(1,0.2,0.8),2)
+  p2 = round(runif(1,0.2,0.8),2)
+  if(abs(p1-p2)>0.2) {break}
+}
+an1 = round(p1*p2,4)
+an2 = round((1-p1)*(1-p2),4)
+an3 = round(p1*(1-p2)+(1-p1)*p2,4)
+
+p = c(an1,an2,an3)
+cho = list()
+ans = character()
+
+for(i in 1:3){
+  numund = sample(0:3,1)
+  while(T){
+    choices = sort(c(p[i],
+                     round(runif(numund,0.02,p[i]),4),
+                     round(runif(3-numund,p[i],0.8),4)
+                     )
+                   )
+    if(min(diff(choices))>0.002){
+      cho[[i]] = choices
+      ans = c(ans,paste0((choices==p[i])*1,collapse=""))
+      break
+      }
+  }
+}
+
+cho = lapply(cho,function(a){if(typeof(a)=="double"){sprintf("%.4f",a)}else{a}})
+```
+
+Question
+========
+Cindy has two games today. Each game she will either win or lose. She has a `r p1` chance of winning the first game and a `r p2` chance of winning the second game.
+
+a. What is the chance Cindy wins both games? ##ANSWER1##
+b. What is the chance Cindy loses both games? ##ANSWER2##
+c. What is the chance Cindy wins once and loses once (in either order)? ##ANSWER3##
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(unlist(cho), markup = "markdown")
+```
+
+
+Solution
+========
+
+
+[video](https://vimeo.com/531918967){target="_blank"}
+
+$$P(WW) = `r p1` \times `r p2` = `r p1*p2` $$
+$$P(LL) = `r (1-p1)` \times `r (1-p2)` = `r (1-p1)*(1-p2)` $$
+$$P(WL) = `r p1`\times `r 1-p2` = `r p1*(1-p2)` $$
+$$P(LW) = `r (1-p1)`\times `r p2` = `r (1-p1)*p2`$$
+
+* P(win,win) =  `r p1` * `r p2` =  **`r p1*p2`**
+* P(lose,lose) =  (1-`r p1`) * (1-`r p2`) =  **`r (1-p1)*(1-p2)`**
+* P(WL or LW) = 1-`r p1*p2`-`r (1-p1)*(1-p2)` = **`r 1-p1*p2-(1-p1)*(1-p2)`**
+
+
+Meta-information
+============
+extype: cloze
+exsolution: `r ans[1]`|`r ans[2]`|`r ans[3]`
+exclozetype: schoice|schoice|schoice
+exname: winlose
