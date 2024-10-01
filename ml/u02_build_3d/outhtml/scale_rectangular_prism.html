@@ -1,0 +1,482 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>scale_rectangular_prism</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">scale_rectangular_prism</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A rectangular prism is constructed with the following dimensions:</p>
+<ul>
+<li>Length = <span class="math inline">\(12.1\)</span> meters</li>
+<li>Width = <span class="math inline">\(4.84\)</span> meters</li>
+<li>Height = <span class="math inline">\(6\)</span> meters</li>
+</ul>
+<p>First, its frame is built using 12 lengths of wood.</p>
+<p><img src="data:image/png;base64,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gIDAMgMECJQREFhlWqVQAgQElhkgQKCMgMAq0yqFEiAgsMwAAQJlBARWmVYplAABgWUGCBAoIyCwyrRKoQQICCwzQIBAGQGBVaZVCiVAQGCZAQIEyggIrDKtUigBAgLLDBAgUEZAYJVplUIJEBBYZoAAgTICAqtMqxRKgIDAMgMECJQREFhlWqVQAgQElhkgQKCMgMAq0yqFEiAgsMwAAQJlBARWmVYplAABgWUGCBAoIyCwyrRKoQQICCwzQIBAGQGBVaZVCiVAQGCZAQIEyggIrDKtUigBAgLLDBAgUEZAYJVplUIJEBBYZoAAgTICAqtMqxRKgIDAMgMECJQREFhlWqVQAgQElhkgQKCMgMAq0yqFEiAgsMwAAQJlBARWmVYplAABgWUGCBAoIyCwyrRKoQQICCwzQIBAGQGBVaZVCiVAQGCZAQIEyggIrDKtUigBAgLLDBAgUEZAYJVplUIJEBBYZoAAgTICAqtMqxRKgIDAMgMECJQREFhlWqVQAgQElhkgQKCMgMAq0yqFEiAgsMwAAQJlBARWmVYplAABgWUGCBAoIyCwyrRKoQQICCwzQIBAGYEby1QaLPSXX37pjh071v3xxx/dgw8+2G1tbQXPtGwVgb///rv7+uuvu9tuu6175513uoMHD66ynXMJLBTY9++l28JHCh789ddfu8OHD3cXLlwoWP3mlHzgwIHut99+25wn5JmkEdiYl4R9WD388MPCKsFonT9/vrt48WKCSpSwaQIbEVh9WD366KPdt99+u2n9Kft8NugX97I92MTCy7+Hde7cue7xxx/vvvnmm4X9OXr0aLd///6Fjzk4XuDnn3/uPvroo/EbOJPACIHS72H1v1k99thjl9/sXfbcz5w50911113LHnZ8hEAfVv1vtN99993Ss//888/u1ltvXfq4BwiMESj7kjASVmNAnLO7QCSsdt/BowTGC5QMrGVhdffdd4+XcOY1BZaF1X333XfNcy0gMIVAucBaFlb33ntv9+GHH05hYo8FAsvC6oEHHuhOnjy54AyHCEwvUOpN993C6pNPPvGeyfTzcXnH3cLq448/7v766681Xdm2BIYCZX7DulZYHTp0aPjM3JtE4Fphdeedd05yHZsQiAiUCCxhFWnl9GuE1fSmdlxNIH1gCavVGjz2bGE1Vs556xRIHVjCap2tX763sFpu45F5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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<ul>
+<li>Ignoring the overlap in the corners, what total length of wood is needed to build the frame?</li>
+<li><select><option>--------</option><option> 88</option><option>90</option><option>92</option><option>94</option><option>96 </option></select> meters</li>
+</ul>
+<p>Next, plywood is placed around the frame on all 6 sides.</p>
+<ul>
+<li>What is the area of the plywood?</li>
+<li><select><option>--------</option><option> 320</option><option>322</option><option>324</option><option>326</option><option>328 </option></select> square meters</li>
+</ul>
+<p>Lastly, the box is filled with cement.</p>
+<ul>
+<li>What is the volume of cement?</li>
+<li><select><option>--------</option><option> 343</option><option>345</option><option>347</option><option>349</option><option>351 </option></select> cubic meters</li>
+</ul>
+<p>Another builder wants to build a similar box, but they want the box to be scaled by a factor of 2.2. (Each length is scaled by multiplying by 2.2.)</p>
+<ul>
+<li><p>Ignoring the overlap in the corners, what total length of wood is needed to build the larger frame?</p></li>
+<li><p><select><option>--------</option><option> 200</option><option>202</option><option>204</option><option>206</option><option>208 </option></select> meters</p></li>
+<li><p>What is the area of the plywood for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 1543</option><option>1545</option><option>1547</option><option>1549</option><option>1551 </option></select> square meters</p></li>
+<li><p>What is the volume of cement for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 3742</option><option>3744</option><option>3746</option><option>3748</option><option>3750 </option></select> cubic meters</p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>91.76 meters</li>
+<li>320.408 square meters</li>
+<li>351.384 cubic meters</li>
+<li>201.872 meters</li>
+<li>1550.77472 square meters</li>
+<li>3741.536832 cubic meters</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A rectangular prism is constructed with the following dimensions:</p>
+<ul>
+<li>Length = <span class="math inline">\(16.9\)</span> meters</li>
+<li>Width = <span class="math inline">\(14.3\)</span> meters</li>
+<li>Height = <span class="math inline">\(5.8\)</span> meters</li>
+</ul>
+<p>First, its frame is built using 12 lengths of wood.</p>
+<p><img src="data:image/png;base64,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ZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBATLGSBAIEZAsGJWZVACBJ5JJnjw4EH56KOPypUrV8qePXvK1q1bk2/H7AQ6E5ifny9Xr14tmzdvLl988UXZvXt3Z1+rywtvePjvR5dfoKtrN7F64403yk8//dTVl3BdAlMpMDMzU+7evRt5b5FvCZtYvf/++2IVeeQMPWmBe/fulWvXrk16jJG+flywFmJ19uzZkW7YiwgQKI/eGiY6RH0P62mxeuedd2LfmyceHjP3V+DmzZvl3Llz/R1wxMligvW0WDX3f/To0fLee++N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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<ul>
+<li>Ignoring the overlap in the corners, what total length of wood is needed to build the frame?</li>
+<li><select><option>--------</option><option> 142</option><option>144</option><option>146</option><option>148</option><option>150 </option></select> meters</li>
+</ul>
+<p>Next, plywood is placed around the frame on all 6 sides.</p>
+<ul>
+<li>What is the area of the plywood?</li>
+<li><select><option>--------</option><option> 843</option><option>845</option><option>847</option><option>849</option><option>851 </option></select> square meters</li>
+</ul>
+<p>Lastly, the box is filled with cement.</p>
+<ul>
+<li>What is the volume of cement?</li>
+<li><select><option>--------</option><option> 1396</option><option>1398</option><option>1400</option><option>1402</option><option>1404 </option></select> cubic meters</li>
+</ul>
+<p>Another builder wants to build a similar box, but they want the box to be scaled by a factor of 2.6. (Each length is scaled by multiplying by 2.6.)</p>
+<ul>
+<li><p>Ignoring the overlap in the corners, what total length of wood is needed to build the larger frame?</p></li>
+<li><p><select><option>--------</option><option> 379</option><option>381</option><option>383</option><option>385</option><option>387 </option></select> meters</p></li>
+<li><p>What is the area of the plywood for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 5708</option><option>5710</option><option>5712</option><option>5714</option><option>5716 </option></select> square meters</p></li>
+<li><p>What is the volume of cement for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 24636</option><option>24638</option><option>24640</option><option>24642</option><option>24644 </option></select> cubic meters</p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>148 meters</li>
+<li>845.26 square meters</li>
+<li>1401.686 cubic meters</li>
+<li>384.8 meters</li>
+<li>5713.9576 square meters</li>
+<li>24636.033136 cubic meters</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A rectangular prism is constructed with the following dimensions:</p>
+<ul>
+<li>Length = <span class="math inline">\(7.82\)</span> meters</li>
+<li>Width = <span class="math inline">\(11.05\)</span> meters</li>
+<li>Height = <span class="math inline">\(6.1\)</span> meters</li>
+</ul>
+<p>First, its frame is built using 12 lengths of wood.</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<ul>
+<li>Ignoring the overlap in the corners, what total length of wood is needed to build the frame?</li>
+<li><select><option>--------</option><option> 96</option><option>98</option><option>100</option><option>102</option><option>104 </option></select> meters</li>
+</ul>
+<p>Next, plywood is placed around the frame on all 6 sides.</p>
+<ul>
+<li>What is the area of the plywood?</li>
+<li><select><option>--------</option><option> 401</option><option>403</option><option>405</option><option>407</option><option>409 </option></select> square meters</li>
+</ul>
+<p>Lastly, the box is filled with cement.</p>
+<ul>
+<li>What is the volume of cement?</li>
+<li><select><option>--------</option><option> 525</option><option>527</option><option>529</option><option>531</option><option>533 </option></select> cubic meters</li>
+</ul>
+<p>Another builder wants to build a similar box, but they want the box to be scaled by a factor of 1.7. (Each length is scaled by multiplying by 1.7.)</p>
+<ul>
+<li><p>Ignoring the overlap in the corners, what total length of wood is needed to build the larger frame?</p></li>
+<li><p><select><option>--------</option><option> 166</option><option>168</option><option>170</option><option>172</option><option>174 </option></select> meters</p></li>
+<li><p>What is the area of the plywood for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 1159</option><option>1161</option><option>1163</option><option>1165</option><option>1167 </option></select> square meters</p></li>
+<li><p>What is the volume of cement for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 2590</option><option>2592</option><option>2594</option><option>2596</option><option>2598 </option></select> cubic meters</p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>99.88 meters</li>
+<li>403.036 square meters</li>
+<li>527.1071 cubic meters</li>
+<li>169.796 meters</li>
+<li>1164.77404 square meters</li>
+<li>2589.6771823 cubic meters</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A rectangular prism is constructed with the following dimensions:</p>
+<ul>
+<li>Length = <span class="math inline">\(17.25\)</span> meters</li>
+<li>Width = <span class="math inline">\(15.25\)</span> meters</li>
+<li>Height = <span class="math inline">\(3.4\)</span> meters</li>
+</ul>
+<p>First, its frame is built using 12 lengths of wood.</p>
+<p><img src="data:image/png;base64,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AoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIxAoIVsyqDEiAgWM4AAQIx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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<ul>
+<li>Ignoring the overlap in the corners, what total length of wood is needed to build the frame?</li>
+<li><select><option>--------</option><option> 136</option><option>138</option><option>140</option><option>142</option><option>144 </option></select> meters</li>
+</ul>
+<p>Next, plywood is placed around the frame on all 6 sides.</p>
+<ul>
+<li>What is the area of the plywood?</li>
+<li><select><option>--------</option><option> 741</option><option>743</option><option>745</option><option>747</option><option>749 </option></select> square meters</li>
+</ul>
+<p>Lastly, the box is filled with cement.</p>
+<ul>
+<li>What is the volume of cement?</li>
+<li><select><option>--------</option><option> 888</option><option>890</option><option>892</option><option>894</option><option>896 </option></select> cubic meters</li>
+</ul>
+<p>Another builder wants to build a similar box, but they want the box to be scaled by a factor of 2.5. (Each length is scaled by multiplying by 2.5.)</p>
+<ul>
+<li><p>Ignoring the overlap in the corners, what total length of wood is needed to build the larger frame?</p></li>
+<li><p><select><option>--------</option><option> 359</option><option>361</option><option>363</option><option>365</option><option>367 </option></select> meters</p></li>
+<li><p>What is the area of the plywood for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 4662</option><option>4664</option><option>4666</option><option>4668</option><option>4670 </option></select> square meters</p></li>
+<li><p>What is the volume of cement for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 13975</option><option>13977</option><option>13979</option><option>13981</option><option>13983 </option></select> cubic meters</p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>143.6 meters</li>
+<li>747.125 square meters</li>
+<li>894.4125 cubic meters</li>
+<li>359 meters</li>
+<li>4669.53125 square meters</li>
+<li>13975.1953125 cubic meters</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A rectangular prism is constructed with the following dimensions:</p>
+<ul>
+<li>Length = <span class="math inline">\(24.3\)</span> meters</li>
+<li>Width = <span class="math inline">\(25.5\)</span> meters</li>
+<li>Height = <span class="math inline">\(6.9\)</span> meters</li>
+</ul>
+<p>First, its frame is built using 12 lengths of wood.</p>
+<p><img src="data:image/png;base64,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gxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgIFjOAAECMQKCFbMqgxIgsJFC8Nxzzw1nz54drly5MmxsbAwHD2ptyu7M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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<ul>
+<li>Ignoring the overlap in the corners, what total length of wood is needed to build the frame?</li>
+<li><select><option>--------</option><option> 225</option><option>227</option><option>229</option><option>231</option><option>233 </option></select> meters</li>
+</ul>
+<p>Next, plywood is placed around the frame on all 6 sides.</p>
+<ul>
+<li>What is the area of the plywood?</li>
+<li><select><option>--------</option><option> 1927</option><option>1929</option><option>1931</option><option>1933</option><option>1935 </option></select> square meters</li>
+</ul>
+<p>Lastly, the box is filled with cement.</p>
+<ul>
+<li>What is the volume of cement?</li>
+<li><select><option>--------</option><option> 4272</option><option>4274</option><option>4276</option><option>4278</option><option>4280 </option></select> cubic meters</li>
+</ul>
+<p>Another builder wants to build a similar box, but they want the box to be scaled by a factor of 3. (Each length is scaled by multiplying by 3.)</p>
+<ul>
+<li><p>Ignoring the overlap in the corners, what total length of wood is needed to build the larger frame?</p></li>
+<li><p><select><option>--------</option><option> 678</option><option>680</option><option>682</option><option>684</option><option>686 </option></select> meters</p></li>
+<li><p>What is the area of the plywood for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 17337</option><option>17339</option><option>17341</option><option>17343</option><option>17345 </option></select> square meters</p></li>
+<li><p>What is the volume of cement for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 115435</option><option>115437</option><option>115439</option><option>115441</option><option>115443 </option></select> cubic meters</p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>226.8 meters</li>
+<li>1926.54 square meters</li>
+<li>4275.585 cubic meters</li>
+<li>680.4 meters</li>
+<li>17338.86 square meters</li>
+<li>115440.795 cubic meters</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A rectangular prism is constructed with the following dimensions:</p>
+<ul>
+<li>Length = <span class="math inline">\(14.06\)</span> meters</li>
+<li>Width = <span class="math inline">\(8.55\)</span> meters</li>
+<li>Height = <span class="math inline">\(6\)</span> meters</li>
+</ul>
+<p>First, its frame is built using 12 lengths of wood.</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<ul>
+<li>Ignoring the overlap in the corners, what total length of wood is needed to build the frame?</li>
+<li><select><option>--------</option><option> 110</option><option>112</option><option>114</option><option>116</option><option>118 </option></select> meters</li>
+</ul>
+<p>Next, plywood is placed around the frame on all 6 sides.</p>
+<ul>
+<li>What is the area of the plywood?</li>
+<li><select><option>--------</option><option> 508</option><option>510</option><option>512</option><option>514</option><option>516 </option></select> square meters</li>
+</ul>
+<p>Lastly, the box is filled with cement.</p>
+<ul>
+<li>What is the volume of cement?</li>
+<li><select><option>--------</option><option> 721</option><option>723</option><option>725</option><option>727</option><option>729 </option></select> cubic meters</li>
+</ul>
+<p>Another builder wants to build a similar box, but they want the box to be scaled by a factor of 1.9. (Each length is scaled by multiplying by 1.9.)</p>
+<ul>
+<li><p>Ignoring the overlap in the corners, what total length of wood is needed to build the larger frame?</p></li>
+<li><p><select><option>--------</option><option> 211</option><option>213</option><option>215</option><option>217</option><option>219 </option></select> meters</p></li>
+<li><p>What is the area of the plywood for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 1847</option><option>1849</option><option>1851</option><option>1853</option><option>1855 </option></select> square meters</p></li>
+<li><p>What is the volume of cement for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 4939</option><option>4941</option><option>4943</option><option>4945</option><option>4947 </option></select> cubic meters</p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>114.44 meters</li>
+<li>511.746 square meters</li>
+<li>721.278 cubic meters</li>
+<li>217.436 meters</li>
+<li>1847.40306 square meters</li>
+<li>4947.245802 cubic meters</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A rectangular prism is constructed with the following dimensions:</p>
+<ul>
+<li>Length = <span class="math inline">\(18.2\)</span> meters</li>
+<li>Width = <span class="math inline">\(20.16\)</span> meters</li>
+<li>Height = <span class="math inline">\(6.7\)</span> meters</li>
+</ul>
+<p>First, its frame is built using 12 lengths of wood.</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAYAAAB5fY51AAAEDmlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPpu5syskzoPUpqaSDv41lLRsUtGE2uj+ZbNt3CyTbLRBkMns3Z1pJjPj/KRpKT4UQRDBqOCT4P9bwSchaqvtiy2itFCiBIMo+ND6R6HSFwnruTOzu5O4a73L3PnmnO9+595z7t4LkLgsW5beJQIsGq4t5dPis8fmxMQ6dMF90A190C0rjpUqlSYBG+PCv9rt7yDG3tf2t/f/Z+uuUEcBiN2F2Kw4yiLiZQD+FcWyXYAEQfvICddi+AnEO2ycIOISw7UAVxieD/Cyz5mRMohfRSwoqoz+xNuIB+cj9loEB3Pw2448NaitKSLLRck2q5pOI9O9g/t/tkXda8Tbg0+PszB9FN8DuPaXKnKW4YcQn1Xk3HSIry5ps8UQ/2W5aQnxIwBdu7yFcgrxPsRjVXu8HOh0qao30cArp9SZZxDfg3h1wTzKxu5E/LUxX5wKdX5SnAzmDx4A4OIqLbB69yMesE1pKojLjVdoNsfyiPi45hZmAn3uLWdpOtfQOaVmikEs7ovj8hFWpz7EV6mel0L9Xy23FMYlPYZenAx0yDB1/PX6dledmQjikjkXCxqMJS9WtfFCyH9XtSekEF+2dH+P4tzITduTygGfv58a5VCTH5PtXD7EFZiNyUDBhHnsFTBgE0SQIA9pfFtgo6cKGuhooeilaKH41eDs38Ip+f4At1Rq/sjr6NEwQqb/I/DQqsLvaFUjvAx+eWirddAJZnAj1DFJL0mSg/gcIpPkMBkhoyCSJ8lTZIxk0TpKDjXHliJzZPO50dR5ASNSnzeLvIvod0HG/mdkmOC0z8VKnzcQ2M/Yz2vKldduXjp9bleLu0ZWn7vWc+l0JGcaai10yNrUnXLP/8Jf59ewX+c3Wgz+B34Df+vbVrc16zTMVgp9um9bxEfzPU5kPqUtVWxhs6OiWTVW+gIfywB9uXi7CGcGW/zk98k/kmvJ95IfJn/j3uQ+4c5zn3Kfcd+AyF3gLnJfcl9xH3OfR2rUee80a+6vo7EK5mmXUdyfQlrYLTwoZIU9wsPCZEtP6BWGhAlhL3p2N6sTjRdduwbHsG9kq32sgBepc+xurLPW4T9URpYGJ3ym4+8zA05u44QjST8ZIoVtu3qE7fWmdn5LPdqvgcZz8Ww8BWJ8X3w0PhQ/wnCDGd+LvlHs8dRy6bLLDuKMaZ20tZrqisPJ5ONiCq8yKhYM5cCgKOu66Lsc0aYOtZdo5QCwezI4wm9J/v0X23mlZXOfBjj8Jzv3WrY5D+CsA9D7aMs2gGfjve8ArD6mePZSeCfEYt8CONWDw8FXTxrPqx/r9Vt4biXeANh8vV7/+/16ffMD1N8AuKD/A/8leAvFY9bLAAAAOGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAACoAIABAAAAAEAAAEsoAMABAAAAAEAAAEsAAAAAPuooN0AAA5eSURBVHgB7d29j1RlGwbws6ASEowWJFaYYEQTglQ0lAoFnZLYSSH/gVEbK2Nh52dlQgUmdgYKKTQGEws64gcxFBYYJBYWauI3McLLs6/PZofdcXeYc+Y8l/w2IWdndufsdX73zZXZTXZn6cbNt84bAQIEAgS2BGQUkQABAssCCssiECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECCssOECAQI6CwYkYlKAECd6URnDx5svvjjz+6Xbt2pUWXlwCBmwK///57d+XKle6pp57q9uzZM5PJ0o2bbzM9YqRP/vPPP7uHH364++6770ZK4MsSINC3wJkzZ5aLa7PnjfiW8Nq1a92RI0eU1Wan6vMIhAi88sorMyVtvrBKWT355JPdp59+OtOF+WQCBNoX2Lp160whm/4ZVvk2sHyf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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<ul>
+<li>Ignoring the overlap in the corners, what total length of wood is needed to build the frame?</li>
+<li><select><option>--------</option><option> 174</option><option>176</option><option>178</option><option>180</option><option>182 </option></select> meters</li>
+</ul>
+<p>Next, plywood is placed around the frame on all 6 sides.</p>
+<ul>
+<li>What is the area of the plywood?</li>
+<li><select><option>--------</option><option> 1248</option><option>1250</option><option>1252</option><option>1254</option><option>1256 </option></select> square meters</li>
+</ul>
+<p>Lastly, the box is filled with cement.</p>
+<ul>
+<li>What is the volume of cement?</li>
+<li><select><option>--------</option><option> 2454</option><option>2456</option><option>2458</option><option>2460</option><option>2462 </option></select> cubic meters</li>
+</ul>
+<p>Another builder wants to build a similar box, but they want the box to be scaled by a factor of 2.8. (Each length is scaled by multiplying by 2.8.)</p>
+<ul>
+<li><p>Ignoring the overlap in the corners, what total length of wood is needed to build the larger frame?</p></li>
+<li><p><select><option>--------</option><option> 505</option><option>507</option><option>509</option><option>511</option><option>513 </option></select> meters</p></li>
+<li><p>What is the area of the plywood for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 9775</option><option>9777</option><option>9779</option><option>9781</option><option>9783 </option></select> square meters</p></li>
+<li><p>What is the volume of cement for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 53959</option><option>53961</option><option>53963</option><option>53965</option><option>53967 </option></select> cubic meters</p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>180.24 meters</li>
+<li>1247.848 square meters</li>
+<li>2458.3104 cubic meters</li>
+<li>504.672 meters</li>
+<li>9783.12832 square meters</li>
+<li>53964.8299008 cubic meters</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A rectangular prism is constructed with the following dimensions:</p>
+<ul>
+<li>Length = <span class="math inline">\(19.78\)</span> meters</li>
+<li>Width = <span class="math inline">\(15.87\)</span> meters</li>
+<li>Height = <span class="math inline">\(2.3\)</span> meters</li>
+</ul>
+<p>First, its frame is built using 12 lengths of wood.</p>
+<p><img src="data:image/png;base64,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TFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRWTFQGJUBAYdkBAgRiBBRW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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<ul>
+<li>Ignoring the overlap in the corners, what total length of wood is needed to build the frame?</li>
+<li><select><option>--------</option><option> 146</option><option>148</option><option>150</option><option>152</option><option>154 </option></select> meters</li>
+</ul>
+<p>Next, plywood is placed around the frame on all 6 sides.</p>
+<ul>
+<li>What is the area of the plywood?</li>
+<li><select><option>--------</option><option> 784</option><option>786</option><option>788</option><option>790</option><option>792 </option></select> square meters</li>
+</ul>
+<p>Lastly, the box is filled with cement.</p>
+<ul>
+<li>What is the volume of cement?</li>
+<li><select><option>--------</option><option> 720</option><option>722</option><option>724</option><option>726</option><option>728 </option></select> cubic meters</li>
+</ul>
+<p>Another builder wants to build a similar box, but they want the box to be scaled by a factor of 2.3. (Each length is scaled by multiplying by 2.3.)</p>
+<ul>
+<li><p>Ignoring the overlap in the corners, what total length of wood is needed to build the larger frame?</p></li>
+<li><p><select><option>--------</option><option> 345</option><option>347</option><option>349</option><option>351</option><option>353 </option></select> meters</p></li>
+<li><p>What is the area of the plywood for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 4187</option><option>4189</option><option>4191</option><option>4193</option><option>4195 </option></select> square meters</p></li>
+<li><p>What is the volume of cement for the larger box?</p></li>
+<li><p><select><option>--------</option><option> 8780</option><option>8782</option><option>8784</option><option>8786</option><option>8788 </option></select> cubic meters</p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li>151.8 meters</li>
+<li>791.8072 square meters</li>
+<li>721.98978 cubic meters</li>
+<li>349.14 meters</li>
+<li>4188.660088 square meters</li>
+<li>8784.4496533 cubic meters</li>
+</ul>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

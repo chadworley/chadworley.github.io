@@ -38,15 +38,15 @@ tot = sum(nums)
 i1 = sample(1:ni,1)
 p1 = round(sum(nums[i1,])/tot,nsig)
 t1 = paste0("What is the probability a random card is a ",is[i1],"?",sep="")
-ex1 = paste0("$\\mathbb{P}[\\text{",is[i1],"}]",sep="")
-s1 = paste("$\\mathbb{P}[\\text{",is[i1],"}]=\\frac{",sum(nums[i1,]),"}{",tot,"}=",p1,"$",sep="")
+ex1 = paste0("$P(\\text{",is[i1],"})",sep="")
+s1 = paste("$P(\\text{",is[i1],"})=\\frac{",sum(nums[i1,]),"}{",tot,"}=",p1,"$",sep="")
 
 
 #marginal color
 c2 = sample(1:nc,1)
 p2 = round(sum(nums[,c2])/tot,nsig)
 t2 = paste0("What is the probability a random card is ",cs[c2],"?",sep="")
-s2 = paste0("$\\mathbb{P}[\\text{",cs[c2],"}]=\\frac{",sum(nums[,c2]),"}{",tot,"}=",p2,"$",sep="")
+s2 = paste0("$P(\\text{",cs[c2],"})=\\frac{",sum(nums[,c2]),"}{",tot,"}=",p2,"$",sep="")
 
 #joint
 i3 = sample(1:ni,1)
@@ -56,7 +56,7 @@ t3 = paste0("What is the probability a random card is both a ",
             is[i3]," and ",cs[c3],"?",sep="")
 numer3 = paste(nums[i3,c3])
 denom3 = paste(tot)
-s3 = paste0("$\\mathbb{P}[\\text{",is[i3]," and ",cs[c3],"}]=\\frac{",nums[i3,c3],"}{",tot,"}=",p3,"$",sep="")
+s3 = paste0("$P(\\text{",is[i3]," and ",cs[c3],"})=\\frac{",nums[i3,c3],"}{",tot,"}=",p3,"$",sep="")
 
 #disjoint
 i4 = sample(1:ni,1)
@@ -67,7 +67,7 @@ t4 = paste0("What is the probability a random card is either a "
 numer4 = paste(paste(c(nums[i4,],nums[,c4]),collapse="+"),
                nums[i4,c4],sep="-")
 denom4 = paste(tot)
-s4 = paste0("$\\mathbb{P}[\\text{",is[i4]," or ",cs[c4],"}]=\\frac{",sum(nums[i4,]),"+",sum(nums[,c4]),"-",nums[i4,c4],"}{",tot,"}=",p4,"$",sep="")
+s4 = paste0("$P(\\text{",is[i4]," or ",cs[c4],"})=\\frac{",sum(nums[i4,]),"+",sum(nums[,c4]),"-",nums[i4,c4],"}{",tot,"}=",p4,"$",sep="")
 
 #conditioned on image
 i5 = sample(1:ni,1)
@@ -75,7 +75,7 @@ c5 = sample(1:nc,1)
 p5 = round(nums[i5,c5]/sum(nums[i5,]),nsig)
 t5 = paste0("What is the probability a random card is ",
             cs[c5]," given it is a ",is[i5],"?",sep="")
-s5 = paste0("$\\mathbb{P}[\\text{",cs[c5]," given ",is[i5],"}]=\\frac{",nums[i5,c5],"}{",sum(nums[i5,]),"}=",p5,"$",sep="")
+s5 = paste0("$P(\\text{",cs[c5]," given ",is[i5],"})=\\frac{",nums[i5,c5],"}{",sum(nums[i5,]),"}=",p5,"$",sep="")
 
 #conditioned on color
 i6 = sample(1:ni,1)
@@ -83,7 +83,7 @@ c6 = sample(1:nc,1)
 p6 = round(nums[i6,c6]/sum(nums[,c6]),nsig)
 t6 = paste0("What is the probability a random card is a ",
             is[i6]," given it is ",cs[c6],"?",sep="")
-s6 = paste0("$\\mathbb{P}[\\text{",is[i6]," given ",cs[c6],"}]=\\frac{",nums[i6,c6],"}{",sum(nums[,c6]),"}=",p6,"$",sep="")
+s6 = paste0("$P(\\text{",is[i6]," given ",cs[c6],"})=\\frac{",nums[i6,c6],"}{",sum(nums[,c6]),"}=",p6,"$",sep="")
 
 #compare 2 images for more likely to have color
 i7 = sort(sample(1:ni,2))
@@ -109,7 +109,7 @@ t7 = paste("Is a ",is[i7[1]]," or a ",is[i7[2]]," more likely to be ",cs[c7],"?"
 t7 = c(paste("A ", is[i7[1]],".", sep=""),
        paste("A ", is[i7[2]],".", sep=""))
 
-s7 = paste("$\\mathbb{P}[\\text{",cs[c7]," given ",is[i7[1]],"}] = ",p7[1],"$ and $\\mathbb{P}[\\text{",cs[c7]," given  ",is[i7[2]],"}] = ",p7[2],"$, so a ",big," is more likely to be ",cs[c7]," than a ",small," is.",sep="")
+s7 = paste("$P(\\text{",cs[c7]," given ",is[i7[1]],"}) = ",p7[1],"$ and $P(\\text{",cs[c7]," given  ",is[i7[2]],"}) = ",p7[2],"$, so a ",big," is more likely to be ",cs[c7]," than a ",small," is.",sep="")
 
 p = c(p1,p2,p3,p4,p5,p6)
 cho = list()

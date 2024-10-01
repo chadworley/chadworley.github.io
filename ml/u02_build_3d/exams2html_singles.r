@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("venn_rects.Rmd","venn_vol.Rmd","venn_clubs.Rmd")
+pppsss = c("scale_rectangular_prism.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

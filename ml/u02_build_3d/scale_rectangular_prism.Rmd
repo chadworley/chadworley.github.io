@@ -1,0 +1,124 @@
+```{r,echo=F}
+hwl = sample(22:88,3)/10
+s = sample(12:31,1)/10
+h = hwl[1]
+w = hwl[2]
+l = hwl[3]
+H = h*s
+w = w*s
+l = l*s
+
+p1 = 4*h+4*w+4*l
+a1 = 2*w*h+2*w*l+2*l*h
+v1 = h*w*l
+
+p2 = p1*s
+a2 = a1*s*s
+v2 = v1*s*s*s
+
+alsol = function(ans,n=5,dx=1,spri=NULL){
+    choices = ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx
+    al = paste0("* ",choices,collapse="\n")
+    if(!is.null(spri)){
+        choices = round(ans-sample(0:(n-1),1)*dx+(0:(n-1))*dx,spri)
+        al = paste0("* ",sprintf(paste0("%.",spri,"f",collapse=""),choices),collapse="\n")
+    }
+    sol = paste0(1*(ans==choices),collapse="")
+    return(data.frame(al,sol))
+}
+
+as1 = alsol(round(p1),5,2,0)
+as2 = alsol(round(a1),5,2,0)
+as3 = alsol(round(v1),5,2,0)
+as4 = alsol(round(p2),5,2,0)
+as5 = alsol(round(a2),5,2,0)
+as6 = alsol(round(v2),5,2,0)
+
+```
+
+
+Question
+========
+
+A rectangular prism is constructed with the following dimensions:
+
+* Length = $`r l`$ meters
+* Width = $`r w`$ meters
+* Height = $`r h`$ meters
+
+First, its frame is built using 12 lengths of wood.
+
+```{r,echo=F,fig.dim=c(3,3)}
+d = l
+yr = 0.1
+
+draw_box = function(x,y,z,lwd=2){
+    lines(c(0,x,x+yr*y,yr*y,0),c(0,0,yr*y,yr*y,0),lwd=lwd)
+    lines(c(0,x,x+yr*y,yr*y,0),c(z,z,z+yr*y,z+yr*y,z),lwd=lwd)
+    lines(c(0,0),c(0,z),lwd=lwd)
+    lines(c(x,x),c(0,z),lwd=lwd)
+    lines(c(y*yr,y*yr),c(y*yr,z+y*yr),lwd=lwd)
+    lines(c(x+y*yr,x+y*yr),c(y*yr,z+y*yr),lwd=lwd)
+}
+
+par(mar=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,max(c(w,d,h))*(1+yr)),ylim=c(-1,max(c(w,d,h))*(1+yr)))
+draw_box(w,d,h,lwd=4)
+```
+\
+
+* Ignoring the overlap in the corners, what total length of wood is needed to build the frame?
+* ##ANSWER1## meters
+
+Next, plywood is placed around the frame on all 6 sides.
+
+* What is the area of the plywood?
+* ##ANSWER2## square meters
+
+Lastly, the box is filled with cement.
+
+* What is the volume of cement?
+* ##ANSWER3## cubic meters
+
+
+Another builder wants to build a similar box, but they want the box to be scaled by a factor of `r s`. (Each length is scaled by multiplying by `r s`.)
+
+* Ignoring the overlap in the corners, what total length of wood is needed to build the larger frame?
+* ##ANSWER4## meters
+
+* What is the area of the plywood for the larger box?
+* ##ANSWER5## square meters
+
+* What is the volume of cement for the larger box?
+* ##ANSWER6## cubic meters
+
+Answerlist
+--------
+
+`r as1$al`
+`r as2$al`
+`r as3$al`
+`r as4$al`
+`r as5$al`
+`r as6$al`
+
+
+Solution
+========
+
+* `r p1` meters
+* `r a1` square meters
+* `r v1` cubic meters
+* `r p2` meters
+* `r a2` square meters
+* `r v2` cubic meters
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r as1$sol`|`r as2$sol`|`r as3$sol`|`r as4$sol`|`r as5$sol`|`r as6$sol`
+exname: scale_rectangular_prism
+
