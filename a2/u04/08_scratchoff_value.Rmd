@@ -1,0 +1,72 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+while(T){
+    n = sample(4:6,1)
+    x = c(0,sort(sample(1:99,n-1)))
+    l = sort(round(runif(n-1,0,1),2))
+    breaks = c(0,l,1)
+    p = sort(round(breaks[2:(n+1)]-breaks[1:n],2),decreasing = T)
+    mu = sum(p*x)
+    sig = sqrt(sum(p*(x-mu)^2))
+    # the following requirements add considerable time...
+    if(sum(p)==1 & sum(p>0.05)==n & as.integer(mu*10)==mu*10){
+        break
+    }
+}
+
+mydf = data.frame(x,p)
+colnames(mydf) = c("payout ($)","probability")
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+A scratch-off lottery ticket has the following payout probabilities:
+
+```{r tab1, results="asis", echo=F}
+knitr::kable(mydf,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+What is the value, in dollars, of the unscratched ticket (to a [risk-neutral](https://en.wikipedia.org/wiki/Risk_neutral_preferences) individual)?
+
+
+
+Solution
+========
+
+The [expected value](https://en.wikipedia.org/wiki/Expected_value) is the weighted average of the payouts weighted by their probabilities. The expected value is the sum of the products of each payout times its probability.
+
+$$\mu ~=~ \sum x\cdot P(x)$$
+
+
+$$\mu ~=~ `r paste0("(",x,"\\cdot",p,")",collapse="+")`$$
+
+$$\mu ~=~ `r paste0(x*p,collapse="+")`$$
+
+$$\mu ~=~ `r mu`$$
+
+A risk-neutral person would value an unscratched ticket at $`r sprintf("%.2f",mu)`.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r mu`
+exname: scratchoff_value
+extol: 0.01

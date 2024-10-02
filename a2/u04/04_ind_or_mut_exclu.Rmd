@@ -1,0 +1,75 @@
+```{r,echo=F}
+library(latex2exp)
+an = sample(1:3,1)
+PAPB = sample(11:49,2)/100
+PA = PAPB[1]
+PB = PAPB[2]
+
+if(an==1){
+    PN = 0
+    sol = "100"
+    soltxt = "Notice $P(A \\cap B)=0$, so events A and B are mutually exclusive."
+} else if(an==2){
+    PN=PA*PB
+    sol = "010"
+    soltxt = paste0("Notice $P(A \\cap B)=",PN,"$. Also $P(A)\\cdot P(B)=",PA,"\\cdot",PB,"=",PN,"$ so events A and B are independent.",collapse="")
+} else if(an==3){
+    while(T){
+        PN=round(runif(1,0,min(c(PA,PB))),4)
+        if(PN > 0.01 && PN < PA*PB-0.01){break}
+    }
+    soltxt = paste0("Notice $P(A \\cap B)=",PN,"$. However, $P(A)\\cdot P(B)=",PA,"\\cdot",PB,"=",PA*PB,"$. Clearly, $",PN,"\\ne",PA*PB,"$, so events A and B are NOT independent. Also, because $P(A \\cap B)\\ne 0$, events A and B are NOT mutually exclusive.",collapse="")
+    sol = "001"
+}
+
+PU = PA+PB-PN
+
+```
+
+
+Question
+========
+
+* Events $A$ and $B$ are [mutually exclusive](https://en.wikipedia.org/wiki/Mutual_exclusivity) if and only if $P(A \cap B)=0$.
+* Events $A$ and $B$ are [independent](https://en.wikipedia.org/wiki/Independence_(probability_theory)) if and only if $P(A \cap B)=P(A)\cdot P(B)$.
+
+
+Consider the following:
+
+$$P(A)=`r PA`$$
+
+$$P(B)=`r PB`$$
+
+$$P(A \cup B)=`r PU`$$
+
+Are events $A$ and $B$ independent, mutually exclusive, or neither?
+
+Answerlist
+--------
+
+* Independent
+* Mutually exclusive
+* Neither
+
+
+Solution
+========
+
+First, find the probability of getting A and B.
+
+$$P(A \cap B) ~=~ P(A)+P(B)-P(A \cup B)$$
+
+$$P(A \cap B) ~=~ `r PA`+`r PB`-`r PU`$$
+
+$$P(A \cap B) ~=~ `r PN`$$
+
+`r soltxt`
+
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: ind_or_mut_exclu
