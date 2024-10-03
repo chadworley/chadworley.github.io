@@ -1,0 +1,1623 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>05_cards</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">05_cards</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a deck of strange cards, there are 475 cards. Each card has an image and a color. The number of repeats of each image-color combination is shown in the table below.</p>
+<style type="text/css">
+.ss-table {
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+  }
+  .ss-table td {
+    padding: 10px 10px;
+    text-align: center;
+  }
+.ss-table th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:first-child{
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-left: 1px solid black;
+  }
+  .ss-table tr:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-top: 1px solid black;
+  }
+
+</style>
+<table class="ss-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+yellow
+</th>
+<th style="text-align:right;">
+red
+</th>
+<th style="text-align:right;">
+orange
+</th>
+<th style="text-align:right;">
+indigo
+</th>
+<th style="text-align:right;">
+black
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+141
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gem
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+180
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rug
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+154
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+99
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+128
+</td>
+<td style="text-align:right;">
+118
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+475
+</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability a random card is a dog? <select><option>--------</option><option> 0.06</option><option>0.08</option><option>0.30</option><option>0.77 </option></select></li>
+<li>What is the probability a random card is orange? <select><option>--------</option><option> 0.27</option><option>0.40</option><option>0.57</option><option>0.77 </option></select></li>
+<li>What is the probability a random card is both a gem and yellow? <select><option>--------</option><option> 0.05</option><option>0.18</option><option>0.24</option><option>0.41 </option></select></li>
+<li>What is the probability a random card is either a rug or black (or both)? <select><option>--------</option><option> 0.23</option><option>0.44</option><option>0.47</option><option>0.68 </option></select></li>
+<li>What is the probability a random card is indigo given it is a dog? <select><option>--------</option><option> 0.09</option><option>0.16</option><option>0.27</option><option>0.63 </option></select></li>
+<li>What is the probability a random card is a gem given it is red? <select><option>--------</option><option> 0.12</option><option>0.29</option><option>0.39</option><option>0.65 </option></select></li>
+<li>Between a dog and a gem, which is more likely to be a indigo? <select><option>--------</option><option> A dog.</option><option>A gem. </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><a href="https://vimeo.com/531915456" target="_blank">video</a></p>
+<p>The key logical terms are “<a href="https://en.wikipedia.org/wiki/Logical_conjunction" target="blank">and</a>”, “<a href="https://en.wikipedia.org/wiki/Logical_disjunction" target="blank">or</a>”, and “<a href="https://en.wikipedia.org/wiki/Conditional_probability" target="blank">given</a>”. Notice that I am using “given” as a shorter version of “under the condition”.</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(\text{dog})=\frac{141}{475}=0.3\)</span></li>
+<li><span class="math inline">\(P(\text{orange})=\frac{128}{475}=0.27\)</span></li>
+<li><span class="math inline">\(P(\text{gem and yellow})=\frac{26}{475}=0.05\)</span></li>
+<li><span class="math inline">\(P(\text{rug or black})=\frac{154+86-16}{475}=0.47\)</span></li>
+<li><span class="math inline">\(P(\text{indigo given dog})=\frac{22}{141}=0.16\)</span></li>
+<li><span class="math inline">\(P(\text{gem given red})=\frac{17}{44}=0.39\)</span></li>
+<li><span class="math inline">\(P(\text{indigo given dog}) = 0.16\)</span> and <span class="math inline">\(P(\text{indigo given  gem}) = 0.27\)</span>, so a gem is more likely to be indigo than a dog is.</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a deck of strange cards, there are 344 cards. Each card has an image and a color. The number of repeats of each image-color combination is shown in the table below.</p>
+<style type="text/css">
+.ss-table {
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+  }
+  .ss-table td {
+    padding: 10px 10px;
+    text-align: center;
+  }
+.ss-table th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:first-child{
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-left: 1px solid black;
+  }
+  .ss-table tr:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-top: 1px solid black;
+  }
+
+</style>
+<table class="ss-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+white
+</th>
+<th style="text-align:right;">
+red
+</th>
+<th style="text-align:right;">
+orange
+</th>
+<th style="text-align:right;">
+green
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+gem
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+109
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kite
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+99
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vase
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+136
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+88
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+120
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+344
+</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability a random card is a kite? <select><option>--------</option><option> 0.01</option><option>0.09</option><option>0.29</option><option>0.72 </option></select></li>
+<li>What is the probability a random card is red? <select><option>--------</option><option> 0.17</option><option>0.30</option><option>0.45</option><option>0.77 </option></select></li>
+<li>What is the probability a random card is both a vase and green? <select><option>--------</option><option> 0.02</option><option>0.11</option><option>0.63</option><option>0.76 </option></select></li>
+<li>What is the probability a random card is either a vase or green (or both)? <select><option>--------</option><option> 0.30</option><option>0.34</option><option>0.39</option><option>0.51 </option></select></li>
+<li>What is the probability a random card is white given it is a kite? <select><option>--------</option><option> 0.18</option><option>0.36</option><option>0.38</option><option>0.44 </option></select></li>
+<li>What is the probability a random card is a vase given it is white? <select><option>--------</option><option> 0.01</option><option>0.25</option><option>0.33</option><option>0.37 </option></select></li>
+<li>Between a kite and a vase, which is more likely to be a white? <select><option>--------</option><option> A kite.</option><option>A vase. </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><a href="https://vimeo.com/531915456" target="_blank">video</a></p>
+<p>The key logical terms are “<a href="https://en.wikipedia.org/wiki/Logical_conjunction" target="blank">and</a>”, “<a href="https://en.wikipedia.org/wiki/Logical_disjunction" target="blank">or</a>”, and “<a href="https://en.wikipedia.org/wiki/Conditional_probability" target="blank">given</a>”. Notice that I am using “given” as a shorter version of “under the condition”.</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(\text{kite})=\frac{99}{344}=0.29\)</span></li>
+<li><span class="math inline">\(P(\text{red})=\frac{58}{344}=0.17\)</span></li>
+<li><span class="math inline">\(P(\text{vase and green})=\frac{39}{344}=0.11\)</span></li>
+<li><span class="math inline">\(P(\text{vase or green})=\frac{136+78-39}{344}=0.51\)</span></li>
+<li><span class="math inline">\(P(\text{white given kite})=\frac{38}{99}=0.38\)</span></li>
+<li><span class="math inline">\(P(\text{vase given white})=\frac{29}{88}=0.33\)</span></li>
+<li><span class="math inline">\(P(\text{white given kite}) = 0.38\)</span> and <span class="math inline">\(P(\text{white given  vase}) = 0.21\)</span>, so a kite is more likely to be white than a vase is.</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a deck of strange cards, there are 488 cards. Each card has an image and a color. The number of repeats of each image-color combination is shown in the table below.</p>
+<style type="text/css">
+.ss-table {
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+  }
+  .ss-table td {
+    padding: 10px 10px;
+    text-align: center;
+  }
+.ss-table th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:first-child{
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-left: 1px solid black;
+  }
+  .ss-table tr:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-top: 1px solid black;
+  }
+
+</style>
+<table class="ss-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+yellow
+</th>
+<th style="text-align:right;">
+white
+</th>
+<th style="text-align:right;">
+green
+</th>
+<th style="text-align:right;">
+gray
+</th>
+<th style="text-align:right;">
+black
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+199
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+house
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mop
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+171
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+81
+</td>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:right;">
+130
+</td>
+<td style="text-align:right;">
+488
+</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability a random card is a cat? <select><option>--------</option><option> 0.22</option><option>0.25</option><option>0.41</option><option>0.48 </option></select></li>
+<li>What is the probability a random card is yellow? <select><option>--------</option><option> 0.13</option><option>0.22</option><option>0.33</option><option>0.36 </option></select></li>
+<li>What is the probability a random card is both a mop and gray? <select><option>--------</option><option> 0.06</option><option>0.31</option><option>0.63</option><option>0.65 </option></select></li>
+<li>What is the probability a random card is either a cat or white (or both)? <select><option>--------</option><option> 0.21</option><option>0.35</option><option>0.49</option><option>0.53 </option></select></li>
+<li>What is the probability a random card is black given it is a mop? <select><option>--------</option><option> 0.08</option><option>0.10</option><option>0.23</option><option>0.75 </option></select></li>
+<li>What is the probability a random card is a cat given it is yellow? <select><option>--------</option><option> 0.05</option><option>0.35</option><option>0.57</option><option>0.71 </option></select></li>
+<li>Between a cat and a mop, which is more likely to be a yellow? <select><option>--------</option><option> A cat.</option><option>A mop. </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><a href="https://vimeo.com/531915456" target="_blank">video</a></p>
+<p>The key logical terms are “<a href="https://en.wikipedia.org/wiki/Logical_conjunction" target="blank">and</a>”, “<a href="https://en.wikipedia.org/wiki/Logical_disjunction" target="blank">or</a>”, and “<a href="https://en.wikipedia.org/wiki/Conditional_probability" target="blank">given</a>”. Notice that I am using “given” as a shorter version of “under the condition”.</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(\text{cat})=\frac{199}{488}=0.41\)</span></li>
+<li><span class="math inline">\(P(\text{yellow})=\frac{105}{488}=0.22\)</span></li>
+<li><span class="math inline">\(P(\text{mop and gray})=\frac{30}{488}=0.06\)</span></li>
+<li><span class="math inline">\(P(\text{cat or white})=\frac{199+74-16}{488}=0.53\)</span></li>
+<li><span class="math inline">\(P(\text{black given mop})=\frac{39}{171}=0.23\)</span></li>
+<li><span class="math inline">\(P(\text{cat given yellow})=\frac{37}{105}=0.35\)</span></li>
+<li><span class="math inline">\(P(\text{yellow given cat}) = 0.19\)</span> and <span class="math inline">\(P(\text{yellow given  mop}) = 0.21\)</span>, so a mop is more likely to be yellow than a cat is.</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a deck of strange cards, there are 482 cards. Each card has an image and a color. The number of repeats of each image-color combination is shown in the table below.</p>
+<style type="text/css">
+.ss-table {
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+  }
+  .ss-table td {
+    padding: 10px 10px;
+    text-align: center;
+  }
+.ss-table th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:first-child{
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-left: 1px solid black;
+  }
+  .ss-table tr:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-top: 1px solid black;
+  }
+
+</style>
+<table class="ss-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+white
+</th>
+<th style="text-align:right;">
+red
+</th>
+<th style="text-align:right;">
+orange
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+140
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+jar
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+101
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kite
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+108
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+shovel
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tree
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+123
+</td>
+<td style="text-align:right;">
+163
+</td>
+<td style="text-align:right;">
+196
+</td>
+<td style="text-align:right;">
+482
+</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability a random card is a tree? <select><option>--------</option><option> 0.03</option><option>0.15</option><option>0.23</option><option>0.26 </option></select></li>
+<li>What is the probability a random card is red? <select><option>--------</option><option> 0.04</option><option>0.15</option><option>0.20</option><option>0.34 </option></select></li>
+<li>What is the probability a random card is both a shovel and red? <select><option>--------</option><option> 0.03</option><option>0.31</option><option>0.62</option><option>0.66 </option></select></li>
+<li>What is the probability a random card is either a jar or white (or both)? <select><option>--------</option><option> 0.08</option><option>0.28</option><option>0.41</option><option>0.53 </option></select></li>
+<li>What is the probability a random card is red given it is a shovel? <select><option>--------</option><option> 0.07</option><option>0.10</option><option>0.25</option><option>0.31 </option></select></li>
+<li>What is the probability a random card is a jar given it is white? <select><option>--------</option><option> 0.03</option><option>0.06</option><option>0.21</option><option>0.69 </option></select></li>
+<li>Between a cat and a shovel, which is more likely to be a red? <select><option>--------</option><option> A cat.</option><option>A shovel. </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><a href="https://vimeo.com/531915456" target="_blank">video</a></p>
+<p>The key logical terms are “<a href="https://en.wikipedia.org/wiki/Logical_conjunction" target="blank">and</a>”, “<a href="https://en.wikipedia.org/wiki/Logical_disjunction" target="blank">or</a>”, and “<a href="https://en.wikipedia.org/wiki/Conditional_probability" target="blank">given</a>”. Notice that I am using “given” as a shorter version of “under the condition”.</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(\text{tree})=\frac{70}{482}=0.15\)</span></li>
+<li><span class="math inline">\(P(\text{red})=\frac{163}{482}=0.34\)</span></li>
+<li><span class="math inline">\(P(\text{shovel and red})=\frac{16}{482}=0.03\)</span></li>
+<li><span class="math inline">\(P(\text{jar or white})=\frac{101+123-26}{482}=0.41\)</span></li>
+<li><span class="math inline">\(P(\text{red given shovel})=\frac{16}{63}=0.25\)</span></li>
+<li><span class="math inline">\(P(\text{jar given white})=\frac{26}{123}=0.21\)</span></li>
+<li><span class="math inline">\(P(\text{red given cat}) = 0.36\)</span> and <span class="math inline">\(P(\text{red given  shovel}) = 0.25\)</span>, so a cat is more likely to be red than a shovel is.</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a deck of strange cards, there are 495 cards. Each card has an image and a color. The number of repeats of each image-color combination is shown in the table below.</p>
+<style type="text/css">
+.ss-table {
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+  }
+  .ss-table td {
+    padding: 10px 10px;
+    text-align: center;
+  }
+.ss-table th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:first-child{
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-left: 1px solid black;
+  }
+  .ss-table tr:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-top: 1px solid black;
+  }
+
+</style>
+<table class="ss-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+white
+</th>
+<th style="text-align:right;">
+violet
+</th>
+<th style="text-align:right;">
+teal
+</th>
+<th style="text-align:right;">
+indigo
+</th>
+<th style="text-align:right;">
+green
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+jar
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+197
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lamp
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+143
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pig
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+155
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+133
+</td>
+<td style="text-align:right;">
+495
+</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability a random card is a lamp? <select><option>--------</option><option> 0.05</option><option>0.07</option><option>0.23</option><option>0.29 </option></select></li>
+<li>What is the probability a random card is teal? <select><option>--------</option><option> 0.16</option><option>0.22</option><option>0.29</option><option>0.55 </option></select></li>
+<li>What is the probability a random card is both a jar and indigo? <select><option>--------</option><option> 0.06</option><option>0.08</option><option>0.45</option><option>0.56 </option></select></li>
+<li>What is the probability a random card is either a pig or white (or both)? <select><option>--------</option><option> 0.05</option><option>0.11</option><option>0.13</option><option>0.45 </option></select></li>
+<li>What is the probability a random card is green given it is a lamp? <select><option>--------</option><option> 0.01</option><option>0.08</option><option>0.26</option><option>0.32 </option></select></li>
+<li>What is the probability a random card is a jar given it is teal? <select><option>--------</option><option> 0.06</option><option>0.08</option><option>0.18</option><option>0.56 </option></select></li>
+<li>Between a jar and a lamp, which is more likely to be a teal? <select><option>--------</option><option> A jar.</option><option>A lamp. </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><a href="https://vimeo.com/531915456" target="_blank">video</a></p>
+<p>The key logical terms are “<a href="https://en.wikipedia.org/wiki/Logical_conjunction" target="blank">and</a>”, “<a href="https://en.wikipedia.org/wiki/Logical_disjunction" target="blank">or</a>”, and “<a href="https://en.wikipedia.org/wiki/Conditional_probability" target="blank">given</a>”. Notice that I am using “given” as a shorter version of “under the condition”.</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(\text{lamp})=\frac{143}{495}=0.29\)</span></li>
+<li><span class="math inline">\(P(\text{teal})=\frac{80}{495}=0.16\)</span></li>
+<li><span class="math inline">\(P(\text{jar and indigo})=\frac{40}{495}=0.08\)</span></li>
+<li><span class="math inline">\(P(\text{pig or white})=\frac{155+111-43}{495}=0.45\)</span></li>
+<li><span class="math inline">\(P(\text{green given lamp})=\frac{46}{143}=0.32\)</span></li>
+<li><span class="math inline">\(P(\text{jar given teal})=\frac{45}{80}=0.56\)</span></li>
+<li><span class="math inline">\(P(\text{teal given jar}) = 0.23\)</span> and <span class="math inline">\(P(\text{teal given  lamp}) = 0.13\)</span>, so a jar is more likely to be teal than a lamp is.</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a deck of strange cards, there are 419 cards. Each card has an image and a color. The number of repeats of each image-color combination is shown in the table below.</p>
+<style type="text/css">
+.ss-table {
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+  }
+  .ss-table td {
+    padding: 10px 10px;
+    text-align: center;
+  }
+.ss-table th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:first-child{
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-left: 1px solid black;
+  }
+  .ss-table tr:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-top: 1px solid black;
+  }
+
+</style>
+<table class="ss-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+yellow
+</th>
+<th style="text-align:right;">
+teal
+</th>
+<th style="text-align:right;">
+red
+</th>
+<th style="text-align:right;">
+blue
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+flower
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+148
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rug
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+114
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wheel
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+157
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+133
+</td>
+<td style="text-align:right;">
+123
+</td>
+<td style="text-align:right;">
+419
+</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability a random card is a rug? <select><option>--------</option><option> 0.27</option><option>0.46</option><option>0.52</option><option>0.58 </option></select></li>
+<li>What is the probability a random card is yellow? <select><option>--------</option><option> 0.13</option><option>0.26</option><option>0.45</option><option>0.54 </option></select></li>
+<li>What is the probability a random card is both a rug and yellow? <select><option>--------</option><option> 0.05</option><option>0.07</option><option>0.16</option><option>0.33 </option></select></li>
+<li>What is the probability a random card is either a wheel or yellow (or both)? <select><option>--------</option><option> 0.03</option><option>0.14</option><option>0.33</option><option>0.53 </option></select></li>
+<li>What is the probability a random card is blue given it is a wheel? <select><option>--------</option><option> 0.24</option><option>0.29</option><option>0.41</option><option>0.63 </option></select></li>
+<li>What is the probability a random card is a rug given it is yellow? <select><option>--------</option><option> 0.03</option><option>0.21</option><option>0.34</option><option>0.71 </option></select></li>
+<li>Between a rug and a wheel, which is more likely to be a red? <select><option>--------</option><option> A rug.</option><option>A wheel. </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><a href="https://vimeo.com/531915456" target="_blank">video</a></p>
+<p>The key logical terms are “<a href="https://en.wikipedia.org/wiki/Logical_conjunction" target="blank">and</a>”, “<a href="https://en.wikipedia.org/wiki/Logical_disjunction" target="blank">or</a>”, and “<a href="https://en.wikipedia.org/wiki/Conditional_probability" target="blank">given</a>”. Notice that I am using “given” as a shorter version of “under the condition”.</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(\text{rug})=\frac{114}{419}=0.27\)</span></li>
+<li><span class="math inline">\(P(\text{yellow})=\frac{107}{419}=0.26\)</span></li>
+<li><span class="math inline">\(P(\text{rug and yellow})=\frac{22}{419}=0.05\)</span></li>
+<li><span class="math inline">\(P(\text{wheel or yellow})=\frac{157+107-41}{419}=0.53\)</span></li>
+<li><span class="math inline">\(P(\text{blue given wheel})=\frac{46}{157}=0.29\)</span></li>
+<li><span class="math inline">\(P(\text{rug given yellow})=\frac{22}{107}=0.21\)</span></li>
+<li><span class="math inline">\(P(\text{red given rug}) = 0.32\)</span> and <span class="math inline">\(P(\text{red given  wheel}) = 0.31\)</span>, so a rug is more likely to be red than a wheel is.</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a deck of strange cards, there are 444 cards. Each card has an image and a color. The number of repeats of each image-color combination is shown in the table below.</p>
+<style type="text/css">
+.ss-table {
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+  }
+  .ss-table td {
+    padding: 10px 10px;
+    text-align: center;
+  }
+.ss-table th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:first-child{
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-left: 1px solid black;
+  }
+  .ss-table tr:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-top: 1px solid black;
+  }
+
+</style>
+<table class="ss-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+white
+</th>
+<th style="text-align:right;">
+teal
+</th>
+<th style="text-align:right;">
+pink
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+flower
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+94
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mop
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pig
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+123
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rug
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+104
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vase
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+69
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+145
+</td>
+<td style="text-align:right;">
+135
+</td>
+<td style="text-align:right;">
+164
+</td>
+<td style="text-align:right;">
+444
+</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability a random card is a rug? <select><option>--------</option><option> 0.03</option><option>0.14</option><option>0.23</option><option>0.74 </option></select></li>
+<li>What is the probability a random card is teal? <select><option>--------</option><option> 0.10</option><option>0.17</option><option>0.30</option><option>0.71 </option></select></li>
+<li>What is the probability a random card is both a mop and pink? <select><option>--------</option><option> 0.04</option><option>0.12</option><option>0.18</option><option>0.60 </option></select></li>
+<li>What is the probability a random card is either a pig or white (or both)? <select><option>--------</option><option> 0.02</option><option>0.44</option><option>0.52</option><option>0.54 </option></select></li>
+<li>What is the probability a random card is pink given it is a rug? <select><option>--------</option><option> 0.33</option><option>0.48</option><option>0.53</option><option>0.67 </option></select></li>
+<li>What is the probability a random card is a flower given it is pink? <select><option>--------</option><option> 0.04</option><option>0.21</option><option>0.26</option><option>0.50 </option></select></li>
+<li>Between a flower and a rug, which is more likely to be a pink? <select><option>--------</option><option> A flower.</option><option>A rug. </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><a href="https://vimeo.com/531915456" target="_blank">video</a></p>
+<p>The key logical terms are “<a href="https://en.wikipedia.org/wiki/Logical_conjunction" target="blank">and</a>”, “<a href="https://en.wikipedia.org/wiki/Logical_disjunction" target="blank">or</a>”, and “<a href="https://en.wikipedia.org/wiki/Conditional_probability" target="blank">given</a>”. Notice that I am using “given” as a shorter version of “under the condition”.</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(\text{rug})=\frac{104}{444}=0.23\)</span></li>
+<li><span class="math inline">\(P(\text{teal})=\frac{135}{444}=0.3\)</span></li>
+<li><span class="math inline">\(P(\text{mop and pink})=\frac{17}{444}=0.04\)</span></li>
+<li><span class="math inline">\(P(\text{pig or white})=\frac{123+145-37}{444}=0.52\)</span></li>
+<li><span class="math inline">\(P(\text{pink given rug})=\frac{50}{104}=0.48\)</span></li>
+<li><span class="math inline">\(P(\text{flower given pink})=\frac{35}{164}=0.21\)</span></li>
+<li><span class="math inline">\(P(\text{pink given flower}) = 0.37\)</span> and <span class="math inline">\(P(\text{pink given  rug}) = 0.48\)</span>, so a rug is more likely to be pink than a flower is.</li>
+</ol>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a deck of strange cards, there are 360 cards. Each card has an image and a color. The number of repeats of each image-color combination is shown in the table below.</p>
+<style type="text/css">
+.ss-table {
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+  }
+  .ss-table td {
+    padding: 10px 10px;
+    text-align: center;
+  }
+.ss-table th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:first-child{
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-left: 1px solid black;
+  }
+  .ss-table tr:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-top: 1px solid black;
+  }
+
+</style>
+<table class="ss-table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+yellow
+</th>
+<th style="text-align:right;">
+teal
+</th>
+<th style="text-align:right;">
+green
+</th>
+<th style="text-align:right;">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+house
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+101
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+jar
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+129
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kite
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pig
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+71
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:right;">
+148
+</td>
+<td style="text-align:right;">
+120
+</td>
+<td style="text-align:right;">
+92
+</td>
+<td style="text-align:right;">
+360
+</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li>What is the probability a random card is a jar? <select><option>--------</option><option> 0.02</option><option>0.36</option><option>0.55</option><option>0.59 </option></select></li>
+<li>What is the probability a random card is green? <select><option>--------</option><option> 0.03</option><option>0.06</option><option>0.26</option><option>0.57 </option></select></li>
+<li>What is the probability a random card is both a house and green? <select><option>--------</option><option> 0.10</option><option>0.24</option><option>0.39</option><option>0.72 </option></select></li>
+<li>What is the probability a random card is either a jar or yellow (or both)? <select><option>--------</option><option> 0.39</option><option>0.58</option><option>0.63</option><option>0.74 </option></select></li>
+<li>What is the probability a random card is green given it is a pig? <select><option>--------</option><option> 0.10</option><option>0.17</option><option>0.39</option><option>0.56 </option></select></li>
+<li>What is the probability a random card is a kite given it is yellow? <select><option>--------</option><option> 0.02</option><option>0.12</option><option>0.16</option><option>0.24 </option></select></li>
+<li>Between a house and a jar, which is more likely to be a teal? <select><option>--------</option><option> A house.</option><option>A jar. </option></select></li>
+</ol>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><a href="https://vimeo.com/531915456" target="_blank">video</a></p>
+<p>The key logical terms are “<a href="https://en.wikipedia.org/wiki/Logical_conjunction" target="blank">and</a>”, “<a href="https://en.wikipedia.org/wiki/Logical_disjunction" target="blank">or</a>”, and “<a href="https://en.wikipedia.org/wiki/Conditional_probability" target="blank">given</a>”. Notice that I am using “given” as a shorter version of “under the condition”.</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(P(\text{jar})=\frac{129}{360}=0.36\)</span></li>
+<li><span class="math inline">\(P(\text{green})=\frac{92}{360}=0.26\)</span></li>
+<li><span class="math inline">\(P(\text{house and green})=\frac{36}{360}=0.1\)</span></li>
+<li><span class="math inline">\(P(\text{jar or yellow})=\frac{129+148-49}{360}=0.63\)</span></li>
+<li><span class="math inline">\(P(\text{green given pig})=\frac{12}{71}=0.17\)</span></li>
+<li><span class="math inline">\(P(\text{kite given yellow})=\frac{23}{148}=0.16\)</span></li>
+<li><span class="math inline">\(P(\text{teal given house}) = 0.2\)</span> and <span class="math inline">\(P(\text{teal given  jar}) = 0.39\)</span>, so a jar is more likely to be teal than a house is.</li>
+</ol>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

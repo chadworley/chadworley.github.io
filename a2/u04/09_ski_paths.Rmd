@@ -1,0 +1,107 @@
+```{r,echo=F}
+
+n = sample(5:9,1,F,prob = c(1,2,3,4,5))
+r = sample(2:(n-2),1)
+
+C = choose(n,r)
+
+```
+
+Question
+========
+
+A ski slope is set up with many interweaving, branching paths in a  mesh-like array. A skier starts at the top with two choices: left or right. At the next fork, they can again choose left or right. If the first two decisions are LR (left then right) or RL (right then left), the skier ends up in the same place. That pattern continues down the mountain.
+
+ 
+```{r,fig.dim=c(7,6),echo=F}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-n/2,n/2),ylim=c(-1,n),axes=F,ann=F)
+lines(c(-(n+1)/2,0,(n+1)/2),c(-1,n,-1))
+
+drawtree = function(x,y){
+    arrows(x,y-0.2,x,y,0.1,30)
+    arrows(x,y-0.2,x,y+0.05,0.1,30)
+    arrows(x,y-0.2,x,y+0.1,0.1,30)
+    arrows(x,y-0.2,x,y+0.15,0.1,30)
+    arrows(x,y-0.2,x,y+0.2,0.1,30)
+    lines(c(x,x),c(y-0.2,y+0.2),lwd=2)
+}
+drawtrees = function(x,y){
+    drawtree(x,y)
+    drawtree(x+0.1,y-0.1)
+    drawtree(x-0.1,y-0.1)
+    # drawtree(x+0.05,y-0.45)
+    # drawtree(x-0.05,y-0.45)
+}
+
+for(i in 1:n){
+    for(j in 1:i){
+        drawtrees(j-i/2-0.5,n-i)
+        lines(j-i/2-0.5+c(-0.5,0,0.5),n-i-0.2+c(0,1,0),col=rgb(0.9,0.9,0.9),lty=3,lwd=3)
+    }
+}
+
+lines(c(0,0.2),c(n-0.5,n-0.6))
+lines(c(-0.05,0.15),c(n-0.55,n-0.65))
+lines(c(0.1,0.045),c(n-0.55,n-0.35))
+lines(c(0.05,0.045),c(n-0.6,n-0.35))
+lines(c(0.045,0.045),c(n-0.35,n-0.15))
+points(0.045,n-0.15,pch=20)
+lines(c(0,0.1),c(n-0.25,n-0.25))
+
+cabin = function(x,y,w,h){
+    polygon(c(x-w/2,x-w/2,x+w/2,x+w/2),c(y-h/2,y+h/2,y+h/2,y-h/2),col="brown")
+    polygon(c(x-w/2-w/10,x,x+w/2+w/10),c(y+h/2,y+h/2+h,y+h/2),col="red")
+    polygon(c(x,x,x+w/6,x+w/6),c(y-h/2,y+h/4,y+h/4,y-h/2),col="black")
+}
+
+cabin(r-n/2,-0.5,0.3,0.2)
+```
+\
+
+To get to the lodge, a skier passes `r n` forks. They need to make `r r` left turns and `r n-r` right turns. To choose a path, the skier just has to choose which `r r` of the `r n` forks they will turn left. How many possible paths are there to the lodge?
+
+
+Solution
+========
+
+[Pascal's Triangle](https://en.wikipedia.org/wiki/Pascal%27s_triangle)!
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F,xlim=c(-n/2,n/2),ylim=c(-1,n))
+for(i in 0:n){
+    for(j in 0:i){
+        text(j-i/2,n-i,choose(i,j))
+    }
+}
+th = seq(0,2*pi,pi/100)
+lines(r-n/2+0.3*sin(th),0+0.3*cos(th),col="red")
+
+```
+\
+
+You can calculate this using a variety of tools.
+
+* On [Desmos](https://www.desmos.com/calculator) you can use ``nCr(`r n`,`r r`)``.
+* On a [spreadsheet](https://sheets.new) you can use ``=COMBIN(`r n`,`r r`)``
+
+Using [factorial](https://en.wikipedia.org/wiki/Factorial) notation we can express the calculation.
+
+$$\frac{`r n`!}{`r r`! \cdot `r n-r`!} ~=~ \frac{`r paste0(n:1,collapse="\\cdot")`}{(`r paste0(r:1,collapse="\\cdot")`)\cdot(`r paste0((n-r):1,collapse="\\cdot")`)} ~=~ `r C`$$
+
+You can also express the calculation using [$\Pi$ product notation](https://en.wikipedia.org/wiki/Multiplication#Capital_pi_notation).
+
+```{r, echo=F}
+ma = max(c(r,n-r))
+mi = min(c(r,n-r))
+```
+
+$$\frac{~~~\prod\limits_{i=`r ma+1`}^`r n` i~~~}{\prod\limits_{i=1}^`r mi` i} ~=~ \frac{`r paste0((ma+1):n,collapse="\\cdot")`}{`r paste0(1:mi,collapse="\\cdot")`} ~=~ `r C`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r C`
+exname: ski_paths

@@ -172,34 +172,61 @@ s = paste(s,"\\end{tabular}\n\\end{center}")
 Question
 ========
 
-In a deck of strange cards, there are `r tot` cards. Each card has an image and a color.
+In a deck of strange cards, there are `r tot` cards. Each card has an image and a color. The number of repeats of each image-color combination is shown in the table below.
 
-```{r, fig.width=6,fig.height=4,echo=F}
-par(mar=c(0,0,0,0))
-plot(0,0,type="n",xlim=c(-0.2,ni+1.5),ylim=c(-0.5,nc+1),axes=F,ann=F)
-for(ii in 1:ni){
-    text(ii,nc+0.5,is[ii],pos = 3)
-    text(ii,0,nums[ii,nc+1])
-}
-text(ni+1,nc+0.5,"total",pos=3)
-for(cc in 1:nc){
-    text(0.5,nc-cc+1,cs[nc-cc+1],pos=2)
-    text(ni+1,nc-cc+1,nums[ni+1,nc-cc+1])
-}
+```{css,echo=F}
+.ss-table {
+    background-color: rgb(238, 238, 238);
+    color: rgb(0, 0, 0);
+    padding: 10px 10px;
+    border: 1px solid black;
+    text-align: center;
+  }
+  .ss-table td {
+    padding: 10px 10px;
+    text-align: center;
+  }
+.ss-table th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:first-child{
+    background-color: rgb(200, 200, 200);
+    color: black;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border: 1px solid black;
+  }
+  .ss-table td:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-left: 1px solid black;
+  }
+  .ss-table tr:last-child{
+    background-color: white;
+    color: grey;
+    font-weight: normal;
+    padding: 10px 10px;
+    text-align: center;
+    border-top: 1px solid black;
+  }
 
-for(i in 1:ni){
-    for(j in 1:nc){
-        text(i,j,nums[i,j])
-    }
-}
-text(ni+1,0,nums[ni+1,nc+1])
-text(0.5,0,"total",pos=2)
-abline(h = nc+0.5)
-abline(v = 0.5)
-abline(h = 0.5)
-abline(v = ni+0.5)
 ```
-\
+
+```{r,echo=F}
+mydf = data.frame(nums)
+knitr::kable(mydf, format = "html",row.names = T,table.attr='class="ss-table"')
+```
+
+
 
 a. `r mystr[1]`
 b. `r mystr[2]`

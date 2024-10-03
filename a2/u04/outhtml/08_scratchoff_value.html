@@ -1,0 +1,714 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>08_scratchoff_value</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">08_scratchoff_value</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A scratch-off lottery ticket has the following payout probabilities:</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+payout ($)
+</th>
+<th style="text-align:center;">
+probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.35
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+41
+</td>
+<td style="text-align:center;">
+0.24
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+76
+</td>
+<td style="text-align:center;">
+0.23
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+81
+</td>
+<td style="text-align:center;">
+0.18
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is the value, in dollars, of the unscratched ticket (to a <a href="https://en.wikipedia.org/wiki/Risk_neutral_preferences">risk-neutral</a> individual)?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a> is the weighted average of the payouts weighted by their probabilities. The expected value is the sum of the products of each payout times its probability.</p>
+<p><span class="math display">\[\mu ~=~ \sum x\cdot P(x)\]</span></p>
+<p><span class="math display">\[\mu ~=~ (0\cdot0.35)+(41\cdot0.24)+(76\cdot0.23)+(81\cdot0.18)\]</span></p>
+<p><span class="math display">\[\mu ~=~ 0+9.84+17.48+14.58\]</span></p>
+<p><span class="math display">\[\mu ~=~ 41.9\]</span></p>
+<p>A risk-neutral person would value an unscratched ticket at $41.90.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A scratch-off lottery ticket has the following payout probabilities:</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+payout ($)
+</th>
+<th style="text-align:center;">
+probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.27
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+12
+</td>
+<td style="text-align:center;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+37
+</td>
+<td style="text-align:center;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+41
+</td>
+<td style="text-align:center;">
+0.12
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is the value, in dollars, of the unscratched ticket (to a <a href="https://en.wikipedia.org/wiki/Risk_neutral_preferences">risk-neutral</a> individual)?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a> is the weighted average of the payouts weighted by their probabilities. The expected value is the sum of the products of each payout times its probability.</p>
+<p><span class="math display">\[\mu ~=~ \sum x\cdot P(x)\]</span></p>
+<p><span class="math display">\[\mu ~=~ (0\cdot0.27)+(5\cdot0.22)+(12\cdot0.21)+(37\cdot0.18)+(41\cdot0.12)\]</span></p>
+<p><span class="math display">\[\mu ~=~ 0+1.1+2.52+6.66+4.92\]</span></p>
+<p><span class="math display">\[\mu ~=~ 15.2\]</span></p>
+<p>A risk-neutral person would value an unscratched ticket at $15.20.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A scratch-off lottery ticket has the following payout probabilities:</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+payout ($)
+</th>
+<th style="text-align:center;">
+probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.46
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+29
+</td>
+<td style="text-align:center;">
+0.23
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+35
+</td>
+<td style="text-align:center;">
+0.23
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+36
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is the value, in dollars, of the unscratched ticket (to a <a href="https://en.wikipedia.org/wiki/Risk_neutral_preferences">risk-neutral</a> individual)?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a> is the weighted average of the payouts weighted by their probabilities. The expected value is the sum of the products of each payout times its probability.</p>
+<p><span class="math display">\[\mu ~=~ \sum x\cdot P(x)\]</span></p>
+<p><span class="math display">\[\mu ~=~ (0\cdot0.46)+(29\cdot0.23)+(35\cdot0.23)+(36\cdot0.08)\]</span></p>
+<p><span class="math display">\[\mu ~=~ 0+6.67+8.05+2.88\]</span></p>
+<p><span class="math display">\[\mu ~=~ 17.6\]</span></p>
+<p>A risk-neutral person would value an unscratched ticket at $17.60.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A scratch-off lottery ticket has the following payout probabilities:</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+payout ($)
+</th>
+<th style="text-align:center;">
+probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.70
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+42
+</td>
+<td style="text-align:center;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+45
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+79
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is the value, in dollars, of the unscratched ticket (to a <a href="https://en.wikipedia.org/wiki/Risk_neutral_preferences">risk-neutral</a> individual)?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a> is the weighted average of the payouts weighted by their probabilities. The expected value is the sum of the products of each payout times its probability.</p>
+<p><span class="math display">\[\mu ~=~ \sum x\cdot P(x)\]</span></p>
+<p><span class="math display">\[\mu ~=~ (0\cdot0.7)+(9\cdot0.1)+(42\cdot0.08)+(45\cdot0.06)+(79\cdot0.06)\]</span></p>
+<p><span class="math display">\[\mu ~=~ 0+0.9+3.36+2.7+4.74\]</span></p>
+<p><span class="math display">\[\mu ~=~ 11.7\]</span></p>
+<p>A risk-neutral person would value an unscratched ticket at $11.70.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A scratch-off lottery ticket has the following payout probabilities:</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+payout ($)
+</th>
+<th style="text-align:center;">
+probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0.38
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+51
+</td>
+<td style="text-align:center;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+53
+</td>
+<td style="text-align:center;">
+0.07
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is the value, in dollars, of the unscratched ticket (to a <a href="https://en.wikipedia.org/wiki/Risk_neutral_preferences">risk-neutral</a> individual)?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a> is the weighted average of the payouts weighted by their probabilities. The expected value is the sum of the products of each payout times its probability.</p>
+<p><span class="math display">\[\mu ~=~ \sum x\cdot P(x)\]</span></p>
+<p><span class="math display">\[\mu ~=~ (0\cdot0.4)+(3\cdot0.38)+(51\cdot0.15)+(53\cdot0.07)\]</span></p>
+<p><span class="math display">\[\mu ~=~ 0+1.14+7.65+3.71\]</span></p>
+<p><span class="math display">\[\mu ~=~ 12.5\]</span></p>
+<p>A risk-neutral person would value an unscratched ticket at $12.50.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A scratch-off lottery ticket has the following payout probabilities:</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+payout ($)
+</th>
+<th style="text-align:center;">
+probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.48
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+58
+</td>
+<td style="text-align:center;">
+0.26
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+77
+</td>
+<td style="text-align:center;">
+0.20
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+82
+</td>
+<td style="text-align:center;">
+0.06
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is the value, in dollars, of the unscratched ticket (to a <a href="https://en.wikipedia.org/wiki/Risk_neutral_preferences">risk-neutral</a> individual)?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a> is the weighted average of the payouts weighted by their probabilities. The expected value is the sum of the products of each payout times its probability.</p>
+<p><span class="math display">\[\mu ~=~ \sum x\cdot P(x)\]</span></p>
+<p><span class="math display">\[\mu ~=~ (0\cdot0.48)+(58\cdot0.26)+(77\cdot0.2)+(82\cdot0.06)\]</span></p>
+<p><span class="math display">\[\mu ~=~ 0+15.08+15.4+4.92\]</span></p>
+<p><span class="math display">\[\mu ~=~ 35.4\]</span></p>
+<p>A risk-neutral person would value an unscratched ticket at $35.40.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A scratch-off lottery ticket has the following payout probabilities:</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+payout ($)
+</th>
+<th style="text-align:center;">
+probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.25
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+34
+</td>
+<td style="text-align:center;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+61
+</td>
+<td style="text-align:center;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+73
+</td>
+<td style="text-align:center;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+88
+</td>
+<td style="text-align:center;">
+0.13
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is the value, in dollars, of the unscratched ticket (to a <a href="https://en.wikipedia.org/wiki/Risk_neutral_preferences">risk-neutral</a> individual)?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a> is the weighted average of the payouts weighted by their probabilities. The expected value is the sum of the products of each payout times its probability.</p>
+<p><span class="math display">\[\mu ~=~ \sum x\cdot P(x)\]</span></p>
+<p><span class="math display">\[\mu ~=~ (0\cdot0.25)+(34\cdot0.22)+(61\cdot0.21)+(73\cdot0.19)+(88\cdot0.13)\]</span></p>
+<p><span class="math display">\[\mu ~=~ 0+7.48+12.81+13.87+11.44\]</span></p>
+<p><span class="math display">\[\mu ~=~ 45.6\]</span></p>
+<p>A risk-neutral person would value an unscratched ticket at $45.60.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>A scratch-off lottery ticket has the following payout probabilities:</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+payout ($)
+</th>
+<th style="text-align:center;">
+probability
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+0.46
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+0.26
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+93
+</td>
+<td style="text-align:center;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+99
+</td>
+<td style="text-align:center;">
+0.09
+</td>
+</tr>
+</tbody>
+</table>
+<p>What is the value, in dollars, of the unscratched ticket (to a <a href="https://en.wikipedia.org/wiki/Risk_neutral_preferences">risk-neutral</a> individual)?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The <a href="https://en.wikipedia.org/wiki/Expected_value">expected value</a> is the weighted average of the payouts weighted by their probabilities. The expected value is the sum of the products of each payout times its probability.</p>
+<p><span class="math display">\[\mu ~=~ \sum x\cdot P(x)\]</span></p>
+<p><span class="math display">\[\mu ~=~ (0\cdot0.46)+(7\cdot0.26)+(93\cdot0.19)+(99\cdot0.09)\]</span></p>
+<p><span class="math display">\[\mu ~=~ 0+1.82+17.67+8.91\]</span></p>
+<p><span class="math display">\[\mu ~=~ 28.4\]</span></p>
+<p>A risk-neutral person would value an unscratched ticket at $28.40.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
