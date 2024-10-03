@@ -3,17 +3,19 @@ n = 30
 outdir = "outcanvas"
 genname = "u04_"
 
-probs = c("01_venn_rects.Rmd",
-          "02_venn_clubs.Rmd",
-          "03_venn_probs.Rmd",
-          "04_ind_or_mut_exclu.Rmd",
-          "05_cards.Rmd",
-          "06_winlose.Rmd",
-          "07_bobhappy.Rmd",
-          "08_scratchoff_value.Rmd",
-          "09_ski_paths.Rmd")
+probs = "03_venn_probs.Rmd"
 
-pnts = c(5,5,5,3,6,5,7,4,3)
+# probs = c("01_venn_rects.Rmd",
+#           "02_venn_clubs.Rmd",
+#           "03_venn_probs.Rmd",
+#           "04_ind_or_mut_exclu.Rmd",
+#           "05_cards.Rmd",
+#           "06_winlose.Rmd",
+#           "07_bobhappy.Rmd",
+#           "08_scratchoff_value.Rmd",
+#           "09_ski_paths.Rmd")
+
+pnts = 5 #c(5,5,5,3,6,5,7,4,3)
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
 for(i in 1:length(probs)){
