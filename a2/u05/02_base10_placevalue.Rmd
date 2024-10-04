@@ -1,0 +1,97 @@
+```{r,echo=FALSE}
+options(scipen = 999)
+deg = sample(4:6,1)
+cf = c(sample(2:9,1),sample(c(0,1,sample(2:9,deg-2))))
+st = paste0("(",cf[cf!=0],"\\cdot10^{",(deg:0)[cf!=0],"})",collapse="+")
+st = gsub("(1\\cdot","(",st,fixed=T)
+num = sum(cf*10^(deg:0))
+pns = c("units","tens","hundreds","thousands",
+        "ten-thousands","hundred-thousands","millions","ten-millions","hundred-millions","billions")
+
+chs = 0:10
+al = paste0("* ",chs,"\n",collapse="")
+fal = paste0(rep(al,deg+1),collapse="\n")
+sols = character()
+for(i in 1:(deg+1)){
+    sols = c(sols,paste0(1*(cf[i]==chs),collapse=""))
+}
+fsol = paste0(sols,collapse="|")
+fct = paste0(rep("schoice",deg+1),collapse="|")
+```
+
+
+Question
+========
+
+Consider the following expression:
+
+$$`r st`$$
+
+Please identify the [place-value](https://en.wikipedia.org/wiki/Positional_notation) pairs.
+
+
+```{css,echo=F}
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+```
+
+```{r,echo=F}
+degree = deg:0
+coefficient = cf
+coefq = paste0("##ANSWER",1:(deg+1),"##")
+mydf = data.frame(pns[(deg+1):1],coefq)
+colnames(mydf) = c("Place","Value")
+knitr::kable(mydf,format="html",label = NA, align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+
+Solution
+========
+
+`r num`
+
+```{css,echo=F}
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+```
+
+```{r,echo=F}
+degree = deg:0
+coefficient = cf
+coefq = paste0("##ANSWER",1:(deg+1),"##")
+mydf = data.frame(pns[(deg+1):1],coefficient)
+colnames(mydf) = c("Place","Value")
+knitr::kable(mydf,format="html",label = NA, align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r fct`
+exsolution: `r fsol`
+exname: base10_placevalue

@@ -1,0 +1,119 @@
+```{r,echo=FALSE}
+deg = sample(4:6,1)
+a = sample(c(-9:-1,1:9),1)
+cf = c(a,sample(c(0,1,sample(c(-9:-1,1:9),deg-2))))
+
+scf = cf[cf!=0]
+sdg = (deg:0)[cf!=0]
+
+P = paste0("{",scf,"}x^{",sdg,"}",collapse="+")
+P = gsub("x^{0}","",P,fixed=T)
+P = gsub("{1}x","x",P,fixed = T)
+P = gsub("+{-1}x","-x",P,fixed = T)
+P = gsub("+{-","-{",P,fixed = T)
+P = gsub("x^{1}","x",P,fixed=T)
+P = gsub("{-1}x","-x",P,fixed = T)
+
+degwrd = c("constant","linear","quadratic","cubic","quartic","quintic","sextic")
+
+chs = -10:10
+al = paste0("* ",chs,"\n",collapse="")
+fal = paste0(rep(al,deg+1),collapse="\n")
+sols = character()
+for(i in 1:(deg+1)){
+    sols = c(sols,paste0(1*(cf[i]==chs),collapse=""))
+}
+fsol = paste0(sols,collapse="|")
+fct = paste0(rep("schoice",deg+1),collapse="|")
+
+```
+
+
+Question
+========
+
+Below is a [polynomial](https://en.wikipedia.org/wiki/Polynomial) of a single variable, $x$.
+
+$$P(x)=`r P`$$
+
+A polynomial is composed by adding (and subtracting) together multiple terms. Each term has the form $ax^b$, where $a$ is the coefficient and $b$ is the degree, which must be a nonnegative integer. Some special cases are simplified. If $a=1$ or $a=-1$, then the 1 will not be explicitly shown. If $a=0$, then the whole term will not be shown. Similarly, $x^1$ simplifies to $x$ and $x^0$ simplifies to 1. (Technically $0^0$ is undefined, but let's ignore that for now.) 
+
+
+Please identify the coefficients of the terms.
+
+```{css,echo=F}
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+```
+
+```{r,echo=F}
+degree = deg:0
+coefficient = cf
+coefq = paste0("##ANSWER",1:(deg+1),"##")
+mydf = data.frame(degwrd[(deg+1):1],degree,coefq)
+colnames(mydf) = c("Term","Degree","Coefficient")
+knitr::kable(mydf,format="html",label = NA, align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+Answerlist
+--------
+
+`r fal`
+
+Solution
+========
+
+```{r,echo=F}
+P2 = paste0("(",cf,")x^{",deg:0,"}",collapse="+")
+```
+
+It might help to see the polynomial in unsimplified form.
+
+$$`r P2`$$
+
+
+```{css,echo=F}
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+```
+
+```{r,echo=F}
+degree = deg:0
+coefficient = cf
+coefq = paste0("##ANSWER",1:(deg+1),"##")
+mydf = data.frame(degwrd[(deg+1):1],degree,coefficient)
+colnames(mydf) = c("Term","Degree","Coefficient")
+knitr::kable(mydf,format="html",label = NA, align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r fct`
+exsolution: `r fsol`
+exname: polynomial_terminology

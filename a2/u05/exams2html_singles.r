@@ -1,9 +1,6 @@
 library("exams")
 
-pppsss = "04_ind_or_mut_exclu.Rmd"
-
-# set.seed(1)
-# exams2html("09_calculate_z_from_sample_mean.Rmd",n=8)
+pppsss = c("09_reshuffle_two_mean.Rmd","10_hyptest_2_means_data.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
@@ -15,9 +12,9 @@ for(ppss in pppsss){
     for(prob in probs){
       ps = c(ps,rep(prob,nvers))
     }
-
+    
     main = function(){
-      set.seed(2)
+      set.seed(1)
       exams2html_interact(ps,
                      n=1,
                      dir=outdir,
@@ -26,9 +23,9 @@ for(ppss in pppsss){
                      mathjax = TRUE,
                      template = "mytemplate.html")
     }
-
-
-
+    
+    
+    
     myhtml = paste0('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
     <html>
     <head>
@@ -117,11 +114,11 @@ for(ppss in pppsss){
     </body>
     </html>
     ')
-
+    
     fileConn<-file("mytemplate.html")
     writeLines(myhtml, fileConn)
     close(fileConn)
-
+    
     exams2html_interact <- function(file, n = 1L, nsamp = NULL, dir = ".", template = NULL,
                                name = NULL, quiet = TRUE, edir = NULL, tdir = NULL, sdir = NULL, verbose = FALSE,
                                question = "<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>", solution = "<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>",
@@ -135,7 +132,7 @@ for(ppss in pppsss){
         n <- nrow(file)
         nsamp <- ncol(file)
       }
-
+    
       ## for Rnw exercises use "ttm" converter and "plain" template,
       ## otherwise "pandoc" converter and "plain8" template
       if(any(tolower(tools::file_ext(unlist(file))) == "rmd")) {
@@ -144,10 +141,10 @@ for(ppss in pppsss){
         if(is.null(converter)) converter <- "ttm"
       }
       if(is.null(template)) template <- if(converter %in% c("tth", "ttm", "tex2image")) "plain" else "plain8"
-
+    
       ## add MathJax link if specified or if converter="pandoc-mathjax"
       if(is.null(mathjax)) mathjax <- converter == "pandoc-mathjax"
-
+    
       ## output directory or display on the fly
       display <- missing(dir)
       if(missing(dir) & n == 1L & length(template) == 1L) {
@@ -157,42 +154,42 @@ for(ppss in pppsss){
         display <- FALSE
         if(is.null(dir)) stop("Please specify an output 'dir'.")
       }
-
+    
       ## output name processing
       if(is.null(name)) name <- file_path_sans_ext(basename(template))
-
+    
       ## set up .html transformer and writer function
       htmltransform <- make_exercise_transform_html(converter = converter, ...)
       htmlwrite <- make_exams_write_html(template = template, name = name,
                                          question = question, solution = solution, mathjax = mathjax)
-
+    
       ## create final .html exam
       rval <- xexams(file, n = n, nsamp = nsamp,
                      driver = list(sweave = list(quiet = quiet, pdf = FALSE, png = !svg, svg = svg,
                                                  resolution = resolution, width = width, height = height, encoding = encoding, envir = envir),
                                    read = NULL, transform = htmltransform, write = htmlwrite),
                      dir = dir, edir = edir, tdir = tdir, sdir = sdir, verbose = verbose, seed = seed)
-
+    
       ## display single .html on the fly
       if(display) {
         out <- file.path(dir, paste(name, "1.html", sep = ""))
         out <- normalizePath(out)
         browseFile(out)
       }
-
+    
       ## return xexams object invisibly
       invisible(rval)
     }
-
-
+    
+    
     ## writes the final .html site
     make_exams_write_html <- function(template = "plain", name = NULL,
-                                      question = "<h4>Question</h4>",
+                                      question = "<h4>Question</h4>", 
                                       solution = "<h4>Solution</h4>", mathjax = FALSE)
     {
       ## the package directory
       pkg_dir <- find.package("exams")
-
+    
       ## get the .html template files
       template <- if(is.null(template)) {
         file.path(find.package("exams"), "xml", "plain.html")
@@ -206,16 +203,16 @@ for(ppss in pppsss){
         stop(paste("The following files cannot be found: ",
                    paste(template[!file.exists(template)], collapse = ", "), ".", sep = ""))
       }
-
+    
       ## output name processing
       nt <- length(template)
       name <- if(is.null(name)) file_path_sans_ext(basename(template)) else rep(name, length.out = nt)
       if(nt > 1 && length(unique(name)) < nt)
         name <- paste(name, 1:nt, sep = "")
-
+    
       ## read the templates
       template <- lapply(template, readLines)
-
+    
       ## question and solution control
       foo <- function(x, what) {
         if(is.null(x)) {
@@ -239,31 +236,31 @@ for(ppss in pppsss){
                                 foo, what = "Question"))
       solution <- unlist(lapply(rep(if(is.null(solution)) TRUE else solution, length.out = nt),
                                 foo, what = "Solution"))
-
+    
       ## the link to mathjax
       mj_link <- paste('<script type="text/javascript"',
                        '  src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">',
                        '</script>', collapse = "\n")
       mathjax <- rep(mathjax, length.out = nt)
-
+    
       function(exm, dir, info)
       {
         ## basic indexes
         id <- info$id
         n <- info$n
         m <- length(exm)
-
+    
         ## current directory
         dir_orig <- getwd()
         on.exit(setwd(dir_orig))
-
+    
         ## temporary directory
         dir_temp <- tempfile()
         if(!file.exists(dir_temp) && !dir.create(dir_temp))
           stop(gettextf("Cannot create temporary work directory '%s'.", dir_temp))
         setwd(dir_temp)
         on.exit(unlink(dir_temp), add = TRUE)
-
+    
         ## Surround schoice questions with div, or something, to allow styles...
         qdiv = function(x){
           paste('<select><option>--------</option><option>',paste0(x,collapse="</option><option>"),'</option></select>')
@@ -272,7 +269,7 @@ for(ppss in pppsss){
         adiv = function(x){
           paste("<div class=`adiv` style='background: #FFAAAA'>",paste(x,collapse=" / "),"</div>",collapse=" ")
         }
-
+    
         ## collapse answer groups of clozes (if necessary)
         for(j in seq_along(exm)) {
           if(exm[[j]]$metainfo$type == "cloze") {
@@ -290,10 +287,10 @@ for(ppss in pppsss){
             }
           }
         }
-
+    
         for(i in 1:nt) {
           html_body <- "<ol>"
-
+    
           ## question and solution insertion
           for(j in seq_along(exm)) {
             html_body <- c(html_body, "<li>")
@@ -332,7 +329,7 @@ for(ppss in pppsss){
               # html_body <- c(html_body,paste0("TOLERANCES: ",paste0(exm[[j]]$metainfo$tol,collapse=", "),collapse=""))
             }
             html_body <- c(html_body, "</div></li>")
-
+    
             ## handle and copy possible supplements
             if(length(exm[[j]]$supplements)) {
               if(!file.exists(media_dir <- file.path(dir_temp, "media")))
@@ -361,19 +358,19 @@ for(ppss in pppsss){
             }
           }
           html_body <- c(html_body, "</ol>")
-
+    
           ## insert the exam id
           html <- gsub("##ID##", id, template[[i]], fixed = TRUE)
-
+    
           ## if required insert mathjax link
           if(mathjax[i]) {
             jd <- grep("</head>", html, fixed = TRUE)
             html <- c(html[1L:(jd - 1)], mj_link, html[jd:length(html)])
           }
-
+    
           ## insert .html body
           html <- gsub("##\\exinput{exercises}##", paste(html_body, collapse = "\n"), html, fixed = TRUE)
-
+    
           ## write and copy final .html code
           writeLines(html, file.path(dir_temp, paste(name[i], id, ".html", sep = "")))
           file.copy(file.path(dir_temp, list.files(dir_temp)), dir, recursive = TRUE)
@@ -381,7 +378,7 @@ for(ppss in pppsss){
         }
       }
     }
-
+    
     ## an internal wrapper for browseURL to work around the setting of getOption("browser")
     ## in RStudio < 0.97.133
     browseFile <- function(file) {
@@ -399,8 +396,8 @@ for(ppss in pppsss){
       }
       browseURL(file)
     }
-
-
+    
+    
     ## show .html code in browser, only used for internal testing
     show.html <- function(x)
     {
@@ -418,7 +415,7 @@ for(ppss in pppsss){
       }
       browseFile(normalizePath(file.path(tempf, fname)))
     }
-
+    
     main()
     file.rename(paste0(outdir,"/",genname,"1.html"),paste0(outdir,"/",genname,".html"))
 }

@@ -3,7 +3,7 @@ n = 30
 outdir = "outcanvas"
 genname = "u04_"
 
-probs = "03_venn_probs.Rmd"
+probs = "04_ind_or_mut_exclu.Rmd"
 
 # probs = c("01_venn_rects.Rmd",
 #           "02_venn_clubs.Rmd",
