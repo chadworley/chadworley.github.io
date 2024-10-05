@@ -3,10 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-10-04 8:00:00"]
+avt = ["2024-10-03 8:00:00"]
 dut = ["2024-10-04 23:59:00"]
 front = "u04_"
-files = ["04_ind_or_mut_exclu.Rmd"]
+files = ["03_venn_probs.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u04/outhtml/"
 
