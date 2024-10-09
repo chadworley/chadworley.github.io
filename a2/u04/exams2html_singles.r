@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = "04_ind_or_mut_exclu.Rmd"
+pppsss = "07_bobhappy.Rmd"
 
 # set.seed(1)
 # exams2html("09_calculate_z_from_sample_mean.Rmd",n=8)

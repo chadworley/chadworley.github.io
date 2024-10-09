@@ -1,0 +1,132 @@
+```{r,echo=FALSE}
+options(scipen=999)
+degs = sample(4:6,2)
+od = max(degs)
+while(T){
+    vals1 = c(sample(0:9,degs[1],T),sample(1:9,1))
+    vals2 = c(sample(0:9,degs[2],T),sample(1:9,1))
+    if(degs[1]<degs[2]){
+        vals1 = c(vals1,rep(0,degs[2]-degs[1]))
+    } else {
+        vals2 = c(vals2,rep(0,degs[1]-degs[2]))
+    }
+    if(vals1[1]!=0 && vals2[1]!=0 && max(vals1+vals2)<10){break}
+}
+vals3 = vals1+vals2
+
+v1 = rev(vals1)
+v2 = rev(vals2)
+v3 = rev(vals3)
+
+vr1 = v1[v1!=0]
+dr1 = (od:0)[v1!=0]
+vr2 = v2[v2!=0]
+dr2 = (od:0)[v2!=0]
+
+fixer = function(s){
+    s = gsub("\\cdot 10^{0}","",s,fixed=T)
+    s = gsub("\\cdot 10^{1}","\\cdot 10",s,fixed=T)
+    s = gsub("{1}\\cdot 10","10",s,fixed=T)
+}
+
+usp1 = paste0("{",v1,"}\\cdot 10^{",od:0,"}",collapse="~+~")
+usp2 = paste0("{",v2,"}\\cdot 10^{",od:0,"}",collapse="~+~")
+usp3 = paste0("{",v3,"}\\cdot 10^{",od:0,"}",collapse="~+~")
+
+pp1 = paste0("{",vr1,"}\\cdot 10^{",dr1,"}",collapse="~+~")
+pp2 = paste0("{",vr2,"}\\cdot 10^{",dr2,"}",collapse="~+~")
+p1 = fixer(pp1)
+p2 = fixer(pp2)
+
+
+num1 = 0
+num2 = 0
+
+for(i in 0:od){
+    num1 = num1+vals1[i+1]*10^i
+    num2 = num2+vals2[i+1]*10^i
+}
+num3 = num1+num2
+
+stn1 = character()
+stn2 = character()
+stn3 = character()
+swo1 = FALSE
+swo2 = FALSE
+for(i in od:0){
+    if(i<=degs[1]){swo1=TRUE}
+    if(i<=degs[2]){swo2=TRUE}
+    if(swo1){
+        stn1 = c(stn1,vals1[i+1])
+    } else {
+        stn1 = c(stn1," ")
+    }
+    if(swo2){
+        stn2 = c(stn2,vals2[i+1])
+    } else {
+        stn2 = c(stn2," ")
+    }
+    stn3 = c(stn3,vals3[i+1])
+}
+```
+
+
+Question
+========
+
+Consider the two numbers, $a$ and $b$, expressed below.
+
+$$a ~~=~~ `r p1`$$
+
+$$b ~~=~~ `r p2`$$
+
+What is the value of $a+b$?
+
+
+Solution
+========
+
+First, you can unsimplify each:
+
+$$a = `r usp1`$$
+$$b = `r usp2`$$
+Combine the ones, tens, hundreds, thousands...
+
+
+$$a+b=`r usp3`$$
+
+$$a+b=`r num3`$$
+
+
+```{css,echo=F}
+.ss-table td {
+    background-color: white;
+    color: rgb(0, 0, 0);
+    padding: 4px;
+    text-align: center;
+  }
+  
+  .ss-table tr:last-child{
+    border-top: 1px solid black;
+  }
+```
+
+
+
+```{r,echo=F}
+col1 = c("","\\+","=")
+mydf = data.frame(col1)
+for(i in 1:(od+1)){
+    xx = c(stn1[i],stn2[i],stn3[i])
+    mydf = cbind(mydf,xx)
+}
+
+knitr::kable(mydf, format = "html",col.names = NULL,row.names = F,table.attr='class="ss-table"')
+```
+
+
+Meta-information
+============
+extype: num 
+exsolution: `r num3`
+exname: add_base10
