@@ -1,0 +1,413 @@
+---
+output: pdf_document
+---
+
+Name: \hspace{4in} Date: \hfill \hrule
+
+# Multiply fractions with prime factorization
+
+## Example 1
+
+Using prime factorization, evaluate the product of two fractions shown below. Give your answer as a [reduced fraction](https://en.wikipedia.org/wiki/Irreducible_fraction) (not a [mixed number](https://en.wikipedia.org/wiki/Fraction#Mixed_numbers)).
+
+$$\frac{10}{21}\cdot \frac{28}{25}$$
+
+### Solution to example 1
+
+First, use factor trees to determine the prime factorization of each number.
+
+```{r,echo=F,fig.dim=c(6,1.5)}
+par(mar=c(0,0,0,0),mfrow=c(1,4))
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+text(0.5,0.9,10)
+text(0.2,0.1,2)
+text(0.8,0.1,5)
+lines(c(0.2,0.5,0.8),c(0.2,0.8,0.2))
+
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+text(0.5,0.9,21)
+text(0.2,0.1,3)
+text(0.8,0.1,7)
+lines(c(0.2,0.5,0.8),c(0.2,0.8,0.2))
+
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+text(0.5,0.9,28)
+text(0.2,0.5,4)
+text(0.8,0.5,7)
+text(0.1,0.1,2)
+text(0.3,0.1,2)
+lines(c(0.2,0.5,0.8),c(0.6,0.8,0.6))
+lines(c(0.1,0.2,0.3),c(0.2,0.4,0.2))
+
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+text(0.5,0.9,25)
+text(0.2,0.1,5)
+text(0.8,0.1,5)
+lines(c(0.2,0.5,0.8),c(0.2,0.8,0.2))
+
+
+# gettree = function(x){
+#     facts = list()
+#     for(i in 1:20){
+#         if(x %/% 2 == 0){
+#             facts[[i]] = c(2,round(x/2))
+#             x = round(x/2)
+#         } else if(x %/% 3 == 0) {
+#             facts[[i]] = c(3,round(x/3))
+#             x = round(x/3)
+#         } else if(x %/% 5 == 0) {
+#             facts[[i]] = c(5,round(x/5))
+#             x = round(x/5)
+#         } else if(x %/% 7 == 0) {
+#             facts[[i]] = c(7,round(x/7))
+#             x = round(x/7)
+#         } else if(x %/% 11 == 0) {
+#             facts[[i]] = c(11,round(x/11))
+#             x = round(x/11)
+#         } else if(x %/% 13 == 0) {
+#             facts[[i]] = c(13,round(x/13))
+#             x = round(x/13)
+#         } else if(x %/% 17 == 0) {
+#             facts[[i]] = c(17,round(x/17))
+#             x = round(x/17)
+#         } else {break}
+#     }
+#     return(facts)
+# }
+# plottree = function(x,facts){
+#     par(mar=c(0,0,0,0))
+#     plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+#     n = length(facts)
+#     hsps = 3+n-1
+#     vsps = n+1
+#     hbs = seq(0,1,length.out=hsps+1)
+#     vbs = seq(1,0,length.out=vsps+1)
+#     hmids = (hbs[2:(hsps+1)]+hbs[1:hsps])/2
+#     vmids = (vbs[2:(vsps+1)]+vbs[1:vsps])/2
+# }
+
+```
+
+
+$$10=2^1 \cdot 5^1$$
+$$21=3^1 \cdot 7^1$$
+$$28=2^2 \cdot 7^1$$
+$$25=5^2$$
+
+Rewrite the fraction using prime factors. Also, remember $\frac{a}{b}\cdot\frac{c}{d}\equiv \frac{ac}{bd}$.
+
+$$\frac{2\cdot 5 \cdot 2 \cdot 2 \cdot 7}{3\cdot 7\cdot 5\cdot 5}$$
+
+Eliminate common factors.
+
+$$\frac{2\cdot \not{5} \cdot 2 \cdot 2 \cdot \not{7}}{3\cdot \not{7}\cdot \not{5}\cdot 5}$$
+
+$$\frac{2 \cdot 2 \cdot 2}{3\cdot 5}$$
+
+Multiply the factors in the numerator, and multiply the factors in the denominator.
+
+$$\frac{8}{15}$$
+
+\newpage
+
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+primes = c(2,3,5,7,11,13)
+ep = c(2,3,5)
+while(T){
+    na = sample(2:5,1)
+    A = prod(c(sample(ep,na-1,T),sample(primes,1)))
+    nb = sample(2:5,1)
+    B = prod(c(sample(ep,nb-1,T),sample(primes,1)))
+    nc = sample(2:5,1)
+    C = prod(c(sample(ep,nc-1,T),sample(primes,1)))
+    nd = sample(2:5,1)
+    D = prod(c(sample(ep,nd-1,T),sample(primes,1)))
+    ansnum = A*C/gcd(c(A*C,B*D))
+    ansden = B*D/gcd(c(A*C,B*D))
+    if(length(unique(c(A,B,C,D)))==4 && (A*C)!=(B*D) && gcd(c(A,B))==1 && gcd(c(C,D))==1 && gcd(A,D)>1 && gcd(B,C)>1 && max(c(A,B,C,D))<200 && ansnum<50 && ansden<50){break}
+}
+```
+
+# Practice 1
+
+* Consider the product of fractions shown below.
+
+$$\frac{`r A`}{`r B`}\cdot \frac{`r C`}{`r D`}$$
+
+* Make factor trees for `r A`, `r B`, `r C`, and `r D`.
+
+\vfill
+
+* Rewrite the problem using prime factors and a single fraction.
+
+\vfill
+
+* Simplify by eliminating common factors.
+
+\vfill
+
+
+\newpage
+
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+primes = c(2,3,5,7,11,13)
+ep = c(2,3,5)
+while(T){
+    na = sample(2:5,1)
+    A = prod(c(sample(ep,na-1,T),sample(primes,1)))
+    nb = sample(2:5,1)
+    B = prod(c(sample(ep,nb-1,T),sample(primes,1)))
+    nc = sample(2:5,1)
+    C = prod(c(sample(ep,nc-1,T),sample(primes,1)))
+    nd = sample(2:5,1)
+    D = prod(c(sample(ep,nd-1,T),sample(primes,1)))
+    ansnum = A*C/gcd(c(A*C,B*D))
+    ansden = B*D/gcd(c(A*C,B*D))
+    if(length(unique(c(A,B,C,D)))==4 && (A*C)!=(B*D) && gcd(c(A,B))==1 && gcd(c(C,D))==1 && gcd(A,D)>1 && gcd(B,C)>1 && max(c(A,B,C,D))<200 && ansnum<50 && ansden<50){break}
+}
+```
+
+# Practice 2
+
+* Consider the product of fractions shown below.
+
+$$\frac{`r A`}{`r B`}\cdot \frac{`r C`}{`r D`}$$
+
+* Make factor trees for `r A`, `r B`, `r C`, and `r D`.
+
+\vfill
+
+* Rewrite the problem using prime factors and a single fraction.
+
+\vfill
+
+* Simplify by eliminating common factors.
+
+\vfill
+
+
+\newpage
+
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+primes = c(2,3,5,7,11,13)
+ep = c(2,3,5)
+while(T){
+    na = sample(2:5,1)
+    A = prod(c(sample(ep,na-1,T),sample(primes,1)))
+    nb = sample(2:5,1)
+    B = prod(c(sample(ep,nb-1,T),sample(primes,1)))
+    nc = sample(2:5,1)
+    C = prod(c(sample(ep,nc-1,T),sample(primes,1)))
+    nd = sample(2:5,1)
+    D = prod(c(sample(ep,nd-1,T),sample(primes,1)))
+    ansnum = A*C/gcd(c(A*C,B*D))
+    ansden = B*D/gcd(c(A*C,B*D))
+    if(length(unique(c(A,B,C,D)))==4 && (A*C)!=(B*D) && gcd(c(A,B))==1 && gcd(c(C,D))==1 && gcd(A,D)>1 && gcd(B,C)>1 && max(c(A,B,C,D))<200 && ansnum<50 && ansden<50){break}
+}
+```
+
+# Practice 3
+
+* Consider the product of fractions shown below.
+
+$$\frac{`r A`}{`r B`}\cdot \frac{`r C`}{`r D`}$$
+
+* Make factor trees for `r A`, `r B`, `r C`, and `r D`.
+
+\vfill
+
+* Rewrite the problem using prime factors and a single fraction.
+
+\vfill
+
+* Simplify by eliminating common factors.
+
+\vfill
+
+
+
+\newpage
+
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+primes = c(2,3,5,7,11,13)
+ep = c(2,3,5)
+while(T){
+    na = sample(2:5,1)
+    A = prod(c(sample(ep,na-1,T),sample(primes,1)))
+    nb = sample(2:5,1)
+    B = prod(c(sample(ep,nb-1,T),sample(primes,1)))
+    nc = sample(2:5,1)
+    C = prod(c(sample(ep,nc-1,T),sample(primes,1)))
+    nd = sample(2:5,1)
+    D = prod(c(sample(ep,nd-1,T),sample(primes,1)))
+    ansnum = A*C/gcd(c(A*C,B*D))
+    ansden = B*D/gcd(c(A*C,B*D))
+    if(length(unique(c(A,B,C,D)))==4 && (A*C)!=(B*D) && gcd(c(A,B))==1 && gcd(c(C,D))==1 && gcd(A,D)>1 && gcd(B,C)>1 && max(c(A,B,C,D))<200 && ansnum<50 && ansden<50){break}
+}
+```
+
+# Practice 4
+
+* Consider the product of fractions shown below.
+
+$$\frac{`r A`}{`r B`}\cdot \frac{`r C`}{`r D`}$$
+
+* Make factor trees for `r A`, `r B`, `r C`, and `r D`.
+
+\vfill
+
+* Rewrite the problem using prime factors and a single fraction.
+
+\vfill
+
+* Simplify by eliminating common factors.
+
+\vfill
+
+
+\newpage
+
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+primes = c(2,3,5,7,11,13)
+ep = c(2,3,5)
+while(T){
+    na = sample(2:5,1)
+    A = prod(c(sample(ep,na-1,T),sample(primes,1)))
+    nb = sample(2:5,1)
+    B = prod(c(sample(ep,nb-1,T),sample(primes,1)))
+    nc = sample(2:5,1)
+    C = prod(c(sample(ep,nc-1,T),sample(primes,1)))
+    nd = sample(2:5,1)
+    D = prod(c(sample(ep,nd-1,T),sample(primes,1)))
+    ansnum = A*C/gcd(c(A*C,B*D))
+    ansden = B*D/gcd(c(A*C,B*D))
+    if(length(unique(c(A,B,C,D)))==4 && (A*C)!=(B*D) && gcd(c(A,B))==1 && gcd(c(C,D))==1 && gcd(A,D)>1 && gcd(B,C)>1 && max(c(A,B,C,D))<200 && ansnum<50 && ansden<50){break}
+}
+```
+
+# Practice 5
+
+* Consider the product of fractions shown below.
+
+$$\frac{`r A`}{`r B`}\cdot \frac{`r C`}{`r D`}$$
+
+* Make factor trees for `r A`, `r B`, `r C`, and `r D`.
+
+\vfill
+
+* Rewrite the problem using prime factors and a single fraction.
+
+\vfill
+
+* Simplify by eliminating common factors.
+
+\vfill
+
+\newpage
+
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+primes = c(2,3,5,7,11,13)
+ep = c(2,3,5)
+while(T){
+    na = sample(2:5,1)
+    A = prod(c(sample(ep,na-1,T),sample(primes,1)))
+    nb = sample(2:5,1)
+    B = prod(c(sample(ep,nb-1,T),sample(primes,1)))
+    nc = sample(2:5,1)
+    C = prod(c(sample(ep,nc-1,T),sample(primes,1)))
+    nd = sample(2:5,1)
+    D = prod(c(sample(ep,nd-1,T),sample(primes,1)))
+    ansnum = A*C/gcd(c(A*C,B*D))
+    ansden = B*D/gcd(c(A*C,B*D))
+    if(length(unique(c(A,B,C,D)))==4 && (A*C)!=(B*D) && gcd(c(A,B))==1 && gcd(c(C,D))==1 && gcd(A,D)>1 && gcd(B,C)>1 && max(c(A,B,C,D))<200 && ansnum<50 && ansden<50){break}
+}
+```
+
+# Practice 6
+
+* Consider the product of fractions shown below.
+
+$$\frac{`r A`}{`r B`}\cdot \frac{`r C`}{`r D`}$$
+
+* Make factor trees for `r A`, `r B`, `r C`, and `r D`.
+
+\vfill
+
+* Rewrite the problem using prime factors and a single fraction.
+
+\vfill
+
+* Simplify by eliminating common factors.
+
+\vfill
+
+\newpage
+
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+primes = c(2,3,5,7,11,13)
+ep = c(2,3,5)
+while(T){
+    na = sample(2:5,1)
+    A = prod(c(sample(ep,na-1,T),sample(primes,1)))
+    nb = sample(2:5,1)
+    B = prod(c(sample(ep,nb-1,T),sample(primes,1)))
+    nc = sample(2:5,1)
+    C = prod(c(sample(ep,nc-1,T),sample(primes,1)))
+    nd = sample(2:5,1)
+    D = prod(c(sample(ep,nd-1,T),sample(primes,1)))
+    ansnum = A*C/gcd(c(A*C,B*D))
+    ansden = B*D/gcd(c(A*C,B*D))
+    if(length(unique(c(A,B,C,D)))==4 && (A*C)!=(B*D) && gcd(c(A,B))==1 && gcd(c(C,D))==1 && gcd(A,D)>1 && gcd(B,C)>1 && max(c(A,B,C,D))<200 && ansnum<50 && ansden<50){break}
+}
+```
+
+# Practice 7
+
+* Consider the product of fractions shown below.
+
+$$\frac{`r A`}{`r B`}\cdot \frac{`r C`}{`r D`}$$
+
+* Make factor trees for `r A`, `r B`, `r C`, and `r D`.
+
+\vfill
+
+* Rewrite the problem using prime factors and a single fraction.
+
+\vfill
+
+* Simplify by eliminating common factors.
+
+\vfill
+
+
+
+
+

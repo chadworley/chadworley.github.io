@@ -3,14 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "u05_"
 
-probs = c("01_base10_eval.Rmd",
-          "02_base10_placevalue.Rmd",
-          "03_polynomial_terminology.Rmd",
-          "04_add_base10.Rmd",
-          "05_add_poly.Rmd",
-          "06_subtract_poly.Rmd")
+probs = c("07_base10_multiply.Rmd")
 
-pnts = c(3,3,4,3,5,5)
+pnts = c(4)
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
 for(i in 1:length(probs)){
