@@ -8,8 +8,8 @@ while(T){
     cfs1 = c(sample(c(0,1,sample(-9:9,deg1-2,T))),sample(1:9,1)*sample(c(-1,1),1))
     cfs2 = c(sample(c(0,1,sample(-9:9,deg2-2,T))),sample(1:9,1)*sample(c(-1,1),1))
     degspe = sample(1:(mind-1),2)
-    cfs1[degspe[1]] = -cfs2[degspe[1]]
-    cfs2[degspe[2]] = -cfs1[degspe[2]]+sample(c(-1,1),1)
+    cfs1[degspe[1]] = cfs2[degspe[1]]
+    cfs2[degspe[2]] = cfs1[degspe[2]]+sample(c(-1,1),1)
     if(deg1<deg2){
         cf1 = c(cfs1,rep(0,deg2-deg1))
         cf2 = cfs2
@@ -20,7 +20,7 @@ while(T){
         cf1 = cfs1
         cf2 = cfs2
     }
-    cf3 = cf1+cf2
+    cf3 = cf1-cf2
     if(cf3[md]!=0){break}
 }
 rc1 = rev(cf1)
@@ -83,9 +83,9 @@ Consider the two polynomial functions below:
 $$p(x) ~=~ `r p1`$$
 $$q(x) ~=~ `r p2`$$
 
-Let polynomial $r(x)$ equal the sum of polynomials $p(x)$ and $q(x)$:
+Let polynomial $r(x)$ equal the difference of polynomials $p(x)$ and $q(x)$:
 
-$$r(x) = p(x)+q(x)$$
+$$r(x) = p(x)-q(x)$$
 
 The resulting polynomial can be expressed using `r paste0("$",LETTERS[1:(md)],"$",collapse=", ")`, and $`r LETTERS[md+1]`$ to represent the coefficients.
 
@@ -115,7 +115,7 @@ run = paste0("(",rc3,")x^{",(md):0,"}",collapse="+")
 $$p(x)=`r pun`$$
 $$q(x)=`r qun`$$
 
-Add the coefficients of the [like terms](https://en.wikipedia.org/wiki/Like_terms#Simplifying_an_expression).
+Subtract the coefficients of the [like terms](https://en.wikipedia.org/wiki/Like_terms#Simplifying_an_expression). Remember, order matters in subtraction.
 $$r(x)=`r run`$$
 
 Thus, we get our answers:
@@ -132,4 +132,4 @@ Meta-information
 extype: cloze
 exclozetype: `r schs`
 exsolution: `r sols`
-exname: add_poly
+exname: subtract_poly
