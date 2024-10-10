@@ -4,10 +4,15 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "u03_"
-files = ["_mastery.zip"]
+front = "u05_"
+files = ["01_base10_eval.Rmd",
+         "02_base10_placevalue.Rmd",
+         "03_polynomial_terminology.Rmd",
+         "04_add_base10.Rmd",
+         "05_add_poly.Rmd",
+         "06_subtract_poly.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u03/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:

@@ -3,12 +3,17 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-10-01 8:00:00"]*1
-dut = ["2024-10-02 23:59:00"]*1
-front = "u03_"
-files = ["13_binomial_exact_approx.Rmd"]
+avt = ["2024-10-10 8:00:00"]*6
+dut = ["2024-10-10 23:59:00"]*6
+front = "u05_"
+files = ["01_base10_eval.Rmd",
+         "02_base10_placevalue.Rmd",
+         "03_polynomial_terminology.Rmd",
+         "04_add_base10.Rmd",
+         "05_add_poly.Rmd",
+         "06_subtract_poly.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u03/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
