@@ -1,0 +1,866 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>10_multiply_quadratic_linear</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">10_multiply_quadratic_linear</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The product of a linear polynomial times a quadratic polynomial is a cubic polynomial. Find the product of the linear binomial and the quadratic trinomial shown below.</p>
+<p><span class="math display">\[r(x)~~=~~\left({-9}x-{4}\right) \cdot \left({-2}x^{2}+{5}x+{7}\right)\]</span></p>
+<p>Write the resulting cubic polynomial in standard form.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<ul>
+<li><span class="math inline">\(r(x)~=\)</span> <select><option>--------</option><option> -86</option><option>-83</option><option>-63</option><option>-60</option><option>-52</option><option>-45</option><option>-37</option><option>-28</option><option>-22</option><option>-20</option><option>-18</option><option>-8</option><option>-1</option><option>0</option><option>1</option><option>8</option><option>18</option><option>20</option><option>22</option><option>28</option><option>37</option><option>45</option><option>52</option><option>60</option><option>63</option><option>83</option><option>86 </option></select><span class="math inline">\(x^3\)</span> <select><option>--------</option><option> -86</option><option>-83</option><option>-63</option><option>-60</option><option>-52</option><option>-45</option><option>-37</option><option>-28</option><option>-22</option><option>-20</option><option>-18</option><option>-8</option><option>-1</option><option>+0</option><option>+1</option><option>+8</option><option>+18</option><option>+20</option><option>+22</option><option>+28</option><option>+37</option><option>+45</option><option>+52</option><option>+60</option><option>+63</option><option>+83</option><option>+86 </option></select><span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -86</option><option>-83</option><option>-63</option><option>-60</option><option>-52</option><option>-45</option><option>-37</option><option>-28</option><option>-22</option><option>-20</option><option>-18</option><option>-8</option><option>-1</option><option>+0</option><option>+1</option><option>+8</option><option>+18</option><option>+20</option><option>+22</option><option>+28</option><option>+37</option><option>+45</option><option>+52</option><option>+60</option><option>+63</option><option>+83</option><option>+86 </option></select><span class="math inline">\(x\)</span> <select><option>--------</option><option> -86</option><option>-83</option><option>-63</option><option>-60</option><option>-52</option><option>-45</option><option>-37</option><option>-28</option><option>-22</option><option>-20</option><option>-18</option><option>-8</option><option>-1</option><option>+0</option><option>+1</option><option>+8</option><option>+18</option><option>+20</option><option>+22</option><option>+28</option><option>+37</option><option>+45</option><option>+52</option><option>+60</option><option>+63</option><option>+83</option><option>+86 </option></select></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-9x\)</span></th>
+<th align="center"><span class="math inline">\(-4\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-2x^2\)</span></td>
+<td align="center"><span class="math inline">\(18x^3\)</span></td>
+<td align="center"><span class="math inline">\(8x^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(5x\)</span></td>
+<td align="center"><span class="math inline">\(-45x^2\)</span></td>
+<td align="center"><span class="math inline">\(-20x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(7\)</span></td>
+<td align="center"><span class="math inline">\(-63x\)</span></td>
+<td align="center"><span class="math inline">\(-28\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[r(x)~~=~~ {18}x^{3}-{45}x^{2}-{63}x+{8}x^{2}-{20}x-{28}\]</span></p>
+<p>Combine like terms.</p>
+<p><span class="math display">\[r(x)~~=~~ {18}x^{3}-{37}x^{2}-{83}x-{28}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The product of a linear polynomial times a quadratic polynomial is a cubic polynomial. Find the product of the linear binomial and the quadratic trinomial shown below.</p>
+<p><span class="math display">\[r(x)~~=~~\left({6}x-{9}\right) \cdot \left({-9}x^{2}-{7}x-{5}\right)\]</span></p>
+<p>Write the resulting cubic polynomial in standard form.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<ul>
+<li><span class="math inline">\(r(x)~=\)</span> <select><option>--------</option><option> -90</option><option>-81</option><option>-63</option><option>-54</option><option>-45</option><option>-42</option><option>-39</option><option>-38</option><option>-35</option><option>-33</option><option>-30</option><option>-1</option><option>0</option><option>1</option><option>30</option><option>33</option><option>35</option><option>38</option><option>39</option><option>42</option><option>45</option><option>54</option><option>63</option><option>81</option><option>90 </option></select><span class="math inline">\(x^3\)</span> <select><option>--------</option><option> -90</option><option>-81</option><option>-63</option><option>-54</option><option>-45</option><option>-42</option><option>-39</option><option>-38</option><option>-35</option><option>-33</option><option>-30</option><option>-1</option><option>+0</option><option>+1</option><option>+30</option><option>+33</option><option>+35</option><option>+38</option><option>+39</option><option>+42</option><option>+45</option><option>+54</option><option>+63</option><option>+81</option><option>+90 </option></select><span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -90</option><option>-81</option><option>-63</option><option>-54</option><option>-45</option><option>-42</option><option>-39</option><option>-38</option><option>-35</option><option>-33</option><option>-30</option><option>-1</option><option>+0</option><option>+1</option><option>+30</option><option>+33</option><option>+35</option><option>+38</option><option>+39</option><option>+42</option><option>+45</option><option>+54</option><option>+63</option><option>+81</option><option>+90 </option></select><span class="math inline">\(x\)</span> <select><option>--------</option><option> -90</option><option>-81</option><option>-63</option><option>-54</option><option>-45</option><option>-42</option><option>-39</option><option>-38</option><option>-35</option><option>-33</option><option>-30</option><option>-1</option><option>+0</option><option>+1</option><option>+30</option><option>+33</option><option>+35</option><option>+38</option><option>+39</option><option>+42</option><option>+45</option><option>+54</option><option>+63</option><option>+81</option><option>+90 </option></select></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(6x\)</span></th>
+<th align="center"><span class="math inline">\(-9\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-9x^2\)</span></td>
+<td align="center"><span class="math inline">\(-54x^3\)</span></td>
+<td align="center"><span class="math inline">\(81x^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-7x\)</span></td>
+<td align="center"><span class="math inline">\(-42x^2\)</span></td>
+<td align="center"><span class="math inline">\(63x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-5\)</span></td>
+<td align="center"><span class="math inline">\(-30x\)</span></td>
+<td align="center"><span class="math inline">\(45\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[r(x)~~=~~ {-54}x^{3}-{42}x^{2}-{30}x+{81}x^{2}+{63}x+{45}\]</span></p>
+<p>Combine like terms.</p>
+<p><span class="math display">\[r(x)~~=~~ {-54}x^{3}+{39}x^{2}+{33}x+{45}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The product of a linear polynomial times a quadratic polynomial is a cubic polynomial. Find the product of the linear binomial and the quadratic trinomial shown below.</p>
+<p><span class="math display">\[r(x)~~=~~\left({-1}x+{4}\right) \cdot \left({6}x^{2}+{7}x+{4}\right)\]</span></p>
+<p>Write the resulting cubic polynomial in standard form.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<ul>
+<li><span class="math inline">\(r(x)~=\)</span> <select><option>--------</option><option> -88</option><option>-71</option><option>-45</option><option>-41</option><option>-28</option><option>-24</option><option>-17</option><option>-16</option><option>-7</option><option>-6</option><option>-4</option><option>-1</option><option>0</option><option>1</option><option>4</option><option>6</option><option>7</option><option>16</option><option>17</option><option>24</option><option>28</option><option>41</option><option>45</option><option>71</option><option>88 </option></select><span class="math inline">\(x^3\)</span> <select><option>--------</option><option> -88</option><option>-71</option><option>-45</option><option>-41</option><option>-28</option><option>-24</option><option>-17</option><option>-16</option><option>-7</option><option>-6</option><option>-4</option><option>-1</option><option>+0</option><option>+1</option><option>+4</option><option>+6</option><option>+7</option><option>+16</option><option>+17</option><option>+24</option><option>+28</option><option>+41</option><option>+45</option><option>+71</option><option>+88 </option></select><span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -88</option><option>-71</option><option>-45</option><option>-41</option><option>-28</option><option>-24</option><option>-17</option><option>-16</option><option>-7</option><option>-6</option><option>-4</option><option>-1</option><option>+0</option><option>+1</option><option>+4</option><option>+6</option><option>+7</option><option>+16</option><option>+17</option><option>+24</option><option>+28</option><option>+41</option><option>+45</option><option>+71</option><option>+88 </option></select><span class="math inline">\(x\)</span> <select><option>--------</option><option> -88</option><option>-71</option><option>-45</option><option>-41</option><option>-28</option><option>-24</option><option>-17</option><option>-16</option><option>-7</option><option>-6</option><option>-4</option><option>-1</option><option>+0</option><option>+1</option><option>+4</option><option>+6</option><option>+7</option><option>+16</option><option>+17</option><option>+24</option><option>+28</option><option>+41</option><option>+45</option><option>+71</option><option>+88 </option></select></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-1x\)</span></th>
+<th align="center"><span class="math inline">\(4\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(6x^2\)</span></td>
+<td align="center"><span class="math inline">\(-6x^3\)</span></td>
+<td align="center"><span class="math inline">\(24x^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(7x\)</span></td>
+<td align="center"><span class="math inline">\(-7x^2\)</span></td>
+<td align="center"><span class="math inline">\(28x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(4\)</span></td>
+<td align="center"><span class="math inline">\(-4x\)</span></td>
+<td align="center"><span class="math inline">\(16\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[r(x)~~=~~ {-6}x^{3}-{7}x^{2}-{4}x+{24}x^{2}+{28}x+{16}\]</span></p>
+<p>Combine like terms.</p>
+<p><span class="math display">\[r(x)~~=~~ {-6}x^{3}+{17}x^{2}+{24}x+{16}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The product of a linear polynomial times a quadratic polynomial is a cubic polynomial. Find the product of the linear binomial and the quadratic trinomial shown below.</p>
+<p><span class="math display">\[r(x)~~=~~\left({9}x+{7}\right) \cdot \left({7}x^{2}+{3}x+{2}\right)\]</span></p>
+<p>Write the resulting cubic polynomial in standard form.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<ul>
+<li><span class="math inline">\(r(x)~=\)</span> <select><option>--------</option><option> -76</option><option>-63</option><option>-49</option><option>-46</option><option>-39</option><option>-27</option><option>-21</option><option>-19</option><option>-18</option><option>-15</option><option>-14</option><option>-3</option><option>-1</option><option>0</option><option>1</option><option>3</option><option>14</option><option>15</option><option>18</option><option>19</option><option>21</option><option>27</option><option>39</option><option>46</option><option>49</option><option>63</option><option>76 </option></select><span class="math inline">\(x^3\)</span> <select><option>--------</option><option> -76</option><option>-63</option><option>-49</option><option>-46</option><option>-39</option><option>-27</option><option>-21</option><option>-19</option><option>-18</option><option>-15</option><option>-14</option><option>-3</option><option>-1</option><option>+0</option><option>+1</option><option>+3</option><option>+14</option><option>+15</option><option>+18</option><option>+19</option><option>+21</option><option>+27</option><option>+39</option><option>+46</option><option>+49</option><option>+63</option><option>+76 </option></select><span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -76</option><option>-63</option><option>-49</option><option>-46</option><option>-39</option><option>-27</option><option>-21</option><option>-19</option><option>-18</option><option>-15</option><option>-14</option><option>-3</option><option>-1</option><option>+0</option><option>+1</option><option>+3</option><option>+14</option><option>+15</option><option>+18</option><option>+19</option><option>+21</option><option>+27</option><option>+39</option><option>+46</option><option>+49</option><option>+63</option><option>+76 </option></select><span class="math inline">\(x\)</span> <select><option>--------</option><option> -76</option><option>-63</option><option>-49</option><option>-46</option><option>-39</option><option>-27</option><option>-21</option><option>-19</option><option>-18</option><option>-15</option><option>-14</option><option>-3</option><option>-1</option><option>+0</option><option>+1</option><option>+3</option><option>+14</option><option>+15</option><option>+18</option><option>+19</option><option>+21</option><option>+27</option><option>+39</option><option>+46</option><option>+49</option><option>+63</option><option>+76 </option></select></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(9x\)</span></th>
+<th align="center"><span class="math inline">\(7\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(7x^2\)</span></td>
+<td align="center"><span class="math inline">\(63x^3\)</span></td>
+<td align="center"><span class="math inline">\(49x^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3x\)</span></td>
+<td align="center"><span class="math inline">\(27x^2\)</span></td>
+<td align="center"><span class="math inline">\(21x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\)</span></td>
+<td align="center"><span class="math inline">\(18x\)</span></td>
+<td align="center"><span class="math inline">\(14\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[r(x)~~=~~ {63}x^{3}+{27}x^{2}+{18}x+{49}x^{2}+{21}x+{14}\]</span></p>
+<p>Combine like terms.</p>
+<p><span class="math display">\[r(x)~~=~~ {63}x^{3}+{76}x^{2}+{39}x+{14}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The product of a linear polynomial times a quadratic polynomial is a cubic polynomial. Find the product of the linear binomial and the quadratic trinomial shown below.</p>
+<p><span class="math display">\[r(x)~~=~~\left({-6}x-{8}\right) \cdot \left({1}x^{2}-{4}x+{5}\right)\]</span></p>
+<p>Write the resulting cubic polynomial in standard form.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<ul>
+<li><span class="math inline">\(r(x)~=\)</span> <select><option>--------</option><option> -90</option><option>-85</option><option>-40</option><option>-32</option><option>-30</option><option>-24</option><option>-16</option><option>-8</option><option>-6</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>6</option><option>8</option><option>16</option><option>24</option><option>30</option><option>32</option><option>40</option><option>85</option><option>90 </option></select><span class="math inline">\(x^3\)</span> <select><option>--------</option><option> -90</option><option>-85</option><option>-40</option><option>-32</option><option>-30</option><option>-24</option><option>-16</option><option>-8</option><option>-6</option><option>-2</option><option>-1</option><option>+0</option><option>+1</option><option>+2</option><option>+6</option><option>+8</option><option>+16</option><option>+24</option><option>+30</option><option>+32</option><option>+40</option><option>+85</option><option>+90 </option></select><span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -90</option><option>-85</option><option>-40</option><option>-32</option><option>-30</option><option>-24</option><option>-16</option><option>-8</option><option>-6</option><option>-2</option><option>-1</option><option>+0</option><option>+1</option><option>+2</option><option>+6</option><option>+8</option><option>+16</option><option>+24</option><option>+30</option><option>+32</option><option>+40</option><option>+85</option><option>+90 </option></select><span class="math inline">\(x\)</span> <select><option>--------</option><option> -90</option><option>-85</option><option>-40</option><option>-32</option><option>-30</option><option>-24</option><option>-16</option><option>-8</option><option>-6</option><option>-2</option><option>-1</option><option>+0</option><option>+1</option><option>+2</option><option>+6</option><option>+8</option><option>+16</option><option>+24</option><option>+30</option><option>+32</option><option>+40</option><option>+85</option><option>+90 </option></select></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-6x\)</span></th>
+<th align="center"><span class="math inline">\(-8\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(1x^2\)</span></td>
+<td align="center"><span class="math inline">\(-6x^3\)</span></td>
+<td align="center"><span class="math inline">\(-8x^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-4x\)</span></td>
+<td align="center"><span class="math inline">\(24x^2\)</span></td>
+<td align="center"><span class="math inline">\(32x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(5\)</span></td>
+<td align="center"><span class="math inline">\(-30x\)</span></td>
+<td align="center"><span class="math inline">\(-40\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[r(x)~~=~~ {-6}x^{3}+{24}x^{2}-{30}x-{8}x^{2}+{32}x-{40}\]</span></p>
+<p>Combine like terms.</p>
+<p><span class="math display">\[r(x)~~=~~ {-6}x^{3}+{16}x^{2}+{2}x-{40}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The product of a linear polynomial times a quadratic polynomial is a cubic polynomial. Find the product of the linear binomial and the quadratic trinomial shown below.</p>
+<p><span class="math display">\[r(x)~~=~~\left({6}x+{5}\right) \cdot \left({-1}x^{2}+{5}x-{8}\right)\]</span></p>
+<p>Write the resulting cubic polynomial in standard form.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<ul>
+<li><span class="math inline">\(r(x)~=\)</span> <select><option>--------</option><option> -91</option><option>-88</option><option>-84</option><option>-74</option><option>-48</option><option>-40</option><option>-30</option><option>-25</option><option>-23</option><option>-6</option><option>-5</option><option>-1</option><option>0</option><option>1</option><option>5</option><option>6</option><option>23</option><option>25</option><option>30</option><option>40</option><option>48</option><option>74</option><option>84</option><option>88</option><option>91 </option></select><span class="math inline">\(x^3\)</span> <select><option>--------</option><option> -91</option><option>-88</option><option>-84</option><option>-74</option><option>-48</option><option>-40</option><option>-30</option><option>-25</option><option>-23</option><option>-6</option><option>-5</option><option>-1</option><option>+0</option><option>+1</option><option>+5</option><option>+6</option><option>+23</option><option>+25</option><option>+30</option><option>+40</option><option>+48</option><option>+74</option><option>+84</option><option>+88</option><option>+91 </option></select><span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -91</option><option>-88</option><option>-84</option><option>-74</option><option>-48</option><option>-40</option><option>-30</option><option>-25</option><option>-23</option><option>-6</option><option>-5</option><option>-1</option><option>+0</option><option>+1</option><option>+5</option><option>+6</option><option>+23</option><option>+25</option><option>+30</option><option>+40</option><option>+48</option><option>+74</option><option>+84</option><option>+88</option><option>+91 </option></select><span class="math inline">\(x\)</span> <select><option>--------</option><option> -91</option><option>-88</option><option>-84</option><option>-74</option><option>-48</option><option>-40</option><option>-30</option><option>-25</option><option>-23</option><option>-6</option><option>-5</option><option>-1</option><option>+0</option><option>+1</option><option>+5</option><option>+6</option><option>+23</option><option>+25</option><option>+30</option><option>+40</option><option>+48</option><option>+74</option><option>+84</option><option>+88</option><option>+91 </option></select></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(6x\)</span></th>
+<th align="center"><span class="math inline">\(5\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-1x^2\)</span></td>
+<td align="center"><span class="math inline">\(-6x^3\)</span></td>
+<td align="center"><span class="math inline">\(-5x^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(5x\)</span></td>
+<td align="center"><span class="math inline">\(30x^2\)</span></td>
+<td align="center"><span class="math inline">\(25x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-8\)</span></td>
+<td align="center"><span class="math inline">\(-48x\)</span></td>
+<td align="center"><span class="math inline">\(-40\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[r(x)~~=~~ {-6}x^{3}+{30}x^{2}-{48}x-{5}x^{2}+{25}x-{40}\]</span></p>
+<p>Combine like terms.</p>
+<p><span class="math display">\[r(x)~~=~~ {-6}x^{3}+{25}x^{2}-{23}x-{40}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The product of a linear polynomial times a quadratic polynomial is a cubic polynomial. Find the product of the linear binomial and the quadratic trinomial shown below.</p>
+<p><span class="math display">\[r(x)~~=~~\left({-7}x-{4}\right) \cdot \left({-2}x^{2}-{9}x+{1}\right)\]</span></p>
+<p>Write the resulting cubic polynomial in standard form.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<ul>
+<li><span class="math inline">\(r(x)~=\)</span> <select><option>--------</option><option> -71</option><option>-63</option><option>-59</option><option>-36</option><option>-30</option><option>-29</option><option>-25</option><option>-16</option><option>-14</option><option>-8</option><option>-7</option><option>-4</option><option>-1</option><option>0</option><option>1</option><option>4</option><option>7</option><option>8</option><option>14</option><option>16</option><option>25</option><option>29</option><option>30</option><option>36</option><option>59</option><option>63</option><option>71 </option></select><span class="math inline">\(x^3\)</span> <select><option>--------</option><option> -71</option><option>-63</option><option>-59</option><option>-36</option><option>-30</option><option>-29</option><option>-25</option><option>-16</option><option>-14</option><option>-8</option><option>-7</option><option>-4</option><option>-1</option><option>+0</option><option>+1</option><option>+4</option><option>+7</option><option>+8</option><option>+14</option><option>+16</option><option>+25</option><option>+29</option><option>+30</option><option>+36</option><option>+59</option><option>+63</option><option>+71 </option></select><span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -71</option><option>-63</option><option>-59</option><option>-36</option><option>-30</option><option>-29</option><option>-25</option><option>-16</option><option>-14</option><option>-8</option><option>-7</option><option>-4</option><option>-1</option><option>+0</option><option>+1</option><option>+4</option><option>+7</option><option>+8</option><option>+14</option><option>+16</option><option>+25</option><option>+29</option><option>+30</option><option>+36</option><option>+59</option><option>+63</option><option>+71 </option></select><span class="math inline">\(x\)</span> <select><option>--------</option><option> -71</option><option>-63</option><option>-59</option><option>-36</option><option>-30</option><option>-29</option><option>-25</option><option>-16</option><option>-14</option><option>-8</option><option>-7</option><option>-4</option><option>-1</option><option>+0</option><option>+1</option><option>+4</option><option>+7</option><option>+8</option><option>+14</option><option>+16</option><option>+25</option><option>+29</option><option>+30</option><option>+36</option><option>+59</option><option>+63</option><option>+71 </option></select></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-7x\)</span></th>
+<th align="center"><span class="math inline">\(-4\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-2x^2\)</span></td>
+<td align="center"><span class="math inline">\(14x^3\)</span></td>
+<td align="center"><span class="math inline">\(8x^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-9x\)</span></td>
+<td align="center"><span class="math inline">\(63x^2\)</span></td>
+<td align="center"><span class="math inline">\(36x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(1\)</span></td>
+<td align="center"><span class="math inline">\(-7x\)</span></td>
+<td align="center"><span class="math inline">\(-4\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[r(x)~~=~~ {14}x^{3}+{63}x^{2}-{7}x+{8}x^{2}+{36}x-{4}\]</span></p>
+<p>Combine like terms.</p>
+<p><span class="math display">\[r(x)~~=~~ {14}x^{3}+{71}x^{2}+{29}x-{4}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The product of a linear polynomial times a quadratic polynomial is a cubic polynomial. Find the product of the linear binomial and the quadratic trinomial shown below.</p>
+<p><span class="math display">\[r(x)~~=~~\left({-3}x-{2}\right) \cdot \left({1}x^{2}+{5}x+{6}\right)\]</span></p>
+<p>Write the resulting cubic polynomial in standard form.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<ul>
+<li><span class="math inline">\(r(x)~=\)</span> <select><option>--------</option><option> -68</option><option>-62</option><option>-47</option><option>-38</option><option>-28</option><option>-18</option><option>-17</option><option>-15</option><option>-12</option><option>-10</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>10</option><option>12</option><option>15</option><option>17</option><option>18</option><option>28</option><option>38</option><option>47</option><option>62</option><option>68 </option></select><span class="math inline">\(x^3\)</span> <select><option>--------</option><option> -68</option><option>-62</option><option>-47</option><option>-38</option><option>-28</option><option>-18</option><option>-17</option><option>-15</option><option>-12</option><option>-10</option><option>-3</option><option>-2</option><option>-1</option><option>+0</option><option>+1</option><option>+2</option><option>+3</option><option>+10</option><option>+12</option><option>+15</option><option>+17</option><option>+18</option><option>+28</option><option>+38</option><option>+47</option><option>+62</option><option>+68 </option></select><span class="math inline">\(x^2\)</span> <select><option>--------</option><option> -68</option><option>-62</option><option>-47</option><option>-38</option><option>-28</option><option>-18</option><option>-17</option><option>-15</option><option>-12</option><option>-10</option><option>-3</option><option>-2</option><option>-1</option><option>+0</option><option>+1</option><option>+2</option><option>+3</option><option>+10</option><option>+12</option><option>+15</option><option>+17</option><option>+18</option><option>+28</option><option>+38</option><option>+47</option><option>+62</option><option>+68 </option></select><span class="math inline">\(x\)</span> <select><option>--------</option><option> -68</option><option>-62</option><option>-47</option><option>-38</option><option>-28</option><option>-18</option><option>-17</option><option>-15</option><option>-12</option><option>-10</option><option>-3</option><option>-2</option><option>-1</option><option>+0</option><option>+1</option><option>+2</option><option>+3</option><option>+10</option><option>+12</option><option>+15</option><option>+17</option><option>+18</option><option>+28</option><option>+38</option><option>+47</option><option>+62</option><option>+68 </option></select></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-3x\)</span></th>
+<th align="center"><span class="math inline">\(-2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(1x^2\)</span></td>
+<td align="center"><span class="math inline">\(-3x^3\)</span></td>
+<td align="center"><span class="math inline">\(-2x^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(5x\)</span></td>
+<td align="center"><span class="math inline">\(-15x^2\)</span></td>
+<td align="center"><span class="math inline">\(-10x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(6\)</span></td>
+<td align="center"><span class="math inline">\(-18x\)</span></td>
+<td align="center"><span class="math inline">\(-12\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[r(x)~~=~~ {-3}x^{3}-{15}x^{2}-{18}x-{2}x^{2}-{10}x-{12}\]</span></p>
+<p>Combine like terms.</p>
+<p><span class="math display">\[r(x)~~=~~ {-3}x^{3}-{17}x^{2}-{28}x-{12}\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

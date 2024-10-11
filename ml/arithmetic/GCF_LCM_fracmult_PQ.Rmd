@@ -1,0 +1,76 @@
+---
+output: pdf_document
+params:
+    rseed: 3
+---
+
+Name: \hspace{4in} Date: \hfill \hrule
+
+# GCF and LCM
+
+```{r, echo=F}
+set.seed(params$rseed)
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+ezprimes = c(2,3,5)
+primes = c(2,3,5,7,11,13)
+while(T){
+    nf1 = sample(3:5,1)
+    nf2 = sample(3:5,1)
+    p = prod(sample(ezprimes,nf1-1,T))
+    q = prod(sample(ezprimes,nf2-1,T))
+    p = p*sample(primes,1)
+    q = q*sample(primes,1)
+    gcf = gcd(c(p,q))
+    lcm = p*q/gcf
+    if(gcf>1 && p<200 && q<200 && lcm<1000){break}
+}
+```
+\
+
+1. Find the greatest common factor of `r p` and `r q`.
+
+\vfill
+
+2. Find the least common multiple of `r p` and `r q`.
+
+\vfill
+
+\newpage
+
+# Fraction multiplication
+
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+primes = c(2,3,5,7,11,13)
+ep = c(2,3,5)
+while(T){
+    na = sample(2:5,1)
+    A = prod(c(sample(ep,na-1,T),sample(primes,1)))
+    nb = sample(2:5,1)
+    B = prod(c(sample(ep,nb-1,T),sample(primes,1)))
+    nc = sample(2:5,1)
+    C = prod(c(sample(ep,nc-1,T),sample(primes,1)))
+    nd = sample(2:5,1)
+    D = prod(c(sample(ep,nd-1,T),sample(primes,1)))
+    ansnum = A*C/gcd(c(A*C,B*D))
+    ansden = B*D/gcd(c(A*C,B*D))
+    if(length(unique(c(A,B,C,D)))==4 && (A*C)!=(B*D) && gcd(c(A,B))==1 && gcd(c(C,D))==1 && gcd(A,D)>1 && gcd(B,C)>1 && max(c(A,B,C,D))<200 && ansnum<50 && ansden<50){break}
+}
+```
+
+3. Simplify the product of fractions shown below.
+
+$$\frac{`r A`}{`r B`}\cdot \frac{`r C`}{`r D`}$$
+
+
+
+
+
+
+

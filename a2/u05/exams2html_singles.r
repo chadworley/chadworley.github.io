@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("09_multiply_binomials.Rmd")
+pppsss = c("10_multiply_quadratic_linear.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

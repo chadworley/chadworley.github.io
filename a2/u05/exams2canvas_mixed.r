@@ -3,8 +3,8 @@ n = 30
 outdir = "outcanvas"
 genname = "u05_"
 
-probs = c("09_multiply_binomials.Rmd")
-pnts = c(7)
+probs = c("10_multiply_quadratic_linear.Rmd")
+pnts = c(5)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
