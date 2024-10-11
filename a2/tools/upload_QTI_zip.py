@@ -6,12 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID
-file_path_list = ["u05_01_base10_eval.zip",
-                  "u05_02_base10_placevalue.zip",
-                  "u05_03_polynomial_terminology.zip",
-                  "u05_04_add_base10.zip",
-                  "u05_05_add_poly.zip",
-                  "u05_06_subtract_poly.zip"]
+file_path_list = ["outcanvas/u05_07_multiply_2digits.zip","outcanvas/u05_08_base10_multiply.zip"]
 # fpl = []
 # for i in range(22,50):
 #     fpl.append("ET_0"+str(i)+".zip")

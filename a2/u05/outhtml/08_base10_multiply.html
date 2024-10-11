@@ -1,0 +1,962 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>08_base10_multiply</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">08_base10_multiply</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s consider an alternative method for finding the product (multiplication) of 100030 and 210. We first break each number into a base-10 expansion.</p>
+<p><span class="math display">\[100030~~=~~1\cdot 10^{5}~+~3\cdot 10^{1}\]</span>
+<span class="math display">\[210~~=~~2\cdot 10^{2}~+~1\cdot 10^{1}\]</span></p>
+<p>To proceed with evaluating the product, we can use the <a href="https://en.wikipedia.org/wiki/Distributive_property">distributive property</a> (or, more specifically, the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>). To do that, fill out the product table below. For each cell, find the product of the column header times the row header.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(1\cdot 10^{5}\)</span></th>
+<th align="center"><span class="math inline">\(3\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{2}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(1\cdot 10^{1}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+</div>
+<style type="text/css">
+.last select{
+    width: 12em;
+}
+</style>
+<div class="last">
+<p>Thus, the product equals <select><option>--------</option><option> 1,623,000</option><option>6,001,302</option><option>10,300,206</option><option>20,300,106</option><option>21,006,300</option><option>30,016,002</option><option>36,001,002</option><option>61,000,230</option><option>62,130,000 </option></select>.</p>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember that <span class="math inline">\((A\cdot10^a)\cdot(B\cdot 10^b) ~~\equiv~~ (A\cdot B)\cdot10^{a+b}\)</span>. You might want to review some <a href="https://en.wikipedia.org/wiki/Exponentiation#Identities_and_properties">exponent rules</a>.</p>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(1\cdot 10^{5}\)</span></th>
+<th align="center"><span class="math inline">\(3\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{2}\)</span></td>
+<td align="center"><span class="math inline">\(2\cdot 10^{7}\)</span></td>
+<td align="center"><span class="math inline">\(6\cdot 10^{3}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(1\cdot 10^{1}\)</span></td>
+<td align="center"><span class="math inline">\(1\cdot 10^{6}\)</span></td>
+<td align="center"><span class="math inline">\(3\cdot 10^{2}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>21,006,300</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s consider an alternative method for finding the product (multiplication) of 20010 and 24. We first break each number into a base-10 expansion.</p>
+<p><span class="math display">\[20010~~=~~2\cdot 10^{4}~+~1\cdot 10^{1}\]</span>
+<span class="math display">\[24~~=~~2\cdot 10^{1}~+~4\cdot 10^{0}\]</span></p>
+<p>To proceed with evaluating the product, we can use the <a href="https://en.wikipedia.org/wiki/Distributive_property">distributive property</a> (or, more specifically, the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>). To do that, fill out the product table below. For each cell, find the product of the column header times the row header.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(2\cdot 10^{4}\)</span></th>
+<th align="center"><span class="math inline">\(1\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{1}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(4\cdot 10^{0}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+</div>
+<style type="text/css">
+.last select{
+    width: 12em;
+}
+</style>
+<div class="last">
+<p>Thus, the product equals <select><option>--------</option><option> 44,082</option><option>208,440</option><option>420,840</option><option>480,240</option><option>820,440</option><option>4,002,048</option><option>4,402,008</option><option>28,040,004</option><option>80,404,020 </option></select>.</p>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember that <span class="math inline">\((A\cdot10^a)\cdot(B\cdot 10^b) ~~\equiv~~ (A\cdot B)\cdot10^{a+b}\)</span>. You might want to review some <a href="https://en.wikipedia.org/wiki/Exponentiation#Identities_and_properties">exponent rules</a>.</p>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(2\cdot 10^{4}\)</span></th>
+<th align="center"><span class="math inline">\(1\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{1}\)</span></td>
+<td align="center"><span class="math inline">\(4\cdot 10^{5}\)</span></td>
+<td align="center"><span class="math inline">\(2\cdot 10^{2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(4\cdot 10^{0}\)</span></td>
+<td align="center"><span class="math inline">\(8\cdot 10^{4}\)</span></td>
+<td align="center"><span class="math inline">\(4\cdot 10^{1}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>480,240</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s consider an alternative method for finding the product (multiplication) of 230 and 203000. We first break each number into a base-10 expansion.</p>
+<p><span class="math display">\[230~~=~~2\cdot 10^{2}~+~3\cdot 10^{1}\]</span>
+<span class="math display">\[203000~~=~~2\cdot 10^{5}~+~3\cdot 10^{3}\]</span></p>
+<p>To proceed with evaluating the product, we can use the <a href="https://en.wikipedia.org/wiki/Distributive_property">distributive property</a> (or, more specifically, the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>). To do that, fill out the product table below. For each cell, find the product of the column header times the row header.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(2\cdot 10^{2}\)</span></th>
+<th align="center"><span class="math inline">\(3\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{5}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3\cdot 10^{3}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+</div>
+<style type="text/css">
+.last select{
+    width: 12em;
+}
+</style>
+<div class="last">
+<p>Thus, the product equals <select><option>--------</option><option> 406,609</option><option>669,040</option><option>6,040,069</option><option>6,940,060</option><option>40,906,600</option><option>46,690,000</option><option>66,900,400</option><option>69,400,060</option><option>94,600,060 </option></select>.</p>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember that <span class="math inline">\((A\cdot10^a)\cdot(B\cdot 10^b) ~~\equiv~~ (A\cdot B)\cdot10^{a+b}\)</span>. You might want to review some <a href="https://en.wikipedia.org/wiki/Exponentiation#Identities_and_properties">exponent rules</a>.</p>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(2\cdot 10^{2}\)</span></th>
+<th align="center"><span class="math inline">\(3\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{5}\)</span></td>
+<td align="center"><span class="math inline">\(4\cdot 10^{7}\)</span></td>
+<td align="center"><span class="math inline">\(6\cdot 10^{6}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3\cdot 10^{3}\)</span></td>
+<td align="center"><span class="math inline">\(6\cdot 10^{5}\)</span></td>
+<td align="center"><span class="math inline">\(9\cdot 10^{4}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>46,690,000</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s consider an alternative method for finding the product (multiplication) of 30001 and 23. We first break each number into a base-10 expansion.</p>
+<p><span class="math display">\[30001~~=~~3\cdot 10^{4}~+~1\cdot 10^{0}\]</span>
+<span class="math display">\[23~~=~~2\cdot 10^{1}~+~3\cdot 10^{0}\]</span></p>
+<p>To proceed with evaluating the product, we can use the <a href="https://en.wikipedia.org/wiki/Distributive_property">distributive property</a> (or, more specifically, the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>). To do that, fill out the product table below. For each cell, find the product of the column header times the row header.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(3\cdot 10^{4}\)</span></th>
+<th align="center"><span class="math inline">\(1\cdot 10^{0}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{1}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3\cdot 10^{0}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+</div>
+<style type="text/css">
+.last select{
+    width: 12em;
+}
+</style>
+<div class="last">
+<p>Thus, the product equals <select><option>--------</option><option> 92,360</option><option>96,203</option><option>690,023</option><option>2,030,609</option><option>2,360,900</option><option>20,003,069</option><option>20,690,030</option><option>23,690,000</option><option>39,060,200 </option></select>.</p>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember that <span class="math inline">\((A\cdot10^a)\cdot(B\cdot 10^b) ~~\equiv~~ (A\cdot B)\cdot10^{a+b}\)</span>. You might want to review some <a href="https://en.wikipedia.org/wiki/Exponentiation#Identities_and_properties">exponent rules</a>.</p>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(3\cdot 10^{4}\)</span></th>
+<th align="center"><span class="math inline">\(1\cdot 10^{0}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{1}\)</span></td>
+<td align="center"><span class="math inline">\(6\cdot 10^{5}\)</span></td>
+<td align="center"><span class="math inline">\(2\cdot 10^{1}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3\cdot 10^{0}\)</span></td>
+<td align="center"><span class="math inline">\(9\cdot 10^{4}\)</span></td>
+<td align="center"><span class="math inline">\(3\cdot 10^{0}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>690,023</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s consider an alternative method for finding the product (multiplication) of 210 and 20003. We first break each number into a base-10 expansion.</p>
+<p><span class="math display">\[210~~=~~2\cdot 10^{2}~+~1\cdot 10^{1}\]</span>
+<span class="math display">\[20003~~=~~2\cdot 10^{4}~+~3\cdot 10^{0}\]</span></p>
+<p>To proceed with evaluating the product, we can use the <a href="https://en.wikipedia.org/wiki/Distributive_property">distributive property</a> (or, more specifically, the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>). To do that, fill out the product table below. For each cell, find the product of the column header times the row header.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(2\cdot 10^{2}\)</span></th>
+<th align="center"><span class="math inline">\(1\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{4}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3\cdot 10^{0}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+</div>
+<style type="text/css">
+.last select{
+    width: 12em;
+}
+</style>
+<div class="last">
+<p>Thus, the product equals <select><option>--------</option><option> 6,423</option><option>4,200,630</option><option>6,002,034</option><option>6,423,000</option><option>32,004,600</option><option>32,600,040</option><option>34,060,200</option><option>40,060,023</option><option>43,026,000 </option></select>.</p>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember that <span class="math inline">\((A\cdot10^a)\cdot(B\cdot 10^b) ~~\equiv~~ (A\cdot B)\cdot10^{a+b}\)</span>. You might want to review some <a href="https://en.wikipedia.org/wiki/Exponentiation#Identities_and_properties">exponent rules</a>.</p>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(2\cdot 10^{2}\)</span></th>
+<th align="center"><span class="math inline">\(1\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{4}\)</span></td>
+<td align="center"><span class="math inline">\(4\cdot 10^{6}\)</span></td>
+<td align="center"><span class="math inline">\(2\cdot 10^{5}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3\cdot 10^{0}\)</span></td>
+<td align="center"><span class="math inline">\(6\cdot 10^{2}\)</span></td>
+<td align="center"><span class="math inline">\(3\cdot 10^{1}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>4,200,630</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s consider an alternative method for finding the product (multiplication) of 1020 and 240. We first break each number into a base-10 expansion.</p>
+<p><span class="math display">\[1020~~=~~1\cdot 10^{3}~+~2\cdot 10^{1}\]</span>
+<span class="math display">\[240~~=~~2\cdot 10^{2}~+~4\cdot 10^{1}\]</span></p>
+<p>To proceed with evaluating the product, we can use the <a href="https://en.wikipedia.org/wiki/Distributive_property">distributive property</a> (or, more specifically, the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>). To do that, fill out the product table below. For each cell, find the product of the column header times the row header.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(1\cdot 10^{3}\)</span></th>
+<th align="center"><span class="math inline">\(2\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{2}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(4\cdot 10^{1}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+</div>
+<style type="text/css">
+.last select{
+    width: 12em;
+}
+</style>
+<div class="last">
+<p>Thus, the product equals <select><option>--------</option><option> 240,480</option><option>240,804</option><option>244,800</option><option>402,480</option><option>4,040,082</option><option>4,040,280</option><option>20,440,800</option><option>42,840,000</option><option>80,002,044 </option></select>.</p>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember that <span class="math inline">\((A\cdot10^a)\cdot(B\cdot 10^b) ~~\equiv~~ (A\cdot B)\cdot10^{a+b}\)</span>. You might want to review some <a href="https://en.wikipedia.org/wiki/Exponentiation#Identities_and_properties">exponent rules</a>.</p>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(1\cdot 10^{3}\)</span></th>
+<th align="center"><span class="math inline">\(2\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(2\cdot 10^{2}\)</span></td>
+<td align="center"><span class="math inline">\(2\cdot 10^{5}\)</span></td>
+<td align="center"><span class="math inline">\(4\cdot 10^{3}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(4\cdot 10^{1}\)</span></td>
+<td align="center"><span class="math inline">\(4\cdot 10^{4}\)</span></td>
+<td align="center"><span class="math inline">\(8\cdot 10^{2}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>244,800</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s consider an alternative method for finding the product (multiplication) of 102 and 100030. We first break each number into a base-10 expansion.</p>
+<p><span class="math display">\[102~~=~~1\cdot 10^{2}~+~2\cdot 10^{0}\]</span>
+<span class="math display">\[100030~~=~~1\cdot 10^{5}~+~3\cdot 10^{1}\]</span></p>
+<p>To proceed with evaluating the product, we can use the <a href="https://en.wikipedia.org/wiki/Distributive_property">distributive property</a> (or, more specifically, the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>). To do that, fill out the product table below. For each cell, find the product of the column header times the row header.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(1\cdot 10^{2}\)</span></th>
+<th align="center"><span class="math inline">\(2\cdot 10^{0}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(1\cdot 10^{5}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3\cdot 10^{1}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+</div>
+<style type="text/css">
+.last select{
+    width: 12em;
+}
+</style>
+<div class="last">
+<p>Thus, the product equals <select><option>--------</option><option> 1,236</option><option>3,162</option><option>63,021</option><option>120,036</option><option>6,023,010</option><option>10,203,060</option><option>36,020,001</option><option>62,000,310</option><option>63,000,102 </option></select>.</p>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember that <span class="math inline">\((A\cdot10^a)\cdot(B\cdot 10^b) ~~\equiv~~ (A\cdot B)\cdot10^{a+b}\)</span>. You might want to review some <a href="https://en.wikipedia.org/wiki/Exponentiation#Identities_and_properties">exponent rules</a>.</p>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(1\cdot 10^{2}\)</span></th>
+<th align="center"><span class="math inline">\(2\cdot 10^{0}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(1\cdot 10^{5}\)</span></td>
+<td align="center"><span class="math inline">\(1\cdot 10^{7}\)</span></td>
+<td align="center"><span class="math inline">\(2\cdot 10^{5}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3\cdot 10^{1}\)</span></td>
+<td align="center"><span class="math inline">\(3\cdot 10^{3}\)</span></td>
+<td align="center"><span class="math inline">\(6\cdot 10^{1}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>10,203,060</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s consider an alternative method for finding the product (multiplication) of 300010 and 120. We first break each number into a base-10 expansion.</p>
+<p><span class="math display">\[300010~~=~~3\cdot 10^{5}~+~1\cdot 10^{1}\]</span>
+<span class="math display">\[120~~=~~1\cdot 10^{2}~+~2\cdot 10^{1}\]</span></p>
+<p>To proceed with evaluating the product, we can use the <a href="https://en.wikipedia.org/wiki/Distributive_property">distributive property</a> (or, more specifically, the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>). To do that, fill out the product table below. For each cell, find the product of the column header times the row header.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(3\cdot 10^{5}\)</span></th>
+<th align="center"><span class="math inline">\(1\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(1\cdot 10^{2}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(2\cdot 10^{1}\)</span></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select><span class="math inline">\(\cdot 10\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+</div>
+<style type="text/css">
+.last select{
+    width: 12em;
+}
+</style>
+<div class="last">
+<p>Thus, the product equals <select><option>--------</option><option> 2,003,061</option><option>3,002,601</option><option>6,010,023</option><option>6,100,032</option><option>10,030,620</option><option>10,032,060</option><option>13,006,020</option><option>20,130,060</option><option>36,001,200 </option></select>.</p>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember that <span class="math inline">\((A\cdot10^a)\cdot(B\cdot 10^b) ~~\equiv~~ (A\cdot B)\cdot10^{a+b}\)</span>. You might want to review some <a href="https://en.wikipedia.org/wiki/Exponentiation#Identities_and_properties">exponent rules</a>.</p>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(3\cdot 10^{5}\)</span></th>
+<th align="center"><span class="math inline">\(1\cdot 10^{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(1\cdot 10^{2}\)</span></td>
+<td align="center"><span class="math inline">\(3\cdot 10^{7}\)</span></td>
+<td align="center"><span class="math inline">\(1\cdot 10^{3}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(2\cdot 10^{1}\)</span></td>
+<td align="center"><span class="math inline">\(6\cdot 10^{6}\)</span></td>
+<td align="center"><span class="math inline">\(2\cdot 10^{2}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>36,001,200</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
