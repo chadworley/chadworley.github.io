@@ -3,15 +3,12 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-10-10 8:00:00"]*6
-dut = ["2024-10-10 23:59:00"]*6
+avt = ["2024-10-11 8:00:00"]*3
+dut = ["2024-10-11 23:59:00"]*3
 front = "u05_"
-files = ["01_base10_eval.Rmd",
-         "02_base10_placevalue.Rmd",
-         "03_polynomial_terminology.Rmd",
-         "04_add_base10.Rmd",
-         "05_add_poly.Rmd",
-         "06_subtract_poly.Rmd"]
+files = ["07_multiply_2digits.Rmd",
+         "08_base10_multiply.Rmd",
+         "09_multiply_binomials.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 
@@ -51,7 +48,7 @@ for i in range(len(files)):
     D = D.strftime("%Y-%m-%dT%H:%M:%SZ")
     pref = files[i].split(".")[0]
     name = front+pref
-    assdesc = "<a href='"+practice_url_front+pref+".html'>practice</a>"
+    assdesc = "<a href='"+practice_url_front+pref+".html'>examples with solutions</a>"
     set_quiz_ass(name,A,D,assdesc)
 
 
