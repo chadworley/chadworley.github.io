@@ -1,7 +1,6 @@
 library("exams")
 
-pppsss = c("07_multiply_2digits.Rmd",
-           "08_base10_multiply.Rmd")
+pppsss = c("09_multiply_binomials.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

@@ -5,12 +5,7 @@ import os
 
 
 front = "u05_"
-files = ["01_base10_eval.Rmd",
-         "02_base10_placevalue.Rmd",
-         "03_polynomial_terminology.Rmd",
-         "04_add_base10.Rmd",
-         "05_add_poly.Rmd",
-         "06_subtract_poly.Rmd"]
+files = ["07_multiply_2digits.Rmd","08_base10_multiply.Rmd","09_multiply_binomials.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
