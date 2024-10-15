@@ -2,7 +2,6 @@ library("exams")
 
 pppsss = c("17_long_division.Rmd")
 
-
 for(ppss in pppsss){
     outdir = "outhtml"
     genname = strsplit(ppss,".",T)[[1]][1]
