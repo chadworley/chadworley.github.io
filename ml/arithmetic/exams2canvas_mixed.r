@@ -1,7 +1,7 @@
 library("exams")
 n = 30
 outdir = "outcanvas"
-genname = "arith_"
+genname = "m2d_"
 # probs = c("multiply_2digits.Rmd")
 # 
 # pnts = c(5)
@@ -19,12 +19,13 @@ genname = "arith_"
 #                cloze = list(enumerate = FALSE))
 # }
 
-probs = list("multiply_2digits.Rmd")
+probs = list("multiply_2digits.Rmd",
+             "multiply_2digits.Rmd")
 
 exams2canvas(probs,
              n=n,
              dir=outdir,
-             points=c(3,3,3,3,3),
+             points=c(5,5),
              maxattempts = 6,
              name=paste0(genname,"_mastery"),
              template = "canvas_qti12.xml",
