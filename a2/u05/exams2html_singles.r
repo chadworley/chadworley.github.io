@@ -1,12 +1,7 @@
 library("exams")
 
-pppsss = c("10_mult_get_diff_of_sqrs.Rmd",
-           "11_binomial_squared.Rmd",
-           "12_multiply_linear_quadratic.Rmd",
-           "13_multiply_linear_cubic.Rmd",
-           "14_mult_quad_quad.Rmd",
-           "15_linear_cubed.Rmd",
-           "16_linear_to_the_fourth.Rmd")
+pppsss = c("16_linear_to_the_fourth.Rmd")
+
 
 for(ppss in pppsss){
     outdir = "outhtml"
