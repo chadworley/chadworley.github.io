@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("GCF.Rmd","LCM.Rmd")
+pppsss = c("multiply_2digits.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

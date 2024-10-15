@@ -1,8 +1,8 @@
 library("exams")
 n = 30
 outdir = "outcanvas"
-genname = "GCF_LCM_"
-# probs = c("LCM.Rmd")
+genname = "arith_"
+# probs = c("multiply_2digits.Rmd")
 # 
 # pnts = c(5)
 # 
@@ -19,11 +19,7 @@ genname = "GCF_LCM_"
 #                cloze = list(enumerate = FALSE))
 # }
 
-probs = list(c("GCF.Rmd","LCM.Rmd"),
-             c("GCF.Rmd","LCM.Rmd"),
-             c("GCF.Rmd","LCM.Rmd"),
-             c("GCF.Rmd","LCM.Rmd"),
-             c("GCF.Rmd","LCM.Rmd"))
+probs = list("multiply_2digits.Rmd")
 
 exams2canvas(probs,
              n=n,

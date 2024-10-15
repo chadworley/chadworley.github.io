@@ -3,16 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-10-15 8:00:00"]*7
-dut = ["2024-10-15 23:59:00"]*7
+avt = ["2024-10-15 8:00:00"]
+dut = ["2024-10-16 23:59:00"]
 front = "u05_"
-files = ["10_mult_get_diff_of_sqrs.Rmd",
-         "11_binomial_squared.Rmd",
-         "12_multiply_linear_quadratic.Rmd",
-         "13_multiply_linear_cubic.Rmd",
-         "14_mult_quad_quad.Rmd",
-         "15_linear_cubed.Rmd",
-         "16_linear_to_the_fourth.Rmd"]
+files = ["16_linear_to_the_fourth.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 
