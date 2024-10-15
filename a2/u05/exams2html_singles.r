@@ -1,8 +1,6 @@
 library("exams")
 
-pppsss = c("12_multiply_linear_quadratic.Rmd",
-           "13_multiply_linear_cubic.Rmd",
-           "14_mult_quad_quad.Rmd")
+pppsss = c("17_long_division.Rmd")
 
 
 for(ppss in pppsss){

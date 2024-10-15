@@ -3,8 +3,8 @@ n = 30
 outdir = "outcanvas"
 genname = "u05_"
 
-probs = c("13_multiply_linear_cubic.Rmd","14_mult_quad_quad.Rmd")
-pnts = c(4,4)
+probs = c("17_long_division.Rmd")
+pnts = c(4)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
