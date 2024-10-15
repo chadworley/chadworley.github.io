@@ -6,7 +6,13 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID
-file_path_list = ["outcanvas/u05_10_multiply_quadratic_linear.zip"]
+file_path_list = ["outcanvas/u05_10_mult_get_diff_of_sqrs.zip",
+                  "outcanvas/u05_11_binomial_squared.zip",
+                  "outcanvas/u05_12_multiply_linear_quadratic.zip",
+                  "outcanvas/u05_13_multiply_linear_cubic.zip",
+                  "outcanvas/u05_14_mult_quad_quad.zip",
+                  "outcanvas/u05_15_linear_cubed.zip",
+                  "outcanvas/u05_16_linear_to_the_fourth.zip"]
 # fpl = []
 # for i in range(22,50):
 #     fpl.append("ET_0"+str(i)+".zip")

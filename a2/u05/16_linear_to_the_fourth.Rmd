@@ -1,0 +1,115 @@
+```{r,echo=FALSE}
+options(scipen=999)
+pfix = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    cp = sample(1:9,2)*sample(c(-1,1),2,T)
+    a = cp[1]
+    b = cp[2]
+    cr = c(a^4,4*a^3*b,6*a^2*b^2,4*a*b^3,b^4)
+    if(max(abs(cr))<=1000 && min(abs(cr))>0){break}
+}
+
+lp = pfix(cp,c(1,0))
+tqc = c(a^2,a*b,a*b,b^2)
+tqp = pfix(c(a^2,a*b,a*b,b^2),c(2,1,1,0))
+qc = c(a^2,2*a*b,b^2)
+qp = pfix(c(a^2,2*a*b,b^2),c(2,1,0))
+tcc = c(a^3,a^2*b,2*a^2*b,2*a*b^2,a*b^2,b^3)
+tcp = pfix(c(a^3,a^2*b,2*a^2*b,2*a*b^2,a*b^2,b^3),c(3,2,2,1,1,0))
+cc = c(a^3,3*a^2*b,3*a*b^2,b^3)
+cp = pfix(c(a^3,3*a^2*b,3*a*b^2,b^3),c(3,2,1,0))
+
+rp = pfix(cr,c(4,3,2,1,0))
+
+xtra = sample(2:1000,2)
+ch = sort(unique(c(tqc,qc,-tqc,-qc,tcc,-tcc,cc,-cc,cr,-cr,-xtra,xtra)))
+al1 = paste0("* ",ch,collapse="\n")
+
+chmid = character()
+for(i in ch){
+    if(i<0){
+        chmid = c(chmid,i)
+    } else {
+        chmid = c(chmid,paste0("+",i))
+    }
+}
+almid = paste0("* ",chmid,collapse="\n")
+
+sol1 = paste0(1*(ch==cr[1]),collapse="")
+sol2 = paste0(1*(ch==cr[2]),collapse="")
+sol3 = paste0(1*(ch==cr[3]),collapse="")
+sol4 = paste0(1*(ch==cr[4]),collapse="")
+sol5 = paste0(1*(ch==cr[4]),collapse="")
+
+```
+
+
+Question
+========
+
+When a linear binomial is raised to the fourth power, the result is a quartic polynomial. Express the polynomial below in standard form.
+
+$$r(x)~=~\left(`r lp`\right)^4$$
+
+
+
+```{css,echo=F}
+.boxy select {
+    width: 5em;
+}
+```
+
+<div class="boxy">
+
+* $r(x)~=$ ##ANSWER1##$x^4$ ##ANSWER2##$x^3$ ##ANSWER3##$x^2$ ##ANSWER4##$x$ ##ANSWER5##
+
+</div>
+
+Answerlist
+--------
+
+`r al1`
+`r almid`
+`r almid`
+`r almid`
+`r almid`
+
+
+Solution
+========
+
+You could first find that $(`r lp`)^2~=~`r qp`$ and then find $\left(`r qp`\right)^2$. But, we want to get comfortable using [the binomial theorem](https://en.wikipedia.org/wiki/Binomial_theorem).
+
+When raising a linear binomial to the fourth, the binomial theorem promises that:
+
+$$(ax+b)^4 ~~\equiv~~ \left(a^4\right)x^4 ~+~ \left(4a^3b\right)x^3 ~+~ \left(6a^2b^2\right)x^2 ~+~ \left(4ab^3\right)x ~+~ \left(b^4\right) $$
+
+Notice:
+$$(`r a`)^4 ~=~ `r cr[1]`$$
+$$4\cdot(`r a`)^3\cdot(`r b`) ~=~ `r cr[2]`$$
+$$6\cdot(`r a`)^2\cdot(`r b`)^2 ~=~ `r cr[3]`$$
+$$4\cdot(`r a`)\cdot(`r b`)^3 ~=~ `r cr[4]`$$
+$$(`r b`)^4 ~=~ `r cr[5]`$$
+
+Thus,
+
+$$r(x)~=~ `r rp`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`
+exname: linear_to_the_fourth

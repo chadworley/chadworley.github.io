@@ -1,0 +1,219 @@
+```{r,echo=FALSE}
+options(scipen=999)
+
+cposs = c(3:8,(-3):(-8))
+crposs = numeric()
+for(i in cposs){
+    for(j in cposs){
+        crposs = sort(unique(c(crposs,i*j)))
+    }
+}
+dposs = 0:24
+
+while(T){
+    dp = rev(sort(sample(2:5,2)))
+    dq = dp
+    cp = sample(3:8,2)*sample(c(-1,1),2,T)
+    cq = cp*sample(c(-1,1))
+    
+    P = paste0("{",cp,"}x^{",dp,"}",collapse = "+")
+    P = gsub("+{-","-{",P,fixed=T)
+    Q = paste0("{",cq,"}x^{",dq,"}",collapse = "+")
+    Q = gsub("+{-","-{",Q,fixed=T)
+    
+    dr1 = dp[1]+dq[1]
+    dr2 = dp[2]+dq[1]
+    dr3 = dp[1]+dq[2]
+    dr4 = dp[2]+dq[2]
+    
+    dr = c(dr1,dr2,dr3,dr4)
+    
+    cr1 = cp[1]*cq[1]
+    cr2 = cp[2]*cq[1]
+    cr3 = cp[1]*cq[2]
+    cr4 = cp[2]*cq[2]
+    
+    cr = c(cr1,cr2,cr3,cr4)
+    
+    if(dr2<dr3){
+        dr = c(dr1,dr3,dr2,dr4)
+        cr = c(cr1,cr3,cr2,cr4)
+    }
+    if(T){break}
+}
+
+crpossmid = character()
+for(i in crposs){
+    if(i<0){
+        crpossmid = c(crpossmid,paste0(i))
+    } else {
+        crpossmid = c(crpossmid,paste0("+",i,collapse=""))
+    }
+}
+
+alcm = paste0("* ",crpossmid,collapse="\n")
+
+R = paste0("{",cr,"}x^{",dr,"}",collapse="+")
+R = gsub("+{-","-{",R,fixed=T)
+
+R2 = paste0("{",cr[c(1,4)],"}x^{",dr[c(1,4)],"}",collapse="+")
+R2 = gsub("+{-","-{",R2,fixed=T)
+
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    return(p)
+}
+
+cw1 = c(cp[1]*cq[1],2*cp[1]*cq[2],cp[2]*cq[2])
+dw1 = c(dp[1]+dq[1],dp[1]+dq[2],dp[2]+dq[2])
+W1 = pfix(cw1,dw1)
+
+cw2 = c(cp[1]*cq[1],abs(cp[1]*cq[2]),cp[2]*cq[2])
+dw2 = c(dp[1]+dq[1],dp[1]+dq[2],dp[2]+dq[2])
+W2 = pfix(cw2,dw2)
+
+cw3 = c(cp[1]*cq[1],2*cp[1]*cq[2],cp[2]*cq[2])
+dw3 = c(dp[1]*dq[1],dp[1]*dq[2],dp[2]*dq[2])
+W3 = pfix(cw1,dw1)
+
+cw4 = c(-cp[1]*cq[1],cp[2]*cq[2])
+dw4 = c(dp[1]*dq[1],dp[2]*dq[2])
+W4 = pfix(cw4,dw4)
+
+cw5 = c(cp[1]*cq[1],-cp[2]*cq[2])
+dw5 = c(dp[1]*dq[1],dp[2]*dq[2])
+W5 = pfix(cw5,dw5)
+
+cw6 = c(-cp[1]*cq[1],-cp[2]*cq[2])
+dw6 = c(dp[1]*dq[1],dp[2]*dq[2])
+W6 = pfix(cw6,dw6)
+
+cw7 = c(-cp[1]*cq[1],cp[2]*cq[2])
+dw7 = c(dp[1]+dq[1],dp[2]+dq[2])
+W7 = pfix(cw7,dw7)
+
+cw8 = c(cp[1]*cq[1],-cp[2]*cq[2])
+dw8 = c(dp[1]+dq[1],dp[2]+dq[2])
+W8 = pfix(cw8,dw8)
+
+cw9 = c(-cp[1]*cq[1],-cp[2]*cq[2])
+dw9 = c(dp[1]+dq[1],dp[2]+dq[2])
+W9 = pfix(cw9,dw9)
+
+cw10 = c(cp[1]*cq[1],2*cp[1]*cq[2],-cp[2]*cq[2])
+dw10 = c(dp[1]+dq[1],dp[1]+dq[2],dp[2]+dq[2])
+W10 = pfix(cw10,dw10)
+
+cw11 = c(cp[1]*cq[1],-2*cp[1]*cq[2],cp[2]*cq[2])
+dw11 = c(dp[1]+dq[1],dp[1]+dq[2],dp[2]+dq[2])
+W11 = pfix(cw11,dw11)
+
+cw12 = c(cp[1]*cq[1],cp[2]*cq[2])
+dw12 = c(dp[1],dq[2])
+W12 = pfix(cw12,dw12)
+
+cw13 = c(cp[1]*cq[2],cp[2]*cq[1])
+dw13 = c(dp[1]+dq[1],dp[2]+dq[2])
+W13 = pfix(cw13,dw13)
+
+
+WS = unique(c(W1,W2,W3,W4,W5,W6,W7,W8,W9,W10,W11,W12,W13))
+WS = WS[WS!=R2]
+
+chos = sample(c(R2,sample(WS,4)))
+al = paste0("* $",chos,"$",collapse="\n")
+sol = paste0(1*(chos==R2),collapse="")
+
+```
+
+
+Question
+========
+
+A polynomial, $r(x)$, is shown as the product of two binomials. Use the [FOIL method](https://en.wikipedia.org/wiki/FOIL_method) to **expand** the expression.
+
+$$r(x) ~=~  \left(`r P`\right)\cdot \left(`r Q`\right)$$
+
+Which option below shows $r(x)$ in standard form (expanded, with highest degree to lowest degree)?
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+```{css,echo=F}
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+```
+
+<div class="boxy">
+
+|  \* | $`r cp[1]`x^{`r dp[1]`}$ | $`r cp[2]`x^{`r dp[2]`}$ |
+|:---:|:---:|:---:|
+|$`r cq[1]`x^{`r dq[1]`}$ | $`r cr1`x^{`r dr1`}$ | $`r cr2`x^{`r dr2`}$|
+|$`r cq[2]`x^{`r dq[2]`}$ | $`r cr3`x^{`r dr3`}$ | $`r cr4`x^{`r dr4`}$|
+
+</div>
+
+$r(x) = `r R`$
+
+Combine the like terms.
+
+
+$r(x) = `r R2`$
+
+This result is called a [difference of squares](https://en.wikipedia.org/wiki/Difference_of_two_squares). Notice that $(`r abs(cp[1])`x^{`r dp[1]`})^2 = `r cp[1]^2`x^{`r dr[1]`}$ and $(`r abs(cp[2])`x^{`r dp[2]`})^2 = `r cp[2]^2`x^{`r dr[2]`}$; those are the squares. It is a *difference* because of the negative in $`r R2`$.
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: mult_get_diff_of_sqrs

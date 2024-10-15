@@ -1,0 +1,842 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>10_mult_get_diff_of_sqrs</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">10_mult_get_diff_of_sqrs</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A polynomial, <span class="math inline">\(r(x)\)</span>, is shown as the product of two binomials. Use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> to <strong>expand</strong> the expression.</p>
+<p><span class="math display">\[r(x) ~=~  \left({-3}x^{4}-{4}x^{2}\right)\cdot \left({3}x^{4}-{4}x^{2}\right)\]</span></p>
+<p>Which option below shows <span class="math inline">\(r(x)\)</span> in standard form (expanded, with highest degree to lowest degree)?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\({-9}x^{8}+{24}x^{6}+{16}x^{4}\)</span>
+</li>
+<li>
+<span class="math inline">\({-9}x^{8}+{16}x^{4}\)</span>
+</li>
+<li>
+<span class="math inline">\({-9}x^{8}+{12}x^{6}+{16}x^{4}\)</span>
+</li>
+<li>
+<span class="math inline">\({-9}x^{4}+{16}x^{2}\)</span>
+</li>
+<li>
+<span class="math inline">\({9}x^{16}+{16}x^{4}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-3x^{4}\)</span></th>
+<th align="center"><span class="math inline">\(-4x^{2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(3x^{4}\)</span></td>
+<td align="center"><span class="math inline">\(-9x^{8}\)</span></td>
+<td align="center"><span class="math inline">\(-12x^{6}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-4x^{2}\)</span></td>
+<td align="center"><span class="math inline">\(12x^{6}\)</span></td>
+<td align="center"><span class="math inline">\(16x^{4}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {-9}x^{8}-{12}x^{6}+{12}x^{6}+{16}x^{4}\)</span></p>
+<p>Combine the like terms.</p>
+<p><span class="math inline">\(r(x) = {-9}x^{8}+{16}x^{4}\)</span></p>
+<p>This result is called a <a href="https://en.wikipedia.org/wiki/Difference_of_two_squares">difference of squares</a>. Notice that <span class="math inline">\((3x^{4})^2 = 9x^{8}\)</span> and <span class="math inline">\((4x^{2})^2 = 16x^{6}\)</span>; those are the squares. It is a <em>difference</em> because of the negative in <span class="math inline">\({-9}x^{8}+{16}x^{4}\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A polynomial, <span class="math inline">\(r(x)\)</span>, is shown as the product of two binomials. Use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> to <strong>expand</strong> the expression.</p>
+<p><span class="math display">\[r(x) ~=~  \left({-3}x^{4}-{7}x^{3}\right)\cdot \left({3}x^{4}-{7}x^{3}\right)\]</span></p>
+<p>Which option below shows <span class="math inline">\(r(x)\)</span> in standard form (expanded, with highest degree to lowest degree)?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\({-9}x^{8}+{21}x^{7}+{49}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({21}x^{8}-{21}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({-9}x^{8}+{49}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({9}x^{16}-{49}x^{9}\)</span>
+</li>
+<li>
+<span class="math inline">\({-9}x^{8}+{42}x^{7}-{49}x^{6}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-3x^{4}\)</span></th>
+<th align="center"><span class="math inline">\(-7x^{3}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(3x^{4}\)</span></td>
+<td align="center"><span class="math inline">\(-9x^{8}\)</span></td>
+<td align="center"><span class="math inline">\(-21x^{7}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-7x^{3}\)</span></td>
+<td align="center"><span class="math inline">\(21x^{7}\)</span></td>
+<td align="center"><span class="math inline">\(49x^{6}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {-9}x^{8}-{21}x^{7}+{21}x^{7}+{49}x^{6}\)</span></p>
+<p>Combine the like terms.</p>
+<p><span class="math inline">\(r(x) = {-9}x^{8}+{49}x^{6}\)</span></p>
+<p>This result is called a <a href="https://en.wikipedia.org/wiki/Difference_of_two_squares">difference of squares</a>. Notice that <span class="math inline">\((3x^{4})^2 = 9x^{8}\)</span> and <span class="math inline">\((7x^{3})^2 = 49x^{7}\)</span>; those are the squares. It is a <em>difference</em> because of the negative in <span class="math inline">\({-9}x^{8}+{49}x^{6}\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A polynomial, <span class="math inline">\(r(x)\)</span>, is shown as the product of two binomials. Use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> to <strong>expand</strong> the expression.</p>
+<p><span class="math display">\[r(x) ~=~  \left({4}x^{5}+{6}x^{3}\right)\cdot \left({4}x^{5}-{6}x^{3}\right)\]</span></p>
+<p>Which option below shows <span class="math inline">\(r(x)\)</span> in standard form (expanded, with highest degree to lowest degree)?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\({-16}x^{10}-{36}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({16}x^{10}-{36}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({16}x^{10}+{36}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({16}x^{10}-{48}x^{8}+{36}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({-24}x^{10}+{24}x^{6}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(4x^{5}\)</span></th>
+<th align="center"><span class="math inline">\(6x^{3}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(4x^{5}\)</span></td>
+<td align="center"><span class="math inline">\(16x^{10}\)</span></td>
+<td align="center"><span class="math inline">\(24x^{8}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-6x^{3}\)</span></td>
+<td align="center"><span class="math inline">\(-24x^{8}\)</span></td>
+<td align="center"><span class="math inline">\(-36x^{6}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {16}x^{10}+{24}x^{8}-{24}x^{8}-{36}x^{6}\)</span></p>
+<p>Combine the like terms.</p>
+<p><span class="math inline">\(r(x) = {16}x^{10}-{36}x^{6}\)</span></p>
+<p>This result is called a <a href="https://en.wikipedia.org/wiki/Difference_of_two_squares">difference of squares</a>. Notice that <span class="math inline">\((4x^{5})^2 = 16x^{10}\)</span> and <span class="math inline">\((6x^{3})^2 = 36x^{8}\)</span>; those are the squares. It is a <em>difference</em> because of the negative in <span class="math inline">\({16}x^{10}-{36}x^{6}\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A polynomial, <span class="math inline">\(r(x)\)</span>, is shown as the product of two binomials. Use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> to <strong>expand</strong> the expression.</p>
+<p><span class="math display">\[r(x) ~=~  \left({5}x^{4}+{4}x^{3}\right)\cdot \left({5}x^{4}-{4}x^{3}\right)\]</span></p>
+<p>Which option below shows <span class="math inline">\(r(x)\)</span> in standard form (expanded, with highest degree to lowest degree)?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\({25}x^{8}-{16}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({-20}x^{8}+{20}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({-25}x^{8}-{16}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({25}x^{8}+{20}x^{7}-{16}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({25}x^{8}+{40}x^{7}-{16}x^{6}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(5x^{4}\)</span></th>
+<th align="center"><span class="math inline">\(4x^{3}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(5x^{4}\)</span></td>
+<td align="center"><span class="math inline">\(25x^{8}\)</span></td>
+<td align="center"><span class="math inline">\(20x^{7}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-4x^{3}\)</span></td>
+<td align="center"><span class="math inline">\(-20x^{7}\)</span></td>
+<td align="center"><span class="math inline">\(-16x^{6}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {25}x^{8}+{20}x^{7}-{20}x^{7}-{16}x^{6}\)</span></p>
+<p>Combine the like terms.</p>
+<p><span class="math inline">\(r(x) = {25}x^{8}-{16}x^{6}\)</span></p>
+<p>This result is called a <a href="https://en.wikipedia.org/wiki/Difference_of_two_squares">difference of squares</a>. Notice that <span class="math inline">\((5x^{4})^2 = 25x^{8}\)</span> and <span class="math inline">\((4x^{3})^2 = 16x^{7}\)</span>; those are the squares. It is a <em>difference</em> because of the negative in <span class="math inline">\({25}x^{8}-{16}x^{6}\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A polynomial, <span class="math inline">\(r(x)\)</span>, is shown as the product of two binomials. Use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> to <strong>expand</strong> the expression.</p>
+<p><span class="math display">\[r(x) ~=~  \left({-6}x^{5}+{5}x^{4}\right)\cdot \left({6}x^{5}+{5}x^{4}\right)\]</span></p>
+<p>Which option below shows <span class="math inline">\(r(x)\)</span> in standard form (expanded, with highest degree to lowest degree)?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\({-36}x^{25}-{25}x^{16}\)</span>
+</li>
+<li>
+<span class="math inline">\({-36}x^{10}+{25}x^{8}\)</span>
+</li>
+<li>
+<span class="math inline">\({-36}x^{10}-{60}x^{9}-{25}x^{8}\)</span>
+</li>
+<li>
+<span class="math inline">\({-36}x^{10}-{25}x^{8}\)</span>
+</li>
+<li>
+<span class="math inline">\({-30}x^{10}+{30}x^{8}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-6x^{5}\)</span></th>
+<th align="center"><span class="math inline">\(5x^{4}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(6x^{5}\)</span></td>
+<td align="center"><span class="math inline">\(-36x^{10}\)</span></td>
+<td align="center"><span class="math inline">\(30x^{9}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(5x^{4}\)</span></td>
+<td align="center"><span class="math inline">\(-30x^{9}\)</span></td>
+<td align="center"><span class="math inline">\(25x^{8}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {-36}x^{10}+{30}x^{9}-{30}x^{9}+{25}x^{8}\)</span></p>
+<p>Combine the like terms.</p>
+<p><span class="math inline">\(r(x) = {-36}x^{10}+{25}x^{8}\)</span></p>
+<p>This result is called a <a href="https://en.wikipedia.org/wiki/Difference_of_two_squares">difference of squares</a>. Notice that <span class="math inline">\((6x^{5})^2 = 36x^{10}\)</span> and <span class="math inline">\((5x^{4})^2 = 25x^{9}\)</span>; those are the squares. It is a <em>difference</em> because of the negative in <span class="math inline">\({-36}x^{10}+{25}x^{8}\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A polynomial, <span class="math inline">\(r(x)\)</span>, is shown as the product of two binomials. Use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> to <strong>expand</strong> the expression.</p>
+<p><span class="math display">\[r(x) ~=~  \left({-7}x^{5}+{8}x^{2}\right)\cdot \left({7}x^{5}+{8}x^{2}\right)\]</span></p>
+<p>Which option below shows <span class="math inline">\(r(x)\)</span> in standard form (expanded, with highest degree to lowest degree)?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\({-49}x^{10}-{64}x^{4}\)</span>
+</li>
+<li>
+<span class="math inline">\({49}x^{10}+{64}x^{4}\)</span>
+</li>
+<li>
+<span class="math inline">\({-56}x^{10}+{56}x^{4}\)</span>
+</li>
+<li>
+<span class="math inline">\({49}x^{25}+{64}x^{4}\)</span>
+</li>
+<li>
+<span class="math inline">\({-49}x^{10}+{64}x^{4}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-7x^{5}\)</span></th>
+<th align="center"><span class="math inline">\(8x^{2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(7x^{5}\)</span></td>
+<td align="center"><span class="math inline">\(-49x^{10}\)</span></td>
+<td align="center"><span class="math inline">\(56x^{7}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(8x^{2}\)</span></td>
+<td align="center"><span class="math inline">\(-56x^{7}\)</span></td>
+<td align="center"><span class="math inline">\(64x^{4}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {-49}x^{10}+{56}x^{7}-{56}x^{7}+{64}x^{4}\)</span></p>
+<p>Combine the like terms.</p>
+<p><span class="math inline">\(r(x) = {-49}x^{10}+{64}x^{4}\)</span></p>
+<p>This result is called a <a href="https://en.wikipedia.org/wiki/Difference_of_two_squares">difference of squares</a>. Notice that <span class="math inline">\((7x^{5})^2 = 49x^{10}\)</span> and <span class="math inline">\((8x^{2})^2 = 64x^{7}\)</span>; those are the squares. It is a <em>difference</em> because of the negative in <span class="math inline">\({-49}x^{10}+{64}x^{4}\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A polynomial, <span class="math inline">\(r(x)\)</span>, is shown as the product of two binomials. Use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> to <strong>expand</strong> the expression.</p>
+<p><span class="math display">\[r(x) ~=~  \left({-6}x^{4}+{5}x^{3}\right)\cdot \left({-6}x^{4}-{5}x^{3}\right)\]</span></p>
+<p>Which option below shows <span class="math inline">\(r(x)\)</span> in standard form (expanded, with highest degree to lowest degree)?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\({36}x^{4}-{25}x^{3}\)</span>
+</li>
+<li>
+<span class="math inline">\({36}x^{8}-{60}x^{7}-{25}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({36}x^{8}-{25}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({-36}x^{8}+{25}x^{6}\)</span>
+</li>
+<li>
+<span class="math inline">\({30}x^{8}-{30}x^{6}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-6x^{4}\)</span></th>
+<th align="center"><span class="math inline">\(5x^{3}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-6x^{4}\)</span></td>
+<td align="center"><span class="math inline">\(36x^{8}\)</span></td>
+<td align="center"><span class="math inline">\(-30x^{7}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-5x^{3}\)</span></td>
+<td align="center"><span class="math inline">\(30x^{7}\)</span></td>
+<td align="center"><span class="math inline">\(-25x^{6}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {36}x^{8}-{30}x^{7}+{30}x^{7}-{25}x^{6}\)</span></p>
+<p>Combine the like terms.</p>
+<p><span class="math inline">\(r(x) = {36}x^{8}-{25}x^{6}\)</span></p>
+<p>This result is called a <a href="https://en.wikipedia.org/wiki/Difference_of_two_squares">difference of squares</a>. Notice that <span class="math inline">\((6x^{4})^2 = 36x^{8}\)</span> and <span class="math inline">\((5x^{3})^2 = 25x^{7}\)</span>; those are the squares. It is a <em>difference</em> because of the negative in <span class="math inline">\({36}x^{8}-{25}x^{6}\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A polynomial, <span class="math inline">\(r(x)\)</span>, is shown as the product of two binomials. Use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> to <strong>expand</strong> the expression.</p>
+<p><span class="math display">\[r(x) ~=~  \left({-6}x^{4}+{3}x^{2}\right)\cdot \left({6}x^{4}+{3}x^{2}\right)\]</span></p>
+<p>Which option below shows <span class="math inline">\(r(x)\)</span> in standard form (expanded, with highest degree to lowest degree)?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\({-36}x^{8}+{9}x^{4}\)</span>
+</li>
+<li>
+<span class="math inline">\({-36}x^{16}-{9}x^{4}\)</span>
+</li>
+<li>
+<span class="math inline">\({-36}x^{4}+{9}x^{2}\)</span>
+</li>
+<li>
+<span class="math inline">\({-36}x^{8}-{36}x^{6}+{9}x^{4}\)</span>
+</li>
+<li>
+<span class="math inline">\({36}x^{8}+{9}x^{4}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-6x^{4}\)</span></th>
+<th align="center"><span class="math inline">\(3x^{2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(6x^{4}\)</span></td>
+<td align="center"><span class="math inline">\(-36x^{8}\)</span></td>
+<td align="center"><span class="math inline">\(18x^{6}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3x^{2}\)</span></td>
+<td align="center"><span class="math inline">\(-18x^{6}\)</span></td>
+<td align="center"><span class="math inline">\(9x^{4}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {-36}x^{8}+{18}x^{6}-{18}x^{6}+{9}x^{4}\)</span></p>
+<p>Combine the like terms.</p>
+<p><span class="math inline">\(r(x) = {-36}x^{8}+{9}x^{4}\)</span></p>
+<p>This result is called a <a href="https://en.wikipedia.org/wiki/Difference_of_two_squares">difference of squares</a>. Notice that <span class="math inline">\((6x^{4})^2 = 36x^{8}\)</span> and <span class="math inline">\((3x^{2})^2 = 9x^{6}\)</span>; those are the squares. It is a <em>difference</em> because of the negative in <span class="math inline">\({-36}x^{8}+{9}x^{4}\)</span>.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

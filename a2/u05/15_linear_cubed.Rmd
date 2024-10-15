@@ -1,0 +1,170 @@
+```{r,echo=FALSE}
+options(scipen=999)
+pfix = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    cp = sample(1:9,2)*sample(c(-1,1),2,T)
+    a = cp[1]
+    b = cp[2]
+    cr = c(a^3,3*a^2*b,3*a*b^2,b^3)
+    if(max(abs(cr))<=1000 && min(abs(cr))>1){break}
+}
+
+lp = pfix(cp,c(1,0))
+tqc = c(a^2,a*b,a*b,b^2)
+tqp = pfix(c(a^2,a*b,a*b,b^2),c(2,1,1,0))
+qc = c(a^2,2*a*b,b^2)
+qp = pfix(c(a^2,2*a*b,b^2),c(2,1,0))
+
+tcc = c(a^3,a^2*b,2*a^2*b,2*a*b^2,a*b^2,b^3)
+tcp = pfix(c(a^3,a^2*b,2*a^2*b,2*a*b^2,a*b^2,b^3),c(3,2,2,1,1,0))
+cc = c(a^3,3*a^2*b,3*a*b^2,b^3)
+cp = pfix(c(a^3,3*a^2*b,3*a*b^2,b^3),c(3,2,1,0))
+
+xtra = sample(2:1000,2)
+ch = sort(unique(c(tqc,qc,-tqc,-qc,tcc,-tcc,cc,-cc,-xtra,xtra)))
+al1 = paste0("* ",ch,collapse="\n")
+
+chmid = character()
+for(i in ch){
+    if(i<0){
+        chmid = c(chmid,i)
+    } else {
+        chmid = c(chmid,paste0("+",i))
+    }
+}
+almid = paste0("* ",chmid,collapse="\n")
+
+sol1 = paste0(1*(ch==cr[1]),collapse="")
+sol2 = paste0(1*(ch==cr[2]),collapse="")
+sol3 = paste0(1*(ch==cr[3]),collapse="")
+sol4 = paste0(1*(ch==cr[4]),collapse="")
+
+```
+
+
+Question
+========
+
+When a linear binomial is cubed, the result is a cubic polynomial. Express the polynomial below in standard form.
+
+$$r(x)~=~\left(`r lp`\right)^3$$
+
+
+
+```{css,echo=F}
+.boxy select {
+    width: 5em;
+}
+```
+
+<div class="boxy">
+
+* $r(x)~=$ ##ANSWER1##$x^3$ ##ANSWER2##$x^2$ ##ANSWER3##$x$ ##ANSWER4## 
+
+</div>
+
+Answerlist
+--------
+
+`r al1`
+`r almid`
+`r almid`
+`r almid`
+
+
+Solution
+========
+
+Just like with integers, to cube a polynomial, you can first find the square and then multiply again. So, in our example, we can rewrite $r(x)$.
+
+$$r(x) ~=~ (`r lp`)\cdot(`r lp`)\cdot(`r lp`)$$
+
+
+$$r(x) ~=~ (`r lp`)^2\cdot(`r lp`)$$
+
+```{css,echo=F}
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+```
+
+You can first expand $(`r a`x+`r b`)^2$.
+
+<div class="boxy">
+
+| \* | $`r a`x$ | $`r b`$ |
+|:---:|:---:|:---:|
+| $`r a`x$ |  $`r a^2`x^2$  |  $`r a*b`x$  |
+| $`r b`$ | $`r a*b`x$   |  $`r b^2`$  |
+</div>
+
+$$r(x) ~=~ \left(`r tqp`\right)\cdot(`r lp`)$$
+
+Combine like terms.
+
+$$r(x)~=~ \left(`r qp`\right)\cdot(`r lp`)$$
+
+Now multiply the quadratic by the linear.
+
+
+<div class="boxy">
+
+| \* | $`r a`x$ | $`r b`$ |
+|:---:|:---:|:---:|
+| $`r a^2`x^2$ |  $`r a^3`x^3$  |  $`r a^2*b`x^2$  |
+| $`r 2*a*b`x$ | $`r 2*a^2*b`x^2$   |  $`r 2*a*b^2`x$  |
+| $`r b^2`$ | $`r a*b^2`x$   |  $`r b^3`$  |
+</div>
+
+
+$$r(x)~~=~~ `r tcp`$$
+
+Combine like terms.
+
+$$r(x)~~=~~ `r cp`$$
+
+## Quicker strategy:
+
+You might find [the binomial theorem](https://en.wikipedia.org/wiki/Binomial_theorem) helpful. In this case, it promises that:
+
+$$(ax+b)^3 ~~\equiv~~ \left(a^3\right)x^3 ~+~ \left(3a^2b\right)x^2 ~+~ \left(3ab^2\right)x ~+~ \left(b^3\right) $$
+
+Notice:
+$$(`r a`)^3 ~=~ `r a^3`$$
+$$3\cdot(`r a`)^2\cdot(`r b`) ~=~ `r 3*a^2*b`$$
+$$3\cdot(`r a`)\cdot(`r b`)^2 ~=~ `r 3*a*b^2`$$
+$$(`r b`)^3 ~=~ `r b^3`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: multiply_linear_quadratic

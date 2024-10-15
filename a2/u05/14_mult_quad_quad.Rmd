@@ -1,0 +1,178 @@
+```{r,echo=FALSE}
+options(scipen=999)
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    return(p)
+}
+
+dega = 2
+degb = 2
+
+while(T){
+    da = dega:0
+    db = degb:0
+    ca = sample(-9:9,dega+1,T)
+    cb = sample(-9:9,degb+1,T)
+    pa = pfix(ca,da)
+    pb = pfix(cb,db)
+    fulllist = list()
+    k = 0
+    crf = numeric()
+    drf = numeric()
+    for(i in 1:length(da)){
+        for(j in 1:length(db)){
+            k = k+1
+            fulllist[[k]] = c(ca[i]*cb[j],da[i]+db[j])
+            crf = c(crf,ca[i]*cb[j])
+            drf = c(drf,da[i]+db[j])
+        }
+    }
+    
+    dr = rev(sort(unique(drf)))
+    cr = rep(0,length(dr))
+    for(i in 1:length(crf)){
+        c = crf[i]
+        d = drf[i]
+        cr[dr==d] = cr[dr==d]+c
+    }
+    
+    prf = pfix(crf,drf)
+    pr = pfix(cr,dr)
+    if(min(abs(cr)) > 1 && max(abs(cr))<100 && ca[1]!=0 && cb[1]!=0){break}
+}
+
+xtra = sample(2:99,4)
+ch = sort(unique(c(0,1,-1,crf,cr,-crf,-cr,-xtra,xtra)))
+al1 = paste0("* ",ch,collapse="\n")
+
+chmid = character()
+for(i in ch){
+    if(i<0){
+        chmid = c(chmid,i)
+    } else {
+        chmid = c(chmid,paste0("+",i))
+    }
+}
+almid = paste0("* ",chmid,collapse="\n")
+
+sol1 = paste0(1*(ch==cr[1]),collapse="")
+sol2 = paste0(1*(ch==cr[2]),collapse="")
+sol3 = paste0(1*(ch==cr[3]),collapse="")
+sol4 = paste0(1*(ch==cr[4]),collapse="")
+sol5 = paste0(1*(ch==cr[5]),collapse="")
+
+
+```
+
+
+Question
+========
+
+The product of a quadratic polynomial times a quadratic polynomial is a quartic polynomial. Find the product of the quadratic trinomials shown below.
+
+$$r(x)~~=~~\left(`r pa`\right) \cdot \left(`r pb`\right)$$
+
+Write the resulting quartic polynomial in standard form.
+
+```{css,echo=F}
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+```
+
+<div class="boxy">
+
+* $r(x)~=$ ##ANSWER1##$x^4$ ##ANSWER2##$x^3$ ##ANSWER3##$x^2$ ##ANSWER4##$x$ ##ANSWER5##
+
+</div>
+
+Answerlist
+--------
+
+`r al1`
+`r almid`
+`r almid`
+`r almid`
+`r almid`
+
+
+Solution
+========
+
+
+```{css,echo=F}
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+}
+```
+
+<div class="boxy">
+
+| \* | $`r ca[1]`x$ | $`r ca[2]`$ |
+|:---:|:---:|:---:|
+| $`r cb[1]`x^2$ |  $`r crf[1]`x^3$  |  $`r crf[4]`x^2$  |
+| $`r cb[2]`x$ | $`r crf[2]`x^2$   |  $`r crf[5]`x$  |
+| $`r cb[3]`$ | $`r crf[3]`x$   |  $`r crf[6]`$  |
+
+</div>
+
+
+$$r(x)~~=~~ `r prf`$$
+
+Combine like terms.
+
+$$r(x)~~=~~ `r pr`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`
+exname: mult_quad_quad
