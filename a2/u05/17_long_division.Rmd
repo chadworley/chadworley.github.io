@@ -10,9 +10,9 @@ while(T){
     pdigs = numeric()
     ii = 1
     while(p2>0){
-        p3 = floor(p2/10^ii)*10^ii
+        p3 = round(floor(p2/10^ii)*10^ii)
         pdigs = c((p2-p3)/10^(ii-1),pdigs)
-        p2 = p3
+        p2 = round(p3)
         ii = ii+1
     }
     answers = c(a,pdigs)
@@ -27,13 +27,13 @@ while(T){
         curtot = curtot-nextmult
         ct10 = floor(curtot/10)
         ct1 = curtot-ct10
-        if(nm10>0){
+        if(i!=1){
             answers = c(answers,nextans,nm10,nm1,curtot,pdigs0[i+1])
         } else {
             answers = c(answers,nextans,nextmult,curtot,pdigs0[i+1])
         }
     }
-    if(min(pdigs)>0 && pdigs[1]>a && sum(answers==0)<=2){break}
+    if(min(pdigs)>0 && pdigs[1]>a && sum(answers==0)<=2 && length(answers)==24){break}
 }
 
 answers = answers[1:(length(answers)-1)]
@@ -47,7 +47,6 @@ for(i in answers){
     sols = c(sols,paste0(1*(i==0:9),collapse=""))
 }
 sols = paste0(sols,collapse="|")
-
 schs = paste0(rep("schoice",length(answers)),collapse="|")
 
 ```
@@ -239,7 +238,7 @@ $\frac{`r p`}{`r a`} ~=~ `r b`$
     <td> </td>
     <td></td>
     <td></td>
-    <td>`r answers[6]`</td>
+    <td>`r answers[23]`</td>
   </tr>
 </table>
 
