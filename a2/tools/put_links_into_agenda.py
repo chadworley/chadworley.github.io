@@ -5,13 +5,9 @@ import os
 
 
 front = "u05_"
-files =  ["10_mult_get_diff_of_sqrs.Rmd",
-         "11_binomial_squared.Rmd",
-         "12_multiply_linear_quadratic.Rmd",
-         "13_multiply_linear_cubic.Rmd",
-         "14_mult_quad_quad.Rmd",
-         "15_linear_cubed.Rmd",
-         "16_linear_to_the_fourth.Rmd"]
+files =  ["17_long_division.Rmd",
+          "18_poly_long_division.Rmd",
+          "19_synthetic_division.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

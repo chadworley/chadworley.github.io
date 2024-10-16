@@ -6,7 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID
-file_path_list = ["outcanvas/u05_18_poly_long_division.zip"]
+file_path_list = ["outcanvas/u05_19_synthetic_division.zip"]
 # fpl = []
 # for i in range(22,50):
 #     fpl.append("ET_0"+str(i)+".zip")

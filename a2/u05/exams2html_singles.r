@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("18_poly_long_division.Rmd")
+pppsss = c("19_synthetic_division.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

@@ -3,10 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-10-15 8:00:00"]
+avt = ["2024-10-16 8:00:00"]
 dut = ["2024-10-16 23:59:00"]
 front = "u05_"
-files = ["16_linear_to_the_fourth.Rmd"]
+files = ["19_synthetic_division.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 
