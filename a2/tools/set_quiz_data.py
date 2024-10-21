@@ -3,10 +3,12 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-10-20 8:00:00"]
-dut = ["2024-10-20 23:59:00"]
+avt = ["2024-10-21 8:00:00"]*3
+dut = ["2024-10-21 23:59:00"]*3
 front = "u06_"
-files = ["01_prime_factorization.Rmd"]
+files = ["01_prime_factorization.Rmd",
+         "02_factor_quadratic.Rmd",
+         "03_quadratic_formula.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u06/outhtml/"
 

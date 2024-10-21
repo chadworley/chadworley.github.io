@@ -1,0 +1,1548 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>02_factor_quadratic</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">02_factor_quadratic</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic polynomial <span class="math inline">\(p(x)\)</span> is defined below.</p>
+<p><span class="math display">\[p(x)~=~x^{2}-{13}x+{36}\]</span></p>
+<p>Which two linear polynomials are factors of <span class="math inline">\(p(x)\)</span>?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x-{12}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{12}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can get this by guessing and checking. Eventually you might guess the following:</p>
+<p><span class="math display">\[p(x) ~=~ (x-{9})\cdot(x-{4})\]</span></p>
+<p>You can check by using polynomial multiplication (in this case you can use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>).</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(-9\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x\)</span></td>
+<td align="center"><span class="math inline">\(x^2\)</span></td>
+<td align="center"><span class="math inline">\({-9}x\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-4\)</span></td>
+<td align="center"><span class="math inline">\({-4}x\)</span></td>
+<td align="center"><span class="math inline">\(36\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[p(x) ~=~ x^{2}-{9}x-{4}x+{36}\]</span></p>
+<p><span class="math display">\[p(x) ~=~ x^{2}-{13}x+{36}\]</span></p>
+<p>After you’ve done this a few hundred times, you’ll notice that you wanted two numbers that added to give -13 and multiplied to give 36. So, you start thinking of factor pairs of 36 until you find a pair that sums to -13. You will see that below I’ve listed all factor pairs of 36, along with the corresponding polynomials in factored and expanded forms.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Factor pairs of 36</th>
+<th align="center">Factored polynomial</th>
+<th align="center">Expanded polynomial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1 and 36</td>
+<td align="center"><span class="math inline">\((x+{1})\cdot (x+{36})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{37}x+{36}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-1 and -36</td>
+<td align="center"><span class="math inline">\((x-{1})\cdot (x-{36})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{37}x+{36}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2 and 18</td>
+<td align="center"><span class="math inline">\((x+{2})\cdot (x+{18})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{20}x+{36}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-2 and -18</td>
+<td align="center"><span class="math inline">\((x-{2})\cdot (x-{18})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{20}x+{36}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3 and 12</td>
+<td align="center"><span class="math inline">\((x+{3})\cdot (x+{12})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{15}x+{36}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-3 and -12</td>
+<td align="center"><span class="math inline">\((x-{3})\cdot (x-{12})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{15}x+{36}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">4 and 9</td>
+<td align="center"><span class="math inline">\((x+{4})\cdot (x+{9})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{13}x+{36}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-4 and -9</td>
+<td align="center"><span class="math inline">\((x-{4})\cdot (x-{9})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{13}x+{36}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">6 and 6</td>
+<td align="center"><span class="math inline">\((x+{6})\cdot (x+{6})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{12}x+{36}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-6 and -6</td>
+<td align="center"><span class="math inline">\((x-{6})\cdot (x-{6})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{12}x+{36}\)</span></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic polynomial <span class="math inline">\(p(x)\)</span> is defined below.</p>
+<p><span class="math display">\[p(x)~=~x^{2}+{5}x-{14}\]</span></p>
+<p>Which two linear polynomials are factors of <span class="math inline">\(p(x)\)</span>?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x-{12}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{12}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can get this by guessing and checking. Eventually you might guess the following:</p>
+<p><span class="math display">\[p(x) ~=~ (x-{2})\cdot(x+{7})\]</span></p>
+<p>You can check by using polynomial multiplication (in this case you can use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>).</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(-2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x\)</span></td>
+<td align="center"><span class="math inline">\(x^2\)</span></td>
+<td align="center"><span class="math inline">\({-2}x\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(7\)</span></td>
+<td align="center"><span class="math inline">\({7}x\)</span></td>
+<td align="center"><span class="math inline">\(-14\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[p(x) ~=~ x^{2}-{2}x+{7}x-{14}\]</span></p>
+<p><span class="math display">\[p(x) ~=~ x^{2}+{5}x-{14}\]</span></p>
+<p>After you’ve done this a few hundred times, you’ll notice that you wanted two numbers that added to give 5 and multiplied to give -14. So, you start thinking of factor pairs of -14 until you find a pair that sums to 5. You will see that below I’ve listed all factor pairs of -14, along with the corresponding polynomials in factored and expanded forms.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Factor pairs of -14</th>
+<th align="center">Factored polynomial</th>
+<th align="center">Expanded polynomial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1 and -14</td>
+<td align="center"><span class="math inline">\((x+{1})\cdot (x-{14})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{13}x-{14}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-1 and 14</td>
+<td align="center"><span class="math inline">\((x-{1})\cdot (x+{14})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{13}x-{14}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2 and -7</td>
+<td align="center"><span class="math inline">\((x+{2})\cdot (x-{7})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{5}x-{14}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-2 and 7</td>
+<td align="center"><span class="math inline">\((x-{2})\cdot (x+{7})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{5}x-{14}\)</span></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic polynomial <span class="math inline">\(p(x)\)</span> is defined below.</p>
+<p><span class="math display">\[p(x)~=~x^{2}-{13}x+{22}\]</span></p>
+<p>Which two linear polynomials are factors of <span class="math inline">\(p(x)\)</span>?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x-{12}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{12}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can get this by guessing and checking. Eventually you might guess the following:</p>
+<p><span class="math display">\[p(x) ~=~ (x-{2})\cdot(x-{11})\]</span></p>
+<p>You can check by using polynomial multiplication (in this case you can use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>).</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(-2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x\)</span></td>
+<td align="center"><span class="math inline">\(x^2\)</span></td>
+<td align="center"><span class="math inline">\({-2}x\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-11\)</span></td>
+<td align="center"><span class="math inline">\({-11}x\)</span></td>
+<td align="center"><span class="math inline">\(22\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[p(x) ~=~ x^{2}-{2}x-{11}x+{22}\]</span></p>
+<p><span class="math display">\[p(x) ~=~ x^{2}-{13}x+{22}\]</span></p>
+<p>After you’ve done this a few hundred times, you’ll notice that you wanted two numbers that added to give -13 and multiplied to give 22. So, you start thinking of factor pairs of 22 until you find a pair that sums to -13. You will see that below I’ve listed all factor pairs of 22, along with the corresponding polynomials in factored and expanded forms.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Factor pairs of 22</th>
+<th align="center">Factored polynomial</th>
+<th align="center">Expanded polynomial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1 and 22</td>
+<td align="center"><span class="math inline">\((x+{1})\cdot (x+{22})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{23}x+{22}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-1 and -22</td>
+<td align="center"><span class="math inline">\((x-{1})\cdot (x-{22})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{23}x+{22}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2 and 11</td>
+<td align="center"><span class="math inline">\((x+{2})\cdot (x+{11})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{13}x+{22}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-2 and -11</td>
+<td align="center"><span class="math inline">\((x-{2})\cdot (x-{11})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{13}x+{22}\)</span></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic polynomial <span class="math inline">\(p(x)\)</span> is defined below.</p>
+<p><span class="math display">\[p(x)~=~x^{2}+{17}x+{60}\]</span></p>
+<p>Which two linear polynomials are factors of <span class="math inline">\(p(x)\)</span>?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x-{12}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{12}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can get this by guessing and checking. Eventually you might guess the following:</p>
+<p><span class="math display">\[p(x) ~=~ (x+{5})\cdot(x+{12})\]</span></p>
+<p>You can check by using polynomial multiplication (in this case you can use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>).</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(5\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x\)</span></td>
+<td align="center"><span class="math inline">\(x^2\)</span></td>
+<td align="center"><span class="math inline">\({5}x\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(12\)</span></td>
+<td align="center"><span class="math inline">\({12}x\)</span></td>
+<td align="center"><span class="math inline">\(60\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[p(x) ~=~ x^{2}+{5}x+{12}x+{60}\]</span></p>
+<p><span class="math display">\[p(x) ~=~ x^{2}+{17}x+{60}\]</span></p>
+<p>After you’ve done this a few hundred times, you’ll notice that you wanted two numbers that added to give 17 and multiplied to give 60. So, you start thinking of factor pairs of 60 until you find a pair that sums to 17. You will see that below I’ve listed all factor pairs of 60, along with the corresponding polynomials in factored and expanded forms.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Factor pairs of 60</th>
+<th align="center">Factored polynomial</th>
+<th align="center">Expanded polynomial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1 and 60</td>
+<td align="center"><span class="math inline">\((x+{1})\cdot (x+{60})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{61}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-1 and -60</td>
+<td align="center"><span class="math inline">\((x-{1})\cdot (x-{60})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{61}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2 and 30</td>
+<td align="center"><span class="math inline">\((x+{2})\cdot (x+{30})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{32}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-2 and -30</td>
+<td align="center"><span class="math inline">\((x-{2})\cdot (x-{30})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{32}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3 and 20</td>
+<td align="center"><span class="math inline">\((x+{3})\cdot (x+{20})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{23}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-3 and -20</td>
+<td align="center"><span class="math inline">\((x-{3})\cdot (x-{20})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{23}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">4 and 15</td>
+<td align="center"><span class="math inline">\((x+{4})\cdot (x+{15})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{19}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-4 and -15</td>
+<td align="center"><span class="math inline">\((x-{4})\cdot (x-{15})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{19}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">5 and 12</td>
+<td align="center"><span class="math inline">\((x+{5})\cdot (x+{12})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{17}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-5 and -12</td>
+<td align="center"><span class="math inline">\((x-{5})\cdot (x-{12})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{17}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">6 and 10</td>
+<td align="center"><span class="math inline">\((x+{6})\cdot (x+{10})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{16}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-6 and -10</td>
+<td align="center"><span class="math inline">\((x-{6})\cdot (x-{10})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{16}x+{60}\)</span></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic polynomial <span class="math inline">\(p(x)\)</span> is defined below.</p>
+<p><span class="math display">\[p(x)~=~x^{2}-{17}x+{70}\]</span></p>
+<p>Which two linear polynomials are factors of <span class="math inline">\(p(x)\)</span>?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x-{12}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{12}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can get this by guessing and checking. Eventually you might guess the following:</p>
+<p><span class="math display">\[p(x) ~=~ (x-{10})\cdot(x-{7})\]</span></p>
+<p>You can check by using polynomial multiplication (in this case you can use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>).</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(-10\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x\)</span></td>
+<td align="center"><span class="math inline">\(x^2\)</span></td>
+<td align="center"><span class="math inline">\({-10}x\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-7\)</span></td>
+<td align="center"><span class="math inline">\({-7}x\)</span></td>
+<td align="center"><span class="math inline">\(70\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[p(x) ~=~ x^{2}-{10}x-{7}x+{70}\]</span></p>
+<p><span class="math display">\[p(x) ~=~ x^{2}-{17}x+{70}\]</span></p>
+<p>After you’ve done this a few hundred times, you’ll notice that you wanted two numbers that added to give -17 and multiplied to give 70. So, you start thinking of factor pairs of 70 until you find a pair that sums to -17. You will see that below I’ve listed all factor pairs of 70, along with the corresponding polynomials in factored and expanded forms.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Factor pairs of 70</th>
+<th align="center">Factored polynomial</th>
+<th align="center">Expanded polynomial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1 and 70</td>
+<td align="center"><span class="math inline">\((x+{1})\cdot (x+{70})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{71}x+{70}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-1 and -70</td>
+<td align="center"><span class="math inline">\((x-{1})\cdot (x-{70})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{71}x+{70}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2 and 35</td>
+<td align="center"><span class="math inline">\((x+{2})\cdot (x+{35})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{37}x+{70}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-2 and -35</td>
+<td align="center"><span class="math inline">\((x-{2})\cdot (x-{35})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{37}x+{70}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">5 and 14</td>
+<td align="center"><span class="math inline">\((x+{5})\cdot (x+{14})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{19}x+{70}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-5 and -14</td>
+<td align="center"><span class="math inline">\((x-{5})\cdot (x-{14})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{19}x+{70}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">7 and 10</td>
+<td align="center"><span class="math inline">\((x+{7})\cdot (x+{10})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{17}x+{70}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-7 and -10</td>
+<td align="center"><span class="math inline">\((x-{7})\cdot (x-{10})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{17}x+{70}\)</span></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic polynomial <span class="math inline">\(p(x)\)</span> is defined below.</p>
+<p><span class="math display">\[p(x)~=~x^{2}-{17}x+{60}\]</span></p>
+<p>Which two linear polynomials are factors of <span class="math inline">\(p(x)\)</span>?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x-{12}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{12}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can get this by guessing and checking. Eventually you might guess the following:</p>
+<p><span class="math display">\[p(x) ~=~ (x-{5})\cdot(x-{12})\]</span></p>
+<p>You can check by using polynomial multiplication (in this case you can use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>).</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(-5\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x\)</span></td>
+<td align="center"><span class="math inline">\(x^2\)</span></td>
+<td align="center"><span class="math inline">\({-5}x\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-12\)</span></td>
+<td align="center"><span class="math inline">\({-12}x\)</span></td>
+<td align="center"><span class="math inline">\(60\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[p(x) ~=~ x^{2}-{5}x-{12}x+{60}\]</span></p>
+<p><span class="math display">\[p(x) ~=~ x^{2}-{17}x+{60}\]</span></p>
+<p>After you’ve done this a few hundred times, you’ll notice that you wanted two numbers that added to give -17 and multiplied to give 60. So, you start thinking of factor pairs of 60 until you find a pair that sums to -17. You will see that below I’ve listed all factor pairs of 60, along with the corresponding polynomials in factored and expanded forms.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Factor pairs of 60</th>
+<th align="center">Factored polynomial</th>
+<th align="center">Expanded polynomial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1 and 60</td>
+<td align="center"><span class="math inline">\((x+{1})\cdot (x+{60})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{61}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-1 and -60</td>
+<td align="center"><span class="math inline">\((x-{1})\cdot (x-{60})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{61}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2 and 30</td>
+<td align="center"><span class="math inline">\((x+{2})\cdot (x+{30})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{32}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-2 and -30</td>
+<td align="center"><span class="math inline">\((x-{2})\cdot (x-{30})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{32}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3 and 20</td>
+<td align="center"><span class="math inline">\((x+{3})\cdot (x+{20})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{23}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-3 and -20</td>
+<td align="center"><span class="math inline">\((x-{3})\cdot (x-{20})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{23}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">4 and 15</td>
+<td align="center"><span class="math inline">\((x+{4})\cdot (x+{15})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{19}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-4 and -15</td>
+<td align="center"><span class="math inline">\((x-{4})\cdot (x-{15})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{19}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">5 and 12</td>
+<td align="center"><span class="math inline">\((x+{5})\cdot (x+{12})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{17}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-5 and -12</td>
+<td align="center"><span class="math inline">\((x-{5})\cdot (x-{12})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{17}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">6 and 10</td>
+<td align="center"><span class="math inline">\((x+{6})\cdot (x+{10})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{16}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-6 and -10</td>
+<td align="center"><span class="math inline">\((x-{6})\cdot (x-{10})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{16}x+{60}\)</span></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic polynomial <span class="math inline">\(p(x)\)</span> is defined below.</p>
+<p><span class="math display">\[p(x)~=~x^{2}+{17}x+{60}\]</span></p>
+<p>Which two linear polynomials are factors of <span class="math inline">\(p(x)\)</span>?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x-{12}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{12}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can get this by guessing and checking. Eventually you might guess the following:</p>
+<p><span class="math display">\[p(x) ~=~ (x+{5})\cdot(x+{12})\]</span></p>
+<p>You can check by using polynomial multiplication (in this case you can use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>).</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(5\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x\)</span></td>
+<td align="center"><span class="math inline">\(x^2\)</span></td>
+<td align="center"><span class="math inline">\({5}x\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(12\)</span></td>
+<td align="center"><span class="math inline">\({12}x\)</span></td>
+<td align="center"><span class="math inline">\(60\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[p(x) ~=~ x^{2}+{5}x+{12}x+{60}\]</span></p>
+<p><span class="math display">\[p(x) ~=~ x^{2}+{17}x+{60}\]</span></p>
+<p>After you’ve done this a few hundred times, you’ll notice that you wanted two numbers that added to give 17 and multiplied to give 60. So, you start thinking of factor pairs of 60 until you find a pair that sums to 17. You will see that below I’ve listed all factor pairs of 60, along with the corresponding polynomials in factored and expanded forms.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Factor pairs of 60</th>
+<th align="center">Factored polynomial</th>
+<th align="center">Expanded polynomial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1 and 60</td>
+<td align="center"><span class="math inline">\((x+{1})\cdot (x+{60})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{61}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-1 and -60</td>
+<td align="center"><span class="math inline">\((x-{1})\cdot (x-{60})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{61}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2 and 30</td>
+<td align="center"><span class="math inline">\((x+{2})\cdot (x+{30})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{32}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-2 and -30</td>
+<td align="center"><span class="math inline">\((x-{2})\cdot (x-{30})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{32}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3 and 20</td>
+<td align="center"><span class="math inline">\((x+{3})\cdot (x+{20})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{23}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-3 and -20</td>
+<td align="center"><span class="math inline">\((x-{3})\cdot (x-{20})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{23}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">4 and 15</td>
+<td align="center"><span class="math inline">\((x+{4})\cdot (x+{15})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{19}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-4 and -15</td>
+<td align="center"><span class="math inline">\((x-{4})\cdot (x-{15})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{19}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">5 and 12</td>
+<td align="center"><span class="math inline">\((x+{5})\cdot (x+{12})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{17}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-5 and -12</td>
+<td align="center"><span class="math inline">\((x-{5})\cdot (x-{12})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{17}x+{60}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">6 and 10</td>
+<td align="center"><span class="math inline">\((x+{6})\cdot (x+{10})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{16}x+{60}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-6 and -10</td>
+<td align="center"><span class="math inline">\((x-{6})\cdot (x-{10})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{16}x+{60}\)</span></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic polynomial <span class="math inline">\(p(x)\)</span> is defined below.</p>
+<p><span class="math display">\[p(x)~=~x^{2}+{8}x-{9}\]</span></p>
+<p>Which two linear polynomials are factors of <span class="math inline">\(p(x)\)</span>?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x-{12}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x-{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{1}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{10}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{11}\)</span>
+</li>
+<li>
+<span class="math inline">\(x+{12}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can get this by guessing and checking. Eventually you might guess the following:</p>
+<p><span class="math display">\[p(x) ~=~ (x+{9})\cdot(x-{1})\]</span></p>
+<p>You can check by using polynomial multiplication (in this case you can use the <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a>).</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(9\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x\)</span></td>
+<td align="center"><span class="math inline">\(x^2\)</span></td>
+<td align="center"><span class="math inline">\({9}x\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-1\)</span></td>
+<td align="center"><span class="math inline">\(-x\)</span></td>
+<td align="center"><span class="math inline">\(-9\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[p(x) ~=~ x^{2}+{9}x-x-{9}\]</span></p>
+<p><span class="math display">\[p(x) ~=~ x^{2}+{8}x-{9}\]</span></p>
+<p>After you’ve done this a few hundred times, you’ll notice that you wanted two numbers that added to give 8 and multiplied to give -9. So, you start thinking of factor pairs of -9 until you find a pair that sums to 8. You will see that below I’ve listed all factor pairs of -9, along with the corresponding polynomials in factored and expanded forms.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Factor pairs of -9</th>
+<th align="center">Factored polynomial</th>
+<th align="center">Expanded polynomial</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1 and -9</td>
+<td align="center"><span class="math inline">\((x+{1})\cdot (x-{9})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}-{8}x-{9}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-1 and 9</td>
+<td align="center"><span class="math inline">\((x-{1})\cdot (x+{9})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{8}x-{9}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">3 and -3</td>
+<td align="center"><span class="math inline">\((x+{3})\cdot (x-{3})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{0}x-{9}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">-3 and 3</td>
+<td align="center"><span class="math inline">\((x-{3})\cdot (x+{3})\)</span></td>
+<td align="center"><span class="math inline">\(x^{2}+{0}x-{9}\)</span></td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

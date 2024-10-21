@@ -1,6 +1,8 @@
 library("exams")
 
-pppsss = c("01_prime_factorization.Rmd")
+pppsss = c("01_prime_factorization.Rmd",
+           "02_factor_quadratic.Rmd",
+           "03_quadratic_formula.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

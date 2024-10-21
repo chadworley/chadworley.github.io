@@ -4,10 +4,10 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "u05_"
-files =  ["17_long_division.Rmd",
-          "18_poly_long_division.Rmd",
-          "19_synthetic_division.Rmd"]
+front = "u06_"
+files = ["01_prime_factorization.Rmd",
+         "02_factor_quadratic.Rmd",
+         "03_quadratic_formula.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
