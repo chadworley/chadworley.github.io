@@ -1,4 +1,4 @@
-for(jjj in 101:140){
+for(jjj in 141:160){
     rmarkdown::render(input = "poly_ops_WE.Rmd",
                       output_file = paste0("prac_01/poe_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
                                                                                     showsol = F,
@@ -8,4 +8,9 @@ for(jjj in 101:140){
                                                                                     showsol = T,
                                                                                     titex = "SOLUTION"))
 }
+
+
+
+
+
 

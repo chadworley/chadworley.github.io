@@ -3,12 +3,12 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-10-16 8:00:00"]
-dut = ["2024-10-16 23:59:00"]
-front = "u05_"
-files = ["19_synthetic_division.Rmd"]
+avt = ["2024-10-20 8:00:00"]
+dut = ["2024-10-20 23:59:00"]
+front = "u06_"
+files = ["01_prime_factorization.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u06/outhtml/"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
