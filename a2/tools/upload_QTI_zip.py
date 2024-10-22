@@ -6,9 +6,16 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID
-file_path_list = ["outcanvas/u06_01_prime_factorization.zip",
-                  "outcanvas/u06_02_factor_quadratic.zip",
-                  "outcanvas/u06_03_quadratic_formula.zip"]
+file_path_list = ["outcanvas/u06_04_quadratic_formula_complex.zip",
+                  "outcanvas/u06_05_solve_cubic_easy_integers.zip",
+                  "outcanvas/u06_06_solve_cubic_one_real.zip",
+                  "outcanvas/u06_07_add_complex.zip",
+                  "outcanvas/u06_08_subtract_complex.zip",
+                  "outcanvas/u06_09_multiply_complex.zip",
+                  "outcanvas/u06_10_check_complex_solution.zip",
+                  "outcanvas/u06_11_read_complex_plot.zip",
+                  "outcanvas/u06_12_complex_modulus.zip",
+                  "outcanvas/u06_13_solve_polynomial_complex_roots.zip"]
 # fpl = []
 # for i in range(22,50):
 #     fpl.append("ET_0"+str(i)+".zip")

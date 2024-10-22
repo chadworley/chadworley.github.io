@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>10_check_complex_solution</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">10_check_complex_solution</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Does the complex number <span class="math inline">\(z=2-6i\)</span> solve the equation below?</p>
+<p><span class="math display">\[z^2-4z+40=0\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in <span class="math inline">\(z=2-6i\)</span>. Since we are checking if this equation is true, we should probably put a question mark above the equal sign. I didn’t, but keep in mind these equations might be wrong.</p>
+<p><span class="math display">\[(2-6i)^2-4(2-6i)+40=0\]</span></p>
+<p>Expand the terms. Use FOIL for the squared term.</p>
+<p><span class="math display">\[4-12i-12i+36i^2-8+24i+40=0\]</span></p>
+<p>Remember <span class="math inline">\(i^2=-1\)</span>.
+<span class="math display">\[4-12i-12i-36-8+24i+40=0\]</span>
+Combine like terms.
+<span class="math display">\[0+0i=0\]</span>
+Yay! The complex number satisfies the equation!</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Does the complex number <span class="math inline">\(z=-9-8i\)</span> solve the equation below?</p>
+<p><span class="math display">\[z^2+18z+145=0\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in <span class="math inline">\(z=-9-8i\)</span>. Since we are checking if this equation is true, we should probably put a question mark above the equal sign. I didn’t, but keep in mind these equations might be wrong.</p>
+<p><span class="math display">\[(-9-8i)^2+18(-9-8i)+145=0\]</span></p>
+<p>Expand the terms. Use FOIL for the squared term.</p>
+<p><span class="math display">\[81+72i+72i+64i^2-162-144i+145=0\]</span></p>
+<p>Remember <span class="math inline">\(i^2=-1\)</span>.
+<span class="math display">\[81+72i+72i-64-162-144i+145=0\]</span>
+Combine like terms.
+<span class="math display">\[0+0i=0\]</span>
+Yay! The complex number satisfies the equation!</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Does the complex number <span class="math inline">\(z=-3+4i\)</span> solve the equation below?</p>
+<p><span class="math display">\[z^2+6z+23=0\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in <span class="math inline">\(z=-3+4i\)</span>. Since we are checking if this equation is true, we should probably put a question mark above the equal sign. I didn’t, but keep in mind these equations might be wrong.</p>
+<p><span class="math display">\[(-3+4i)^2+6(-3+4i)+23=0\]</span></p>
+<p>Expand the terms. Use FOIL for the squared term.</p>
+<p><span class="math display">\[9-12i-12i+16i^2-18+24i+23=0\]</span></p>
+<p>Remember <span class="math inline">\(i^2=-1\)</span>.
+<span class="math display">\[9-12i-12i-16-18+24i+23=0\]</span>
+Combine like terms.
+<span class="math display">\[-2+0i=0\]</span>
+Nope! The complex number does not satisfy the equation!</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Does the complex number <span class="math inline">\(z=-9-5i\)</span> solve the equation below?</p>
+<p><span class="math display">\[z^2+18z+106=0\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in <span class="math inline">\(z=-9-5i\)</span>. Since we are checking if this equation is true, we should probably put a question mark above the equal sign. I didn’t, but keep in mind these equations might be wrong.</p>
+<p><span class="math display">\[(-9-5i)^2+18(-9-5i)+106=0\]</span></p>
+<p>Expand the terms. Use FOIL for the squared term.</p>
+<p><span class="math display">\[81+45i+45i+25i^2-162-90i+106=0\]</span></p>
+<p>Remember <span class="math inline">\(i^2=-1\)</span>.
+<span class="math display">\[81+45i+45i-25-162-90i+106=0\]</span>
+Combine like terms.
+<span class="math display">\[0+0i=0\]</span>
+Yay! The complex number satisfies the equation!</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Does the complex number <span class="math inline">\(z=3-4i\)</span> solve the equation below?</p>
+<p><span class="math display">\[z^2-8z+15=0\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in <span class="math inline">\(z=3-4i\)</span>. Since we are checking if this equation is true, we should probably put a question mark above the equal sign. I didn’t, but keep in mind these equations might be wrong.</p>
+<p><span class="math display">\[(3-4i)^2-8(3-4i)+15=0\]</span></p>
+<p>Expand the terms. Use FOIL for the squared term.</p>
+<p><span class="math display">\[9-12i-12i+16i^2-24+32i+15=0\]</span></p>
+<p>Remember <span class="math inline">\(i^2=-1\)</span>.
+<span class="math display">\[9-12i-12i-16-24+32i+15=0\]</span>
+Combine like terms.
+<span class="math display">\[-16+8i=0\]</span>
+Nope! The complex number does not satisfy the equation!</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Does the complex number <span class="math inline">\(z=8-5i\)</span> solve the equation below?</p>
+<p><span class="math display">\[z^2-16z+89=0\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in <span class="math inline">\(z=8-5i\)</span>. Since we are checking if this equation is true, we should probably put a question mark above the equal sign. I didn’t, but keep in mind these equations might be wrong.</p>
+<p><span class="math display">\[(8-5i)^2-16(8-5i)+89=0\]</span></p>
+<p>Expand the terms. Use FOIL for the squared term.</p>
+<p><span class="math display">\[64-40i-40i+25i^2-128+80i+89=0\]</span></p>
+<p>Remember <span class="math inline">\(i^2=-1\)</span>.
+<span class="math display">\[64-40i-40i-25-128+80i+89=0\]</span>
+Combine like terms.
+<span class="math display">\[0+0i=0\]</span>
+Yay! The complex number satisfies the equation!</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Does the complex number <span class="math inline">\(z=2+9i\)</span> solve the equation below?</p>
+<p><span class="math display">\[z^2-5z+80=0\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in <span class="math inline">\(z=2+9i\)</span>. Since we are checking if this equation is true, we should probably put a question mark above the equal sign. I didn’t, but keep in mind these equations might be wrong.</p>
+<p><span class="math display">\[(2+9i)^2-5(2+9i)+80=0\]</span></p>
+<p>Expand the terms. Use FOIL for the squared term.</p>
+<p><span class="math display">\[4+18i+18i+81i^2-10-45i+80=0\]</span></p>
+<p>Remember <span class="math inline">\(i^2=-1\)</span>.
+<span class="math display">\[4+18i+18i-81-10-45i+80=0\]</span>
+Combine like terms.
+<span class="math display">\[-7-9i=0\]</span>
+Nope! The complex number does not satisfy the equation!</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Does the complex number <span class="math inline">\(z=3+7i\)</span> solve the equation below?</p>
+<p><span class="math display">\[z^2-6z+58=0\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in <span class="math inline">\(z=3+7i\)</span>. Since we are checking if this equation is true, we should probably put a question mark above the equal sign. I didn’t, but keep in mind these equations might be wrong.</p>
+<p><span class="math display">\[(3+7i)^2-6(3+7i)+58=0\]</span></p>
+<p>Expand the terms. Use FOIL for the squared term.</p>
+<p><span class="math display">\[9+21i+21i+49i^2-18-42i+58=0\]</span></p>
+<p>Remember <span class="math inline">\(i^2=-1\)</span>.
+<span class="math display">\[9+21i+21i-49-18-42i+58=0\]</span>
+Combine like terms.
+<span class="math display">\[0+0i=0\]</span>
+Yay! The complex number satisfies the equation!</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

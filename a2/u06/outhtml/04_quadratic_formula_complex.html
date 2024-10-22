@@ -1,0 +1,466 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>04_quadratic_formula_complex</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">04_quadratic_formula_complex</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic formula says if <span class="math inline">\(ax^2+bx+c=0\)</span> then <span class="math inline">\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</span>.</p>
+<p>The <a href="https://en.wiktionary.org/wiki/radicand">radicand</a> is called the <a href="https://en.wikipedia.org/wiki/Discriminant#Degree_2">discriminant</a>. If the discriminant is negative, or, as an algebraic inequality, if <span class="math inline">\(b^2-4ac&lt;0\)</span>, then the solutions are <a href="https://en.wikipedia.org/wiki/Complex_number">complex</a>. When a quadratic equation has complex solutions, those solutions are always <a href="https://en.wikipedia.org/wiki/Complex_conjugate">complex conjugates</a>.</p>
+<p>Use the quadratic formula to solve</p>
+<p><span class="math display">\[x^2-2x+37=0\]</span></p>
+<p><em>Remember:</em> <span class="math inline">\(i=\sqrt{-1}\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+1+6i
+</li>
+<li>
+-6+i
+</li>
+<li>
+-1-6i
+</li>
+<li>
+6-i
+</li>
+<li>
+-6-i
+</li>
+<li>
+-1+6i
+</li>
+<li>
+1-6i
+</li>
+<li>
+6+i
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug numbers into the quadratic formula.</p>
+<p><span class="math display">\[x = \frac{-(-2)\pm\sqrt{(-2)^2-4(1)(37)}}{2(1)} \]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[x = \frac{2 \pm \sqrt{-144}}{2}\]</span></p>
+<p><span class="math display">\[x = \frac{2 \pm 12i}{2}\]</span></p>
+<p><span class="math display">\[x = 1+6i ~~~~~~~~\text{OR}~~~~~~~~ x=1-6i\]</span></p>
+<p>I should point out this relates to factoring because we could rewrite the original equation in factored form.</p>
+<p><span class="math display">\[(x-(1+6i))\cdot(x-(1-6i))~=~0\]</span></p>
+<p>We need to practice multiplying complex numbers before you’d be able to check this though.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic formula says if <span class="math inline">\(ax^2+bx+c=0\)</span> then <span class="math inline">\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</span>.</p>
+<p>The <a href="https://en.wiktionary.org/wiki/radicand">radicand</a> is called the <a href="https://en.wikipedia.org/wiki/Discriminant#Degree_2">discriminant</a>. If the discriminant is negative, or, as an algebraic inequality, if <span class="math inline">\(b^2-4ac&lt;0\)</span>, then the solutions are <a href="https://en.wikipedia.org/wiki/Complex_number">complex</a>. When a quadratic equation has complex solutions, those solutions are always <a href="https://en.wikipedia.org/wiki/Complex_conjugate">complex conjugates</a>.</p>
+<p>Use the quadratic formula to solve</p>
+<p><span class="math display">\[x^2+4x+20=0\]</span></p>
+<p><em>Remember:</em> <span class="math inline">\(i=\sqrt{-1}\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+4+2i
+</li>
+<li>
+-4+2i
+</li>
+<li>
+-2-4i
+</li>
+<li>
+-2+4i
+</li>
+<li>
+2+4i
+</li>
+<li>
+4-2i
+</li>
+<li>
+2-4i
+</li>
+<li>
+-4-2i
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug numbers into the quadratic formula.</p>
+<p><span class="math display">\[x = \frac{-(4)\pm\sqrt{(4)^2-4(1)(20)}}{2(1)} \]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[x = \frac{-4 \pm \sqrt{-64}}{2}\]</span></p>
+<p><span class="math display">\[x = \frac{-4 \pm 8i}{2}\]</span></p>
+<p><span class="math display">\[x = -2-4i ~~~~~~~~\text{OR}~~~~~~~~ x=-2+4i\]</span></p>
+<p>I should point out this relates to factoring because we could rewrite the original equation in factored form.</p>
+<p><span class="math display">\[(x-(-2-4i))\cdot(x-(-2+4i))~=~0\]</span></p>
+<p>We need to practice multiplying complex numbers before you’d be able to check this though.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic formula says if <span class="math inline">\(ax^2+bx+c=0\)</span> then <span class="math inline">\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</span>.</p>
+<p>The <a href="https://en.wiktionary.org/wiki/radicand">radicand</a> is called the <a href="https://en.wikipedia.org/wiki/Discriminant#Degree_2">discriminant</a>. If the discriminant is negative, or, as an algebraic inequality, if <span class="math inline">\(b^2-4ac&lt;0\)</span>, then the solutions are <a href="https://en.wikipedia.org/wiki/Complex_number">complex</a>. When a quadratic equation has complex solutions, those solutions are always <a href="https://en.wikipedia.org/wiki/Complex_conjugate">complex conjugates</a>.</p>
+<p>Use the quadratic formula to solve</p>
+<p><span class="math display">\[x^2-6x+13=0\]</span></p>
+<p><em>Remember:</em> <span class="math inline">\(i=\sqrt{-1}\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+-2+3i
+</li>
+<li>
+3+2i
+</li>
+<li>
+2+3i
+</li>
+<li>
+3-2i
+</li>
+<li>
+-3+2i
+</li>
+<li>
+-3-2i
+</li>
+<li>
+2-3i
+</li>
+<li>
+-2-3i
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug numbers into the quadratic formula.</p>
+<p><span class="math display">\[x = \frac{-(-6)\pm\sqrt{(-6)^2-4(1)(13)}}{2(1)} \]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[x = \frac{6 \pm \sqrt{-16}}{2}\]</span></p>
+<p><span class="math display">\[x = \frac{6 \pm 4i}{2}\]</span></p>
+<p><span class="math display">\[x = 3+2i ~~~~~~~~\text{OR}~~~~~~~~ x=3-2i\]</span></p>
+<p>I should point out this relates to factoring because we could rewrite the original equation in factored form.</p>
+<p><span class="math display">\[(x-(3+2i))\cdot(x-(3-2i))~=~0\]</span></p>
+<p>We need to practice multiplying complex numbers before you’d be able to check this though.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic formula says if <span class="math inline">\(ax^2+bx+c=0\)</span> then <span class="math inline">\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</span>.</p>
+<p>The <a href="https://en.wiktionary.org/wiki/radicand">radicand</a> is called the <a href="https://en.wikipedia.org/wiki/Discriminant#Degree_2">discriminant</a>. If the discriminant is negative, or, as an algebraic inequality, if <span class="math inline">\(b^2-4ac&lt;0\)</span>, then the solutions are <a href="https://en.wikipedia.org/wiki/Complex_number">complex</a>. When a quadratic equation has complex solutions, those solutions are always <a href="https://en.wikipedia.org/wiki/Complex_conjugate">complex conjugates</a>.</p>
+<p>Use the quadratic formula to solve</p>
+<p><span class="math display">\[x^2+8x+17=0\]</span></p>
+<p><em>Remember:</em> <span class="math inline">\(i=\sqrt{-1}\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+-4+i
+</li>
+<li>
+1+4i
+</li>
+<li>
+-1+4i
+</li>
+<li>
+4+i
+</li>
+<li>
+-1-4i
+</li>
+<li>
+1-4i
+</li>
+<li>
+4-i
+</li>
+<li>
+-4-i
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug numbers into the quadratic formula.</p>
+<p><span class="math display">\[x = \frac{-(8)\pm\sqrt{(8)^2-4(1)(17)}}{2(1)} \]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[x = \frac{-8 \pm \sqrt{-4}}{2}\]</span></p>
+<p><span class="math display">\[x = \frac{-8 \pm 2i}{2}\]</span></p>
+<p><span class="math display">\[x = -4+i ~~~~~~~~\text{OR}~~~~~~~~ x=-4-i\]</span></p>
+<p>I should point out this relates to factoring because we could rewrite the original equation in factored form.</p>
+<p><span class="math display">\[(x-(-4+i))\cdot(x-(-4-i))~=~0\]</span></p>
+<p>We need to practice multiplying complex numbers before you’d be able to check this though.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic formula says if <span class="math inline">\(ax^2+bx+c=0\)</span> then <span class="math inline">\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</span>.</p>
+<p>The <a href="https://en.wiktionary.org/wiki/radicand">radicand</a> is called the <a href="https://en.wikipedia.org/wiki/Discriminant#Degree_2">discriminant</a>. If the discriminant is negative, or, as an algebraic inequality, if <span class="math inline">\(b^2-4ac&lt;0\)</span>, then the solutions are <a href="https://en.wikipedia.org/wiki/Complex_number">complex</a>. When a quadratic equation has complex solutions, those solutions are always <a href="https://en.wikipedia.org/wiki/Complex_conjugate">complex conjugates</a>.</p>
+<p>Use the quadratic formula to solve</p>
+<p><span class="math display">\[x^2-6x+13=0\]</span></p>
+<p><em>Remember:</em> <span class="math inline">\(i=\sqrt{-1}\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+-3-2i
+</li>
+<li>
+3+2i
+</li>
+<li>
+2-3i
+</li>
+<li>
+3-2i
+</li>
+<li>
+-3+2i
+</li>
+<li>
+-2-3i
+</li>
+<li>
+2+3i
+</li>
+<li>
+-2+3i
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug numbers into the quadratic formula.</p>
+<p><span class="math display">\[x = \frac{-(-6)\pm\sqrt{(-6)^2-4(1)(13)}}{2(1)} \]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[x = \frac{6 \pm \sqrt{-16}}{2}\]</span></p>
+<p><span class="math display">\[x = \frac{6 \pm 4i}{2}\]</span></p>
+<p><span class="math display">\[x = 3-2i ~~~~~~~~\text{OR}~~~~~~~~ x=3+2i\]</span></p>
+<p>I should point out this relates to factoring because we could rewrite the original equation in factored form.</p>
+<p><span class="math display">\[(x-(3-2i))\cdot(x-(3+2i))~=~0\]</span></p>
+<p>We need to practice multiplying complex numbers before you’d be able to check this though.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic formula says if <span class="math inline">\(ax^2+bx+c=0\)</span> then <span class="math inline">\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</span>.</p>
+<p>The <a href="https://en.wiktionary.org/wiki/radicand">radicand</a> is called the <a href="https://en.wikipedia.org/wiki/Discriminant#Degree_2">discriminant</a>. If the discriminant is negative, or, as an algebraic inequality, if <span class="math inline">\(b^2-4ac&lt;0\)</span>, then the solutions are <a href="https://en.wikipedia.org/wiki/Complex_number">complex</a>. When a quadratic equation has complex solutions, those solutions are always <a href="https://en.wikipedia.org/wiki/Complex_conjugate">complex conjugates</a>.</p>
+<p>Use the quadratic formula to solve</p>
+<p><span class="math display">\[x^2-4x+29=0\]</span></p>
+<p><em>Remember:</em> <span class="math inline">\(i=\sqrt{-1}\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+-5+2i
+</li>
+<li>
+2+5i
+</li>
+<li>
+-5-2i
+</li>
+<li>
+2-5i
+</li>
+<li>
+-2-5i
+</li>
+<li>
+-2+5i
+</li>
+<li>
+5+2i
+</li>
+<li>
+5-2i
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug numbers into the quadratic formula.</p>
+<p><span class="math display">\[x = \frac{-(-4)\pm\sqrt{(-4)^2-4(1)(29)}}{2(1)} \]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[x = \frac{4 \pm \sqrt{-100}}{2}\]</span></p>
+<p><span class="math display">\[x = \frac{4 \pm 10i}{2}\]</span></p>
+<p><span class="math display">\[x = 2+5i ~~~~~~~~\text{OR}~~~~~~~~ x=2-5i\]</span></p>
+<p>I should point out this relates to factoring because we could rewrite the original equation in factored form.</p>
+<p><span class="math display">\[(x-(2+5i))\cdot(x-(2-5i))~=~0\]</span></p>
+<p>We need to practice multiplying complex numbers before you’d be able to check this though.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic formula says if <span class="math inline">\(ax^2+bx+c=0\)</span> then <span class="math inline">\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</span>.</p>
+<p>The <a href="https://en.wiktionary.org/wiki/radicand">radicand</a> is called the <a href="https://en.wikipedia.org/wiki/Discriminant#Degree_2">discriminant</a>. If the discriminant is negative, or, as an algebraic inequality, if <span class="math inline">\(b^2-4ac&lt;0\)</span>, then the solutions are <a href="https://en.wikipedia.org/wiki/Complex_number">complex</a>. When a quadratic equation has complex solutions, those solutions are always <a href="https://en.wikipedia.org/wiki/Complex_conjugate">complex conjugates</a>.</p>
+<p>Use the quadratic formula to solve</p>
+<p><span class="math display">\[x^2-4x+5=0\]</span></p>
+<p><em>Remember:</em> <span class="math inline">\(i=\sqrt{-1}\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+-2+i
+</li>
+<li>
+2+i
+</li>
+<li>
+-2-i
+</li>
+<li>
+1+2i
+</li>
+<li>
+1-2i
+</li>
+<li>
+-1+2i
+</li>
+<li>
+2-i
+</li>
+<li>
+-1-2i
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug numbers into the quadratic formula.</p>
+<p><span class="math display">\[x = \frac{-(-4)\pm\sqrt{(-4)^2-4(1)(5)}}{2(1)} \]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[x = \frac{4 \pm \sqrt{-4}}{2}\]</span></p>
+<p><span class="math display">\[x = \frac{4 \pm 2i}{2}\]</span></p>
+<p><span class="math display">\[x = 2-i ~~~~~~~~\text{OR}~~~~~~~~ x=2+i\]</span></p>
+<p>I should point out this relates to factoring because we could rewrite the original equation in factored form.</p>
+<p><span class="math display">\[(x-(2-i))\cdot(x-(2+i))~=~0\]</span></p>
+<p>We need to practice multiplying complex numbers before you’d be able to check this though.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The quadratic formula says if <span class="math inline">\(ax^2+bx+c=0\)</span> then <span class="math inline">\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</span>.</p>
+<p>The <a href="https://en.wiktionary.org/wiki/radicand">radicand</a> is called the <a href="https://en.wikipedia.org/wiki/Discriminant#Degree_2">discriminant</a>. If the discriminant is negative, or, as an algebraic inequality, if <span class="math inline">\(b^2-4ac&lt;0\)</span>, then the solutions are <a href="https://en.wikipedia.org/wiki/Complex_number">complex</a>. When a quadratic equation has complex solutions, those solutions are always <a href="https://en.wikipedia.org/wiki/Complex_conjugate">complex conjugates</a>.</p>
+<p>Use the quadratic formula to solve</p>
+<p><span class="math display">\[x^2-2x+10=0\]</span></p>
+<p><em>Remember:</em> <span class="math inline">\(i=\sqrt{-1}\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+3+i
+</li>
+<li>
+-3+i
+</li>
+<li>
+3-i
+</li>
+<li>
+-1+3i
+</li>
+<li>
+1+3i
+</li>
+<li>
+1-3i
+</li>
+<li>
+-3-i
+</li>
+<li>
+-1-3i
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug numbers into the quadratic formula.</p>
+<p><span class="math display">\[x = \frac{-(-2)\pm\sqrt{(-2)^2-4(1)(10)}}{2(1)} \]</span></p>
+<p>Simplify.</p>
+<p><span class="math display">\[x = \frac{2 \pm \sqrt{-36}}{2}\]</span></p>
+<p><span class="math display">\[x = \frac{2 \pm 6i}{2}\]</span></p>
+<p><span class="math display">\[x = 1+3i ~~~~~~~~\text{OR}~~~~~~~~ x=1-3i\]</span></p>
+<p>I should point out this relates to factoring because we could rewrite the original equation in factored form.</p>
+<p><span class="math display">\[(x-(1+3i))\cdot(x-(1-3i))~=~0\]</span></p>
+<p>We need to practice multiplying complex numbers before you’d be able to check this though.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

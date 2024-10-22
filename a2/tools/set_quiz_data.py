@@ -3,12 +3,19 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-10-21 8:00:00"]*3
-dut = ["2024-10-21 23:59:00"]*3
+avt = ["2024-10-22 8:00:00"]*6+["2024-10-23 8:00:00"]*4
+dut = ["2024-10-22 23:59:00"]*6+["2024-10-23 23:59:00"]*4
 front = "u06_"
-files = ["01_prime_factorization.Rmd",
-         "02_factor_quadratic.Rmd",
-         "03_quadratic_formula.Rmd"]
+files = ["04_quadratic_formula_complex.Rmd",
+         "05_solve_cubic_easy_integers.Rmd",
+         "06_solve_cubic_one_real.Rmd",
+         "07_add_complex.Rmd",
+         "08_subtract_complex.Rmd",
+         "09_multiply_complex.Rmd",
+         "10_check_complex_solution.Rmd",
+         "11_read_complex_plot.Rmd",
+         "12_complex_modulus.Rmd",
+         "13_solve_polynomial_complex_roots.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u06/outhtml/"
 

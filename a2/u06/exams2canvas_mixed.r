@@ -3,10 +3,17 @@ n = 30
 outdir = "outcanvas"
 genname = "u06_"
 
-probs = c("01_prime_factorization.Rmd",
-          "02_factor_quadratic.Rmd",
-          "03_quadratic_formula.Rmd")
-pnts = c(4,4,4)
+probs = c("04_quadratic_formula_complex.Rmd",
+          "05_solve_cubic_easy_integers.Rmd",
+          "06_solve_cubic_one_real.Rmd",
+          "07_add_complex.Rmd",
+          "08_subtract_complex.Rmd",
+          "09_multiply_complex.Rmd",
+          "10_check_complex_solution.Rmd",
+          "11_read_complex_plot.Rmd",
+          "12_complex_modulus.Rmd",
+          "13_solve_polynomial_complex_roots.Rmd")
+pnts = c(4,5,5,2,2,3,4,3,3,5)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

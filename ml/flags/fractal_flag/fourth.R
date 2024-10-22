@@ -1,14 +1,14 @@
-w = 50
+w = 300
 r = 0.6666666666 # <sqrt(2)/2
 b = (1-2*r^2)*w
 h = w*r
 
-colbg = "grey"
-col1 = "white"
+colbg = rgb(0.5,0,0)
+col1 = "red"
 col2 = "black"
 depth = 8
 
-pdf("fracflag4rev.pdf",w,h)
+png("fracflag4rev.png",w,h)
 par(mar=c(0,0,0,0), xaxs='i', yaxs='i')
 plot(0,0,"n",xlim=c(0,w),ylim=c(0,h),axes=F,ann=F)
 polygon(c(0,0,w,w),c(0,h,h,0),col=colbg,border = F)

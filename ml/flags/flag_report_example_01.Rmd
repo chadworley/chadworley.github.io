@@ -1,0 +1,231 @@
+---
+output: pdf_document
+title: "A Fractal Flag for Collectivist Mathematicians"
+---
+
+
+# The flag
+
+```{r,echo=F}
+cc1 = "black"
+cc2 = "red"
+cc3 = rgb(0.5,0,0)
+```
+
+* Obverse and Reverse
+
+```{r,fig.dim=c(3,2),echo=F,fig.cap="Obverse"}
+w = 50
+r = 0.6666666666
+b = (1-2*r^2)*w
+h = w*r
+
+colbg = cc3
+col1 = cc1
+col2 = cc2
+depth = 6
+
+par(mar=c(0,0,0,0), xaxs='i', yaxs='i')
+plot(0,0,"n",xlim=c(0,w),ylim=c(0,h),axes=F,ann=F)
+polygon(c(0,0,w,w),c(0,h,h,0),col=colbg,border = F)
+
+
+xlist = list(c(0,w))
+ylist = list(c(0,h))
+
+for(jj in 0:depth){
+    nxl = list()
+    deg = jj*2
+    for(i in 1:length(xlist)){
+        xmid = mean(xlist[[i]])
+        x1 = xmid-b*r^deg/2
+        x2 = xmid+b*r^deg/2
+        nxl[[2*i-1]] = sort(c(xlist[[i]][1],x1))
+        nxl[[2*i]] = sort(c(xlist[[i]][2],x2))
+        for(j in 1:length(ylist)){
+            y1 = ylist[[j]][1]
+            y2 = ylist[[j]][2]
+            polygon(c(x1,x1,x2,x2),c(y1,y2,y2,y1),col=col1,border = F)
+        }
+    }
+    xlist = nxl
+    nyl = list()
+    deg = jj*2+1
+    for(i in 1:length(ylist)){
+        ymid = mean(ylist[[i]])
+        y1 = ymid-b*r^deg/2
+        y2 = ymid+b*r^deg/2
+        nyl[[2*i-1]] = sort(c(ylist[[i]][1],y1))
+        nyl[[2*i]] = sort(c(ylist[[i]][2],y2))
+        for(j in 1:length(xlist)){
+            x1 = xlist[[j]][1]
+            x2 = xlist[[j]][2]
+            polygon(c(x1,x1,x2,x2),c(y1,y2,y2,y1),col=col2,border = F)
+        }
+    }
+    ylist = nyl
+}
+```
+```{r,fig.dim=c(3,2),echo=F,fig.cap="Reverse"}
+w = 50
+r = 0.6666666666
+b = (1-2*r^2)*w
+h = w*r
+
+colbg = cc3
+col1 = cc2
+col2 = cc1
+depth = 6
+
+par(mar=c(0,0,0,0), xaxs='i', yaxs='i')
+plot(0,0,"n",xlim=c(0,w),ylim=c(0,h),axes=F,ann=F)
+polygon(c(0,0,w,w),c(0,h,h,0),col=colbg,border = F)
+
+
+xlist = list(c(0,w))
+ylist = list(c(0,h))
+
+for(jj in 0:depth){
+    nxl = list()
+    deg = jj*2
+    for(i in 1:length(xlist)){
+        xmid = mean(xlist[[i]])
+        x1 = xmid-b*r^deg/2
+        x2 = xmid+b*r^deg/2
+        nxl[[2*i-1]] = sort(c(xlist[[i]][1],x1))
+        nxl[[2*i]] = sort(c(xlist[[i]][2],x2))
+        for(j in 1:length(ylist)){
+            y1 = ylist[[j]][1]
+            y2 = ylist[[j]][2]
+            polygon(c(x1,x1,x2,x2),c(y1,y2,y2,y1),col=col1,border = F)
+        }
+    }
+    xlist = nxl
+    nyl = list()
+    deg = jj*2+1
+    for(i in 1:length(ylist)){
+        ymid = mean(ylist[[i]])
+        y1 = ymid-b*r^deg/2
+        y2 = ymid+b*r^deg/2
+        nyl[[2*i-1]] = sort(c(ylist[[i]][1],y1))
+        nyl[[2*i]] = sort(c(ylist[[i]][2],y2))
+        for(j in 1:length(xlist)){
+            x1 = xlist[[j]][1]
+            x2 = xlist[[j]][2]
+            polygon(c(x1,x1,x2,x2),c(y1,y2,y2,y1),col=col2,border = F)
+        }
+    }
+    ylist = nyl
+}
+```
+
+
+## Why?
+
+I wanted to make a mathematical flag. When I think of mathematical art, I often think of fractals. I realized that I could make a flag that could be cut apart to generate multiple smaller flags. I imagined this could be helpful if part of the flag was damaged. It could also be helpful if someone wants to join the "team"; you can always make more flags to share if you have your flag.
+
+I honestly was not sure how well this could fit with the five basic principles of flag design, but I did my best. The eventual design achieved my original goal, but it looks like a flag only a cyborg alien species would consider using.
+
+In this version, the two different sides allow the flag to be cut in half and flipped over to generate two flags. It is possible to make a similar version with equivalent obverse and reverse, but I haven't gotten one to look as clean as the two-sided version.
+
+```{r, echo=F,fig.dim=c(3,2),fig.cap="A possible version with equivalent obverse and reverse"}
+w = 50
+r = 0.66666666666666666 # <sqrt(2)/2
+b = (1-2*r^2)*w
+h = w*r
+
+colbg = rgb(1,1,1)
+col2 = rgb(0,0,1)
+col1 = rgb(0.5,0.5,1)
+depth = 6
+
+par(mar=c(0,0,0,0), xaxs='i', yaxs='i')
+plot(0,0,"n",xlim=c(0,w),ylim=c(0,h),axes=F,ann=F)
+polygon(c(0,0,w,w),c(0,h,h,0),col=colbg,border = F)
+
+
+xlist = list(c(0,w))
+ylist = list(c(0,h))
+
+for(jj in 0:depth){
+    nxl = list()
+    deg = jj*2
+    for(i in 1:length(xlist)){
+        xmid = mean(xlist[[i]])
+        x1 = xmid-b*r^deg/2
+        x2 = xmid+b*r^deg/2
+        nxl[[2*i-1]] = sort(c(xlist[[i]][1],x1))
+        nxl[[2*i]] = sort(c(xlist[[i]][2],x2))
+        for(j in 1:length(ylist)){
+            y1 = ylist[[j]][1]
+            y2 = ylist[[j]][2]
+            polygon(c(x1,x1,x2,x2),c(y1,y2,y2,y1),col=col1,border = F)
+            if(j<length(ylist)){
+                y1 = ylist[[j]][2]
+                y2 = ylist[[j+1]][1]
+                polygon(c(x1,x1,x2,x2),c(y1,y2,y2,y1),col=col2,border = F)
+            }
+        }
+    }
+    xlist = nxl
+    nyl = list()
+    deg = jj*2+1
+    for(i in 1:length(ylist)){
+        ymid = mean(ylist[[i]])
+        y1 = ymid-b*r^deg/2
+        y2 = ymid+b*r^deg/2
+        nyl[[2*i-1]] = sort(c(ylist[[i]][1],y1))
+        nyl[[2*i]] = sort(c(ylist[[i]][2],y2))
+        for(j in 1:length(xlist)){
+            x1 = xlist[[j]][1]
+            x2 = xlist[[j]][2]
+            polygon(c(x1,x1,x2,x2),c(y1,y2,y2,y1),col=col1,border = F)
+            if(j<length(xlist)){
+                x1 = xlist[[j]][2]
+                x2 = xlist[[j+1]][1]
+                polygon(c(x1,x1,x2,x2),c(y1,y2,y2,y1),col=col2,border = F)
+            }
+        }
+    }
+    ylist = nyl
+}
+```
+
+## Specifications
+
+* Width is 1.
+* Height is $\frac{2}{3}$.
+* Large vertical stripe has width of $\frac{1}{9}$
+* Largest horizontal stripes have width of $\frac{1}{9}\cdot\frac{2}{3}$ and length of $\frac{2}{3}$
+* As we progressively get smaller, to the $i$th iteration, the stripes' width equals $\frac{1}{9}\cdot\left(\frac{2}{3}\right)^i$, and the stripes' length equals $\left(\frac{2}{3}\right)^i$.
+* Each stripe is put at midpoints created by earlier iterations.
+
+Fractals are a classic example of how a simple set of specifications can produce a complicated pattern.
+
+## Five elements of flag design (from Good Flag, Bad Flag)
+
+### 1. Keep it Simple
+
+This flag looks very complicated. However, the exact specifications are relatively simple.
+
+### 2. Use meaningful symbolism
+
+Fractals are related to some important mathematics: chaos theory and convergence of geometric series. The ability to "spread" the flag by cutting it up seems like a symbol for sharing and community. Of course, this exact community does not exist, but in some sort of sci-fi world I could imagine this flag getting used.
+
+### 3. Use 2–3 basic colors
+
+I used 2 colors. The red and black contrast well.
+
+### 4. No lettering or seals
+
+This design uses no lettering.
+
+### 5. Be distinctive or be related
+
+This flag is quite distinctive. It would be difficult to generate this flag by sewing, so it makes sense that it does not have a historical relative. 
+
+
+
+
+
+

@@ -5,9 +5,16 @@ import os
 
 
 front = "u06_"
-files = ["01_prime_factorization.Rmd",
-         "02_factor_quadratic.Rmd",
-         "03_quadratic_formula.Rmd"]
+files = ["04_quadratic_formula_complex.Rmd",
+         "05_solve_cubic_easy_integers.Rmd",
+         "06_solve_cubic_one_real.Rmd",
+         "07_add_complex.Rmd",
+         "08_subtract_complex.Rmd",
+         "09_multiply_complex.Rmd",
+         "10_check_complex_solution.Rmd",
+         "11_read_complex_plot.Rmd",
+         "12_complex_modulus.Rmd",
+         "13_solve_polynomial_complex_roots.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
