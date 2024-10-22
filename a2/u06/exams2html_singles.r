@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("05_solve_cubic_easy_integers.Rmd")
+pppsss = c("06_solve_cubic_one_real.Rmd")
 for(ppss in pppsss){
     outdir = "outhtml"
     genname = strsplit(ppss,".",T)[[1]][1]

@@ -1,6 +1,19 @@
 ```{r,echo=FALSE}
 library(reticulate)
 options(scipen=999)
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
 while(T){
   rr = sample(1:6,1)*sample(c(-1,1),1)
   aa = sample(1:9,1)*sample(c(-1,1),1)
@@ -110,14 +123,7 @@ for(i in (2*deg+1):(3*deg)){
 trs = paste0(trs,"</tr></table>\n")
 cat(trs)
 so = "Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form."
-eq = paste0("$$(x-",rr,")(x^2+",bots[2],"x+",bots[3],")=0$$",collapse="")
-eq = gsub("+-","-",eq,fixed=TRUE)
-eq = gsub("--","+",eq,fixed=TRUE)
-eq = gsub("+0x","",eq,fixed=TRUE)
-eq = gsub("+0","",eq,fixed=TRUE)
-eq = gsub("+1x","+x",eq,fixed=TRUE)
-eq = gsub("-1x","-x",eq,fixed=TRUE)
-eq = gsub("(x-0)","x",eq,fixed=TRUE)
+eq = paste0("$$(",pfix(c(1,-rr),1:0),")(",pfix(c(1,bots[2],bots[3]),2:0),")=0$$",collapse="")
 cat(so)
 cat(eq)
 a = 1
