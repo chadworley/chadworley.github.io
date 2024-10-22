@@ -1,15 +1,6 @@
 library("exams")
 
-pppsss = c("04_quadratic_formula_complex.Rmd",
-          "05_solve_cubic_easy_integers.Rmd",
-          "06_solve_cubic_one_real.Rmd",
-          "07_add_complex.Rmd",
-          "08_subtract_complex.Rmd",
-          "09_multiply_complex.Rmd",
-          "10_check_complex_solution.Rmd",
-          "11_read_complex_plot.Rmd",
-          "12_complex_modulus.Rmd",
-          "13_solve_polynomial_complex_roots.Rmd")
+pppsss = c("05_solve_cubic_easy_integers.Rmd")
 for(ppss in pppsss){
     outdir = "outhtml"
     genname = strsplit(ppss,".",T)[[1]][1]

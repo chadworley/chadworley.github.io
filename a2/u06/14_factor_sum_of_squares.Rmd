@@ -1,0 +1,81 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+pfix = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+while(T){
+    ab = sample(1:10,2)
+    a = ab[1]
+    b = ab[2]
+    if(gcd(a,b)==1){break}
+}
+A = a^2
+B = b^2
+
+ch = c(pfix(c(paste(a),paste(b,"i")),1:0),
+       pfix(c(paste(a),paste(-b,"i")),1:0),
+       pfix(c(paste(a),paste(b)),1:0),
+       pfix(c(paste(a),paste(-b)),1:0)
+       )
+
+chall = character()
+for(i in 1:4){
+    for(j in i:4){
+        ij = sample(c(i,j))
+        chall = c(chall,paste0("(",ch[ij[1]],")\\cdot(",ch[ij[2]],")",collapse=""))
+    }
+}
+
+ord = sample(1:10)
+al = paste0("* $",chall[ord],"$",collapse="\n")
+sol = paste0(1*(ord==2),collapse="")
+
+```
+
+
+Question
+========
+
+Consider the quadratic function, $f(x)$, written in standard form:
+
+$$f(x)~=~`r pfix(c(A,B),c(2,0))`$$
+
+The function $f(x)$ can be rewritten as a product of two linear factors. What are those two linear factors?
+
+Answerlist
+--------
+
+`r al`
+
+
+
+Answerlist
+--------
+
+
+
+Solution
+========
+
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: factor_sum_of_squares

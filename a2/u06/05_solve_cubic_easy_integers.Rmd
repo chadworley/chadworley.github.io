@@ -2,6 +2,17 @@
 library(reticulate)
 options(scipen=999)
 poss = -6:6
+pfix = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
 while(T){
   r = sample(poss,3,TRUE)
   if(sum(r==0)<1){break}
@@ -104,13 +115,7 @@ td {
   trs = paste0(trs,"</tr></table>\n")
   cat(trs)
   so = "Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form."
-  eq = paste0("$$(x-",rr,")(x^2+",bots[2],"x+",bots[3],")=0$$",collapse="")
-  eq = gsub("+-","-",eq,fixed=TRUE)
-  eq = gsub("--","+",eq,fixed=TRUE)
-  eq = gsub("+0x","",eq,fixed=TRUE)
-  eq = gsub("+0","",eq,fixed=TRUE)
-  eq = gsub("1x","x",eq,fixed=TRUE)
-  eq = gsub("(x-0)","x",eq,fixed=TRUE)
+  eq = paste0("$$(",pfix(c(1,-rr),1:0),")(",pfix(c(1,bots[2],bots[3]),2:0),")=0$$",collapse="")
   cat(so)
   cat(eq)
   cat("Then factor the quadratic expression to get the fully factored form of the equation.")
