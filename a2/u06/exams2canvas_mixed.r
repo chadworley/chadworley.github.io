@@ -3,12 +3,8 @@ n = 30
 outdir = "outcanvas"
 genname = "u06_"
 
-probs = c("14_factor_diff_of_squares.Rmd",
-          "15_factor_sum_of_squares.Rmd",
-          "16_quadratic_from_zeros.Rmd",
-          "17_cubic_from_zeros.Rmd",
-          "18_polynomial_ends.Rmd")
-pnts = c(5,5)
+probs = c("10_check_complex_solution.Rmd")
+pnts = c(3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

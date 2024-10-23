@@ -1,6 +1,9 @@
 library("exams")
 
-pppsss = c("06_solve_cubic_one_real.Rmd")
+pppsss = c("10_check_complex_solution.Rmd",
+           "11_read_complex_plot.Rmd",
+           "12_complex_modulus.Rmd",
+           "13_solve_polynomial_complex_roots.Rmd")
 for(ppss in pppsss){
     outdir = "outhtml"
     genname = strsplit(ppss,".",T)[[1]][1]
