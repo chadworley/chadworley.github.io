@@ -6,16 +6,16 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID
-file_path_list = ["outcanvas/u06_04_quadratic_formula_complex.zip",
-                  "outcanvas/u06_05_solve_cubic_easy_integers.zip",
-                  "outcanvas/u06_06_solve_cubic_one_real.zip",
-                  "outcanvas/u06_07_add_complex.zip",
-                  "outcanvas/u06_08_subtract_complex.zip",
-                  "outcanvas/u06_09_multiply_complex.zip",
-                  "outcanvas/u06_10_check_complex_solution.zip",
-                  "outcanvas/u06_11_read_complex_plot.zip",
-                  "outcanvas/u06_12_complex_modulus.zip",
-                  "outcanvas/u06_13_solve_polynomial_complex_roots.zip"]
+file_path_list = ["outcanvas/u06_14_factor_diff_of_squares.zip",
+"outcanvas/u06_15_factor_sum_of_squares.zip",
+"outcanvas/u06_16_quadratic_from_zeros.zip",
+"outcanvas/u06_17_cubic_from_zeros.zip",
+"outcanvas/u06_18_cubic_from_zeros_doub.zip",
+"outcanvas/u06_19_cubic_from_zeros_trip.zip",
+"outcanvas/u06_20_cubic_from_zeros_comp.zip",
+"outcanvas/u06_21_polynomial_ends.zip",
+"outcanvas/u06_22_polynomial_ends_B.zip"]
+
 # fpl = []
 # for i in range(22,50):
 #     fpl.append("ET_0"+str(i)+".zip")

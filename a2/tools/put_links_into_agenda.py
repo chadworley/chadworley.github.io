@@ -5,16 +5,15 @@ import os
 
 
 front = "u06_"
-files = ["04_quadratic_formula_complex.Rmd",
-         "05_solve_cubic_easy_integers.Rmd",
-         "06_solve_cubic_one_real.Rmd",
-         "07_add_complex.Rmd",
-         "08_subtract_complex.Rmd",
-         "09_multiply_complex.Rmd",
-         "10_check_complex_solution.Rmd",
-         "11_read_complex_plot.Rmd",
-         "12_complex_modulus.Rmd",
-         "13_solve_polynomial_complex_roots.Rmd"]
+files = ["14_factor_diff_of_squares.Rmd",
+"15_factor_sum_of_squares.Rmd",
+"16_quadratic_from_zeros.Rmd",
+"17_cubic_from_zeros.Rmd",
+"18_cubic_from_zeros_doub.Rmd",
+"19_cubic_from_zeros_trip.Rmd",
+"20_cubic_from_zeros_comp.Rmd",
+"21_polynomial_ends.Rmd",
+"22_polynomial_ends_B.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
