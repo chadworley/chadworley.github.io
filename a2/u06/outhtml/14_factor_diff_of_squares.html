@@ -1,0 +1,1034 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>14_factor_diff_of_squares</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">14_factor_diff_of_squares</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the quadratic function, <span class="math inline">\(f(x)\)</span>, written in standard form:</p>
+<p><span class="math display">\[f(x)~=~{81}x^{2}-{16}\]</span></p>
+<p>The function <span class="math inline">\(f(x)\)</span> can be rewritten as a product of two linear factors. Which of the following shows <span class="math inline">\(f(x)\)</span> in factored form?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(f(x)~=~({9}x-{4i})\cdot({9}x-{4i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-{4})\cdot({9}x-{4})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x+{4i})\cdot({9}x+{4i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x+{4})\cdot({9}x+{4})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-{4i})\cdot({9}x+{4})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-{4})\cdot({9}x+{4})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-{4i})\cdot({9}x-{4})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-{4i})\cdot({9}x+{4i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x+{4i})\cdot({9}x+{4})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-{4})\cdot({9}x+{4i})\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answer is <span class="math inline">\(f(x)=({9}x-{4})\cdot({9}x+{4})\)</span>.</p>
+<p>We can show the correct answer is correct by using multiplication.</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(9x\)</span></th>
+<th align="center"><span class="math inline">\(4\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(9x\)</span></td>
+<td align="center"><span class="math inline">\(81x^2\)</span></td>
+<td align="center"><span class="math inline">\(36\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-4\)</span></td>
+<td align="center"><span class="math inline">\(-36\)</span></td>
+<td align="center"><span class="math inline">\(-16\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[({9}x-{4})\cdot({9}x+{4}) ~=~ 81x^2+36x-36x-16\]</span></p>
+<p>Eliminate opposite terms.</p>
+<p><span class="math display">\[({9}x-{4})\cdot({9}x+{4}) ~=~ 81x^2-16\]</span></p>
+<p>This is a special case called a <strong>difference of squares</strong>. People usually memorize this as its own rule.</p>
+<p><span class="math display">\[(p^2x^2-q^2) ~\equiv~ (px-q)(px+q)\]</span></p>
+<p>or</p>
+<p><span class="math display">\[(Mx^2-N) ~\equiv~ (\sqrt{M}\,x-\sqrt{N})(\sqrt{M}\,x+\sqrt{N})\]</span></p>
+<p>You could also use the quadratic formula. We know that factors of <span class="math inline">\(f(x)\)</span> are related to the solutions to the equation <span class="math inline">\(f(x)=0\)</span>. We also know that we can solve <span class="math inline">\(ax^2+bx+c=0\)</span> for any values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> by using the quadratric formula.</p>
+<p><span class="math display">\[\text{If } ax^2+bx+c=0\]</span>
+<span class="math display">\[\text{then } x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\]</span></p>
+<p>First, solve <span class="math inline">\({81}x^{2}+{16}=0\)</span> using quadratic formula. In this case, <span class="math inline">\(a=81\)</span> and <span class="math inline">\(b=0\)</span> and <span class="math inline">\(c=-16\)</span>.</p>
+<p><span class="math display">\[x~=~\frac{-0\pm\sqrt{0^2-4(81)(-16)}}{2(81)}\]</span></p>
+<p>Simplify by getting rid of the 0 terms. Also a product with two negative factors is postive.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{4(81)(16)}}{2(81)}\]</span></p>
+<p>The factor of 4 under the radical is a perfect square. <span class="math inline">\(4=2^2\)</span>, so <span class="math inline">\(\sqrt{4}=2\)</span>. Also, <span class="math inline">\(\sqrt{jk}\equiv\sqrt{j}\sqrt{k}\)</span>. You can know this based on exponent rules. Remember, <span class="math inline">\(\sqrt{t}\equiv t^{1/2}\)</span>. In short, you can “pull out the 4 as a 2”.</p>
+<p><span class="math display">\[x~=~\frac{\pm2\sqrt{(81)(16)}}{2(81)}\]</span></p>
+<p>There is a common factor of 2 in numerator and denominator.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{(81)(16)}}{81}\]</span></p>
+<p>Here’s a fun fact: <span class="math inline">\(\frac{\sqrt{v}}{v} \equiv \frac{1}{\sqrt{v}}\)</span>. Use that property.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{16}}{\sqrt{81}}\]</span></p>
+<p>Both 16 and 81 are perfect squares.</p>
+<p><span class="math display">\[x~=~\frac{\pm4}{9}\]</span></p>
+<p>You can get the factors (from those solutions) by getting the right side to equal 0.</p>
+<ul>
+<li>Multiply both sides by 9.</li>
+</ul>
+<p><span class="math display">\[9x~=~\pm4\]</span></p>
+<ul>
+<li>Subtract <span class="math inline">\(\pm4\)</span> from both sides.</li>
+</ul>
+<p><span class="math display">\[9x\pm4=0\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[f(x)=({9}x-{4})\cdot({9}x+{4})\]</span></p>
+<p>Technically, this analysis just shows <span class="math inline">\(f(x)=A({9}x-{4})\cdot({9}x+{4})\)</span>, but we know <span class="math inline">\(A=1\)</span> based on the answer choices.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the quadratic function, <span class="math inline">\(f(x)\)</span>, written in standard form:</p>
+<p><span class="math display">\[f(x)~=~{81}x^{2}-{1}\]</span></p>
+<p>The function <span class="math inline">\(f(x)\)</span> can be rewritten as a product of two linear factors. Which of the following shows <span class="math inline">\(f(x)\)</span> in factored form?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(f(x)~=~({9}x+{1})\cdot({9}x+{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x+{1})\cdot({9}x-i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-i)\cdot({9}x+i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-i)\cdot({9}x-{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x+{1})\cdot({9}x+i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-{1})\cdot({9}x-{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-i)\cdot({9}x-i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x+i)\cdot({9}x-{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x-{1})\cdot({9}x+{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({9}x+i)\cdot({9}x+i)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answer is <span class="math inline">\(f(x)=({9}x-{1})\cdot({9}x+{1})\)</span>.</p>
+<p>We can show the correct answer is correct by using multiplication.</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(9x\)</span></th>
+<th align="center"><span class="math inline">\(1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(9x\)</span></td>
+<td align="center"><span class="math inline">\(81x^2\)</span></td>
+<td align="center"><span class="math inline">\(9\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-1\)</span></td>
+<td align="center"><span class="math inline">\(-9\)</span></td>
+<td align="center"><span class="math inline">\(-1\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[({9}x-{1})\cdot({9}x+{1}) ~=~ 81x^2+9x-9x-1\]</span></p>
+<p>Eliminate opposite terms.</p>
+<p><span class="math display">\[({9}x-{1})\cdot({9}x+{1}) ~=~ 81x^2-1\]</span></p>
+<p>This is a special case called a <strong>difference of squares</strong>. People usually memorize this as its own rule.</p>
+<p><span class="math display">\[(p^2x^2-q^2) ~\equiv~ (px-q)(px+q)\]</span></p>
+<p>or</p>
+<p><span class="math display">\[(Mx^2-N) ~\equiv~ (\sqrt{M}\,x-\sqrt{N})(\sqrt{M}\,x+\sqrt{N})\]</span></p>
+<p>You could also use the quadratic formula. We know that factors of <span class="math inline">\(f(x)\)</span> are related to the solutions to the equation <span class="math inline">\(f(x)=0\)</span>. We also know that we can solve <span class="math inline">\(ax^2+bx+c=0\)</span> for any values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> by using the quadratric formula.</p>
+<p><span class="math display">\[\text{If } ax^2+bx+c=0\]</span>
+<span class="math display">\[\text{then } x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\]</span></p>
+<p>First, solve <span class="math inline">\({81}x^{2}+{1}=0\)</span> using quadratic formula. In this case, <span class="math inline">\(a=81\)</span> and <span class="math inline">\(b=0\)</span> and <span class="math inline">\(c=-1\)</span>.</p>
+<p><span class="math display">\[x~=~\frac{-0\pm\sqrt{0^2-4(81)(-1)}}{2(81)}\]</span></p>
+<p>Simplify by getting rid of the 0 terms. Also a product with two negative factors is postive.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{4(81)(1)}}{2(81)}\]</span></p>
+<p>The factor of 4 under the radical is a perfect square. <span class="math inline">\(4=2^2\)</span>, so <span class="math inline">\(\sqrt{4}=2\)</span>. Also, <span class="math inline">\(\sqrt{jk}\equiv\sqrt{j}\sqrt{k}\)</span>. You can know this based on exponent rules. Remember, <span class="math inline">\(\sqrt{t}\equiv t^{1/2}\)</span>. In short, you can “pull out the 4 as a 2”.</p>
+<p><span class="math display">\[x~=~\frac{\pm2\sqrt{(81)(1)}}{2(81)}\]</span></p>
+<p>There is a common factor of 2 in numerator and denominator.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{(81)(1)}}{81}\]</span></p>
+<p>Here’s a fun fact: <span class="math inline">\(\frac{\sqrt{v}}{v} \equiv \frac{1}{\sqrt{v}}\)</span>. Use that property.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{1}}{\sqrt{81}}\]</span></p>
+<p>Both 1 and 81 are perfect squares.</p>
+<p><span class="math display">\[x~=~\frac{\pm1}{9}\]</span></p>
+<p>You can get the factors (from those solutions) by getting the right side to equal 0.</p>
+<ul>
+<li>Multiply both sides by 9.</li>
+</ul>
+<p><span class="math display">\[9x~=~\pm1\]</span></p>
+<ul>
+<li>Subtract <span class="math inline">\(\pm1\)</span> from both sides.</li>
+</ul>
+<p><span class="math display">\[9x\pm1=0\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[f(x)=({9}x-{1})\cdot({9}x+{1})\]</span></p>
+<p>Technically, this analysis just shows <span class="math inline">\(f(x)=A({9}x-{1})\cdot({9}x+{1})\)</span>, but we know <span class="math inline">\(A=1\)</span> based on the answer choices.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the quadratic function, <span class="math inline">\(f(x)\)</span>, written in standard form:</p>
+<p><span class="math display">\[f(x)~=~{36}x^{2}-{1}\]</span></p>
+<p>The function <span class="math inline">\(f(x)\)</span> can be rewritten as a product of two linear factors. Which of the following shows <span class="math inline">\(f(x)\)</span> in factored form?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(f(x)~=~({6}x-{1})\cdot({6}x+i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x-{1})\cdot({6}x-i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x-i)\cdot({6}x-i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x+{1})\cdot({6}x+{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x-{1})\cdot({6}x-{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x-{1})\cdot({6}x+{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x-i)\cdot({6}x+{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x+i)\cdot({6}x+i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x+i)\cdot({6}x+{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x-i)\cdot({6}x+i)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answer is <span class="math inline">\(f(x)=({6}x-{1})\cdot({6}x+{1})\)</span>.</p>
+<p>We can show the correct answer is correct by using multiplication.</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(6x\)</span></th>
+<th align="center"><span class="math inline">\(1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(6x\)</span></td>
+<td align="center"><span class="math inline">\(36x^2\)</span></td>
+<td align="center"><span class="math inline">\(6\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-1\)</span></td>
+<td align="center"><span class="math inline">\(-6\)</span></td>
+<td align="center"><span class="math inline">\(-1\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[({6}x-{1})\cdot({6}x+{1}) ~=~ 36x^2+6x-6x-1\]</span></p>
+<p>Eliminate opposite terms.</p>
+<p><span class="math display">\[({6}x-{1})\cdot({6}x+{1}) ~=~ 36x^2-1\]</span></p>
+<p>This is a special case called a <strong>difference of squares</strong>. People usually memorize this as its own rule.</p>
+<p><span class="math display">\[(p^2x^2-q^2) ~\equiv~ (px-q)(px+q)\]</span></p>
+<p>or</p>
+<p><span class="math display">\[(Mx^2-N) ~\equiv~ (\sqrt{M}\,x-\sqrt{N})(\sqrt{M}\,x+\sqrt{N})\]</span></p>
+<p>You could also use the quadratic formula. We know that factors of <span class="math inline">\(f(x)\)</span> are related to the solutions to the equation <span class="math inline">\(f(x)=0\)</span>. We also know that we can solve <span class="math inline">\(ax^2+bx+c=0\)</span> for any values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> by using the quadratric formula.</p>
+<p><span class="math display">\[\text{If } ax^2+bx+c=0\]</span>
+<span class="math display">\[\text{then } x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\]</span></p>
+<p>First, solve <span class="math inline">\({36}x^{2}+{1}=0\)</span> using quadratic formula. In this case, <span class="math inline">\(a=36\)</span> and <span class="math inline">\(b=0\)</span> and <span class="math inline">\(c=-1\)</span>.</p>
+<p><span class="math display">\[x~=~\frac{-0\pm\sqrt{0^2-4(36)(-1)}}{2(36)}\]</span></p>
+<p>Simplify by getting rid of the 0 terms. Also a product with two negative factors is postive.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{4(36)(1)}}{2(36)}\]</span></p>
+<p>The factor of 4 under the radical is a perfect square. <span class="math inline">\(4=2^2\)</span>, so <span class="math inline">\(\sqrt{4}=2\)</span>. Also, <span class="math inline">\(\sqrt{jk}\equiv\sqrt{j}\sqrt{k}\)</span>. You can know this based on exponent rules. Remember, <span class="math inline">\(\sqrt{t}\equiv t^{1/2}\)</span>. In short, you can “pull out the 4 as a 2”.</p>
+<p><span class="math display">\[x~=~\frac{\pm2\sqrt{(36)(1)}}{2(36)}\]</span></p>
+<p>There is a common factor of 2 in numerator and denominator.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{(36)(1)}}{36}\]</span></p>
+<p>Here’s a fun fact: <span class="math inline">\(\frac{\sqrt{v}}{v} \equiv \frac{1}{\sqrt{v}}\)</span>. Use that property.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{1}}{\sqrt{36}}\]</span></p>
+<p>Both 1 and 36 are perfect squares.</p>
+<p><span class="math display">\[x~=~\frac{\pm1}{6}\]</span></p>
+<p>You can get the factors (from those solutions) by getting the right side to equal 0.</p>
+<ul>
+<li>Multiply both sides by 6.</li>
+</ul>
+<p><span class="math display">\[6x~=~\pm1\]</span></p>
+<ul>
+<li>Subtract <span class="math inline">\(\pm1\)</span> from both sides.</li>
+</ul>
+<p><span class="math display">\[6x\pm1=0\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[f(x)=({6}x-{1})\cdot({6}x+{1})\]</span></p>
+<p>Technically, this analysis just shows <span class="math inline">\(f(x)=A({6}x-{1})\cdot({6}x+{1})\)</span>, but we know <span class="math inline">\(A=1\)</span> based on the answer choices.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the quadratic function, <span class="math inline">\(f(x)\)</span>, written in standard form:</p>
+<p><span class="math display">\[f(x)~=~{36}x^{2}-{1}\]</span></p>
+<p>The function <span class="math inline">\(f(x)\)</span> can be rewritten as a product of two linear factors. Which of the following shows <span class="math inline">\(f(x)\)</span> in factored form?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(f(x)~=~({6}x+i)\cdot({6}x+i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x+{1})\cdot({6}x+{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x+i)\cdot({6}x-i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x-i)\cdot({6}x-i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x-{1})\cdot({6}x+i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x-{1})\cdot({6}x-i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x+{1})\cdot({6}x-i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x+{1})\cdot({6}x-{1})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x+{1})\cdot({6}x+i)\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({6}x-{1})\cdot({6}x-{1})\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answer is <span class="math inline">\(f(x)=({6}x+{1})\cdot({6}x-{1})\)</span>.</p>
+<p>We can show the correct answer is correct by using multiplication.</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(6x\)</span></th>
+<th align="center"><span class="math inline">\(1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(6x\)</span></td>
+<td align="center"><span class="math inline">\(36x^2\)</span></td>
+<td align="center"><span class="math inline">\(6\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-1\)</span></td>
+<td align="center"><span class="math inline">\(-6\)</span></td>
+<td align="center"><span class="math inline">\(-1\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[({6}x+{1})\cdot({6}x-{1}) ~=~ 36x^2+6x-6x-1\]</span></p>
+<p>Eliminate opposite terms.</p>
+<p><span class="math display">\[({6}x+{1})\cdot({6}x-{1}) ~=~ 36x^2-1\]</span></p>
+<p>This is a special case called a <strong>difference of squares</strong>. People usually memorize this as its own rule.</p>
+<p><span class="math display">\[(p^2x^2-q^2) ~\equiv~ (px-q)(px+q)\]</span></p>
+<p>or</p>
+<p><span class="math display">\[(Mx^2-N) ~\equiv~ (\sqrt{M}\,x-\sqrt{N})(\sqrt{M}\,x+\sqrt{N})\]</span></p>
+<p>You could also use the quadratic formula. We know that factors of <span class="math inline">\(f(x)\)</span> are related to the solutions to the equation <span class="math inline">\(f(x)=0\)</span>. We also know that we can solve <span class="math inline">\(ax^2+bx+c=0\)</span> for any values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> by using the quadratric formula.</p>
+<p><span class="math display">\[\text{If } ax^2+bx+c=0\]</span>
+<span class="math display">\[\text{then } x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\]</span></p>
+<p>First, solve <span class="math inline">\({36}x^{2}+{1}=0\)</span> using quadratic formula. In this case, <span class="math inline">\(a=36\)</span> and <span class="math inline">\(b=0\)</span> and <span class="math inline">\(c=-1\)</span>.</p>
+<p><span class="math display">\[x~=~\frac{-0\pm\sqrt{0^2-4(36)(-1)}}{2(36)}\]</span></p>
+<p>Simplify by getting rid of the 0 terms. Also a product with two negative factors is postive.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{4(36)(1)}}{2(36)}\]</span></p>
+<p>The factor of 4 under the radical is a perfect square. <span class="math inline">\(4=2^2\)</span>, so <span class="math inline">\(\sqrt{4}=2\)</span>. Also, <span class="math inline">\(\sqrt{jk}\equiv\sqrt{j}\sqrt{k}\)</span>. You can know this based on exponent rules. Remember, <span class="math inline">\(\sqrt{t}\equiv t^{1/2}\)</span>. In short, you can “pull out the 4 as a 2”.</p>
+<p><span class="math display">\[x~=~\frac{\pm2\sqrt{(36)(1)}}{2(36)}\]</span></p>
+<p>There is a common factor of 2 in numerator and denominator.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{(36)(1)}}{36}\]</span></p>
+<p>Here’s a fun fact: <span class="math inline">\(\frac{\sqrt{v}}{v} \equiv \frac{1}{\sqrt{v}}\)</span>. Use that property.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{1}}{\sqrt{36}}\]</span></p>
+<p>Both 1 and 36 are perfect squares.</p>
+<p><span class="math display">\[x~=~\frac{\pm1}{6}\]</span></p>
+<p>You can get the factors (from those solutions) by getting the right side to equal 0.</p>
+<ul>
+<li>Multiply both sides by 6.</li>
+</ul>
+<p><span class="math display">\[6x~=~\pm1\]</span></p>
+<ul>
+<li>Subtract <span class="math inline">\(\pm1\)</span> from both sides.</li>
+</ul>
+<p><span class="math display">\[6x\pm1=0\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[f(x)=({6}x+{1})\cdot({6}x-{1})\]</span></p>
+<p>Technically, this analysis just shows <span class="math inline">\(f(x)=A({6}x+{1})\cdot({6}x-{1})\)</span>, but we know <span class="math inline">\(A=1\)</span> based on the answer choices.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the quadratic function, <span class="math inline">\(f(x)\)</span>, written in standard form:</p>
+<p><span class="math display">\[f(x)~=~{9}x^{2}-{100}\]</span></p>
+<p>The function <span class="math inline">\(f(x)\)</span> can be rewritten as a product of two linear factors. Which of the following shows <span class="math inline">\(f(x)\)</span> in factored form?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(f(x)~=~({3}x+{10i})\cdot({3}x+{10i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({3}x+{10})\cdot({3}x-{10})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({3}x-{10})\cdot({3}x+{10i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({3}x+{10i})\cdot({3}x-{10i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({3}x-{10i})\cdot({3}x+{10})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({3}x-{10})\cdot({3}x-{10})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({3}x-{10i})\cdot({3}x-{10})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({3}x+{10})\cdot({3}x+{10i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({3}x-{10i})\cdot({3}x-{10i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({3}x+{10})\cdot({3}x+{10})\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answer is <span class="math inline">\(f(x)=({3}x+{10})\cdot({3}x-{10})\)</span>.</p>
+<p>We can show the correct answer is correct by using multiplication.</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(3x\)</span></th>
+<th align="center"><span class="math inline">\(10\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(3x\)</span></td>
+<td align="center"><span class="math inline">\(9x^2\)</span></td>
+<td align="center"><span class="math inline">\(30\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-10\)</span></td>
+<td align="center"><span class="math inline">\(-30\)</span></td>
+<td align="center"><span class="math inline">\(-100\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[({3}x+{10})\cdot({3}x-{10}) ~=~ 9x^2+30x-30x-100\]</span></p>
+<p>Eliminate opposite terms.</p>
+<p><span class="math display">\[({3}x+{10})\cdot({3}x-{10}) ~=~ 9x^2-100\]</span></p>
+<p>This is a special case called a <strong>difference of squares</strong>. People usually memorize this as its own rule.</p>
+<p><span class="math display">\[(p^2x^2-q^2) ~\equiv~ (px-q)(px+q)\]</span></p>
+<p>or</p>
+<p><span class="math display">\[(Mx^2-N) ~\equiv~ (\sqrt{M}\,x-\sqrt{N})(\sqrt{M}\,x+\sqrt{N})\]</span></p>
+<p>You could also use the quadratic formula. We know that factors of <span class="math inline">\(f(x)\)</span> are related to the solutions to the equation <span class="math inline">\(f(x)=0\)</span>. We also know that we can solve <span class="math inline">\(ax^2+bx+c=0\)</span> for any values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> by using the quadratric formula.</p>
+<p><span class="math display">\[\text{If } ax^2+bx+c=0\]</span>
+<span class="math display">\[\text{then } x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\]</span></p>
+<p>First, solve <span class="math inline">\({9}x^{2}+{100}=0\)</span> using quadratic formula. In this case, <span class="math inline">\(a=9\)</span> and <span class="math inline">\(b=0\)</span> and <span class="math inline">\(c=-100\)</span>.</p>
+<p><span class="math display">\[x~=~\frac{-0\pm\sqrt{0^2-4(9)(-100)}}{2(9)}\]</span></p>
+<p>Simplify by getting rid of the 0 terms. Also a product with two negative factors is postive.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{4(9)(100)}}{2(9)}\]</span></p>
+<p>The factor of 4 under the radical is a perfect square. <span class="math inline">\(4=2^2\)</span>, so <span class="math inline">\(\sqrt{4}=2\)</span>. Also, <span class="math inline">\(\sqrt{jk}\equiv\sqrt{j}\sqrt{k}\)</span>. You can know this based on exponent rules. Remember, <span class="math inline">\(\sqrt{t}\equiv t^{1/2}\)</span>. In short, you can “pull out the 4 as a 2”.</p>
+<p><span class="math display">\[x~=~\frac{\pm2\sqrt{(9)(100)}}{2(9)}\]</span></p>
+<p>There is a common factor of 2 in numerator and denominator.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{(9)(100)}}{9}\]</span></p>
+<p>Here’s a fun fact: <span class="math inline">\(\frac{\sqrt{v}}{v} \equiv \frac{1}{\sqrt{v}}\)</span>. Use that property.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{100}}{\sqrt{9}}\]</span></p>
+<p>Both 100 and 9 are perfect squares.</p>
+<p><span class="math display">\[x~=~\frac{\pm10}{3}\]</span></p>
+<p>You can get the factors (from those solutions) by getting the right side to equal 0.</p>
+<ul>
+<li>Multiply both sides by 3.</li>
+</ul>
+<p><span class="math display">\[3x~=~\pm10\]</span></p>
+<ul>
+<li>Subtract <span class="math inline">\(\pm10\)</span> from both sides.</li>
+</ul>
+<p><span class="math display">\[3x\pm10=0\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[f(x)=({3}x+{10})\cdot({3}x-{10})\]</span></p>
+<p>Technically, this analysis just shows <span class="math inline">\(f(x)=A({3}x+{10})\cdot({3}x-{10})\)</span>, but we know <span class="math inline">\(A=1\)</span> based on the answer choices.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the quadratic function, <span class="math inline">\(f(x)\)</span>, written in standard form:</p>
+<p><span class="math display">\[f(x)~=~{49}x^{2}-{16}\]</span></p>
+<p>The function <span class="math inline">\(f(x)\)</span> can be rewritten as a product of two linear factors. Which of the following shows <span class="math inline">\(f(x)\)</span> in factored form?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(f(x)~=~({7}x+{4i})\cdot({7}x+{4i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({7}x+{4i})\cdot({7}x-{4i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({7}x+{4})\cdot({7}x+{4i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({7}x-{4i})\cdot({7}x-{4})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({7}x+{4})\cdot({7}x+{4})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({7}x+{4})\cdot({7}x-{4i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({7}x-{4})\cdot({7}x+{4})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({7}x-{4i})\cdot({7}x-{4i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({7}x-{4})\cdot({7}x-{4})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({7}x-{4})\cdot({7}x+{4i})\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answer is <span class="math inline">\(f(x)=({7}x-{4})\cdot({7}x+{4})\)</span>.</p>
+<p>We can show the correct answer is correct by using multiplication.</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(7x\)</span></th>
+<th align="center"><span class="math inline">\(4\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(7x\)</span></td>
+<td align="center"><span class="math inline">\(49x^2\)</span></td>
+<td align="center"><span class="math inline">\(28\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-4\)</span></td>
+<td align="center"><span class="math inline">\(-28\)</span></td>
+<td align="center"><span class="math inline">\(-16\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[({7}x-{4})\cdot({7}x+{4}) ~=~ 49x^2+28x-28x-16\]</span></p>
+<p>Eliminate opposite terms.</p>
+<p><span class="math display">\[({7}x-{4})\cdot({7}x+{4}) ~=~ 49x^2-16\]</span></p>
+<p>This is a special case called a <strong>difference of squares</strong>. People usually memorize this as its own rule.</p>
+<p><span class="math display">\[(p^2x^2-q^2) ~\equiv~ (px-q)(px+q)\]</span></p>
+<p>or</p>
+<p><span class="math display">\[(Mx^2-N) ~\equiv~ (\sqrt{M}\,x-\sqrt{N})(\sqrt{M}\,x+\sqrt{N})\]</span></p>
+<p>You could also use the quadratic formula. We know that factors of <span class="math inline">\(f(x)\)</span> are related to the solutions to the equation <span class="math inline">\(f(x)=0\)</span>. We also know that we can solve <span class="math inline">\(ax^2+bx+c=0\)</span> for any values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> by using the quadratric formula.</p>
+<p><span class="math display">\[\text{If } ax^2+bx+c=0\]</span>
+<span class="math display">\[\text{then } x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\]</span></p>
+<p>First, solve <span class="math inline">\({49}x^{2}+{16}=0\)</span> using quadratic formula. In this case, <span class="math inline">\(a=49\)</span> and <span class="math inline">\(b=0\)</span> and <span class="math inline">\(c=-16\)</span>.</p>
+<p><span class="math display">\[x~=~\frac{-0\pm\sqrt{0^2-4(49)(-16)}}{2(49)}\]</span></p>
+<p>Simplify by getting rid of the 0 terms. Also a product with two negative factors is postive.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{4(49)(16)}}{2(49)}\]</span></p>
+<p>The factor of 4 under the radical is a perfect square. <span class="math inline">\(4=2^2\)</span>, so <span class="math inline">\(\sqrt{4}=2\)</span>. Also, <span class="math inline">\(\sqrt{jk}\equiv\sqrt{j}\sqrt{k}\)</span>. You can know this based on exponent rules. Remember, <span class="math inline">\(\sqrt{t}\equiv t^{1/2}\)</span>. In short, you can “pull out the 4 as a 2”.</p>
+<p><span class="math display">\[x~=~\frac{\pm2\sqrt{(49)(16)}}{2(49)}\]</span></p>
+<p>There is a common factor of 2 in numerator and denominator.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{(49)(16)}}{49}\]</span></p>
+<p>Here’s a fun fact: <span class="math inline">\(\frac{\sqrt{v}}{v} \equiv \frac{1}{\sqrt{v}}\)</span>. Use that property.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{16}}{\sqrt{49}}\]</span></p>
+<p>Both 16 and 49 are perfect squares.</p>
+<p><span class="math display">\[x~=~\frac{\pm4}{7}\]</span></p>
+<p>You can get the factors (from those solutions) by getting the right side to equal 0.</p>
+<ul>
+<li>Multiply both sides by 7.</li>
+</ul>
+<p><span class="math display">\[7x~=~\pm4\]</span></p>
+<ul>
+<li>Subtract <span class="math inline">\(\pm4\)</span> from both sides.</li>
+</ul>
+<p><span class="math display">\[7x\pm4=0\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[f(x)=({7}x-{4})\cdot({7}x+{4})\]</span></p>
+<p>Technically, this analysis just shows <span class="math inline">\(f(x)=A({7}x-{4})\cdot({7}x+{4})\)</span>, but we know <span class="math inline">\(A=1\)</span> based on the answer choices.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the quadratic function, <span class="math inline">\(f(x)\)</span>, written in standard form:</p>
+<p><span class="math display">\[f(x)~=~{64}x^{2}-{81}\]</span></p>
+<p>The function <span class="math inline">\(f(x)\)</span> can be rewritten as a product of two linear factors. Which of the following shows <span class="math inline">\(f(x)\)</span> in factored form?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(f(x)~=~({8}x-{9})\cdot({8}x+{9i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({8}x-{9i})\cdot({8}x+{9i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({8}x+{9i})\cdot({8}x+{9i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({8}x+{9})\cdot({8}x+{9i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({8}x+{9})\cdot({8}x+{9})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({8}x-{9i})\cdot({8}x+{9})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({8}x-{9})\cdot({8}x-{9})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({8}x-{9i})\cdot({8}x-{9})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({8}x-{9i})\cdot({8}x-{9i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({8}x-{9})\cdot({8}x+{9})\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answer is <span class="math inline">\(f(x)=({8}x-{9})\cdot({8}x+{9})\)</span>.</p>
+<p>We can show the correct answer is correct by using multiplication.</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(8x\)</span></th>
+<th align="center"><span class="math inline">\(9\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(8x\)</span></td>
+<td align="center"><span class="math inline">\(64x^2\)</span></td>
+<td align="center"><span class="math inline">\(72\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-9\)</span></td>
+<td align="center"><span class="math inline">\(-72\)</span></td>
+<td align="center"><span class="math inline">\(-81\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[({8}x-{9})\cdot({8}x+{9}) ~=~ 64x^2+72x-72x-81\]</span></p>
+<p>Eliminate opposite terms.</p>
+<p><span class="math display">\[({8}x-{9})\cdot({8}x+{9}) ~=~ 64x^2-81\]</span></p>
+<p>This is a special case called a <strong>difference of squares</strong>. People usually memorize this as its own rule.</p>
+<p><span class="math display">\[(p^2x^2-q^2) ~\equiv~ (px-q)(px+q)\]</span></p>
+<p>or</p>
+<p><span class="math display">\[(Mx^2-N) ~\equiv~ (\sqrt{M}\,x-\sqrt{N})(\sqrt{M}\,x+\sqrt{N})\]</span></p>
+<p>You could also use the quadratic formula. We know that factors of <span class="math inline">\(f(x)\)</span> are related to the solutions to the equation <span class="math inline">\(f(x)=0\)</span>. We also know that we can solve <span class="math inline">\(ax^2+bx+c=0\)</span> for any values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> by using the quadratric formula.</p>
+<p><span class="math display">\[\text{If } ax^2+bx+c=0\]</span>
+<span class="math display">\[\text{then } x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\]</span></p>
+<p>First, solve <span class="math inline">\({64}x^{2}+{81}=0\)</span> using quadratic formula. In this case, <span class="math inline">\(a=64\)</span> and <span class="math inline">\(b=0\)</span> and <span class="math inline">\(c=-81\)</span>.</p>
+<p><span class="math display">\[x~=~\frac{-0\pm\sqrt{0^2-4(64)(-81)}}{2(64)}\]</span></p>
+<p>Simplify by getting rid of the 0 terms. Also a product with two negative factors is postive.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{4(64)(81)}}{2(64)}\]</span></p>
+<p>The factor of 4 under the radical is a perfect square. <span class="math inline">\(4=2^2\)</span>, so <span class="math inline">\(\sqrt{4}=2\)</span>. Also, <span class="math inline">\(\sqrt{jk}\equiv\sqrt{j}\sqrt{k}\)</span>. You can know this based on exponent rules. Remember, <span class="math inline">\(\sqrt{t}\equiv t^{1/2}\)</span>. In short, you can “pull out the 4 as a 2”.</p>
+<p><span class="math display">\[x~=~\frac{\pm2\sqrt{(64)(81)}}{2(64)}\]</span></p>
+<p>There is a common factor of 2 in numerator and denominator.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{(64)(81)}}{64}\]</span></p>
+<p>Here’s a fun fact: <span class="math inline">\(\frac{\sqrt{v}}{v} \equiv \frac{1}{\sqrt{v}}\)</span>. Use that property.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{81}}{\sqrt{64}}\]</span></p>
+<p>Both 81 and 64 are perfect squares.</p>
+<p><span class="math display">\[x~=~\frac{\pm9}{8}\]</span></p>
+<p>You can get the factors (from those solutions) by getting the right side to equal 0.</p>
+<ul>
+<li>Multiply both sides by 8.</li>
+</ul>
+<p><span class="math display">\[8x~=~\pm9\]</span></p>
+<ul>
+<li>Subtract <span class="math inline">\(\pm9\)</span> from both sides.</li>
+</ul>
+<p><span class="math display">\[8x\pm9=0\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[f(x)=({8}x-{9})\cdot({8}x+{9})\]</span></p>
+<p>Technically, this analysis just shows <span class="math inline">\(f(x)=A({8}x-{9})\cdot({8}x+{9})\)</span>, but we know <span class="math inline">\(A=1\)</span> based on the answer choices.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the quadratic function, <span class="math inline">\(f(x)\)</span>, written in standard form:</p>
+<p><span class="math display">\[f(x)~=~{25}x^{2}-{64}\]</span></p>
+<p>The function <span class="math inline">\(f(x)\)</span> can be rewritten as a product of two linear factors. Which of the following shows <span class="math inline">\(f(x)\)</span> in factored form?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(f(x)~=~({5}x+{8i})\cdot({5}x-{8i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({5}x+{8})\cdot({5}x+{8})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({5}x+{8})\cdot({5}x-{8i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({5}x-{8})\cdot({5}x+{8})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({5}x+{8i})\cdot({5}x-{8})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({5}x-{8})\cdot({5}x-{8})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({5}x-{8i})\cdot({5}x-{8})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({5}x+{8i})\cdot({5}x+{8i})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({5}x+{8i})\cdot({5}x+{8})\)</span>
+</li>
+<li>
+<span class="math inline">\(f(x)~=~({5}x-{8i})\cdot({5}x-{8i})\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answer is <span class="math inline">\(f(x)=({5}x-{8})\cdot({5}x+{8})\)</span>.</p>
+<p>We can show the correct answer is correct by using multiplication.</p>
+<style type="text/css">
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(5x\)</span></th>
+<th align="center"><span class="math inline">\(8\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(5x\)</span></td>
+<td align="center"><span class="math inline">\(25x^2\)</span></td>
+<td align="center"><span class="math inline">\(40\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-8\)</span></td>
+<td align="center"><span class="math inline">\(-40\)</span></td>
+<td align="center"><span class="math inline">\(-64\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math display">\[({5}x-{8})\cdot({5}x+{8}) ~=~ 25x^2+40x-40x-64\]</span></p>
+<p>Eliminate opposite terms.</p>
+<p><span class="math display">\[({5}x-{8})\cdot({5}x+{8}) ~=~ 25x^2-64\]</span></p>
+<p>This is a special case called a <strong>difference of squares</strong>. People usually memorize this as its own rule.</p>
+<p><span class="math display">\[(p^2x^2-q^2) ~\equiv~ (px-q)(px+q)\]</span></p>
+<p>or</p>
+<p><span class="math display">\[(Mx^2-N) ~\equiv~ (\sqrt{M}\,x-\sqrt{N})(\sqrt{M}\,x+\sqrt{N})\]</span></p>
+<p>You could also use the quadratic formula. We know that factors of <span class="math inline">\(f(x)\)</span> are related to the solutions to the equation <span class="math inline">\(f(x)=0\)</span>. We also know that we can solve <span class="math inline">\(ax^2+bx+c=0\)</span> for any values of <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span> by using the quadratric formula.</p>
+<p><span class="math display">\[\text{If } ax^2+bx+c=0\]</span>
+<span class="math display">\[\text{then } x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\]</span></p>
+<p>First, solve <span class="math inline">\({25}x^{2}+{64}=0\)</span> using quadratic formula. In this case, <span class="math inline">\(a=25\)</span> and <span class="math inline">\(b=0\)</span> and <span class="math inline">\(c=-64\)</span>.</p>
+<p><span class="math display">\[x~=~\frac{-0\pm\sqrt{0^2-4(25)(-64)}}{2(25)}\]</span></p>
+<p>Simplify by getting rid of the 0 terms. Also a product with two negative factors is postive.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{4(25)(64)}}{2(25)}\]</span></p>
+<p>The factor of 4 under the radical is a perfect square. <span class="math inline">\(4=2^2\)</span>, so <span class="math inline">\(\sqrt{4}=2\)</span>. Also, <span class="math inline">\(\sqrt{jk}\equiv\sqrt{j}\sqrt{k}\)</span>. You can know this based on exponent rules. Remember, <span class="math inline">\(\sqrt{t}\equiv t^{1/2}\)</span>. In short, you can “pull out the 4 as a 2”.</p>
+<p><span class="math display">\[x~=~\frac{\pm2\sqrt{(25)(64)}}{2(25)}\]</span></p>
+<p>There is a common factor of 2 in numerator and denominator.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{(25)(64)}}{25}\]</span></p>
+<p>Here’s a fun fact: <span class="math inline">\(\frac{\sqrt{v}}{v} \equiv \frac{1}{\sqrt{v}}\)</span>. Use that property.</p>
+<p><span class="math display">\[x~=~\frac{\pm\sqrt{64}}{\sqrt{25}}\]</span></p>
+<p>Both 64 and 25 are perfect squares.</p>
+<p><span class="math display">\[x~=~\frac{\pm8}{5}\]</span></p>
+<p>You can get the factors (from those solutions) by getting the right side to equal 0.</p>
+<ul>
+<li>Multiply both sides by 5.</li>
+</ul>
+<p><span class="math display">\[5x~=~\pm8\]</span></p>
+<ul>
+<li>Subtract <span class="math inline">\(\pm8\)</span> from both sides.</li>
+</ul>
+<p><span class="math display">\[5x\pm8=0\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[f(x)=({5}x-{8})\cdot({5}x+{8})\]</span></p>
+<p>Technically, this analysis just shows <span class="math inline">\(f(x)=A({5}x-{8})\cdot({5}x+{8})\)</span>, but we know <span class="math inline">\(A=1\)</span> based on the answer choices.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
