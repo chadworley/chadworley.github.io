@@ -1,14 +1,6 @@
 library("exams")
 
-pppsss = c("14_factor_diff_of_squares.Rmd",
-           "15_factor_sum_of_squares.Rmd",
-           "16_quadratic_from_zeros.Rmd",
-           "17_cubic_from_zeros.Rmd",
-           "18_cubic_from_zeros_doub.Rmd",
-           "19_cubic_from_zeros_trip.Rmd",
-           "20_cubic_from_zeros_comp.Rmd",
-           "21_polynomial_ends.Rmd",
-           "22_polynomial_ends_B.Rmd")
+pppsss = c("23_complete_the_square.Rmd")
 
 
 for(ppss in pppsss){
