@@ -51,8 +51,12 @@ while(length(bl)<10 || length(cl)<10){
     C2i = hi^2+ki
     Bi = 2*hi
     Ci = -hi^2+ki
-    bl = sort(unique(c(bl,B2i,-B2i,Bi,-Bi)))
-    cl = sort(unique(c(cl,C2i,-C2i,Ci,-Ci)))
+    if(length(bl)<10){
+        bl = sort(unique(c(bl,B2i,-B2i,Bi,-Bi)))
+    }
+    if(length(cl)<10){
+        cl = sort(unique(c(cl,C2i,-C2i,Ci,-Ci)))
+    }
 }
 
 sol1 = paste0(1*(B2==bl),collapse="")
@@ -86,6 +90,8 @@ lines(x,f,col="blue",lwd=3)
 lines(x,g,col="red",lwd=3)
 text(12,-1,"x")
 text(-1,12,"y")
+points(h,k,pch=20,col="black",cex=1.2)
+points(h,k,pch=20,col="yellow",cex=0.8)
 plot(0,0,"n",axes=F,ann=F)
 legend("left",legend=c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(2,2))
 
@@ -129,7 +135,11 @@ $$f(x)~=~-(`r pfix(c(1,round(-B/2)),1:0)`)^2`r mfix(C+round(-B/2)^2,0)`$$
 
 $$g(x)~=~(`r pfix(c(1,round(-B/2)),1:0)`)^2`r mfix(C+round(-B/2)^2,0)`$$
 
-3. 
+3. Expand to produce standard form.
+
+$$g(x)~=~`r pfix(c(1,2*round(-B/2),round(B/2)^2),2:0)``r mfix(C+round(-B/2)^2,0)`$$
+
+$$g(x)~=~`r pfix(c(1,2*round(-B/2),round(B/2)^2+C+round(-B/2)^2),2:0)`$$
 
 
 Meta-information

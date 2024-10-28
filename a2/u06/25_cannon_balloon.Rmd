@@ -1,0 +1,135 @@
+```{r,echo=FALSE}
+options(scipen=999)
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+mfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("+{",cc,"}x^{",dd,"}",collapse="")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    g = sample(11:99,1)*2/10
+    v0 = sample(111:999,1)/10
+    tflight = 2*v0/g
+    vb = sample(11:99,1)/10
+    tb = round(runif(1,tflight/20,tflight/3),1)
+    ## -g/2*t^2+v0*t = vb(t-tb)
+    ## -g/2*t^2+(v0-vb)*t+vb*tb = 0
+    ## t = (vb-v0+sqrt((v0-vb)^2+4*g/2*vb*tb))/g
+    thit = (vb-v0-sqrt((v0-vb)^2+4*g/2*vb*tb))/(-g)
+    tbad = (vb-v0+sqrt((v0-vb)^2+4*g/2*vb*tb))/(-g)
+    if(!is.nan(thit) && (thit<tflight*0.9) && (thit>tflight*0.1) && tb>tflight/20 && tb<tflight/3 && thit<10 && thit>3 && vb<v0){break}
+}
+
+```
+
+
+
+Question
+========
+
+On an alien planet, the acceleration due to gravity is `r -g` $\mathrm{m/s^2}$. At $t=0$, a projectile is launched straight up with a speed of `r v0` $\mathrm{m/s}$. The effect of air resistance is minimal, so the projectile's height, $p$, is a quadratic function of time.
+
+$$p(t)~=~`r -g/2`t^2+`r v0`t$$
+
+After $t=`r tb`$ seconds, a balloon is released from the same location as the projectile was launched. The balloon rises at a constant speed of `r vb` $\mathrm{m/s}$, thus the balloon's height, $b$, is a linear function of time.
+
+$$b(t)~=~`r vb`\cdot(t-`r tb`)$$
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(3,3)}
+n = tflight/0.2
+tmax = tflight/2
+pmax = -g/2*tmax^2+v0*tmax
+for(i in 0:n){
+    tt = i*tflight/n
+    pp = -g/2*tt^2+v0*tt
+    bb = vb*(tt-tb)
+    par(pty="s",mar=c(0,0,0,0))
+    ttt = seq(0,tt,tflight/300)
+    ppp = -g/2*ttt^2+v0*ttt
+    plot(0,0,"n",xlim=c(0,tflight*1.1),ylim=c(0,pmax*1.1),axes=F,ann=F)
+    points(0,pp,pch=20,cex=2,col="blue")
+    lines(ttt,ppp,col="blue")
+    if(tt>=tb && tt<=thit){
+        ttt2 = seq(tb,tt,tflight/300)
+        bbb = vb*(ttt2-tb)
+        points(0,bb,pch=20,cex=3,col="red")
+        lines(ttt2,bbb,col="red")
+    }
+    if(tt>=thit){
+        t2 = seq(tb,thit,length.out=2)
+        b = vb*(t2-tb)
+        points(thit,vb*(thit-tb),pch=8,cex=3)
+        points(0,vb*(thit-tb),pch=8,cex=3)
+        lines(t2,b,col="red",lwd=3)
+    }
+    arrows(0,0,0,pmax*1.1,0.1,10,2,lwd=2)
+    arrows(0,0,tflight*1.1,0,0.1,10,2,lwd=2)
+    text(tflight*1.05,pmax*0.05,"t")
+    text(tflight*0.05,pmax*1.05,"y")
+    legend("topright",legend = c("y=p(t)","y=b(t)"),col=c("blue","red"),lwd=c(3,3))
+}
+```
+\
+
+At what time (in seconds after the projectile is launched) does the balloon get popped by the projectile?
+
+
+Solution
+========
+
+To find the intersection of $y=p(t)$ and $y=b(t)$, we find $t$ such that $p(t)=b(t)$ and $t>0$.
+
+\begin{align*}
+p(t) ~&=~ b(t)\\
+ `r -g/2`t^2+`r v0`t ~&=~ `r vb`\cdot(t-`r tb`)
+\end{align*}
+
+Distribute the right-hand side of the equation.
+
+$$`r -g/2`t^2+`r v0`t ~=~ `r vb`t-`r vb*tb`$$
+
+Use addition (or subtraction) to bring all terms to the right-hand side.
+
+$$0 ~=~ `r g/2`t^2-`r v0`t + `r vb`t-`r vb*tb`$$
+
+Combine like terms.
+
+$$0 ~=~ `r g/2`t^2-`r v0-vb`t-`r vb*tb`$$
+
+Use the quadratic formula.
+
+$$t = \frac{`r v0-vb` \pm \sqrt{(`r vb-v0`)^2-4(`r g/2`)(`r -vb*tb`)}}{2\cdot(`r g/2`)}$$
+
+Our two possible times are $t=`r tbad`$ and $t=`r thit`$. We are only interested in the positive solution.
+
+$$t ~=~ `r round(thit,3)`\, \mathrm{s}$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r thit`
+exname: cannon_balloon
+extol: 0.01
