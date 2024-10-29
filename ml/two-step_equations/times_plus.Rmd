@@ -1,0 +1,58 @@
+```{r,echo=FALSE}
+options(scipen=999)
+# ax+b = c
+# x = (c-b)/a
+
+x = sample(2:9,1)
+a = sample(2:9,1)
+b = sample(2:9,1)
+c = a*x+b
+
+wo = sample(1:4,1)
+if(wo==1){
+    ex = paste0(a,"x+",b,"~=~",c)
+    ex2 = paste0(a,"x~=~",c-b)
+} else if(wo==2){
+    ex = paste0(b,"+",a,"x~=~",c)
+    ex2 = paste0(a,"x~=~",c-b)
+} else if(wo==3){
+    ex = paste0(c,"~=~",a,"x+",b)
+    ex2 = paste0(c-b,"~=~",a,"x")
+} else if(wo==4){
+    ex = paste0(c,"~=~",b,"+",a,"x")
+    ex2 = paste0(c-b,"~=~",a,"x")
+}
+if(wo<3){ex3 = paste0("x=",x)}else{ex3 = paste0(x,"=x")}
+```
+
+
+
+Question
+========
+
+Solve for $x$.
+
+$$`r ex`$$
+
+* $x=$ 
+
+Solution
+========
+
+I'm going to first rewrite the given equation.
+
+$$`r ex`$$
+
+Notice the last operation (following PEMDAS, on the side with $x$) is addition of `r b`. Undo this by subtracting `r b` from both sides.
+
+$$`r ex2`$$
+
+Now the last operation is multiplication by `r a`. Undo the addition by dividing both sides by `r a`.
+
+$$x~=~`r x`$$
+
+Meta-information
+============
+extype: num
+exsolution: `r x`
+exname: times_plus

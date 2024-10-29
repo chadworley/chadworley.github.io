@@ -3,18 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-10-24 8:00:00"]*5+["2024-10-25 8:00:00"]*4
-dut = ["2024-10-24 23:59:00"]*5+["2024-10-25 23:59:00"]*4
-front = "u06_"
-files = ["14_factor_diff_of_squares.Rmd",
-"15_factor_sum_of_squares.Rmd",
-"16_quadratic_from_zeros.Rmd",
-"17_cubic_from_zeros.Rmd",
-"18_cubic_from_zeros_doub.Rmd",
-"19_cubic_from_zeros_trip.Rmd",
-"20_cubic_from_zeros_comp.Rmd",
-"21_polynomial_ends.Rmd",
-"22_polynomial_ends_B.Rmd"]
+avt = ["2024-10-29 8:00:00"]*6
+dut = ["2024-10-29 23:59:00"]*6
+front = "tse_"
+files = [""]
 
 practice_url_front = "https://chadworley.github.io/a2/u06/outhtml/"
 

@@ -1,0 +1,71 @@
+```{r,echo=FALSE}
+options(scipen=999)
+# (x+a)*b = c
+# x = c/b - a
+
+a = sample(1:9,1)
+cob = sample(2:9,1)
+b = sample(2:9,1)
+c = cob*b
+x = cob-a
+
+wo = sample(1:8,1)
+if(wo==1){
+    ex = paste0("(x+",a,")\\cdot ",b,"~=~",c)
+    ex2 = paste0("x+",a,"~=~",cob)
+} else if(wo==2){
+    ex = paste0("(",a,"+x)\\cdot ",b,"~=~",c)
+    ex2 = paste0(a,"+x~=~",cob)
+} else if(wo==3){
+    ex = paste0(b,"\\cdot(x+",a,")~=~",c)
+    ex2 = paste0("x+",a,"~=~",cob)
+} else if(wo==4){
+    ex = paste0(b,"\\cdot(",a,"+x)~=~",c)
+    ex2 = paste0(a,"+x~=~",cob)
+} else if(wo==5){
+    ex = paste0(c,"~=~(x+",a,")\\cdot ",b)
+    ex2 = paste0(cob,"~=~x+",a)
+} else if(wo==6){
+    ex = paste0(c,"~=~(",a,"+x)\\cdot ",b)
+    ex2 = paste0(cob,"~=~",a,"+x")
+} else if(wo==7){
+    ex = paste0(c,"~=~",b,"\\cdot(x+",a,")")
+    ex2 = paste0(cob,"~=~x+",a)
+} else if(wo==8){
+    ex = paste0(c,"~=~",b,"\\cdot(",a,"+x)")
+    ex2 = paste0(cob,"~=~",a,"+x")
+}
+if(wo<5){ex3 = paste0("x=",x)}else{ex3 = paste0(x,"=x")}
+```
+
+
+
+Question
+========
+
+Solve for $x$.
+
+$$`r ex`$$
+
+* $x=$ 
+
+Solution
+========
+
+I'm going to first rewrite the given equation.
+
+$$`r ex`$$
+
+Notice the last operation (following PEMDAS, on the side with $x$) is multiplication by `r b`. Undo this by dividing both sides by `r b`.
+
+$$`r ex2`$$
+
+Now the last operation is addition by `r a`. Undo the addition by subtracting `r a` from both sides.
+
+$$x~=~`r x`$$
+
+Meta-information
+============
+extype: num
+exsolution: `r x`
+exname: plus_times
