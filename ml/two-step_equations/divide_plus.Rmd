@@ -1,26 +1,27 @@
 ```{r,echo=FALSE}
 options(scipen=999)
-# ax+b = c
-# x = (c-b)/a
+# x/a+b = c
+# x = (c-b)*a
 
-x = sample(2:9,1)
-a = sample(2:9,1)
+cmb = sample(2:9,1)
 b = sample(2:9,1)
-c = a*x+b
+c = b+cmb
+a = sample(2:9,1)
+x = (cmb)*a
 
 wo = sample(1:4,1)
 if(wo==1){
-    ex = paste0(a,"x+",b,"~=~",c)
-    ex2 = paste0(a,"x~=~",c-b)
+    ex = paste0("\\frac{x}{",a,"}+",b,"~=~",c)
+    ex2 = paste0("\\frac{x}{",a,"}~=~",c-b)
 } else if(wo==2){
-    ex = paste0(b,"+",a,"x~=~",c)
-    ex2 = paste0(a,"x~=~",c-b)
+    ex = paste0(b,"+\\frac{x}{",a,"}~=~",c)
+    ex2 = paste0("\\frac{x}{",a,"}~=~",c-b)
 } else if(wo==3){
-    ex = paste0(c,"~=~",a,"x+",b)
-    ex2 = paste0(c-b,"~=~",a,"x")
+    ex = paste0(c,"~=~",b,"+\\frac{x}{",a,"}")
+    ex2 = paste0(c-b,"~=~\\frac{x}{",a,"}")
 } else if(wo==4){
-    ex = paste0(c,"~=~",b,"+",a,"x")
-    ex2 = paste0(c-b,"~=~",a,"x")
+    ex = paste0(c,"~=~\\frac{x}{",a,"}+",b)
+    ex2 = paste0(c-b,"~=~\\frac{x}{",a,"}")
 }
 if(wo<3){ex3 = paste0("x=",x)}else{ex3 = paste0(x,"=x")}
 ```
@@ -47,12 +48,12 @@ Notice the last operation (following PEMDAS, on the side with $x$) is addition o
 
 $$`r ex2`$$
 
-Now the last operation is multiplication by `r a`. Undo the addition by dividing both sides by `r a`.
+Now the last operation is division by `r a`. Undo the addition by multiplying both sides by `r a`.
 
-$$x~=~`r x`$$
+$$`r ex3`$$
 
 Meta-information
 ============
 extype: num
 exsolution: `r x`
-exname: times_plus
+exname: divide_plus

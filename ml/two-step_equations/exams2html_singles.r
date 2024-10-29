@@ -5,7 +5,9 @@ pppsss = c("plus_times.Rmd",
            "minus_times.Rmd",
            "minus_divide.Rmd",
            "times_plus.Rmd",
-           "times_minus.Rmd")
+           "times_minus.Rmd",
+           "divide_plus.Rmd",
+           "divide_minus.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

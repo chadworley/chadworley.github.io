@@ -2,8 +2,8 @@ library("exams")
 n = 30
 outdir = "outcanvas"
 genname = "tse_"
-probs = c("times_plus.Rmd",
-          "times_minus.Rmd")
+probs = c("divide_plus.Rmd",
+          "divide_minus.Rmd")
 
 pnts = c(3,3)
 
