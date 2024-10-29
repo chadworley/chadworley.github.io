@@ -27,19 +27,31 @@ mfix = function(c,d){
     return(p)
 }
 
-h = sample(c(-10:-1,1:10),3)
-nh = -h
-A = 1
-B = sum(nh)
-C = sum(c(prod(nh[1:2]),prod(nh[c(1,3)]),prod(nh[2:3])))
-D = prod(nh)
+while(T){
+    h = sample(c(-10:-1,1:10),3)
+    nh = -h
+    A = 1
+    B = sum(nh)
+    C = sum(c(prod(nh[1:2]),prod(nh[c(1,3)]),prod(nh[2:3])))
+    D = prod(nh)
+    
+    mb = sample(c(-10:-1,1:10),2)
+    m = mb[1]
+    b = mb[2]
+    cf1 = c(A,B,C+m,D+b)
+    cf2 = c(m,b)
+    cf3 = c(A,B,C,D)
+    if(max(abs(c(cf1,cf2,cf3)))<200){break}
+}
 
-mb = sample(c(-10:-1,1:10),2)
-m = mb[1]
-b = mb[2]
 
 ch = c(-10:10)
 al = paste0("* ",ch,collapse="\n")
+sol = rep(0,length(ch))
+for(ii in h){
+    sol[ch==ii] = 1
+}
+sol = paste0(sol,collapse="")
 
 ```
 
@@ -48,7 +60,7 @@ al = paste0("* ",ch,collapse="\n")
 Question
 ========
 
-A cubic polynomial, $p(x)$, and a linear function, $n(x)$, intersect three times. Find the values of $x$ where they intersect.
+A cubic polynomial, $p(x)$, and a linear function, $n(x)$, intersect three times. Find the values of $x$ where they intersect. (*The solutions are all integers between $-10$ and $10$.*)
 
 $$p(x)~=~`r pfix(c(A,B,C+m,D+b),3:0)`$$
 $$n(x)~=~`r pfix(c(m,b),1:0)`$$
@@ -66,15 +78,88 @@ The intersections occur at values of $x$ such that $p(x)=n(x)$.
 
 $$`r pfix(c(A,B,C+m,D+b),3:0)`~=~`r pfix(c(m,b),1:0)`$$
 
-Subtract $`r pfix(c(m,b),1:0)`$ from both sides.
-
+Subtract $`r pfix(c(m,b),1:0)`$ from both sides of the equation.
 
 $$`r pfix(c(A,B,C,D),3:0)`~=~0$$
+
+Then, use the strategy from [this previous problem](https://chadworley.github.io/a2/u06/outhtml/05_solve_cubic_easy_integers.html) to get the solutions. Remember, the [rational-root theorem](https://en.wikipedia.org/wiki/Rational_root_theorem) promises we only need to check (positive and negative) factors of `r D`, the constant of the cubic expression equaling 0.
+
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+
+```{r,echo=FALSE,results='asis'}
+
+ex1 = paste0("(x-",h[1],")*(x-",h[2],")*(x-",h[3],")",collapse="")
+ex1 = gsub("--","+",ex1,fixed=TRUE)
+ex2 = paste0("(x-",h[1],")(x-",h[2],")(x-",h[3],")",collapse="")
+ex2 = gsub("--","+",ex2,fixed=TRUE)
+ex2 = gsub("-0","",ex2,fixed=TRUE)
+
+rrr = sort(unique(h))
+for(i in 1:length(rrr)){
+  rr = rrr[i]
+  cat(paste0("## Possible successful route ",i,"\n\n",collapse=""))
+  cat("<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>")
+  cf = c(A,B,C,D)
+  bots = c(cf[1])
+  mids = numeric()
+  deg = length(cf)
+  for(j in 2:deg){
+    mids = c(mids,bots[j-1]*rr)
+    bots = c(bots,cf[j]+mids[j-1])
+  }
+  trs = paste0("* Guess that $(x-",rr,")$ is a factor:\n<table style='width:50%'><tr><td class='r'></td>",collapse="")
+  trs = gsub("--","+",trs,fixed=TRUE)
+  for(j in 1:deg){
+    trs = paste0(trs,"<td>",cf[j],"</td>")
+  }
+  trs = paste0(trs,"</tr><tr><td class='r'>",rr,"</td><td class='b'></td>")
+  for(j in (deg+2):(2*deg)){
+    trs = paste0(trs,"<td class='b'>",mids[j-deg-1],"</td>")
+  }
+  trs = paste0(trs,"</tr><tr><td class='r'> </td>")
+  for(j in (2*deg+1):(3*deg)){
+    trs = paste0(trs,"<td>",bots[j-2*deg],"</td>")
+  }
+  trs = paste0(trs,"</tr></table>\n")
+  cat(trs)
+  so = "Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form."
+  eq = paste0("$$(",pfix(c(1,-rr),1:0),")(",pfix(c(1,bots[2],bots[3]),2:0),")=0$$",collapse="")
+  cat(so)
+  cat(eq)
+  cat(paste0("Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give ",bots[3]," and add to give ",bots[2],"."))
+  cat(paste0("$$(",pfix(c(1,-rr),1:0),")(",pfix(c(1,-rrr[-i][1]),1:0),")(",pfix(c(1,-rrr[-i][2]),1:0),")=0$$"))
+  cat(paste0("Thus the solutions are: {",paste0(rrr,collapse=", "),"}"))
+  cat("\n\n")
+}
+```
+
+
 
 
 Meta-information
 ============
-extype: num
-exsolution: 
-exname: cannon_balloon
-extol: 0.01
+extype: mchoice
+exsolution: `r sol`
+exname: intersect_cubic_line
