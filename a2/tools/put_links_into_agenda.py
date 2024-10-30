@@ -11,7 +11,7 @@ files = ["24_flip_parabola.Rmd",
 "27_sketch_factored_poly.Rmd",
 "28_match_graph_poly_eq.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u06/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:

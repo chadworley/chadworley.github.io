@@ -6,11 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID
-file_path_list = ["outcanvas/u06_24_flip_parabola.zip",
-"outcanvas/u06_25_cannon_balloon.zip",
-"outcanvas/u06_26_intersect_cubic_line.zip",
-"outcanvas/u06_27_sketch_factored_poly.zip",
-"outcanvas/u06_28_match_graph_poly_eq.zip"]
+file_path_list = ["outcanvas/u06_28_match_graph_poly_eq.zip"]
 
 # fpl = []
 # for i in range(22,50):
