@@ -1,0 +1,222 @@
+---
+output: pdf_document
+params:
+    rseed: 1
+    showsol: false
+    titex: ""
+urlcolor: blue
+---
+
+```{r,echo=F}
+set.seed(params$rseed)
+sols = numeric()
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+pfull = function(c,d){
+    p = paste0("(",c,")x^{",d,"}",collapse="+")
+    return(p)
+}
+if(params$showsol){
+    solstart = ""
+    solend = "\\vfill"
+} else {
+    solstart = "<!---"
+    solend = "-->"
+}
+
+```
+
+Name: \hspace{4in} Date: \hfill \hrule
+
+# Polynomial Operations `r params$titex` (version `r params$rseed`)
+
+```{r,echo=F}
+missings = sample(2:5,2)
+cfp = sample(1:10,6)*sample(c(-1,1),6,T)
+cfq = sample(1:10,6)*sample(c(-1,1),6,T)
+cfp[missings[1]] = 0
+cfq[missings[2]] = 0
+p = pfix(cfp,5:0)
+q = pfix(cfq,5:0)
+pf = pfull(cfp,5:0)
+qf = pfull(cfq,5:0)
+asb = sample(1:3,1)
+if(asb==1){
+    wrd = "Express the sum of $p(x)+ q(x)$ in standard form."
+    wrd2 = "p(x)+q(x)"
+    cfr = cfp+cfq
+} else if(asb==2){
+    wrd = paste0("Express the difference $p(x)-q(x)$ in standard form.")
+    wrd2 = "p(x)-q(x)"
+    cfr = cfp-cfq
+} else if(asb==3){
+    wrd = paste0("Express the difference $q(x)-p(x)$ in standard form.")
+    wrd2 = "q(x)-p(x)"
+    cfr = cfq-cfp
+}
+rf = pfull(cfr,5:0)
+r = pfix(cfr,5:0)
+```
+
+**1. Let polynomials $p(x)$ and $q(x)$ be defined below.
+$$p(x)~=~`r p`$$
+$$q(x)~=~`r q`$$
+`r wrd`**
+
+\vfill
+
+`r solstart`
+Get "unsimplified" forms. Then find $`r wrd2`$ with addition/subtraction.
+$$
+\begin{aligned}
+p(x) &= `r pf`\\
+q(x) &= `r qf`\\
+`r wrd2` &= `r rf` \\
+`r wrd2` &= `r r` 
+\end{aligned}
+$$
+`r solend`
+
+
+
+```{r,echo=F}
+while(T){
+    cfa = sample(2:9,3)*sample(c(-1,1),3,T)
+    cfb = sample(2:9,2)*sample(c(-1,1),2,T)
+    A = cfa[1]
+    B = cfa[2]
+    C = cfa[3]
+    m = cfb[1]
+    i = cfb[2]
+    cfcraw = c(A*m,B*m,A*i,C*m,B*i,C*i)
+    cfc = c(A*m,B*m+A*i,C*m+B*i,C*i)
+    pa = pfix(cfa,2:0)
+    pb = pfix(cfb,1:0)
+    pc = pfix(cfc,3:0)
+    pcraw = pfix(cfcraw,c(3,2,2,1,1,0))
+    if(max(abs(c(cfc,B*m,A*i,C*m,B*i)))<70){break}
+}
+
+
+```
+
+**2. Let polynomials $a(x)$ and $b(x)$ be defined below.
+$$a(x)~=~`r pa`$$
+$$b(x)~=~`r pb`$$
+Express the product $a(x)\cdot b(x)$ in standard form.**
+
+\vfill
+
+`r solstart`
+You can use a table for multiplication.
+\begin{center}
+\begin{tabular}{|c| c c c |} \hline
+*        & $`r A`x^2$   &  $`r B`x$    & $`r C`$    \\ \hline
+$`r m`x$ & $`r A*m`x^3$ & $`r B*m`x^2$ & $`r m*C`x$ \\
+$`r i`$  & $`r A*i`x^2$ & $`r B*i`x$ & $`r i*C`$ \\ \hline
+\end{tabular}
+\end{center}
+$$a(x)\cdot b(x) ~=~ `r pcraw`$$
+Combine like terms.
+$$a(x)\cdot b(x) ~=~ `r pc`$$
+`r solend`
+
+```{r,echo=F}
+n = sample(4:6,1)
+ccc = choose(n,0:n)
+ddd = n:0
+pbt = pfix(ccc,ddd)
+```
+
+**3. Express $(x+1)^{`r n`}$ in standard (expanded) form.**
+
+\vfill
+
+`r solstart`
+Remember [the binomial theorem](https://en.wikipedia.org/wiki/Binomial_theorem). It tells us to use Pascal's triangle.
+$$`r pbt`$$
+`r solend`
+
+\newpage
+
+# Polynomial Operations `r params$titex` (version `r params$rseed`)
+
+```{r,echo=F}
+cg = c(1,sample(4:9,1)*sample(c(-1,1),1))
+while(T){
+    cz = sample(-9:9,3)*sample(c(-1,1),3,T)
+    cf = c(cg[1]*cz[1],cg[1]*cz[2]+cg[2]*cz[1],cg[1]*cz[3]+cg[2]*cz[2],cg[2]*cz[3]+sample(1:10,1)*sample(c(-1,1),1))
+    pf = pfix(cf,3:0)
+    pg = pfix(cg,1:0)
+    aa = -cg[2]
+    b1 = cf[1]
+    m2 = b1*aa
+    b2 = cf[2]+m2
+    m3 = b2*aa
+    b3 = cf[3]+m3
+    m4 = b3*aa
+    b4 = cf[4]+m4
+    ch = c(b1,b2,b3)
+    ph = pfix(ch,2:0)
+    R = b4
+    if(cf[1]!=0 && max(abs(cf))<30 && abs(aa)!=abs(R)){break}
+}
+```
+
+**4. Let polynomials $f(x)$ and $g(x)$ be defined below.
+$$
+\begin{aligned}
+f(x)~&=~`r pf`\\
+g(x) ~&=~ `r pg`
+\end{aligned}
+$$
+The quotient of $\frac{f(x)}{g(x)}$ can be expressed as a polynomial, $h(x)$, and a remainder, $R$ (a real number).
+$$\frac{f(x)}{g(x)}~~=~~ h(x) + \frac{R}{`r pg`}$$
+By using synthetic division or long division, express $h(x)$ in standard form, and find the remainder $R$.**
+
+\vfill
+
+`r solstart`
+I prefer using synthetic division.
+\begin{center}
+\begin{tabular}{c|c c c c}
+       & `r cf[1]` & `r cf[2]` & `r cf[3]` & `r cf[4]` \\
+`r aa` &           & `r m2`    & `r m3`    & `r m4` \\ \hline
+       &  `r b1`   & `r b2`    & `r b3`    & `r b4`  
+\end{tabular}
+\end{center}
+So,
+$$\frac{f(x)}{g(x)} ~=~ `r ph`+\frac{`r R`}{`r pg`}$$
+In other words, $h(x)=`r ph`$ and the remainder is $R=`r R`$.
+`r solend`
+
+
+
+
+**5. Let polynomial $f(x)$ still be defined as $f(x)=`r pf`$. Evaluate $f(`r aa`)$.**
+
+\vfill
+
+`r solstart`
+You could do this the hard way.
+$$
+\begin{aligned}
+f(`r aa`) ~~&=~~ (`r cf[1]`)\cdot(`r aa`)^3 ~+~ (`r cf[2]`)\cdot(`r aa`)^2 ~+~ (`r cf[3]`)\cdot(`r aa`)~+~(`r cf[4]`) \\
+&=~~ (`r cf[1]`)\cdot(`r aa^3`) ~+~ (`r cf[2]`)\cdot(`r aa^2`) ~+~ (`r cf[3]`)\cdot(`r aa`)~+~(`r cf[4]`) \\
+&=~~ (`r cf[1]*aa^3`) ~+~ (`r cf[2]*aa^2`) ~+~ (`r cf[3]*aa`)~+~(`r cf[4]`) \\
+&=~~ `r cf[1]*aa^3+cf[2]*aa^2+cf[3]*aa+cf[4]`
+\end{aligned}
+$$
+Or, if you reference the [polynomial remainder theorem](https://en.wikipedia.org/wiki/Polynomial_remainder_theorem), you can state that you know $f(`r aa`)$ equals the remainder when $f(x)$ is divided by $`r pg`$. Thus, $f(`r aa`)=`r R`$.
+`r solend`
