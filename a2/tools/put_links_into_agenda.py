@@ -5,15 +5,11 @@ import os
 
 
 front = "u06_"
-files = ["14_factor_diff_of_squares.Rmd",
-"15_factor_sum_of_squares.Rmd",
-"16_quadratic_from_zeros.Rmd",
-"17_cubic_from_zeros.Rmd",
-"18_cubic_from_zeros_doub.Rmd",
-"19_cubic_from_zeros_trip.Rmd",
-"20_cubic_from_zeros_comp.Rmd",
-"21_polynomial_ends.Rmd",
-"22_polynomial_ends_B.Rmd"]
+files = ["24_flip_parabola.Rmd",
+"25_cannon_balloon.Rmd",
+"26_intersect_cubic_line.Rmd",
+"27_sketch_factored_poly.Rmd",
+"28_match_graph_poly_eq.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u05/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
