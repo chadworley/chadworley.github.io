@@ -5,11 +5,9 @@ import os
 
 
 front = "u06_"
-files = ["24_flip_parabola.Rmd",
-"25_cannon_balloon.Rmd",
-"26_intersect_cubic_line.Rmd",
-"27_sketch_factored_poly.Rmd",
-"28_match_graph_poly_eq.Rmd"]
+files = ["27_sketch_factored_poly.Rmd",
+"28_match_graph_poly_eq.Rmd",
+"29_vertex_form_animation.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u06/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

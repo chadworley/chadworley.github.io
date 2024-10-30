@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("28_match_graph_poly_eq.Rmd")
+pppsss = c("29_vertex_form_animation.Rmd")
 
 
 for(ppss in pppsss){

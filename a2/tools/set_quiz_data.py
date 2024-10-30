@@ -3,14 +3,12 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-10-30 8:00:00"]*6
-dut = ["2024-10-30 23:59:00"]*6
+avt = ["2024-10-31 8:00:00"]*3
+dut = ["2024-10-31 23:59:00"]*3
 front = "u06_"
-files = ["24_flip_parabola.Rmd",
-"25_cannon_balloon.Rmd",
-"26_intersect_cubic_line.Rmd",
-"27_sketch_factored_poly.Rmd",
-"28_match_graph_poly_eq.Rmd"]
+files = ["27_sketch_factored_poly.Rmd",
+"28_match_graph_poly_eq.Rmd",
+"29_vertex_form_animation.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u06/outhtml/"
 

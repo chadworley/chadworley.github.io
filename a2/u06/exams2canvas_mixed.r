@@ -3,8 +3,8 @@ n = 30
 outdir = "outcanvas"
 genname = "u06_"
 
-probs = c("28_match_graph_poly_eq.Rmd")
-pnts = c(6)
+probs = c("29_vertex_form_animation.Rmd")
+pnts = c(3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
