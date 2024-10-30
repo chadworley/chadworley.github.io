@@ -1,0 +1,2434 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>26_intersect_cubic_line</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">26_intersect_cubic_line</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A cubic polynomial, <span class="math inline">\(p(x)\)</span>, and a linear function, <span class="math inline">\(n(x)\)</span>, intersect three times. Find the values of <span class="math inline">\(x\)</span> where they intersect. (<em>The solutions are all integers between <span class="math inline">\(-10\)</span> and <span class="math inline">\(10\)</span>.</em>)</p>
+<p><span class="math display">\[p(x)~=~x^{3}+{7}x^{2}+{19}x+{2}\]</span>
+<span class="math display">\[n(x)~=~{5}x-{6}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The intersections occur at values of <span class="math inline">\(x\)</span> such that <span class="math inline">\(p(x)=n(x)\)</span>.</p>
+<p><span class="math display">\[x^{3}+{7}x^{2}+{19}x+{2}~=~{5}x-{6}\]</span></p>
+<p>Subtract <span class="math inline">\({5}x-{6}\)</span> from both sides of the equation.</p>
+<p><span class="math display">\[x^{3}+{7}x^{2}+{14}x+{8}~=~0\]</span></p>
+<p>Then, use the strategy from <a href="https://chadworley.github.io/a2/u06/outhtml/05_solve_cubic_easy_integers.html">this previous problem</a> to get the solutions. Remember, the <a href="https://en.wikipedia.org/wiki/Rational_root_theorem">rational-root theorem</a> promises we only need to check (positive and negative) factors of 8, the constant of the cubic expression equaling 0.</p>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<h2 id="possible-successful-route-1">Possible successful route 1</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+4)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+7
+</td>
+<td>
+14
+</td>
+<td>
+8
+</td>
+</tr>
+<tr>
+<td class="r">
+-4
+</td>
+<td class="b">
+</td>
+<td class="b">
+-4
+</td>
+<td class="b">
+-12
+</td>
+<td class="b">
+-8
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+3
+</td>
+<td>
+2
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{4})(x^{2}+{3}x+{2})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 2 and add to give 3.<span class="math display">\[(x+{4})(x+{2})(x+{1})=0\]</span>Thus the solutions are: {-4, -2, -1}</li>
+</ul>
+<h2 id="possible-successful-route-2">Possible successful route 2</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+2)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+7
+</td>
+<td>
+14
+</td>
+<td>
+8
+</td>
+</tr>
+<tr>
+<td class="r">
+-2
+</td>
+<td class="b">
+</td>
+<td class="b">
+-2
+</td>
+<td class="b">
+-10
+</td>
+<td class="b">
+-8
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+5
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{2})(x^{2}+{5}x+{4})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 4 and add to give 5.<span class="math display">\[(x+{2})(x+{4})(x+{1})=0\]</span>Thus the solutions are: {-4, -2, -1}</li>
+</ul>
+<h2 id="possible-successful-route-3">Possible successful route 3</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+1)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+7
+</td>
+<td>
+14
+</td>
+<td>
+8
+</td>
+</tr>
+<tr>
+<td class="r">
+-1
+</td>
+<td class="b">
+</td>
+<td class="b">
+-1
+</td>
+<td class="b">
+-6
+</td>
+<td class="b">
+-8
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+8
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{1})(x^{2}+{6}x+{8})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 8 and add to give 6.<span class="math display">\[(x+{1})(x+{4})(x+{2})=0\]</span>Thus the solutions are: {-4, -2, -1}</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A cubic polynomial, <span class="math inline">\(p(x)\)</span>, and a linear function, <span class="math inline">\(n(x)\)</span>, intersect three times. Find the values of <span class="math inline">\(x\)</span> where they intersect. (<em>The solutions are all integers between <span class="math inline">\(-10\)</span> and <span class="math inline">\(10\)</span>.</em>)</p>
+<p><span class="math display">\[p(x)~=~x^{3}+{4}x^{2}-{26}x-{57}\]</span>
+<span class="math display">\[n(x)~=~{-6}x-{9}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The intersections occur at values of <span class="math inline">\(x\)</span> such that <span class="math inline">\(p(x)=n(x)\)</span>.</p>
+<p><span class="math display">\[x^{3}+{4}x^{2}-{26}x-{57}~=~{-6}x-{9}\]</span></p>
+<p>Subtract <span class="math inline">\({-6}x-{9}\)</span> from both sides of the equation.</p>
+<p><span class="math display">\[x^{3}+{4}x^{2}-{20}x-{48}~=~0\]</span></p>
+<p>Then, use the strategy from <a href="https://chadworley.github.io/a2/u06/outhtml/05_solve_cubic_easy_integers.html">this previous problem</a> to get the solutions. Remember, the <a href="https://en.wikipedia.org/wiki/Rational_root_theorem">rational-root theorem</a> promises we only need to check (positive and negative) factors of -48, the constant of the cubic expression equaling 0.</p>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<h2 id="possible-successful-route-1">Possible successful route 1</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+6)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+4
+</td>
+<td>
+-20
+</td>
+<td>
+-48
+</td>
+</tr>
+<tr>
+<td class="r">
+-6
+</td>
+<td class="b">
+</td>
+<td class="b">
+-6
+</td>
+<td class="b">
+12
+</td>
+<td class="b">
+48
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-2
+</td>
+<td>
+-8
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{6})(x^{2}-{2}x-{8})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give -8 and add to give -2.<span class="math display">\[(x+{6})(x+{2})(x-{4})=0\]</span>Thus the solutions are: {-6, -2, 4}</li>
+</ul>
+<h2 id="possible-successful-route-2">Possible successful route 2</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+2)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+4
+</td>
+<td>
+-20
+</td>
+<td>
+-48
+</td>
+</tr>
+<tr>
+<td class="r">
+-2
+</td>
+<td class="b">
+</td>
+<td class="b">
+-2
+</td>
+<td class="b">
+-4
+</td>
+<td class="b">
+48
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+2
+</td>
+<td>
+-24
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{2})(x^{2}+{2}x-{24})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give -24 and add to give 2.<span class="math display">\[(x+{2})(x+{6})(x-{4})=0\]</span>Thus the solutions are: {-6, -2, 4}</li>
+</ul>
+<h2 id="possible-successful-route-3">Possible successful route 3</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x-4)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+4
+</td>
+<td>
+-20
+</td>
+<td>
+-48
+</td>
+</tr>
+<tr>
+<td class="r">
+4
+</td>
+<td class="b">
+</td>
+<td class="b">
+4
+</td>
+<td class="b">
+32
+</td>
+<td class="b">
+48
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+8
+</td>
+<td>
+12
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x-{4})(x^{2}+{8}x+{12})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 12 and add to give 8.<span class="math display">\[(x-{4})(x+{6})(x+{2})=0\]</span>Thus the solutions are: {-6, -2, 4}</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A cubic polynomial, <span class="math inline">\(p(x)\)</span>, and a linear function, <span class="math inline">\(n(x)\)</span>, intersect three times. Find the values of <span class="math inline">\(x\)</span> where they intersect. (<em>The solutions are all integers between <span class="math inline">\(-10\)</span> and <span class="math inline">\(10\)</span>.</em>)</p>
+<p><span class="math display">\[p(x)~=~x^{3}-{6}x^{2}-{7}x+{2}\]</span>
+<span class="math display">\[n(x)~=~{-10}x-{8}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The intersections occur at values of <span class="math inline">\(x\)</span> such that <span class="math inline">\(p(x)=n(x)\)</span>.</p>
+<p><span class="math display">\[x^{3}-{6}x^{2}-{7}x+{2}~=~{-10}x-{8}\]</span></p>
+<p>Subtract <span class="math inline">\({-10}x-{8}\)</span> from both sides of the equation.</p>
+<p><span class="math display">\[x^{3}-{6}x^{2}+{3}x+{10}~=~0\]</span></p>
+<p>Then, use the strategy from <a href="https://chadworley.github.io/a2/u06/outhtml/05_solve_cubic_easy_integers.html">this previous problem</a> to get the solutions. Remember, the <a href="https://en.wikipedia.org/wiki/Rational_root_theorem">rational-root theorem</a> promises we only need to check (positive and negative) factors of 10, the constant of the cubic expression equaling 0.</p>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<h2 id="possible-successful-route-1">Possible successful route 1</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+1)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-6
+</td>
+<td>
+3
+</td>
+<td>
+10
+</td>
+</tr>
+<tr>
+<td class="r">
+-1
+</td>
+<td class="b">
+</td>
+<td class="b">
+-1
+</td>
+<td class="b">
+7
+</td>
+<td class="b">
+-10
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-7
+</td>
+<td>
+10
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{1})(x^{2}-{7}x+{10})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 10 and add to give -7.<span class="math display">\[(x+{1})(x-{2})(x-{5})=0\]</span>Thus the solutions are: {-1, 2, 5}</li>
+</ul>
+<h2 id="possible-successful-route-2">Possible successful route 2</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x-2)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-6
+</td>
+<td>
+3
+</td>
+<td>
+10
+</td>
+</tr>
+<tr>
+<td class="r">
+2
+</td>
+<td class="b">
+</td>
+<td class="b">
+2
+</td>
+<td class="b">
+-8
+</td>
+<td class="b">
+-10
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-4
+</td>
+<td>
+-5
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x-{2})(x^{2}-{4}x-{5})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give -5 and add to give -4.<span class="math display">\[(x-{2})(x+{1})(x-{5})=0\]</span>Thus the solutions are: {-1, 2, 5}</li>
+</ul>
+<h2 id="possible-successful-route-3">Possible successful route 3</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x-5)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-6
+</td>
+<td>
+3
+</td>
+<td>
+10
+</td>
+</tr>
+<tr>
+<td class="r">
+5
+</td>
+<td class="b">
+</td>
+<td class="b">
+5
+</td>
+<td class="b">
+-5
+</td>
+<td class="b">
+-10
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-1
+</td>
+<td>
+-2
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x-{5})(x^{2}-x-{2})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give -2 and add to give -1.<span class="math display">\[(x-{5})(x+{1})(x-{2})=0\]</span>Thus the solutions are: {-1, 2, 5}</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A cubic polynomial, <span class="math inline">\(p(x)\)</span>, and a linear function, <span class="math inline">\(n(x)\)</span>, intersect three times. Find the values of <span class="math inline">\(x\)</span> where they intersect. (<em>The solutions are all integers between <span class="math inline">\(-10\)</span> and <span class="math inline">\(10\)</span>.</em>)</p>
+<p><span class="math display">\[p(x)~=~x^{3}-{3}x^{2}-{54}x-{40}\]</span>
+<span class="math display">\[n(x)~=~{-5}x+{5}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The intersections occur at values of <span class="math inline">\(x\)</span> such that <span class="math inline">\(p(x)=n(x)\)</span>.</p>
+<p><span class="math display">\[x^{3}-{3}x^{2}-{54}x-{40}~=~{-5}x+{5}\]</span></p>
+<p>Subtract <span class="math inline">\({-5}x+{5}\)</span> from both sides of the equation.</p>
+<p><span class="math display">\[x^{3}-{3}x^{2}-{49}x-{45}~=~0\]</span></p>
+<p>Then, use the strategy from <a href="https://chadworley.github.io/a2/u06/outhtml/05_solve_cubic_easy_integers.html">this previous problem</a> to get the solutions. Remember, the <a href="https://en.wikipedia.org/wiki/Rational_root_theorem">rational-root theorem</a> promises we only need to check (positive and negative) factors of -45, the constant of the cubic expression equaling 0.</p>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<h2 id="possible-successful-route-1">Possible successful route 1</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+5)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-3
+</td>
+<td>
+-49
+</td>
+<td>
+-45
+</td>
+</tr>
+<tr>
+<td class="r">
+-5
+</td>
+<td class="b">
+</td>
+<td class="b">
+-5
+</td>
+<td class="b">
+40
+</td>
+<td class="b">
+45
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-8
+</td>
+<td>
+-9
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{5})(x^{2}-{8}x-{9})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give -9 and add to give -8.<span class="math display">\[(x+{5})(x+{1})(x-{9})=0\]</span>Thus the solutions are: {-5, -1, 9}</li>
+</ul>
+<h2 id="possible-successful-route-2">Possible successful route 2</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+1)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-3
+</td>
+<td>
+-49
+</td>
+<td>
+-45
+</td>
+</tr>
+<tr>
+<td class="r">
+-1
+</td>
+<td class="b">
+</td>
+<td class="b">
+-1
+</td>
+<td class="b">
+4
+</td>
+<td class="b">
+45
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-4
+</td>
+<td>
+-45
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{1})(x^{2}-{4}x-{45})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give -45 and add to give -4.<span class="math display">\[(x+{1})(x+{5})(x-{9})=0\]</span>Thus the solutions are: {-5, -1, 9}</li>
+</ul>
+<h2 id="possible-successful-route-3">Possible successful route 3</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x-9)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-3
+</td>
+<td>
+-49
+</td>
+<td>
+-45
+</td>
+</tr>
+<tr>
+<td class="r">
+9
+</td>
+<td class="b">
+</td>
+<td class="b">
+9
+</td>
+<td class="b">
+54
+</td>
+<td class="b">
+45
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x-{9})(x^{2}+{6}x+{5})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 5 and add to give 6.<span class="math display">\[(x-{9})(x+{5})(x+{1})=0\]</span>Thus the solutions are: {-5, -1, 9}</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A cubic polynomial, <span class="math inline">\(p(x)\)</span>, and a linear function, <span class="math inline">\(n(x)\)</span>, intersect three times. Find the values of <span class="math inline">\(x\)</span> where they intersect. (<em>The solutions are all integers between <span class="math inline">\(-10\)</span> and <span class="math inline">\(10\)</span>.</em>)</p>
+<p><span class="math display">\[p(x)~=~x^{3}-{7}x^{2}-{43}x+{102}\]</span>
+<span class="math display">\[n(x)~=~{-3}x+{2}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The intersections occur at values of <span class="math inline">\(x\)</span> such that <span class="math inline">\(p(x)=n(x)\)</span>.</p>
+<p><span class="math display">\[x^{3}-{7}x^{2}-{43}x+{102}~=~{-3}x+{2}\]</span></p>
+<p>Subtract <span class="math inline">\({-3}x+{2}\)</span> from both sides of the equation.</p>
+<p><span class="math display">\[x^{3}-{7}x^{2}-{40}x+{100}~=~0\]</span></p>
+<p>Then, use the strategy from <a href="https://chadworley.github.io/a2/u06/outhtml/05_solve_cubic_easy_integers.html">this previous problem</a> to get the solutions. Remember, the <a href="https://en.wikipedia.org/wiki/Rational_root_theorem">rational-root theorem</a> promises we only need to check (positive and negative) factors of 100, the constant of the cubic expression equaling 0.</p>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<h2 id="possible-successful-route-1">Possible successful route 1</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+5)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-7
+</td>
+<td>
+-40
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<td class="r">
+-5
+</td>
+<td class="b">
+</td>
+<td class="b">
+-5
+</td>
+<td class="b">
+60
+</td>
+<td class="b">
+-100
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-12
+</td>
+<td>
+20
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{5})(x^{2}-{12}x+{20})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 20 and add to give -12.<span class="math display">\[(x+{5})(x-{2})(x-{10})=0\]</span>Thus the solutions are: {-5, 2, 10}</li>
+</ul>
+<h2 id="possible-successful-route-2">Possible successful route 2</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x-2)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-7
+</td>
+<td>
+-40
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<td class="r">
+2
+</td>
+<td class="b">
+</td>
+<td class="b">
+2
+</td>
+<td class="b">
+-10
+</td>
+<td class="b">
+-100
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-5
+</td>
+<td>
+-50
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x-{2})(x^{2}-{5}x-{50})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give -50 and add to give -5.<span class="math display">\[(x-{2})(x+{5})(x-{10})=0\]</span>Thus the solutions are: {-5, 2, 10}</li>
+</ul>
+<h2 id="possible-successful-route-3">Possible successful route 3</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x-10)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+-7
+</td>
+<td>
+-40
+</td>
+<td>
+100
+</td>
+</tr>
+<tr>
+<td class="r">
+10
+</td>
+<td class="b">
+</td>
+<td class="b">
+10
+</td>
+<td class="b">
+30
+</td>
+<td class="b">
+-100
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+3
+</td>
+<td>
+-10
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x-{10})(x^{2}+{3}x-{10})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give -10 and add to give 3.<span class="math display">\[(x-{10})(x+{5})(x-{2})=0\]</span>Thus the solutions are: {-5, 2, 10}</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A cubic polynomial, <span class="math inline">\(p(x)\)</span>, and a linear function, <span class="math inline">\(n(x)\)</span>, intersect three times. Find the values of <span class="math inline">\(x\)</span> where they intersect. (<em>The solutions are all integers between <span class="math inline">\(-10\)</span> and <span class="math inline">\(10\)</span>.</em>)</p>
+<p><span class="math display">\[p(x)~=~x^{3}+{10}x^{2}+{24}x+{24}\]</span>
+<span class="math display">\[n(x)~=~{-5}x+{4}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The intersections occur at values of <span class="math inline">\(x\)</span> such that <span class="math inline">\(p(x)=n(x)\)</span>.</p>
+<p><span class="math display">\[x^{3}+{10}x^{2}+{24}x+{24}~=~{-5}x+{4}\]</span></p>
+<p>Subtract <span class="math inline">\({-5}x+{4}\)</span> from both sides of the equation.</p>
+<p><span class="math display">\[x^{3}+{10}x^{2}+{29}x+{20}~=~0\]</span></p>
+<p>Then, use the strategy from <a href="https://chadworley.github.io/a2/u06/outhtml/05_solve_cubic_easy_integers.html">this previous problem</a> to get the solutions. Remember, the <a href="https://en.wikipedia.org/wiki/Rational_root_theorem">rational-root theorem</a> promises we only need to check (positive and negative) factors of 20, the constant of the cubic expression equaling 0.</p>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<h2 id="possible-successful-route-1">Possible successful route 1</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+5)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+10
+</td>
+<td>
+29
+</td>
+<td>
+20
+</td>
+</tr>
+<tr>
+<td class="r">
+-5
+</td>
+<td class="b">
+</td>
+<td class="b">
+-5
+</td>
+<td class="b">
+-25
+</td>
+<td class="b">
+-20
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+5
+</td>
+<td>
+4
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{5})(x^{2}+{5}x+{4})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 4 and add to give 5.<span class="math display">\[(x+{5})(x+{4})(x+{1})=0\]</span>Thus the solutions are: {-5, -4, -1}</li>
+</ul>
+<h2 id="possible-successful-route-2">Possible successful route 2</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+4)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+10
+</td>
+<td>
+29
+</td>
+<td>
+20
+</td>
+</tr>
+<tr>
+<td class="r">
+-4
+</td>
+<td class="b">
+</td>
+<td class="b">
+-4
+</td>
+<td class="b">
+-24
+</td>
+<td class="b">
+-20
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+6
+</td>
+<td>
+5
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{4})(x^{2}+{6}x+{5})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 5 and add to give 6.<span class="math display">\[(x+{4})(x+{5})(x+{1})=0\]</span>Thus the solutions are: {-5, -4, -1}</li>
+</ul>
+<h2 id="possible-successful-route-3">Possible successful route 3</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+1)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+10
+</td>
+<td>
+29
+</td>
+<td>
+20
+</td>
+</tr>
+<tr>
+<td class="r">
+-1
+</td>
+<td class="b">
+</td>
+<td class="b">
+-1
+</td>
+<td class="b">
+-9
+</td>
+<td class="b">
+-20
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+9
+</td>
+<td>
+20
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{1})(x^{2}+{9}x+{20})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 20 and add to give 9.<span class="math display">\[(x+{1})(x+{5})(x+{4})=0\]</span>Thus the solutions are: {-5, -4, -1}</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A cubic polynomial, <span class="math inline">\(p(x)\)</span>, and a linear function, <span class="math inline">\(n(x)\)</span>, intersect three times. Find the values of <span class="math inline">\(x\)</span> where they intersect. (<em>The solutions are all integers between <span class="math inline">\(-10\)</span> and <span class="math inline">\(10\)</span>.</em>)</p>
+<p><span class="math display">\[p(x)~=~x^{3}+{12}x^{2}+{48}x+{67}\]</span>
+<span class="math display">\[n(x)~=~x+{7}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The intersections occur at values of <span class="math inline">\(x\)</span> such that <span class="math inline">\(p(x)=n(x)\)</span>.</p>
+<p><span class="math display">\[x^{3}+{12}x^{2}+{48}x+{67}~=~x+{7}\]</span></p>
+<p>Subtract <span class="math inline">\(x+{7}\)</span> from both sides of the equation.</p>
+<p><span class="math display">\[x^{3}+{12}x^{2}+{47}x+{60}~=~0\]</span></p>
+<p>Then, use the strategy from <a href="https://chadworley.github.io/a2/u06/outhtml/05_solve_cubic_easy_integers.html">this previous problem</a> to get the solutions. Remember, the <a href="https://en.wikipedia.org/wiki/Rational_root_theorem">rational-root theorem</a> promises we only need to check (positive and negative) factors of 60, the constant of the cubic expression equaling 0.</p>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<h2 id="possible-successful-route-1">Possible successful route 1</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+5)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+12
+</td>
+<td>
+47
+</td>
+<td>
+60
+</td>
+</tr>
+<tr>
+<td class="r">
+-5
+</td>
+<td class="b">
+</td>
+<td class="b">
+-5
+</td>
+<td class="b">
+-35
+</td>
+<td class="b">
+-60
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+7
+</td>
+<td>
+12
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{5})(x^{2}+{7}x+{12})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 12 and add to give 7.<span class="math display">\[(x+{5})(x+{4})(x+{3})=0\]</span>Thus the solutions are: {-5, -4, -3}</li>
+</ul>
+<h2 id="possible-successful-route-2">Possible successful route 2</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+4)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+12
+</td>
+<td>
+47
+</td>
+<td>
+60
+</td>
+</tr>
+<tr>
+<td class="r">
+-4
+</td>
+<td class="b">
+</td>
+<td class="b">
+-4
+</td>
+<td class="b">
+-32
+</td>
+<td class="b">
+-60
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+8
+</td>
+<td>
+15
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{4})(x^{2}+{8}x+{15})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 15 and add to give 8.<span class="math display">\[(x+{4})(x+{5})(x+{3})=0\]</span>Thus the solutions are: {-5, -4, -3}</li>
+</ul>
+<h2 id="possible-successful-route-3">Possible successful route 3</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+3)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+12
+</td>
+<td>
+47
+</td>
+<td>
+60
+</td>
+</tr>
+<tr>
+<td class="r">
+-3
+</td>
+<td class="b">
+</td>
+<td class="b">
+-3
+</td>
+<td class="b">
+-27
+</td>
+<td class="b">
+-60
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+9
+</td>
+<td>
+20
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{3})(x^{2}+{9}x+{20})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 20 and add to give 9.<span class="math display">\[(x+{3})(x+{5})(x+{4})=0\]</span>Thus the solutions are: {-5, -4, -3}</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A cubic polynomial, <span class="math inline">\(p(x)\)</span>, and a linear function, <span class="math inline">\(n(x)\)</span>, intersect three times. Find the values of <span class="math inline">\(x\)</span> where they intersect. (<em>The solutions are all integers between <span class="math inline">\(-10\)</span> and <span class="math inline">\(10\)</span>.</em>)</p>
+<p><span class="math display">\[p(x)~=~x^{3}+{7}x^{2}-{3}x-{59}\]</span>
+<span class="math display">\[n(x)~=~{6}x+{4}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The intersections occur at values of <span class="math inline">\(x\)</span> such that <span class="math inline">\(p(x)=n(x)\)</span>.</p>
+<p><span class="math display">\[x^{3}+{7}x^{2}-{3}x-{59}~=~{6}x+{4}\]</span></p>
+<p>Subtract <span class="math inline">\({6}x+{4}\)</span> from both sides of the equation.</p>
+<p><span class="math display">\[x^{3}+{7}x^{2}-{9}x-{63}~=~0\]</span></p>
+<p>Then, use the strategy from <a href="https://chadworley.github.io/a2/u06/outhtml/05_solve_cubic_easy_integers.html">this previous problem</a> to get the solutions. Remember, the <a href="https://en.wikipedia.org/wiki/Rational_root_theorem">rational-root theorem</a> promises we only need to check (positive and negative) factors of -63, the constant of the cubic expression equaling 0.</p>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<h2 id="possible-successful-route-1">Possible successful route 1</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+7)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+7
+</td>
+<td>
+-9
+</td>
+<td>
+-63
+</td>
+</tr>
+<tr>
+<td class="r">
+-7
+</td>
+<td class="b">
+</td>
+<td class="b">
+-7
+</td>
+<td class="b">
+0
+</td>
+<td class="b">
+63
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+-9
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{7})(x^{2}-{9})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give -9 and add to give 0.<span class="math display">\[(x+{7})(x+{3})(x-{3})=0\]</span>Thus the solutions are: {-7, -3, 3}</li>
+</ul>
+<h2 id="possible-successful-route-2">Possible successful route 2</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x+3)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+7
+</td>
+<td>
+-9
+</td>
+<td>
+-63
+</td>
+</tr>
+<tr>
+<td class="r">
+-3
+</td>
+<td class="b">
+</td>
+<td class="b">
+-3
+</td>
+<td class="b">
+-12
+</td>
+<td class="b">
+63
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+4
+</td>
+<td>
+-21
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x+{3})(x^{2}+{4}x-{21})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give -21 and add to give 4.<span class="math display">\[(x+{3})(x+{7})(x-{3})=0\]</span>Thus the solutions are: {-7, -3, 3}</li>
+</ul>
+<h2 id="possible-successful-route-3">Possible successful route 3</h2>
+<style>
+.r {
+  border-right: 1px solid black;
+}
+.b {
+  border-bottom: 1px solid black;
+}
+td {
+  height: 13pt;
+  text-align: center;
+}
+</style>
+<ul>
+<li>Guess that <span class="math inline">\((x-3)\)</span> is a factor:
+<table style="width:50%">
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+7
+</td>
+<td>
+-9
+</td>
+<td>
+-63
+</td>
+</tr>
+<tr>
+<td class="r">
+3
+</td>
+<td class="b">
+</td>
+<td class="b">
+3
+</td>
+<td class="b">
+30
+</td>
+<td class="b">
+63
+</td>
+</tr>
+<tr>
+<td class="r">
+</td>
+<td>
+1
+</td>
+<td>
+10
+</td>
+<td>
+21
+</td>
+<td>
+0
+</td>
+</tr>
+</table>
+Notice, the remainder is 0, so the guess was good! So, we rephrase the original equation into a semi-factored form.<span class="math display">\[(x-{3})(x^{2}+{10}x+{21})=0\]</span>Then factor the quadratic expression to get the fully factored form of the equation. You can do this by finding two integers that multiply to give 21 and add to give 10.<span class="math display">\[(x-{3})(x+{7})(x+{3})=0\]</span>Thus the solutions are: {-7, -3, 3}</li>
+</ul>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

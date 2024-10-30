@@ -1,6 +1,10 @@
 library("exams")
 
-pppsss = c("23_complete_the_square.Rmd")
+pppsss = c("24_flip_parabola.Rmd",
+           "25_cannon_balloon.Rmd",
+           "26_intersect_cubic_line.Rmd",
+           "27_sketch_factored_poly.Rmd",
+           "28_match_graph_poly_eq.Rmd")
 
 
 for(ppss in pppsss){

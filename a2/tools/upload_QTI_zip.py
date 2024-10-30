@@ -6,15 +6,11 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID
-file_path_list = ["outcanvas/u06_14_factor_diff_of_squares.zip",
-"outcanvas/u06_15_factor_sum_of_squares.zip",
-"outcanvas/u06_16_quadratic_from_zeros.zip",
-"outcanvas/u06_17_cubic_from_zeros.zip",
-"outcanvas/u06_18_cubic_from_zeros_doub.zip",
-"outcanvas/u06_19_cubic_from_zeros_trip.zip",
-"outcanvas/u06_20_cubic_from_zeros_comp.zip",
-"outcanvas/u06_21_polynomial_ends.zip",
-"outcanvas/u06_22_polynomial_ends_B.zip"]
+file_path_list = ["outcanvas/u06_24_flip_parabola.zip",
+"outcanvas/u06_25_cannon_balloon.zip",
+"outcanvas/u06_26_intersect_cubic_line.zip",
+"outcanvas/u06_27_sketch_factored_poly.zip",
+"outcanvas/u06_28_match_graph_poly_eq.zip"]
 
 # fpl = []
 # for i in range(22,50):
