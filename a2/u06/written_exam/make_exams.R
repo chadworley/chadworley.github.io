@@ -1,16 +1,11 @@
-for(jjj in 200:250){
-    rmarkdown::render(input = "poly_ops_WE.Rmd",
-                      output_file = paste0("reals/poe_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
+for(jjj in 1:50){
+    rmarkdown::render(input = "poly_facts_WE.Rmd",
+                      output_file = paste0("practice/poe_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
                                                                                     showsol = F,
-                                                                                    titex = "EXAM"))
-    rmarkdown::render(input = "poly_ops_WE.Rmd",
-                      output_file = paste0("reals/poe_sol_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
+                                                                                    titex = "practice"))
+    rmarkdown::render(input = "poly_facts_WE.Rmd",
+                      output_file = paste0("practice/poe_sol_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
                                                                                     showsol = T,
-                                                                                    titex = "SOLUTION"))
+                                                                                    titex = "solution"))
 }
-
-
-
-
-
 
