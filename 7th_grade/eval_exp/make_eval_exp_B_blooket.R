@@ -6,16 +6,12 @@ Question #,Question Text,Answer 1,Answer 2,"Answer 3
 (Max: 300 seconds)","Correct Answer(s)
 (Only include Answer #)",,'
 
-write(s,file="eval_exp_blooket_pos.csv")
+write(s,file="eval_exp_blooket_med_pos.csv")
 
-# (x+y)/(x-y) with integer output
-# (x+y)/x
-# (x+y)*x
-# (x+y)*(x-y)
-# 2x+y
-# (x+y)/2
-# (x-y)/2
-# 
+# (x+a)/(y+b)
+# ax+by
+# (x+a)*(x+b)
+
 
 for(i in 1:1000){
     qtype = sample(1:4,1)

@@ -1,0 +1,22 @@
+png("mypic3.png",width=600,height=300)
+
+par(mar=c(0,0,0,0))
+
+plot(0,0,type="n",axes=F,ann=F,xlim=c(-2,2),ylim=c(-1,1))
+
+th = seq(0,2*pi,pi/1000)
+x = cos(th*7)+cos(th*3)
+y = sin(th*11)+sin(5*th)
+pp = seq(0,1,length.out=length(th))
+lines(x,y,col=hsv(0.8,1,0.5),lwd=90)
+lines(x,y,col=hsv(0.8,0,0),lwd=80)
+lines(x,y,col=hsv(0.8,1,1),lwd=70)
+lines(x,y,col=hsv(0.8,0.5,0.5),lwd=60)
+lines(x,y,col=hsv(0.8,0.6,0.4),lwd=50)
+lines(x,y,col=hsv(0.8,0.3,0.7),lwd=40)
+lines(x,y,col=hsv(0.8,0.8,0.2),lwd=30)
+lines(x,y,col=hsv(0.8,0.1,0.9),lwd=20)
+lines(x,y,col=hsv(0.8,0,0),lwd=10)
+lines(x,y,col=hsv(0.8,0,1),lwd=5)
+print(pp)
+dev.off()

@@ -1,4 +1,4 @@
-png("mypic2.png",width=300,height=300)
+png("mypic3.png",width=300,height=300)
 
 par(mar=c(0,0,0,0),pty="s")
 
