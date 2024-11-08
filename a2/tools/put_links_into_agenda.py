@@ -4,12 +4,16 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "u06_"
-files = ["27_sketch_factored_poly.Rmd",
-"28_match_graph_poly_eq.Rmd",
-"29_vertex_form_animation.Rmd"]
+front = "u07_"
+files = ["01_is_relation_a_function.Rmd",
+"02_are_points_a_function.Rmd",
+"03_are_connections_a_function.Rmd",
+"04_is_curve_a_function.Rmd",
+"05_evaluate_function.Rmd",
+"06_eval_func_from_graph.Rmd",
+"07_inv_func_from_graph.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u06/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u07/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
