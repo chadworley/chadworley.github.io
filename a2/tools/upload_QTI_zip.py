@@ -6,7 +6,13 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID
-file_path_list = ["outcanvas/u06_29_vertex_form_animation.zip"]
+file_path_list = ["outcanvas/u07_01_is_relation_a_function.zip",
+"outcanvas/u07_02_are_points_a_function.zip",
+"outcanvas/u07_03_are_connections_a_function.zip",
+"outcanvas/u07_04_is_curve_a_function.zip",
+"outcanvas/u07_05_evaluate_function.zip",
+"outcanvas/u07_06_eval_func_from_graph.zip",
+"outcanvas/u07_07_inv_func_from_graph.zip"]
 
 # fpl = []
 # for i in range(22,50):
