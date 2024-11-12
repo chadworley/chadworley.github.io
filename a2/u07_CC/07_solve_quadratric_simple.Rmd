@@ -1,0 +1,55 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+l1 = 1:9 #possible values for a
+al = -10:10
+a = sort(sample(l1,2,F))
+s = a[1]+a[2]
+p = a[1]*a[2]
+ans1 = paste0((al %in% -a)*1,collapse="")
+```
+
+Question
+========
+
+```{python,echo=FALSE}
+from sympy import *
+x = symbols("x")
+lex1 = latex(x**2+r.s*x+r.p)
+lex2 = latex((x+r.a[0])*(x+r.a[1]))
+```
+
+Solve $`r py$lex1`=0$ by factoring.
+
+
+Answerlist
+--------
+
+```{r,echo=F,results="asis"}
+cat(paste0("* ",al,"\n",collapse=""))
+```
+
+Solution
+========
+
+By guess and check, we find the two integers with sum `r s` and product `r p` are $`r a[1]`$ and $`r a[2]`$.
+
+The sum:
+$$(`r a[1]`)+(`r a[2]`) = `r s`$$
+
+The product:
+$$(`r a[1]`)(`r a[2]`) = `r p`$$
+This allows us to write the equation in factored form.
+
+$$`r py$lex2` = 0 $$
+
+The [zero-product rule](https://en.wikipedia.org/wiki/Zero-product_property){target="_blank"} lets us find the solutions.
+
+$$x = `r -a[1]`$$
+$$x = `r -a[2]`$$
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r ans1`
+exname: solve_quadratic_simple

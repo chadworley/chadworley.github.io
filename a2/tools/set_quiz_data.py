@@ -16,10 +16,17 @@ files = ["01_is_relation_a_function.Rmd",
 
 practice_url_front = "https://chadworley.github.io/a2/u07/outhtml/"
 
+is_DST = False
+if(is_DST):
+    tdel = 4
+else:
+    tdel = 5
+
+
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
 headers = {"Authorization": f"Bearer {access_token}"}
-course_id = '1314'
+course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 
 def set_quiz_ass(name,avt,dut,assdesc=" "):
@@ -46,8 +53,8 @@ def set_quiz_ass(name,avt,dut,assdesc=" "):
 for i in range(len(files)):
     A = datetime.strptime(avt[i],"%Y-%m-%d %H:%M:%S")
     D = datetime.strptime(dut[i],"%Y-%m-%d %H:%M:%S")
-    A = A+timedelta(hours=4)
-    D = D+timedelta(hours=4)
+    A = A+timedelta(hours=tdel)
+    D = D+timedelta(hours=tdel)
     A = A.strftime("%Y-%m-%dT%H:%M:%SZ")
     D = D.strftime("%Y-%m-%dT%H:%M:%SZ")
     pref = files[i].split(".")[0]

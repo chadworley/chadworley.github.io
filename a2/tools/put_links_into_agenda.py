@@ -19,7 +19,7 @@ agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/w
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
 headers = {"Authorization": f"Bearer {access_token}"}
-course_id = '1314'
+course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 
 def get_ass_id(name):

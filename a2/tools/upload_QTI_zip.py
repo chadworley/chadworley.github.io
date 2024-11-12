@@ -5,14 +5,16 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
   access_token = f.read()
 
 # Variables
-course_id = '1314'  # Replace with your course ID
-file_path_list = ["outcanvas/u07_01_is_relation_a_function.zip",
-"outcanvas/u07_02_are_points_a_function.zip",
-"outcanvas/u07_03_are_connections_a_function.zip",
-"outcanvas/u07_04_is_curve_a_function.zip",
-"outcanvas/u07_05_evaluate_function.zip",
-"outcanvas/u07_06_eval_func_from_graph.zip",
-"outcanvas/u07_07_inv_func_from_graph.zip"]
+course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
+file_path_list = ["outcanvas/u07_08_inverse_table.zip",
+"outcanvas/u07_09_two-step_inverse_alg.zip",
+"outcanvas/u07_10_graph_inverse.zip",
+"outcanvas/u07_11_f_of_neg_a.zip",
+"outcanvas/u07_12_neg_of_f_a.zip",
+"outcanvas/u07_13_negs.zip",
+"outcanvas/u07_14_even_or_odd_polynomial.zip",
+"outcanvas/u07_15_even_or_odd_graph.zip",
+"outcanvas/u07_16_domain_range_basic.zip"]
 
 # fpl = []
 # for i in range(22,50):
