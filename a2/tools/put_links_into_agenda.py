@@ -5,13 +5,15 @@ import os
 
 
 front = "u07_"
-files = ["01_is_relation_a_function.Rmd",
-"02_are_points_a_function.Rmd",
-"03_are_connections_a_function.Rmd",
-"04_is_curve_a_function.Rmd",
-"05_evaluate_function.Rmd",
-"06_eval_func_from_graph.Rmd",
-"07_inv_func_from_graph.Rmd"]
+files = ["08_inverse_table.Rmd",
+"09_two-step_inverse_alg.Rmd",
+"10_graph_inverse.Rmd",
+"11_f_of_neg_a.Rmd",
+"12_neg_of_f_a.Rmd",
+"13_negs.Rmd",
+"14_even_or_odd_polynomial.Rmd",
+"15_even_or_odd_graph.Rmd",
+"16_domain_range_basic.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u07/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
