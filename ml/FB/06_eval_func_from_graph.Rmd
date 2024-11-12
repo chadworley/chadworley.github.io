@@ -1,0 +1,60 @@
+```{r data generation, echo = FALSE, results = "hide"}
+rands = sample(1:9,8)
+xbase = rands[1:3]
+x = sort(c(0,rands[1:3],10))
+y = rands[4:8]
+x1 = sample(xbase,1)
+y1 = y[x==x1]
+```
+
+
+
+Question
+========
+
+
+A function $f$ is graphed below.
+
+```{r,fig.dim=c(5,5),echo=FALSE}
+par(pty="s")
+plot(x,y,type="n",xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="f(x)",asp=1,pch=20,cex=2)
+for(i in 0:10){
+  abline(h=i,lty=3)
+  abline(v=i,lty=3)
+}
+xspline(x,y,shape=c(0,rep(-0.3,length(x)-2),0),border="blue",lwd=4)
+```
+\
+
+* Evaluate $f(`r x1`)$.
+
+
+Solution
+========
+
+Find the correct point on the graph where $x=`r x1`$.
+
+```{r,fig.dim=c(5,5),echo=FALSE}
+par(pty="s")
+plot(x,y,type="n",xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="f(x)",asp=1,pch=20,cex=2)
+for(i in 0:10){
+  abline(h=i,lty=3)
+  abline(v=i,lty=3)
+}
+dify=0
+xspline(x,y,shape=c(0,rep(-0.3,length(x)-2),0),border="blue",lwd=4)
+points(x1,y1,pch=20,cex=2.5,col="black")
+points(x1,y1,pch=20,cex=2,col="red")
+```
+\
+
+
+$$f(`r x1`)=`r y1`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r y1`
+exname: eval_func_from_graph
+extol: 0.1

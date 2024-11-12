@@ -3,20 +3,17 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-11-12 8:00:00"]*9
-dut = ["2024-11-12 23:59:00"]*9
-front = "u07_"
+avt = ["2024-11-12 8:00:00"]*4
+dut = ["2024-11-12 23:59:00"]*4
+front = "FB_"
 files = ["08_inverse_table.Rmd",
 "09_two-step_inverse_alg.Rmd",
 "10_graph_inverse.Rmd",
-"11_f_of_neg_a.Rmd",
-"12_neg_of_f_a.Rmd",
-"13_negs.Rmd",
-"14_even_or_odd_polynomial.Rmd",
-"15_even_or_odd_graph.Rmd",
-"16_domain_range_basic.Rmd"]
+"11_domain_range_basic.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u07/outhtml/"
+practice_url_front = "https://chadworley.github.io/ml/FB/outhtml/"
+course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
+canvas_url = 'https://bart.instructure.com'
 
 is_DST = False
 if(is_DST):
@@ -28,8 +25,7 @@ else:
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
 headers = {"Authorization": f"Bearer {access_token}"}
-course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-canvas_url = 'https://bart.instructure.com'
+
 
 def set_quiz_ass(name,avt,dut,assdesc=" "):
     searchdata = {"search_term":name}
