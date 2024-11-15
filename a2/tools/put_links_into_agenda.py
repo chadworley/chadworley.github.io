@@ -4,18 +4,16 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "u07_"
-files = ["08_inverse_table.Rmd",
-"09_two-step_inverse_alg.Rmd",
-"10_graph_inverse.Rmd",
-"11_f_of_neg_a.Rmd",
-"12_neg_of_f_a.Rmd",
-"13_negs.Rmd",
-"14_even_or_odd_polynomial.Rmd",
-"15_even_or_odd_graph.Rmd",
-"16_domain_range_basic.Rmd"]
+front = "u08_"
+files = ["01_intervals_inc_dec_pos_neg_quad.Rmd",
+"02_intervals_sinusoidal.Rmd",
+"03_translate_table.Rmd",
+"04_stretch_table.Rmd",
+"05_translate_and_stretch.Rmd",
+"06_compose_table.Rmd",
+"07_compose_graphs.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u07/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u08/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
