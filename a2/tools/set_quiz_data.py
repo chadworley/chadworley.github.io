@@ -3,16 +3,19 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-11-12 8:00:00"]*4
-dut = ["2024-11-12 23:59:00"]*4
-front = "FB_"
-files = ["08_inverse_table.Rmd",
-"09_two-step_inverse_alg.Rmd",
-"10_graph_inverse.Rmd",
-"11_domain_range_basic.Rmd"]
+avt = ["2024-11-15 8:00:00"]*7
+dut = ["2024-11-15 23:59:00"]*7
+front = "u08_"
+files = ["01_intervals_inc_dec_pos_neg_quad.Rmd",
+"02_intervals_sinusoidal.Rmd",
+"03_translate_table.Rmd",
+"04_stretch_table.Rmd",
+"05_translate_and_stretch.Rmd",
+"06_compose_table.Rmd",
+"07_compose_graphs.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/ml/FB/outhtml/"
-course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
+practice_url_front = "https://chadworley.github.io/a2/u08/outhtml/"
+course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 
 is_DST = False

@@ -1,0 +1,69 @@
+```{r data generation, echo = FALSE, results = "hide"}
+xc = sample(2:8,1)
+ys = sample(2:8,5)
+al = 0:10
+ans1 = paste0(1*(al==ys[3]),collapse="")
+ans2 = paste0(1*(al==ys[2]),collapse="")
+ans3 = paste0(1*(al==ys[4]),collapse="")
+altex = paste0("* ",al,"\n",collapse="")
+```
+
+Question
+========
+
+This question asks you to find [one-sided limits](https://en.wikipedia.org/wiki/One-sided_limit){target="_blank"}.
+
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+library(latex2exp)
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,10),ylim=c(0,10),ylab=TeX("$f(x)$"),xlab=TeX("$x$"))
+for(j in seq(0,10,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+big = 1.3
+sma = 1
+lines(c(0,xc),ys[1:2],lwd=4,col="blue")
+points(xc,ys[2],pch=19,col="blue",cex=big)
+points(xc,ys[2],pch=19,col="white",cex=sma)
+points(xc,ys[3],pch=19,col="blue",cex=big)
+lines(c(xc,10),ys[4:5],lwd=4,col="blue")
+points(xc,ys[4],pch=19,col="blue",cex=big)
+points(xc,ys[4],pch=19,col="white",cex=sma)
+```
+\
+
+* Find $f(`r xc`)$: ##ANSWER1##
+* Find $\lim\limits_{x\to`r xc`^{-}}f(x)$: ##ANSWER2##
+* Find $\lim\limits_{x\to`r xc`^{+}}f(x)$: ##ANSWER3##
+
+Answerlist
+--------
+`r altex`
+`r altex`
+`r altex`
+
+
+Solution
+========
+
+To find $f(`r xc`)$, you put your pencil at the origin, then move right until $x=`r xc`$. Then, you go up until you hit the function (the solid dot in this case). Find the vertical coordinate of that spot. $f(`r xc`)=`r ys[3]`$.
+
+To find the limit as $x$ approaches $`r xc`$ from the left, imagine walking along the curve from left to right. Just before $x=`r xc`$, it seems the path is heading to a vertical coordinate of `r ys[2]`. So, $\lim\limits_{x\to`r xc`^{-}}f(x) = `r ys[2]`$. 
+
+To find the limit as $x$ approaches $`r xc`$ from the right, imagine walking along the curve from right to left Just before $x=`r xc`$, it seems the path is heading to a vertical coordinate of `r ys[4]`. So, $\lim\limits_{x\to`r xc`^{+}}f(x) = `r ys[4]`$. 
+
+(Just FYI:) Since the limit from the left does not equal the limit from the right, the overall limit does not exist.
+
+$$\lim\limits_{x\to`r xc`^{-}}f(x) \ne \lim\limits_{x\to`r xc`^{+}}f(x) ~~~~ \to ~~~~ \lim\limits_{x\to`r xc`}f(x)=\text{DNE}$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`
+exname: graph_limits

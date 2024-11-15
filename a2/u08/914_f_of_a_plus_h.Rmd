@@ -1,0 +1,65 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# uses the LMS's randomization...
+library(reticulate)
+cf = sample(c(-5.-4,-3,-2,2,3,4,5),4)
+a = round(cf[1])
+b = round(cf[2])
+c = round(cf[3])
+```
+
+
+Question
+========
+
+```{python, echo = FALSE, results = "hide"}
+from sympy import *
+x,a,h = symbols("x a h")
+exp = int(r.a)*x**2+int(r.b)*x+int(r.c)
+lexp = latex(exp)
+cexp = latex( exp.subs(x,a+h).expand() )
+wexp1 = latex( exp.subs(x,a-h).expand() )
+wexp2 = latex( exp.subs(x,-a+h).expand() )
+wexp3 = latex( exp.subs(x,-a-h).expand() )
+exps = [cexp,wexp1,wexp2,wexp3]
+```
+
+```{r,echo=FALSE}
+exps = py$exps
+rexps = sample(exps)
+ans1 = paste0(1*(rexps==exps[1]),collapse="")
+```
+
+Let function $f$ be defined as follows:
+$$f(x) ~=~ `r py$lexp`$$
+Which of the following expressions is equivalent to $f(a+h)$?
+
+Answerlist
+--------
+
+* $`r rexps[1]`$
+* $`r rexps[2]`$
+* $`r rexps[3]`$
+* $`r rexps[4]`$
+
+
+Solution
+========
+
+Substitute $a+h$ for $x$.
+
+```{python, echo = FALSE, results = "hide"}
+exp2 = lexp.replace("x","(h+a)")
+```
+
+$$f(a+h) ~=~ `r py$exp2`$$
+
+Simplify. It can be helpful to know the [binomial expansion coefficients](https://en.wikipedia.org/wiki/Binomial_theorem){target="_blank"} from Pascal's triangle.
+
+$$f(a+h) ~=~ `r py$cexp`$$
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r ans1`
+exname: neg_a_function
