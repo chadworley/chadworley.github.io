@@ -3,16 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-11-15 8:00:00"]*7
-dut = ["2024-11-15 23:59:00"]*7
+avt = ["2024-11-18 8:00:00"]*3
+dut = ["2024-11-18 23:59:00"]*3
 front = "u08_"
-files = ["01_intervals_inc_dec_pos_neg_quad.Rmd",
-"02_intervals_sinusoidal.Rmd",
-"03_translate_table.Rmd",
-"04_stretch_table.Rmd",
-"05_translate_and_stretch.Rmd",
-"06_compose_table.Rmd",
-"07_compose_graphs.Rmd"]
+files = ["08_intervals_check.Rmd","09_translate_graph.Rmd","10_stretch_graph.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u08/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'

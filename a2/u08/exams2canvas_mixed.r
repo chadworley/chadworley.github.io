@@ -3,9 +3,11 @@ n = 30
 outdir = "outcanvas"
 genname = "u08_"
 
-probs = c("01_intervals_inc_dec_pos_neg_quad.Rmd")
+probs = c("08_intervals_check.Rmd",
+          "09_translate_graph.Rmd",
+          "10_stretch_graph.Rmd")
 
-pnts = c(3)
+pnts = c(3,3,3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

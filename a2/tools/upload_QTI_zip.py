@@ -6,13 +6,9 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u08_01_intervals_inc_dec_pos_neg_quad.zip",
-"outcanvas/u08_02_intervals_sinusoidal.zip",
-"outcanvas/u08_03_translate_table.zip",
-"outcanvas/u08_04_stretch_table.zip",
-"outcanvas/u08_05_translate_and_stretch.zip",
-"outcanvas/u08_06_compose_table.zip",
-"outcanvas/u08_07_compose_graphs.zip"]
+file_path_list = ["outcanvas/u08_08_intervals_check.zip",
+"outcanvas/u08_09_translate_graph.zip",
+"outcanvas/u08_10_stretch_graph.zip"]
 
 # fpl = []
 # for i in range(50,70):
