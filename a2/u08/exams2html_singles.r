@@ -1,6 +1,7 @@
 library("exams")
 
-pppsss = c("07_compose_graphs.Rmd")
+pppsss = c("07_compose_graphs.Rmd",
+           "08_intervals_check.Rmd")
 
 
 for(ppss in pppsss){
