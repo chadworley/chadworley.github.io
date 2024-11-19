@@ -1,8 +1,6 @@
 library("exams")
 
-pppsss = c("07_compose_graphs.Rmd",
-           "08_intervals_check.Rmd")
-
+pppsss = c("11_animate_transforms.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

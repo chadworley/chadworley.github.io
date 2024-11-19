@@ -3,7 +3,6 @@
 f = function(x){
     return((x^3-3*x^2+2)/2)
 }
-
 ht = function(x,k){
     return(f(x+k))
 }
@@ -39,19 +38,20 @@ gtp = c("g(x) = f(x+k)",
         )
 gtex = c("g(x)~=~f(x+k)",
         "g(x)~=~f(x)+k",
-        "g(x)~=~f(k\cdot x)",
-        "g(x) = k \cdot f(x)"
+        "g(x)~=~f(k\\cdot x)",
+        "g(x) = k \\cdot f(x)"
         )
 
 ans = gtex[wt]
-ans2 = gsub("+-","-",ans,fixed=T)
+ans2 = gsub("k",k,ans,fixed=T)
+ans2 = gsub("+-","-",ans2,fixed=T)
 
 ```
 
 Question
 ========
 
-Let $f(x)=\frac{x^3-3x^2+2}{2}$. Function $g$ is made with a simple transformation (horizontal or vertical shift or stretch). Both functions are graphed below.
+Let $f(x)=\frac{x^3-3x^2+2}{2}$. Function $g$ is made with a simple transformation (horizontal or vertical shift or stretch with possible reflection). Both functions are graphed below.
 
 ```{r,echo=F,fig.dim=c(6,6)}
 par(mar=c(0,0,0,0),pty="s")
@@ -103,7 +103,13 @@ Answerlist
 Solution
 ========
 
+If you open [Desmos](https://www.desmos.com/calculator) and type $f(x)=\frac{x^3-3x^2+2}{2}$ and then type
+
 $$`r ans2`$$
+
+You'll get a picture that looks like the given graph.
+
+So, the equation was $`r ans`$, and the parameter was $k=`r k`$.
 
 
 Meta-information

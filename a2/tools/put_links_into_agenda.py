@@ -5,7 +5,10 @@ import os
 
 
 front = "u08_"
-files = ["08_intervals_check.Rmd","09_translate_graph.Rmd","10_stretch_graph.Rmd"]
+files = ["11_animate_transforms.Rmd",
+"12_identify_transformation.Rmd",
+"13_AROC_from_graph.Rmd",
+"14_projectile_ave_vel.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u08/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

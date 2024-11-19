@@ -6,9 +6,10 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u08_08_intervals_check.zip",
-"outcanvas/u08_09_translate_graph.zip",
-"outcanvas/u08_10_stretch_graph.zip"]
+file_path_list = ["outcanvas/u08_11_animate_transforms.zip",
+"outcanvas/u08_12_identify_transformation.zip",
+"outcanvas/u08_13_AROC_from_graph.zip",
+"outcanvas/u08_14_projectile_ave_vel.zip"]
 
 # fpl = []
 # for i in range(50,70):
