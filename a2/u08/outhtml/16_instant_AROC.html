@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>16_instant_AROC</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">16_instant_AROC</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In real life, the <a href="https://en.wikipedia.org/wiki/Rate_(mathematics)#Of_change">average rate of change</a> over a small time interval is used to approximate the instantaneous rate of change (like with a <a href="https://en.wikipedia.org/wiki/Cyclocomputer#The_wheel_sensor">bicycle’s speedometer</a>). The step size, <span class="math inline">\(h\)</span>, is the width of the interval, so we find the average rate of change of <span class="math inline">\(f(x)\)</span> between <span class="math inline">\(x=a\)</span> and <span class="math inline">\(x=a+h\)</span>:</p>
+<p><span class="math display">\[\text{AROC} = \frac{f(a+h)-f(a)}{h}\]</span></p>
+<p>Let function <span class="math inline">\(f\)</span> be defined as follows:
+<span class="math display">\[f(x) = - 5 x^{2} - 2 x + 5\]</span>
+<strong>Evaluate</strong> the average rate of change of <span class="math inline">\(f\)</span> at <span class="math inline">\(x=-6\)</span> with a step size <span class="math inline">\(h=0.1\)</span>.</p>
+<p><em>You can round (or truncate) your final answer at the hundredths place.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(-6)=-163\]</span>
+<span class="math display">\[f(-6+0.1)=-157.25\]</span></p>
+<p><span class="math display">\[\text{AROC} = \frac{(-157.25)-(-163)}{0.1} = 57.5 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In real life, the <a href="https://en.wikipedia.org/wiki/Rate_(mathematics)#Of_change">average rate of change</a> over a small time interval is used to approximate the instantaneous rate of change (like with a <a href="https://en.wikipedia.org/wiki/Cyclocomputer#The_wheel_sensor">bicycle’s speedometer</a>). The step size, <span class="math inline">\(h\)</span>, is the width of the interval, so we find the average rate of change of <span class="math inline">\(f(x)\)</span> between <span class="math inline">\(x=a\)</span> and <span class="math inline">\(x=a+h\)</span>:</p>
+<p><span class="math display">\[\text{AROC} = \frac{f(a+h)-f(a)}{h}\]</span></p>
+<p>Let function <span class="math inline">\(f\)</span> be defined as follows:
+<span class="math display">\[f(x) = 4 x^{2} - 3 x + 3\]</span>
+<strong>Evaluate</strong> the average rate of change of <span class="math inline">\(f\)</span> at <span class="math inline">\(x=-9\)</span> with a step size <span class="math inline">\(h=0.001\)</span>.</p>
+<p><em>You can round (or truncate) your final answer at the hundredths place.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(-9)=354\]</span>
+<span class="math display">\[f(-9+0.001)=353.925004\]</span></p>
+<p><span class="math display">\[\text{AROC} = \frac{(353.925004)-(354)}{0.001} = -75 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In real life, the <a href="https://en.wikipedia.org/wiki/Rate_(mathematics)#Of_change">average rate of change</a> over a small time interval is used to approximate the instantaneous rate of change (like with a <a href="https://en.wikipedia.org/wiki/Cyclocomputer#The_wheel_sensor">bicycle’s speedometer</a>). The step size, <span class="math inline">\(h\)</span>, is the width of the interval, so we find the average rate of change of <span class="math inline">\(f(x)\)</span> between <span class="math inline">\(x=a\)</span> and <span class="math inline">\(x=a+h\)</span>:</p>
+<p><span class="math display">\[\text{AROC} = \frac{f(a+h)-f(a)}{h}\]</span></p>
+<p>Let function <span class="math inline">\(f\)</span> be defined as follows:
+<span class="math display">\[f(x) = - 3 x^{2} - 5 x + 2\]</span>
+<strong>Evaluate</strong> the average rate of change of <span class="math inline">\(f\)</span> at <span class="math inline">\(x=5\)</span> with a step size <span class="math inline">\(h=0.01\)</span>.</p>
+<p><em>You can round (or truncate) your final answer at the hundredths place.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(5)=-98\]</span>
+<span class="math display">\[f(5+0.01)=-98.3503\]</span></p>
+<p><span class="math display">\[\text{AROC} = \frac{(-98.3503)-(-98)}{0.01} = -35.03 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In real life, the <a href="https://en.wikipedia.org/wiki/Rate_(mathematics)#Of_change">average rate of change</a> over a small time interval is used to approximate the instantaneous rate of change (like with a <a href="https://en.wikipedia.org/wiki/Cyclocomputer#The_wheel_sensor">bicycle’s speedometer</a>). The step size, <span class="math inline">\(h\)</span>, is the width of the interval, so we find the average rate of change of <span class="math inline">\(f(x)\)</span> between <span class="math inline">\(x=a\)</span> and <span class="math inline">\(x=a+h\)</span>:</p>
+<p><span class="math display">\[\text{AROC} = \frac{f(a+h)-f(a)}{h}\]</span></p>
+<p>Let function <span class="math inline">\(f\)</span> be defined as follows:
+<span class="math display">\[f(x) = 3 x^{2} + 5 x - 4\]</span>
+<strong>Evaluate</strong> the average rate of change of <span class="math inline">\(f\)</span> at <span class="math inline">\(x=6\)</span> with a step size <span class="math inline">\(h=0.1\)</span>.</p>
+<p><em>You can round (or truncate) your final answer at the hundredths place.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(6)=134\]</span>
+<span class="math display">\[f(6+0.1)=138.13\]</span></p>
+<p><span class="math display">\[\text{AROC} = \frac{(138.13)-(134)}{0.1} = 41.3 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In real life, the <a href="https://en.wikipedia.org/wiki/Rate_(mathematics)#Of_change">average rate of change</a> over a small time interval is used to approximate the instantaneous rate of change (like with a <a href="https://en.wikipedia.org/wiki/Cyclocomputer#The_wheel_sensor">bicycle’s speedometer</a>). The step size, <span class="math inline">\(h\)</span>, is the width of the interval, so we find the average rate of change of <span class="math inline">\(f(x)\)</span> between <span class="math inline">\(x=a\)</span> and <span class="math inline">\(x=a+h\)</span>:</p>
+<p><span class="math display">\[\text{AROC} = \frac{f(a+h)-f(a)}{h}\]</span></p>
+<p>Let function <span class="math inline">\(f\)</span> be defined as follows:
+<span class="math display">\[f(x) = 4 x^{2} + 2 x + 5\]</span>
+<strong>Evaluate</strong> the average rate of change of <span class="math inline">\(f\)</span> at <span class="math inline">\(x=-5\)</span> with a step size <span class="math inline">\(h=0.1\)</span>.</p>
+<p><em>You can round (or truncate) your final answer at the hundredths place.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(-5)=95\]</span>
+<span class="math display">\[f(-5+0.1)=91.24\]</span></p>
+<p><span class="math display">\[\text{AROC} = \frac{(91.24)-(95)}{0.1} = -37.6 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In real life, the <a href="https://en.wikipedia.org/wiki/Rate_(mathematics)#Of_change">average rate of change</a> over a small time interval is used to approximate the instantaneous rate of change (like with a <a href="https://en.wikipedia.org/wiki/Cyclocomputer#The_wheel_sensor">bicycle’s speedometer</a>). The step size, <span class="math inline">\(h\)</span>, is the width of the interval, so we find the average rate of change of <span class="math inline">\(f(x)\)</span> between <span class="math inline">\(x=a\)</span> and <span class="math inline">\(x=a+h\)</span>:</p>
+<p><span class="math display">\[\text{AROC} = \frac{f(a+h)-f(a)}{h}\]</span></p>
+<p>Let function <span class="math inline">\(f\)</span> be defined as follows:
+<span class="math display">\[f(x) = 3 x^{2} + 2 x + 4\]</span>
+<strong>Evaluate</strong> the average rate of change of <span class="math inline">\(f\)</span> at <span class="math inline">\(x=-3\)</span> with a step size <span class="math inline">\(h=0.01\)</span>.</p>
+<p><em>You can round (or truncate) your final answer at the hundredths place.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(-3)=25\]</span>
+<span class="math display">\[f(-3+0.01)=24.8403\]</span></p>
+<p><span class="math display">\[\text{AROC} = \frac{(24.8403)-(25)}{0.01} = -15.97 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In real life, the <a href="https://en.wikipedia.org/wiki/Rate_(mathematics)#Of_change">average rate of change</a> over a small time interval is used to approximate the instantaneous rate of change (like with a <a href="https://en.wikipedia.org/wiki/Cyclocomputer#The_wheel_sensor">bicycle’s speedometer</a>). The step size, <span class="math inline">\(h\)</span>, is the width of the interval, so we find the average rate of change of <span class="math inline">\(f(x)\)</span> between <span class="math inline">\(x=a\)</span> and <span class="math inline">\(x=a+h\)</span>:</p>
+<p><span class="math display">\[\text{AROC} = \frac{f(a+h)-f(a)}{h}\]</span></p>
+<p>Let function <span class="math inline">\(f\)</span> be defined as follows:
+<span class="math display">\[f(x) = 3 x^{2} - 5 x - 2\]</span>
+<strong>Evaluate</strong> the average rate of change of <span class="math inline">\(f\)</span> at <span class="math inline">\(x=7\)</span> with a step size <span class="math inline">\(h=0.1\)</span>.</p>
+<p><em>You can round (or truncate) your final answer at the hundredths place.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(7)=110\]</span>
+<span class="math display">\[f(7+0.1)=113.73\]</span></p>
+<p><span class="math display">\[\text{AROC} = \frac{(113.73)-(110)}{0.1} = 37.3 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In real life, the <a href="https://en.wikipedia.org/wiki/Rate_(mathematics)#Of_change">average rate of change</a> over a small time interval is used to approximate the instantaneous rate of change (like with a <a href="https://en.wikipedia.org/wiki/Cyclocomputer#The_wheel_sensor">bicycle’s speedometer</a>). The step size, <span class="math inline">\(h\)</span>, is the width of the interval, so we find the average rate of change of <span class="math inline">\(f(x)\)</span> between <span class="math inline">\(x=a\)</span> and <span class="math inline">\(x=a+h\)</span>:</p>
+<p><span class="math display">\[\text{AROC} = \frac{f(a+h)-f(a)}{h}\]</span></p>
+<p>Let function <span class="math inline">\(f\)</span> be defined as follows:
+<span class="math display">\[f(x) = - 2 x^{2} - 3 x + 3\]</span>
+<strong>Evaluate</strong> the average rate of change of <span class="math inline">\(f\)</span> at <span class="math inline">\(x=-2\)</span> with a step size <span class="math inline">\(h=0.01\)</span>.</p>
+<p><em>You can round (or truncate) your final answer at the hundredths place.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(-2)=1\]</span>
+<span class="math display">\[f(-2+0.01)=1.0498\]</span></p>
+<p><span class="math display">\[\text{AROC} = \frac{(1.0498)-(1)}{0.01} = 4.98 \]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

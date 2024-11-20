@@ -1,6 +1,7 @@
 library("exams")
 
-pppsss = c("11_animate_transforms.Rmd")
+pppsss = c("15_aroc_table.Rmd",
+           "16_instant_AROC.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
