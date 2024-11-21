@@ -1,7 +1,6 @@
 library("exams")
 
-pppsss = c("15_aroc_table.Rmd",
-           "16_instant_AROC.Rmd")
+pppsss = c("17_AROC_dimensions.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

@@ -3,11 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-11-20 8:00:00"]*2
-dut = ["2024-11-20 23:59:00"]*2
+avt = ["2024-11-21 8:00:00"]
+dut = ["2024-11-21 23:59:00"]
 front = "u08_"
-files = ["15_aroc_table.Rmd",
-"16_instant_AROC.Rmd"]
+files = ["17_AROC_dimensions.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u08/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'

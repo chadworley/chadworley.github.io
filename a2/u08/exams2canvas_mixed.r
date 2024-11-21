@@ -3,7 +3,7 @@ n = 30
 outdir = "outcanvas"
 genname = "u08_"
 
-probs = c("16_instant_AROC.Rmd")
+probs = c("17_AROC_dimensions.Rmd")
 
 pnts = c(3)
 
