@@ -5,8 +5,7 @@ import os
 
 
 front = "u08_"
-files = ["15_aroc_table.Rmd",
-"16_instant_AROC.Rmd"]
+files = ["17_AROC_dimensions.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u08/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
