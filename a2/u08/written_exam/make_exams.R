@@ -1,10 +1,10 @@
 for(jjj in 1:50){
     rmarkdown::render(input = "u08_WE.Rmd",
-                      output_file = paste0("practice/ieodr_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
+                      output_file = paste0("practice/u08we_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
                                                                                                   showsol = F,
                                                                                                   titex = "Practice"))
     rmarkdown::render(input = "u08_WE.Rmd",
-                      output_file = paste0("practice/ieodr_sol_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
+                      output_file = paste0("practice/u08we_sol_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
                                                                                                       showsol = T,
                                                                                                       titex = "Solution"))
 }
