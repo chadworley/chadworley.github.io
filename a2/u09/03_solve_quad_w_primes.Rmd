@@ -1,0 +1,128 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+primes = c(2,3,5,7)
+
+while(T){
+    pq = sample(primes,2)
+    p = pq[1]
+    q = pq[2]
+    s = 1
+    cons = sample(c(q,s))*sample(c(-1,1),2,T)
+    m = cons[1]
+    n = cons[2]
+    
+    # (px+m)(x+n)
+    # px^2+(pn+m)x+mn
+    
+    A = p
+    B = p*n+m
+    C = m*n
+    
+    x1 = -m/p
+    x2 = -n
+    
+    ex1 = pfix(c(A,B,C),2:0)
+    
+    soltxt = paste0("(",pfix(c(p,m),1:0),")(",pfix(c(1,n),1:0),")",collapse="")
+    
+    zeq1 = paste0("(",pfix(c(p,m),1:0),")",collapse="")
+    zeq2 = paste0("(",pfix(c(1,n),1:0),")",collapse="")
+    
+    
+    
+    mfs = function(nu,de){
+        if(nu%%de==0){
+            return(paste0("$",round(nu/de),"$",collapse=""))
+        } else {
+            return(paste0("$\\frac{",nu,"}{",de,"}$",collapse=""))
+        }
+    }
+    
+    mfz = function(nu,de){
+        if(nu%%de==0){
+            return(paste0(round(nu/de),collapse=""))
+        } else {
+            return(paste0("\\frac{",nu,"}{",de,"}",collapse=""))
+        }
+    }
+    
+    nums = c(1,primes)
+    ach = numeric()
+    afr = character()
+    for(i in 1:length(nums)){
+        for(j in 1:length(nums)){
+            nu = nums[i]
+            de = nums[j]
+            mf1 = mfs(nu,de)
+            mf2 = mfs(-nu,de)
+            if(!(mf1%in%afr)){
+                ach = c(ach,nu/de)
+                ach = c(ach,-nu/de)
+                afr = c(afr,mf1)
+                afr = c(afr,mf2)
+            }
+        }
+    }
+    al = paste0("* ",afr,collapse="\n")
+    f1 = mfz(-m,p)
+    f2 = mfz(-n,1)
+    sol = paste0(1*(x1==ach)+1*(x2==ach),collapse="")
+    if(sum(1*(x1==ach)+1*(x2==ach))==2){break}
+}
+```
+
+Question
+========
+
+By factoring the quadratic expression, find all values of $x$ that make the equation true. In other words, solve the equation.
+
+$$`r ex1`~=~0$$
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+Factor the quadratic expression. Notice both the leading coefficient ($`r A`$) and the constanct ($`r C`$) are prime. This suggests we only need to guess and check a few possible factorizations. You should end up with the following equation:
+
+$$`r soltxt`~=~0$$
+
+Which you could check by [FOILing](https://en.wikipedia.org/wiki/FOIL_method)...
+
+To find the solutions, use the [zero-product property](https://en.wikipedia.org/wiki/Zero-product_property#Application_to_finding_roots_of_polynomials).
+
+### First solution
+
+$$`r zeq1`=0$$
+$$x = `r f1`$$
+
+### Second solution
+
+$$`r zeq2`=0$$
+$$x = `r f2`$$
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: solve_quad_w_primes

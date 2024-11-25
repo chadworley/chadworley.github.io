@@ -1,0 +1,124 @@
+```{r data generation, echo = FALSE, results = "hide"}
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+primes = c(2,3,5,7,11)
+
+pq = sample(primes,2)
+p = pq[1]
+q = pq[2]
+s = 1
+cons = sample(c(q,s))*sample(c(-1,1),2,T)
+m = cons[1]
+n = cons[2]
+
+# (px+m)(x+n)
+# px^2+(pn+m)x+mn
+
+A = p
+B = p*n+m
+C = m*n
+
+ex1 = pfix(c(A,B,C),2:0)
+
+soltxt = paste0("(",pfix(c(p,m),1:0),")(",pfix(c(1,n),1:0),")",collapse="")
+
+ach = sort(c(-p,-q,-1,1,q,p))
+al = paste0("+",ach)
+al = gsub("+-","-",al,fixed=T)
+al = paste0("* ",al,collapse="\n")
+alf = paste0("* ",ach,collapse="\n")
+
+ach = sort(c(-p,-q,-1,1,q,p))
+
+sol1 = paste0(1*(ach==p),collapse="")
+sol2 = paste0(1*(ach==m),collapse="")
+sol3 = paste0(1*(ach==n),collapse="")
+
+
+fch = character()
+ech = character()
+mch = character()
+
+for(MN in list(c(1,q),
+               c(1,-q),
+               c(-1,q),
+               c(-1,-q),
+               c(q,1),
+               c(q,-1),
+               c(-q,1),
+               c(-q,-1))){
+    M = MN[1]
+    N = MN[2]
+    fex = paste0("$(",pfix(c(p,M),1:0),")(",pfix(c(1,N),1:0),")$",collapse="")
+    eex = paste0("$",pfix(c(p,p*N+M,M*N),2:0),"$")
+    if(M==m && N==n){
+        mex = "Yes"
+    } else {
+        mex = "No"
+    }
+    fch = c(fch,fex)
+    ech = c(ech,eex)
+    mch = c(mch,mex)
+}
+
+    
+    
+```
+
+Question
+========
+
+Let the quadratic function $f(x)$ be defined below.
+
+$$f(x)~=~`r ex1`$$
+
+Write $f(x)$ in factored form.
+
+* $f(x)~=~($#ANSWER1#$x$##ANSWER2##$)(x$##ANSWER3##$)$
+
+
+Answerlist
+--------
+
+`r alf`
+`r al`
+`r al`
+
+
+Solution
+========
+
+The correct answer is $f(x)~=~`r soltxt`$.
+
+Notice that in expanded form, both the quadratic coefficient and constant are prime. Thus, the list of potential candidates for guess-and-check is small.
+
+| factored guess | expanded guess | match? |
+|:---:|:---:|:---:|
+| `r fch[1]` | `r ech[1]` | `r mch[1]` |
+| `r fch[2]` | `r ech[2]` | `r mch[2]` |
+| `r fch[3]` | `r ech[3]` | `r mch[3]` |
+| `r fch[4]` | `r ech[4]` | `r mch[4]` |
+| `r fch[5]` | `r ech[5]` | `r mch[5]` |
+| `r fch[6]` | `r ech[6]` | `r mch[6]` |
+| `r fch[7]` | `r ech[7]` | `r mch[7]` |
+| `r fch[8]` | `r ech[8]` | `r mch[8]` |
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: factor_quad_w_primes

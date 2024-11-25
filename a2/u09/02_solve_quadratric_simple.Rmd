@@ -1,0 +1,88 @@
+```{r data generation, echo = FALSE, results = "hide"}
+l1 = 1:10 #possible values for a
+al = -10:10
+a = sample(l1,2,F)*sample(c(-1,1),2,T)
+s = a[1]+a[2]
+p = a[1]*a[2]
+ans1 = paste0((al %in% -a)*1,collapse="")
+
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+estan = pfix(c(1,s,p),2:0)
+efac = paste0("(x+",a[1],")(x+",a[2],")",collapse="")
+efac = gsub("+-","-",efac,fixed=T)
+
+fac1 = character()
+fac2 = character()
+daexp = character()
+for(j in 1:floor(sqrt(abs(p)))){
+    if(p%%j==0){
+        fac1 = c(fac1,paste0("$(",pfix(c(1,j),1:0),")$",collapse=""))
+        fac2 = c(fac2,paste0("$(",pfix(c(1,round(p/j)),1:0),")$",collapse=""))
+        daexp = c(daexp,paste0("$",pfix(c(1,j+round(p/j),p),2:0),"$",collapse=""))
+        fac1 = c(fac1,paste0("$(",pfix(c(1,-j),1:0),")$",collapse=""))
+        fac2 = c(fac2,paste0("$(",pfix(c(1,-round(p/j)),1:0),")$",collapse=""))
+        daexp = c(daexp,paste0("$",pfix(c(1,-j-round(p/j),p),2:0),"$",collapse=""))
+    }
+}
+
+mydf = data.frame(fac1,fac2,daexp)
+
+```
+
+
+Question
+========
+
+Solve $`r estan`=0$ by factoring.
+
+
+Answerlist
+--------
+
+```{r,echo=F,results="asis"}
+cat(paste0("* ",al,"\n",collapse=""))
+```
+
+Solution
+========
+
+Our original equation is a quadratic equal to 0.
+
+$$`r estan`=0$$
+
+The quadratic has a leading coefficient of 1 and a constant of `r p`. Consider all the pairs of linear factors with integer coefficients whose [FOIL product](https://en.wikipedia.org/wiki/FOIL_method) gives a quadratic with a leading coefficient of 1 and a constant of `r p`.
+
+```{r,echo=F,results='asis'}
+colnames(mydf) = c("first factor","second factor","FOIL product")
+kableExtra::kable(mydf)
+```
+
+
+By guess and check, we find the two integers with sum `r s` and product `r p` are $`r a[1]`$ and $`r a[2]`$. Indeed, $(`r a[1]`)+(`r a[2]`) = `r s`$ and $(`r a[1]`)(`r a[2]`) = `r p`$. This allows us to write the original equation in factored form.
+
+$$`r efac`=0$$
+
+The [zero-product rule](https://en.wikipedia.org/wiki/Zero-product_property){target="_blank"} lets us find the solutions.
+
+$$x = `r -a[1]`$$
+$$x = `r -a[2]`$$
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r ans1`
+exname: solve_quadratic_simple

@@ -1,0 +1,76 @@
+```{r data generation, echo = FALSE, results = "hide"}
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+# (x+a)(x+c)/((x+a)(x+b)) has a hole at (-a,(c-a)/(b-a))
+
+while(T){
+    abc = sample(c(-8:-2,2:8),3)
+    a = abc[1]
+    b = abc[2]
+    c = abc[3]
+    h = -a
+    k = (c-a)/(b-a)
+    if(k %% 1 == 0 && k>0 && k<5){break}
+}
+
+
+
+
+# (x+a)/((x+a)(x+b)) has a hole at (-a,1/(b-a))
+# y = m(x+a)+1/(b-a)
+
+# b = a+1 or b=a-1
+
+# a = sample(c(-8:-2,2:8),1)
+# b = a-1#+sample(c(-1,1),1)
+# m = 0 #sample(2:3,1)
+
+# (x+a)/(x^2+(a+b)x+ab) = mx+(ma+1/(b-a))
+# y = m(x+a)+1/(b-a)
+
+f = paste0("\\frac{",pfix(c(1,a+c,a*c),2:0),"}{",pfix(c(1,a+b,a*b),2:0),"}",collapse="")
+g = k
+
+```
+
+
+Question
+========
+
+Solve the rational equation.
+
+$$`r f` ~=~ `r g`$$
+
+
+
+Solution
+========
+
+`r h`
+
+`r a`
+
+`r b`
+
+`r c`
+
+
+
+Meta-information
+============
+extype: num
+exsolution: 1
+exname: rational_eq_A
+extol: 0.01

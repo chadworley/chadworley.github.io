@@ -11,6 +11,7 @@ urlcolor: blue
 
 
 ```{r,echo=F}
+# In the future, you should make it so the domain is never the same as the range!
 set.seed(params$rseed)
 if(params$showsol){
     solstart = ""
@@ -80,8 +81,10 @@ for(i in 1:(length(xpn)-1)){
     xl = xpn[i]
     xr = xpn[i+1]
     xt = xl+1
+    yl = ya[xa==xl]
     yt = ya[xa==xt]
-    if(yt>0){
+    ymid = mean(c(yl,yt))
+    if(ymid>0){
         ipos = c(ipos,paste0("(",xl,", ",xr,")",collapse=""))
     } else {
         ineg = c(ineg,paste0("(",xl,", ",xr,")",collapse=""))
