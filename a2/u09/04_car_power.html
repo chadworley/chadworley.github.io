@@ -11,7 +11,7 @@
 
 
 
-<title>03_solve_quad_w_primes.knit</title>
+<title>04_car_power.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -354,81 +354,39 @@ display: none;
 
 <div id="question" class="section level1">
 <h1>Question</h1>
-<p>By factoring the quadratic expression, find all values of <span class="math inline">\(x\)</span> that make the equation true. In other
-words, solve the equation.</p>
-<p><span class="math display">\[{5}x^{2}+{3}x-{2}~=~0\]</span></p>
-<div id="answerlist" class="section level2">
-<h2>Answerlist</h2>
-<ul>
-<li><span class="math inline">\(1\)</span></li>
-<li><span class="math inline">\(-1\)</span></li>
-<li><span class="math inline">\(\frac{1}{2}\)</span></li>
-<li><span class="math inline">\(\frac{-1}{2}\)</span></li>
-<li><span class="math inline">\(\frac{1}{3}\)</span></li>
-<li><span class="math inline">\(\frac{-1}{3}\)</span></li>
-<li><span class="math inline">\(\frac{1}{5}\)</span></li>
-<li><span class="math inline">\(\frac{-1}{5}\)</span></li>
-<li><span class="math inline">\(\frac{1}{7}\)</span></li>
-<li><span class="math inline">\(\frac{-1}{7}\)</span></li>
-<li><span class="math inline">\(2\)</span></li>
-<li><span class="math inline">\(-2\)</span></li>
-<li><span class="math inline">\(\frac{2}{3}\)</span></li>
-<li><span class="math inline">\(\frac{-2}{3}\)</span></li>
-<li><span class="math inline">\(\frac{2}{5}\)</span></li>
-<li><span class="math inline">\(\frac{-2}{5}\)</span></li>
-<li><span class="math inline">\(\frac{2}{7}\)</span></li>
-<li><span class="math inline">\(\frac{-2}{7}\)</span></li>
-<li><span class="math inline">\(3\)</span></li>
-<li><span class="math inline">\(-3\)</span></li>
-<li><span class="math inline">\(\frac{3}{2}\)</span></li>
-<li><span class="math inline">\(\frac{-3}{2}\)</span></li>
-<li><span class="math inline">\(\frac{3}{5}\)</span></li>
-<li><span class="math inline">\(\frac{-3}{5}\)</span></li>
-<li><span class="math inline">\(\frac{3}{7}\)</span></li>
-<li><span class="math inline">\(\frac{-3}{7}\)</span></li>
-<li><span class="math inline">\(5\)</span></li>
-<li><span class="math inline">\(-5\)</span></li>
-<li><span class="math inline">\(\frac{5}{2}\)</span></li>
-<li><span class="math inline">\(\frac{-5}{2}\)</span></li>
-<li><span class="math inline">\(\frac{5}{3}\)</span></li>
-<li><span class="math inline">\(\frac{-5}{3}\)</span></li>
-<li><span class="math inline">\(\frac{5}{7}\)</span></li>
-<li><span class="math inline">\(\frac{-5}{7}\)</span></li>
-<li><span class="math inline">\(7\)</span></li>
-<li><span class="math inline">\(-7\)</span></li>
-<li><span class="math inline">\(\frac{7}{2}\)</span></li>
-<li><span class="math inline">\(\frac{-7}{2}\)</span></li>
-<li><span class="math inline">\(\frac{7}{3}\)</span></li>
-<li><span class="math inline">\(\frac{-7}{3}\)</span></li>
-<li><span class="math inline">\(\frac{7}{5}\)</span></li>
-<li><span class="math inline">\(\frac{-7}{5}\)</span></li>
-</ul>
-</div>
+<p>An object in motion stays in motion unless acted upon by an external
+force. So, ideally, a spaceship in deep space, after accelerating, could
+cruise at a constant velocity without needing to run its thrusters.</p>
+<p>However, an <a href="https://en.wikipedia.org/wiki/Car">automobile</a> on Earth’s
+surface, even on “flat” ground, needs to constantly burn fuel (or use
+its battery) to overcome countervailing external forces. The major force
+pushing against an automobile’s motion (other than gravity when going up
+hill) is <a href="https://en.wikipedia.org/wiki/Drag_(physics)#Aerodynamics">air
+resistance</a>.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Force">force</a> from the
+aerodynamic drag is proportional to the square of velocity. The
+quadratic coefficient can be estimated by looking up the <a href="https://en.wikipedia.org/wiki/Automobile_drag_coefficient#Drag_area">drag
+area</a> and estimating the <a href="https://en.wikipedia.org/wiki/Density_of_air">density of
+air</a>.</p>
+<p>If we pick a car with a drag area of 2.411 <span class="math inline">\(\mathrm{m^2}\)</span> (basically a large box) and
+say the density of air is approximately 1.225 <span class="math inline">\(\mathrm{\frac{kg}{m^2}}\)</span>, then we predict
+the force (<span class="math inline">\(F\)</span> in <a href="https://en.wikipedia.org/wiki/Newton_(unit)">newtons</a>) is
+related to velocity (<span class="math inline">\(v\)</span> in meters
+per second) by the equation below:</p>
+<p><span class="math display">\[F = 1.477\cdot v^2\]</span></p>
+<p>The engine’s output <a href="https://en.wikipedia.org/wiki/Power_(physics)">power</a> (<span class="math inline">\(P\)</span> in <a href="https://en.wikipedia.org/wiki/Watt">watts</a>) is proportional to
+the cube of velocity, using the same coefficient.</p>
+<p><span class="math display">\[P_{\text{out}} = 1.477\cdot
+v^3\]</span></p>
+<p>A typical gasoline engine is about 20% efficient at turning fuel into
+motion.</p>
 </div>
 <div id="solution" class="section level1">
 <h1>Solution</h1>
-<p>Factor the quadratic expression. Notice both the leading coefficient
-(<span class="math inline">\(5\)</span>) and the constanct (<span class="math inline">\(-2\)</span>) are prime. This suggests we only need
-to guess and check a few possible factorizations. You should end up with
-the following equation:</p>
-<p><span class="math display">\[({5}x-{2})(x+{1})~=~0\]</span></p>
-<p>Which you could check by <a href="https://en.wikipedia.org/wiki/FOIL_method">FOILing</a>…</p>
-<p>To find the solutions, use the <a href="https://en.wikipedia.org/wiki/Zero-product_property#Application_to_finding_roots_of_polynomials">zero-product
-property</a>.</p>
-<div id="first-solution" class="section level3">
-<h3>First solution</h3>
-<p><span class="math display">\[({5}x-{2})=0\]</span> <span class="math display">\[x = \frac{2}{5}\]</span></p>
-</div>
-<div id="second-solution" class="section level3">
-<h3>Second solution</h3>
-<p><span class="math display">\[(x+{1})=0\]</span> <span class="math display">\[x = -1\]</span></p>
-</div>
 </div>
 <div id="meta-information" class="section level1">
 <h1>Meta-information</h1>
-<p>extype: mchoice exsolution:
-010000000000001000000000000000000000000000 exname:
-solve_quad_w_primes</p>
+<p>extype: num exsolution: exname: use_odd_prop</p>
 </div>
 
 

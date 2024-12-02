@@ -3,12 +3,14 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-11-21 8:00:00"]
-dut = ["2024-11-21 23:59:00"]
-front = "u08_"
-files = ["17_AROC_dimensions.Rmd"]
+avt = ["2024-12-02 8:00:00"]*3
+dut = ["2024-12-02 23:59:00"]*3
+front = "u09_"
+files = ["01_factor_quad_w_primes.Rmd",
+"02_solve_quadratric_simple.Rmd",
+"03_solve_quad_w_primes.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u08/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u09/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 

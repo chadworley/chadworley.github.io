@@ -4,10 +4,12 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "u08_"
-files = ["17_AROC_dimensions.Rmd"]
+front = "u09_"
+files = ["01_factor_quad_w_primes.Rmd",
+"02_solve_quadratric_simple.Rmd",
+"03_solve_quad_w_primes.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u08/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u09/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:

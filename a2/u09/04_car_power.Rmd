@@ -1,0 +1,52 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# F = 1/2*rho*cda*v^2
+# P = 1/2*rho*cda*v^3
+
+cda = round(runif(1,0.2,2.5),3) #m^2
+rho = 1.225 #kg/m^3
+k = round(1/2*cda*rho,3)
+
+if(cda < 0.5){
+    cardes = "quite aerodynamic"
+} else if(cda < 1){
+    cardes = "moderately aerodynamic"
+} else if(cda < 1.5){
+    cardes = "not very aerodynamic"
+} else {
+    cardes = "basically a large box"
+}
+
+```
+
+
+
+Question
+========
+
+An object in motion stays in motion unless acted upon by an external force. So, ideally, a spaceship in deep space, after accelerating, could cruise at a constant velocity without needing to run its thrusters.
+
+However, an [automobile](https://en.wikipedia.org/wiki/Car) on Earth's surface, even on "flat" ground, needs to constantly burn fuel (or use its battery) to overcome countervailing external forces. The major force pushing against an automobile's motion (other than gravity when going up hill) is [air resistance](https://en.wikipedia.org/wiki/Drag_(physics)#Aerodynamics).
+
+The [force](https://en.wikipedia.org/wiki/Force) from the aerodynamic drag is proportional to the square of velocity. The quadratic coefficient can be estimated by looking up the [drag area](https://en.wikipedia.org/wiki/Automobile_drag_coefficient#Drag_area) and estimating the [density of air](https://en.wikipedia.org/wiki/Density_of_air).
+
+If we pick a car with a drag area of `r cda` $\mathrm{m^2}$ (`r cardes`) and say the density of air is approximately `r rho` $\mathrm{\frac{kg}{m^2}}$, then we predict the force ($F$ in [newtons](https://en.wikipedia.org/wiki/Newton_(unit))) is related to velocity ($v$ in meters per second) by the equation below:
+
+$$F = `r k`\cdot v^2$$
+
+The engine's output [power](https://en.wikipedia.org/wiki/Power_(physics)) ($P$ in [watts](https://en.wikipedia.org/wiki/Watt)) is proportional to the cube of velocity, using the same coefficient.
+
+$$P_{\text{out}} = `r k`\cdot v^3$$
+
+A typical gasoline engine is about 20% efficient at turning fuel into motion. 
+
+
+Solution
+========
+
+
+
+Meta-information
+============
+extype: num
+exsolution: 
+exname: use_odd_prop

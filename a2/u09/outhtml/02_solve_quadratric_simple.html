@@ -1,0 +1,1066 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>02_solve_quadratric_simple</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">02_solve_quadratric_simple</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve <span class="math inline">\(x^{2}-{13}x+{36}=0\)</span> by factoring.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=-10\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=0\)</span>
+</li>
+<li>
+<span class="math inline">\(x=1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=10\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Our original equation is a quadratic equal to 0.</p>
+<p><span class="math display">\[x^{2}-{13}x+{36}=0\]</span></p>
+<p>The quadratic has a leading coefficient of 1 and a constant of 36. Consider all the pairs of linear factors with integer coefficients whose <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL product</a> gives a quadratic with a leading coefficient of 1 and a constant of 36.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">first factor</th>
+<th align="left">second factor</th>
+<th align="left">FOIL product</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{1})\)</span></td>
+<td align="left"><span class="math inline">\((x+{36})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{37}x+{36}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{1})\)</span></td>
+<td align="left"><span class="math inline">\((x-{36})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{37}x+{36}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{2})\)</span></td>
+<td align="left"><span class="math inline">\((x+{18})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{20}x+{36}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{2})\)</span></td>
+<td align="left"><span class="math inline">\((x-{18})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{20}x+{36}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{3})\)</span></td>
+<td align="left"><span class="math inline">\((x+{12})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{15}x+{36}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{3})\)</span></td>
+<td align="left"><span class="math inline">\((x-{12})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{15}x+{36}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{4})\)</span></td>
+<td align="left"><span class="math inline">\((x+{9})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{13}x+{36}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{4})\)</span></td>
+<td align="left"><span class="math inline">\((x-{9})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{13}x+{36}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{6})\)</span></td>
+<td align="left"><span class="math inline">\((x+{6})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{12}x+{36}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{6})\)</span></td>
+<td align="left"><span class="math inline">\((x-{6})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{12}x+{36}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>By guess and check, we find the two integers with sum -13 and product 36 are <span class="math inline">\(-9\)</span> and <span class="math inline">\(-4\)</span>. Indeed, <span class="math inline">\((-9)+(-4) = -13\)</span> and <span class="math inline">\((-9)(-4) = 36\)</span>. This allows us to write the original equation in factored form.</p>
+<p><span class="math display">\[(x-9)(x-4)=0\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Zero-product_property" target="_blank">zero-product rule</a> lets us find the solutions.</p>
+<p><span class="math display">\[x = 9\]</span>
+<span class="math display">\[x = 4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve <span class="math inline">\(x^{2}+{5}x-{14}=0\)</span> by factoring.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=-10\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=0\)</span>
+</li>
+<li>
+<span class="math inline">\(x=1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=10\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Our original equation is a quadratic equal to 0.</p>
+<p><span class="math display">\[x^{2}+{5}x-{14}=0\]</span></p>
+<p>The quadratic has a leading coefficient of 1 and a constant of -14. Consider all the pairs of linear factors with integer coefficients whose <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL product</a> gives a quadratic with a leading coefficient of 1 and a constant of -14.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">first factor</th>
+<th align="left">second factor</th>
+<th align="left">FOIL product</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{1})\)</span></td>
+<td align="left"><span class="math inline">\((x-{14})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{13}x-{14}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{1})\)</span></td>
+<td align="left"><span class="math inline">\((x+{14})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{13}x-{14}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{2})\)</span></td>
+<td align="left"><span class="math inline">\((x-{7})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{5}x-{14}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{2})\)</span></td>
+<td align="left"><span class="math inline">\((x+{7})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{5}x-{14}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>By guess and check, we find the two integers with sum 5 and product -14 are <span class="math inline">\(-2\)</span> and <span class="math inline">\(7\)</span>. Indeed, <span class="math inline">\((-2)+(7) = 5\)</span> and <span class="math inline">\((-2)(7) = -14\)</span>. This allows us to write the original equation in factored form.</p>
+<p><span class="math display">\[(x-2)(x+7)=0\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Zero-product_property" target="_blank">zero-product rule</a> lets us find the solutions.</p>
+<p><span class="math display">\[x = 2\]</span>
+<span class="math display">\[x = -7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve <span class="math inline">\(x^{2}-{5}x+{6}=0\)</span> by factoring.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=-10\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=0\)</span>
+</li>
+<li>
+<span class="math inline">\(x=1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=10\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Our original equation is a quadratic equal to 0.</p>
+<p><span class="math display">\[x^{2}-{5}x+{6}=0\]</span></p>
+<p>The quadratic has a leading coefficient of 1 and a constant of 6. Consider all the pairs of linear factors with integer coefficients whose <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL product</a> gives a quadratic with a leading coefficient of 1 and a constant of 6.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">first factor</th>
+<th align="left">second factor</th>
+<th align="left">FOIL product</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{1})\)</span></td>
+<td align="left"><span class="math inline">\((x+{6})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{7}x+{6}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{1})\)</span></td>
+<td align="left"><span class="math inline">\((x-{6})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{7}x+{6}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{2})\)</span></td>
+<td align="left"><span class="math inline">\((x+{3})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{5}x+{6}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{2})\)</span></td>
+<td align="left"><span class="math inline">\((x-{3})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{5}x+{6}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>By guess and check, we find the two integers with sum -5 and product 6 are <span class="math inline">\(-2\)</span> and <span class="math inline">\(-3\)</span>. Indeed, <span class="math inline">\((-2)+(-3) = -5\)</span> and <span class="math inline">\((-2)(-3) = 6\)</span>. This allows us to write the original equation in factored form.</p>
+<p><span class="math display">\[(x-2)(x-3)=0\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Zero-product_property" target="_blank">zero-product rule</a> lets us find the solutions.</p>
+<p><span class="math display">\[x = 2\]</span>
+<span class="math display">\[x = 3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve <span class="math inline">\(x^{2}+{11}x+{30}=0\)</span> by factoring.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=-10\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=0\)</span>
+</li>
+<li>
+<span class="math inline">\(x=1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=10\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Our original equation is a quadratic equal to 0.</p>
+<p><span class="math display">\[x^{2}+{11}x+{30}=0\]</span></p>
+<p>The quadratic has a leading coefficient of 1 and a constant of 30. Consider all the pairs of linear factors with integer coefficients whose <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL product</a> gives a quadratic with a leading coefficient of 1 and a constant of 30.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">first factor</th>
+<th align="left">second factor</th>
+<th align="left">FOIL product</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{1})\)</span></td>
+<td align="left"><span class="math inline">\((x+{30})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{31}x+{30}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{1})\)</span></td>
+<td align="left"><span class="math inline">\((x-{30})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{31}x+{30}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{2})\)</span></td>
+<td align="left"><span class="math inline">\((x+{15})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{17}x+{30}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{2})\)</span></td>
+<td align="left"><span class="math inline">\((x-{15})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{17}x+{30}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{3})\)</span></td>
+<td align="left"><span class="math inline">\((x+{10})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{13}x+{30}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{3})\)</span></td>
+<td align="left"><span class="math inline">\((x-{10})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{13}x+{30}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{5})\)</span></td>
+<td align="left"><span class="math inline">\((x+{6})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{11}x+{30}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{5})\)</span></td>
+<td align="left"><span class="math inline">\((x-{6})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{11}x+{30}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>By guess and check, we find the two integers with sum 11 and product 30 are <span class="math inline">\(5\)</span> and <span class="math inline">\(6\)</span>. Indeed, <span class="math inline">\((5)+(6) = 11\)</span> and <span class="math inline">\((5)(6) = 30\)</span>. This allows us to write the original equation in factored form.</p>
+<p><span class="math display">\[(x+5)(x+6)=0\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Zero-product_property" target="_blank">zero-product rule</a> lets us find the solutions.</p>
+<p><span class="math display">\[x = -5\]</span>
+<span class="math display">\[x = -6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve <span class="math inline">\(x^{2}-{16}x+{63}=0\)</span> by factoring.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=-10\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=0\)</span>
+</li>
+<li>
+<span class="math inline">\(x=1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=10\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Our original equation is a quadratic equal to 0.</p>
+<p><span class="math display">\[x^{2}-{16}x+{63}=0\]</span></p>
+<p>The quadratic has a leading coefficient of 1 and a constant of 63. Consider all the pairs of linear factors with integer coefficients whose <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL product</a> gives a quadratic with a leading coefficient of 1 and a constant of 63.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">first factor</th>
+<th align="left">second factor</th>
+<th align="left">FOIL product</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{1})\)</span></td>
+<td align="left"><span class="math inline">\((x+{63})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{64}x+{63}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{1})\)</span></td>
+<td align="left"><span class="math inline">\((x-{63})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{64}x+{63}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{3})\)</span></td>
+<td align="left"><span class="math inline">\((x+{21})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{24}x+{63}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{3})\)</span></td>
+<td align="left"><span class="math inline">\((x-{21})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{24}x+{63}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{7})\)</span></td>
+<td align="left"><span class="math inline">\((x+{9})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{16}x+{63}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{7})\)</span></td>
+<td align="left"><span class="math inline">\((x-{9})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{16}x+{63}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>By guess and check, we find the two integers with sum -16 and product 63 are <span class="math inline">\(-7\)</span> and <span class="math inline">\(-9\)</span>. Indeed, <span class="math inline">\((-7)+(-9) = -16\)</span> and <span class="math inline">\((-7)(-9) = 63\)</span>. This allows us to write the original equation in factored form.</p>
+<p><span class="math display">\[(x-7)(x-9)=0\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Zero-product_property" target="_blank">zero-product rule</a> lets us find the solutions.</p>
+<p><span class="math display">\[x = 7\]</span>
+<span class="math display">\[x = 9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve <span class="math inline">\(x^{2}+{4}x-{45}=0\)</span> by factoring.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=-10\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=0\)</span>
+</li>
+<li>
+<span class="math inline">\(x=1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=10\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Our original equation is a quadratic equal to 0.</p>
+<p><span class="math display">\[x^{2}+{4}x-{45}=0\]</span></p>
+<p>The quadratic has a leading coefficient of 1 and a constant of -45. Consider all the pairs of linear factors with integer coefficients whose <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL product</a> gives a quadratic with a leading coefficient of 1 and a constant of -45.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">first factor</th>
+<th align="left">second factor</th>
+<th align="left">FOIL product</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{1})\)</span></td>
+<td align="left"><span class="math inline">\((x-{45})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{44}x-{45}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{1})\)</span></td>
+<td align="left"><span class="math inline">\((x+{45})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{44}x-{45}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{3})\)</span></td>
+<td align="left"><span class="math inline">\((x-{15})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{12}x-{45}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{3})\)</span></td>
+<td align="left"><span class="math inline">\((x+{15})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{12}x-{45}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{5})\)</span></td>
+<td align="left"><span class="math inline">\((x-{9})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{4}x-{45}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{5})\)</span></td>
+<td align="left"><span class="math inline">\((x+{9})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{4}x-{45}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>By guess and check, we find the two integers with sum 4 and product -45 are <span class="math inline">\(-5\)</span> and <span class="math inline">\(9\)</span>. Indeed, <span class="math inline">\((-5)+(9) = 4\)</span> and <span class="math inline">\((-5)(9) = -45\)</span>. This allows us to write the original equation in factored form.</p>
+<p><span class="math display">\[(x-5)(x+9)=0\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Zero-product_property" target="_blank">zero-product rule</a> lets us find the solutions.</p>
+<p><span class="math display">\[x = 5\]</span>
+<span class="math display">\[x = -9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve <span class="math inline">\(x^{2}+{15}x+{50}=0\)</span> by factoring.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=-10\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=0\)</span>
+</li>
+<li>
+<span class="math inline">\(x=1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=10\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Our original equation is a quadratic equal to 0.</p>
+<p><span class="math display">\[x^{2}+{15}x+{50}=0\]</span></p>
+<p>The quadratic has a leading coefficient of 1 and a constant of 50. Consider all the pairs of linear factors with integer coefficients whose <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL product</a> gives a quadratic with a leading coefficient of 1 and a constant of 50.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">first factor</th>
+<th align="left">second factor</th>
+<th align="left">FOIL product</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{1})\)</span></td>
+<td align="left"><span class="math inline">\((x+{50})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{51}x+{50}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{1})\)</span></td>
+<td align="left"><span class="math inline">\((x-{50})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{51}x+{50}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{2})\)</span></td>
+<td align="left"><span class="math inline">\((x+{25})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{27}x+{50}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{2})\)</span></td>
+<td align="left"><span class="math inline">\((x-{25})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{27}x+{50}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{5})\)</span></td>
+<td align="left"><span class="math inline">\((x+{10})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{15}x+{50}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{5})\)</span></td>
+<td align="left"><span class="math inline">\((x-{10})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{15}x+{50}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>By guess and check, we find the two integers with sum 15 and product 50 are <span class="math inline">\(5\)</span> and <span class="math inline">\(10\)</span>. Indeed, <span class="math inline">\((5)+(10) = 15\)</span> and <span class="math inline">\((5)(10) = 50\)</span>. This allows us to write the original equation in factored form.</p>
+<p><span class="math display">\[(x+5)(x+10)=0\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Zero-product_property" target="_blank">zero-product rule</a> lets us find the solutions.</p>
+<p><span class="math display">\[x = -5\]</span>
+<span class="math display">\[x = -10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve <span class="math inline">\(x^{2}+{8}x-{9}=0\)</span> by factoring.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=-10\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=-1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=0\)</span>
+</li>
+<li>
+<span class="math inline">\(x=1\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=10\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Our original equation is a quadratic equal to 0.</p>
+<p><span class="math display">\[x^{2}+{8}x-{9}=0\]</span></p>
+<p>The quadratic has a leading coefficient of 1 and a constant of -9. Consider all the pairs of linear factors with integer coefficients whose <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL product</a> gives a quadratic with a leading coefficient of 1 and a constant of -9.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">first factor</th>
+<th align="left">second factor</th>
+<th align="left">FOIL product</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{1})\)</span></td>
+<td align="left"><span class="math inline">\((x-{9})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{8}x-{9}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{1})\)</span></td>
+<td align="left"><span class="math inline">\((x+{9})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}+{8}x-{9}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\((x+{3})\)</span></td>
+<td align="left"><span class="math inline">\((x-{3})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{9}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\((x-{3})\)</span></td>
+<td align="left"><span class="math inline">\((x+{3})\)</span></td>
+<td align="left"><span class="math inline">\(x^{2}-{9}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>By guess and check, we find the two integers with sum 8 and product -9 are <span class="math inline">\(9\)</span> and <span class="math inline">\(-1\)</span>. Indeed, <span class="math inline">\((9)+(-1) = 8\)</span> and <span class="math inline">\((9)(-1) = -9\)</span>. This allows us to write the original equation in factored form.</p>
+<p><span class="math display">\[(x+9)(x-1)=0\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Zero-product_property" target="_blank">zero-product rule</a> lets us find the solutions.</p>
+<p><span class="math display">\[x = -9\]</span>
+<span class="math display">\[x = 1\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
