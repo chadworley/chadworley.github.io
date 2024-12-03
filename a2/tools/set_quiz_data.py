@@ -3,8 +3,8 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-12-02 8:00:00"]*2
-dut = ["2024-12-02 23:59:00"]*2
+avt = ["2024-12-03 8:00:00"]*2
+dut = ["2024-12-03 23:59:00"]*2
 front = "u09_"
 files = ["04_car_force_power.Rmd",
 "05_inverse_cube_function.Rmd"]
