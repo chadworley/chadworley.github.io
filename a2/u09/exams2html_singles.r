@@ -1,8 +1,7 @@
 library("exams")
 
-pppsss = c("01_factor_quad_w_primes.Rmd",
-           "02_solve_quadratric_simple.Rmd",
-           "03_solve_quad_w_primes.Rmd")
+pppsss = c("04_car_force_power.Rmd",
+           "05_inverse_cube_function.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

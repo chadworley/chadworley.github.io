@@ -3,12 +3,11 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-12-02 8:00:00"]*3
-dut = ["2024-12-02 23:59:00"]*3
+avt = ["2024-12-02 8:00:00"]*2
+dut = ["2024-12-02 23:59:00"]*2
 front = "u09_"
-files = ["01_factor_quad_w_primes.Rmd",
-"02_solve_quadratric_simple.Rmd",
-"03_solve_quad_w_primes.Rmd"]
+files = ["04_car_force_power.Rmd",
+"05_inverse_cube_function.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u09/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'

@@ -6,9 +6,8 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u09_01_factor_quad_w_primes.zip",
-"outcanvas/u09_02_solve_quadratric_simple.zip",
-"outcanvas/u09_03_solve_quad_w_primes.zip"]
+file_path_list = ["outcanvas/u09_04_car_force_power.zip",
+"outcanvas/u09_05_inverse_cube_function.zip"]
 
 # fpl = []
 # for i in range(50,70):

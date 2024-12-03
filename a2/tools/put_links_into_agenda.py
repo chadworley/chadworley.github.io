@@ -5,9 +5,7 @@ import os
 
 
 front = "u09_"
-files = ["01_factor_quad_w_primes.Rmd",
-"02_solve_quadratric_simple.Rmd",
-"03_solve_quad_w_primes.Rmd"]
+files = ["04_car_force_power.Rmd","05_inverse_cube_function.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u09/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

@@ -1,0 +1,232 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# (x+a)^3+b   <->   cbrt(x-b)-a
+# (x+a)^3+b   <->   cbrt(x+c)+d
+ab = sample(2:7,2)*sample(c(-1,1),2,T)
+a = ab[1]
+b = ab[2]
+c = -b
+d = -a
+
+ach = -9:9
+al = paste0("* ",ach,collapse="\n")
+sol1 = paste0(1*(a==ach),collapse="")
+sol2 = paste0(1*(b==ach),collapse="")
+sol3 = paste0(1*(c==ach),collapse="")
+sol4 = paste0(1*(d==ach),collapse="")
+
+ftx = paste0("(x+",a,")^3+",b,collapse="")
+ftx = gsub("+-","-",ftx,fixed=T)
+itx = paste0("\\sqrt[3]{x+",c,"}+",d,collapse="")
+itx = gsub("+-","-",itx,fixed=T)
+
+is1 = paste0("x~=~(y+",a,")^3+",b,collapse="")
+is1 = gsub("+-","-",is1,fixed=T)
+
+if(b>0){
+    step2 = paste0("Subtract ",b," from both sides.")
+} else {
+    step2 = paste0("Add ",abs(b)," to both sides.")
+}
+
+is2 = paste0("x+",-b,"~=~(y+",a,")^3",collapse="")
+is2 = gsub("+-","-",is2,fixed=T)
+
+is3 = paste0("\\sqrt[3]{x+",-b,"}~=~y+",a,collapse="")
+is3 = gsub("+-","-",is3,fixed=T)
+
+if(a>0){
+    step4 = paste0("Subtract ",a," from both sides.")
+} else {
+    step4 = paste0("Add ",abs(a)," to both sides.")
+}
+
+is4 = paste0("\\sqrt[3]{x+",-b,"}+",-a,"~=~y",collapse="")
+is4 = gsub("+-","-",is4,fixed=T)
+
+```
+
+
+
+Question
+========
+
+Cubing and cube rooting are inverse operations. Thus, for any value of $x$, if we apply both operations, we get back to $x$.
+
+$$\sqrt[3]{x^3} \equiv \left(\sqrt[3]{x}\right)^3 \equiv  x$$
+
+Because cubing and [cube-rooting](https://en.wikipedia.org/wiki/Cube_root) are inverse operations, curves $y=x^3$ and $y=\sqrt[3]{x}$ have reflective symmetry over the $y=x$ line.
+
+```{r,echo=F,fig.dim=c(5,5)}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="lightgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=1.2)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=1.2)
+}
+arrows(-10.5,0,10.5,0,0.1,10,3,lwd=2)
+arrows(0,-10.5,0,10.5,0.1,10,3,lwd=2)
+x = seq(-10,10,0.01)
+y = x^3
+
+xx = x[abs(y)<=10]
+yy = y[abs(y)<=10]
+
+lines(c(-10,10),c(-10,10),lwd=1,lty=3)
+lines(xx,yy,lwd=3,col="red")
+lines(yy,xx,lwd=3,col="blue")
+
+legend("topleft",legend = c(TeX("$y = x^3$"),"",TeX("$y = \\sqrt[3]{x}$"),"",TeX("$y=x$")),col=c("red","white","blue","white","black"),lwd=c(3,0,3,0,1),lty=c(1,1,1,1,3))
+
+text(10,-0.5,10,cex=0.8)
+text(-10,-0.5,-10,cex=0.8)
+text(-0.5,10,10,cex=0.8)
+text(-0.5,-10,-10,cex=0.8)
+text(10,0.5,"x",cex=0.8)
+text(0.5,10,"y",cex=0.8)
+```
+\
+
+Let function $f$ be defined by [translating](https://en.wikipedia.org/wiki/Translation_(geometry)#Translations_of_a_graph) the $y=x^3$ curve. The graph of $y~=~f(x)$ is drawn below.
+
+```{r,echo=F,fig.dim=c(5,5)}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="lightgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=1.2)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=1.2)
+}
+arrows(-10.5,0,10.5,0,0.1,10,3,lwd=2)
+arrows(0,-10.5,0,10.5,0.1,10,3,lwd=2)
+x = seq(-10,10,0.001)
+y = (x+a)^3+b
+
+xx = x[abs(y)<=10]
+yy = y[abs(y)<=10]
+
+lines(xx,yy,col="red",lwd=3)
+
+legend("topleft",legend = TeX("$y=f(x)$"),col="red",lwd=3)
+
+text(10,-0.5,10,cex=0.8)
+text(-10,-0.5,-10,cex=0.8)
+text(-0.5,10,10,cex=0.8)
+text(-0.5,-10,-10,cex=0.8)
+text(10,0.5,"x",cex=0.8)
+text(0.5,10,"y",cex=0.8)
+```
+\
+
+Based on the graph above, determine the values of the four parameters ($a$, $b$, $c$, and $d$) to define $f$ and its inverse $f^{-1}$ algebraically.
+
+$$\begin{align}
+f(x)~&=~(x+a)^3+b \\ \\
+f^{-1}(x)~&=~\sqrt[3]{x+c}+d
+\end{align}$$
+
+* $a=$ ##ANSWER1##
+* $b=$ ##ANSWER2##
+* $c=$ ##ANSWER3##
+* $d=$ ##ANSWER4##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+To find $a$ and $b$, determine the horizontal translation and the vertical translation. The curve $y=f(x)$ has its [inflection point](https://en.wikipedia.org/wiki/Inflection_point) at $(`r -a`, `r b`)$. Thus,
+
+$$f(x)~=~`r ftx`$$
+
+So,
+$$a=`r a`$$
+$$b=`r b`$$
+
+To find the inverse function, first replace $x$ with $y$ and replace $f(x)$ with $x$.
+
+$$`r is1`$$
+
+`r step2`
+
+$$`r is2`$$
+
+Take the [cube root](https://en.wikipedia.org/wiki/Cube_root) of both sides.
+
+$$`r is3`$$
+
+`r step4`
+
+$$`r is4`$$
+
+Swap sides and replace $y$ with $f^{-1}(x)$.
+
+$$f^{-1}(x)~=~`r itx`$$
+
+So,
+
+$$c=`r c`$$
+$$d=`r d`$$
+
+
+Notice, if you graph both curves, you'll see they have reflectional symmetry over the $y=x$ line.
+
+```{r,echo=F,fig.dim=c(5,5)}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="lightgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=1.2)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=1.2)
+}
+arrows(-10.5,0,10.5,0,0.1,10,3,lwd=2)
+arrows(0,-10.5,0,10.5,0.1,10,3,lwd=2)
+x = seq(-10,10,0.001)
+y = (x+a)^3+b
+
+xx = x[abs(y)<=10]
+yy = y[abs(y)<=10]
+
+lines(c(-10,10),c(-10,10),lty=3)
+lines(xx,yy,col="red",lwd=3)
+lines(yy,xx,col="blue",lwd=3)
+
+legend("topleft",legend = c(TeX("$y=f(x)$"),TeX("$y=f^{-1}(x)$"),TeX("$y=x$")),col=c("red","blue","black"),lwd=c(3,3,1),lty=c(1,1,3))
+
+text(10,-0.5,10,cex=0.8)
+text(-10,-0.5,-10,cex=0.8)
+text(-0.5,10,10,cex=0.8)
+text(-0.5,-10,-10,cex=0.8)
+text(10,0.5,"x",cex=0.8)
+text(0.5,10,"y",cex=0.8)
+```
+\
+
+With some thinking, you might even determine a graph-based shortcut that allows you to skip that algebraic manipulation to find $c$ and $d$.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: inverse_cube_function
