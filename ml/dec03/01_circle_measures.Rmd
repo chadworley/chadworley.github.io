@@ -1,0 +1,106 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+while(T){
+    r = sort(signif(runif(4,1,10),3))
+    if(min(diff(r))>1){break}
+}
+d = signif(r*2,3)
+c = signif(2*pi*r,3)
+a = signif(pi*r^2,3)
+
+as = c(d[1],c[1],a[1],
+        r[2],c[2],a[2],
+        r[3],d[3],a[3],
+        r[4],d[4],c[4])
+
+als = character()
+sols = character()
+for(aa in as){
+    ac = signif(aa*1.05^(sample(-4:0,1)+0:4),3)
+    sols = c(sols,paste0(1*(ac==aa),collapse=""))
+    als = c(als,paste0("* ",ac,collapse="\n"))
+}
+al = paste0(als,collapse="\n")
+
+```
+
+
+
+Question
+========
+
+A 2D circle is the collection of points that are equally far from its center point. That distance from the center to the edge is called the radius ($r$). The distance across the circle, through the center, is called the diameter ($d$). The distance going all the way around the edge is called the circumference ($c$). Lastly, the area ($A$) can be calculated from the radius.
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-1.2,1.2),ylim=c(-1.2,1.2),axes=F,ann=F)
+th = seq(0,2*pi,pi/100)
+polygon(cos(th),sin(th),col=rgb(1,1,0.8))
+lines(cos(th),sin(th),col="blue",lwd=2)
+lines(c(0,cos(pi/3)),c(0,sin(pi/3)),col="red",lwd=2)
+lines(c(-1,1),c(0,0),col="purple",lwd=2)
+text(0.3,0.4,"r",col="red")
+text(0,-0.1,"d",col="purple")
+text(-0.8,0.8,"c",col="blue")
+text(-0.4,0.4,"A",col=rgb(0.7,0.7,0.3),cex=2)
+
+```
+\
+
+Here are the formulas people memorize:
+
+$$d = 2r$$
+$$c = \pi d$$
+
+$$A=\pi r^2$$
+
+Fill out the table below.
+
+|          |    $r$      |     $d$     |     $c$     |     $A$     |
+|:--------:|:-----------:|:-----------:|:-----------:|:-----------:|
+| circle 1 | `r r[1]`    | ##ANSWER1## | ##ANSWER2## | ##ANSWER3## |
+| circle 2 | ##ANSWER4## |   `r d[2]`  | ##ANSWER5## | ##ANSWER6## |
+| circle 3 | ##ANSWER7## | ##ANSWER8## |   `r c[3]`  | ##ANSWER9## |
+| circle 4 | ##ANSWER10## | ##ANSWER11## | ##ANSWER12## | `r a[4]` |
+
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+Here is the solution:
+
+|          |    $r$      |     $d$     |     $c$     |     $A$     |
+|:--------:|:-----------:|:-----------:|:-----------:|:-----------:|
+| circle 1 | `r r[1]`    | `r d[1]`    | `r c[1]`    | `r a[1]`    |
+| circle 2 | `r r[2]`    |   `r d[2]`  | `r c[2]`    | `r a[2]`    |
+| circle 3 | `r r[3]`    |   `r d[3]`  | `r c[3]`    | `r a[3]`    |
+| circle 4 | `r r[4]`    |   `r d[4]`  | `r c[4]`    | `r a[4]`    |
+
+Use the formulas. You might need to do a tiny bit of algebra. For example, in the last row, to get the radius from the area of `r a[4]`, use $A=\pi r^2$...
+
+$$`r a[4]`~=~\pi r^2$$
+
+Divide both sides by $\pi$.
+
+$$\frac{`r a[4]`}{\pi}~=~r^2$$
+
+Take the square root of both sides.
+
+$$\sqrt{\frac{`r a[4]`}{\pi}}~=~r$$
+
+Evaluate. $r\approx`r r[4]`$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",12),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: circle_measures

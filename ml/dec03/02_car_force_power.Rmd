@@ -1,0 +1,246 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# F = 1/2*rho*cda*v^2
+# P = 1/2*rho*cda*v^3
+options(scipen=99)
+
+cda = round(runif(1,0.2,2.5),3) #m^2
+rho = 1.225 #kg/m^3
+k = round(1/2*cda*rho,3)
+
+if(cda < 0.5){
+    cardes = "quite aerodynamic"
+} else if(cda < 1){
+    cardes = "moderately aerodynamic"
+} else if(cda < 1.5){
+    cardes = "not very aerodynamic"
+} else {
+    cardes = "basically a large box"
+}
+
+while(T){
+    canpass = T
+    while(T){
+        va = signif(sort(runif(6,7,35)),3)
+        fa = signif(k*va^2,3)
+        pa = signif(k*va^3,3)
+        if(min(diff(va))>2 && min(diff(fa))>1 && min(diff(pa))>1){break}
+    }
+    wo = sort(sample(1:6,3))
+    v = va[wo]
+    f = fa[wo]
+    p = pa[wo]
+    
+    a1 = f[1]
+    ac1 = signif(a1*1.1^(sample(-4:0,1)+0:4),3)
+    sol1 = paste0(1*(ac1==a1),collapse="")
+    al1 = paste0("* ",ac1,collapse="\n")
+    
+    as = c(f[1],p[1],v[2],p[2],v[3],f[3])
+    als = character()
+    sols = character()
+    for(a in as){
+        ac = signif(a*1.1^(sample(-4:0,1)+0:4),3)
+        if(sum(ac==a)!=1){canpass=F}
+        sols = c(sols,paste0(1*(ac==a),collapse=""))
+        als = c(als,paste0("* ",ac,collapse="\n"))
+    }
+    al = paste0(als,collapse="\n")
+    if(canpass){break}
+}
+
+```
+
+
+
+Question
+========
+
+An object in motion stays in motion unless acted upon by an external force. So, ideally, a spaceship in deep space, after accelerating, could cruise at a constant velocity without needing to run its thrusters.
+
+However, an [automobile](https://en.wikipedia.org/wiki/Car) on Earth's surface, even on "flat" ground, needs to constantly burn fuel (or use its battery) to overcome countervailing external forces. The major force pushing against an automobile's motion (other than gravity when going up hill) is [air resistance](https://en.wikipedia.org/wiki/Drag_(physics)#Aerodynamics).
+
+The [force](https://en.wikipedia.org/wiki/Force) from the aerodynamic drag is proportional to the square of velocity. The quadratic coefficient can be estimated by looking up the [drag area](https://en.wikipedia.org/wiki/Automobile_drag_coefficient#Drag_area) and estimating the [density of air](https://en.wikipedia.org/wiki/Density_of_air).
+
+If we pick a car with a drag area of `r cda` $\mathrm{m^2}$ (`r cardes`) and say the density of air is approximately `r rho` $\mathrm{\frac{kg}{m^2}}$, then we predict the force ($F$ in [newtons](https://en.wikipedia.org/wiki/Newton_(unit))) is related to velocity ($v$ in meters per second) by the equation below:
+
+$$F = `r k`\cdot v^2$$
+
+The engine's output [power](https://en.wikipedia.org/wiki/Power_(physics)) ($P$ in [watts](https://en.wikipedia.org/wiki/Watt)) is approximately proportional to the cube of velocity, using the same coefficient.
+
+$$P = `r k`\cdot v^3$$
+
+Complete the table below:
+
+```{css,echo=F}
+.tabl td {
+  border: 1px solid black;
+  text-align: center;
+  padding: 15px;
+  margin: 1em;
+}
+.tabl th {
+  border: 2px solid black;
+  border-bottom: 2px solid black;
+  text-align: center;
+  background-color: #227;
+  padding: 15px;
+  color: white;
+}
+```
+
+<div class="tabl">
+
+| $v$ (in m/s) | $F$ (in N) | $P$ (in W) |
+|:---:|:---:|:---:|
+|$`r v[1]`$|##ANSWER1##|##ANSWER2##|
+|##ANSWER3##|$`r f[2]`$|##ANSWER4##|
+|##ANSWER5##|##ANSWER6##|$`r p[3]`$|
+
+</div>
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+```{css,echo=F}
+.tabl td {
+  border: 1px solid black;
+  text-align: center;
+  padding: 15px;
+  margin: 1em;
+}
+.tabl th {
+  border: 2px solid black;
+  border-bottom: 2px solid black;
+  text-align: center;
+  background-color: #227;
+  padding: 15px;
+  color: white;
+}
+```
+
+<div class="tabl">
+
+
+| $v$ (in m/s) | $F$ (in N) | $P$ (in W) |
+|:---:|:---:|:---:|
+|$`r v[1]`$|$`r f[1]`$|$`r p[1]`$|
+|$`r v[2]`$|$`r f[2]`$|$`r p[2]`$|
+|$`r v[3]`$|$`r f[3]`$|$`r p[3]`$|
+
+</div>
+
+### Row 1
+
+Use the formulas with $v=`r v[1]`$.
+
+$$F=`r k`\cdot(`r v[1]`)^2=`r f[1]`$$
+$$P=`r k`\cdot(`r v[1]`)^3=`r p[1]`$$
+
+### Row 2
+
+First, use $F=`r f[2]`$ to find $v$.
+
+$$`r f[2]`=`r k`\cdot v^2$$
+
+Divide both sides by `r k`.
+
+$$\frac{`r f[2]`}{`r k`}=v^2$$
+
+Take the square root of both sides. In this context, we are only interested in the positive velocity.
+
+$$\sqrt{\frac{`r f[2]`}{`r k`}}=v$$
+
+If your calculator does not have a square-root button, you can also raise the quotient to the power of 1/2.
+
+$$v~=~\left(\frac{`r f[2]`}{`r k`}\right)^{1/2}$$
+
+Evaluate.
+
+$$v=`r v[2]`$$
+
+Use that value to find the power.
+
+$$P=`r k`\cdot(`r v[2]`)^3$$
+$$P=`r p[2]`$$
+
+
+### Row 3
+
+First, use $P=`r p[3]`$ to find $v$.
+
+$$`r p[3]`=`r k`\cdot v^3$$
+
+Divide both sides by `r k`.
+
+$$\frac{`r p[3]`}{`r k`}=v^3$$
+
+Take the cube root of both sides.
+
+$$\sqrt[3]{\frac{`r p[3]`}{`r k`}}=v$$
+
+If your calculator does not have a cube-root button, you can also raise the quotient to the power of 1/3.
+
+
+$$v=\left(\frac{`r p[3]`}{`r k`}\right)^{1/3}$$
+
+Evaluate.
+
+$$v=`r v[3]`$$
+
+Use that value to find the force.
+
+$$F=`r k`\cdot(`r v[3]`)^2$$
+
+$$F=`r f[3]`$$
+
+### Further considerations
+
+If you are interested, we can convert these values to [imperial units](https://en.wikipedia.org/wiki/Imperial_units).
+
+```{r,echo=F}
+vd = signif(v*2.23694,3)
+fd = signif(f*0.224809,3)
+pd = signif(p/745.7,3)
+jph = p*60*60
+gph = signif(jph/(125*10^6)*5,3)
+mpg = signif(vd/gph,3)
+
+```
+
+<div class="tabl">
+
+| velocity in miles per hour | force in pounds | power in horsepower |
+|:---:|:---:|:---:|
+|$`r vd[1]`$|$`r fd[1]`$|$`r pd[1]`$|
+|$`r vd[2]`$|$`r fd[2]`$|$`r pd[2]`$|
+|$`r vd[3]`$|$`r fd[3]`$|$`r pd[3]`$|
+
+</div>
+
+We could also use the fact the engines are about 20% efficient at converting the chemical potential energy of gasoline into motion. A gallon of gasoline burning with oxygen has a potential of $1.25\cdot 10^8$ joules of energy (and a watt equals 1 joule/second). This allows you to estimate the gallons of gasoline per hour and the miles per gallon.
+
+<div class="tabl">
+
+| miles per hour  |  horsepower (output) | gallons per hour | miles per gallon |
+|:---:|:---:|:---:|:---:|
+|$`r vd[1]`$|$`r pd[1]`$|$`r gph[1]`$|$`r mpg[1]`$|
+|$`r vd[2]`$|$`r pd[2]`$|$`r gph[2]`$|$`r mpg[2]`$|
+|$`r vd[3]`$|$`r pd[3]`$|$`r gph[3]`$|$`r mpg[3]`$|
+
+</div>
+
+Of course, all of this is estimated and ignores some important details (like engine tuning, rolling resistance, and the complexities of [fluid dynamics](https://en.wikipedia.org/wiki/Fluid_dynamics)). But it does highlight how drastically speed can influence gas mileage. This was part of the reason for a [national speed limit of 55 mph in 1974](https://en.wikipedia.org/wiki/National_Maximum_Speed_Law) to help lower the demand for gasoline.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",6),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: car_force_power
