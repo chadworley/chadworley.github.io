@@ -1,12 +1,11 @@
 library("exams")
 n = 30
 outdir = "outcanvas"
-genname = "dec03_"
+genname = "dec04_"
 
-probs = c("01_circle_measures.Rmd",
-          "02_car_force_power.Rmd")
+probs = c("03_cake_mass.Rmd")
 
-pnts = c(3,3)
+pnts = c(5)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
