@@ -3,7 +3,7 @@ n = 30
 outdir = "outcanvas"
 genname = "dec04_"
 
-probs = c("03_cake_mass.Rmd")
+probs = c("04_cake_frosting.Rmd")
 
 pnts = c(5)
 

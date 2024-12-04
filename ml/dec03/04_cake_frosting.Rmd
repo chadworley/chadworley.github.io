@@ -11,17 +11,17 @@ v2 = signif(pi*r2^2*h,5)
 v3 = signif(pi*r3^2*h,5)
 V = signif(sum(c(v1,v2,v3)),3)
 
-atop = pi*r1^2
-la1 = h*2*pi*r1
-la2 = h*2*pi*r2
-la3 = h*2*pi*r3
-A = sum(c(atop,la1,la2,la3))
+atop = signif(pi*r3^2,4)
+la1 = signif(h*2*pi*r1,4)
+la2 = signif(h*2*pi*r2,4)
+la3 = signif(h*2*pi*r3,4)
+A = signif(sum(c(atop,la1,la2,la3)),3)
 
 rho = round(runif(1,0.3,0.9),2)
 
 mass = V*rho
 
-extol = mass/100
+extol = A/100
 
 ```
 
@@ -67,34 +67,35 @@ lines(c(1.05,1.1,1.1,1.05)+0.1,c(-0.3,-0.3,-0.9,-0.9))
 text(1.05+0.3,-0.6,paste0(h," cm"))
 ```
 
-The volume ($V$) of each cylinder can be calulated with the following formula, where $r$ is radius and $h$ is height.
+We wish to calculate the area covered by frosting.
 
-$$V~=~\pi r^2 h$$
+Each cylinder's sides are covered. The area of a cylinder's sides can be found using the following formula where $r$ is the radius and $h$ is the height.
 
-You can get the total volume by adding up the volumes of all three cylinders.
+$$A_{\mathrm{side}} ~=~ 2\pi r h$$
 
-After baked, the density of the cake is `r rho` grams per cubic centimeter (this is without the frosting). You can get the total mass by multiplying the volume by the density.
+The tops are also frosted. You might think you would need to find the areas of all three, but actually, you can just find the area of the top of the largest cylinder. The top of the cylinder is a circle.
 
-What is the mass of the cake (in grams)?
+$$A_{\mathrm{top}}~=~ 2\pi r^2$$
+
+How much area is frosted?
 
 
 Solution
 ========
 
-Get the volume of each cylinder.
+Get the side area of each cylinder.
 
-$$V_1 ~=~ \pi (`r r1`)^2 (`r h`) ~=~ `r v1` ~\mathrm{cm^3}$$
-$$V_2 ~=~ \pi (`r r2`)^2 (`r h`) ~=~ `r v2` ~\mathrm{cm^3}$$
-$$V_3 ~=~ \pi (`r r3`)^2 (`r h`) ~=~ `r v3` ~\mathrm{cm^3}$$
+$$A_1 ~=~ 2 \pi (`r r1`) (`r h`) ~=~ `r la1` ~\mathrm{cm^2}$$
+$$A_2 ~=~ 2\pi (`r r2`)(`r h`) ~=~ `r la2` ~\mathrm{cm^2}$$
+$$A_3 ~=~ 2\pi (`r r3`)(`r h`) ~=~ `r la3` ~\mathrm{cm^2}$$
 
-Get the total volume.
+Get the area of the tops.
 
-$$V ~=~ `r v1`+`r v2`+`r v3` ~=~ `r V` ~\mathrm{cm^3}$$
+$$A_{\mathrm{top}} ~=~ \pi (`r r3`)^2 ~=~ `r atop` ~\mathrm{cm^2}$$
 
-Multiply the volume by the density to get the mass.
+Get the total area.
 
-$$`r V` ~\mathrm{cm^3} \cdot \frac{`r rho`~\mathrm{g}}{1~\mathrm{cm^3}} ~=~ `r mass` ~\mathrm{g}$$
-
+$$A ~=~ `r la1`+`r la2`+`r la3`+`r atop` ~=~ `r A`~\mathrm{cm^2}$$
 
 
 
@@ -102,6 +103,6 @@ $$`r V` ~\mathrm{cm^3} \cdot \frac{`r rho`~\mathrm{g}}{1~\mathrm{cm^3}} ~=~ `r m
 Meta-information
 ============
 extype: num
-exsolution: `r mass`
+exsolution: `r A`
 exname: cake_mass
 extol: `r extol`
