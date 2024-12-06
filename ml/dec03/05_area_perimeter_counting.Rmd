@@ -1,25 +1,98 @@
 ```{r data generation, echo = FALSE, results = "hide"}
-area = sample(10:25,1)
-squares = list(c(0,0))
-for(i in 1:(area-1)){
-    cango = F
-    while(length(squares)<=i){
-        sqn = sample(1:length(squares),1)
-        sq = squares[[sqn]]
-        delta = sample(c(-1,1),1)
-        delsq = sample(c(delta,0))
-        newsq = sq+delsq
-        if(!(list(newsq) %in% squares) && max(abs(newsq))<=5){
-            squares[[i+1]] = newsq
+area = sample(15:50,1)
+while(T){
+    squares = list(c(0,0))
+    for(i in 1:(area-1)){
+        cango = F
+        while(length(squares)<=i){
+            sqn = sample(1:length(squares),1)
+            sq = squares[[sqn]]
+            delta = sample(c(-1,1),1)
+            delsq = sample(c(delta,0))
+            newsq = sq+delsq
+            if(!(list(newsq) %in% squares) && max(abs(newsq))<=5){
+                squares[[i+1]] = newsq
+            }
         }
     }
+    net = list()
+    for(i in -6:6){
+        j = length(net)
+        net[[j+1]] = c(i,6)
+    }
+    for(i in 5:-5){
+        j = length(net)
+        net[[j+1]] = c(6,i)
+    }
+    for(i in 6:-6){
+        j = length(net)
+        net[[j+1]] = c(i,-6)
+    }
+    for(i in -5:5){
+        j = length(net)
+        net[[j+1]] = c(-6,i)
+    }
+    
+    move = T
+    dels = list(c(-1,0),c(1,0),c(0,-1),c(0,1))
+    while(move){
+        move = F
+        newnet = list()
+        for(i in 1:length(net)){
+            nspot = net[[i]]
+            for(j in 1:length(dels)){
+                del = dels[[j]]
+                newspot = nspot+del
+                if(!(list(newspot)%in%squares) && !(list(newspot)%in%net) && max(abs(newspot))<=6){
+                    move=T
+                    net[[length(net)+1]] = newspot
+                }
+            }
+        }
+    }
+    if(length(net)+length(squares)==13^2){break}
 }
+
+
+alledges = list()
+for(i in 1:length(squares)){
+    sq = squares[[i]]
+    dels = list(c(-0.5,0),c(0.5,0),c(0,-0.5),c(0,0.5))
+    for(j in 1:length(dels)){
+        ed = sq+dels[[j]]
+        alledges[[length(alledges)+1]] = ed
+    }
+}
+lones = list()
+for(i in 1:length(alledges)){
+    ed = alledges[[i]]
+    cnt = 0
+    for(j in 1:length(alledges)){
+        ed2 = alledges[[j]]
+        if(sum(ed==ed2)==2){
+            cnt = cnt+1
+        }
+    }
+    if(cnt==1){
+        lones[[length(lones)+1]] = ed
+    }
+}
+perimeter = length(lones)
+
+ach1 = perimeter-sample(0:7,1)+0:7
+ach2 = area-sample(0:7,1)+0:7
+al1 = paste0("* ",ach1,collapse="\n")
+al2 = paste0("* ",ach2,collapse="\n")
+sol1 = paste0(1*(ach1==perimeter),collapse="")
+sol2 = paste0(1*(ach2==area),collapse="")
 ```
 
 
 
 Question
 ========
+
+A polygon is drawn below. Find its perimeter and area. Assume the grid is composed of squares with each length equal to 1 centimeter. Thus, the area of each grid square is 1 $\mathrm{cm^2}$.
 
 ```{r,echo=F,fig.dim=c(5,5)}
 par(mar=c(0,0,0,0),pty="s")
@@ -32,23 +105,131 @@ for(i in 1:length(squares)){
     sq = squares[[i]]
     x = sq[1]
     y = sq[2]
-    polygon(x+c(-0.5,-0.5,0.5,0.5),y+c(-0.5,0.5,0.5,-0.5),col="red",border="black")
+    polygon(x+c(-0.5,-0.5,0.5,0.5),y+c(-0.5,0.5,0.5,-0.5),col=rgb(1,0.6,0.6),border="black")
 }
-
-
+# for(i in 1:length(net)){
+#     sq = net[[i]]
+#     x = sq[1]
+#     y = sq[2]
+#     polygon(x+c(-0.5,-0.5,0.5,0.5),y+c(-0.5,0.5,0.5,-0.5),col="blue",border="black")
+# }
+for(i in 1:length(lones)){
+    p = lones[[i]]
+    # points(p[1],p[2])
+    if(p[1]%%1==0){
+        lines(c(p[1]-0.5,p[1]+0.5),c(p[2],p[2]),lwd=3)
+    } else {
+        lines(c(p[1],p[1]),c(p[2]-0.5,p[2]+0.5),lwd=3)
+    }
+}
 ```
+\
 
+* Perimeter = ##ANSWER1##
+* Area = ##ANSWER2##
+
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
 
 
 Solution
 ========
+
+Count the perimeter.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-6,6),ylim=c(-6,6),axes=F,ann=F)
+for(i in seq(-5.5,5.5,1)){
+    lines(c(-6,6),c(i,i))
+    lines(c(i,i),c(-6,6))
+}
+for(i in 1:length(squares)){
+    sq = squares[[i]]
+    x = sq[1]
+    y = sq[2]
+    polygon(x+c(-0.5,-0.5,0.5,0.5),y+c(-0.5,0.5,0.5,-0.5),col=rgb(1,0.6,0.6),border="black")
+}
+# for(i in 1:length(net)){
+#     sq = net[[i]]
+#     x = sq[1]
+#     y = sq[2]
+#     polygon(x+c(-0.5,-0.5,0.5,0.5),y+c(-0.5,0.5,0.5,-0.5),col="blue",border="black")
+# }
+for(i in 1:length(lones)){
+    p = lones[[i]]
+    if(p[1]%%1==0){
+        lines(c(p[1]-0.5,p[1]+0.5),c(p[2],p[2]),lwd=2)
+    } else {
+        lines(c(p[1],p[1]),c(p[2]-0.5,p[2]+0.5),lwd=2)
+    }
+    points(p[1],p[2],cex=1.3)
+}
+
+```
+\
+
+There are `r perimeter` dots above, so the perimeter is $`r perimeter` ~\mathrm{cm}$.
+
+Now, count the area.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-6,6),ylim=c(-6,6),axes=F,ann=F)
+for(i in seq(-5.5,5.5,1)){
+    lines(c(-6,6),c(i,i))
+    lines(c(i,i),c(-6,6))
+}
+for(i in 1:length(squares)){
+    sq = squares[[i]]
+    x = sq[1]
+    y = sq[2]
+    polygon(x+c(-0.5,-0.5,0.5,0.5),y+c(-0.5,0.5,0.5,-0.5),col=rgb(1,0.6,0.6),border="black")
+}
+# for(i in 1:length(net)){
+#     sq = net[[i]]
+#     x = sq[1]
+#     y = sq[2]
+#     polygon(x+c(-0.5,-0.5,0.5,0.5),y+c(-0.5,0.5,0.5,-0.5),col="blue",border="black")
+# }
+for(i in 1:length(lones)){
+    p = lones[[i]]
+    if(p[1]%%1==0){
+        lines(c(p[1]-0.5,p[1]+0.5),c(p[2],p[2]),lwd=2)
+    } else {
+        lines(c(p[1],p[1]),c(p[2]-0.5,p[2]+0.5),lwd=2)
+    }
+}
+
+cnt = 1
+for(i in 6:-6){
+    for(j in -6:6){
+        pnt = c(j,i)
+        for(k in 1:length(squares)){
+            if(sum(pnt==squares[[k]])==2){
+                text(j,i,cnt)
+                cnt = cnt+1
+            }
+        }
+    }
+}
+
+```
+\
+
+So the area is $`r area` ~\mathrm{cm^2}$.
+
 
 
 
 
 Meta-information
 ============
-extype: num
-exsolution: 
-exname: cylinder_volume
-extol: 
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: area_perimeter_counting
