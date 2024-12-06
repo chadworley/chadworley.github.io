@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("05_area_perimeter_counting.Rmd")
+pppsss = c("04_cake_frosting.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
