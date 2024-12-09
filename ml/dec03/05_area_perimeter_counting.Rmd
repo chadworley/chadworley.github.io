@@ -77,6 +77,55 @@ for(i in 1:length(alledges)){
         lones[[length(lones)+1]] = ed
     }
 }
+
+maxy = -6
+minx = 6
+orlo = list()
+for(i in 1:length(lones)){
+    pt = lones[[i]]
+    yy = pt[2]
+    if(yy>maxy){
+        maxy=yy
+    }
+}
+cont = T
+for(i in -6:6){
+    for(j in 1:length(lones)){
+        if(sum(c(i,maxy)==lones[[j]])==2 && cont){
+            orlo[[1]] = lones[[j]]
+            cont = F
+        }
+    }
+}
+
+while(length(orlo)<length(lones)){
+    cl = length(orlo)
+    p = orlo[[cl]]
+    if(p[1]%%1==0){
+        pa = c(p[1]-0.5,p[2])
+        pb = c(p[1]+0.5,p[2])
+    } else {
+        pa = c(p[1],p[2]-0.5)
+        pb = c(p[1],p[2]+0.5)
+    }
+    for(i in 1:length(lones)){
+        p2 = lones[[i]]
+        if(p2[1]%%1==0){
+            pc = c(p2[1]-0.5,p2[2])
+            pd = c(p2[1]+0.5,p2[2])
+        } else {
+            pc = c(p2[1],p2[2]-0.5)
+            pd = c(p2[1],p2[2]+0.5)
+        }
+        if((sum(pd==pb)==2 || sum(pc==pb)==2) && !(list(p2)%in%orlo)){
+            orlo[[cl+1]] = p2
+        } else if((sum(pd==pa)==2 || sum(pc==pa)==2) && !(list(p2)%in%orlo)){
+            orlo[[cl+1]] = p2
+        }
+    }
+}
+
+
 perimeter = length(lones)
 
 ach1 = perimeter-sample(0:7,1)+0:7
@@ -125,8 +174,8 @@ for(i in 1:length(lones)){
 ```
 \
 
-* Perimeter = ##ANSWER1##
-* Area = ##ANSWER2##
+* Perimeter = ##ANSWER1## $\mathrm{cm}$
+* Area = ##ANSWER2## $\mathrm{cm^2}$
 
 
 Answerlist
@@ -163,17 +212,22 @@ for(i in 1:length(squares)){
 for(i in 1:length(lones)){
     p = lones[[i]]
     if(p[1]%%1==0){
-        lines(c(p[1]-0.5,p[1]+0.5),c(p[2],p[2]),lwd=2)
+        lines(c(p[1]-0.5,p[1]+0.5),c(p[2],p[2]),lwd=2,col="grey")
     } else {
-        lines(c(p[1],p[1]),c(p[2]-0.5,p[2]+0.5),lwd=2)
+        lines(c(p[1],p[1]),c(p[2]-0.5,p[2]+0.5),lwd=2,col="grey")
     }
-    points(p[1],p[2],cex=1.3)
+    #points(p[1],p[2],cex=1.3)
+}
+
+for(i in 1:length(orlo)){
+    p = orlo[[i]]
+    text(p[1],p[2],i,cex=1)
 }
 
 ```
 \
 
-There are `r perimeter` dots above, so the perimeter is $`r perimeter` ~\mathrm{cm}$.
+The perimeter is $`r perimeter` ~\mathrm{cm}$.
 
 Now, count the area.
 
