@@ -1,0 +1,86 @@
+```{r data generation, echo = FALSE, results = "hide"}
+n = 6
+while(T){
+    xs = sort(sample(10:999,n))/10
+    ys = signif(sqrt(xs),3)
+    x2 = round(ys^2,1)
+    if(min(diff(xs))>0.5 && sum(xs==x2)==n){break}
+}
+
+ans = c(ys[1],xs[2],ys[3],xs[4],ys[5],xs[6])
+dels = c(0.02,0.2,0.02,0.2,0.02,0.2)
+
+als = character()
+sols = character()
+
+for(i in 1:length(ans)){
+    an = ans[i]
+    ach = an+(sample(-5:0,1)+0:5)*dels[i]
+    if(i%%2==1){
+        al = paste0("* ",format(ach,nsmall = 2),collapse="\n")
+    } else {
+        al = paste0("* ",format(ach,nsmall = 1),collapse="\n")
+    }
+    als = c(als,al)
+    sols = c(sols,paste0(1*(ach==an),collapse=""))
+}
+als = paste0(als,collapse="\n")
+sols = paste0(sols,collapse="|")
+
+```
+
+Question
+========
+
+Consider the $y=\sqrt{x}$ curve shown below (the square root function). There are `r n` points along the curve, find the missing coordinates of those points in the table.
+
+```{r,echo=F,fig.dim=c(6,4)}
+library(latex2exp)
+x = seq(0,100,0.01)
+y = sqrt(x)
+plot(x,y,"l",xlim=c(0,100),ylim=c(0,10),lwd=3,col="blue",xlab="x",ylab=TeX("$y=\\sqrt{x}$"))
+arrows(-3,0,103,0,0.1,10,2)
+arrows(0,-0.3,0,10.3,0.1,10,2)
+lines(x,y,lwd=3,col="blue")
+points(xs,ys,pch=20,col="black",cex=1.3)
+points(xs,ys,pch=20,col="red")
+```
+\
+
+| $x$ | $y=\sqrt{x}$ |
+|:---:|:---:|
+| `r xs[1]` | ##ANSWER1## |
+| ##ANSWER2## | `r ys[2]` |
+| `r xs[3]` | ##ANSWER3## |
+| ##ANSWER4## | `r ys[4]` |
+| `r xs[5]` | ##ANSWER3## |
+| ##ANSWER4## | `r ys[6]` |
+
+
+Answerlist
+--------
+
+`r als`
+
+
+Solution
+========
+
+To find $y$, use square root or raising to the power of $1/2$. To find $x$, square (raise to the power of $2$).
+
+| $x$ | $y=\sqrt{x}$ |
+|:---:|:---:|
+| `r xs[1]` | $\sqrt{`r xs[1]`}=(`r xs[1]`)^{1/2}\approx`r ys[1]`$ |
+| $`r ys[2]`^2=`r xs[2]`$ | `r ys[2]` |
+| `r xs[3]` | $\sqrt{`r xs[3]`}=(`r xs[3]`)^{1/2}\approx`r ys[3]`$ |
+| $`r ys[4]`^2=`r xs[4]`$ | `r ys[4]` |
+| `r xs[5]` | $\sqrt{`r xs[5]`}=(`r xs[5]`)^{1/2}\approx`r ys[5]`$ |
+| $`r ys[6]`^2=`r xs[6]`$ | `r ys[6]` |
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",n),collapse="|")`
+exsolution: `r sols`
+exname: points_on_sqrtx

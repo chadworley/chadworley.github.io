@@ -1,0 +1,87 @@
+```{r data generation, echo = FALSE, results = "hide"}
+n = 6
+while(T){
+    xs = sort(sample(-999:999,n))
+    ys = round(sign(xs)*abs(xs)^(1/3),2)
+    x2 = round(ys^3)
+    print(x2)
+    if(min(diff(xs))>40 && sum(xs==x2)==n){break}
+}
+
+ans = c(ys[1],xs[2],ys[3],xs[4],ys[5],xs[6])
+dels = c(0.02,2,0.02,2,0.02,2)
+
+als = character()
+sols = character()
+
+for(i in 1:length(ans)){
+    an = ans[i]
+    ach = an+(sample(-5:0,1)+0:5)*dels[i]
+    if(i%%2==1){
+        al = paste0("* ",format(ach,nsmall = 2),collapse="\n")
+    } else {
+        al = paste0("* ",format(ach,nsmall = 0),collapse="\n")
+    }
+    als = c(als,al)
+    sols = c(sols,paste0(1*(ach==an),collapse=""))
+}
+als = paste0(als,collapse="\n")
+sols = paste0(sols,collapse="|")
+
+```
+
+Question
+========
+
+Consider the $y=\sqrt[3]{x}$ curve shown below (the cube root function). There are `r n` points along the curve, find the missing coordinates of those points in the table.
+
+```{r,echo=F,fig.dim=c(6,4)}
+library(latex2exp)
+x = seq(-1000,1000,0.1)
+y = sign(x)*abs(x)^(1/3)
+plot(x,y,"l",xlim=c(-1000,1000),ylim=c(-10,10),lwd=3,col="blue",xlab="x",ylab=TeX("$y=\\sqrt[3]{x}$"))
+arrows(-1030,0,1030,0,0.1,10,2)
+arrows(0,-10.3,0,10.3,0.1,10,2)
+lines(x,y,lwd=3,col="blue")
+points(xs,ys,pch=20,col="black",cex=1.3)
+points(xs,ys,pch=20,col="red")
+```
+\
+
+| $x$ | $y=\sqrt[3]{x}$ |
+|:---:|:---:|
+| `r xs[1]` | ##ANSWER1## |
+| ##ANSWER2## | `r ys[2]` |
+| `r xs[3]` | ##ANSWER3## |
+| ##ANSWER4## | `r ys[4]` |
+| `r xs[5]` | ##ANSWER3## |
+| ##ANSWER4## | `r ys[6]` |
+
+
+Answerlist
+--------
+
+`r als`
+
+
+Solution
+========
+
+To find $y$, use cube root or raising to the power of $1/3$. To find $x$, cube (raise to the power of $3$).
+
+| $x$ | $y=\sqrt[3]{x}$ |
+|:---:|:---:|
+| `r xs[1]` | $\sqrt[3]{`r xs[1]`}=(`r xs[1]`)^{1/3}\approx`r ys[1]`$ |
+| $(`r ys[2]`)^3=`r xs[2]`$ | `r ys[2]` |
+| `r xs[3]` | $\sqrt[3]{`r xs[3]`}=(`r xs[3]`)^{1/3}\approx`r ys[3]`$ |
+| $(`r ys[4]`)^3=`r xs[4]`$ | `r ys[4]` |
+| `r xs[5]` | $\sqrt[3]{`r xs[5]`}=(`r xs[5]`)^{1/3}\approx`r ys[5]`$ |
+| $(`r ys[6]`)^3=`r xs[6]`$ | `r ys[6]` |
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",n),collapse="|")`
+exsolution: `r sols`
+exname: points_on_sqrtx

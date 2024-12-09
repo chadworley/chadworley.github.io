@@ -35,7 +35,7 @@ for(i in 1:1000){
   B = rat[2]*mult[1]
   C = rat[1]*mult[2]
   D = rat[2]*mult[2]
-  qstr = paste0("A recipe calls for ",A," ounces of flour and ",B," ounces of sugar. You re-size the recipe to use ",C," ounces of flour and x ounces of sugar. Find x.")
+  qstr = paste0("A recipe calls for ",A," ounces of flour and ",B," ounces of sugar. You resize the recipe to use ",C," ounces of flour and x ounces of sugar. Find x.")
   ans = paste0(D)
   q = paste0(i,',"',qstr,'",',ans,",,,,12,,,typing",collapse="")
   write(q,file=fnam,append=TRUE)
