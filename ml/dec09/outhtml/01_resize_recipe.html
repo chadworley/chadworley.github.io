@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>01_resize_recipe</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">01_resize_recipe</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A recipe calls for 15 ounces of flour and 10 ounces of sugar. You resize the recipe to use 12 ounces of flour and <span class="math inline">\(x\)</span> ounces of sugar. Find <span class="math inline">\(x\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>There are a few different approaches to this problem.</p>
+<h3 id="strategy-1-equivalent-fractions">Strategy 1: equivalent fractions</h3>
+<p>I’d first simplify the ratio by recognizing that both <span class="math inline">\(15\)</span> and <span class="math inline">\(10\)</span> are multiples of 5.</p>
+<p><span class="math display">\[\frac{15}{10} ~=~ \frac{15\div 5}{10\div 5} ~=~ \frac{3}{2}\]</span></p>
+<p>Then, I’d notice that 12 is a multiple of 3, so I’d scale up the recipe.</p>
+<p><span class="math display">\[\frac{3}{2} ~=~ \frac{3\cdot 4}{2\cdot 4} ~=~ \frac{12}{8}\]</span></p>
+<p>And, thus, the resized recipe calls for 8 ounces of sugar.</p>
+<h3 id="strategy-2-simplify-the-scale-factor.">Strategy 2: simplify the scale factor.</h3>
+<p>The scale factor equals the new amount of flour divided by the old amount of flour.</p>
+<p><span class="math display">\[k ~=~ \frac{12}{15}\]</span></p>
+<p>Simplify the scale factor by recognizing both 12 and 15 are multiples of 3.</p>
+<p><span class="math display">\[k ~=~ \frac{12\div 3}{15 \div 3} ~=~ \frac{4}{5} \]</span></p>
+<p>Then, multiply the old amount of sugar by the scale factor.</p>
+<p><span class="math display">\[10\cdot \frac{4}{5} ~=~ \frac{10\cdot 4}{5} ~=~ \frac{10}{5}\cdot 4 ~=~ 2\cdot 4 ~=~ 8\]</span></p>
+<p>And, thus, the resized recipe calls for 8 ounces of sugar.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A recipe calls for 9 ounces of flour and 6 ounces of sugar. You resize the recipe to use 6 ounces of flour and <span class="math inline">\(x\)</span> ounces of sugar. Find <span class="math inline">\(x\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>There are a few different approaches to this problem.</p>
+<h3 id="strategy-1-equivalent-fractions">Strategy 1: equivalent fractions</h3>
+<p>I’d first simplify the ratio by recognizing that both <span class="math inline">\(9\)</span> and <span class="math inline">\(6\)</span> are multiples of 3.</p>
+<p><span class="math display">\[\frac{9}{6} ~=~ \frac{9\div 3}{6\div 3} ~=~ \frac{3}{2}\]</span></p>
+<p>Then, I’d notice that 6 is a multiple of 3, so I’d scale up the recipe.</p>
+<p><span class="math display">\[\frac{3}{2} ~=~ \frac{3\cdot 2}{2\cdot 2} ~=~ \frac{6}{4}\]</span></p>
+<p>And, thus, the resized recipe calls for 4 ounces of sugar.</p>
+<h3 id="strategy-2-simplify-the-scale-factor.">Strategy 2: simplify the scale factor.</h3>
+<p>The scale factor equals the new amount of flour divided by the old amount of flour.</p>
+<p><span class="math display">\[k ~=~ \frac{6}{9}\]</span></p>
+<p>Simplify the scale factor by recognizing both 6 and 9 are multiples of 3.</p>
+<p><span class="math display">\[k ~=~ \frac{6\div 3}{9 \div 3} ~=~ \frac{2}{3} \]</span></p>
+<p>Then, multiply the old amount of sugar by the scale factor.</p>
+<p><span class="math display">\[6\cdot \frac{2}{3} ~=~ \frac{6\cdot 2}{3} ~=~ \frac{6}{3}\cdot 2 ~=~ 2\cdot 2 ~=~ 4\]</span></p>
+<p>And, thus, the resized recipe calls for 4 ounces of sugar.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A recipe calls for 27 ounces of flour and 6 ounces of sugar. You resize the recipe to use 36 ounces of flour and <span class="math inline">\(x\)</span> ounces of sugar. Find <span class="math inline">\(x\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>There are a few different approaches to this problem.</p>
+<h3 id="strategy-1-equivalent-fractions">Strategy 1: equivalent fractions</h3>
+<p>I’d first simplify the ratio by recognizing that both <span class="math inline">\(27\)</span> and <span class="math inline">\(6\)</span> are multiples of 3.</p>
+<p><span class="math display">\[\frac{27}{6} ~=~ \frac{27\div 3}{6\div 3} ~=~ \frac{9}{2}\]</span></p>
+<p>Then, I’d notice that 36 is a multiple of 9, so I’d scale up the recipe.</p>
+<p><span class="math display">\[\frac{9}{2} ~=~ \frac{9\cdot 4}{2\cdot 4} ~=~ \frac{36}{8}\]</span></p>
+<p>And, thus, the resized recipe calls for 8 ounces of sugar.</p>
+<h3 id="strategy-2-simplify-the-scale-factor.">Strategy 2: simplify the scale factor.</h3>
+<p>The scale factor equals the new amount of flour divided by the old amount of flour.</p>
+<p><span class="math display">\[k ~=~ \frac{36}{27}\]</span></p>
+<p>Simplify the scale factor by recognizing both 36 and 27 are multiples of 9.</p>
+<p><span class="math display">\[k ~=~ \frac{36\div 9}{27 \div 9} ~=~ \frac{4}{3} \]</span></p>
+<p>Then, multiply the old amount of sugar by the scale factor.</p>
+<p><span class="math display">\[6\cdot \frac{4}{3} ~=~ \frac{6\cdot 4}{3} ~=~ \frac{6}{3}\cdot 4 ~=~ 2\cdot 4 ~=~ 8\]</span></p>
+<p>And, thus, the resized recipe calls for 8 ounces of sugar.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A recipe calls for 18 ounces of flour and 4 ounces of sugar. You resize the recipe to use 54 ounces of flour and <span class="math inline">\(x\)</span> ounces of sugar. Find <span class="math inline">\(x\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>There are a few different approaches to this problem.</p>
+<h3 id="strategy-1-equivalent-fractions">Strategy 1: equivalent fractions</h3>
+<p>I’d first simplify the ratio by recognizing that both <span class="math inline">\(18\)</span> and <span class="math inline">\(4\)</span> are multiples of 2.</p>
+<p><span class="math display">\[\frac{18}{4} ~=~ \frac{18\div 2}{4\div 2} ~=~ \frac{9}{2}\]</span></p>
+<p>Then, I’d notice that 54 is a multiple of 9, so I’d scale up the recipe.</p>
+<p><span class="math display">\[\frac{9}{2} ~=~ \frac{9\cdot 6}{2\cdot 6} ~=~ \frac{54}{12}\]</span></p>
+<p>And, thus, the resized recipe calls for 12 ounces of sugar.</p>
+<h3 id="strategy-2-simplify-the-scale-factor.">Strategy 2: simplify the scale factor.</h3>
+<p>The scale factor equals the new amount of flour divided by the old amount of flour.</p>
+<p><span class="math display">\[k ~=~ \frac{54}{18}\]</span></p>
+<p>Simplify the scale factor by recognizing both 54 and 18 are multiples of 9.</p>
+<p><span class="math display">\[k ~=~ \frac{54\div 9}{18 \div 9} ~=~ \frac{6}{2} \]</span></p>
+<p>Then, multiply the old amount of sugar by the scale factor.</p>
+<p><span class="math display">\[4\cdot \frac{6}{2} ~=~ \frac{4\cdot 6}{2} ~=~ \frac{4}{2}\cdot 6 ~=~ 2\cdot 6 ~=~ 12\]</span></p>
+<p>And, thus, the resized recipe calls for 12 ounces of sugar.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A recipe calls for 24 ounces of flour and 9 ounces of sugar. You resize the recipe to use 48 ounces of flour and <span class="math inline">\(x\)</span> ounces of sugar. Find <span class="math inline">\(x\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>There are a few different approaches to this problem.</p>
+<h3 id="strategy-1-equivalent-fractions">Strategy 1: equivalent fractions</h3>
+<p>I’d first simplify the ratio by recognizing that both <span class="math inline">\(24\)</span> and <span class="math inline">\(9\)</span> are multiples of 3.</p>
+<p><span class="math display">\[\frac{24}{9} ~=~ \frac{24\div 3}{9\div 3} ~=~ \frac{8}{3}\]</span></p>
+<p>Then, I’d notice that 48 is a multiple of 8, so I’d scale up the recipe.</p>
+<p><span class="math display">\[\frac{8}{3} ~=~ \frac{8\cdot 6}{3\cdot 6} ~=~ \frac{48}{18}\]</span></p>
+<p>And, thus, the resized recipe calls for 18 ounces of sugar.</p>
+<h3 id="strategy-2-simplify-the-scale-factor.">Strategy 2: simplify the scale factor.</h3>
+<p>The scale factor equals the new amount of flour divided by the old amount of flour.</p>
+<p><span class="math display">\[k ~=~ \frac{48}{24}\]</span></p>
+<p>Simplify the scale factor by recognizing both 48 and 24 are multiples of 8.</p>
+<p><span class="math display">\[k ~=~ \frac{48\div 8}{24 \div 8} ~=~ \frac{6}{3} \]</span></p>
+<p>Then, multiply the old amount of sugar by the scale factor.</p>
+<p><span class="math display">\[9\cdot \frac{6}{3} ~=~ \frac{9\cdot 6}{3} ~=~ \frac{9}{3}\cdot 6 ~=~ 3\cdot 6 ~=~ 18\]</span></p>
+<p>And, thus, the resized recipe calls for 18 ounces of sugar.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A recipe calls for 10 ounces of flour and 4 ounces of sugar. You resize the recipe to use 20 ounces of flour and <span class="math inline">\(x\)</span> ounces of sugar. Find <span class="math inline">\(x\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>There are a few different approaches to this problem.</p>
+<h3 id="strategy-1-equivalent-fractions">Strategy 1: equivalent fractions</h3>
+<p>I’d first simplify the ratio by recognizing that both <span class="math inline">\(10\)</span> and <span class="math inline">\(4\)</span> are multiples of 2.</p>
+<p><span class="math display">\[\frac{10}{4} ~=~ \frac{10\div 2}{4\div 2} ~=~ \frac{5}{2}\]</span></p>
+<p>Then, I’d notice that 20 is a multiple of 5, so I’d scale up the recipe.</p>
+<p><span class="math display">\[\frac{5}{2} ~=~ \frac{5\cdot 4}{2\cdot 4} ~=~ \frac{20}{8}\]</span></p>
+<p>And, thus, the resized recipe calls for 8 ounces of sugar.</p>
+<h3 id="strategy-2-simplify-the-scale-factor.">Strategy 2: simplify the scale factor.</h3>
+<p>The scale factor equals the new amount of flour divided by the old amount of flour.</p>
+<p><span class="math display">\[k ~=~ \frac{20}{10}\]</span></p>
+<p>Simplify the scale factor by recognizing both 20 and 10 are multiples of 5.</p>
+<p><span class="math display">\[k ~=~ \frac{20\div 5}{10 \div 5} ~=~ \frac{4}{2} \]</span></p>
+<p>Then, multiply the old amount of sugar by the scale factor.</p>
+<p><span class="math display">\[4\cdot \frac{4}{2} ~=~ \frac{4\cdot 4}{2} ~=~ \frac{4}{2}\cdot 4 ~=~ 2\cdot 4 ~=~ 8\]</span></p>
+<p>And, thus, the resized recipe calls for 8 ounces of sugar.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A recipe calls for 48 ounces of flour and 18 ounces of sugar. You resize the recipe to use 16 ounces of flour and <span class="math inline">\(x\)</span> ounces of sugar. Find <span class="math inline">\(x\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>There are a few different approaches to this problem.</p>
+<h3 id="strategy-1-equivalent-fractions">Strategy 1: equivalent fractions</h3>
+<p>I’d first simplify the ratio by recognizing that both <span class="math inline">\(48\)</span> and <span class="math inline">\(18\)</span> are multiples of 6.</p>
+<p><span class="math display">\[\frac{48}{18} ~=~ \frac{48\div 6}{18\div 6} ~=~ \frac{8}{3}\]</span></p>
+<p>Then, I’d notice that 16 is a multiple of 8, so I’d scale up the recipe.</p>
+<p><span class="math display">\[\frac{8}{3} ~=~ \frac{8\cdot 2}{3\cdot 2} ~=~ \frac{16}{6}\]</span></p>
+<p>And, thus, the resized recipe calls for 6 ounces of sugar.</p>
+<h3 id="strategy-2-simplify-the-scale-factor.">Strategy 2: simplify the scale factor.</h3>
+<p>The scale factor equals the new amount of flour divided by the old amount of flour.</p>
+<p><span class="math display">\[k ~=~ \frac{16}{48}\]</span></p>
+<p>Simplify the scale factor by recognizing both 16 and 48 are multiples of 8.</p>
+<p><span class="math display">\[k ~=~ \frac{16\div 8}{48 \div 8} ~=~ \frac{2}{6} \]</span></p>
+<p>Then, multiply the old amount of sugar by the scale factor.</p>
+<p><span class="math display">\[18\cdot \frac{2}{6} ~=~ \frac{18\cdot 2}{6} ~=~ \frac{18}{6}\cdot 2 ~=~ 3\cdot 2 ~=~ 6\]</span></p>
+<p>And, thus, the resized recipe calls for 6 ounces of sugar.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A recipe calls for 18 ounces of flour and 12 ounces of sugar. You resize the recipe to use 6 ounces of flour and <span class="math inline">\(x\)</span> ounces of sugar. Find <span class="math inline">\(x\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>There are a few different approaches to this problem.</p>
+<h3 id="strategy-1-equivalent-fractions">Strategy 1: equivalent fractions</h3>
+<p>I’d first simplify the ratio by recognizing that both <span class="math inline">\(18\)</span> and <span class="math inline">\(12\)</span> are multiples of 6.</p>
+<p><span class="math display">\[\frac{18}{12} ~=~ \frac{18\div 6}{12\div 6} ~=~ \frac{3}{2}\]</span></p>
+<p>Then, I’d notice that 6 is a multiple of 3, so I’d scale up the recipe.</p>
+<p><span class="math display">\[\frac{3}{2} ~=~ \frac{3\cdot 2}{2\cdot 2} ~=~ \frac{6}{4}\]</span></p>
+<p>And, thus, the resized recipe calls for 4 ounces of sugar.</p>
+<h3 id="strategy-2-simplify-the-scale-factor.">Strategy 2: simplify the scale factor.</h3>
+<p>The scale factor equals the new amount of flour divided by the old amount of flour.</p>
+<p><span class="math display">\[k ~=~ \frac{6}{18}\]</span></p>
+<p>Simplify the scale factor by recognizing both 6 and 18 are multiples of 3.</p>
+<p><span class="math display">\[k ~=~ \frac{6\div 3}{18 \div 3} ~=~ \frac{2}{6} \]</span></p>
+<p>Then, multiply the old amount of sugar by the scale factor.</p>
+<p><span class="math display">\[12\cdot \frac{2}{6} ~=~ \frac{12\cdot 2}{6} ~=~ \frac{12}{6}\cdot 2 ~=~ 2\cdot 2 ~=~ 4\]</span></p>
+<p>And, thus, the resized recipe calls for 4 ounces of sugar.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

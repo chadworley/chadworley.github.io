@@ -1,0 +1,67 @@
+```{r data generation, echo = FALSE, results = "hide"}
+rats = list(c(1,2),c(3,2),c(5,2),c(7,2),c(9,2),
+            c(1,3),c(2,3),c(4,3),c(5,3),c(7,3),c(8,3),
+            c(1,4),c(3,4),c(5,4),c(7,4),c(9,4),
+            c(1,5),c(2,5),c(3,5),c(4,5),c(6,5),c(7,5),c(8,5),c(9,5),
+            c(1,6),c(5,6),c(7,6),
+            c(1,7),c(2,7),c(3,7),c(4,7),c(5,7),c(6,7),c(8,7),c(9,7),
+            c(1,8),c(3,8),c(5,8),c(7,8),c(9,8),
+            c(1,9),c(2,9),c(4,9),c(5,9),c(7,9),c(8,9))
+
+ratnum = sample(c(2,3,5,7,11),1)
+rat = rats[[ratnum]]
+mult = sample(2:6,2)
+A = rat[1]*mult[1]
+B = rat[2]*mult[1]
+C = rat[1]*mult[2]
+D = rat[2]*mult[2]
+
+qstr = paste0("A recipe calls for ",A," ounces of flour and ",B," ounces of sugar. You resize the recipe to use ",C," ounces of flour and $x$ ounces of sugar. Find $x$.")
+
+```
+
+Question
+========
+
+`r qstr`
+
+
+Solution
+========
+
+There are a few different approaches to this problem.
+
+### Strategy 1: equivalent fractions
+
+I'd first simplify the ratio by recognizing that both $`r A`$ and $`r B`$ are multiples of `r mult[1]`.
+
+$$\frac{`r A`}{`r B`} ~=~ \frac{`r A`\div `r mult[1]`}{`r B`\div `r mult[1]`} ~=~ \frac{`r rat[1]`}{`r rat[2]`}$$
+
+Then, I'd notice that `r C` is a multiple of `r rat[1]`, so I'd scale up the recipe.
+
+$$\frac{`r rat[1]`}{`r rat[2]`} ~=~ \frac{`r rat[1]`\cdot `r mult[2]`}{`r rat[2]`\cdot `r mult[2]`} ~=~ \frac{`r C`}{`r D`}$$
+
+And, thus, the resized recipe calls for `r D` ounces of sugar.
+
+### Strategy 2: simplify the scale factor.
+
+The scale factor equals the new amount of flour divided by the old amount of flour.
+
+$$k ~=~ \frac{`r C`}{`r A`}$$
+
+Simplify the scale factor by recognizing both `r C` and `r A` are multiples of `r rat[1]`.
+
+$$k ~=~ \frac{`r C`\div `r rat[1]`}{`r A` \div `r rat[1]`} ~=~ \frac{`r mult[2]`}{`r mult[1]`} $$
+
+Then, multiply the old amount of sugar by the scale factor. 
+
+$$`r B`\cdot \frac{`r mult[2]`}{`r mult[1]`} ~=~ \frac{`r B`\cdot `r mult[2]`}{`r mult[1]`} ~=~ \frac{`r B`}{`r mult[1]`}\cdot `r mult[2]` ~=~ `r rat[2]`\cdot `r mult[2]` ~=~ `r D`$$
+
+And, thus, the resized recipe calls for `r D` ounces of sugar.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r D`
+exname: resize_recipe

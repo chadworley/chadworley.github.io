@@ -1,65 +1,33 @@
 ```{r data generation, echo = FALSE, results = "hide"}
-mi = 10^runif(1,log10(6),log10(300))
-area = signif(mi^2,2)
-ans = sqrt(area)
-tol = ans/10
+## y=a*sqrt(b*(x-h))+k
+## y=mx+i
+
+while(T){
+    pq = sample(c(-9:-1,1:9),2)
+    p = pq[1]
+    q = qq[2]
+    m = sample(c(-1,1),1)
+    b = sample(c(-9:-1,1:9),2)
+    h = (p+q-m)/2
+    k = b+p*q-h^2
+}
+
+
+
 ```
 
 Question
 ========
 
-Personally, I find it difficult to interpret large areas. I prefer to find an approximate length to help imagine the scale. If you approximate the shape as a square, the calculation is pretty quick.
-
-For example, maybe you are told that the lake below has an area of $`r area`$ $\mathrm{miles^2}$.
-
-```{r,echo=F,fig.dim=c(5,5)}
-cfs = runif(5,0.01,0.3)
-offs = runif(5,0,2*pi)
-ths = seq(0,2*pi,pi/1000)
-rs = 1+cfs[1]*sin(ths+offs[1])+cfs[2]/2*sin(2*ths+offs[2])+cfs[3]/3*sin(3*ths+offs[3])+cfs[4]/4*sin(4*ths+offs[4])+cfs[5]/5*sin(5*ths+offs[5])
-par(mar=c(0,0,0,0),pty="s")
-plot(0,0,"n",xlim=c(-max(abs(rs)),max(abs(rs))),ylim=c(-max(abs(rs)),max(abs(rs))),axes=F,ann=F)
-polygon(rs*cos(ths),rs*sin(ths),col="blue")
-
-```
-\
-
-If you approximate the shape as a square, what is the edge length? In other words, what is the approximate distance across the lake?
 
 
 Solution
 ========
 
-First, imagine the lake is a square with side lengths equaling $s$.
-
-```{r,echo=F,fig.dim=c(4,4)}
-par(mar=c(0,0,0,0),pty="s")
-library(latex2exp)
-plot(0,0,"n",xlim=c(-1.3,1.3),ylim=c(-1.3,1.3),axes=F,ann=F)
-polygon(c(-1,1,1,-1),c(-1,-1,1,1),col="blue")
-text(-1.1,0,"s")
-text(0,1.1,"s")
-text(0,0,TeX("$A=s^2$"),col="white")
-```
-
-The area of the square equals the side length raised to the power of two.
-
-$$A=s^2$$
-
-The inverse operation is the square root.
-
-$$s=\sqrt{A}$$
-
-Plug in the area.
-
-$$s~=~\sqrt{`r area`~\mathrm{mi^2}}~\approx~`r signif(ans,4)`~\mathrm{mi}$$
-
-So it is approximately `r signif(ans,2)` miles across the lake.
 
 
 Meta-information
 ============
 extype: num
-exsolution: `r ans`
-exname: sqrt_lake_area
-extol: `r tol`
+exsolution: 
+exname: 
