@@ -1,0 +1,267 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+## This might be easier with shifted/flipped sqrt(x) with x-2, x-6, x-12, x-20
+
+mustrep = T
+
+while(mustrep){
+    while(T){
+        pq = sample(c(-9:-1,1:9),2)
+        p = pq[1]
+        q = pq[2]
+        m = sample(c(-1,1),1)
+        b = sample(c(-15:-1,1:15),1)
+        h = (p+q-m)/2
+        k = b+p*q-h^2
+        sol1 = m*p+b
+        sol2 = m*q+b
+        if((m-p-q)%%2==0 && abs(sol1)<10 && abs(sol2)<10 && abs(h)>0 && abs(k)>0 && abs(h)<10 & abs(k)<10 && k!=sol1 && k!=sol2 && abs(sol1)>0 && abs(sol2)>0 && -b/m-h!=0){break}
+    }
+    
+    eq1 = paste0("\\sqrt{x+",-k,"}+",h,collapse="")
+    eq1 = gsub("+-","-",eq1,fixed=T)
+    
+    eq2 = paste0(1/m,"x+",-b/m,collapse="")
+    eq2 = gsub("+-","-",eq2,fixed=T)
+    eq2 = gsub("-1x","-x",eq2,fixed=T)
+    eq2 = gsub("1x","x",eq2,fixed=T)
+    
+    if(sqrt(sol1-k)+h==1/m*sol1-b/m){
+        act = sol1
+        ext = sol2
+        ch1eq = "="
+        ch2eq = "\\ne"
+        ch1exp = paste0("So, $x=",sol1,"$ is an actual solution.")
+        ch2exp = paste0("So, $x=",sol2,"$ is an extraneous solution.")
+        mustrep = F
+    } else if(sqrt(sol2-k)+h==1/m*sol2-b/m) {
+        act = sol2
+        ext = sol1
+        ch1eq = "\\ne"
+        ch2eq = "="
+        ch1exp = paste0("So, $x=",sol1,"$ is an extraneous solution.")
+        ch2exp = paste0("So, $x=",sol2,"$ is an actual solution.")
+        mustrep = F
+    } else {
+        act = 666
+        ext = 666
+    }
+}
+
+ach = -10:10
+al = paste0("* x = ",ach,collapse="\n")
+solA = paste0(1*(ach==act),collapse="")
+solB = paste0(1*(ach==ext),collapse="")
+
+```
+
+Question
+========
+
+Find the actual solution and the [extraneous solution](https://en.wikipedia.org/wiki/Extraneous_and_missing_solutions) to the equation below.
+
+$$`r eq1`~=~`r eq2`$$
+
+* The actual solution: ##ANSWER1##
+* The extraneous solution: ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+```{r,echo=F}
+eq1 = paste0("\\sqrt{x+",-k,"}+",h,collapse="")
+eq1 = gsub("+-","-",eq1,fixed=T)
+
+eq2 = paste0(1/m,"x+",-b/m,collapse="")
+eq2 = gsub("+-","-",eq2,fixed=T)
+eq2 = gsub("-1x","-x",eq2,fixed=T)
+eq2 = gsub("1x","x",eq2,fixed=T)
+
+if(h>0){
+    step1 = paste0("Subtract ",h," from both sides.")
+} else {
+    step1 = paste0("Add ",-h," to both sides.")
+}
+
+Eq2 = paste0("\\sqrt{x+",-k,"}=",1/m,"x+",-b/m-h)
+Eq2 = gsub("+-","-",Eq2,fixed=T)
+Eq2 = gsub("-1x","-x",Eq2,fixed=T)
+Eq2 = gsub("1x","x",Eq2,fixed=T)
+
+step2 = "Square both sides."
+
+Eq3 = paste0("x+",-k,"=(",1/m,"x+",-b/m-h,")^2")
+Eq3 = gsub("+-","-",Eq3,fixed=T)
+Eq3 = gsub("-1x","-x",Eq3,fixed=T)
+Eq3 = gsub("1x","x",Eq3,fixed=T)
+
+Eq4 = paste0("x+",-k,"=(",1/m,"x+",-b/m-h,")\\cdot(",1/m,"x+",-b/m-h,")")
+Eq4 = gsub("+-","-",Eq4,fixed=T)
+Eq4 = gsub("-1x","-x",Eq4,fixed=T)
+Eq4 = gsub("1x","x",Eq4,fixed=T)
+
+Eq5 = paste0("x+",-k,"=x^2+",2/m*(-b/m-h),"x+",(-b/m-h)^2,collapse="")
+Eq5 = gsub("+-","-",Eq5,fixed=T)
+Eq5 = gsub("-1x","-x",Eq5,fixed=T)
+Eq5 = gsub("1x","x",Eq5,fixed=T)
+
+Ex5 = paste0("x+",-k,collapse="")
+Ex5 = gsub("+-","-",Ex5,fixed=T)
+Ex5 = gsub("-1x","-x",Ex5,fixed=T)
+Ex5 = gsub("+1x","+x",Ex5,fixed=T)
+Ex5 = gsub("1x^2","x^2",Ex5,fixed=T)
+
+Eq6 = paste0("0=x^2+",2/m*(-b/m-h)-1,"x+",(-b/m-h)^2+k,collapse="")
+Eq6 = gsub("+-","-",Eq6,fixed=T)
+Eq6 = gsub("-1x","-x",Eq6,fixed=T)
+Eq6 = gsub("+1x","+x",Eq6,fixed=T)
+Eq6 = gsub("1x^2","x^2",Eq6,fixed=T)
+
+Eq7 = paste0("0=(x+",-sol1,")(x+",-sol2,")",collapse="")
+Eq7 = gsub("+-","-",Eq7,fixed=T)
+
+```
+
+Write the given equation.
+
+$$`r eq1`~=~`r eq2`$$
+
+`r step1`
+
+$$`r Eq2`$$
+
+`r step2`
+
+$$`r Eq3`$$
+$$`r Eq4`$$
+
+Expand the right side (by using the [FOIL method](https://en.wikipedia.org/wiki/FOIL_method) or the box method).
+
+$$`r Eq5`$$
+
+Subtract $`r Ex5`$ from both sides.
+
+$$`r Eq6`$$
+
+Factor the quadratic expression (by guessing and checking).
+
+$$`r Eq7`$$
+
+Use the [zero product property](https://en.wikipedia.org/wiki/Zero-product_property) to find the **potential** solutions are $x=`r sol1`$ and $x=`r sol2`$. Plug each potential solution into the original equation to check whether the potential solution is an actual solution or an extraneous solution.
+
+```{r,echo=F}
+Ch1 = paste0("\\sqrt{x+",-k,"}+",h,"\\stackrel{?}{=}",1/m,"x+",-b/m)
+Ch1 = gsub("+-","-",Ch1,fixed=T)
+Ch1 = gsub("-1x","-x",Ch1,fixed=T)
+Ch1 = gsub("1x","x",Ch1,fixed=T)
+Ch1 = gsub("x",paste0("(",sol1,")",collapse=""),Ch1,fixed=T)
+Ch1b = paste0("\\sqrt{",sol1-k,"}+",h,"\\stackrel{?}{=}",1/m*sol1-b/m)
+Ch1b = gsub("+-","-",Ch1b,fixed=T)
+Ch1c = paste0(sqrt(sol1-k),"+",h,"\\stackrel{?}{=}",1/m*sol1-b/m)
+Ch1c = gsub("+-","-",Ch1c,fixed=T)
+Ch1d = paste0(sqrt(sol1-k)+h,ch1eq,1/m*sol1-b/m)
+```
+
+* First check whether $x=`r sol1`$ satisfies the original equation.
+$$`r Ch1`$$
+$$`r Ch1b`$$
+$$`r Ch1c`$$
+$$`r Ch1d`$$
+`r ch1exp`
+
+```{r,echo=F}
+Ch2 = paste0("\\sqrt{x+",-k,"}+",h,"\\stackrel{?}{=}",1/m,"x+",-b/m)
+Ch2 = gsub("+-","-",Ch2,fixed=T)
+Ch2 = gsub("-1x","-x",Ch2,fixed=T)
+Ch2 = gsub("1x","x",Ch2,fixed=T)
+Ch2 = gsub("x",paste0("(",sol2,")",collapse=""),Ch2,fixed=T)
+Ch2b = paste0("\\sqrt{",sol2-k,"}+",h,"\\stackrel{?}{=}",1/m*sol2-b/m)
+Ch2b = gsub("+-","-",Ch2b,fixed=T)
+Ch2c = paste0(sqrt(sol2-k),"+",h,"\\stackrel{?}{=}",1/m*sol2-b/m)
+Ch2c = gsub("+-","-",Ch2c,fixed=T)
+Ch2d = paste0(sqrt(sol2-k)+h,ch2eq,1/m*sol2-b/m)
+```
+
+* Next, check whether $x=`r sol2`$ satisfies the original equation.
+$$`r Ch2`$$
+$$`r Ch2b`$$
+$$`r Ch2c`$$
+$$`r Ch2d`$$
+`r ch2exp`
+
+### Graphical interpretation
+
+```{r,echo=F}
+eq3 = paste0("-\\sqrt{x+",-k,"}+",h,collapse="")
+eq3 = gsub("+-","-",eq3,fixed=T)
+```
+
+You can graph $y=`r eq1`$ and $y=`r eq2`$ as two curves on a Cartesian-coordinate plane. This will show the actual solution as the horizontal coordinate of the interception. The extraneous solution can be seen as the horizontal coordinate of the intersection of the line with a reflection of the square-root curve that would make a full horizontal parabola (curve $y=`r eq3`$).
+
+```{r,echo=F,fig.dim=c(10,5),warning=FALSE}
+library(latex2exp)
+par(mar=c(0,0,0,0),mfrow=c(1,2))
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(i,i),c(-10,10),col="lightgrey",lwd=0.8)
+    lines(c(-10,10),c(i,i),col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=1.3)
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=1.3)
+}
+arrows(-10,0,10,0,0.1,10,3,lwd=2)
+arrows(0,-10,0,10,0.1,10,3,lwd=2)
+text(10,-0.5,10)
+text(-0.5,10,10)
+text(10,0.5,"x")
+text(0.5,10,"y")
+
+x = seq(k,10,0.01)
+y = sqrt(x-k)+h
+x = x[abs(y)<=10]
+y = y[abs(y)<=10]
+lines(x,y,col="red",lwd=3)
+
+x2 = seq(-10,10,0.01)
+y2 = (x2-b)/m
+x2 = x2[abs(y2)<=10]
+y2 = y2[abs(y2)<=10]
+lines(x2,y2,col="blue",lwd=3)
+
+x3 = seq(k,10,0.01)
+y3 = -sqrt(x3-k)+h
+x3 = x3[abs(y3)<=10]
+y3 = y3[abs(y3)<=10]
+lines(x3,y3,col="black",lwd=1,lty=2)
+
+points(act,(act-b)/m,pch=20,cex=1.3)
+points(ext,(ext-b)/m,pch=20,cex=1.3)
+
+plot(0,0,"n",axes=F,ann=F)
+legend("left",
+       legend=c(TeX(paste0("$y=",eq1,"$",collapse="")),
+                TeX(paste0("$y=",eq2,"$",collapse="")),
+                TeX(paste0("$y=",eq3,"$",collapse=""))),
+       col = c("red","blue","black"),
+       lwd = c(3,3,1),
+       lty = c(1,1,2)
+       )
+
+```
+
+Based on the $x$ values of the intersections, the actual solution is $x=`r act`$ and the extraneous solution is $x=`r ext`$.
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r solA`|`r solB`
+exname: sqrt_line_extraneous
