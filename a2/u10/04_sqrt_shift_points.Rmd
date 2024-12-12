@@ -1,12 +1,32 @@
 ```{r data generation, echo = FALSE, results = "hide"}
+sm = 5 #shift max
+hk = sample(1:sm,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+eq = paste0("\\sqrt{x+",-h,"}+",k,collapse="")
+eq = gsub("+-","-",eq,fixed=T)
 
+abs = c(0,0,1,1,4,2,9,3,16,4,25,5,36,6)
+als = character()
+sols = character()
+for(i in 1:length(abs)){
+    ab = abs[i]
+    ach = (ab-sm):(ab+sm)
+    als = c(als,paste0("* ",ach,collapse="\n"))
+    if(i%%2==1){
+        sols = c(sols,paste0(1*((-sm:sm)==h),collapse=""))
+    } else {
+        sols = c(sols,paste0(1*((-sm:sm)==k),collapse=""))
+    }
+}
+al = paste0(als,collapse="\n")
 
 ```
 
 Question
 ========
 
-The function $f(x)~=~\sqrt{x}$ has some integer input-output pairs.
+The function $f(x)~=~\sqrt{x}$ has some integer input-output pairs (see [Diophantine equations](https://en.wikipedia.org/wiki/Diophantine_equation)). The first 7 are listed and graphed below.
 
 | $x$ | $y=f(x)$ |
 |:---:|:---:|
@@ -45,15 +65,87 @@ points(xp,yp,pch=20,cex=1.2)
 ```
 \
 
+A shifted function $g$ is defined as $g(x)=`r eq`$. Find the corresponding points of integer input and integer output on function $g$.
+
+| $x$ | $y=g(x)$ |
+|:---:|:---:|
+| ##ANSWER1## | ##ANSWER2## |
+| ##ANSWER3## | ##ANSWER4## |
+| ##ANSWER5## | ##ANSWER6## |
+| ##ANSWER7## | ##ANSWER8## |
+| ##ANSWER9## | ##ANSWER10## |
+| ##ANSWER11## | ##ANSWER12## |
+| ##ANSWER13## | ##ANSWER14## |
+
+Answerlist
+--------
+
+`r al`
+
 
 Solution
 ========
+
+Function $g$ can be thought of a shifted version of $f$, shifted horizontally by `r h` and vertically by `r k`.
+
+### Graph of function $g$
+
+```{r,echo=F,fig.dim=c(10,4)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-5,45),ylim=c(-5,15),axes=F,ann=F)
+for(i in -5:45){
+    lines(c(i,i),c(-5,15),lwd=0.8,col="lightgrey")
+}
+for(i in -5:15){
+    lines(c(-5,45),c(i,i),lwd=0.8,col="lightgrey")
+}
+for(i in seq(-5,45,5)){
+    lines(c(i,i),c(-5,15),lwd=1.2,col="darkgrey")
+}
+for(i in seq(-5,15,5)){
+    lines(c(-5,45),c(i,i),lwd=1.2,col="darkgrey")
+}
+arrows(-5,0,45,0,0.1,10,2,lwd=2)
+arrows(0,-5,0,15,0.1,10,2,lwd=2)
+x = seq(0,60,0.01)
+y = sqrt(x)
+x2 = x+h
+y2 = y+k
+x3 = x2[x2>-5]
+y3 = y2[x2>-5]
+x4 = x3[x3<45]
+y4 = y3[x3<45]
+lines(x4,y4,lwd=3,col="blue")
+xp = c(0,1,4,9,16,25,36)+h
+yp = sqrt(xp-h)+k
+for(i in 2:length(xp)){
+    lines(c(xp[i-1],xp[i],xp[i]),c(yp[i-1],yp[i-1],yp[i]),col="purple")
+    text(mean(xp[(i-1):i]),yp[i-1]-0.5,paste0("+",i*2-3),col="purple")
+}
+text(h,k+4.5,paste0("(",h,", ",k,")"),col="red",cex=1.4)
+arrows(h,k+3.5,h,k+0.5,length=0.1,angle=10,lwd=3,col="red")
+
+points(xp,yp,pch=20,cex=1.2)
+
+```
+\
+
+| $x$ | $y=f(x)$ |
+|:---:|:---:|
+| `r 0+h` | `r 0+k` |
+| `r 1+h` | `r 1+k` |
+| `r 4+h` | `r 2+k` |
+| `r 9+h` | `r 3+k` |
+| `r 16+h` | `r 4+k` |
+| `r 25+h` | `r 5+k` |
+| `r 36+h` | `r 6+k` |
+
 
 
 
 Meta-information
 ============
 extype: cloze
-exclozetype: 
-exsolution: 
-exname: 
+exclozetype: `r paste0(rep("schoice",14),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: sqrt_shift_points

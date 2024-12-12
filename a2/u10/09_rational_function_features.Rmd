@@ -1,0 +1,69 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+xf = sample(c(-9:-1,1:9),3)
+xi = xf[1]
+xh = xf[2]
+xv = xf[3]
+
+ratexp = paste0("\\frac{(x-",min(c(xi,xh)),")(x-",max(c(xi,xh)),")}{(x-",min(c(xv,xh)),")(x-",max(c(xv,xh)),")}",collapse="")
+ratexp = gsub("--","+",ratexp,fixed=T)
+
+ach = -9:9
+al = paste0("* x = ",ach,collapse="\n")
+sol1 = paste0(1*(ach==xi),collapse="")
+sol2 = paste0(1*(ach==xh),collapse="")
+sol3 = paste0(1*(ach==xv),collapse="")
+
+yh = (x-xi)/(x-xv)
+
+```
+
+Question
+========
+
+A [rational function](https://en.wikipedia.org/wiki/Rational_function) is a quotient (ratio) of two polynomials. When both polynomials are expressed in factored form, it is easy to identify horizontal positions of the [$x$-intercepts](https://en.wikipedia.org/wiki/Zero_of_a_function), the [removable discontinuities](https://en.wikipedia.org/wiki/Classification_of_discontinuities#Removable_discontinuity) (also called holes), and the [vertical asymptotes](https://en.wikipedia.org/wiki/Asymptote#Vertical_asymptotes).
+
+* To identify the $x$-intercepts, find values of $x$ such that $\mathrm{numerator} = 0$ and $\mathrm{denominator }\ne 0$.
+* To identify the $x$ values of the holes, find values of $x$ such that $\mathrm{numerator} = 0$ and $\mathrm{denominator }= 0$.
+* To identify the $x$ values of the vertical asymptotes, find values of $x$ such that $\mathrm{numerator} \ne 0$ and $\mathrm{denominator }= 0$.
+
+*Technically, if factors have multiplicity, it is possible for these simple rules to be "wrong". Specifically, if the same factor is in both numerator and denominator, but with higher multiplicity in the denominator, the result is a vertical asymptote instead of a hole. This technicality is outside the scope of this class.*
+
+The rational function below has an $x$-intercept, a hole, and a vertical asymptote. Identify the $x$ coordinate of each feature.
+
+$$f(x)~=~`r ratexp`$$
+
+* The $x$-intercept is at ##ANSWER1##
+* The hole is at ##ANSWER2##
+* The vertical asymptote is at ##ANSWER3##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+Solution
+========
+
+* The $x$-intercept is at $x=`r xi`$
+* The hole is at $x=`r xh`$
+* The vertical asymptote is at $x=`r xv`$
+
+```{r,echo=F}
+par(mar=c(0,0,0,0))
+x = seq(-10,10,0.01)
+x = x[x!=xv]
+x = x[x!=xh]
+y = (x-xi)/(x-xv)
+
+```
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: 
+exsolution: 
+exname: sqrt_line_extraneous
