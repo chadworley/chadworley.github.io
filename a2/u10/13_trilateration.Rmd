@@ -1,0 +1,184 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+pts = list(c(3, 4, 5),
+           c(6, 8, 10),
+           c(9, 12, 15),
+           c(12, 16, 20),
+           c(15, 20, 25),
+           c(18, 24, 30),
+           c(21, 28, 35),
+           c(24, 32, 40),
+           c(27, 36, 45),
+           c(30, 40, 50),
+           c(33, 44, 55),
+           c(36, 48, 60),
+           c(39, 52, 65),
+           c(42, 56, 70),
+           c(45, 60, 75),
+           c(48, 64, 80),
+           c(51, 68, 85),
+           c(54, 72, 90),
+           c(57, 76, 95),
+           c(60, 80, 100),
+           c(5, 12, 13),
+           c(10, 24, 26),
+           c(15, 36, 39),
+           c(20, 48, 52),
+           c(25, 60, 65),
+           c(30, 72, 78),
+           c(35, 84, 91),
+           c(8, 15, 17),
+           c(16, 30, 34),
+           c(24, 45, 51),
+           c(32, 60, 68),
+           c(40, 75, 85),
+           c(7, 24, 25),
+           c(14, 48, 50),
+           c(21, 72, 75),
+           c(28, 96, 100),
+           c(20, 21, 29),
+           c(40, 42, 58),
+           c(60, 63, 87),
+           c(12, 35, 37),
+           c(24, 70, 74),
+           c(9, 40, 41),
+           c(18, 80, 82),
+           c(28, 45, 53),
+           c(11, 60, 61),
+           c(16, 63, 65),
+           c(33, 56, 65),
+           c(48, 55, 73),
+           c(13, 84, 85),
+           c(36, 77, 85),
+           c(39, 80, 89),
+           c(65, 72, 97))
+
+hk = sample(91:109,2)
+h = hk[1]
+k = hk[2]
+
+pnts = list()
+ds = numeric()
+as = numeric()
+
+da = function(a1,a2){
+    da1 = abs(a1-a2)
+    da2 = abs(a1+2*pi-a2)%%(2*pi)
+    da3 = abs(a2+2*pi-a1)%%(2*pi)
+    return(min(c(da1,da2,da3)))
+}
+
+while(length(pnts)<3){
+    pti = sample(1:length(pts),1)
+    pt = pts[[pti]]
+    dxdy = sample(pt[1:2])*sample(c(-1,1),2,T)
+    x = h+dxdy[1]
+    y = k+dxdy[2]
+    a = (atan2(dxdy[2],dxdy[1])+2*pi)%%(2*pi)
+    das = numeric()
+    if(length(pnts)>1){
+        for(ass in as){
+            das = c(das,da(a,ass))
+        }
+    }
+    
+    if(x>0 && x<200 && y>0 && y<200 && min(das)>pi/6 && min(diff(sort(c(pt[3],ds))))>3){
+        ds = c(ds,pt[3])
+        as = c(as,a)
+        pnts[[length(pnts)+1]] = c(x,y)
+    }
+}
+
+als = character()
+sols = character()
+for(d in c(h,k)){
+    ach = 90:110
+    als = c(als,paste0("* ",ach,collapse="\n"))
+    sols = c(sols,paste0(1*(ach==d),collapse=""))
+}
+
+als = paste0(als,collapse="\n")
+sols = paste0(sols,collapse="|")
+
+```
+
+Question
+========
+
+A circle has a center and a radius. The distance from the center to any point on the edge equals the radius.
+
+In Desmos, we can graph a circle using an equation that looks like [the Pythagorean equation](https://en.wikipedia.org/wiki/Pythagorean_theorem) and the [2D distance formula](https://en.wikipedia.org/wiki/Euclidean_distance#Two_dimensions). If the center is at $(h,k)$ and the radius equals $r$, the following equation graphs the desired circle.
+
+$$(x-h)^2+(y-k)^2~=~r^2$$
+
+A large square lake is 200 miles across. The positions of 3 lighthouses are known, as well as the distance from each lighthouse to a boat.
+
+| lighthouse | position (miles, miles) | distance to boat (miles) |
+|:---:|:---:|:---:|
+|  1  | $(`r pnts[[1]][1]`,`r pnts[[1]][2]`)$ | $`r ds[1]`$ |
+|  2  | $(`r pnts[[2]][1]`,`r pnts[[2]][2]`)$ | $`r ds[2]`$ |
+|  3  | $(`r pnts[[3]][1]`,`r pnts[[3]][2]`)$ | $`r ds[3]`$ |
+
+Use [trilateration](https://en.wikipedia.org/wiki/Trilateration) to find the position of the boat:
+
+(##ANSWER1##, ##ANSWER2##)
+
+
+Answerlist
+--------
+
+`r als`
+
+
+Solution
+========
+
+In Desmos, graph the following:
+
+$$(x-`r pnts[[1]][1]`)^2+(y-`r pnts[[1]][2]`)^2=`r ds[1]`^2$$
+$$(x-`r pnts[[2]][1]`)^2+(y-`r pnts[[2]][2]`)^2=`r ds[2]`^2$$
+$$(x-`r pnts[[3]][1]`)^2+(y-`r pnts[[3]][2]`)^2=`r ds[3]`^2$$
+
+Zoom out to see from 0 to 200 on both axes. Find where all three circles intersect by clicking.
+
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-10,200),ylim=c(-10,200),axes=F,ann=F)
+for(i in seq(0,200,10)){
+    lines(c(0,200),c(i,i),col="lightgrey",lwd=0.8)
+    lines(c(i,i),c(0,200),col="lightgrey",lwd=0.8)
+}
+for(i in seq(0,200,50)){
+    lines(c(0,200),c(i,i),col="darkgrey",lwd=1.2)
+    lines(c(i,i),c(0,200),col="darkgrey",lwd=1.2)
+}
+arrows(0,-10,0,200,0.1,10,2,lwd=3)
+arrows(-10,0,200,0,0.1,10,2,lwd=3)
+text(100,-5,"100")
+text(200,-5,"200")
+text(-2,100,"100",adj=1)
+text(-2,200,"200",adj=1)
+
+th = seq(0,2*pi,pi/100)
+for(i in 1:length(pnts)){
+    x = pnts[[i]][1]
+    y = pnts[[i]][2]
+    col = hsv((i-1)/length(pnts),1,0.6)
+    points(x,y,pch=20,cex=1.4,col=col)
+    lines(c(h,x),c(k,y),col=col)
+    lines(x+cos(th)*ds[i],y+sin(th)*ds[i],col=col)
+}
+points(h,k,col="red",cex=1.7,pch=20)
+
+```
+\
+
+All three circles intersect at point (`r h`, `r k`).
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sols`
+exname: trilateration

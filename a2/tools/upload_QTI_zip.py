@@ -6,8 +6,19 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u09_04_car_force_power.zip",
-"outcanvas/u09_05_inverse_cube_function.zip"]
+file_path_list = ["outcanvas/u10_01_sqrt_lake_area.zip",
+"outcanvas/u10_02_points_on_sqrtx.zip",
+"outcanvas/u10_03_translate_flip_sqrt.zip",
+"outcanvas/u10_04_sqrt_shift_points.zip",
+"outcanvas/u10_05_points_on_cbrtx.zip",
+"outcanvas/u10_06_translate_flip_cbrt.zip",
+"outcanvas/u10_07_sqrt_line_extraneous.zip",
+"outcanvas/u10_08_factrd_rational_featrs.zip",
+"outcanvas/u10_09_expndd_rational_featrs.zip",
+"outcanvas/u10_10_find_rational_hole.zip",
+"outcanvas/u10_11_line_thru_rational_hole.zip",
+"outcanvas/u10_12_distance_formula.zip",
+"outcanvas/u10_13_trilateration.zip"]
 
 # fpl = []
 # for i in range(50,70):

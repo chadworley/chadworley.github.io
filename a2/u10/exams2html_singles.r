@@ -1,6 +1,16 @@
 library("exams")
 
-pppsss = c("04_car_force_power.Rmd")
+pppsss = c("01_sqrt_lake_area.Rmd",
+           "02_points_on_sqrtx.Rmd",
+           "03_translate_flip_sqrt.Rmd",
+           "04_sqrt_shift_points.Rmd",
+           "05_points_on_cbrtx.Rmd",
+           "06_translate_flip_cbrt.Rmd",
+           "07_sqrt_line_extraneous.Rmd",
+           "08_factrd_rational_featrs.Rmd",
+           "09_expndd_rational_featrs.Rmd",
+           "10_find_rational_hole.Rmd",
+           "11_line_thru_rational_hole.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
