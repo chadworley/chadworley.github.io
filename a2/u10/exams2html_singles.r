@@ -14,7 +14,7 @@ library("exams")
 #            "12_distance_formula.Rmd",
 #            "13_trilateration.Rmd")
 
-pppsss = c("01_sqrt_lake_area.Rmd")
+pppsss = c("02_points_on_sqrtx.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
