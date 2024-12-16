@@ -10,7 +10,9 @@ pppsss = c("01_sqrt_lake_area.Rmd",
            "08_factrd_rational_featrs.Rmd",
            "09_expndd_rational_featrs.Rmd",
            "10_find_rational_hole.Rmd",
-           "11_line_thru_rational_hole.Rmd")
+           "11_line_thru_rational_hole.Rmd",
+           "12_distance_formula.Rmd",
+           "13_trilateration.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
