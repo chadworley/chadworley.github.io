@@ -4,10 +4,22 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "u09_"
-files = ["04_car_force_power.Rmd","05_inverse_cube_function.Rmd"]
+front = "u10_"
+files = ["01_sqrt_lake_area.Rmd",
+"02_points_on_sqrtx.Rmd",
+"03_translate_flip_sqrt.Rmd",
+"04_sqrt_shift_points.Rmd",
+"05_points_on_cbrtx.Rmd",
+"06_translate_flip_cbrt.Rmd",
+"07_sqrt_line_extraneous.Rmd",
+"08_factrd_rational_featrs.Rmd",
+"09_expndd_rational_featrs.Rmd",
+"10_find_rational_hole.Rmd",
+"11_line_thru_rational_hole.Rmd",
+"12_distance_formula.Rmd",
+"13_trilateration.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u09/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u10/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
