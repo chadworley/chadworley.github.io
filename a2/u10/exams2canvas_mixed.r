@@ -20,7 +20,7 @@ genname = "u10_"
 # pnts = c(2,3,3,3,3,3,5,4,5,5,5,4,4)
 
 
-probs = c("02_points_on_sqrtx.Rmd")
+probs = c("05_points_on_cbrtx.Rmd")
 pnts = c(3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))

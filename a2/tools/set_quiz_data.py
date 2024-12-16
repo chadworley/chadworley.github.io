@@ -6,7 +6,7 @@ import os
 avt = ["2024-12-16 8:00:00"]
 dut = ["2024-12-16 23:59:00"]
 front = "u10_"
-files = ["02_points_on_sqrtx.Rmd"]
+files = ["05_points_on_cbrtx.Rmd"]
 
 # files = ["01_sqrt_lake_area.Rmd",
 # "02_points_on_sqrtx.Rmd",

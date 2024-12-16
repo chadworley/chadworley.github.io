@@ -20,7 +20,7 @@ course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 # "outcanvas/u10_12_distance_formula.zip",
 # "outcanvas/u10_13_trilateration.zip"]
 
-file_path_list = ["outcanvas/u10_02_points_on_sqrtx.zip"]
+file_path_list = ["outcanvas/u10_05_points_on_cbrtx.zip"]
 
 # fpl = []
 # for i in range(50,70):
