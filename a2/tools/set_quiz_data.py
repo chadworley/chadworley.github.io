@@ -3,26 +3,25 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-12-16 8:00:00"]
-dut = ["2024-12-16 23:59:00"]
+avt = ["2024-12-16 8:00:00"]*6+["2024-12-17 8:00:00"]*4+["2024-12-18 8:00:00"]*3
+dut = ["2024-12-16 23:59:00"]*6+["2024-12-17 23:59:00"]*4+["2024-12-18 23:59:00"]*3
 front = "u10_"
-files = ["05_points_on_cbrtx.Rmd"]
 
-# files = ["01_sqrt_lake_area.Rmd",
-# "02_points_on_sqrtx.Rmd",
-# "03_translate_flip_sqrt.Rmd",
-# "04_sqrt_shift_points.Rmd",
-# "05_points_on_cbrtx.Rmd",
-# "06_translate_flip_cbrt.Rmd",
-# "07_sqrt_line_extraneous.Rmd",
-# "08_factrd_rational_featrs.Rmd",
-# "09_expndd_rational_featrs.Rmd",
-# "10_find_rational_hole.Rmd",
-# "11_line_thru_rational_hole.Rmd",
-# "12_distance_formula.Rmd",
-# "13_trilateration.Rmd"]
+files = ["01_sqrt_lake_area.Rmd",
+"02_points_on_sqrtx.Rmd",
+"03_translate_flip_sqrt.Rmd",
+"04_sqrt_shift_points.Rmd",
+"05_points_on_cbrtx.Rmd",
+"06_translate_flip_cbrt.Rmd",
+"07_sqrt_line_extraneous.Rmd",
+"08_factrd_rational_featrs.Rmd",
+"09_expndd_rational_featrs.Rmd",
+"10_find_rational_hole.Rmd",
+"11_line_thru_rational_hole.Rmd",
+"12_distance_formula.Rmd",
+"13_trilateration.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u09/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u10/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 

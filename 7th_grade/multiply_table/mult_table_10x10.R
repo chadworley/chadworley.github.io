@@ -3,7 +3,7 @@ pdf("mult_10x10.pdf",width = 8.5,height=11)
 nc = 10
 nr = 20
 
-par(mar=c(0,0,0,0))
+par(mar=c(1,1,1,1))
 plot(0,0,"n",axes=F,ann=F,xlim=c(0,1),ylim=c(0,1))
 for(i in 1:nc){
     for(j in 1:nr){
@@ -12,20 +12,23 @@ for(i in 1:nc){
 }
 for(i in 0:nr){
     if(i%%5==0){
-        abline(h=i/nr,lwd=3)
+        # abline(h=i/nr,lwd=3)
+        lines(c(0,1),c(i/nr,i/nr),lwd=3)
     # } else if(i%%2==0){
     #     abline(h=i/nr,lwd=2)
     } else {
-        abline(h=i/nr,lwd=1)
+        lines(c(0,1),c(i/nr,i/nr),lwd=1)
     }
 }
 for(i in 0:nc){
     if(i%%5==0){
-        abline(v=i/nc,lwd=3)
+        # abline(v=i/nc,lwd=3)
+        lines(c(i/nc,i/nc),c(0,1),lwd=3)
     # } else if(i%%2==0){
     #     abline(v=i/nc,lwd=2)
     } else {
-        abline(v=i/nc)
+        # abline(v=i/nc)
+        lines(c(i/nc,i/nc),c(0,1),lwd=1)
     }
 }
 

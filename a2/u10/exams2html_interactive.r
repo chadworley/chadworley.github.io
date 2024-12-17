@@ -14,7 +14,8 @@ probs = c("01_sqrt_lake_area.Rmd",
           "10_find_rational_hole.Rmd",
           "11_line_thru_rational_hole.Rmd",
           "12_distance_formula.Rmd",
-          "13_trilateration.Rmd")
+          "13_trilateration.Rmd",
+          "14_circ_by_compltng_sqr.Rmd")
 
 nvers = 10
 ps = character(0)
