@@ -1,0 +1,410 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>15_div_rationals</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">15_div_rationals</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember, dividing by a fraction is equivalent to multiplying by the reciprocal.</p>
+<p><span class="math display">\[\frac{2}{3}\div \frac{5}{7} ~=~ \frac{2}{3}\cdot\frac{7}{5} ~=~ \frac{14}{15}\]</span></p>
+<p>A similar technique is helpful for dividing rational expressions.</p>
+<p>It is possible to enforce the following equation to be true for all values of <span class="math inline">\(x\)</span> (and thus make an <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a>) by setting the four parameters: <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span>. <em>Note: technically, there will be 2 specific values of <span class="math inline">\(x\)</span> that cause the left side to be undefined but not the right side because we will be filling some removable discontinuities.</em></p>
+<p><span class="math display">\[\frac{x^{2}-{13}x+{36}}{x^{2}+{8}x+{7}}\div \frac{x^{2}-{14}x+{45}}{x^{2}+{5}x-{14}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>Find <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> to set up the identity above.</p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -96</option><option>-84</option><option>-53</option><option>-20</option><option>-8</option><option>-6</option><option>-5</option><option>-4</option><option>-2</option><option>0</option><option>2</option><option>4</option><option>5</option><option>6</option><option>8</option><option>20</option><option>53</option><option>84</option><option>96 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -96</option><option>-84</option><option>-53</option><option>-20</option><option>-8</option><option>-6</option><option>-5</option><option>-4</option><option>-2</option><option>0</option><option>2</option><option>4</option><option>5</option><option>6</option><option>8</option><option>20</option><option>53</option><option>84</option><option>96 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -96</option><option>-84</option><option>-53</option><option>-20</option><option>-8</option><option>-6</option><option>-5</option><option>-4</option><option>-2</option><option>0</option><option>2</option><option>4</option><option>5</option><option>6</option><option>8</option><option>20</option><option>53</option><option>84</option><option>96 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -96</option><option>-84</option><option>-53</option><option>-20</option><option>-8</option><option>-6</option><option>-5</option><option>-4</option><option>-2</option><option>0</option><option>2</option><option>4</option><option>5</option><option>6</option><option>8</option><option>20</option><option>53</option><option>84</option><option>96 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given quotient.</p>
+<p><span class="math display">\[\frac{x^{2}-{13}x+{36}}{x^{2}+{8}x+{7}}\div \frac{x^{2}-{14}x+{45}}{x^{2}+{5}x-{14}}\]</span></p>
+<p>Reciprocate the second rational fraction to convert the quotient into a product.</p>
+<p><span class="math display">\[\frac{x^{2}-{13}x+{36}}{x^{2}+{8}x+{7}}\cdot\frac{x^{2}+{5}x-{14}}{x^{2}-{14}x+{45}}\]</span></p>
+<p>Instead of starting by multiplying the numerators and multiplying the denominators, it can be helpful to start by <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-intro/a/factoring-quadratics-leading-coefficient-1">factoring each expression</a>.</p>
+<p><span class="math display">\[\frac{(x-{9})(x-{4})}{(x+{7})(x+{1})}\cdot\frac{(x-{2})(x+{7})}{(x-{9})(x-{5})}\]</span></p>
+<p>Write as a single fraction.</p>
+<p><span class="math display">\[\frac{(x-{9})(x-{4})(x-{2})(x+{7})}{(x+{7})(x+{1})(x-{9})(x-{5})}\]</span></p>
+<p>Eliminate common factors. (This step removes the removable discontinuities… fills the holes.)</p>
+<p><span class="math display">\[\frac{(x-{4})(x-{2})}{(x+{1})(x-{5})}\]</span></p>
+<p>Expand both the numerator and denominator using <a href="https://en.wikipedia.org/wiki/FOIL_method">the FOIL method</a>.</p>
+<p><span class="math display">\[\frac{x^{2}-{6}x+{8}}{x^{2}-{4}x-{5}}\]</span></p>
+<p>Identify the values of the parameters to enforce the identity.</p>
+<p><span class="math display">\[\frac{x^{2}-{6}x+{8}}{x^{2}-{4}x-{5}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[a=-6\]</span>
+<span class="math display">\[b=8\]</span>
+<span class="math display">\[c=-4\]</span>
+<span class="math display">\[d=-5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember, dividing by a fraction is equivalent to multiplying by the reciprocal.</p>
+<p><span class="math display">\[\frac{2}{3}\div \frac{5}{7} ~=~ \frac{2}{3}\cdot\frac{7}{5} ~=~ \frac{14}{15}\]</span></p>
+<p>A similar technique is helpful for dividing rational expressions.</p>
+<p>It is possible to enforce the following equation to be true for all values of <span class="math inline">\(x\)</span> (and thus make an <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a>) by setting the four parameters: <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span>. <em>Note: technically, there will be 2 specific values of <span class="math inline">\(x\)</span> that cause the left side to be undefined but not the right side because we will be filling some removable discontinuities.</em></p>
+<p><span class="math display">\[\frac{x^{2}-{17}x+{70}}{x^{2}-{8}x-{9}}\div \frac{x^{2}-{4}x-{60}}{x^{2}-{4}x-{5}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>Find <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> to set up the identity above.</p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -88</option><option>-78</option><option>-54</option><option>-43</option><option>-35</option><option>-32</option><option>-15</option><option>-12</option><option>-3</option><option>-2</option><option>0</option><option>2</option><option>3</option><option>12</option><option>15</option><option>32</option><option>35</option><option>43</option><option>54</option><option>78</option><option>88 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -88</option><option>-78</option><option>-54</option><option>-43</option><option>-35</option><option>-32</option><option>-15</option><option>-12</option><option>-3</option><option>-2</option><option>0</option><option>2</option><option>3</option><option>12</option><option>15</option><option>32</option><option>35</option><option>43</option><option>54</option><option>78</option><option>88 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -88</option><option>-78</option><option>-54</option><option>-43</option><option>-35</option><option>-32</option><option>-15</option><option>-12</option><option>-3</option><option>-2</option><option>0</option><option>2</option><option>3</option><option>12</option><option>15</option><option>32</option><option>35</option><option>43</option><option>54</option><option>78</option><option>88 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -88</option><option>-78</option><option>-54</option><option>-43</option><option>-35</option><option>-32</option><option>-15</option><option>-12</option><option>-3</option><option>-2</option><option>0</option><option>2</option><option>3</option><option>12</option><option>15</option><option>32</option><option>35</option><option>43</option><option>54</option><option>78</option><option>88 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given quotient.</p>
+<p><span class="math display">\[\frac{x^{2}-{17}x+{70}}{x^{2}-{8}x-{9}}\div \frac{x^{2}-{4}x-{60}}{x^{2}-{4}x-{5}}\]</span></p>
+<p>Reciprocate the second rational fraction to convert the quotient into a product.</p>
+<p><span class="math display">\[\frac{x^{2}-{17}x+{70}}{x^{2}-{8}x-{9}}\cdot\frac{x^{2}-{4}x-{5}}{x^{2}-{4}x-{60}}\]</span></p>
+<p>Instead of starting by multiplying the numerators and multiplying the denominators, it can be helpful to start by <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-intro/a/factoring-quadratics-leading-coefficient-1">factoring each expression</a>.</p>
+<p><span class="math display">\[\frac{(x-{10})(x-{7})}{(x+{1})(x-{9})}\cdot\frac{(x-{5})(x+{1})}{(x-{10})(x+{6})}\]</span></p>
+<p>Write as a single fraction.</p>
+<p><span class="math display">\[\frac{(x-{10})(x-{7})(x-{5})(x+{1})}{(x+{1})(x-{9})(x-{10})(x+{6})}\]</span></p>
+<p>Eliminate common factors. (This step removes the removable discontinuities… fills the holes.)</p>
+<p><span class="math display">\[\frac{(x-{7})(x-{5})}{(x-{9})(x+{6})}\]</span></p>
+<p>Expand both the numerator and denominator using <a href="https://en.wikipedia.org/wiki/FOIL_method">the FOIL method</a>.</p>
+<p><span class="math display">\[\frac{x^{2}-{12}x+{35}}{x^{2}-{3}x-{54}}\]</span></p>
+<p>Identify the values of the parameters to enforce the identity.</p>
+<p><span class="math display">\[\frac{x^{2}-{12}x+{35}}{x^{2}-{3}x-{54}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[a=-12\]</span>
+<span class="math display">\[b=35\]</span>
+<span class="math display">\[c=-3\]</span>
+<span class="math display">\[d=-54\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember, dividing by a fraction is equivalent to multiplying by the reciprocal.</p>
+<p><span class="math display">\[\frac{2}{3}\div \frac{5}{7} ~=~ \frac{2}{3}\cdot\frac{7}{5} ~=~ \frac{14}{15}\]</span></p>
+<p>A similar technique is helpful for dividing rational expressions.</p>
+<p>It is possible to enforce the following equation to be true for all values of <span class="math inline">\(x\)</span> (and thus make an <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a>) by setting the four parameters: <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span>. <em>Note: technically, there will be 2 specific values of <span class="math inline">\(x\)</span> that cause the left side to be undefined but not the right side because we will be filling some removable discontinuities.</em></p>
+<p><span class="math display">\[\frac{x^{2}+{7}x+{12}}{x^{2}+{8}x+{12}}\div \frac{x^{2}-{6}x-{40}}{x^{2}-x-{42}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>Find <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> to set up the identity above.</p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -69</option><option>-43</option><option>-39</option><option>-24</option><option>-21</option><option>-20</option><option>-12</option><option>-10</option><option>-8</option><option>-4</option><option>0</option><option>4</option><option>8</option><option>10</option><option>12</option><option>20</option><option>21</option><option>24</option><option>39</option><option>43</option><option>69 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -69</option><option>-43</option><option>-39</option><option>-24</option><option>-21</option><option>-20</option><option>-12</option><option>-10</option><option>-8</option><option>-4</option><option>0</option><option>4</option><option>8</option><option>10</option><option>12</option><option>20</option><option>21</option><option>24</option><option>39</option><option>43</option><option>69 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -69</option><option>-43</option><option>-39</option><option>-24</option><option>-21</option><option>-20</option><option>-12</option><option>-10</option><option>-8</option><option>-4</option><option>0</option><option>4</option><option>8</option><option>10</option><option>12</option><option>20</option><option>21</option><option>24</option><option>39</option><option>43</option><option>69 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -69</option><option>-43</option><option>-39</option><option>-24</option><option>-21</option><option>-20</option><option>-12</option><option>-10</option><option>-8</option><option>-4</option><option>0</option><option>4</option><option>8</option><option>10</option><option>12</option><option>20</option><option>21</option><option>24</option><option>39</option><option>43</option><option>69 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given quotient.</p>
+<p><span class="math display">\[\frac{x^{2}+{7}x+{12}}{x^{2}+{8}x+{12}}\div \frac{x^{2}-{6}x-{40}}{x^{2}-x-{42}}\]</span></p>
+<p>Reciprocate the second rational fraction to convert the quotient into a product.</p>
+<p><span class="math display">\[\frac{x^{2}+{7}x+{12}}{x^{2}+{8}x+{12}}\cdot\frac{x^{2}-x-{42}}{x^{2}-{6}x-{40}}\]</span></p>
+<p>Instead of starting by multiplying the numerators and multiplying the denominators, it can be helpful to start by <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-intro/a/factoring-quadratics-leading-coefficient-1">factoring each expression</a>.</p>
+<p><span class="math display">\[\frac{(x+{4})(x+{3})}{(x+{6})(x+{2})}\cdot\frac{(x-{7})(x+{6})}{(x+{4})(x-{10})}\]</span></p>
+<p>Write as a single fraction.</p>
+<p><span class="math display">\[\frac{(x+{4})(x+{3})(x-{7})(x+{6})}{(x+{6})(x+{2})(x+{4})(x-{10})}\]</span></p>
+<p>Eliminate common factors. (This step removes the removable discontinuities… fills the holes.)</p>
+<p><span class="math display">\[\frac{(x+{3})(x-{7})}{(x+{2})(x-{10})}\]</span></p>
+<p>Expand both the numerator and denominator using <a href="https://en.wikipedia.org/wiki/FOIL_method">the FOIL method</a>.</p>
+<p><span class="math display">\[\frac{x^{2}-{4}x-{21}}{x^{2}-{8}x-{20}}\]</span></p>
+<p>Identify the values of the parameters to enforce the identity.</p>
+<p><span class="math display">\[\frac{x^{2}-{4}x-{21}}{x^{2}-{8}x-{20}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[a=-4\]</span>
+<span class="math display">\[b=-21\]</span>
+<span class="math display">\[c=-8\]</span>
+<span class="math display">\[d=-20\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember, dividing by a fraction is equivalent to multiplying by the reciprocal.</p>
+<p><span class="math display">\[\frac{2}{3}\div \frac{5}{7} ~=~ \frac{2}{3}\cdot\frac{7}{5} ~=~ \frac{14}{15}\]</span></p>
+<p>A similar technique is helpful for dividing rational expressions.</p>
+<p>It is possible to enforce the following equation to be true for all values of <span class="math inline">\(x\)</span> (and thus make an <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a>) by setting the four parameters: <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span>. <em>Note: technically, there will be 2 specific values of <span class="math inline">\(x\)</span> that cause the left side to be undefined but not the right side because we will be filling some removable discontinuities.</em></p>
+<p><span class="math display">\[\frac{x^{2}+{15}x+{56}}{x^{2}+{8}x+{12}}\div \frac{x^{2}-{3}x-{70}}{x^{2}+{9}x+{18}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>Find <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> to set up the identity above.</p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -77</option><option>-64</option><option>-24</option><option>-21</option><option>-20</option><option>-17</option><option>-12</option><option>-11</option><option>-8</option><option>-5</option><option>0</option><option>5</option><option>8</option><option>11</option><option>12</option><option>17</option><option>20</option><option>21</option><option>24</option><option>64</option><option>77 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -77</option><option>-64</option><option>-24</option><option>-21</option><option>-20</option><option>-17</option><option>-12</option><option>-11</option><option>-8</option><option>-5</option><option>0</option><option>5</option><option>8</option><option>11</option><option>12</option><option>17</option><option>20</option><option>21</option><option>24</option><option>64</option><option>77 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -77</option><option>-64</option><option>-24</option><option>-21</option><option>-20</option><option>-17</option><option>-12</option><option>-11</option><option>-8</option><option>-5</option><option>0</option><option>5</option><option>8</option><option>11</option><option>12</option><option>17</option><option>20</option><option>21</option><option>24</option><option>64</option><option>77 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -77</option><option>-64</option><option>-24</option><option>-21</option><option>-20</option><option>-17</option><option>-12</option><option>-11</option><option>-8</option><option>-5</option><option>0</option><option>5</option><option>8</option><option>11</option><option>12</option><option>17</option><option>20</option><option>21</option><option>24</option><option>64</option><option>77 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given quotient.</p>
+<p><span class="math display">\[\frac{x^{2}+{15}x+{56}}{x^{2}+{8}x+{12}}\div \frac{x^{2}-{3}x-{70}}{x^{2}+{9}x+{18}}\]</span></p>
+<p>Reciprocate the second rational fraction to convert the quotient into a product.</p>
+<p><span class="math display">\[\frac{x^{2}+{15}x+{56}}{x^{2}+{8}x+{12}}\cdot\frac{x^{2}+{9}x+{18}}{x^{2}-{3}x-{70}}\]</span></p>
+<p>Instead of starting by multiplying the numerators and multiplying the denominators, it can be helpful to start by <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-intro/a/factoring-quadratics-leading-coefficient-1">factoring each expression</a>.</p>
+<p><span class="math display">\[\frac{(x+{7})(x+{8})}{(x+{6})(x+{2})}\cdot\frac{(x+{3})(x+{6})}{(x+{7})(x-{10})}\]</span></p>
+<p>Write as a single fraction.</p>
+<p><span class="math display">\[\frac{(x+{7})(x+{8})(x+{3})(x+{6})}{(x+{6})(x+{2})(x+{7})(x-{10})}\]</span></p>
+<p>Eliminate common factors. (This step removes the removable discontinuities… fills the holes.)</p>
+<p><span class="math display">\[\frac{(x+{8})(x+{3})}{(x+{2})(x-{10})}\]</span></p>
+<p>Expand both the numerator and denominator using <a href="https://en.wikipedia.org/wiki/FOIL_method">the FOIL method</a>.</p>
+<p><span class="math display">\[\frac{x^{2}+{11}x+{24}}{x^{2}-{8}x-{20}}\]</span></p>
+<p>Identify the values of the parameters to enforce the identity.</p>
+<p><span class="math display">\[\frac{x^{2}+{11}x+{24}}{x^{2}-{8}x-{20}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[a=11\]</span>
+<span class="math display">\[b=24\]</span>
+<span class="math display">\[c=-8\]</span>
+<span class="math display">\[d=-20\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember, dividing by a fraction is equivalent to multiplying by the reciprocal.</p>
+<p><span class="math display">\[\frac{2}{3}\div \frac{5}{7} ~=~ \frac{2}{3}\cdot\frac{7}{5} ~=~ \frac{14}{15}\]</span></p>
+<p>A similar technique is helpful for dividing rational expressions.</p>
+<p>It is possible to enforce the following equation to be true for all values of <span class="math inline">\(x\)</span> (and thus make an <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a>) by setting the four parameters: <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span>. <em>Note: technically, there will be 2 specific values of <span class="math inline">\(x\)</span> that cause the left side to be undefined but not the right side because we will be filling some removable discontinuities.</em></p>
+<p><span class="math display">\[\frac{x^{2}+{7}x-{30}}{x^{2}-{2}x-{48}}\div \frac{x^{2}+{6}x-{27}}{x^{2}-{12}x+{32}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>Find <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> to set up the identity above.</p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -88</option><option>-83</option><option>-54</option><option>-40</option><option>-28</option><option>-22</option><option>-15</option><option>-14</option><option>-6</option><option>-3</option><option>0</option><option>3</option><option>6</option><option>14</option><option>15</option><option>22</option><option>28</option><option>40</option><option>54</option><option>83</option><option>88 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -88</option><option>-83</option><option>-54</option><option>-40</option><option>-28</option><option>-22</option><option>-15</option><option>-14</option><option>-6</option><option>-3</option><option>0</option><option>3</option><option>6</option><option>14</option><option>15</option><option>22</option><option>28</option><option>40</option><option>54</option><option>83</option><option>88 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -88</option><option>-83</option><option>-54</option><option>-40</option><option>-28</option><option>-22</option><option>-15</option><option>-14</option><option>-6</option><option>-3</option><option>0</option><option>3</option><option>6</option><option>14</option><option>15</option><option>22</option><option>28</option><option>40</option><option>54</option><option>83</option><option>88 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -88</option><option>-83</option><option>-54</option><option>-40</option><option>-28</option><option>-22</option><option>-15</option><option>-14</option><option>-6</option><option>-3</option><option>0</option><option>3</option><option>6</option><option>14</option><option>15</option><option>22</option><option>28</option><option>40</option><option>54</option><option>83</option><option>88 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given quotient.</p>
+<p><span class="math display">\[\frac{x^{2}+{7}x-{30}}{x^{2}-{2}x-{48}}\div \frac{x^{2}+{6}x-{27}}{x^{2}-{12}x+{32}}\]</span></p>
+<p>Reciprocate the second rational fraction to convert the quotient into a product.</p>
+<p><span class="math display">\[\frac{x^{2}+{7}x-{30}}{x^{2}-{2}x-{48}}\cdot\frac{x^{2}-{12}x+{32}}{x^{2}+{6}x-{27}}\]</span></p>
+<p>Instead of starting by multiplying the numerators and multiplying the denominators, it can be helpful to start by <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-intro/a/factoring-quadratics-leading-coefficient-1">factoring each expression</a>.</p>
+<p><span class="math display">\[\frac{(x-{3})(x+{10})}{(x-{8})(x+{6})}\cdot\frac{(x-{4})(x-{8})}{(x-{3})(x+{9})}\]</span></p>
+<p>Write as a single fraction.</p>
+<p><span class="math display">\[\frac{(x-{3})(x+{10})(x-{4})(x-{8})}{(x-{8})(x+{6})(x-{3})(x+{9})}\]</span></p>
+<p>Eliminate common factors. (This step removes the removable discontinuities… fills the holes.)</p>
+<p><span class="math display">\[\frac{(x+{10})(x-{4})}{(x+{6})(x+{9})}\]</span></p>
+<p>Expand both the numerator and denominator using <a href="https://en.wikipedia.org/wiki/FOIL_method">the FOIL method</a>.</p>
+<p><span class="math display">\[\frac{x^{2}+{6}x-{40}}{x^{2}+{15}x+{54}}\]</span></p>
+<p>Identify the values of the parameters to enforce the identity.</p>
+<p><span class="math display">\[\frac{x^{2}+{6}x-{40}}{x^{2}+{15}x+{54}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[a=6\]</span>
+<span class="math display">\[b=-40\]</span>
+<span class="math display">\[c=15\]</span>
+<span class="math display">\[d=54\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember, dividing by a fraction is equivalent to multiplying by the reciprocal.</p>
+<p><span class="math display">\[\frac{2}{3}\div \frac{5}{7} ~=~ \frac{2}{3}\cdot\frac{7}{5} ~=~ \frac{14}{15}\]</span></p>
+<p>A similar technique is helpful for dividing rational expressions.</p>
+<p>It is possible to enforce the following equation to be true for all values of <span class="math inline">\(x\)</span> (and thus make an <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a>) by setting the four parameters: <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span>. <em>Note: technically, there will be 2 specific values of <span class="math inline">\(x\)</span> that cause the left side to be undefined but not the right side because we will be filling some removable discontinuities.</em></p>
+<p><span class="math display">\[\frac{x^{2}-{7}x+{6}}{x^{2}-{13}x+{40}}\div \frac{x^{2}+{3}x-{54}}{x^{2}+{5}x-{50}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>Find <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> to set up the identity above.</p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -93</option><option>-89</option><option>-72</option><option>-63</option><option>-47</option><option>-17</option><option>-11</option><option>-10</option><option>-9</option><option>-1</option><option>0</option><option>1</option><option>9</option><option>10</option><option>11</option><option>17</option><option>47</option><option>63</option><option>72</option><option>89</option><option>93 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -93</option><option>-89</option><option>-72</option><option>-63</option><option>-47</option><option>-17</option><option>-11</option><option>-10</option><option>-9</option><option>-1</option><option>0</option><option>1</option><option>9</option><option>10</option><option>11</option><option>17</option><option>47</option><option>63</option><option>72</option><option>89</option><option>93 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -93</option><option>-89</option><option>-72</option><option>-63</option><option>-47</option><option>-17</option><option>-11</option><option>-10</option><option>-9</option><option>-1</option><option>0</option><option>1</option><option>9</option><option>10</option><option>11</option><option>17</option><option>47</option><option>63</option><option>72</option><option>89</option><option>93 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -93</option><option>-89</option><option>-72</option><option>-63</option><option>-47</option><option>-17</option><option>-11</option><option>-10</option><option>-9</option><option>-1</option><option>0</option><option>1</option><option>9</option><option>10</option><option>11</option><option>17</option><option>47</option><option>63</option><option>72</option><option>89</option><option>93 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given quotient.</p>
+<p><span class="math display">\[\frac{x^{2}-{7}x+{6}}{x^{2}-{13}x+{40}}\div \frac{x^{2}+{3}x-{54}}{x^{2}+{5}x-{50}}\]</span></p>
+<p>Reciprocate the second rational fraction to convert the quotient into a product.</p>
+<p><span class="math display">\[\frac{x^{2}-{7}x+{6}}{x^{2}-{13}x+{40}}\cdot\frac{x^{2}+{5}x-{50}}{x^{2}+{3}x-{54}}\]</span></p>
+<p>Instead of starting by multiplying the numerators and multiplying the denominators, it can be helpful to start by <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-intro/a/factoring-quadratics-leading-coefficient-1">factoring each expression</a>.</p>
+<p><span class="math display">\[\frac{(x-{6})(x-{1})}{(x-{5})(x-{8})}\cdot\frac{(x+{10})(x-{5})}{(x-{6})(x+{9})}\]</span></p>
+<p>Write as a single fraction.</p>
+<p><span class="math display">\[\frac{(x-{6})(x-{1})(x+{10})(x-{5})}{(x-{5})(x-{8})(x-{6})(x+{9})}\]</span></p>
+<p>Eliminate common factors. (This step removes the removable discontinuities… fills the holes.)</p>
+<p><span class="math display">\[\frac{(x-{1})(x+{10})}{(x-{8})(x+{9})}\]</span></p>
+<p>Expand both the numerator and denominator using <a href="https://en.wikipedia.org/wiki/FOIL_method">the FOIL method</a>.</p>
+<p><span class="math display">\[\frac{x^{2}+{9}x-{10}}{x^{2}+x-{72}}\]</span></p>
+<p>Identify the values of the parameters to enforce the identity.</p>
+<p><span class="math display">\[\frac{x^{2}+{9}x-{10}}{x^{2}+x-{72}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[a=9\]</span>
+<span class="math display">\[b=-10\]</span>
+<span class="math display">\[c=1\]</span>
+<span class="math display">\[d=-72\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember, dividing by a fraction is equivalent to multiplying by the reciprocal.</p>
+<p><span class="math display">\[\frac{2}{3}\div \frac{5}{7} ~=~ \frac{2}{3}\cdot\frac{7}{5} ~=~ \frac{14}{15}\]</span></p>
+<p>A similar technique is helpful for dividing rational expressions.</p>
+<p>It is possible to enforce the following equation to be true for all values of <span class="math inline">\(x\)</span> (and thus make an <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a>) by setting the four parameters: <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span>. <em>Note: technically, there will be 2 specific values of <span class="math inline">\(x\)</span> that cause the left side to be undefined but not the right side because we will be filling some removable discontinuities.</em></p>
+<p><span class="math display">\[\frac{x^{2}+{3}x-{70}}{x^{2}-{7}x+{12}}\div \frac{x^{2}+{8}x-{20}}{x^{2}+x-{20}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>Find <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> to set up the identity above.</p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -57</option><option>-41</option><option>-35</option><option>-28</option><option>-23</option><option>-12</option><option>-6</option><option>-5</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>5</option><option>6</option><option>12</option><option>23</option><option>28</option><option>35</option><option>41</option><option>57 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -57</option><option>-41</option><option>-35</option><option>-28</option><option>-23</option><option>-12</option><option>-6</option><option>-5</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>5</option><option>6</option><option>12</option><option>23</option><option>28</option><option>35</option><option>41</option><option>57 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -57</option><option>-41</option><option>-35</option><option>-28</option><option>-23</option><option>-12</option><option>-6</option><option>-5</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>5</option><option>6</option><option>12</option><option>23</option><option>28</option><option>35</option><option>41</option><option>57 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -57</option><option>-41</option><option>-35</option><option>-28</option><option>-23</option><option>-12</option><option>-6</option><option>-5</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>5</option><option>6</option><option>12</option><option>23</option><option>28</option><option>35</option><option>41</option><option>57 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given quotient.</p>
+<p><span class="math display">\[\frac{x^{2}+{3}x-{70}}{x^{2}-{7}x+{12}}\div \frac{x^{2}+{8}x-{20}}{x^{2}+x-{20}}\]</span></p>
+<p>Reciprocate the second rational fraction to convert the quotient into a product.</p>
+<p><span class="math display">\[\frac{x^{2}+{3}x-{70}}{x^{2}-{7}x+{12}}\cdot\frac{x^{2}+x-{20}}{x^{2}+{8}x-{20}}\]</span></p>
+<p>Instead of starting by multiplying the numerators and multiplying the denominators, it can be helpful to start by <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-intro/a/factoring-quadratics-leading-coefficient-1">factoring each expression</a>.</p>
+<p><span class="math display">\[\frac{(x+{10})(x-{7})}{(x-{4})(x-{3})}\cdot\frac{(x+{5})(x-{4})}{(x+{10})(x-{2})}\]</span></p>
+<p>Write as a single fraction.</p>
+<p><span class="math display">\[\frac{(x+{10})(x-{7})(x+{5})(x-{4})}{(x-{4})(x-{3})(x+{10})(x-{2})}\]</span></p>
+<p>Eliminate common factors. (This step removes the removable discontinuities… fills the holes.)</p>
+<p><span class="math display">\[\frac{(x-{7})(x+{5})}{(x-{3})(x-{2})}\]</span></p>
+<p>Expand both the numerator and denominator using <a href="https://en.wikipedia.org/wiki/FOIL_method">the FOIL method</a>.</p>
+<p><span class="math display">\[\frac{x^{2}-{2}x-{35}}{x^{2}-{5}x+{6}}\]</span></p>
+<p>Identify the values of the parameters to enforce the identity.</p>
+<p><span class="math display">\[\frac{x^{2}-{2}x-{35}}{x^{2}-{5}x+{6}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[a=-2\]</span>
+<span class="math display">\[b=-35\]</span>
+<span class="math display">\[c=-5\]</span>
+<span class="math display">\[d=6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember, dividing by a fraction is equivalent to multiplying by the reciprocal.</p>
+<p><span class="math display">\[\frac{2}{3}\div \frac{5}{7} ~=~ \frac{2}{3}\cdot\frac{7}{5} ~=~ \frac{14}{15}\]</span></p>
+<p>A similar technique is helpful for dividing rational expressions.</p>
+<p>It is possible to enforce the following equation to be true for all values of <span class="math inline">\(x\)</span> (and thus make an <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a>) by setting the four parameters: <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span>. <em>Note: technically, there will be 2 specific values of <span class="math inline">\(x\)</span> that cause the left side to be undefined but not the right side because we will be filling some removable discontinuities.</em></p>
+<p><span class="math display">\[\frac{x^{2}+{2}x-{35}}{x^{2}-{18}x+{80}}\div \frac{x^{2}-{6}x+{5}}{x^{2}-{12}x+{32}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>Find <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> to set up the identity above.</p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -77</option><option>-69</option><option>-28</option><option>-27</option><option>-21</option><option>-11</option><option>-10</option><option>-9</option><option>-3</option><option>0</option><option>3</option><option>9</option><option>10</option><option>11</option><option>21</option><option>27</option><option>28</option><option>69</option><option>77 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -77</option><option>-69</option><option>-28</option><option>-27</option><option>-21</option><option>-11</option><option>-10</option><option>-9</option><option>-3</option><option>0</option><option>3</option><option>9</option><option>10</option><option>11</option><option>21</option><option>27</option><option>28</option><option>69</option><option>77 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -77</option><option>-69</option><option>-28</option><option>-27</option><option>-21</option><option>-11</option><option>-10</option><option>-9</option><option>-3</option><option>0</option><option>3</option><option>9</option><option>10</option><option>11</option><option>21</option><option>27</option><option>28</option><option>69</option><option>77 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -77</option><option>-69</option><option>-28</option><option>-27</option><option>-21</option><option>-11</option><option>-10</option><option>-9</option><option>-3</option><option>0</option><option>3</option><option>9</option><option>10</option><option>11</option><option>21</option><option>27</option><option>28</option><option>69</option><option>77 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given quotient.</p>
+<p><span class="math display">\[\frac{x^{2}+{2}x-{35}}{x^{2}-{18}x+{80}}\div \frac{x^{2}-{6}x+{5}}{x^{2}-{12}x+{32}}\]</span></p>
+<p>Reciprocate the second rational fraction to convert the quotient into a product.</p>
+<p><span class="math display">\[\frac{x^{2}+{2}x-{35}}{x^{2}-{18}x+{80}}\cdot\frac{x^{2}-{12}x+{32}}{x^{2}-{6}x+{5}}\]</span></p>
+<p>Instead of starting by multiplying the numerators and multiplying the denominators, it can be helpful to start by <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-intro/a/factoring-quadratics-leading-coefficient-1">factoring each expression</a>.</p>
+<p><span class="math display">\[\frac{(x-{5})(x+{7})}{(x-{8})(x-{10})}\cdot\frac{(x-{4})(x-{8})}{(x-{5})(x-{1})}\]</span></p>
+<p>Write as a single fraction.</p>
+<p><span class="math display">\[\frac{(x-{5})(x+{7})(x-{4})(x-{8})}{(x-{8})(x-{10})(x-{5})(x-{1})}\]</span></p>
+<p>Eliminate common factors. (This step removes the removable discontinuities… fills the holes.)</p>
+<p><span class="math display">\[\frac{(x+{7})(x-{4})}{(x-{10})(x-{1})}\]</span></p>
+<p>Expand both the numerator and denominator using <a href="https://en.wikipedia.org/wiki/FOIL_method">the FOIL method</a>.</p>
+<p><span class="math display">\[\frac{x^{2}+{3}x-{28}}{x^{2}-{11}x+{10}}\]</span></p>
+<p>Identify the values of the parameters to enforce the identity.</p>
+<p><span class="math display">\[\frac{x^{2}+{3}x-{28}}{x^{2}-{11}x+{10}} ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[a=3\]</span>
+<span class="math display">\[b=-28\]</span>
+<span class="math display">\[c=-11\]</span>
+<span class="math display">\[d=10\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

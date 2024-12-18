@@ -1,0 +1,207 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+# y = (ax+b)/(cx+d)
+# x = (ay+b)/(cy+d)
+# cxy+dx = ay+b
+# y(cx-a) = -dx+b
+# y = (-Dx+B)/(Cx-A)
+
+# make c=1.. rename d to c... ugh gross...
+
+ABD = sample(2:9,3)*sample(c(-1,1))
+A = ABD[1]
+B = ABD[2]
+D = ABD[3]
+
+a = -D
+b = B
+c = -A
+
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+pfiy = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}y^{",dd,"}",collapse="+")
+    p = gsub("y^{0}","",p,fixed=T)
+    p = gsub("y^{1}","y",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}y","+y",p,fixed=T)
+    p = gsub("-{1}y","-y",p,fixed=T)
+    p = gsub("{-1}y","-y",p,fixed=T)
+    p = gsub("{1}y","y",p,fixed=T)
+    return(p)
+}
+
+f1 = paste0("\\frac{",pfix(c(A,B),1:0),"}{",pfix(c(1,D),1:0),"}")
+
+ach = -9:9
+al = paste0("* ",ach,collapse="\n")
+sol1 = paste0(1*(ach==a),collapse = "")
+sol2 = paste0(1*(ach==b),collapse = "")
+sol3 = paste0(1*(ach==c),collapse = "")
+
+ie1 = paste0("x~=~",gsub("x","y",f1,fixed=T))
+
+```
+
+Question
+========
+
+Let function $f$ be defined by the rational expression below.
+
+$$f(x)~=~`r f1`$$
+
+Its inverse function can be expressed in the following form. Please find the values of the three parameters: $a$, $b$, and $c$.
+
+$$f^{-1}(x)~=~\frac{ax+b}{x+c}$$
+
+* $a=$ ##ANSWER1##
+* $b=$ ##ANSWER2##
+* $c=$ ##ANSWER3##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+Solution
+========
+
+Start by getting rid of function notation.
+
+$$y~=~`r f1`$$
+
+To find the **inverse**, swap the $x$ and $y$.
+
+$$`r ie1`$$
+
+Our goal is to get $y$ by itself (solve for $y$). Multiply both sides by $`r pfiy(c(1,D),1:0)`$.
+
+```{r,echo=F}
+ie2 = paste0("x\\cdot(y+",D,")~=~",A,"y+",B,collapse="")
+ie2 = gsub("+-","-",ie2,fixed=T)
+```
+
+$$`r ie2`$$
+
+Distribute $x$ to get rid of parentheses.
+
+```{r,echo=F}
+ie3 = paste0("xy+",D,"x~=~",A,"y+",B,collapse="")
+ie3 = gsub("+-","-",ie3,fixed=T)
+```
+
+$$`r ie3`$$
+
+Notice all terms are either linear in $y$ or independent of $y$. This means we can gather all the terms with $y$ onto the left side and all the terms without $y$ onto the right side. We do this by subtracting $`r D`x$ from both sides and subtracting $`r A`y$ from both sides.
+
+```{r,echo=F}
+ie4 = paste0("xy+",-A,"y~=~",-D,"x+",B,collapse="")
+ie4 = gsub("+-","-",ie4,fixed=T)
+```
+
+$$`r ie4`$$
+
+Factor out the $y$ from both terms on the left side of the equation.
+
+```{r,echo=F}
+ie5 = paste0("y\\cdot(x+",-A,")~=~",-D,"x+",B,collapse="")
+ie5 = gsub("+-","-",ie5,fixed=T)
+myfact = paste0("x+",-A,collapse="")
+myfact = gsub("+-","-",myfact,fixed=T)
+```
+
+$$`r ie5`$$
+
+Divide both sides by $`r myfact`$.
+
+```{r,echo=F}
+ie6 = paste0("y~=~\\frac{",-D,"x+",B,"}{x+",-A,"}",collapse="")
+ie6 = gsub("+-","-",ie6,fixed=T)
+```
+
+$$`r ie6`$$
+
+Return to function notation, using $f^{-1}$ for inverse.
+
+```{r,echo=F}
+ie7 = paste0("\\frac{",-D,"x+",B,"}{x+",-A,"}",collapse="")
+ie7 = gsub("+-","-",ie7,fixed=T)
+```
+
+$$f^{-1}(x)~=~`r ie7`$$
+
+So,
+
+$$a=`r a`$$
+$$b=`r b`$$
+$$c=`r c`$$
+
+To visually confirm that the two are indeed inverses, graph both to see they are reflections over the $y=x$ line.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0))
+ll = -20
+ul = 20
+plot(0,0,"n",xlim=c(ll,ul),ylim=c(ll,ul),axes=F,ann=F)
+for(i in ll:ul){
+    lines(c(ll,ul),c(i,i),col="lightgrey",lwd=0.8)
+    lines(c(i,i),c(ll,ul),col="lightgrey",lwd=0.8)
+}
+for(i in seq(ll,ul,1)){
+    if(i%%5==0){
+        lines(c(ll,ul),c(i,i),col="darkgrey",lwd=1.3)
+        lines(c(i,i),c(ll,ul),col="darkgrey",lwd=1.3)
+    }
+}
+arrows(ll,0,ul,0,0.1,10,3,lwd=2)
+arrows(0,ll,0,ul,0.1,10,3,lwd=2)
+text(ul,-(ul-ll)/40,ul)
+text(ul,(ul-ll)/40,"x")
+text(-(ul-ll)/40,ul,ul)
+text((ul-ll)/40,ul,"y")
+x1a = seq(ll,-D,0.01)
+y1a = (A*x1a+B)/(x1a+D)
+lines(x1a,y1a,col="red",lwd=3)
+x1b = seq(-D,ul,0.01)
+y1b = (A*x1b+B)/(x1b+D)
+lines(x1b,y1b,col="red",lwd=3)
+
+x2a = seq(ll,A,0.01)
+y2a = (-D*x2a+B)/(x2a-A)
+lines(x2a,y2a,col="blue",lwd=3)
+x2b = seq(A,ul,0.01)
+y2b = (-D*x2b+B)/(x2b-A)
+lines(x2b,y2b,col="blue",lwd=3)
+lines(c(ll,ul),c(ll,ul),lty=2)
+library(latex2exp)
+legend("topright",legend=c(TeX("$y=f(x)$"),TeX("$y=f^{-1}(x)$"),TeX("$y=x$")),col = c("red","blue","black"),lwd=c(3,3,1),lty=c(1,1,2))
+# x2 = x2[y2>=ll]
+# x2 = x2[y2<=ul]
+# y2 = y2[y2>=ll]
+# y2 = y2[y2<=ul]
+# lines(x2,y2,col="blue",lwd=3)
+```
+\
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: inverse_rational

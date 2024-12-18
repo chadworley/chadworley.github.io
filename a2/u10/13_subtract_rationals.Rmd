@@ -1,10 +1,8 @@
 ```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
 
-# 1/(x+p)+1/(x+q)
-# (2x+(p+q))/(x^2+(p+q)x+pq)
-
-# m/(x+p)+n/(x+q)
-# ((m+n)x+(np+mq))/(x^2+(p+q)x+pq)
+# m/(x+p)-n/(x+q)
+# (m*(x+q)-n(x+p))/(x^2+(p+q)x+pq)
+# ((m-n)x+(mq-np))/(x^2+(p+q)x+pq)
 
 pq = sample(2:9,2)*sample(c(-1,1),2,T)
 p = pq[1]
@@ -14,10 +12,10 @@ mn = sample(2:9,2)
 m = mn[1]
 n = mn[2]
 
-exp1 = paste0("\\frac{",m,"}{x+",p,"}+\\frac{",n,"}{x+",q,"}",collapse="")
+exp1 = paste0("\\frac{",m,"}{x+",p,"}-\\frac{",n,"}{x+",q,"}",collapse="")
 exp1 = gsub("+-","-",exp1,fixed=T)
 
-exp2 = paste0("\\frac{",m,"\\cdot (x+",q,")}{(x+",p,")(x+",q,")}+\\frac{",n,"\\cdot(x+",p,")}{(x+",q,")(x+",p,")}",collapse="")
+exp2 = paste0("\\frac{",m,"\\cdot (x+",q,")}{(x+",p,")(x+",q,")}-\\frac{",n,"\\cdot(x+",p,")}{(x+",q,")(x+",p,")}",collapse="")
 exp2 = gsub("+-","-",exp2,fixed=T)
 
 m1 = paste0("\\frac{x+",q,"}{x+",q,"}",collapse="")
@@ -25,14 +23,17 @@ m1 = gsub("+-","-",m1,fixed=T)
 m2 = paste0("\\frac{x+",p,"}{x+",p,"}",collapse="")
 m2 = gsub("+-","-",m2,fixed=T)
 
-exp3 = paste0("\\frac{",m,"x+",m*q,"}{x^2+",p+q,"x+",p*q,"}+\\frac{",n,"x+",n*p,"}{x^2+",p+q,"x+",p*q,"}",collapse="")
+exp3 = paste0("\\frac{",m,"x+",m*q,"}{x^2+",p+q,"x+",p*q,"}-\\frac{",n,"x+",n*p,"}{x^2+",p+q,"x+",p*q,"}",collapse="")
 exp3 = gsub("+-","-",exp3,fixed=T)
 
-exp4 = paste0("\\frac{",m+n,"x+",m*q+n*p,"}{x^2+",p+q,"x+",p*q,"}",collapse="")
+exp4 = paste0("\\frac{{",m-n,"}x+",m*q-n*p,"}{x^2+{",p+q,"}x+",p*q,"}",collapse="")
 exp4 = gsub("+-","-",exp4,fixed=T)
+exp4 = gsub("+{-","-{",exp4,fixed=T)
+exp4 = gsub("{1}x","x",exp4,fixed=T)
+exp4 = gsub("{-1}x","-x",exp4,fixed=T)
 
-ans = c(m+n,m*q+n*p,p+q,p*q)
-rans = c(sample(1:200,3),m-n,p-q,m+p,m+q,n+p,n+q,m*q-n*p,m*n)
+ans = c(m-n,m*q-n*p,p+q,p*q)
+rans = c(sample(1:200,3),m+n,m*q+n*p,n*p-m*q,p-q,m+p,m+q,n+p,n+q,m*q-n*p,m*n)
 ach = sort(unique(c(ans,-ans,rans,-rans)))
 
 al = paste0("* ",ach,collapse="\n")
@@ -46,7 +47,7 @@ sol4 = paste0(1*(ans[4]==ach),collapse="")
 Question
 ========
 
-Adding rational expressions is similar to adding fractions: specifically, a common denominator can be helpful when adding rational expressions. Find the parameters $a$, $b$, $c$, and $d$ such that the [identity](https://en.wikipedia.org/wiki/Identity_(mathematics)) below is equivalent for any value of $x$.
+Subtracting rational expressions is similar to subtracting fractions: specifically, a common denominator can be helpful when subtracting rational expressions. Find the parameters $a$, $b$, $c$, and $d$ such that the [identity](https://en.wikipedia.org/wiki/Identity_(mathematics)) below is equivalent for any value of $x$.
 
 $$`r exp1` ~\equiv~ \frac{ax+b}{x^2+cx+d}$$
 
@@ -80,7 +81,7 @@ Expand both numerators and both denominators.
 
 $$`r exp3`$$
 
-Now, since we have common denominators, we can add the numerators.
+Now, since we have common denominators, we can subtract the numerators.
 
 $$`r exp4`$$
 
@@ -91,11 +92,9 @@ $$b=`r ans[2]`$$
 $$c=`r ans[3]`$$
 $$d=`r ans[4]`$$
 
-
-
 Meta-information
 ============
 extype: cloze
 exclozetype: schoice|schoice|schoice|schoice
 exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
-exname: add_rationals
+exname: subtract_rationals

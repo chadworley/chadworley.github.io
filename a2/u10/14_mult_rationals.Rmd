@@ -1,0 +1,129 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+# (x+a)*(x+b)/((x+c)(x+d)) * (x+c)(x+e)/((x+a)(x+f))
+# (x^2+(a+b)x+ab)/(x^2+(c+d)x+cd) * (x^2+(c+e)x+ce)/(x^2+(a+f)x+af)
+# (x+b)*(x+e)/((x+d)(x+f))
+
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+abc = sample(1:10,6)*sample(c(-1,1),6,T)
+a = abc[1]
+b = abc[2]
+c = abc[3]
+d = abc[4]
+e = abc[5]
+f = abc[6]
+
+# (x+a)*(x+b)/((x+c)(x+d)) * (x+c)(x+e)/((x+a)(x+f))
+# (x^2+(a+b)x+ab)/(x^2+(c+d)x+cd) * (x^2+(c+e)x+ce)/(x^2+(a+f)x+af)
+# (x+b)*(x+e)/((x+d)(x+f))
+
+exp1 = paste0("\\frac{",pfix(c(1,a+b,a*b),2:0),"}{",pfix(c(1,c+d,c*d),2:0),
+              "}\\cdot\\frac{",pfix(c(1,c+e,c*e),2:0),"}{",pfix(c(1,a+f,a*f),2:0),"}")
+
+exp2 = paste0("\\frac{(",pfix(c(1,a),1:0),")(",pfix(c(1,b),1:0),")}{(",pfix(c(1,c),1:0),
+              ")(",pfix(c(1,d),1:0),")}\\cdot\\frac{(",pfix(c(1,e),1:0),")(",pfix(c(1,c),1:0),")}{(",pfix(c(1,a),1:0),")(",pfix(c(1,f),1:0),")}")
+
+exp3 = paste0("\\frac{(",pfix(c(1,a),1:0),")(",pfix(c(1,b),1:0),")(",pfix(c(1,e),1:0),")(",pfix(c(1,c),1:0),")}{(",pfix(c(1,c),1:0),")(",pfix(c(1,d),1:0),")(",pfix(c(1,a),1:0),")(",pfix(c(1,f),1:0),")}")
+
+exp4 = paste0("\\frac{(",pfix(c(1,b),1:0),")(",pfix(c(1,e),1:0),")}{(",pfix(c(1,d),1:0),")(",pfix(c(1,f),1:0),")}")
+
+exp5 = paste0("\\frac{",pfix(c(1,b+e,b*e),2:0),"}{",pfix(c(1,d+f,d*f),2:0),"}",collapse="")
+
+a1 = b+e
+a2 = b*e
+a3 = d+f
+a4 = d*f
+
+rands = sample(0:100,4)
+ach = sort(unique(c(0,a1,a2,a3,a4,-a1,-a2,-a3,-a4,b-e,e-b,d-f,f-d,rands,-rands)))
+al = paste0("* ",ach,collapse="\n")
+sol1 = paste0(1*(ach==a1),collapse="")
+sol2 = paste0(1*(ach==a2),collapse="")
+sol3 = paste0(1*(ach==a3),collapse="")
+sol4 = paste0(1*(ach==a4),collapse="")
+
+```
+
+Question
+========
+
+Counterintuitively, when multiplying fractions, it is often helpful to start by factoring and to eliminate common factors. For example,
+
+$$\frac{77}{6}\cdot\frac{4}{35}~=~\frac{11\cdot7\cdot2\cdot2}{2\cdot3\cdot5\cdot7}~=~\frac{11\cdot2}{3\cdot 5} ~=~ \frac{22}{15}$$
+
+A similar technique is helpful for multiplying rational expressions.
+
+It is possible to enforce the following equation to be true for all values of $x$ (and thus make an [identity](https://en.wikipedia.org/wiki/Identity_(mathematics))) by setting the four parameters: $a$, $b$, $c$, and $d$. *Note: technically, there will be 2 specific values of $x$ that cause the left side to be undefined but not the right side because we will be filling some removable discontinuities.*
+
+$$`r exp1` ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}$$
+
+Find $a$, $b$, $c$, and $d$ to set up the identity above.
+
+* $a=$ ##ANSWER1##
+* $b=$ ##ANSWER2##
+* $c=$ ##ANSWER3##
+* $d=$ ##ANSWER4##
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+Start with the given product.
+
+$$`r exp1`$$
+
+Instead of starting by multiplying the numerators and multiplying the denominators, it can be helpful to start by [factoring each expression](https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-intro/a/factoring-quadratics-leading-coefficient-1).
+
+$$`r exp2`$$
+
+Write as a single fraction.
+
+$$`r exp3`$$
+
+Eliminate common factors. (This step removes the removable discontinuities... fills the holes.)
+
+$$`r exp4`$$
+
+Expand both the numerator and denominator using [the FOIL method](https://en.wikipedia.org/wiki/FOIL_method).
+
+$$`r exp5`$$
+
+Identify the values of the parameters to enforce the identity.
+
+$$`r exp5` ~\equiv~ \frac{x^2+ax+b}{x^2+cx+d}$$
+
+So,
+
+$$a=`r b+e`$$
+$$b=`r b*e`$$
+$$c=`r d+f`$$
+$$d=`r d*f`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: mult_rationals

@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>12_add_rationals</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">12_add_rationals</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Adding rational expressions is similar to adding fractions: specifically, a common denominator can be helpful when adding rational expressions. Find the parameters <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> such that the <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a> below is equivalent for any value of <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\frac{3}{x-2}+\frac{6}{x-5} ~\equiv~ \frac{ax+b}{x^2+cx+d}\]</span></p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -187</option><option>-43</option><option>-27</option><option>-18</option><option>-14</option><option>-10</option><option>-9</option><option>-7</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>3</option><option>4</option><option>7</option><option>9</option><option>10</option><option>14</option><option>18</option><option>27</option><option>43</option><option>187 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -187</option><option>-43</option><option>-27</option><option>-18</option><option>-14</option><option>-10</option><option>-9</option><option>-7</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>3</option><option>4</option><option>7</option><option>9</option><option>10</option><option>14</option><option>18</option><option>27</option><option>43</option><option>187 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -187</option><option>-43</option><option>-27</option><option>-18</option><option>-14</option><option>-10</option><option>-9</option><option>-7</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>3</option><option>4</option><option>7</option><option>9</option><option>10</option><option>14</option><option>18</option><option>27</option><option>43</option><option>187 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -187</option><option>-43</option><option>-27</option><option>-18</option><option>-14</option><option>-10</option><option>-9</option><option>-7</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>3</option><option>4</option><option>7</option><option>9</option><option>10</option><option>14</option><option>18</option><option>27</option><option>43</option><option>187 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given expression:</p>
+<p><span class="math display">\[\frac{3}{x-2}+\frac{6}{x-5}\]</span></p>
+<p>To get a common denominator, multiply the first rational fraction by <span class="math inline">\(\frac{x-5}{x-5}\)</span> and the second rational fraction by <span class="math inline">\(\frac{x-2}{x-2}\)</span>.</p>
+<p><span class="math display">\[\frac{3\cdot (x-5)}{(x-2)(x-5)}+\frac{6\cdot(x-2)}{(x-5)(x-2)}\]</span></p>
+<p>Expand both numerators and both denominators.</p>
+<p><span class="math display">\[\frac{3x-15}{x^2-7x+10}+\frac{6x-12}{x^2-7x+10}\]</span></p>
+<p>Now, since we have common denominators, we can add the numerators.</p>
+<p><span class="math display">\[\frac{9x-27}{x^2-7x+10}\]</span></p>
+<p>This form of the expression matches our goal. To enforce the identity,</p>
+<p><span class="math display">\[a=9\]</span>
+<span class="math display">\[b=-27\]</span>
+<span class="math display">\[c=-7\]</span>
+<span class="math display">\[d=10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Adding rational expressions is similar to adding fractions: specifically, a common denominator can be helpful when adding rational expressions. Find the parameters <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> such that the <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a> below is equivalent for any value of <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\frac{3}{x-4}+\frac{7}{x-2} ~\equiv~ \frac{ax+b}{x^2+cx+d}\]</span></p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -74</option><option>-73</option><option>-34</option><option>-22</option><option>-21</option><option>-10</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>10</option><option>21</option><option>22</option><option>34</option><option>73</option><option>74 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -74</option><option>-73</option><option>-34</option><option>-22</option><option>-21</option><option>-10</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>10</option><option>21</option><option>22</option><option>34</option><option>73</option><option>74 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -74</option><option>-73</option><option>-34</option><option>-22</option><option>-21</option><option>-10</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>10</option><option>21</option><option>22</option><option>34</option><option>73</option><option>74 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -74</option><option>-73</option><option>-34</option><option>-22</option><option>-21</option><option>-10</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>10</option><option>21</option><option>22</option><option>34</option><option>73</option><option>74 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given expression:</p>
+<p><span class="math display">\[\frac{3}{x-4}+\frac{7}{x-2}\]</span></p>
+<p>To get a common denominator, multiply the first rational fraction by <span class="math inline">\(\frac{x-2}{x-2}\)</span> and the second rational fraction by <span class="math inline">\(\frac{x-4}{x-4}\)</span>.</p>
+<p><span class="math display">\[\frac{3\cdot (x-2)}{(x-4)(x-2)}+\frac{7\cdot(x-4)}{(x-2)(x-4)}\]</span></p>
+<p>Expand both numerators and both denominators.</p>
+<p><span class="math display">\[\frac{3x-6}{x^2-6x+8}+\frac{7x-28}{x^2-6x+8}\]</span></p>
+<p>Now, since we have common denominators, we can add the numerators.</p>
+<p><span class="math display">\[\frac{10x-34}{x^2-6x+8}\]</span></p>
+<p>This form of the expression matches our goal. To enforce the identity,</p>
+<p><span class="math display">\[a=10\]</span>
+<span class="math display">\[b=-34\]</span>
+<span class="math display">\[c=-6\]</span>
+<span class="math display">\[d=8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Adding rational expressions is similar to adding fractions: specifically, a common denominator can be helpful when adding rational expressions. Find the parameters <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> such that the <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a> below is equivalent for any value of <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\frac{2}{x-8}+\frac{7}{x-6} ~\equiv~ \frac{ax+b}{x^2+cx+d}\]</span></p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -165</option><option>-106</option><option>-68</option><option>-48</option><option>-44</option><option>-34</option><option>-14</option><option>-9</option><option>-6</option><option>-5</option><option>-4</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>4</option><option>5</option><option>6</option><option>9</option><option>14</option><option>34</option><option>44</option><option>48</option><option>68</option><option>106</option><option>165 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -165</option><option>-106</option><option>-68</option><option>-48</option><option>-44</option><option>-34</option><option>-14</option><option>-9</option><option>-6</option><option>-5</option><option>-4</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>4</option><option>5</option><option>6</option><option>9</option><option>14</option><option>34</option><option>44</option><option>48</option><option>68</option><option>106</option><option>165 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -165</option><option>-106</option><option>-68</option><option>-48</option><option>-44</option><option>-34</option><option>-14</option><option>-9</option><option>-6</option><option>-5</option><option>-4</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>4</option><option>5</option><option>6</option><option>9</option><option>14</option><option>34</option><option>44</option><option>48</option><option>68</option><option>106</option><option>165 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -165</option><option>-106</option><option>-68</option><option>-48</option><option>-44</option><option>-34</option><option>-14</option><option>-9</option><option>-6</option><option>-5</option><option>-4</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>4</option><option>5</option><option>6</option><option>9</option><option>14</option><option>34</option><option>44</option><option>48</option><option>68</option><option>106</option><option>165 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given expression:</p>
+<p><span class="math display">\[\frac{2}{x-8}+\frac{7}{x-6}\]</span></p>
+<p>To get a common denominator, multiply the first rational fraction by <span class="math inline">\(\frac{x-6}{x-6}\)</span> and the second rational fraction by <span class="math inline">\(\frac{x-8}{x-8}\)</span>.</p>
+<p><span class="math display">\[\frac{2\cdot (x-6)}{(x-8)(x-6)}+\frac{7\cdot(x-8)}{(x-6)(x-8)}\]</span></p>
+<p>Expand both numerators and both denominators.</p>
+<p><span class="math display">\[\frac{2x-12}{x^2-14x+48}+\frac{7x-56}{x^2-14x+48}\]</span></p>
+<p>Now, since we have common denominators, we can add the numerators.</p>
+<p><span class="math display">\[\frac{9x-68}{x^2-14x+48}\]</span></p>
+<p>This form of the expression matches our goal. To enforce the identity,</p>
+<p><span class="math display">\[a=9\]</span>
+<span class="math display">\[b=-68\]</span>
+<span class="math display">\[c=-14\]</span>
+<span class="math display">\[d=48\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Adding rational expressions is similar to adding fractions: specifically, a common denominator can be helpful when adding rational expressions. Find the parameters <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> such that the <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a> below is equivalent for any value of <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\frac{2}{x+7}+\frac{5}{x-2} ~\equiv~ \frac{ax+b}{x^2+cx+d}\]</span></p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -163</option><option>-74</option><option>-70</option><option>-39</option><option>-31</option><option>-14</option><option>-12</option><option>-10</option><option>-9</option><option>-7</option><option>-5</option><option>-3</option><option>0</option><option>3</option><option>5</option><option>7</option><option>9</option><option>10</option><option>12</option><option>14</option><option>31</option><option>39</option><option>70</option><option>74</option><option>163 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -163</option><option>-74</option><option>-70</option><option>-39</option><option>-31</option><option>-14</option><option>-12</option><option>-10</option><option>-9</option><option>-7</option><option>-5</option><option>-3</option><option>0</option><option>3</option><option>5</option><option>7</option><option>9</option><option>10</option><option>12</option><option>14</option><option>31</option><option>39</option><option>70</option><option>74</option><option>163 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -163</option><option>-74</option><option>-70</option><option>-39</option><option>-31</option><option>-14</option><option>-12</option><option>-10</option><option>-9</option><option>-7</option><option>-5</option><option>-3</option><option>0</option><option>3</option><option>5</option><option>7</option><option>9</option><option>10</option><option>12</option><option>14</option><option>31</option><option>39</option><option>70</option><option>74</option><option>163 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -163</option><option>-74</option><option>-70</option><option>-39</option><option>-31</option><option>-14</option><option>-12</option><option>-10</option><option>-9</option><option>-7</option><option>-5</option><option>-3</option><option>0</option><option>3</option><option>5</option><option>7</option><option>9</option><option>10</option><option>12</option><option>14</option><option>31</option><option>39</option><option>70</option><option>74</option><option>163 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given expression:</p>
+<p><span class="math display">\[\frac{2}{x+7}+\frac{5}{x-2}\]</span></p>
+<p>To get a common denominator, multiply the first rational fraction by <span class="math inline">\(\frac{x-2}{x-2}\)</span> and the second rational fraction by <span class="math inline">\(\frac{x+7}{x+7}\)</span>.</p>
+<p><span class="math display">\[\frac{2\cdot (x-2)}{(x+7)(x-2)}+\frac{5\cdot(x+7)}{(x-2)(x+7)}\]</span></p>
+<p>Expand both numerators and both denominators.</p>
+<p><span class="math display">\[\frac{2x-4}{x^2+5x-14}+\frac{5x+35}{x^2+5x-14}\]</span></p>
+<p>Now, since we have common denominators, we can add the numerators.</p>
+<p><span class="math display">\[\frac{7x+31}{x^2+5x-14}\]</span></p>
+<p>This form of the expression matches our goal. To enforce the identity,</p>
+<p><span class="math display">\[a=7\]</span>
+<span class="math display">\[b=31\]</span>
+<span class="math display">\[c=5\]</span>
+<span class="math display">\[d=-14\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Adding rational expressions is similar to adding fractions: specifically, a common denominator can be helpful when adding rational expressions. Find the parameters <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> such that the <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a> below is equivalent for any value of <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\frac{5}{x-3}+\frac{9}{x+7} ~\equiv~ \frac{ax+b}{x^2+cx+d}\]</span></p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -121</option><option>-87</option><option>-62</option><option>-45</option><option>-44</option><option>-21</option><option>-16</option><option>-14</option><option>-12</option><option>-10</option><option>-8</option><option>-6</option><option>-4</option><option>-2</option><option>2</option><option>4</option><option>6</option><option>8</option><option>10</option><option>12</option><option>14</option><option>16</option><option>21</option><option>44</option><option>45</option><option>62</option><option>87</option><option>121 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -121</option><option>-87</option><option>-62</option><option>-45</option><option>-44</option><option>-21</option><option>-16</option><option>-14</option><option>-12</option><option>-10</option><option>-8</option><option>-6</option><option>-4</option><option>-2</option><option>2</option><option>4</option><option>6</option><option>8</option><option>10</option><option>12</option><option>14</option><option>16</option><option>21</option><option>44</option><option>45</option><option>62</option><option>87</option><option>121 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -121</option><option>-87</option><option>-62</option><option>-45</option><option>-44</option><option>-21</option><option>-16</option><option>-14</option><option>-12</option><option>-10</option><option>-8</option><option>-6</option><option>-4</option><option>-2</option><option>2</option><option>4</option><option>6</option><option>8</option><option>10</option><option>12</option><option>14</option><option>16</option><option>21</option><option>44</option><option>45</option><option>62</option><option>87</option><option>121 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -121</option><option>-87</option><option>-62</option><option>-45</option><option>-44</option><option>-21</option><option>-16</option><option>-14</option><option>-12</option><option>-10</option><option>-8</option><option>-6</option><option>-4</option><option>-2</option><option>2</option><option>4</option><option>6</option><option>8</option><option>10</option><option>12</option><option>14</option><option>16</option><option>21</option><option>44</option><option>45</option><option>62</option><option>87</option><option>121 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given expression:</p>
+<p><span class="math display">\[\frac{5}{x-3}+\frac{9}{x+7}\]</span></p>
+<p>To get a common denominator, multiply the first rational fraction by <span class="math inline">\(\frac{x+7}{x+7}\)</span> and the second rational fraction by <span class="math inline">\(\frac{x-3}{x-3}\)</span>.</p>
+<p><span class="math display">\[\frac{5\cdot (x+7)}{(x-3)(x+7)}+\frac{9\cdot(x-3)}{(x+7)(x-3)}\]</span></p>
+<p>Expand both numerators and both denominators.</p>
+<p><span class="math display">\[\frac{5x+35}{x^2+4x-21}+\frac{9x-27}{x^2+4x-21}\]</span></p>
+<p>Now, since we have common denominators, we can add the numerators.</p>
+<p><span class="math display">\[\frac{14x+8}{x^2+4x-21}\]</span></p>
+<p>This form of the expression matches our goal. To enforce the identity,</p>
+<p><span class="math display">\[a=14\]</span>
+<span class="math display">\[b=8\]</span>
+<span class="math display">\[c=4\]</span>
+<span class="math display">\[d=-21\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Adding rational expressions is similar to adding fractions: specifically, a common denominator can be helpful when adding rational expressions. Find the parameters <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> such that the <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a> below is equivalent for any value of <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\frac{2}{x+7}+\frac{8}{x+2} ~\equiv~ \frac{ax+b}{x^2+cx+d}\]</span></p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -198</option><option>-122</option><option>-60</option><option>-52</option><option>-39</option><option>-16</option><option>-15</option><option>-14</option><option>-10</option><option>-9</option><option>-6</option><option>-5</option><option>-4</option><option>4</option><option>5</option><option>6</option><option>9</option><option>10</option><option>14</option><option>15</option><option>16</option><option>39</option><option>52</option><option>60</option><option>122</option><option>198 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -198</option><option>-122</option><option>-60</option><option>-52</option><option>-39</option><option>-16</option><option>-15</option><option>-14</option><option>-10</option><option>-9</option><option>-6</option><option>-5</option><option>-4</option><option>4</option><option>5</option><option>6</option><option>9</option><option>10</option><option>14</option><option>15</option><option>16</option><option>39</option><option>52</option><option>60</option><option>122</option><option>198 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -198</option><option>-122</option><option>-60</option><option>-52</option><option>-39</option><option>-16</option><option>-15</option><option>-14</option><option>-10</option><option>-9</option><option>-6</option><option>-5</option><option>-4</option><option>4</option><option>5</option><option>6</option><option>9</option><option>10</option><option>14</option><option>15</option><option>16</option><option>39</option><option>52</option><option>60</option><option>122</option><option>198 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -198</option><option>-122</option><option>-60</option><option>-52</option><option>-39</option><option>-16</option><option>-15</option><option>-14</option><option>-10</option><option>-9</option><option>-6</option><option>-5</option><option>-4</option><option>4</option><option>5</option><option>6</option><option>9</option><option>10</option><option>14</option><option>15</option><option>16</option><option>39</option><option>52</option><option>60</option><option>122</option><option>198 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given expression:</p>
+<p><span class="math display">\[\frac{2}{x+7}+\frac{8}{x+2}\]</span></p>
+<p>To get a common denominator, multiply the first rational fraction by <span class="math inline">\(\frac{x+2}{x+2}\)</span> and the second rational fraction by <span class="math inline">\(\frac{x+7}{x+7}\)</span>.</p>
+<p><span class="math display">\[\frac{2\cdot (x+2)}{(x+7)(x+2)}+\frac{8\cdot(x+7)}{(x+2)(x+7)}\]</span></p>
+<p>Expand both numerators and both denominators.</p>
+<p><span class="math display">\[\frac{2x+4}{x^2+9x+14}+\frac{8x+56}{x^2+9x+14}\]</span></p>
+<p>Now, since we have common denominators, we can add the numerators.</p>
+<p><span class="math display">\[\frac{10x+60}{x^2+9x+14}\]</span></p>
+<p>This form of the expression matches our goal. To enforce the identity,</p>
+<p><span class="math display">\[a=10\]</span>
+<span class="math display">\[b=60\]</span>
+<span class="math display">\[c=9\]</span>
+<span class="math display">\[d=14\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Adding rational expressions is similar to adding fractions: specifically, a common denominator can be helpful when adding rational expressions. Find the parameters <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> such that the <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a> below is equivalent for any value of <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\frac{9}{x+4}+\frac{7}{x+3} ~\equiv~ \frac{ax+b}{x^2+cx+d}\]</span></p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -146</option><option>-130</option><option>-63</option><option>-55</option><option>-45</option><option>-16</option><option>-13</option><option>-12</option><option>-11</option><option>-10</option><option>-7</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>7</option><option>10</option><option>11</option><option>12</option><option>13</option><option>16</option><option>45</option><option>55</option><option>63</option><option>130</option><option>146 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -146</option><option>-130</option><option>-63</option><option>-55</option><option>-45</option><option>-16</option><option>-13</option><option>-12</option><option>-11</option><option>-10</option><option>-7</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>7</option><option>10</option><option>11</option><option>12</option><option>13</option><option>16</option><option>45</option><option>55</option><option>63</option><option>130</option><option>146 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -146</option><option>-130</option><option>-63</option><option>-55</option><option>-45</option><option>-16</option><option>-13</option><option>-12</option><option>-11</option><option>-10</option><option>-7</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>7</option><option>10</option><option>11</option><option>12</option><option>13</option><option>16</option><option>45</option><option>55</option><option>63</option><option>130</option><option>146 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -146</option><option>-130</option><option>-63</option><option>-55</option><option>-45</option><option>-16</option><option>-13</option><option>-12</option><option>-11</option><option>-10</option><option>-7</option><option>-2</option><option>-1</option><option>1</option><option>2</option><option>7</option><option>10</option><option>11</option><option>12</option><option>13</option><option>16</option><option>45</option><option>55</option><option>63</option><option>130</option><option>146 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given expression:</p>
+<p><span class="math display">\[\frac{9}{x+4}+\frac{7}{x+3}\]</span></p>
+<p>To get a common denominator, multiply the first rational fraction by <span class="math inline">\(\frac{x+3}{x+3}\)</span> and the second rational fraction by <span class="math inline">\(\frac{x+4}{x+4}\)</span>.</p>
+<p><span class="math display">\[\frac{9\cdot (x+3)}{(x+4)(x+3)}+\frac{7\cdot(x+4)}{(x+3)(x+4)}\]</span></p>
+<p>Expand both numerators and both denominators.</p>
+<p><span class="math display">\[\frac{9x+27}{x^2+7x+12}+\frac{7x+28}{x^2+7x+12}\]</span></p>
+<p>Now, since we have common denominators, we can add the numerators.</p>
+<p><span class="math display">\[\frac{16x+55}{x^2+7x+12}\]</span></p>
+<p>This form of the expression matches our goal. To enforce the identity,</p>
+<p><span class="math display">\[a=16\]</span>
+<span class="math display">\[b=55\]</span>
+<span class="math display">\[c=7\]</span>
+<span class="math display">\[d=12\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Adding rational expressions is similar to adding fractions: specifically, a common denominator can be helpful when adding rational expressions. Find the parameters <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span>, and <span class="math inline">\(d\)</span> such that the <a href="https://en.wikipedia.org/wiki/Identity_(mathematics)">identity</a> below is equivalent for any value of <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\frac{4}{x+7}+\frac{9}{x-9} ~\equiv~ \frac{ax+b}{x^2+cx+d}\]</span></p>
+<ul>
+<li><span class="math inline">\(a=\)</span> <select><option>--------</option><option> -199</option><option>-104</option><option>-99</option><option>-70</option><option>-63</option><option>-36</option><option>-27</option><option>-16</option><option>-13</option><option>-11</option><option>-5</option><option>-2</option><option>0</option><option>2</option><option>5</option><option>11</option><option>13</option><option>16</option><option>27</option><option>36</option><option>63</option><option>70</option><option>99</option><option>104</option><option>199 </option></select></li>
+<li><span class="math inline">\(b=\)</span> <select><option>--------</option><option> -199</option><option>-104</option><option>-99</option><option>-70</option><option>-63</option><option>-36</option><option>-27</option><option>-16</option><option>-13</option><option>-11</option><option>-5</option><option>-2</option><option>0</option><option>2</option><option>5</option><option>11</option><option>13</option><option>16</option><option>27</option><option>36</option><option>63</option><option>70</option><option>99</option><option>104</option><option>199 </option></select></li>
+<li><span class="math inline">\(c=\)</span> <select><option>--------</option><option> -199</option><option>-104</option><option>-99</option><option>-70</option><option>-63</option><option>-36</option><option>-27</option><option>-16</option><option>-13</option><option>-11</option><option>-5</option><option>-2</option><option>0</option><option>2</option><option>5</option><option>11</option><option>13</option><option>16</option><option>27</option><option>36</option><option>63</option><option>70</option><option>99</option><option>104</option><option>199 </option></select></li>
+<li><span class="math inline">\(d=\)</span> <select><option>--------</option><option> -199</option><option>-104</option><option>-99</option><option>-70</option><option>-63</option><option>-36</option><option>-27</option><option>-16</option><option>-13</option><option>-11</option><option>-5</option><option>-2</option><option>0</option><option>2</option><option>5</option><option>11</option><option>13</option><option>16</option><option>27</option><option>36</option><option>63</option><option>70</option><option>99</option><option>104</option><option>199 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given expression:</p>
+<p><span class="math display">\[\frac{4}{x+7}+\frac{9}{x-9}\]</span></p>
+<p>To get a common denominator, multiply the first rational fraction by <span class="math inline">\(\frac{x-9}{x-9}\)</span> and the second rational fraction by <span class="math inline">\(\frac{x+7}{x+7}\)</span>.</p>
+<p><span class="math display">\[\frac{4\cdot (x-9)}{(x+7)(x-9)}+\frac{9\cdot(x+7)}{(x-9)(x+7)}\]</span></p>
+<p>Expand both numerators and both denominators.</p>
+<p><span class="math display">\[\frac{4x-36}{x^2-2x-63}+\frac{9x+63}{x^2-2x-63}\]</span></p>
+<p>Now, since we have common denominators, we can add the numerators.</p>
+<p><span class="math display">\[\frac{13x+27}{x^2-2x-63}\]</span></p>
+<p>This form of the expression matches our goal. To enforce the identity,</p>
+<p><span class="math display">\[a=13\]</span>
+<span class="math display">\[b=27\]</span>
+<span class="math display">\[c=-2\]</span>
+<span class="math display">\[d=-63\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

@@ -6,24 +6,15 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-# file_path_list = ["outcanvas/u10_01_sqrt_lake_area.zip",
-# "outcanvas/u10_02_points_on_sqrtx.zip",
-# "outcanvas/u10_03_translate_flip_sqrt.zip",
-# "outcanvas/u10_04_sqrt_shift_points.zip",
-# "outcanvas/u10_05_points_on_cbrtx.zip",
-# "outcanvas/u10_06_translate_flip_cbrt.zip",
-# "outcanvas/u10_07_sqrt_line_extraneous.zip",
-# "outcanvas/u10_08_factrd_rational_featrs.zip",
-# "outcanvas/u10_09_expndd_rational_featrs.zip",
-# "outcanvas/u10_10_find_rational_hole.zip",
-# "outcanvas/u10_11_line_thru_rational_hole.zip",
-# "outcanvas/u10_12_distance_formula.zip",
-# "outcanvas/u10_13_trilateration.zip"]
+file_path_list = ["outcanvas/u10_12_add_rationals.zip",
+"outcanvas/u10_13_subtract_rationals.zip",
+"outcanvas/u10_14_mult_rationals.zip",
+"outcanvas/u10_15_div_rationals.zip",
+"outcanvas/u10_16_inverse_rational.zip"]
 
-file_path_list = ["outcanvas/u10_05_points_on_cbrtx.zip"]
 
 # fpl = []
-# for i in range(50,70):
+# for i in range(70,100):
 #     fpl.append("ET_0"+str(i)+".zip")
 # file_path_list = fpl
 
