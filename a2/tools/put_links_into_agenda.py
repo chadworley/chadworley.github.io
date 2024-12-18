@@ -5,19 +5,11 @@ import os
 
 
 front = "u10_"
-files = ["01_sqrt_lake_area.Rmd",
-"02_points_on_sqrtx.Rmd",
-"03_translate_flip_sqrt.Rmd",
-"04_sqrt_shift_points.Rmd",
-"05_points_on_cbrtx.Rmd",
-"06_translate_flip_cbrt.Rmd",
-"07_sqrt_line_extraneous.Rmd",
-"08_factrd_rational_featrs.Rmd",
-"09_expndd_rational_featrs.Rmd",
-"10_find_rational_hole.Rmd",
-"11_line_thru_rational_hole.Rmd",
-"12_distance_formula.Rmd",
-"13_trilateration.Rmd"]
+files = ["12_add_rationals.Rmd",
+"13_subtract_rationals.Rmd",
+"14_mult_rationals.Rmd",
+"15_div_rationals.Rmd",
+"16_inverse_rational.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u10/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

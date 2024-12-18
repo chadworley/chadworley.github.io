@@ -3,12 +3,8 @@ n = 30
 outdir = "outcanvas"
 genname = "u10_"
 
-probs = c("12_add_rationals.Rmd",
-          "13_subtract_rationals.Rmd",
-          "14_mult_rationals.Rmd",
-          "15_div_rationals.Rmd",
-          "16_inverse_rational.Rmd")
-pnts = c(4,4,5,5,3)
+probs = c("17_radical_dom_rng.Rmd")
+pnts = c(3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
