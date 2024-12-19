@@ -1,0 +1,193 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    xf = sample(1:6,3)*sample(c(-1,1),3,T)
+    xi = xf[1]
+    xh = xf[2]
+    xv = xf[3]
+    yh = (xh-xi)/(xh-xv)
+    if(abs(yh)<10){break}
+}
+
+ex1 = paste0("\\frac{",pfix(c(1,-xi-xh,xi*xh),2:0),"}{",pfix(c(1,-xv-xh,xv*xh),2:0),"}",collapse="")
+ex1 = gsub("+-","-",ex1,fixed=T)
+
+ratexp = paste0("\\frac{(x-",min(c(xi,xh)),")(x-",max(c(xi,xh)),")}{(x-",min(c(xv,xh)),")(x-",max(c(xv,xh)),")}",collapse="")
+ratexp = gsub("--","+",ratexp,fixed=T)
+
+gx = paste0("\\frac{x-",xi,"}{x-",xv,"}",collapse="")
+gx = gsub("--","+",gx,fixed=T)
+
+ach = -6:6
+al = paste0("* x = ",ach,collapse="\n")
+sol1 = paste0(1*(ach==xi),collapse="")
+sol2 = paste0(1*(ach==xh),collapse="")
+sol3 = paste0(1*(ach==xv),collapse="")
+
+f1xi = xi-min(c(xi,xh))
+f2xi = xi-max(c(xi,xh))
+f3xi = xi-min(c(xv,xh))
+f4xi = xi-max(c(xv,xh))
+
+f1xh = xh-min(c(xi,xh))
+f2xh = xh-max(c(xi,xh))
+f3xh = xh-min(c(xv,xh))
+f4xh = xh-max(c(xv,xh))
+
+f1xv = xv-min(c(xi,xh))
+f2xv = xv-max(c(xi,xh))
+f3xv = xv-min(c(xv,xh))
+f4xv = xv-max(c(xv,xh))
+
+```
+
+Question
+========
+
+The rational function below has an $x$-intercept, a hole, and a vertical asymptote. Identify the $x$ coordinate of each feature.
+
+$$f(x)~=~`r ex1`$$
+
+* The $x$-intercept is at ##ANSWER1##
+* The hole is at ##ANSWER2##
+* The vertical asymptote is at ##ANSWER3##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+Solution
+========
+
+Start by factoring the quadratic expressions in the numerator and the denominator.
+
+$$f(x)~=~`r ratexp`$$
+
+* The $x$-intercept is at $x=`r xi`$.
+$$f(`r xi`)~=~`r gsub("x",xi,ratexp,fixed=T)` ~=~ \frac{(`r f1xi`)(`r f2xi`)}{(`r f3xi`)(`r f4xi`)} ~=~ \frac{0}{`r f3xi*f4xi`}$$
+* The hole is at $x=`r xh`$.
+$$f(`r xh`)~=~`r gsub("x",xh,ratexp,fixed=T)` ~=~ \frac{(`r f1xh`)(`r f2xh`)}{(`r f3xh`)(`r f4xh`)} ~=~ \frac{0}{0}$$
+* The vertical asymptote is at $x=`r xv`$.
+$$f(`r xv`)~=~`r gsub("x",xv,ratexp,fixed=T)` ~=~ \frac{(`r f1xv`)(`r f2xv`)}{(`r f3xv`)(`r f4xv`)} ~=~ \frac{`r f1xv*f2xv`}{0}$$
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0))
+x = seq(-10,10,0.01)
+x = x[x!=xv]
+x = x[x!=xh]
+y = (x-xi)/(x-xv)
+
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="lightgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=1.3)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=1.3)
+}
+arrows(-10,0,10,0,0.1,10,3,lwd=2)
+arrows(0,-10,0,10,0.1,10,3,lwd=2)
+text(10,-0.5,"10")
+text(-0.5,10,"10")
+text(10,0.5,"x")
+text(0.5,10,"y")
+
+
+x1 = x[x<xv]
+y1 = y[x<xv]
+x2 = x[x>xv]
+y2 = y[x>xv]
+
+lines(x1,y1,col="red",lwd=3)
+lines(x2,y2,col="red",lwd=3)
+abline(v=xv,lty=3,col="red")
+points(xh,yh,col="red",pch=20,cex=1.5)
+points(xh,yh,col="white",pch=20,cex=1)
+points(xi,0,pch=20,col="red",cex=1)
+
+if(xv>0){
+    place = "topleft"
+} else {
+    place = "topright"
+}
+
+legend(place,"y = f(x)",col="red",lwd=3)
+
+
+```
+\
+
+
+
+I'll point out the hole seems like it could easily be "fixed" by continuing the curve through that point. Indeed, this is of interest. Notice, it is quite easy to write function $g$ to accomplish this goal by eliminating the common factor in the numerator and denominator. (To be clear, this is not directly helpful for answering the given question.)
+
+$$g(x)~=~`r gx`$$
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0))
+x = seq(-10,10,0.01)
+x = x[x!=xv]
+x = x[x!=xh]
+y = (x-xi)/(x-xv)
+
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="lightgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=1.3)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=1.3)
+}
+arrows(-10,0,10,0,0.1,10,3,lwd=2)
+arrows(0,-10,0,10,0.1,10,3,lwd=2)
+text(10,-0.5,"10")
+text(-0.5,10,"10")
+text(10,0.5,"x")
+text(0.5,10,"y")
+
+
+x1 = x[x<xv]
+y1 = y[x<xv]
+x2 = x[x>xv]
+y2 = y[x>xv]
+
+lines(x1,y1,col="blue",lwd=3)
+lines(x2,y2,col="blue",lwd=3)
+abline(v=xv,lty=3,col="blue")
+points(xi,0,pch=20,col="blue",cex=1)
+
+if(xv>0){
+    place = "topleft"
+} else {
+    place = "topright"
+}
+
+legend(place,"y = g(x)",col="blue",lwd=3)
+
+```
+\
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: expndd_rational_featrs

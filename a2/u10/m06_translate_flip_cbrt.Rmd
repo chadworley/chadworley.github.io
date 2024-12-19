@@ -1,0 +1,185 @@
+```{r data generation, echo = FALSE, results = "hide"}
+n = 4 # make this an even number probably... 6 is good
+hk = sample(2:5,2)
+
+cfs = list()
+eqs = character()
+eeqs = character()
+sus = character()
+
+i = 0
+while(i<n){
+    hki = hk*sample(c(-1,1),2,T)
+    h = hki[1]
+    k = hki[2]
+    ab = sample(c(-1,1),2,T)
+    a = ab[1]
+    b = ab[2]
+    cf = c(ab,hki)
+    su = paste0(h,k,a*b,collapse="_")
+    if(ab[1]==-1 && ab[2]==-1){
+        eq = paste0("-\\sqrt[3]{-(x+",-h,")}+",k,collapse="")
+        eq = gsub("+-","-",eq,fixed=T)
+        eeq = paste0("(-1)\\sqrt[3]{(-1)(x+(",-h,"))}+(",k,")",collapse="")
+        
+    }
+    if(ab[1]==1 && ab[2]==-1){
+        eq = paste0("\\sqrt[3]{-(x+",-h,")}+",k,collapse="")
+        eq = gsub("+-","-",eq,fixed=T)
+        eeq = paste0("(1)\\sqrt[3]{(-1)(x+(",-h,"))}+(",k,")",collapse="")
+    }
+    if(ab[1]==-1 && ab[2]==1){
+        eq = paste0("-\\sqrt[3]{x+",-h,"}+",k,collapse="")
+        eq = gsub("+-","-",eq,fixed=T)
+        eeq = paste0("(-1)\\sqrt[3]{(1)(x+(",-h,"))}+(",k,")",collapse="")
+    }
+    if(ab[1]==1 && ab[2]==1){
+        eq = paste0("\\sqrt[3]{x+",-h,"}+",k,collapse="")
+        eq = gsub("+-","-",eq,fixed=T)
+        eeq = paste0("(1)\\sqrt[3]{(1)(x+(",-h,"))}+(",k,")",collapse="")
+    }
+    if(!(su%in%sus)){
+        i = i+1
+        cfs[[i]] = cf
+        eqs[[i]] = eq
+        eeqs[[i]] = eeq
+        sus = c(sus,su)
+    }
+}
+
+eqord = sample(1:n)
+
+qlis = character()
+sols = character()
+
+expls = character()
+
+for(i in 1:n){
+    eq = eqs[[eqord[i]]]
+    eeq = eeqs[[eqord[i]]]
+    qlis = c(qlis, paste0(i,". Equation $y=",eq,"$ matches graph ##ANSWER",i,"##."))
+    sols = c(sols,paste0(1*(eqord[i]==1:n),collapse=""))
+    cf = cfs[[eqord[i]]]
+    a = cf[1]
+    b = cf[2]
+    h = cf[3]
+    k = cf[4]
+    if(a>0 && b>0){
+        wrd1="NOT"
+        wrd2="NOT"
+        wrd3="Because there are no reflections, the curve is in the original increasing orientation."
+    } else if(a<0 && b>0){
+        wrd1=""
+        wrd2="NOT"
+        wrd3="For the cube-root function, reflecting either horizontally or vertically results in a decreasing orientation."
+    } else if(a>0 && b<0){
+        wrd1="NOT"
+        wrd2=""
+        wrd3="For the cube-root function, reflecting either horizontally or vertically results in a decreasing orientation."
+    } else if(a<0 && b<0){
+        wrd1=""
+        wrd2=""
+        wrd3="For the cube-root function, reflecting both horizontally and vertically results in a return to the original increasing orientation."
+    }
+    expl = paste0("### Equation ",i,"\n\n The curve's equation is $y=",eq,"$\n\nRewrite the equation with explicit parameters.\n\n$y=",eeq,"$\n\nSo, we can more easily see the values of the parameters.\n\n$$m=",a,"$$\n$$n=",b,"$$\n$$p=",-h,"$$\n$$q=",k,"$$This tells us the new inflection point is at $(",h,",",k,")$. We also know there is ",wrd1," a vertical reflection (because $m=",a,"$), and there is ",wrd2," a horizontal reflection (because $n=",b,"$). ",wrd3," Thus, the correct graph is graph ",LETTERS[which(eqord[i]==1:n)],".")
+    expls = c(expls,expl)
+}
+
+ach = LETTERS[1:n]
+al = paste0("* ",ach,collapse="\n")
+al = paste0(rep(al,n),collapse="\n")
+
+```
+
+Question
+========
+
+
+
+The following `r n` graphs are made by translating and reflecting the $y=\sqrt[3]{x}$ curve. So each one is a different daughter function, made by altering the parent function.
+
+```{r,echo=F,fig.dim=c(8,n*4/2)}
+par(mar=c(0,0,3,0),
+    mfrow=c(ceiling(n/2),2),
+    pty="s")
+
+for(i in 1:n){
+    cf = cfs[[i]]
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    mtext(LETTERS[i],3)
+    for(j in -10:10){
+        lines(c(j,j),c(-10,10),col="lightgrey",cex=0.8)
+        lines(c(-10,10),c(j,j),col="lightgrey",cex=0.8)
+    }
+    for(j in seq(-10,10,5)){
+        lines(c(j,j),c(-10,10),col="darkgrey",cex=1.2)
+        lines(c(-10,10),c(j,j),col="darkgrey",cex=1.2)
+    }
+    arrows(-10.5,0,10.5,0,0.1,10,3,lwd=2)
+    arrows(0,-10.5,0,10.5,0.1,10,3,lwd=2)
+    text(10,-0.5,10,cex=0.7)
+    text(-10,-0.5,-10,cex=0.7)
+    text(10,0.5,"x",cex=0.7)
+    text(-0.5,10,10,cex=0.7)
+    text(-0.5,-10,-10,cex=0.7)
+    text(0.5,10,"y",cex=0.7)
+    
+    x = seq(-10,10,0.01)
+    y = sign(x)*abs(x)^(1/3)
+    # lines(x,y,lty=3)
+    x = seq(-20,20,0.01)
+    y = sign(x)*abs(x)^(1/3)
+    x = x*sign(cf[2])
+    y = y*sign(cf[1])
+    x = x+cf[3]
+    y = y+cf[4]
+    x2 = x[abs(x)<=10]
+    y2 = y[abs(x)<=10]
+    x3 = x2[abs(y)<=10]
+    y3 = y2[abs(y)<=10]
+    lines(x3,y3,lwd=3,col="red")
+}
+```
+\
+
+Match the `r n` graphs with the equations.
+
+`r paste0(qlis,collapse="\n")`
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+
+
+* Operations inside the function (under the radical) change the $x$ values, so they cause horizontal transformations.
+* Operations outside the function change the $y$ values, so they cause vertical transformations.
+* Addition/subtraction causes a translation (shift). Horizontal shifts are counterintuitive.
+* Multiplying by $-1$ causes a reflection.
+
+You can account for all the transformations with 4 parameters ($m$, $n$, $p$, and $q$).
+
+$$y=m\sqrt[3]{n(x+p)}+q$$
+
+* The parameter $m$ is either $-1$ or $1$. If $m=-1$, then the curve is reflected vertically, so the curve goes down from the starting point (instead of up).
+* The parameter $n$ is either $-1$ or $1$. If $n=-1$, then the curve is reflected horizontally, so the curve goes left from the starting point (instead of right).
+* The parameter $p$ shifts the curve horizontally.
+* The parameter $q$ shifts the curve vertically.
+* The starting point will be at $(-p,q)$.
+
+
+`r paste0(expls,collapse="\n\n")`
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",n),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: translate_flip_cbrt

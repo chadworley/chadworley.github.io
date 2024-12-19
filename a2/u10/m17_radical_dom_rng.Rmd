@@ -1,0 +1,147 @@
+```{r data generation, echo = FALSE, results = "hide"}
+m = sample(c(-1,1),1)
+n = sample(c(-1,1),1)
+hk = sample(2:9,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+
+if(n==-1){
+    exp1 = paste0(m,"\\sqrt{",n,"(x+",-h,")}+",k,collapse="")
+} else {
+    exp1 = paste0(m,"\\sqrt{x+",-h,"}+",k,collapse="")
+}
+
+le = "≤"
+lt = "<"
+ge = "≥"
+gt = ">"
+ineqs = c(le,ge)
+
+ints = list(c("[",", ∞)"),
+            c("(-∞, ","]"))
+
+inf = "∞"
+
+exp1 = gsub("+-","-",exp1,fixed=T)
+exp1 = gsub("-1","-",exp1,fixed=T)
+exp1 = gsub("1","",exp1,fixed=T)
+
+ach1 = character()
+for(i in sort(c(hk,-hk))){
+    for(j in ineqs){
+        ach1 = c(ach1,paste0("x ",j," ",i))
+    }
+}
+for(i in sort(c(hk,-hk))){
+    for(j in ineqs){
+        ach1 = c(ach1,paste0("y ",j," ",i))
+    }
+}
+al1 = paste0("* ",ach1,collapse="\n")
+
+ach2 = character()
+for(i in sort(c(hk,-hk))){
+    for(j in 1:length(ints)){
+        int = ints[[j]]
+        ach2 = c(ach2,paste0(int[1],i,int[2]))
+    }
+}
+al2 = paste0("* ",ach2,collapse="\n")
+
+if(m==-1){
+    if(n==-1){
+        domie = paste0("x ",le," ",h,collapse="")
+        domin = paste0("(-∞, ",h,"]",collapse="")
+        ranie = paste0("y ",le," ",k,collapse="")
+        ranin = paste0("(-∞, ",k,"]",collapse="")
+        wrd1 = paste0("Because $a=",m,"$ and $b=",n,"$, the parent function is reflected vertically and horizontally, so from the starting point at (",h,", ",k,"), the curve goes down and to the left.")
+    } else {
+        domie = paste0("x ",ge," ",h,collapse="")
+        domin = paste0("[",h,", ∞)",collapse="")
+        ranie = paste0("y ",le," ",k,collapse="")
+        ranin = paste0("(-∞, ",k,"]",collapse="")
+        wrd1 = paste0("Because $a=",m,"$ and $b=",n,"$, the parent function is reflected vertically, so from the starting point at (",h,", ",k,"), the curve goes down and to the right.")
+    }
+} else {
+    if(n==-1){
+        domie = paste0("x ",le," ",h,collapse="")
+        domin = paste0("(-∞, ",h,"]",collapse="")
+        ranie = paste0("y ",ge," ",k,collapse="")
+        ranin = paste0("[",k,", ∞)",collapse="")
+        wrd1 = paste0("Because $a=",m,"$ and $b=",n,"$, the parent function is reflected horizontally, so from the starting point at (",h,", ",k,"), the curve goes up and to the left.")
+    } else {
+        domie = paste0("x ",ge," ",h,collapse="")
+        domin = paste0("[",h,", ∞)",collapse="")
+        ranie = paste0("y ",ge," ",k,collapse="")
+        ranin = paste0("[",k,", ∞)",collapse="")
+        wrd1 = paste0("Because $a=",m,"$ and $b=",n,"$, the parent function is not reflected, so from the starting point at (",h,", ",k,"), the curve goes up and to the right.")
+    }
+}
+
+sol1 = paste0(1*(domie==ach1),collapse="")
+sol2 = paste0(1*(domin==ach2),collapse="")
+sol3 = paste0(1*(ranie==ach1),collapse="")
+sol4 = paste0(1*(ranin==ach2),collapse="")
+
+```
+
+Question
+========
+
+Consider the radical function $f$ defined below.
+
+$$f(x)~=~`r exp1`$$
+
+We wish to indicate the domain and range of function $f$.
+
+* Domain:
+  - As an inequality: ##ANSWER1##
+  - In interval notation: ##ANSWER2##
+* Range:
+  - As an inequality: ##ANSWER3##
+  - In interval notation: ##ANSWER4##
+
+
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al1`
+`r al2`
+
+
+Solution
+========
+
+A fully parameterized version of the given function could be written as:
+
+$$f(x)~=~a\sqrt{b(x-h)}+k$$
+
+In our case, we were given $f(x)~=~`r exp1`$, so
+
+$$a = `r m`$$
+$$b = `r n`$$
+$$h = `r h`$$
+$$k = `r k`$$
+
+
+`r wrd1`
+
+
+* Domain:
+  - As an inequality: `r domie`
+  - In interval notation: `r domin`
+* Range:
+  - As an inequality: `r ranie`
+  - In interval notation: `r ranin`
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: radical_dom_rng

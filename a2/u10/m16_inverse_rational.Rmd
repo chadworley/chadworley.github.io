@@ -1,0 +1,161 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+# y = (ax+b)/(cx+d)
+# x = (ay+b)/(cy+d)
+# cxy+dx = ay+b
+# y(cx-a) = -dx+b
+# y = (-Dx+B)/(Cx-A)
+
+# make c=1.. rename d to c... ugh gross...
+
+ABD = sample(2:9,3)*sample(c(-1,1))
+A = ABD[1]
+B = ABD[2]
+D = ABD[3]
+
+a = -D
+b = B
+c = -A
+
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+pfiy = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}y^{",dd,"}",collapse="+")
+    p = gsub("y^{0}","",p,fixed=T)
+    p = gsub("y^{1}","y",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}y","+y",p,fixed=T)
+    p = gsub("-{1}y","-y",p,fixed=T)
+    p = gsub("{-1}y","-y",p,fixed=T)
+    p = gsub("{1}y","y",p,fixed=T)
+    return(p)
+}
+
+f1 = paste0("\\frac{",pfix(c(A,B),1:0),"}{",pfix(c(1,D),1:0),"}")
+
+ach = -9:9
+al = paste0("* ",ach,collapse="\n")
+sol1 = paste0(1*(ach==a),collapse = "")
+sol2 = paste0(1*(ach==b),collapse = "")
+sol3 = paste0(1*(ach==c),collapse = "")
+
+ie1 = paste0("x~=~",gsub("x","y",f1,fixed=T))
+
+```
+
+Question
+========
+
+Let function $f$ be defined by the rational expression below.
+
+$$f(x)~=~`r f1`$$
+
+Its inverse function can be expressed in the following form. Please find the values of the three parameters: $a$, $b$, and $c$.
+
+$$f^{-1}(x)~=~\frac{ax+b}{x+c}$$
+
+* $a=$ ##ANSWER1##
+* $b=$ ##ANSWER2##
+* $c=$ ##ANSWER3##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+Solution
+========
+
+Start by getting rid of function notation.
+
+$$y~=~`r f1`$$
+
+To find the **inverse**, swap the $x$ and $y$.
+
+$$`r ie1`$$
+
+Our goal is to get $y$ by itself (solve for $y$). Multiply both sides by $`r pfiy(c(1,D),1:0)`$.
+
+```{r,echo=F}
+ie2 = paste0("x\\cdot(y+",D,")~=~",A,"y+",B,collapse="")
+ie2 = gsub("+-","-",ie2,fixed=T)
+```
+
+$$`r ie2`$$
+
+Distribute $x$ to get rid of parentheses.
+
+```{r,echo=F}
+ie3 = paste0("xy+",D,"x~=~",A,"y+",B,collapse="")
+ie3 = gsub("+-","-",ie3,fixed=T)
+```
+
+$$`r ie3`$$
+
+Notice all terms are either linear in $y$ or independent of $y$. This means we can gather all the terms with $y$ onto the left side and all the terms without $y$ onto the right side. We do this by subtracting $`r D`x$ from both sides and subtracting $`r A`y$ from both sides.
+
+```{r,echo=F}
+ie4 = paste0("xy+",-A,"y~=~",-D,"x+",B,collapse="")
+ie4 = gsub("+-","-",ie4,fixed=T)
+```
+
+$$`r ie4`$$
+
+Factor out the $y$ from both terms on the left side of the equation.
+
+```{r,echo=F}
+ie5 = paste0("y\\cdot(x+",-A,")~=~",-D,"x+",B,collapse="")
+ie5 = gsub("+-","-",ie5,fixed=T)
+myfact = paste0("x+",-A,collapse="")
+myfact = gsub("+-","-",myfact,fixed=T)
+```
+
+$$`r ie5`$$
+
+Divide both sides by $`r myfact`$.
+
+```{r,echo=F}
+ie6 = paste0("y~=~\\frac{",-D,"x+",B,"}{x+",-A,"}",collapse="")
+ie6 = gsub("+-","-",ie6,fixed=T)
+```
+
+$$`r ie6`$$
+
+Return to function notation, using $f^{-1}$ for inverse.
+
+```{r,echo=F}
+ie7 = paste0("\\frac{",-D,"x+",B,"}{x+",-A,"}",collapse="")
+ie7 = gsub("+-","-",ie7,fixed=T)
+```
+
+$$f^{-1}(x)~=~`r ie7`$$
+
+So,
+
+$$a=`r a`$$
+$$b=`r b`$$
+$$c=`r c`$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: inverse_rational
