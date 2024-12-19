@@ -1,0 +1,287 @@
+---
+header-includes:
+   - \usepackage{array}
+   - \usepackage{color}
+output: pdf_document
+params:
+    rseed: 1
+    showsol: true
+    titex: "Practice"
+urlcolor: blue
+---
+
+
+```{r,echo=F}
+# In the future, you should make it so the domain is never the same as the range!
+# set.seed(params$rseed)
+if(params$showsol){
+    solstart = ""
+    solend = "\\vfill"
+    hidesolstart = "<!---"
+    hidesolend = "-->"
+} else {
+    solstart = "<!---"
+    solend = "-->"
+    hidesolstart = ""
+    hidesolend = ""
+}
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## u10 Radicals, Rationals, and Extraneous Solutions  `r params$titex` (version `r params$rseed`)
+
+
+```{r,echo=F}
+# a*sqrt(b*(x-h))+k
+# a,b in {-1,1}
+# h,k in {-5:-1,1:5}
+
+while(T){
+    a = sample(c(-1,1),1)
+    b = sample(c(-1,1),1)
+    hk = sample(2:5,2)*sample(c(-1,1),2)
+    h = hk[1]
+    k = hk[2]
+    
+    if(a==-1){
+        if(b==-1){
+            exp1 = paste0("-\\sqrt{-(x+",-h,")}+",k)
+            dom1 = paste0("x\\le",h,collapse="")
+            dom2 = paste0("\\left(-\\infty, ",h,"\\right]",collapse="")
+            ran1 = paste0("y\\le",k,collapse="")
+            ran2 = paste0("\\left(-\\infty, ",k,"\\right]",collapse="")
+        } else {
+            exp1 = paste0("-\\sqrt{x+",-h,"}+",k)
+            dom1 = paste0("x\\ge",h,collapse="")
+            dom2 = paste0("\\left[",h,",\\infty\\right)",collapse="")
+            ran1 = paste0("y\\le",k,collapse="")
+            ran2 = paste0("\\left(-\\infty, ",k,"\\right]",collapse="")
+        }
+    } else {
+        if(b==-1){
+            exp1 = paste0("\\sqrt{-(x+",-h,")}+",k)
+            dom1 = paste0("x\\le",h,collapse="")
+            dom2 = paste0("\\left(-\\infty, ",h,"\\right]",collapse="")
+            ran1 = paste0("y\\ge",k,collapse="")
+            ran2 = paste0("\\left[",k,",\\infty\\right)",collapse="")
+        } else {
+            exp1 = paste0("\\sqrt{x+",-h,"}+",k)
+            dom1 = paste0("x\\ge",h,collapse="")
+            dom2 = paste0("\\left[",h,",\\infty\\right)",collapse="")
+            ran1 = paste0("y\\ge",k,collapse="")
+            ran2 = paste0("\\left[",k,",\\infty\\right)",collapse="")
+        }
+    }
+    exp1 = gsub("+-","-",exp1,fixed=T)
+    
+    
+    basels = list(c(1,-2),
+                  c(1,-6),
+                  c(-1,2),
+                  c(-1,6),
+                  c(-1,0))
+    baseacts = c(4,9,1,4,0)
+    baseexts = c(1,4,4,9,1)
+    wo = sample(1:5,1)
+    basel = basels[[wo]]
+    if(b<0){
+        basel[1] = basel[1]*(-1)
+    }
+    if(a<0){
+        basel[1] = basel[1]*(-1)
+        basel[2] = basel[2]*(-1)
+    }
+    basel[2] = basel[2]-h*basel[1]+k
+    MB = basel
+    xact = baseacts[wo]*sign(b)+h
+    xext = baseexts[wo]*sign(b)+h
+    lineex = paste0(MB[1],"x+",MB[2],collapse="")
+    lineex = gsub("+-","-",lineex,fixed=T)
+    lineex = gsub("1x","x",lineex,fixed=T)
+    lineex = gsub("+0","",lineex,fixed=T)
+    M = MB[1]
+    B = MB[2]
+    if(B!=0 && B-k!=0 && xact!=0 && xext!=0 && max(abs(c(xact,xext)))<=11){break}
+}
+
+
+
+
+```
+
+
+1. Below I've graphed with a dotted curve $y=\sqrt{x}$ with some key points marked with dots. Please draw a graph for $f(x)=`r exp1`$, paying close attention to the corresponding key points.
+
+```{=latex}
+\begin{minipage}[t]{0.65\textwidth} \vspace{0pt}
+```
+```{r gah,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0))
+ml = 15
+plot(0,0,"n",axes=F,ann=F,xlim=c(-ml,ml),ylim=c(-ml,ml))
+for(i in -ml:ml){
+    lines(c(i,i),c(-ml,ml),col="lightgrey",lwd=0.8)
+    lines(c(-ml,ml),c(i,i),col="lightgrey",lwd=0.8)
+}
+for(i in seq(-ml,ml,5)){
+    lines(c(i,i),c(-ml,ml),col="darkgrey",lwd=1.2)
+    lines(c(-ml,ml),c(i,i),col="darkgrey",lwd=1.2)
+}
+arrows(-ml*1.05,0,ml*1.05,0,0.1,10,3,lwd=2)
+arrows(0,-ml*1.05,0,ml*1.05,0.1,10,3,lwd=2)
+text(ml,-1,paste0(ml),cex=0.8)
+text(ml,0.5,"x",cex=0.8)
+text(-1,ml,paste0(ml),cex=0.8)
+text(0.5,ml,"y",cex=0.8)
+
+x = seq(0,ml,0.01)
+y = sqrt(x)
+xs = c(0,1,4,9)
+ys = sqrt(xs)
+lines(x,y,lty=2)
+points(xs,ys,pch=20)
+
+if(params$showsol){
+    xx = seq(h,ml*sign(b),0.01*sign(b))
+    yy = a*sqrt(b*(xx-h))+k
+    lines(xx,yy,lwd=2.5,col="red")
+    for(y in k:((k+3*sign(a)))){
+        x = ((y-k)/a)^2/b+h
+        if(max(abs(c(x,y)))<=10){
+            points(x,y,col="red",cex=1.3,pch=20)
+        }
+    }
+}
+```
+```{=latex}
+\end{minipage} \begin{minipage}[t]{0.35\textwidth} \vspace{0pt}
+```
+```{r,echo=F,results='asis'}
+cat(paste0("\\vspace{12pt}\\noindent 2. State the domain of $y=f(x)$"))
+if(params$showsol){
+    cat(paste0("\n\n\\color{red} You can use $",dom1,"$ or $",dom2,"$ to state the domain."))
+} else {
+    cat(paste0("\n\n\\vspace{32pt}"))
+}
+cat(paste0("\n\n\\vspace{1in}\n\n\\color{black}"))
+cat(paste0("\\noindent 3. State the range of $y=f(x)$"))
+if(params$showsol){
+    cat(paste0("\n\n\\color{red} You can use $",ran1,"$ or $",ran2,"$ to state the range."))
+} else {
+    cat(paste0("\n\n\\vspace{32pt}"))
+}
+cat(paste0("\n\n\\vspace{1in}\n\n"))
+```
+```{=latex}
+\end{minipage}
+```
+
+
+4. Find all **extraneous** solutions and **actual** solutions to $`r exp1`=`r lineex`$
+
+```{=latex}
+\begin{minipage}[t]{0.5\textwidth} \vspace{0pt}
+```
+```{r,echo=F,results='asis'}
+eq2 = paste0("{",a,"}\\sqrt{{",b,"}x+",-b*h,"}={",M,"}x+",B-k,collapse="")
+eq2 = gsub("+-","-",eq2,fixed=T)
+eq2 = gsub("{1}","",eq2,fixed=T)
+eq2 = gsub("{-1}","-",eq2,fixed=T)
+eq2 = gsub("+0","",eq2,fixed=T)
+if(params$showsol){
+    cat(paste0("\\color{red} $$",exp1,"=",lineex,"$$\n"))
+    cat(paste0("\\color{red} $$",eq2,"$$"))
+    if(a<0){
+        eq2a = paste0("\\sqrt{{",b,"}x+",-b*h,"}={",M*a,"}x+",(B-k)*a,collapse="")
+        eq2a = gsub("+-","-",eq2a,fixed=T)
+        eq2a = gsub("{1}","",eq2a,fixed=T)
+        eq2a = gsub("{-1}","-",eq2a,fixed=T)
+        eq2a = gsub("+0","",eq2a,fixed=T)
+        cat(paste0("\n\\color{red} $$",eq2a,"$$"))
+    }
+    eq3 = paste0("{",b,"}x+",-b*h,"={",M^2*a^2,"}x^2+",2*M*(B-k),"x+",((B-k)*a)^2,collapse="")
+    eq3 = gsub("+-","-",eq3,fixed=T)
+    eq3 = gsub("{1}","",eq3,fixed=T)
+    eq3 = gsub("{-1}","-",eq3,fixed=T)
+    eq3 = gsub("+0","",eq3,fixed=T)
+    cat(paste0("\n\\color{red} $$",eq3,"$$"))
+    
+    eq4 = paste0("0={",M^2*a^2,"}x^2+",2*M*(B-k)-b,"x+",((B-k)*a)^2+b*h,collapse="")
+    eq4 = gsub("+-","-",eq4,fixed=T)
+    eq4 = gsub("{1}","",eq4,fixed=T)
+    eq4 = gsub("{-1}","-",eq4,fixed=T)
+    eq4 = gsub("+0","",eq4,fixed=T)
+    cat(paste0("\n\\color{red} $$",eq4,"$$"))
+    
+    eq5 = paste0("0=(x+",-xext,")(x+",-xact,")",collapse="")
+    eq5 = gsub("+-","-",eq5,fixed=T)
+    eq5 = gsub("{1}","",eq5,fixed=T)
+    eq5 = gsub("{-1}","-",eq5,fixed=T)
+    eq5 = gsub("+0","",eq5,fixed=T)
+    cat(paste0("\n\\color{red} $$",eq5,"$$"))
+    
+    cat(paste0("\n\nSo, the possible solutions are $x=",xext,"$ and $x=",xact,"$.\n\nPlug each possible solution into the original equation to check."))
+}
+
+
+```
+```{=latex}
+\end{minipage} \begin{minipage}[t]{0.05\textwidth} \vspace{0pt}
+
+\vspace{2pt}
+\phantom{"hi"}
+
+\end{minipage} \begin{minipage}[t]{0.45\textwidth} \vspace{0pt}
+```
+
+```{r,echo=F,results='asis'}
+eq1 = paste0(exp1,"=",lineex,collapse="")
+if(params$showsol){
+    cat(paste0("\n\\color{red} Check whether $x=",xext,"$ makes equation true.\n\n"))
+    ch1 = gsub("x",paste0("(",xext,")",collapse=""),eq1,fixed=T)
+    ch1 = gsub("=","\\stackrel{?}{=}",ch1,fixed=T)
+    cat(paste0("\n\\color{red} $$",ch1,"$$"))
+    ch1b = paste0("$$",a*sqrt(b*(xext-h))+k,"\\ne ",M*xext+B,"$$",collapse="")
+    cat(paste0("\n\\color{red} ",ch1b,"\n"))
+    
+    cat(paste0("\n\\color{red} Check whether $x=",xact,"$ makes equation true.\n\n"))
+    ch1 = gsub("x",paste0("(",xact,")",collapse=""),eq1,fixed=T)
+    ch1 = gsub("=","\\stackrel{?}{=}",ch1,fixed=T)
+    cat(paste0("\n\\color{red} $$",ch1,"$$"))
+    ch1b = paste0("$$",a*sqrt(b*(xact-h))+k,"= ",M*xact+B,"$$",collapse="")
+    cat(paste0("\n\\color{red} ",ch1b,"\n"))
+    
+    cat(paste0("\n\n* Actual solution: $x=",xact,"$\n* Extraneous solution: $x=",xext,"$\n\nI should say that there is also a graphical approach possible for this problem. If you use it, please explain. "))
+}
+
+
+```
+```{=latex}
+\end{minipage}
+```
+
+\newpage
+
+## u10 Radicals, Rationals, and Extraneous Solutions  `r params$titex` (version `r params$rseed`)
+
+5. 
+
+
+
+
+
+

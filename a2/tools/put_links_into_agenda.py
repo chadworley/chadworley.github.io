@@ -9,7 +9,8 @@ files = ["12_add_rationals.Rmd",
 "13_subtract_rationals.Rmd",
 "14_mult_rationals.Rmd",
 "15_div_rationals.Rmd",
-"16_inverse_rational.Rmd"]
+"16_inverse_rational.Rmd",
+"17_radical_dom_rng.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u10/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

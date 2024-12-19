@@ -20,14 +20,13 @@ for(i in 1:length(probs)){
 }
 
 
-# pm = list("08_intervals_check.Rmd",
-#           "03_translate_table.Rmd",
-#           "04_stretch_table.Rmd",
-#           "12_identify_transformation.Rmd",
-#           "07_compose_graphs.Rmd",
-#           "13_AROC_from_graph.Rmd",
-#           "15_aroc_table.Rmd",
-#           "17_AROC_dimensions.Rmd"
+# pm = list("01_sqrt_lake_area.Rmd",
+#           "17_radical_dom_rng.Rmd",
+#           "07_sqrt_line_extraneous.Rmd",
+#           "06_translate_flip_cbrt.Rmd",
+#           "09_expndd_rational_featrs.Rmd",
+#           "11_line_thru_rational_hole.Rmd",
+#           ""
 #           )
 # 
 # exams2canvas(pm,

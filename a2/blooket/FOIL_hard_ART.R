@@ -1,0 +1,17 @@
+png("foil_hard.png",800,800)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+
+th = seq(0,24*pi,pi/1000)
+x = cos(5*th)*sin(7*th)*cos(23*th)
+y = sin(3*th)*cos(11*th)*sin(23*th)
+lines(x,y,lwd=512,col=hsv(0.5,1,1))
+lines(x,y,lwd=256,col=hsv(0.5,0.7,1))
+lines(x,y,lwd=128,col=hsv(0.5,0.4,1))
+lines(x,y,lwd=64,col=hsv(0.5,0.1,1))
+lines(x,y,lwd=32,col="black")
+lines(x,y,lwd=16,col="white")
+lines(x,y,lwd=8,col="black")
+lines(x,y,lwd=2,col="white")
+
+dev.off()
