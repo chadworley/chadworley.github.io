@@ -278,10 +278,82 @@ if(params$showsol){
 
 ## u10 Radicals, Rationals, and Extraneous Solutions  `r params$titex` (version `r params$rseed`)
 
-5. 
+```{r,echo=F}
+# ((x+a)(x+b))/((x+a)(x+c))
+# (x^2+(a+b)x+a*b)/(x^2+(a+c)x+a*c)
+# (x^2+mx+n)/(x^2+px+q)
+
+while(T){
+    abc = sample(1:9,3)*sample(c(-1,1),3,T)
+    a = abc[1]
+    b = abc[2]
+    c = abc[3]
+    m = a+b
+    n = a*b
+    p = a+c
+    q = a*c
+    xint = -b
+    yint = b/c
+    xhole = -a
+    yhole = (-a+b)/(-a+c)
+    xv = -c
+    if(abs(yhole)%%1==0 && abs(yhole)<9 && abs(yint)<8 && abs(yint)%%1==0){break}
+}
+
+exp1 = paste0("\\frac{x^2+",m,"x+",n,"}{x^2+",p,"x+",q,"}",collapse="")
+exp1 = gsub("+-","-",exp1,fixed=T)
+exp1 = gsub("+1x","+x",exp1,fixed=T)
+exp1 = gsub("-1x","-x",exp1,fixed=T)
+
+```
+
+5. Determine the locations of the $x$-intercept, the removable discontinuity (the hole), and the $y$-intercept. Based on those features, sketch the rational function.
+
+$$f(x)~=~`r exp1`$$
 
 
+```{=latex}
+\begin{minipage}[t]{0.38\textwidth} \vspace{2in}
+```
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}\hline
+feature & $x$ coord & $y$ coord \\ \hline \hline
+$x$-intercept &  & \\ \hline
+$y$-intercept &  & \\ \hline
+hole &  & \\ \hline
+vertical asymptote &   & \\ \hline
+\end{tabular}
+```{=latex}
+\end{minipage} \begin{minipage}[t]{0.02\textwidth} \vspace{0pt}
 
+\vspace{2pt}
+\phantom{"hi"}
+
+\end{minipage} \begin{minipage}[t]{0.6\textwidth} \vspace{0pt}
+```
+
+```{r,echo=F,fig.dim=c(4,4),fig.align='center'}
+par(mar=c(0,0,0,0))
+ml = 15
+plot(0,0,"n",axes=F,ann=F,xlim=c(-ml,ml),ylim=c(-ml,ml))
+for(i in -ml:ml){
+    lines(c(i,i),c(-ml,ml),col="lightgrey",lwd=0.8)
+    lines(c(-ml,ml),c(i,i),col="lightgrey",lwd=0.8)
+}
+for(i in seq(-ml,ml,5)){
+    lines(c(i,i),c(-ml,ml),col="darkgrey",lwd=1.2)
+    lines(c(-ml,ml),c(i,i),col="darkgrey",lwd=1.2)
+}
+arrows(-ml*1.05,0,ml*1.05,0,0.1,10,3,lwd=2)
+arrows(0,-ml*1.05,0,ml*1.05,0.1,10,3,lwd=2)
+text(ml,-1,paste0(ml),cex=0.8)
+text(ml,0.5,"x",cex=0.8)
+text(-1,ml,paste0(ml),cex=0.8)
+text(0.5,ml,"y",cex=0.8)
+```
+```{=latex}
+\end{minipage}
+```
 
 
 
