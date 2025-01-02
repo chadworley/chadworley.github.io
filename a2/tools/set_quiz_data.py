@@ -3,17 +3,16 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2024-12-18 8:00:00"]*5
-dut = ["2024-12-18 23:59:00"]*5
-front = "u10_"
+avt = ["2025-01-02 8:00:00"]*4
+dut = ["2025-01-02 23:59:00"]*4
+front = "u11_"
 
-files = ["12_add_rationals.Rmd",
-"13_subtract_rationals.Rmd",
-"14_mult_rationals.Rmd",
-"15_div_rationals.Rmd",
-"16_inverse_rational.Rmd"]
+files = ["01_distance_formula.Rmd",
+"02_points_within_distance.Rmd",
+"03_points_in_overlap.Rmd",
+"04_trilateration.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u10/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u11/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 
