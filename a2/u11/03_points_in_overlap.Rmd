@@ -1,0 +1,129 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+while(T){
+    hks = sample(10:90,4)
+    h1 = hks[1]
+    k1 = hks[2]
+    h2 = hks[3]
+    k2 = hks[4]
+    d = sqrt((h1-h2)^2+(k1-k2)^2)
+    rat = runif(1,0.2,0.8)
+    midx = (1-rat)*h1+rat*h2
+    midy = (1-rat)*k1+rat*k2
+    r1 = round(sqrt((h1-midx)^2+(k1-midy)^2)+runif(1,1,5))
+    r2 = round(sqrt((h2-midx)^2+(k2-midy)^2)+runif(1,1,5))
+    xp = round(midx+sample(-9:9,10))
+    yp = round(midy+sample(-9:9,10))
+    isin1 = sqrt((xp-h1)^2+(yp-k1)^2)<=r1
+    isin2 = sqrt((xp-h2)^2+(yp-k2)^2)<=r2
+    isin = (isin1*isin2)
+    xmin = min(c(h1-r1,h2-r2))-1
+    xmax = max(c(h1+r1,h2+r2))+1
+    ymin = min(c(k1-r1,k2-r2))-1
+    ymax = max(c(k1+r1,k2+r2))+1
+    if(sum(isin)>2 && sum(isin)<8 && 
+       min(xp)>0 && max(xp)<100 &&
+       min(yp)>0 && max(yp)<100 &&
+       xmin>0 && xmax<100 && ymin>0 && ymax<100){break}
+}
+
+
+pts = paste0("(",xp,",",yp,")")
+al = paste0("* ",pts,collapse="\n")
+sol = paste0(1*isin,collapse="")
+
+ineq1 = paste0("(x-",h1,")^2+(y-",k1,")^2~\\le~",r1,"^2",collapse="")
+ineq1 = gsub("--","+",ineq1,fixed=T)
+
+ineq2 = paste0("(x-",h2,")^2+(y-",k2,")^2~\\le~",r2,"^2",collapse="")
+ineq2 = gsub("--","+",ineq2,fixed=T)
+
+ts = c("is NOT in","is in")
+sols = paste0("* point ",pts," ",ts[isin+rep(1,10)],collapse = "\n")
+
+
+```
+
+Question
+========
+
+Consider the points listed below:
+
+* `r pts`
+
+Please determine which points satisfy both criteria below:
+
+1. Closer than `r r1` units from point (`r h1`, `r k1`), and
+2. Closer than `r r2` units from point (`r h2`, `r k2`).
+
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+1. Open [Desmos](https://www.desmos.com/calculator).
+2. As the first item, use the standard form of a circle to visualize the first criterion.
+$$`r ineq1`$$
+3. As the second item, use the standard form of a circle to visualize the second criterion.
+$$`r ineq2`$$
+4. As the third item, copy/paste the list of points. Click the "Label" checkbox.
+5. Read which points are in the overlapping region.
+
+```{r,echo=F,fig.dim=c(7,7)}
+xmin = min(c(h1-r1,h2-r2))-1
+xmax = max(c(h1+r1,h2+r2))+1
+ymin = min(c(k1-r1,k2-r2))-1
+ymax = max(c(k1+r1,k2+r2))+1
+xwid = xmax-xmin
+ywid = ymax-ymin
+wid = max(c(xwid,ywid))
+xm = mean(c(xmin,xmax))
+ym = mean(c(ymin,ymax))
+xlo = floor(xm-wid/2)
+xhi = ceiling(xm+wid/2)
+ylo = floor(ym-wid/2)
+yhi = ceiling(ym+wid/2)
+
+par(pty="s")
+plot(0,0,"n",xlim=c(xlo,xhi),ylim=c(ylo,yhi),xlab="x",ylab="y")
+
+for(x in xlo:xhi){
+    lines(c(x,x),c(ylo,yhi),col="lightgrey",lwd=0.7)
+}
+for(y in ylo:yhi){
+    lines(c(xlo,xhi),c(y,y),col="lightgrey",lwd=0.7)
+}
+for(x in xlo:xhi){
+    if(x%%5==0){
+        lines(c(x,x),c(ylo,yhi),col="darkgrey",lwd=1.2)
+    }
+}
+for(y in ylo:yhi){
+    if(y%%5==0){
+        lines(c(xlo,xhi),c(y,y),col="darkgrey",lwd=1.2)
+    }
+}
+
+th = seq(0,2*pi,pi/200)
+polygon(cos(th)*r1+h1,sin(th)*r1+k1,border="red",lwd=2,col=rgb(1,0,0,0.4))
+polygon(cos(th)*r2+h2,sin(th)*r2+k2,border="blue",lwd=2,col=rgb(0,0,1,0.4))
+points(xp,yp,pch=isin*6+rep(13,10))
+# points(h,k,col="red",pch=19)
+# text(h+r/20,k+r/20,paste0("(",h,",",k,")",collapse=""),adj=c(0,0),col="red")
+
+
+```
+\
+
+`r sols`
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: points_in_overlap

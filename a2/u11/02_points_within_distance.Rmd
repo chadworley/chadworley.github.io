@@ -1,0 +1,98 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+
+while(T){
+    r = sample(8:15,1)
+    hk = sample(1:8,2)*sample(c(-1,1),2,T)
+    h = hk[1]
+    k = hk[2]
+    
+    ineq = paste0("(x-",h,")^2+(y-",k,")^2~\\le~",r,"^2",collapse="")
+    ineq = gsub("--","+",ineq,fixed=T)
+    
+    ths = sort(runif(10,0,2*pi))
+    xp = cos(ths)*r+h
+    yp = sin(ths)*r+k
+    xp = round(xp+sample(-1:1,10,T))
+    yp = round(yp+sample(-1:1,10,T))
+    
+    pnts = paste0("(",xp,",",yp,")")
+    
+    sqdis = (xp-h)^2+(yp-k)^2
+    isin = sqdis<=r^2
+    
+    if(length(unique(pnts))==10 && max(diff(sort(c(0,ths,min(ths)+2*pi))))<pi/3 && sum(isin)>2 && sum(isin)<8){break}
+}
+
+al = paste0("* ",pnts,collapse="\n")
+
+ts = c("is NOT in","is in")
+sols = paste0("* point ",pnts," ",ts[isin+rep(1,10)],collapse = "\n")
+
+
+```
+
+Question
+========
+
+Using [Desmos](https://www.desmos.com/calculator), determine which of the given points are within a distance of `r r` units from point (`r h`, `r k`).
+
+1. Graph the inequality $`r ineq`$ as the first item in Desmos.
+2. Enter each point as a [Cartesian coordinate pair](https://en.wikipedia.org/wiki/Abscissa_and_ordinate). Actually, you should be able to copy/paste all the points as a single item (using commas to separate the points):
+   - `r pnts`
+3. Click "Label" to label the points.
+4. Determine which points are in the shaded area. If a point is exactly on the boundary, count that point as within the distance. You might need to zoom in on points to be sure.
+
+
+Answerlist
+--------
+
+`r al`
+
+
+
+Solution
+========
+
+Follow the directions given in the prompt. I've plotted the inequality and the points below, using two different marks to indicate whether the point in inside the boundary or outside the boundary. Notice the points should be listed (mostly) in a counter-clockwise order, starting from 3 o'clock (see [standard position of an angle](https://libraryguides.centennialcollege.ca/c.php?g=716824&p=5112868)).
+
+```{r,echo=F,fig.dim=c(7,7)}
+par(pty="s")
+xmin = h-r-2
+xmax = h+r+2
+ymin = k-r-2
+ymax = k+r+2
+plot(0,0,"n",xlim=c(xmin,xmax),ylim=c(ymin,ymax),xlab="x",ylab="y")
+th = seq(0,2*pi,pi/200)
+
+for(i in (-r-2):(r+2)){
+    lines(c(xmin,xmax),c(k+i,k+i),col="lightgrey",lwd=0.8)
+    lines(c(h+i,h+i),c(ymin,ymax),col="lightgrey",lwd=0.8)
+}
+for(i in (-r-2):(r+2)){
+    if((k+i)%%5==0){
+        lines(c(xmin,xmax),c(k+i,k+i),col="darkgrey",lwd=1.2)
+    }
+    if((h+i)%%5==0){
+        lines(c(h+i,h+i),c(ymin,ymax),col="darkgrey",lwd=1.2)
+    }
+}
+arrows(xmin,0,xmax,0,0.1,10,3,lwd=2)
+arrows(0,ymin,0,ymax,0.1,10,3,lwd=2)
+
+polygon(cos(th)*r+h,sin(th)*r+k,border="red",lwd=2,col=rgb(1,0,0,0.4))
+points(xp,yp,pch=isin*6+rep(13,10))
+points(h,k,col="red",pch=19)
+text(h+r/20,k+r/20,paste0("(",h,",",k,")",collapse=""),adj=c(0,0),col="red")
+
+```
+\
+
+`r sols`
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r paste0(1*isin,collapse="")`
+exname: points_within_distance
