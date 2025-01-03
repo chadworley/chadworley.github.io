@@ -1,0 +1,207 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+maxval = 20
+
+while(T){
+    xsys = sample(1:(maxval-1),6)
+    xs = xsys[1:3]
+    ys = xsys[4:6]
+    xdiff = diff(c(xs,xs[1]))
+    ydiff = diff(c(ys,ys[1]))
+    lens = sqrt(xdiff^2+ydiff^2)
+    A = lens[c(1,2,3)]
+    B = lens[c(2,3,1)]
+    C = lens[c(3,1,2)]
+    th = acos((A^2+B^2-C^2)/(2*A*B))
+    if(min(th)>pi/12 && min(lens)>5 && min(abs(xdiff))>1 && min(abs(ydiff))>1 &&
+       length(unique(lens))==3){break}
+}
+
+pnts = paste0("(",xs,", ",ys,")")
+pl = paste("* ",pnts,collapse="\n")
+per = sum(lens)
+
+```
+
+Question
+========
+
+Consider the triangle with vertices at the following coordinates:
+
+`r pl`
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(pty="s")
+plot(0,0,"n",xlim=c(0,maxval),ylim=c(0,maxval),xlab="x",ylab="y")
+for(i in 1:maxval){
+    lines(c(0,maxval),c(i,i),col="lightgrey",lwd=0.5)
+    lines(c(i,i),c(0,maxval),col="lightgrey",lwd=0.5)
+}
+for(i in seq(5,maxval,5)){
+    lines(c(0,maxval),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(0,maxval),col="darkgrey",lwd=0.8)
+}
+for(i in seq(10,maxval,10)){
+    lines(c(0,maxval),c(i,i),col="darkgrey",lwd=1.2)
+    lines(c(i,i),c(0,maxval),col="darkgrey",lwd=1.2)
+}
+arrows(0,0,0,maxval*1.03,0.1,10,lwd=2)
+arrows(0,0,maxval*1.03,0,0.1,10,lwd=2)
+polygon(xs,ys,border="blue",col=rgb(0,0,1,0.1),lwd=2)
+points(xs,ys,pch=20,col="blue")
+
+```
+\
+
+Calculate the [perimeter](https://en.wikipedia.org/wiki/Perimeter). Please be accurate to within 0.01 units.
+
+
+Solution
+========
+
+We want to use the [Pythagorean theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem), which tells us the hypotenuse's length, $c$, can be calculated from the two legs' lengths ($a$ and $b$) by using $c=\sqrt{a^2+b^2}$. It is easy to draw right triangles by using vertical and horizontal legs. The leg lengths can be found by taken differences of corresponding coordinates or by counting on the graph. See the diagram below.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(pty="s")
+plot(0,0,"n",xlim=c(0,maxval),ylim=c(0,maxval),xlab="x",ylab="y")
+for(i in 1:maxval){
+    lines(c(0,maxval),c(i,i),col="lightgrey",lwd=0.5)
+    lines(c(i,i),c(0,maxval),col="lightgrey",lwd=0.5)
+}
+for(i in seq(5,maxval,5)){
+    lines(c(0,maxval),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(0,maxval),col="darkgrey",lwd=0.8)
+}
+for(i in seq(10,maxval,10)){
+    lines(c(0,maxval),c(i,i),col="darkgrey",lwd=1.2)
+    lines(c(i,i),c(0,maxval),col="darkgrey",lwd=1.2)
+}
+arrows(0,0,0,maxval*1.03,0.1,10,lwd=2)
+arrows(0,0,maxval*1.03,0,0.1,10,lwd=2)
+polygon(xs,ys,border="blue",lwd=2)
+points(xs,ys,pch=20,col="blue")
+
+x = c(xs,xs)
+y = c(ys,ys)
+
+cols = c(rgb(1,0,0,1),rgb(0.8,0,0.2,1),rgb(0.6,0,0.4,1))
+colfill = c(rgb(1,0,0,0.3),rgb(0.8,0,0.2,0.3),rgb(0.6,0,0.4,0.3))
+for(i in 1:3){
+    x1 = x[i]
+    y1 = y[i]
+    x2 = x[i+1]
+    y2 = y[i+1]
+    x3 = x[i+2]
+    y3 = y[i+2]
+    vx1 = x2-x1
+    vx2 = x3-x2
+    vy1 = y2-y1
+    vy2 = y3-y2
+    cp = vx1*vy2-vx2*vy1
+    midx = x1
+    midy = y2
+    vx1 = x2-x1
+    vx2 = midx-x2
+    vy1 = y2-y1
+    vy2 = midy-y2
+    cp2 = vx1*vy2-vx2*vy1
+    if(sign(cp)==sign(cp2)){
+        midx = x2
+        midy = y1
+    }
+    polygon(c(x1,midx,x2),c(y1,midy,y2),col=colfill[i],border=cols[i],lwd=2)
+    htx = mean(c(x1,x2))
+    vty = mean(c(y1,y2))
+    if(midx==max(c(x1,x2))){
+        vtx = midx+0.1
+        adjv = c(0,0.5)
+    } else {
+        vtx = midx-0.1
+        adjv = c(1,0.5)
+    }
+    if(midy==max(c(y1,y2))){
+        hty = midy+0.1
+        adjh = c(0.5,0)
+    } else {
+        hty = midy-0.1
+        adjh = c(0.5,1)
+    }
+    text(htx,hty,abs(x2-x1),col=cols[i],adj=adjh)
+    text(vtx,vty,abs(y2-y1),col=cols[i],adj=adjv)
+}
+
+
+```
+\
+
+Calculate the hypotenuses' lengths.
+
+$$\sqrt{`r abs(xdiff[1])`^2+`r abs(ydiff[1])`^2}~=~ `r lens[1]`$$
+
+$$\sqrt{`r abs(xdiff[2])`^2+`r abs(ydiff[2])`^2}~=~ `r lens[2]`$$
+
+$$\sqrt{`r abs(xdiff[3])`^2+`r abs(ydiff[3])`^2}~=~ `r lens[3]`$$
+
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(pty="s")
+plot(0,0,"n",xlim=c(0,maxval),ylim=c(0,maxval),xlab="x",ylab="y")
+for(i in 1:maxval){
+    lines(c(0,maxval),c(i,i),col="lightgrey",lwd=0.5)
+    lines(c(i,i),c(0,maxval),col="lightgrey",lwd=0.5)
+}
+for(i in seq(5,maxval,5)){
+    lines(c(0,maxval),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(0,maxval),col="darkgrey",lwd=0.8)
+}
+for(i in seq(10,maxval,10)){
+    lines(c(0,maxval),c(i,i),col="darkgrey",lwd=1.2)
+    lines(c(i,i),c(0,maxval),col="darkgrey",lwd=1.2)
+}
+arrows(0,0,0,maxval*1.03,0.1,10,lwd=2)
+arrows(0,0,maxval*1.03,0,0.1,10,lwd=2)
+polygon(xs,ys,border="blue",col=rgb(0,0,1,0.3),lwd=2)
+points(xs,ys,pch=20,col="blue")
+
+x = c(xs,xs)
+y = c(ys,ys)
+
+for(i in 1:3){
+    x1 = x[i]
+    y1 = y[i]
+    x2 = x[i+1]
+    y2 = y[i+1]
+    x3 = x[i+2]
+    y3 = y[i+2]
+    vx1 = x2-x1
+    vx2 = x3-x2
+    vy1 = y2-y1
+    vy2 = y3-y2
+    cp = vx1*vy2-vx2*vy1
+    ang = atan((y2-y1)/(x2-x1))
+    midx = mean(c(x1,x2))+cos(ang+pi/2)*0.7
+    midy = mean(c(y1,y2))+sin(ang+pi/2)*0.7
+    vx2 = midx-x2
+    vy2 = midy-y2
+    cp2 = vx1*vy2-vx2*vy1
+    if(sign(cp)==sign(cp2)){
+        midx = mean(c(x1,x2))+cos(ang-pi/2)*0.7
+        midy = mean(c(y1,y2))+sin(ang-pi/2)*0.7
+    }
+    text(midx,midy,round(lens[i],4),srt=ang/pi*180,col=cols[i])
+}
+
+```
+\
+
+To find the perimeter, add up the three lengths.
+
+$$P~=~`r lens[1]`+`r lens[2]`+`r lens[3]`$$
+
+$$P~=~`r sum(lens)`$$
+
+Meta-information
+============
+extype: num
+exsolution: `r per`
+exname: triangle_perimeter
+extol: 0.01

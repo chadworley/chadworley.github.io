@@ -6,7 +6,11 @@ probs = c("01_distance_formula.Rmd",
           "02_points_within_distance.Rmd",
           "03_points_in_overlap.Rmd",
           "04_trilateration.Rmd",
-          "05_circ_by_compltng_sqr.Rmd")
+          "05_triangle_perimeter.Rmd",
+          "06_archery_target.Rmd",
+          "07_three_dim_dist.Rmd",
+          "08_circ_by_compltng_sqr.Rmd",
+          "09_ratio_between_points.Rmd")
 
 nvers = 10
 ps = character(0)

@@ -3,14 +3,15 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-01-02 8:00:00"]*4
-dut = ["2025-01-02 23:59:00"]*4
+avt = ["2025-01-03 8:00:00"]*5
+dut = ["2025-01-03 23:59:00"]*5
 front = "u11_"
 
-files = ["01_distance_formula.Rmd",
-"02_points_within_distance.Rmd",
-"03_points_in_overlap.Rmd",
-"04_trilateration.Rmd"]
+files = ["05_triangle_perimeter.Rmd",
+"06_archery_target.Rmd",
+"07_three_dim_dist.Rmd",
+"08_circ_by_compltng_sqr.Rmd",
+"09_ratio_between_points.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u11/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'

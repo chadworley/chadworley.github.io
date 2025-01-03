@@ -3,12 +3,13 @@ n = 30
 outdir = "outcanvas"
 genname = "u11_"
 
-probs = c("01_distance_formula.Rmd",
-          "02_points_within_distance.Rmd",
-          "03_points_in_overlap.Rmd",
-          "04_trilateration.Rmd")
+probs = c("05_triangle_perimeter.Rmd",
+          "06_archery_target.Rmd",
+          "07_three_dim_dist.Rmd",
+          "08_circ_by_compltng_sqr.Rmd",
+          "09_ratio_between_points.Rmd")
 
-pnts = c(4,4,4,4)
+pnts = c(4,4,3,5,3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

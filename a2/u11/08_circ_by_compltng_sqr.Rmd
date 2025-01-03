@@ -1,0 +1,94 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+
+hkr = sample(2:9,3)
+h = hkr[1]*sample(c(-1,1),1)
+k = hkr[2]*sample(c(-1,1),1)
+r = hkr[3]
+
+# (x-h)^2 + (y-k)^2 = r^2
+# x^2-2hx + y^2-2ky = r^2-h^2-k^2
+
+eq1 = paste0("x^2+",-2*h,"x+y^2+",-2*k,"y~=~",r^2-h^2-k^2,collapse="")
+eq1 = gsub("+-","-",eq1,fixed=T)
+
+eq2 = paste0("x^2+",-2*h,"x+",h^2,"+y^2+",-2*k,"y+",k^2,"~=~",r^2-h^2-k^2,"+",h^2,"+",k^2,collapse="")
+eq2 = gsub("+-","-",eq2,fixed=T)
+
+eq3 = paste0("(x+",-h,")^2+(y+",-k,")^2~=~",r^2,collapse="")
+eq3 = gsub("+-","-",eq3,fixed=T)
+
+eq4 = paste0("(x+",-h,")^2+(y+",-k,")^2~=~",r,"^2",collapse="")
+eq4 = gsub("+-","-",eq4,fixed=T)
+
+hach = -10:10
+kach = -10:10
+rach = 0:10
+
+al1 = paste0("* ",hach,collapse="\n")
+al2 = paste0("* ",kach,collapse="\n")
+al3 = paste0("* ",rach,collapse="\n")
+
+sol1 = paste0(1*(hach==h),collapse="")
+sol2 = paste0(1*(kach==k),collapse="")
+sol3 = paste0(1*(rach==r),collapse="")
+
+```
+
+Question
+========
+
+When plotting all $x$-$y$ pairs that satisfy the given equation (make the equation true), the result is a circle.
+
+$$`r eq1`$$
+
+The standard form of an equation of a circle shows the center $(h,k)$ and radius $r$ as parameters.
+
+$$(x-h)^2+(y-k)^2~=~r^2$$
+
+In order to convert the given circle into standard form, you should [complete the square](https://en.wikipedia.org/wiki/Completing_the_square) (twice, once for $x$-containing terms and once for $y$-containing terms). After you convert the equation to standard form, indicate the values of the parameters.
+
+* $h=$ ##ANSWER1##
+* $k=$ ##ANSWER2##
+* $r=$ ##ANSWER3##
+
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al3`
+
+
+Solution
+========
+
+The given equation:
+
+$$`r eq1`$$
+
+Determine the constants needed for perfect squares. Do this by halving the linear coefficient and squaring the result. In other words, $z^2+bz+\left(\frac{b}{2}\right)^2$ is a perfect square for any value of $b$.
+
+$$`r eq2`$$
+
+Write each perfect square in factored form. Also, simplify the right side.
+
+$$`r eq3`$$
+
+Notice $`r r^2`$ is a perfect square integer.
+
+$$`r eq4`$$
+
+Thus,
+
+$$h=`r h`$$
+$$k=`r k`$$
+$$r=`r r`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: circ_by_compltng_sqr

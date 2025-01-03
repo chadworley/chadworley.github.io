@@ -1,0 +1,232 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+xyz = sample(5:20,3)
+x = xyz[1]
+y = xyz[2]
+z = xyz[3]
+
+D = sqrt(x^2+y^2+z^2)
+
+p = c(0,0,0, #1
+      0,0,z, #2
+      0,y,0, #3
+      x,0,0, #4
+      0,y,z, #5
+      x,0,z, #6
+      x,y,0, #7
+      x,y,z) #8
+p = matrix(p,ncol=3,byrow=T)
+
+X = numeric()
+Y = numeric()
+for(i in 1:dim(p)[1]){
+    px = p[i,1]
+    py = p[i,2]
+    pz = p[i,3]
+    X = c(X,0.7*px-0.7*py)
+    Y = c(Y,0.2*px+0.2*py+pz)
+}
+
+l = c(1,2,
+      1,3,
+      1,4,
+      2,5,
+      2,6,
+      3,5,
+      3,7,
+      4,6,
+      4,7,
+      5,8,
+      6,8,
+      7,8)
+l  = matrix(l,ncol=2,byrow=T)
+
+XLO = min(X)
+XHI = max(X)
+YLO = min(Y)
+YHI = max(Y)
+widX = XHI-XLO
+widY = YHI-YLO
+maxwid = max(c(widX,widY))
+xmid = mean(c(XHI,XLO))
+ymid = mean(c(YHI,YLO))
+
+```
+
+Question
+========
+
+A [right rectangular prism](https://en.m.wikipedia.org/wiki/Rectangular_cuboid) is `r x` inches wide, `r y` inches deep, and `r z` inches tall.
+
+What is the distance between opposite corners?
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+
+plot(0,0,"n",axes=F,ann=F,
+     xlim=c(xmid-maxwid/2,xmid+maxwid/2),
+     ylim=c(ymid-maxwid/2,ymid+maxwid/2),
+     )
+
+for(i in 1:dim(l)[1]){
+    # p1 = paste0(p[l[i,1],],collapse=",")
+    # p2 = paste0(p[l[i,2],],collapse=",")
+    # print(paste(p1," -> ",p2,collapse=""))
+    p1 = l[i,1]
+    p2 = l[i,2]
+    lines(c(X[p1],X[p2]),c(Y[p1],Y[p2]),col="darkgrey")
+}
+lines(c(X[3],X[6]),c(Y[3],Y[6]),col=rgb(1,0.6,0.6),lwd=2)
+
+dtx = mean(X[c(1,3)])
+dty = mean(Y[c(1,3)])
+text(dtx,dty,y,col="blue")
+
+htx = mean(X[c(4,6)])
+hty = mean(Y[c(4,6)])
+text(htx,hty,z,col="blue")
+
+ltx = mean(X[c(1,4)])
+lty = mean(Y[c(1,4)])
+text(ltx,lty,x,col="blue")
+
+Dtx = mean(X[c(3,6)])
+Dty = mean(Y[c(3,6)])
+text(Dtx,Dty,"?",col="red",cex=1.3)
+
+```
+\
+
+Please be accurate within $\pm$ 0.01 of the exact answer.
+
+Solution
+========
+
+Let's use Pythagorean Theorem. This is possible because all angles are 90 degrees. To do this, we can first find the length of a diagonal across the bottom. Let's call it $B$.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,
+     xlim=c(xmid-maxwid/2,xmid+maxwid/2),
+     ylim=c(ymid-maxwid/2,ymid+maxwid/2),
+     )
+
+for(i in 1:dim(l)[1]){
+    # p1 = paste0(p[l[i,1],],collapse=",")
+    # p2 = paste0(p[l[i,2],],collapse=",")
+    # print(paste(p1," -> ",p2,collapse=""))
+    p1 = l[i,1]
+    p2 = l[i,2]
+    lines(c(X[p1],X[p2]),c(Y[p1],Y[p2]),col="darkgrey")
+}
+lines(c(X[3],X[6]),c(Y[3],Y[6]),col=rgb(1,0.6,0.6,0.2),lwd=2)
+
+dtx = mean(X[c(1,3)])
+dty = mean(Y[c(1,3)])
+text(dtx,dty,y,col="blue")
+
+# htx = mean(X[c(1,2)])
+# hty = mean(Y[c(1,2)])
+# text(htx,hty,z,col="blue")
+
+ltx = mean(X[c(1,4)])
+lty = mean(Y[c(1,4)])
+text(ltx,lty,x,col="blue")
+
+Dtx = mean(X[c(3,6)])
+Dty = mean(Y[c(3,6)])
+text(Dtx,Dty,"?",col=rgb(1,0,0,0.2),cex=1.3)
+
+polygon(X[c(1,3,4)],Y[c(1,3,4)],col=rgb(0.8,0.8,0,0.2),border=NA)
+lines(c(X[3],X[4]),c(Y[3],Y[4]),col=rgb(0.6,0.6,0,0.4),lwd=2)
+btx = mean(X[c(3,4)])
+bty = mean(Y[c(3,4)])
+text(btx,bty,"B",col=rgb(0.1,0.1,0))
+
+px1 = c(0,1,1)/2
+py1 = c(1,1,0)/2
+pz1 = c(0,0,0)/2
+X1 = 0.7*px1-0.7*py1
+Y1 = 0.2*px1+0.2*py1+pz1
+
+lines(X1,Y1)
+```
+\
+
+$$B~=~\sqrt{`r x`^2+`r y`^2}~=~\sqrt{`r x^2+y^2`} ~\approx~`r sqrt(x^2+y^2)`$$
+
+Now we can form another **right triangle**, using $B$, the height, and the desired length, which we can call $D$.
+
+```{r,echo=F,fig.dim=c(5,5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,
+     xlim=c(xmid-maxwid/2,xmid+maxwid/2),
+     ylim=c(ymid-maxwid/2,ymid+maxwid/2),
+     )
+
+for(i in 1:dim(l)[1]){
+    # p1 = paste0(p[l[i,1],],collapse=",")
+    # p2 = paste0(p[l[i,2],],collapse=",")
+    # print(paste(p1," -> ",p2,collapse=""))
+    p1 = l[i,1]
+    p2 = l[i,2]
+    lines(c(X[p1],X[p2]),c(Y[p1],Y[p2]),col="darkgrey")
+}
+polygon(X[c(3,4,6)],Y[c(3,4,6)],col=rgb(1,0,0,0.2),border=NA)
+
+lines(c(X[3],X[6]),c(Y[3],Y[6]),col=rgb(1,0,0,0.4),lwd=2)
+
+# dtx = mean(X[c(1,3)])
+# dty = mean(Y[c(1,3)])
+# text(dtx,dty,y,col="blue")
+
+htx = mean(X[c(4,6)])
+hty = mean(Y[c(4,6)])
+text(htx,hty,z,col="blue")
+
+# ltx = mean(X[c(1,4)])
+# lty = mean(Y[c(1,4)])
+# text(ltx,lty,x,col="blue")
+
+Dtx = mean(X[c(3,6)])
+Dty = mean(Y[c(3,6)])
+text(Dtx,Dty,"D",col=rgb(1,0,0),cex=1.3)
+
+lines(c(X[3],X[4]),c(Y[3],Y[4]),col=rgb(0.6,0.6,0,0.4),lwd=2)
+btx = mean(X[c(3,4)])
+bty = mean(Y[c(3,4)])
+text(btx,bty,TeX(paste0("$\\sqrt{",x^2+y^2,"}$")),col=rgb(0.4,0.4,0))
+
+vb = p[4,]-p[3,]
+lb = sqrt(sum(vb^2))
+ub = vb/lb
+
+px1 = c(p[4,1]-ub[1]/2,p[4,1]-ub[1]/2,p[4,1])
+py1 = c(p[4,2]-ub[2]/2,p[4,2]-ub[2]/2,p[4,2])
+pz1 = c(0,1,1)/2
+X1 = 0.7*px1-0.7*py1
+Y1 = 0.2*px1+0.2*py1+pz1
+lines(X1,Y1)
+
+
+```
+\
+
+$$D ~=~ \sqrt{`r z`^2+\left(\sqrt{`r x^2+y^2`}\right)^2}$$
+$$D ~=~ \sqrt{`r z^2`+`r x^2+y^2`}$$
+$$D ~=~ \sqrt{`r z^2+x^2+y^2`}$$
+$$D ~\approx~ `r D`$$
+
+If you were super observant, you might have picked up on a shortcut. Basically, in 3D, [the distance](https://en.wikipedia.org/wiki/Distance#Straight-line_or_Euclidean_distance) between 2 points is:
+
+$$D~=~\sqrt{(\Delta x)^2+(\Delta y)^2+(\Delta z)^2}$$
+
+where $\Delta x=x_2-x_1$ and $\Delta y=y_2-y_1$ and $\Delta z=z_2-z_1$.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r D`
+exname: three_dim_dist
+extol: 0.01

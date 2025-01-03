@@ -1,0 +1,209 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+slopes = list(c(1,2),c(1,3),c(1,4),c(1,5),c(1,6),
+              c(2,3),c(2,5),c(3,4),c(3,5),c(4,5),c(5,6))
+wi = sample(1:length(slopes),1)
+slope = sample(slopes[[wi]])*c(sample(c(-1,1),1),1)
+
+while(T){
+    xy = sample(5:95,2)
+    x1 = xy[1]
+    y1 = xy[2]
+    ns = sample(c(5,10,15,20,25,30,35,40),1)
+    x2 = x1+slope[2]*ns
+    y2 = y1+slope[1]*ns
+    dis = sqrt((x2-x1)^2+(y2-y1)^2)
+    if(x2>5 && x2<95 && y2>5 && y2<95 && dis>30){break}
+}
+
+rat = sample(c(0.2,0.4,0.6,0.8),1)
+
+x3 = (1-rat)*x1+rat*x2
+y3 = (1-rat)*y1+rat*y2
+
+xch = x3-sample(0:5,1)+0:5
+ych = y3-sample(0:5,1)+0:5
+
+al1 = paste0("* ",xch,collapse="\n")
+al2 = paste0("* ",ych,collapse="\n")
+
+sol1 = paste0(1*(xch==x3),collapse="")
+sol2 = paste0(1*(ych==y3),collapse="")
+
+```
+
+Question
+========
+
+Consider the two points:
+
+* Point $A$ is at $(`r x1`,`r y1`)$
+* Point $B$ is at $(`r x2`,`r y2`)$
+
+A third [collinear](https://en.wikipedia.org/wiki/Collinearity) point, $C$, is `r rat*100`% of the way from point $A$ to point $B$, as shown below. .
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(pty="s",mar=c(4,4,1,1))
+plot(0,0,"n",xlim=c(0,100),ylim=c(0,100),xlab="x",ylab="y")
+lines(c(x1,x2),c(y1,y2))
+points(x1,y1,pch=19,col="red")
+text(x1,y1,adj=c(1.5,0.5),paste0("A"),col="red")
+
+points(x2,y2,pch=19,col="red")
+text(x2,y2,adj=c(-0.5,0.5),paste0("B"),col="red")
+
+points(x3,y3,pch=19,col="blue")
+ang = atan(slope[1]/slope[2])
+text(x3+5*cos(ang+pi/2),y3+5*sin(ang+pi/2),paste0("C"),col="blue")
+```
+\
+
+Find the coordinates of point $C$:
+
+(##ANSWER1##,##ANSWER2##)
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+
+Solution
+========
+
+There are many different ways to approach this problem.
+
+Let's start by finding the deltas: $\Delta x$ and $\Delta y$.
+
+$$\Delta x ~=~ `r x2`-`r x1` ~=~ `r x2-x1`$$
+$$\Delta y ~=~ `r y2`-`r y1` ~=~ `r y2-y1`$$
+
+The absolute values of these deltas are lengths of legs of a right triangle with vertical and horizontal legs.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(pty="s",mar=c(4,4,1,1))
+minx = min(c(x1,x2))
+maxx = max(c(x1,x2))
+miny = min(c(y1,y2))
+maxy = max(c(y1,y2))
+xwid = maxx-minx
+ywid = maxy-miny
+maxwid = max(c(xwid,ywid))*1.3
+xmid = min(max(mean(c(x1,x2)),maxwid/2),100-maxwid/2)
+ymid = min(max(mean(c(y1,y2)),maxwid/2),100-maxwid/2)
+
+plot(0,0,"n",
+     xlim=c(xmid-maxwid/2,xmid+maxwid/2),
+     ylim=c(ymid-maxwid/2,ymid+maxwid/2),
+     xlab="x",ylab="y")
+
+for(i in seq(0,100,1)){
+    lines(c(0,100),c(i,i),col="lightgrey",lwd=0.5)
+    lines(c(i,i),c(0,100),col="lightgrey",lwd=0.5)
+}
+for(i in seq(0,100,5)){
+    lines(c(0,100),c(i,i),col="darkgrey",lwd=0.9)
+    lines(c(i,i),c(0,100),col="darkgrey",lwd=0.9)
+}
+for(i in seq(0,100,10)){
+    lines(c(0,100),c(i,i),col="darkgrey",lwd=1.4)
+    lines(c(i,i),c(0,100),col="darkgrey",lwd=1.4)
+}
+arrows(0,0,0,103,0.1,10,lwd=2)
+arrows(0,0,103,0,0.1,10,lwd=2)
+
+lines(c(x1,x2),c(y1,y2))
+points(x1,y1,pch=20,col="red")
+
+points(x2,y2,pch=20,col="red")
+
+points(x3,y3,pch=20,col="blue")
+ang = atan(slope[1]/slope[2])
+
+polygon(c(x1,x1,x2),c(y1,y2,y2),col=rgb(1,0.3,0,0.3),border=rgb(1,0.3,0))
+text(x1,mean(c(y1,y2)),abs(y2-y1),adj=c(1.2,0.5),col=rgb(1,0.3,0))
+text(mean(c(x1,x2)),y2,abs(x2-x1),adj=c(0.5,0.5-0.7*sign(slope[1])),col=rgb(1,0.3,0))
+
+```
+\
+
+We can multiply each absolute delta by the given percentage.
+
+$$`r rat` \cdot `r abs(x2-x1)` ~=~ `r rat*abs(x2-x1)`$$
+$$`r rat` \cdot `r abs(y2-y1)` ~=~ `r rat*abs(y2-y1)`$$
+
+We can draw a new right triangle, starting at $A$, with these leg lengths. Point $C$ should be on a vertex of this new triangle.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(pty="s",mar=c(4,4,1,1))
+
+minx = min(c(x1,x2))
+maxx = max(c(x1,x2))
+miny = min(c(y1,y2))
+maxy = max(c(y1,y2))
+xwid = maxx-minx
+ywid = maxy-miny
+maxwid = max(c(xwid,ywid))*1.3
+xmid = min(max(mean(c(x1,x2)),maxwid/2),100-maxwid/2)
+ymid = min(max(mean(c(y1,y2)),maxwid/2),100-maxwid/2)
+
+plot(0,0,"n",
+     xlim=c(xmid-maxwid/2,xmid+maxwid/2),
+     ylim=c(ymid-maxwid/2,ymid+maxwid/2),
+     xlab="x",ylab="y")
+
+for(i in seq(0,100,1)){
+    lines(c(0,100),c(i,i),col="lightgrey",lwd=0.5)
+    lines(c(i,i),c(0,100),col="lightgrey",lwd=0.5)
+}
+for(i in seq(0,100,5)){
+    lines(c(0,100),c(i,i),col="darkgrey",lwd=0.9)
+    lines(c(i,i),c(0,100),col="darkgrey",lwd=0.9)
+}
+for(i in seq(0,100,10)){
+    lines(c(0,100),c(i,i),col="darkgrey",lwd=1.4)
+    lines(c(i,i),c(0,100),col="darkgrey",lwd=1.4)
+}
+arrows(0,0,0,103,0.1,10,lwd=2)
+arrows(0,0,103,0,0.1,10,lwd=2)
+
+lines(c(x1,x2),c(y1,y2))
+points(x1,y1,pch=20,col="red")
+text(x1,y1,paste0("(",x1,", ",y1,")",collapse=""),adj=c(1.2,0.5+0.5*sign(slope[1])),col="red")
+
+points(x2,y2,pch=20,col="red")
+
+points(x3,y3,pch=20,col="blue")
+ang = atan(slope[1]/slope[2])
+
+polygon(c(x1,x1,x3),c(y1,y3,y3),col=rgb(0.3,0,1,0.2),border=rgb(0.3,0,1))
+text(x1,mean(c(y1,y3)),abs(y3-y1),adj=c(1.2,0.5),col=rgb(0.3,0,1))
+text(mean(c(x1,x3)),y3,abs(x3-x1),adj=c(0.5,0.5-0.7*sign(slope[1])),col=rgb(0.3,0,1))
+
+```
+\
+
+So, we can find the coordinates of $C$.
+
+```{r,echo=F}
+exp2 = paste0("y_C~=~",y1,"+",y3-y1,"~=~",y3,collapse="")
+exp2 = gsub("+-","-",exp2,fixed=T)
+```
+
+$$x_C ~=~ `r x1`+`r x3-x1` ~=~ `r x3`$$
+$$`r exp2`$$
+
+Thus, the answer is $(`r x3`, `r y3`)$.
+
+Another way to approach this problem:
+
+$$x_C ~=~ (1-`r rat`)\cdot`r x1` + `r rat`\cdot `r x2` ~=~ `r x3`$$
+$$y_C ~=~ (1-`r rat`)\cdot`r y1` + `r rat`\cdot `r y2` ~=~ `r y3`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: ratio_between_points

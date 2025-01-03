@@ -1,0 +1,193 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+n = 36
+
+hm = sample(2:10,1)
+
+while(T){
+   rn = sample(2:9,1)
+   rp = (10:1)[rn]
+   dlo = (rn-1)*10
+   dhi = rn*10
+   xs = round(rnorm(n,0,40))
+   ys = round(rnorm(n,0,40))
+   rs = sqrt(xs^2+ys^2)
+   disses = numeric()
+   for(i in 1:(n-1)){
+       for(j in (i+1):n){
+           dissis = c(disses,sqrt(xs[j]-xs[i])^2+(ys[j]-ys[i])^2)
+       }
+   }
+   howmany = sum((rs>=dlo)*(rs<=dhi))
+   if(min(disses)>5 && max(rs)<100 && sum(rs%%10==0)==0 && howmany==hm && hm!=rp && hm!=rn){break}
+}
+
+
+```
+
+Question
+========
+
+An archery target is 200 millimeters wide. It is composed of concentric rings. The center ring is worth 10 points, the next ring is worth 9, and so on as shown in the diagram. Notice the radii of the rings are all multiples of 10 millimeters.
+
+By setting up a Cartesian coordinate system, with units of millimeters, and the origin at the bullseye, we can indicate any point on the target with a Cartesian-coordinate ordered pair.
+
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(pty="s",mar=c(4,4,0,0))
+plot(0,0,"n",xlim=c(-100,100),ylim=c(-100,100),xlab="x (mm)",ylab="y (mm)")
+radii = seq(100,10,-10)
+cols = c(rep("white",2),
+         rep(rgb(0.5,0.5,0.5),2),
+         rep(rgb(0.6,0.6,1),2),
+         rep(rgb(1,0.6,0.6),2),
+         rep(rgb(1,1,0.6),2))
+bcol = c(rep(rgb(0.4,0.4,0.4),3),"white",rep(rgb(0.4,0.4,0.4),6))
+th = seq(0,2*pi,pi/300)
+for(i in 1:10){
+    polygon(cos(th)*radii[i],sin(th)*radii[i],col=cols[i],border=bcol[i])
+}
+points(0,0,pch=19,cex=0.3)
+for(i in seq(-100,100,10)){
+    lines(c(-100,100),c(i,i),col="black",lwd=0.6)
+    lines(c(i,i),c(-100,100),col="black",lwd=0.6)
+}
+for(i in seq(-100,100,50)){
+    lines(c(-100,100),c(i,i),col="black",lwd=1.4)
+    lines(c(i,i),c(-100,100),col="black",lwd=1.4)
+}
+arrows(-103,0,103,0,0.1,10,3,lwd=2)
+arrows(0,-103,0,103,0.1,10,3,lwd=2)
+
+pnts = 1:10
+for(i in 1:10){
+    text(radii[i]/sqrt(2)-5/sqrt(2),radii[i]/sqrt(2)-5/sqrt(2),pnts[i],cex=0.5)
+    text(-radii[i]/sqrt(2)+5/sqrt(2),radii[i]/sqrt(2)-5/sqrt(2),pnts[i],cex=0.5)
+    text(radii[i]/sqrt(2)-5/sqrt(2),-radii[i]/sqrt(2)+5/sqrt(2),pnts[i],cex=0.5)
+    text(-radii[i]/sqrt(2)+5/sqrt(2),-radii[i]/sqrt(2)+5/sqrt(2),pnts[i],cex=0.5)
+}
+
+```
+\
+
+An archer shoots `r n` arrows; the positions are indicated in the table below.
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab_data, echo=FALSE, results="asis"}
+opts <- options(knitr.kable.NA = "")
+mydf = data.frame(xs,ys)
+colnames(mydf) = c("x (mm)","y (mm)")
+knitr::kable(mydf,format="html", align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+How many of these arrows landed in the ring worth `r rp` points?
+
+(Assume the arrows are infinitely skinny. None landed exactly on a boundary.)
+
+
+Solution
+========
+
+Each arrow has a distance from the origin. Notice the ring worth `r rp` points has an inner radius of `r dlo` mm and an outer radius of `r dhi` mm. So, we want to know how many arrows have distances (from origin) between `r dlo` mm and `r dhi` mm.
+
+Notice, because the origin is at (0,0), the distance formula simplifies.
+
+$$d~=~\sqrt{(x-0)^2+(y-0)^2}$$
+$$d~=~\sqrt{x^2+y^2}$$
+
+I'd recommend using a [spreadsheet](https://sheets.new/).
+
+1. Copy and paste the given table into the spreadsheet.
+2. Use the distance formula to calculate each arrow's distance from origin.
+3. Use `IF` statements to check if distance matches the ring.
+4. Count up how many arrows are in the ring worth `r rp` points.
+
+I'll assume you have pasted the first arrow's position in the second row, so `r xs[1]` in cell A2 and `r ys[1]` in cell B2. 
+
+* You could use `=SQRT(A2^2+B2^2)` in cell C2 to find the distance of the first arrow from the origin. 
+* To check if the arrow is more than `r dlo` mm away, use ``=IF(C2>`r dlo`,1,0)`` in cell D2.
+* To check if the arrow is less than `r dhi` mm away, use ``=IF(C2<`r dhi`,1,0)`` in cell E2.
+* To check if the arrow is in the ring, use `=D2*E2` in cell F2.
+* You should then drag all these formulas down to apply them to every arrow.
+* To count how many arrows are in the ring, I'd use `=sum(F2:F25)` in cell G2.
+
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+The results should looks something like:
+
+```{r tab_data2, echo=FALSE, results="asis"}
+isfar = 1*(rs>=dlo)
+isnear = 1*(rs<=dhi)
+isin = isfar*isnear
+howmanyin = c(howmany,rep(" ",n-1))
+opts <- options(knitr.kable.NA = "")
+mydf = data.frame(xs,ys,rs,isfar,isnear,isin,howmanyin)
+colnames(mydf) = c("x (mm)","y (mm)","distance",
+                   paste0("is more than ",dlo," mm",collapse=""),
+                   paste0("is less than ",dhi," mm",collapse=""),
+                   "is in ring","how many in"
+                   )
+knitr::kable(mydf,format="html", align = "c",row.names=F,table.attr='class="bordered-table"')
+```
+\
+
+We can also visualize the arrow positions, and indicate whether the arrow is in the ring worth `r rp` points using a filled dot.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(pty="s",mar=c(4,4,0,0))
+plot(0,0,"n",xlim=c(-100,100),ylim=c(-100,100),xlab="x (mm)",ylab="y (mm)")
+radii = seq(100,10,-10)
+cols = c(rep("white",2),
+         rep(rgb(0.5,0.5,0.5),2),
+         rep(rgb(0.6,0.6,1),2),
+         rep(rgb(1,0.6,0.6),2),
+         rep(rgb(1,1,0.6),2))
+bcol = c(rep(rgb(0.4,0.4,0.4),3),"white",rep(rgb(0.4,0.4,0.4),6))
+th = seq(0,2*pi,pi/300)
+for(i in 1:10){
+    polygon(cos(th)*radii[i],sin(th)*radii[i],col=cols[i],border=bcol[i])
+}
+
+isin = (rs>=dlo)*(rs<=dhi)
+pchs = c(1,19)
+points(xs,ys,pch=pchs[isin+1],cex=0.8)
+
+```
+\
+
+
+Meta-information
+============
+extype: num
+exsolution: `r howmany`
+exname: archery_target
