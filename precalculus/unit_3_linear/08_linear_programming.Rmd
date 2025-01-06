@@ -1,6 +1,6 @@
 ```{r data generation, echo = FALSE, results = "hide"}
 library(reticulate)
-solty = sample(1:3,1,FALSE,c(0.1,0.8,0.1))
+solty = sample(1:3,1,FALSE,c(0.15,0.7,0.15))
 
 while(T){
   ints = sample(c(1:20),4)
@@ -155,24 +155,33 @@ $$`r d`x+`r e`y = `r f`$$
 We need to find the $x$ intercepts and the $y$ intercepts.
 
 To find the $x$-intercepts, set $y$ to 0.
+
+* The $x$-intercept of the mass constraint:
 $$`r a`x_{\text{int}1}+(`r b`)(0) = `r c` $$
 $$`r a`x_{\text{int}1} = `r c` $$
 $$x_{\text{int}1} = \frac{`r c`}{`r a`} = `r round(c/a)` $$
+
+* The $x$-intercept of the volume constraint:
 
 $$`r d`x_{\text{int}2}+(`r e`)(0) = `r f` $$
 $$`r d`x_{\text{int}2} = `r f` $$
 $$x_{\text{int}2} = \frac{`r f`}{`r d`} = `r round(f/d)` $$
 
 To find the $y$-intercepts, set $x$ to 0.
+
+* The $y$-intercept of the mass constraint:
 $$(`r a`)(0)+(`r b`)(y_{\text{int1}}) = `r c` $$
 $$`r b`y_{\text{int}1} = `r c` $$
 $$y_{\text{int}1} = \frac{`r c`}{`r b`} = `r round(c/b)` $$
+
+
+* The $y$-intercept of the volume constraint:
 
 $$(`r d`)(0)+(`r e`)y_{\text{int2}} = `r f` $$
 $$`r e`y_{\text{int}2} = `r f` $$
 $$y_{\text{int}2} = \frac{`r f`}{`r e`} = `r round(f/e)` $$
 
-To find the intersection, I would recommend elimination. Multiply the equations to have matching coefficients for $y$ terms. 
+To find the intersection of the constraints, I would recommend elimination. Multiply the equations to have matching coefficients for $y$ terms. 
 
 $$`r ae`x + `r be`y = `r ce`$$
 $$`r -de`x + `r -ee`y = `r -fe`$$
@@ -213,8 +222,12 @@ xx = seq(-1,21,1)
 y1 = (-a/b)*xx+c/b
 y2 = (-d/e)*xx+f/e
 polygon(c(0,0,x,min(xi1,xi2)),c(0,min(yi1,yi2),y,0),col=rgb(1,1,0,0.5))
-lines(xx,y1,col="blue",lwd=4)
-lines(xx,y2,col="red",lwd=4)
+lines(xx,y1,col="blue",lwd=3)
+lines(xx,y2,col="red",lwd=3)
+points(c(0,x,min(xi1,xi2)),c(min(yi1,yi2),y,0))
+
+legend("topright",c("mass constraint","volume constraint","feasible region","possible optimum"),col=c("blue","red",rgb(1,1,0,0.5),"black"),lwd=c(3,3,10,NA),pch=c(NA,NA,NA,1))
+
 ```
 \
 
@@ -230,8 +243,69 @@ $$P(`r min(xi1,xi2)`,0)=(`r vx`)(`r min(xi1,xi2)`)+(`r vy`)(0) = `r prof3`$$
 So, the maximum profit is $`r sprintf("%.2f",max(c(prof1,prof2,prof3)))`.
 
 
-It might help to visualize this in 3D, with xots, yivs, and profit on the 3 axes. Sorry, I was not able to make a 3D plot show up here.
+It might help to visualize this in 3D, with xots, yivs, and profit on the 3 axes. Sorry, I was not able to make a 3D plot show up here. But, we can add a third "dimension" by using a color ramp for profit. You can see that since our profit function is linear in $x$ and linear in $y$, the profit grows linearly as either xots or yivs are added. Another useful concept is an [isoprofit line](https://www.youtube.com/watch?v=QkIrNqiJZw4), which shows all the possible combinations of xots and yivs that would generate the same profit (see [contour lines](https://en.wikipedia.org/wiki/Contour_line)).
 
+
+```{r,fig.dim=c(6,6),echo=FALSE,results="asis"}
+library(latex2exp)
+par(pty="s")
+
+hihi = 20-5*(min(xi1,xi2)<15 && min(yi1,yi2)<15)-5*(min(xi1,xi2)<10 && min(yi1,yi2)<10)-5*(min(xi1,xi2)<5 && min(yi1,yi2)<5)
+
+plot(0,0,type="n",xlim=c(0,hihi),ylim=c(0,hihi),lwd=2,ylab=TeX("$y$"),xlab=TeX("$x$"))
+
+maxpro = ans
+mpdigs = ceiling(log(maxpro)/log(10))
+ld = floor(maxpro/10^(mpdigs-1))
+pfs = seq(10^(mpdigs-1),maxpro,10^(mpdigs-1))
+if(length(pfs)<5){
+    pfs = seq(10^(mpdigs-1)/2,maxpro,10^(mpdigs-1)/2)
+}
+if(length(pfs)<5){
+    pfs = seq(10^(mpdigs-1)/5,maxpro,10^(mpdigs-1)/5)
+}
+if(length(pfs)<5){
+    pfs = seq(10^(mpdigs-1)/10,maxpro,10^(mpdigs-1)/10)
+}
+for(i in seq(0,maxpro,maxpro/1000)){
+    xi00 = i/vx
+    yi00 = i/vy
+    lines(c(xi00,0),c(0,yi00),col=hsv(1/2-i/maxpro/2,1,1,0.2),lwd=0.2)
+}
+for(i in pfs){
+    xi00 = i/vx
+    yi00 = i/vy
+    lines(c(xi00,0),c(0,yi00),col=hsv((1/2-i/maxpro/2)%%1,1,0.8,1),lwd=1)
+}
+
+polygon(c(0,x,min(xi1,xi2),25,25,0),c(min(yi1,yi2),y,0,0,25,25),border=NA,col="white")
+
+for(j in seq(0,20,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+xx = seq(-1,21,1)
+y1 = (-a/b)*xx+c/b
+y2 = (-d/e)*xx+f/e
+
+
+lines(xx,y1,col="grey",lwd=1)
+lines(xx,y2,col="grey",lwd=1)
+
+prfs = c(prof1,prof2,prof3)
+points(c(0,x,min(xi1,xi2)),c(min(yi1,yi2),y,0),pch=20,col=hsv((1/2-prfs/maxpro/2)%%1,1,0.6))
+text(0,min(yi1,yi2),paste0("$",prof1,collapse=""),adj=c(-0.2,-0.2),col=hsv((1/2-prof1/maxpro/2)%%1,1,0.6))
+text(x,y,paste0("$",prof2,collapse=""),adj=c(-0.2,-0.2),col=hsv((1/2-prof2/maxpro/2)%%1,1,0.6))
+text(min(xi1,xi2),0,paste0("$",prof3,collapse=""),adj=c(-0.2,-0.2),col=hsv((1/2-prof3/maxpro/2)%%1,1,0.6))
+
+
+legend("topright",paste0("$",pfs),lwd=rep(1,length(pfs)),col=hsv((1/2-pfs/maxpro/2)%%1,1,0.8,1))
+
+
+```
+\
 
 
 

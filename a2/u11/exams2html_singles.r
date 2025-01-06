@@ -1,11 +1,8 @@
 library("exams")
 
-pppsss = c("05_triangle_perimeter.Rmd",
-           "06_archery_target.Rmd",
-           "07_three_dim_dist.Rmd",
-           "08_circ_by_compltng_sqr.Rmd",
-           "09_ratio_between_points.Rmd")
-
+pppsss = c("10_check_sols_ineq.Rmd",
+           "11_linear_programming.Rmd",
+           "12_dist_point_to_line.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

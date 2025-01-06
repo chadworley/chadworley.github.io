@@ -5,11 +5,9 @@ import os
 
 
 front = "u11_"
-files = ["05_triangle_perimeter.Rmd",
-"06_archery_target.Rmd",
-"07_three_dim_dist.Rmd",
-"08_circ_by_compltng_sqr.Rmd",
-"09_ratio_between_points.Rmd"]
+files = ["10_check_sols_ineq.Rmd",
+"11_linear_programming.Rmd",
+"12_dist_point_to_line.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u11/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

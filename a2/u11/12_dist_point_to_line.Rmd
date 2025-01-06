@@ -1,0 +1,397 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+options(scipen=99)
+while(T){
+    slopes = list(c(1,2),c(1,3),c(1,4),c(1,5),c(1,6),
+              c(2,3),c(2,5),c(3,4),c(3,5),c(4,5),c(5,6))
+    wi = sample(1:length(slopes),1)
+    slope = sample(slopes[[wi]])*c(sample(c(-1,1),1),1)
+    m = -slope[2]/slope[1]
+    orm = slope[1]/slope[2]
+    mult = sample(3:12,1)*sample(c(-1,1),1)
+    hk = sample(2:30,2)*sample(c(-1,1),2,T)
+    h = hk[1]
+    k = hk[2]
+    p = h+slope[2]*mult
+    q = k+slope[1]*mult
+    ## q = mp+b
+    b = q-m*p
+    dist = sqrt((slope[2]*mult)^2+(slope[1]*mult)^2)
+    if(abs(b)<30 && abs(p)<30 && abs(q)<30 && b%%1==0 && b!=0 && dist>10 &&
+       abs(p)>0 && abs(q)>0){break}
+}
+
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+
+gfrac = function(n,d){
+    gg = gcd2(n,d)
+    n = round(n/gg)
+    d = round(d/gg)
+    
+    if(abs(d)==1){
+        return(paste0(n*sign(d),collapse=""))
+    } else {
+        return(paste0("\\frac{",sign(n*d)*abs(n),"}{",abs(d),"}"))
+    }
+}
+
+l1 = paste0("y=",gfrac(-slope[2],slope[1]),"x+",b,collapse="")
+l1 = gsub("+-","-",l1,fixed=T)
+
+rf = paste0(gfrac(-slope[2],slope[1]),"x+",b,collapse="")
+rf = gsub("+-","-",rf,fixed=T)
+
+pf = paste0(gfrac(slope[1],slope[2]),"(x+",-h,")+",k,collapse="")
+pf = gsub("+-","-",pf,fixed=T)
+
+```
+
+Question
+========
+
+Find the nearest distance from point $(`r h`,`r k`)$ to line $`r l1`$.
+
+For flavor, imagine on a map, a river can be approximated by the line $`r l1`$. You are currently at position $(`r h`,`r k`)$, and you want to know how far you need to travel to get to the river using the shortest path.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-40,40),ylim=c(-40,40),axes=F,ann=F)
+arrows(0,-40,0,40,0.1,10,3,lwd=2,col="grey")
+arrows(-40,0,40,0,0.1,10,3,lwd=2,col="grey")
+x = seq(-40,40,0.01)
+y = m*x+b
+x = x[abs(y)<=40]
+y = y[abs(y)<=40]
+lines(x,y,col="blue",lwd=3)
+lines(c(h,p),c(k,q),lty=3,col="black")
+points(h,k,pch=19,col="red")
+midx = mean(c(h,p))
+midy = mean(c(k,q))
+text(midx,midy,"?",cex=1.3)
+s1 = atan2((q-k),(p-h))
+text(h+sign(cos(s1+pi))*2,k,paste0("(",h,",",k,")",collapse=""),adj=c(sign(cos(s1))/2+0.5,0.5),col="red")
+text(38,2,"x",col="grey")
+text(2,38,"y",col="grey")
+s2 = atan(m)
+library(latex2exp)
+text(p,q,TeX(paste0("$",l1,"$",collapse="")),srt=s2/pi*180,adj=c(0.5,0.5+0.7*sign(m*cos(s1))),col="blue")
+
+```
+\
+
+What is the distance from the point to the line? Your answer should be accurate to within $\pm 0.01$.
+
+
+Solution
+========
+
+1. The shortest path will be perpendicular to the line (perpendicular to the river).
+2. Since the river's slope is $`r gfrac(-slope[2],slope[1])`$, the path's slope will be $`r gfrac(slope[1],slope[2])`$, because [perpendicular lines](https://en.wikipedia.org/wiki/Perpendicular#Graph_of_functions) have slopes that are **negative reciprocals**. In other words, if $m_1$ and $m_2$ are slopes of perpendicular lines, then $m_1\cdot m_2=-1$.
+3. The [point-slope form](https://en.wikipedia.org/wiki/Linear_equation#Point%E2%80%93slope_form_or_Point-gradient_form) is useful for generating an equation of a line with a specific slope through a specific point. You can think of it as [a vertical stretch and shifts](https://mathbitsnotebook.com/Algebra2/FunctionGraphs/FGCompositeTransformations.html) of the $y=x$ function. Anyway, a line through point $(h,k)$ with slope $m$ can be represented by $y=m\cdot(x-h)+k$. 
+
+Let function $r$ represent the river's line and function $p$ represent the path's line. Use point-slope form to represent the path, since we know the path's slope and a point on the path.
+
+$$r(x)~=~`r rf`$$
+
+$$p(x)~=~`r pf`$$
+
+Now, we want to know where the river and path intersect. In other words, we want to find $x_{\mathrm{i}}$ such that $r(x_{\mathrm{i}})~=~p(x_{\mathrm{i}})$, where the subscript of $i$ is used to refer to the intersection.
+
+```{r,echo=F}
+eq1 = paste0(rf,"~=~",pf,collapse="")
+eq1 = gsub("x","x_{\\mathrm{i}}",eq1,fixed=T)
+```
+
+$$`r eq1`$$
+
+Distribute (to get rid of parentheses).
+
+```{r,echo=F}
+rf = paste0(gfrac(-slope[2],slope[1]),"x+",b,collapse="")
+rf = gsub("+-","-",rf,fixed=T)
+
+pf2 = paste0(gfrac(slope[1],slope[2]),"x+",gfrac(-h*slope[1],slope[2]),"+",k,collapse="")
+pf2 = gsub("+-","-",pf2,fixed=T)
+
+eq2 = paste0(rf,"~=~",pf2,collapse="")
+eq2 = gsub("x","x_{\\mathrm{i}}",eq2,fixed=T)
+```
+
+$$`r eq2`$$
+
+Now, get rid of denominators by multiplying.
+
+```{r,echo=F,results='asis'}
+if(abs(slope[1])>1){
+    cat(paste0("Multiply both sides by ",abs(slope[1])," (and distribute to all terms).\n\n",collapse=""))
+    ls3 = paste0("{",-slope[2]*sign(slope[1]),"}x+",b*abs(slope[1]),collapse="")
+    ls3 = gsub("+-","-",ls3,fixed=T)
+    
+    rs3 = paste0("{",gfrac(slope[1]*abs(slope[1]),slope[2]),"}x+",gfrac(-h*slope[1]*abs(slope[1]),slope[2]),"+",k*abs(slope[1]),collapse="")
+    rs3 = gsub("+-","-",rs3,fixed=T)
+    eq3 = paste0(ls3,"~=~",rs3,collapse="")
+    eq3 = gsub("{1}x","x",eq3,fixed=T)
+    eq3 = gsub("{-1}x","-x",eq3,fixed=T)
+    eq3 = gsub("x","x_{\\mathrm{i}}",eq3,fixed=T)
+    cat(paste0("$$",eq3,"$$\n\n"))
+}
+
+if(abs(slope[2])>1){
+    cat(paste0("Multiply both sides by ",abs(slope[2])," (and distribute to all terms).\n\n",collapse=""))
+    ls4 = paste0("{",-slope[2]*sign(slope[1])*abs(slope[2]),"}x+",b*abs(slope[1])*abs(slope[2]),collapse="")
+    ls4 = gsub("+-","-",ls4,fixed=T)
+    
+    rs4 = paste0("{",slope[1]*abs(slope[1])*sign(slope[2]),"}x+",-h*slope[1]*abs(slope[1])*sign(slope[2]),"+",k*abs(slope[1]*abs(slope[2])),collapse="")
+    rs4 = gsub("+-","-",rs4,fixed=T)
+    eq4 = paste0(ls4,"~=~",rs4,collapse="")
+    eq4 = gsub("{1}x","x",eq4,fixed=T)
+    eq4 = gsub("{-1}x","-x",eq4,fixed=T)
+    eq4 = gsub("x","x_{\\mathrm{i}}",eq4,fixed=T)
+    cat(paste0("$$",eq4,"$$\n\n"))
+}
+
+## Ax+B = Cx+D+E
+A = -slope[2]*sign(slope[1])*abs(slope[2])
+B = b*abs(slope[1])*abs(slope[2])
+C = slope[1]*abs(slope[1])*sign(slope[2])
+D = -h*slope[1]*abs(slope[1])*sign(slope[2])
+E = k*abs(slope[1]*abs(slope[2]))
+
+cat("Combine the two constants on the right side.\n")
+
+eq5 = paste0("{",A,"}x+",B,"~=~{",C,"}x+",D+E,collapse="")
+eq5 = gsub("+-","-",eq5,fixed=T)
+eq5 = gsub("{-1}x","-x",eq5,fixed=T)
+eq5 = gsub("{1}x","x",eq5,fixed=T)
+eq5 = gsub("x","x_{\\mathrm{i}}",eq5,fixed=T)
+
+cat("$$",eq5,"$$\n")
+
+rlt = paste0("{",C,"}x",collapse="")
+rlt = gsub("{-1}x","-x",rlt,fixed=T)
+rlt = gsub("{1}x","x",rlt,fixed=T)
+rlt = gsub("x","x_{\\mathrm{i}}",rlt,fixed=T)
+
+cat(paste0("Subtract $",rlt,"$ from both sides.\n"))
+
+eq5 = paste0("{",A-C,"}x+",B,"~=~",D+E,collapse="")
+eq5 = gsub("+-","-",eq5,fixed=T)
+eq5 = gsub("{-1}x","-x",eq5,fixed=T)
+eq5 = gsub("{1}x","x",eq5,fixed=T)
+eq5 = gsub("x","x_{\\mathrm{i}}",eq5,fixed=T)
+
+cat("$$",eq5,"$$\n")
+
+cat(paste0("Subtract $",B,"$ from both sides.\n"))
+
+eq5 = paste0("{",A-C,"}x~=~",D+E-B,collapse="")
+eq5 = gsub("+-","-",eq5,fixed=T)
+eq5 = gsub("{-1}x","-x",eq5,fixed=T)
+eq5 = gsub("{1}x","x",eq5,fixed=T)
+eq5 = gsub("x","x_{\\mathrm{i}}",eq5,fixed=T)
+
+cat("$$",eq5,"$$\n")
+
+if((A-C)!=1){
+    cat(paste0("Divide both sides by $",A-C,"$.\n"))
+
+    eq5 = paste0("x~=~",round((D+E-B)/(A-C)),collapse="")
+    eq5 = gsub("+-","-",eq5,fixed=T)
+    eq5 = gsub("{-1}x","-x",eq5,fixed=T)
+    eq5 = gsub("{1}x","x",eq5,fixed=T)
+    eq5 = gsub("x","x_{\\mathrm{i}}",eq5,fixed=T)
+    cat("$$",eq5,"$$\n")
+}
+
+cat(paste0("We need to find $y_{\\mathrm{i}}$, the vertical coordinate of the intersection. You can find evaluating either $p(",p,")$ or $r(",p,")$."))
+
+yi1 = gsub("x",paste0("(",p,")"),rf,fixed=T)
+yi2 = paste0(round(-slope[2]/slope[1]*p),"+",b,collapse="")
+yi2 = gsub("+-","-",yi2,fixed=T)
+
+```
+
+$$y_{\mathrm{i}}~=~r(`r p`)~=~p(`r p`)$$
+
+I think it is easier to use function $r$, which was defined above as $r(x)=`r rf`$. We will evaluate $r(`r p`)$ to get $y_{\mathrm{i}}$.
+
+
+$$y_{\mathrm{i}}~=~ r(`r p`)$$
+
+$$y_{\mathrm{i}}~=~ `r yi1`$$
+
+
+$$y_{\mathrm{i}}~=~ `r yi2`$$
+
+
+$$y_{\mathrm{i}}~=~ `r q`$$
+
+So, the river and the path intersect at point $(`r p`,`r q`)$. I'll point out that you can double check this in Desmos by graphing $y=r(x)$ and $y=p(x)$.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-40,40),ylim=c(-40,40),axes=F,ann=F)
+arrows(0,-40,0,40,0.1,10,3,lwd=2,col="grey")
+arrows(-40,0,40,0,0.1,10,3,lwd=2,col="grey")
+
+for(i in -40:40){
+    lines(c(-40,40),c(i,i),col=rgb(0,0,0,0.1),lwd=0.5)
+    lines(c(i,i),c(-40,40),col=rgb(0,0,0,0.1),lwd=0.5)
+}
+for(i in seq(-40,40,5)){
+    lines(c(-40,40),c(i,i),col=rgb(0,0,0,0.15),lwd=0.8)
+    lines(c(i,i),c(-40,40),col=rgb(0,0,0,0.15),lwd=0.8)
+}
+for(i in seq(-40,40,10)){
+    lines(c(-40,40),c(i,i),col=rgb(0,0,0,0.2),lwd=1)
+    lines(c(i,i),c(-40,40),col=rgb(0,0,0,0.2),lwd=1)
+}
+
+x = seq(-40,40,0.01)
+y = m*x+b
+x = x[abs(y)<=40]
+y = y[abs(y)<=40]
+lines(x,y,col=rgb(0,0,1,0.5),lwd=1)
+lines(c(h,p),c(k,q),col="black")
+points(h,k,pch=20,col="red")
+midx = mean(c(h,p))
+midy = mean(c(k,q))
+s1 = atan2((q-k),(p-h))
+text(h+sign(cos(s1+pi))*2,k,paste0("(",h,",",k,")",collapse=""),adj=c(sign(cos(s1))/2+0.5,0.5),col="red")
+points(p,q,pch=20,col="purple")
+text(p+sign(cos(s1))*2,q,paste0("(",p,",",q,")",collapse=""),adj=c(sign(-cos(s1))/2+0.5,0.5),col="purple")
+text(38,2,"x",col="grey")
+text(2,38,"y",col="grey")
+s2 = atan(m)
+
+```
+\
+
+Now we can use the distance formula to get our answer. Imagine a right triangle with vertices at the two points and with horizontal and vertical legs. We can find absolute differences of corresponding coordinates to find the legs' lengths.
+
+```{r,echo=F}
+bigger = max(h,p)
+lesser = min(h,p)
+if(lesser>0){
+    diff1 = paste0(bigger,"-",lesser,collapse="")
+} else {
+    diff1 = paste0(bigger,"-(",lesser,")",collapse="")
+}
+if(q>0 && bigger==h){
+    diff2 = paste0(k,"-",q,collapse="")
+} else if(q>0 && lesser==h){
+    diff2 = paste0(q,"-",k,collapse="")
+} else if(q<0 && bigger==h){
+    diff2 = paste0(k,"-(",q,")",collapse="")
+} else {
+    diff2 = paste0(q,"-(",k,")",collapse="")
+}
+
+```
+
+$$|\Delta x| ~=~ |`r diff1`| ~=~ `r abs(h-p)`$$
+$$|\Delta y| ~=~ |`r diff2`| ~=~ `r abs(k-q)`$$
+
+```{r,echo=F,fig.dim=c(5,5)}
+xw = abs(p-h)
+yw = abs(q-k)
+mw = max(xw,yw)
+xm = mean(c(h,p))
+ym = mean(c(k,q))
+lbx = floor(xm-mw/2*1.4)
+ubx = ceiling(xm+mw/2*1.4)
+lby = floor(ym-mw/2*1.4)
+uby = ceiling(ym+mw/2*1.4)
+nl = uby-lby
+xls = seq(lbx,ubx,1)
+yls = seq(lby,uby,1)
+
+par(mar=c(4,4,0,0),pty="s")
+plot(0,0,"n",xlim=c(lbx,ubx),ylim=c(lby,uby),xlab="x",ylab="y")
+for(i in 1:nl){
+    lines(c(lbx,ubx),c(yls[i],yls[i]),col=rgb(0.95,0.95,0.95),lwd=0.5)
+    lines(c(xls[i],xls[i]),c(lby,uby),col=rgb(0.95,0.95,0.95),lwd=0.5)
+}
+for(i in 1:nl){
+    if(yls[i]%%5==0){
+        lines(c(lbx,ubx),c(yls[i],yls[i]),col=rgb(0.9,0.9,0.9),lwd=0.8)
+    }
+    if(xls[i]%%5==0){
+        lines(c(xls[i],xls[i]),c(lby,uby),col=rgb(0.9,0.9,0.9),lwd=0.8)
+    }
+}
+for(i in 1:nl){
+    if(yls[i]%%10==0){
+        lines(c(lbx,ubx),c(yls[i],yls[i]),col=rgb(0.85,0.85,0.85),lwd=1)
+    }
+    if(xls[i]%%10==0){
+        lines(c(xls[i],xls[i]),c(lby,uby),col=rgb(0.85,0.85,0.85),lwd=1)
+    }
+}
+abline(h=0,lwd=1.5,col=rgb(0.7,0.7,0.7))
+abline(v=0,lwd=1.5,col=rgb(0.7,0.7,0.7))
+
+if(q<k){
+    polygon(c(h,h,p),c(k,q,q),col=rgb(1,0.5,0,0.3),border=rgb(1,0.5,0),lwd=2)
+} else {
+    polygon(c(h,p,p),c(k,k,q),col=rgb(1,0.5,0,0.3),border=rgb(1,0.5,0),lwd=2)
+}
+
+if((q-k)/(p-h)>0){
+    text(max(h,p)+sign(-s2)*mw/20,mean(c(k,q)),abs(k-q),col=rgb(1,0.5,0),cex=1.2)
+} else {
+    text(min(h,p)+sign(-s2)*mw/20,mean(c(k,q)),abs(k-q),col=rgb(1,0.5,0),cex=1.2)
+}
+text(mean(c(h,p)),min(k,q)-mw/20,abs(h-p),col=rgb(1,0.5,0),cex=1.2)
+
+x = seq(lbx,ubx,0.01)
+y = m*x+b
+x = x[y<=uby]
+y = y[y<=uby]
+x = x[y>=lby]
+y = y[y>=lby]
+lines(x,y,col=rgb(0,0,1,0.5),lwd=1)
+lines(c(h,p),c(k,q),col="black")
+points(h,k,pch=20,col="red")
+midx = mean(c(h,p))
+midy = mean(c(k,q))
+s1 = atan2((q-k),(p-h))
+text(h+sign(cos(s1+pi))*mw/25,k,paste0("(",h,",",k,")",collapse=""),adj=c(sign(cos(s1))/2+0.5,0.5),col="red",cex=0.8)
+points(p,q,pch=20,col="purple")
+text(p+sign(cos(s1))*mw/25,q,paste0("(",p,",",q,")",collapse=""),adj=c(sign(-cos(s1))/2+0.5,0.5),col="purple",cex=0.8)
+text(38,2,"x",col="grey")
+text(2,38,"y",col="grey")
+s2 = atan(m)
+
+text(mean(c(h,p)),mean(c(k,q)),"D",srt=atan(orm)/pi*180,adj=c(0.5,-0.2))
+
+```
+\
+
+So, we can use Pythagorean Theorem to find the distance.
+
+$$D^2~=~ `r abs(h-p)`^2+`r abs(k-q)`^2$$
+
+
+$$D~=~ \sqrt{`r abs(h-p)`^2+`r abs(k-q)`^2}$$
+
+
+$$D~=~ \sqrt{`r abs(h-p)^2`+`r abs(k-q)^2`}$$
+
+
+$$D~=~ \sqrt{`r abs(h-p)^2 + abs(k-q)^2`}$$
+
+
+$$D~\approx~ `r sqrt(abs(h-p)^2 + abs(k-q)^2)`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r sqrt(abs(h-p)^2 + abs(k-q)^2)`
+exname: dist_point_to_line
+extol: 0.01

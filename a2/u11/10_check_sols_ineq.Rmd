@@ -1,0 +1,109 @@
+```{r data generation, echo = FALSE, results = "hide"}
+n = 5
+xmax = 30
+m = round(runif(1,0.5,3),2)
+b = round(runif(1,0.5,10),2)
+while(T){
+    lem = sample(c(-1,1),n,T)
+    x = round(runif(n,2,xmax),1)
+    y = round(m*x+b+lem*(runif(n,(m*x+b)/8,(m*x+b)/3)),2)
+    if(length(unique(x))==n && length(unique(y))==n && length(unique(lem))==2 &&
+       min(diff(sort(x)))>2){break}
+}
+
+mp = sprintf("%.2f",m)
+bp = sprintf("%.2f",b)
+yp = sprintf("%.2f",y)
+
+
+names = c("Arnold","Betty","Chester","Denali","Edward")
+isin = lem==1
+addstr = c(" NOT "," ")[isin+1]
+ynstr = c("No, ","Yes, ")[isin+1]
+solstr = paste0("* ",ynstr,names," can",addstr," afford to go ",x," miles with \\$",yp," in pocket.",collapse="\n")
+
+sols = c("01","10")
+
+al = "* yes\n* no"
+al = paste0(rep(al,n),collapse="\n")
+
+sol = paste0(sols[isin+1],collapse="|")
+
+```
+
+
+Question
+========
+
+A taxi service charges a fixed base cost of \$`r sprintf("%.2f",b)` and then a mileage cost of \$`r sprintf("%.2f",m)` per mile. The following people wonder whether they can travel a specified distance with the amount of cash they are carrying.
+
+* Can Arnold go `r x[1]` miles with \$`r yp[1]`?
+    * ##ANSWER1##
+* Can Betty go `r x[2]` miles with \$`r yp[2]`?
+    * ##ANSWER2##
+* Can Chester go `r x[3]` miles with \$`r yp[3]`?
+    * ##ANSWER3##
+* Can Denali go `r x[4]` miles with \$`r yp[4]`?
+    * ##ANSWER4##
+* Can Edward go `r x[5]` miles with \$`r yp[5]`?
+    * ##ANSWER5##
+    
+Answerlist
+--------
+
+`r al`
+
+Solution
+========
+
+I'd recommend doing this with [Desmos](https://www.desmos.com/calculator). Start by creating the equation describing the linear equation between distance ($x$, miles) and total cost ($y$, dollars).
+
+$$y~=~`r bp`+`r mp`x$$
+
+A passenger needs to have **at least** the total in cash to afford the ride. If the passenger has more than enough money, they can still afford the ride. So, if we redefine $y$ to be any possible amount of pocket money, we can say $y$ must be as much **or more** than the cost of the ride.
+
+$$y~\ge~`r bp`+`r mp`x$$
+
+So, type that inequality into Desmos. Then type in the following points:
+
+```{r,echo=F}
+pnts = paste0("(",x,",",y,")",collapse="\n\n")
+```
+
+`r pnts`
+
+For each point, if it falls in [the feasible region](https://en.wikipedia.org/wiki/Inequality_(mathematics)), then it is a solution to the inequality.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(4,4,0,0))
+ymax = max(c(m*xmax+b,y))
+xx = c(0,xmax*1.2)
+yy = m*xx+b
+plot(xx,yy,"l",xlim=c(0,xmax),ylim=c(0,ymax*1.2),xlab="distance (miles)",ylab="money ($)")
+polygon(c(xx,xmax,0),c(yy,ymax*1.5,ymax*1.5),col=rgb(0.4,0,0.8,0.3),border=NA)
+lines(xx,yy,col=rgb(0.4,0,0.8),lwd=2)
+
+text(30,m*60+b,"feasible\nregion",col=rgb(0.4,0,0.8))
+
+arrows(0,0,0,m*xmax+b,0.1,10,lwd=2)
+arrows(0,0,xmax,0,0.1,10,lwd=2)
+
+points(x,y,pch=16+lem*3)
+text(x,y,LETTERS[1:n],adj=c(0.5,-0.9),cex=0.8)
+
+legend("topleft",c("feasible region","boundary","solution","not solution"),fill=c(rgb(0.4,0,0.8,0.3),NA,NA,NA),lwd=c(2,2,NA,NA),pch=c(NA,NA,19,13),
+       col=c(NA,rgb(0.4,0,0.8),"black","black"),border=c(rgb(0.4,0,0.8),NA,NA,NA))
+
+```
+\
+
+`r solstr`
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",n),collapse="|")`
+exsolution: `r sol`
+exname: check_sols_ineq
