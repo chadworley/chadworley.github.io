@@ -5,9 +5,10 @@ import os
 
 
 front = "u11_"
-files = ["10_check_sols_ineq.Rmd",
-"11_linear_programming.Rmd",
-"12_dist_point_to_line.Rmd"]
+files = ["13_ticket_prices.Rmd",
+"14_resize_image_even_border.Rmd",
+"15_optimize_run_swim.Rmd",
+"16_nth_score.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u11/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
