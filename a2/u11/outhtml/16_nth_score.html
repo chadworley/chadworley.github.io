@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>16_nth_score</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">16_nth_score</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A student has taken 5 exams and gotten an average of 70.6. What score does the student need on the next exam to bring the average to 75? (All exams are equally weighted in the average.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the current total.
+<span class="math display">\[5 \cdot 70.6 = 353\]</span></p>
+<p>Find the necessary total.
+<span class="math display">\[6\cdot75 = 450\]</span></p>
+<p>Find the difference of the totals.
+<span class="math display">\[450-353 = 97\]</span></p>
+<p>The answer is 97.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A student has taken 5 exams and gotten an average of 77.8. What score does the student need on the next exam to bring the average to 80? (All exams are equally weighted in the average.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the current total.
+<span class="math display">\[5 \cdot 77.8 = 389\]</span></p>
+<p>Find the necessary total.
+<span class="math display">\[6\cdot80 = 480\]</span></p>
+<p>Find the difference of the totals.
+<span class="math display">\[480-389 = 91\]</span></p>
+<p>The answer is 91.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A student has taken 5 exams and gotten an average of 77.2. What score does the student need on the next exam to bring the average to 80? (All exams are equally weighted in the average.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the current total.
+<span class="math display">\[5 \cdot 77.2 = 386\]</span></p>
+<p>Find the necessary total.
+<span class="math display">\[6\cdot80 = 480\]</span></p>
+<p>Find the difference of the totals.
+<span class="math display">\[480-386 = 94\]</span></p>
+<p>The answer is 94.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A student has taken 3 exams and gotten an average of 87. What score does the student need on the next exam to bring the average to 90? (All exams are equally weighted in the average.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the current total.
+<span class="math display">\[3 \cdot 87 = 261\]</span></p>
+<p>Find the necessary total.
+<span class="math display">\[4\cdot90 = 360\]</span></p>
+<p>Find the difference of the totals.
+<span class="math display">\[360-261 = 99\]</span></p>
+<p>The answer is 99.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A student has taken 4 exams and gotten an average of 81.5. What score does the student need on the next exam to bring the average to 85? (All exams are equally weighted in the average.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the current total.
+<span class="math display">\[4 \cdot 81.5 = 326\]</span></p>
+<p>Find the necessary total.
+<span class="math display">\[5\cdot85 = 425\]</span></p>
+<p>Find the difference of the totals.
+<span class="math display">\[425-326 = 99\]</span></p>
+<p>The answer is 99.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A student has taken 3 exams and gotten an average of 82. What score does the student need on the next exam to bring the average to 85? (All exams are equally weighted in the average.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the current total.
+<span class="math display">\[3 \cdot 82 = 246\]</span></p>
+<p>Find the necessary total.
+<span class="math display">\[4\cdot85 = 340\]</span></p>
+<p>Find the difference of the totals.
+<span class="math display">\[340-246 = 94\]</span></p>
+<p>The answer is 94.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A student has taken 5 exams and gotten an average of 65.2. What score does the student need on the next exam to bring the average to 70? (All exams are equally weighted in the average.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the current total.
+<span class="math display">\[5 \cdot 65.2 = 326\]</span></p>
+<p>Find the necessary total.
+<span class="math display">\[6\cdot70 = 420\]</span></p>
+<p>Find the difference of the totals.
+<span class="math display">\[420-326 = 94\]</span></p>
+<p>The answer is 94.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A student has taken 4 exams and gotten an average of 82.5. What score does the student need on the next exam to bring the average to 85? (All exams are equally weighted in the average.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the current total.
+<span class="math display">\[4 \cdot 82.5 = 330\]</span></p>
+<p>Find the necessary total.
+<span class="math display">\[5\cdot85 = 425\]</span></p>
+<p>Find the difference of the totals.
+<span class="math display">\[425-330 = 95\]</span></p>
+<p>The answer is 95.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

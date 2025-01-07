@@ -6,9 +6,10 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u11_10_check_sols_ineq.zip",
-"outcanvas/u11_11_linear_programming.zip",
-"outcanvas/u11_12_dist_point_to_line.zip"]
+file_path_list = ["outcanvas/u11_13_ticket_prices.zip",
+"outcanvas/u11_14_resize_image_even_border.zip",
+"outcanvas/u11_15_optimize_run_swim.zip",
+"outcanvas/u11_16_nth_score.zip"]
 
 # fpl = []
 # for i in range(70,100):

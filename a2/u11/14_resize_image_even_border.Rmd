@@ -1,0 +1,162 @@
+```{r,echo=F}
+while(T){
+  dims = sort(sample(12:40,2))
+  w = dims[2]
+  h = dims[1]
+  RF = w/h
+  x = runif(1,h/3,h/1.2)
+  r = round(1+(w-h)/x,2)
+  x = (w-h)/(r-1)
+  b = (h-x)/2
+  bs = b/w
+  if(RF>1.2 && RF<3 && bs>0.05){break}
+}
+ws = 1
+hs = h/w
+xs = x/w
+xrs = r*x/w
+
+ifbnoty = sample(c(T,F),1)
+if(ifbnoty){
+  let = "b"
+  sol = b
+  wrds = "the width of the mat in inches"
+} else {
+  let = "y"
+  sol = x
+  wrds = "the height of the image in inches"
+}
+
+```
+
+Question
+========
+
+The inner dimensions of a frame are `r w` inches by `r h` inches. An artist hopes to print an image with an aspect ratio of `r r` such that a uniformly wide  [mat](https://en.wikipedia.org/wiki/Mat_(picture_framing)) fits around the image. 
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+huecent = runif(1)
+color = hsv(0,0,0.1)
+tcol = hsv(0,0,1)
+plot(0,0,type="n",ann=F,axes=F,xlim=c(-0.1,1.1),ylim=c(-0.1,1.1))
+polygon(c(-0.1,-0.1,1.1,1.1),c(0.5+h/w/2,0.5+h/w/2+0.1,0.5+h/w/2+0.1,0.5+h/w/2),
+        col=color,border=NA)
+polygon(c(-0.1,-0.1,1.1,1.1),c(0.5-h/w/2,0.5-h/w/2-0.1,0.5-h/w/2-0.1,0.5-h/w/2),
+        col=color,border=NA)
+polygon(c(-0.1,-0.1,0,0),c(0.5-h/w/2-0.1,0.5+h/w/2+0.1,0.5+h/w/2+0.1,0.5-h/w/2-0.1),
+        col=color,border=NA)
+polygon(c(1,1,1.1,1.1),c(0.5-h/w/2-0.1,0.5+h/w/2+0.1,0.5+h/w/2+0.1,0.5-h/w/2-0.1),
+        col=color,border=NA)
+lines(c(0,0,1,1,0),c(0.5-h/w/2,0.5+h/w/2,0.5+h/w/2,0.5-h/w/2,0.5-h/w/2))
+lines(c(-0.1,-0.1,1.1,1.1,-0.1),c(0.5-h/w/2-0.1,0.5+h/w/2+0.1,0.5+h/w/2+0.1,0.5-h/w/2-0.1,0.5-h/w/2-0.1))
+lines(c(-0.04,-0.02,-0.03,-0.03),c(0.5+h/w/2,0.5+h/w/2,0.5+h/w/2,0.5+0.07),lwd=1,
+      col=tcol)
+lines(c(-0.04,-0.02,-0.03,-0.03),c(0.5-h/w/2,0.5-h/w/2,0.5-h/w/2,0.5-0.07),lwd=1,
+      col=tcol)
+text(-0.03,0.5,paste0(h," in"),srt=90,col=tcol)
+lines(c(0,0,0,0.5-0.07),c(0.5+h/w/2+0.04,0.5+h/w/2+0.02,0.5+h/w/2+0.03,0.5+h/w/2+0.03),lwd=1,
+      col=tcol)
+lines(c(1,1,1,0.5+0.07),c(0.5+h/w/2+0.04,0.5+h/w/2+0.02,0.5+h/w/2+0.03,0.5+h/w/2+0.03),lwd=1,
+      col=tcol)
+text(0.5,0.5+h/w/2+0.03,paste0(w," in"),col=tcol)
+
+dd = runif(1,20,60)
+angle1 = runif(1,0,90)
+
+polygon(c(0.5-r*x/2/w,0.5-r*x/2/w,0.5+r*x/2/w,0.5+r*x/2/w),
+        c(0.5-x/2/w,0.5+x/2/w,0.5+x/2/w,0.5-x/2/w),density=50,lwd=3,angle=angle1)
+polygon(c(0.5-r*x/2/w,0.5-r*x/2/w,0.5+r*x/2/w,0.5+r*x/2/w),
+        c(0.5-x/2/w,0.5+x/2/w,0.5+x/2/w,0.5-x/2/w),
+        col=hsv((huecent+0.5-0.05)%%1,runif(1,0.7,1),runif(1,0.7,1)),
+        density=dd,angle=angle1-1)
+polygon(c(0.5-r*x/2/w,0.5-r*x/2/w,0.5+r*x/2/w,0.5+r*x/2/w),
+        c(0.5-x/2/w,0.5+x/2/w,0.5+x/2/w,0.5-x/2/w),
+        col=hsv((huecent+0.5+0.05)%%1,runif(1,0.7,1),runif(1,0.7,1)),
+        density=dd-2,angle=angle1+1)
+polygon(c(0.5-r*x/2/w,0.5-r*x/2/w,0.5+r*x/2/w,0.5+r*x/2/w),
+        c(0.5-x/2/w,0.5+x/2/w,0.5+x/2/w,0.5-x/2/w),
+        col=hsv((huecent+0.5)%%1,runif(1,0.7,1),runif(1,0.7,1)),
+        density=dd-1,angle=angle1)
+
+
+circ = function(cx,cy,r,col="red"){
+  th = seq(0,2*pi,pi/100)
+  polygon(cos(th)*r+cx,sin(th)*r+cy,col=col,border=NA)
+}
+
+xl = 0.5-r*x/2/w
+xr = 0.5+r*x/2/w
+yb = 0.5-x/2/w
+yt = 0.5+x/2/w
+
+for(i in 1:4){
+  rad = runif(1,xs/20,xs/10)
+  cx = c(xl+rad,xl+rad,xr-rad,xr-rad)[i]
+  cy = c(yb+rad,yt-rad,yt-rad,yb+rad)[i]
+  red = (huecent+runif(1,-0.05,0.05))%%1
+  green = runif(1,0.7,1)
+  blue = runif(1,0.5,1)
+  alph = runif(1,0.8,1)
+  circ(cx,cy,rad,hsv(red,green,blue,alph))
+}
+imax = 100
+for(i in 1:imax){
+  rad = min(xs/128*2^rexp(1,0.9),xs/2.5)
+  cx = runif(1,0.5-x*r/2/w+rad,0.5+x*r/2/w-rad)
+  cy = runif(1,0.5-x/2/w+rad,0.5+x/2/w-rad)
+  red = (huecent+runif(1,-0.05,0.05))%%1
+  green = runif(1)
+  blue = runif(1)
+  alph = 1 #runif(1,0.7,1)
+  circ(cx,cy,rad,hsv(red,green,blue,alph))
+}
+
+
+
+polygon(c(0.5-r*x/2/w,0.5-r*x/2/w,0.5+r*x/2/w,0.5+r*x/2/w),
+        c(0.5-x/2/w,0.5+x/2/w,0.5+x/2/w,0.5-x/2/w),lwd=1)
+
+
+lines(c(xl,xl,xl,0.5-0.07),c(yt+0.04,yt+0.02,yt+0.03,yt+0.03),lwd=2,col="blue")
+lines(c(xr,xr,xr,0.5+0.07),c(yt+0.04,yt+0.02,yt+0.03,yt+0.03),lwd=2,col="blue")
+text(0.5,yt+0.03,paste0(r,"y",collapse=""),col="blue")
+lines(c(xl-0.04,xl-0.02,xl-0.03,xl-0.03),c(yt,yt,yt,0.5+0.04),lwd=2,col="darkgreen")
+lines(c(xl-0.04,xl-0.02,xl-0.03,xl-0.03),c(yb,yb,yb,0.5-0.04),lwd=2,col="darkgreen")
+text(0.5-x*r/2/w-0.03,0.5,"y",srt=90,col="darkgreen")
+
+arrows(0.5+x*r/2/w,0.5,1,0.5,length=0.1,angle=45,code=3,col="red",lwd=2)
+text((0.5+x*r/2/w+1)/2,0.46,"b",col="red")
+arrows(0.5,0.5-x/2/w,0.5,0.5-h/2/w,length=0.1,angle=45,code=3,col="red",lwd=2)
+text(0.53,(1-x/2/w-h/2/w)/2,"b",col="red")
+
+```
+\
+
+Find $`r let`$, `r wrds`. The tolerance is $\pm 0.01$ inches.
+
+Solution
+========
+
+A system of equations can be written from the frame's width and height:
+
+$$`r w` = `r r`y+2b$$
+$$`r h` = y+2b$$
+Subtract the two equations.
+
+$$`r w-h` = `r r-1`y$$
+
+Divide both sides by `r r-1`.
+
+$$`r (w-h)/(r-1)` = y$$
+
+To find $b$, you can rearrange the second equation from the system, and plug in the value of $y$.
+$$b ~=~ \frac{`r h`-y}{2} ~=~ \frac{`r h`-`r x`}{2} ~=~ `r (h-x)/2`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r sol`
+exname: resize_image_even_border
+extol: 0.01

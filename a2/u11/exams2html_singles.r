@@ -1,8 +1,9 @@
 library("exams")
 
-pppsss = c("10_check_sols_ineq.Rmd",
-           "11_linear_programming.Rmd",
-           "12_dist_point_to_line.Rmd")
+pppsss = c("13_ticket_prices.Rmd",
+           "14_resize_image_even_border.Rmd",
+           "15_optimize_run_swim.Rmd",
+           "16_nth_score.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>13_ticket_prices</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">13_ticket_prices</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An event has two types of tickets: each adult ticket costs $8.78 and each child ticket costs $3.28. The event sold 65 tickets for a revenue of $361.70.</p>
+<ul>
+<li>How many child tickets were sold?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s use <span class="math inline">\(x\)</span> to represent the number of adult tickets and <span class="math inline">\(y\)</span> to represent the number of child tickets. We know the total number of tickets sold is 65.
+<span class="math display">\[x+y~=~65\]</span>
+The revenue from adults equals the product of $8.78 and <span class="math inline">\(x\)</span>. The revenue from children equals the product of $3.28 and <span class="math inline">\(y\)</span>. The total revenue is the sum of the two types of revenue, and it equals $361.70.</p>
+<p><span class="math display">\[8.78x+3.28y~=~361.70\]</span></p>
+<p>We have a system of two equations and two unknowns. We want to solve for <span class="math inline">\(y\)</span>, which is the number of child tickets. To do this, I’d start by isolating <span class="math inline">\(x\)</span> in the first equation (the equation from the number of tickets).</p>
+<p><span class="math display">\[x~=~65-y\]</span></p>
+<p>We can now substitute <span class="math inline">\(65-y\)</span> for <span class="math inline">\(x\)</span> in the second equation (the equation from the total revenue).</p>
+<p><span class="math display">\[8.78\cdot(65-y)+3.28y=361.70\]</span></p>
+<p>Distribute.</p>
+<p><span class="math display">\[570.7-8.78y+3.28y=361.70\]</span></p>
+<p>Subtract 570.7 from both sides.</p>
+<p><span class="math display">\[-8.78y+3.28y=-209\]</span></p>
+<p>Combine the linear terms.</p>
+<p><span class="math display">\[-5.5y=-209\]</span></p>
+<p>Divide both sides by -5.5.</p>
+<p><span class="math display">\[y=38\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An event has two types of tickets: each adult ticket costs $6.93 and each child ticket costs $4.76. The event sold 25 tickets for a revenue of $142.87.</p>
+<ul>
+<li>How many child tickets were sold?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s use <span class="math inline">\(x\)</span> to represent the number of adult tickets and <span class="math inline">\(y\)</span> to represent the number of child tickets. We know the total number of tickets sold is 25.
+<span class="math display">\[x+y~=~25\]</span>
+The revenue from adults equals the product of $6.93 and <span class="math inline">\(x\)</span>. The revenue from children equals the product of $4.76 and <span class="math inline">\(y\)</span>. The total revenue is the sum of the two types of revenue, and it equals $142.87.</p>
+<p><span class="math display">\[6.93x+4.76y~=~142.87\]</span></p>
+<p>We have a system of two equations and two unknowns. We want to solve for <span class="math inline">\(y\)</span>, which is the number of child tickets. To do this, I’d start by isolating <span class="math inline">\(x\)</span> in the first equation (the equation from the number of tickets).</p>
+<p><span class="math display">\[x~=~25-y\]</span></p>
+<p>We can now substitute <span class="math inline">\(25-y\)</span> for <span class="math inline">\(x\)</span> in the second equation (the equation from the total revenue).</p>
+<p><span class="math display">\[6.93\cdot(25-y)+4.76y=142.87\]</span></p>
+<p>Distribute.</p>
+<p><span class="math display">\[173.25-6.93y+4.76y=142.87\]</span></p>
+<p>Subtract 173.25 from both sides.</p>
+<p><span class="math display">\[-6.93y+4.76y=-30.38\]</span></p>
+<p>Combine the linear terms.</p>
+<p><span class="math display">\[-2.17y=-30.38\]</span></p>
+<p>Divide both sides by -2.17.</p>
+<p><span class="math display">\[y=14\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An event has two types of tickets: each adult ticket costs $7.90 and each child ticket costs $2.36. The event sold 74 tickets for a revenue of $335.30.</p>
+<ul>
+<li>How many adult tickets were sold?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s use <span class="math inline">\(x\)</span> to represent the number of adult tickets and <span class="math inline">\(y\)</span> to represent the number of child tickets. We know the total number of tickets sold is 74.
+<span class="math display">\[x+y~=~74\]</span>
+The revenue from adults equals the product of $7.90 and <span class="math inline">\(x\)</span>. The revenue from children equals the product of $2.36 and <span class="math inline">\(y\)</span>. The total revenue is the sum of the two types of revenue, and it equals $335.30.</p>
+<p><span class="math display">\[7.90x+2.36y~=~335.30\]</span></p>
+<p>We have a system of two equations and two unknowns. We want to solve for <span class="math inline">\(x\)</span>, which is the number of adult tickets. To do this, I’d start by isolating <span class="math inline">\(y\)</span> in the first equation (the equation from the number of tickets).</p>
+<p><span class="math display">\[y~=~74-x\]</span></p>
+<p>We can now substitute <span class="math inline">\(74-x\)</span> for <span class="math inline">\(y\)</span> in the second equation (the equation from the total revenue).</p>
+<p><span class="math display">\[7.90x+2.36\cdot(74-x)=335.30\]</span></p>
+<p>Distribute.</p>
+<p><span class="math display">\[7.90x+174.64-2.36x=335.30\]</span></p>
+<p>Subtract 174.64 from both sides.</p>
+<p><span class="math display">\[7.90x-2.36x=160.66\]</span></p>
+<p>Combine the linear terms.</p>
+<p><span class="math display">\[5.54x=160.66\]</span></p>
+<p>Divide both sides by 5.54.</p>
+<p><span class="math display">\[x=29\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An event has two types of tickets: each adult ticket costs $8.00 and each child ticket costs $5.81. The event sold 67 tickets for a revenue of $430.88.</p>
+<ul>
+<li>How many child tickets were sold?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s use <span class="math inline">\(x\)</span> to represent the number of adult tickets and <span class="math inline">\(y\)</span> to represent the number of child tickets. We know the total number of tickets sold is 67.
+<span class="math display">\[x+y~=~67\]</span>
+The revenue from adults equals the product of $8.00 and <span class="math inline">\(x\)</span>. The revenue from children equals the product of $5.81 and <span class="math inline">\(y\)</span>. The total revenue is the sum of the two types of revenue, and it equals $430.88.</p>
+<p><span class="math display">\[8.00x+5.81y~=~430.88\]</span></p>
+<p>We have a system of two equations and two unknowns. We want to solve for <span class="math inline">\(y\)</span>, which is the number of child tickets. To do this, I’d start by isolating <span class="math inline">\(x\)</span> in the first equation (the equation from the number of tickets).</p>
+<p><span class="math display">\[x~=~67-y\]</span></p>
+<p>We can now substitute <span class="math inline">\(67-y\)</span> for <span class="math inline">\(x\)</span> in the second equation (the equation from the total revenue).</p>
+<p><span class="math display">\[8.00\cdot(67-y)+5.81y=430.88\]</span></p>
+<p>Distribute.</p>
+<p><span class="math display">\[536-8.00y+5.81y=430.88\]</span></p>
+<p>Subtract 536 from both sides.</p>
+<p><span class="math display">\[-8.00y+5.81y=-105.12\]</span></p>
+<p>Combine the linear terms.</p>
+<p><span class="math display">\[-2.19y=-105.12\]</span></p>
+<p>Divide both sides by -2.19.</p>
+<p><span class="math display">\[y=48\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An event has two types of tickets: each adult ticket costs $6.03 and each child ticket costs $3.10. The event sold 56 tickets for a revenue of $243.92.</p>
+<ul>
+<li>How many adult tickets were sold?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s use <span class="math inline">\(x\)</span> to represent the number of adult tickets and <span class="math inline">\(y\)</span> to represent the number of child tickets. We know the total number of tickets sold is 56.
+<span class="math display">\[x+y~=~56\]</span>
+The revenue from adults equals the product of $6.03 and <span class="math inline">\(x\)</span>. The revenue from children equals the product of $3.10 and <span class="math inline">\(y\)</span>. The total revenue is the sum of the two types of revenue, and it equals $243.92.</p>
+<p><span class="math display">\[6.03x+3.10y~=~243.92\]</span></p>
+<p>We have a system of two equations and two unknowns. We want to solve for <span class="math inline">\(x\)</span>, which is the number of adult tickets. To do this, I’d start by isolating <span class="math inline">\(y\)</span> in the first equation (the equation from the number of tickets).</p>
+<p><span class="math display">\[y~=~56-x\]</span></p>
+<p>We can now substitute <span class="math inline">\(56-x\)</span> for <span class="math inline">\(y\)</span> in the second equation (the equation from the total revenue).</p>
+<p><span class="math display">\[6.03x+3.10\cdot(56-x)=243.92\]</span></p>
+<p>Distribute.</p>
+<p><span class="math display">\[6.03x+173.6-3.10x=243.92\]</span></p>
+<p>Subtract 173.6 from both sides.</p>
+<p><span class="math display">\[6.03x-3.10x=70.32\]</span></p>
+<p>Combine the linear terms.</p>
+<p><span class="math display">\[2.93x=70.32\]</span></p>
+<p>Divide both sides by 2.93.</p>
+<p><span class="math display">\[x=24\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An event has two types of tickets: each adult ticket costs $7.55 and each child ticket costs $5.42. The event sold 54 tickets for a revenue of $386.40.</p>
+<ul>
+<li>How many adult tickets were sold?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s use <span class="math inline">\(x\)</span> to represent the number of adult tickets and <span class="math inline">\(y\)</span> to represent the number of child tickets. We know the total number of tickets sold is 54.
+<span class="math display">\[x+y~=~54\]</span>
+The revenue from adults equals the product of $7.55 and <span class="math inline">\(x\)</span>. The revenue from children equals the product of $5.42 and <span class="math inline">\(y\)</span>. The total revenue is the sum of the two types of revenue, and it equals $386.40.</p>
+<p><span class="math display">\[7.55x+5.42y~=~386.40\]</span></p>
+<p>We have a system of two equations and two unknowns. We want to solve for <span class="math inline">\(x\)</span>, which is the number of adult tickets. To do this, I’d start by isolating <span class="math inline">\(y\)</span> in the first equation (the equation from the number of tickets).</p>
+<p><span class="math display">\[y~=~54-x\]</span></p>
+<p>We can now substitute <span class="math inline">\(54-x\)</span> for <span class="math inline">\(y\)</span> in the second equation (the equation from the total revenue).</p>
+<p><span class="math display">\[7.55x+5.42\cdot(54-x)=386.40\]</span></p>
+<p>Distribute.</p>
+<p><span class="math display">\[7.55x+292.68-5.42x=386.40\]</span></p>
+<p>Subtract 292.68 from both sides.</p>
+<p><span class="math display">\[7.55x-5.42x=93.72\]</span></p>
+<p>Combine the linear terms.</p>
+<p><span class="math display">\[2.13x=93.72\]</span></p>
+<p>Divide both sides by 2.13.</p>
+<p><span class="math display">\[x=44\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An event has two types of tickets: each adult ticket costs $8.19 and each child ticket costs $5.03. The event sold 86 tickets for a revenue of $587.42.</p>
+<ul>
+<li>How many child tickets were sold?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s use <span class="math inline">\(x\)</span> to represent the number of adult tickets and <span class="math inline">\(y\)</span> to represent the number of child tickets. We know the total number of tickets sold is 86.
+<span class="math display">\[x+y~=~86\]</span>
+The revenue from adults equals the product of $8.19 and <span class="math inline">\(x\)</span>. The revenue from children equals the product of $5.03 and <span class="math inline">\(y\)</span>. The total revenue is the sum of the two types of revenue, and it equals $587.42.</p>
+<p><span class="math display">\[8.19x+5.03y~=~587.42\]</span></p>
+<p>We have a system of two equations and two unknowns. We want to solve for <span class="math inline">\(y\)</span>, which is the number of child tickets. To do this, I’d start by isolating <span class="math inline">\(x\)</span> in the first equation (the equation from the number of tickets).</p>
+<p><span class="math display">\[x~=~86-y\]</span></p>
+<p>We can now substitute <span class="math inline">\(86-y\)</span> for <span class="math inline">\(x\)</span> in the second equation (the equation from the total revenue).</p>
+<p><span class="math display">\[8.19\cdot(86-y)+5.03y=587.42\]</span></p>
+<p>Distribute.</p>
+<p><span class="math display">\[704.34-8.19y+5.03y=587.42\]</span></p>
+<p>Subtract 704.34 from both sides.</p>
+<p><span class="math display">\[-8.19y+5.03y=-116.92\]</span></p>
+<p>Combine the linear terms.</p>
+<p><span class="math display">\[-3.16y=-116.92\]</span></p>
+<p>Divide both sides by -3.16.</p>
+<p><span class="math display">\[y=37\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An event has two types of tickets: each adult ticket costs $8.13 and each child ticket costs $4.86. The event sold 34 tickets for a revenue of $207.75.</p>
+<ul>
+<li>How many child tickets were sold?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s use <span class="math inline">\(x\)</span> to represent the number of adult tickets and <span class="math inline">\(y\)</span> to represent the number of child tickets. We know the total number of tickets sold is 34.
+<span class="math display">\[x+y~=~34\]</span>
+The revenue from adults equals the product of $8.13 and <span class="math inline">\(x\)</span>. The revenue from children equals the product of $4.86 and <span class="math inline">\(y\)</span>. The total revenue is the sum of the two types of revenue, and it equals $207.75.</p>
+<p><span class="math display">\[8.13x+4.86y~=~207.75\]</span></p>
+<p>We have a system of two equations and two unknowns. We want to solve for <span class="math inline">\(y\)</span>, which is the number of child tickets. To do this, I’d start by isolating <span class="math inline">\(x\)</span> in the first equation (the equation from the number of tickets).</p>
+<p><span class="math display">\[x~=~34-y\]</span></p>
+<p>We can now substitute <span class="math inline">\(34-y\)</span> for <span class="math inline">\(x\)</span> in the second equation (the equation from the total revenue).</p>
+<p><span class="math display">\[8.13\cdot(34-y)+4.86y=207.75\]</span></p>
+<p>Distribute.</p>
+<p><span class="math display">\[276.42-8.13y+4.86y=207.75\]</span></p>
+<p>Subtract 276.42 from both sides.</p>
+<p><span class="math display">\[-8.13y+4.86y=-68.67\]</span></p>
+<p>Combine the linear terms.</p>
+<p><span class="math display">\[-3.27y=-68.67\]</span></p>
+<p>Divide both sides by -3.27.</p>
+<p><span class="math display">\[y=21\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
