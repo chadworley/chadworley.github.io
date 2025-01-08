@@ -3,12 +3,14 @@ n = 30
 outdir = "outcanvas"
 genname = "u11_"
 
-probs = c("13_ticket_prices.Rmd",
-          "14_resize_image_even_border.Rmd",
-          "15_optimize_run_swim.Rmd",
-          "16_nth_score.Rmd")
+probs = c("17_circ_params_from_graph.Rmd",
+          "18_circ_params_from_eq.Rmd",
+          "19_circ_2nd_coordinate.Rmd",
+          "20_fef_dist_ellipse.Rmd",
+          "21_ellipse_get_pams.Rmd",
+          "22_polynom_to_stndrd_ell.Rmd")
 
-pnts = c(4,3,3,3)
+pnts = c(2,2,3,5,3,4)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

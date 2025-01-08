@@ -1,0 +1,93 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+while(T){
+    hkr = sample(2:15,3)*c(sample(c(-1,1),2,T),1)
+    h = hkr[1]
+    k = hkr[2]
+    r = abs(hkr[3])
+    extrms = c(h-r,k-r,h+r,k+r)
+    if(max(abs(extrms))<15){break}
+}
+
+
+ach = -15:15
+
+sol1 = paste0(1*(ach==h),collapse="")
+sol2 = paste0(1*(ach==k),collapse="")
+sol3 = paste0(1*(ach==r),collapse="")
+
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+Question
+========
+
+A circle is the collection of points equally distant from a center. If the circle has a center $(h,k)$ and a radius $r$, then we can represent that circle in the $xy$-plane using the following standard form of a circle:
+
+$$(x-h)^2+(y-k)^2 = r^2$$
+
+Notice that this equation looks like the Pythagorean Equation (from the Pythagorean Theorem): $a^2+b^2=c^2$. It also looks like the distance formula, were $r$ is the distance, $x-h$ is the horizontal displacement, and $y-k$ is the vertical displacement.
+
+Consider the circle graphed below. Some of the points on the circle are $(`r h+r`,`r k`)$, $(`r h`,`r k+r`)$, $(`r h-r`,`r k`)$, and $(`r h`,`r k-r`)$.
+
+```{r,echo=F,fig.dim=c(7,7)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-15,15),ylim=c(-15,15))
+for(i in -15:15){
+    lines(c(-15,15),c(i,i),col="lightgrey",lwd=0.5)
+    lines(c(i,i),c(-15,15),col="lightgrey",lwd=0.5)
+}
+for(i in seq(-15,15,5)){
+    lines(c(-15,15),c(i,i),col="darkgrey",lwd=1)
+    lines(c(i,i),c(-15,15),col="darkgrey",lwd=1)
+}
+arrows(-15.5,0,15.5,0,0.1,10,3,lwd=2)
+arrows(0,-15.5,0,15.5,0.1,10,3,lwd=2)
+text(15,-0.5,"15")
+text(15,0.5,"x")
+text(-0.5,15,"15")
+text(0.5,15,"y")
+
+th = seq(0,2*pi,pi/300)
+lines(h+r*cos(th),k+r*sin(th),lwd=3,col="blue")
+
+
+```
+\
+
+Find the values of the parameters $h$, $k$, and $r$.
+
+* $h=$ ##ANSWER1##
+* $k=$ ##ANSWER2##
+* $r=$ ##ANSWER3##
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+The center of the circle is at $(`r h`, `r k`)$, so $h=`r h`$ and $k=`r k`$. The radius of the circle is the distance from the center to the edge. The radius is `r r`, so $r=`r r`$.
+
+```{r,echo=F}
+eq = paste0("(x-",h,")^2+(y-",k,")^2=",r,"^2",collapse="")
+eq = gsub("--","+",eq,fixed=T)
+```
+
+The standard equation of the circle is shown:
+
+$$`r eq`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: circ_params_from_graph

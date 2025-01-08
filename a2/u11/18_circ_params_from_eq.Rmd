@@ -1,0 +1,82 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+
+hkr = sample(3:12,3)*c(sample(c(-1,1),2),1)
+h = hkr[1]
+k = hkr[2]
+r = abs(hkr[3])
+extrms = c(h-r,k-r,h+r,k+r)
+
+ach = -15:15
+
+sol1 = paste0(1*(ach==h),collapse="")
+sol2 = paste0(1*(ach==k),collapse="")
+sol3 = paste0(1*(ach==r),collapse="")
+
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+Question
+========
+
+```{r,echo=F}
+eq = paste0("(x-",h,")^2+(y-",k,")^2=",r^2,collapse="")
+eq = gsub("--","+",eq,fixed=T)
+```
+
+The following equation produces a circle.
+
+$$`r eq`$$
+
+That circle has a center point, $(h,k)$, and radius, $r$.
+
+
+Find the values of the parameters $h$, $k$, and $r$.
+
+* $h=$ ##ANSWER1##
+* $k=$ ##ANSWER2##
+* $r=$ ##ANSWER3##
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+The standard form of a circle at center $(h,k)$ with radius $r$ is:
+
+$$(x-h)^2+(y-k)^2=r^2$$
+
+The given equation:
+
+```{r,echo=F}
+eq = paste0("(x-",h,")^2+(y-",k,")^2=",r^2,collapse="")
+eq = gsub("--","+",eq,fixed=T)
+```
+
+$$`r eq`$$
+
+With a bit of rearrangement:
+
+```{r,echo=F}
+eq = paste0("\\left(x-(",h,")\\right)^2+\\left(y-(",k,")\\right)^2=",r,"^2",collapse="")
+```
+
+$$`r eq`$$
+
+* $h=`r h`$
+* $k=`r k`$
+* $r=`r r`$
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: circ_params_from_graph

@@ -1,0 +1,138 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+while(T){
+    horv = sample(1:2,1)
+    desc = c("horizontal","vertical")[horv]
+    hork = round(sample(10:90,2)/100,2)
+    usfl = hork[1]
+    rdhr = hork[2]
+    pnt = c(paste0("(",rdhr,",",usfl,")",collapse=""),paste0("(",usfl,",",rdhr,")",collapse=""))[horv]
+    qdnt = c("II","IV")[horv]
+    unkn = c("x","y")[horv]
+    lv = c("y","x")[horv]
+    ans = sqrt(1-usfl^2)
+    xy = list(c(ans,usfl),
+              c(usfl,ans))[[horv]]
+    x = xy[1]
+    y = xy[2]
+    if(min(diff(sort(c(hork,ans))))>0.05){break}
+}
+
+
+```
+
+Question
+========
+
+A circle is centered at the origin with a radius equal to 1. This circle is called [the unit circle](https://en.wikipedia.org/wiki/Unit_circle), where "unit" refers to 1. 
+
+A **`r desc`** line passes through point $`r pnt`$.
+
+That `r desc` line intersects the circle at two points: one in Quadrant I and another in Quadrant `r qdnt`. 
+
+Determine the $`r unkn`$-coordinate of the intersection between the line and the circle in Quadrant I.
+
+Please be accurate within $\pm 0.001$.
+
+
+Solution
+========
+
+The general form of a circle:
+
+$$(x-h)^2+(y-k)^2~=~r^2$$
+
+We were told the center is $(0,0)$ and radius is 1. So, the equation of the unit circle:
+
+$$(x-0)^2+(y-0)^2=1^2$$
+
+$$x^2+y^2=1$$
+
+The general form of a `r desc` line:
+
+$$`r lv`=c$$
+
+In our case, because the line hits point $`r pnt`$ we know the `r desc` line should include every point where $`r lv`$ equals `r usfl`.
+$$`r lv`=`r usfl`$$
+
+So, to find the other coordinate of the intersection, replace `r lv` with `r usfl` in the unit-circle equation. Solve for `r unkn`.
+
+```{r, echo=F}
+if(horv==1){
+    eq1 = paste0("x^2+",usfl,"^2=1",collapse="")
+    eq2 = paste0("x^2=1-",usfl,"^2",collapse="")
+    eq3 = paste0("x=\\sqrt{1-",usfl,"^2}",collapse="")
+} else {
+    eq1 = paste0(usfl,"^2+y^2=1",collapse="")
+    eq2 = paste0("y^2=1-",usfl,"^2",collapse="")
+    eq3 = paste0("y=\\sqrt{1-",usfl,"^2}",collapse="")
+}
+```
+
+$$`r eq1`$$
+$$`r eq2`$$
+$$`r eq3`$$
+$$`r unkn`~\approx~`r ans`$$
+
+Let's graph the circle, both points, and line.
+
+```{r,echo=F}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1.2,1.2),ylim=c(-1.2,1.2),axes=F,ann=F)
+for(i in seq(-1,1,0.1)){
+    lines(c(i,i),c(-1,1),col="lightgrey",lwd=0.6)
+    lines(c(-1,1),c(i,i),col="lightgrey",lwd=0.6)
+}
+for(i in seq(-1,1,0.5)){
+    lines(c(i,i),c(-1,1),col="darkgrey",lwd=1.0)
+    lines(c(-1,1),c(i,i),col="darkgrey",lwd=1.0)
+}
+arrows(-1.1,0,1.1,0,.1,10,3,lwd=2)
+arrows(0,-1.1,0,1.1,.1,10,3,lwd=2)
+th = seq(0,2*pi,pi/300)
+lines(cos(th),sin(th),lwd=2.5,col="blue")
+if(horv==1){
+    lines(c(-1.05,1.05),c(usfl,usfl),col="purple",lwd=2.5)
+    points(rdhr,usfl,col="red",pch=19)
+    eq1 = paste0("x^2+",usfl,"^2=1",collapse="")
+    eq2 = paste0("x^2=1-",usfl,"^2",collapse="")
+    eq3 = paste0("x=\\sqrt{1-",usfl,"^2}",collapse="")
+} else {
+    lines(c(usfl,usfl),c(-1.05,1.05),col="purple",lwd=2.5)
+    points(usfl,rdhr,col="red",pch=19)
+    eq1 = paste0(usfl,"^2+y^2=1",collapse="")
+    eq2 = paste0("y^2=1-",usfl,"^2",collapse="")
+    eq3 = paste0("y=\\sqrt{1-",usfl,"^2}",collapse="")
+}
+points(x,y,col="black",pch=19)
+library(latex2exp)
+legend("topleft",
+       legend=c(TeX("$x^2+y^2=1$"),
+                TeX(pnt),
+                TeX(paste0("$",lv,"=",usfl,"$",collapse="")),
+                TeX(paste0("$(",round(x,3),",",round(y,3),")$",collapse=""))),
+       col=c("blue","red","purple","black"),
+       lwd=c(2.5,NA,2.5,NA),
+       pch=c(NA,20,NA,20)
+       )
+text(1.02,-0.05,"1")
+text(0.5,-0.05,"0.5")
+text(-1.02,-0.05,"-1")
+text(-0.5,-0.05,"-0.5")
+text(1.02,0.05,"x")
+text(-0.05,1.02,"1")
+text(-0.07,0.5,"0.5")
+text(-0.05,-1.02,"-1")
+text(-0.07,-0.5,"-0.5")
+text(0.05,1.02,"y")
+```
+\
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: circ_2nd_coordinate
+extol: 0.001
