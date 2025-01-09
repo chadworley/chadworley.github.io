@@ -1,5 +1,5 @@
 library("exams")
-n = 5
+n = 30
 outdir = "outcanvas"
 genname = "u11_"
 
@@ -24,15 +24,18 @@ genname = "u11_"
 # }
 
 
-pm = list("03_points_in_overlap.Rmd",
-          "07_three_dim_dist.Rmd",
-          "10_check_sols_ineq.Rmd",
+pm = list("07_three_dim_dist.Rmd",
           "12_dist_point_to_line.Rmd",
-          c("13_tickets_soe.Rmd","14_resize_image_even_border.Rmd"),
-          "m15_optimize_run_swim.Rmd",
-          "16_nth_score.Rmd",
           "18_circ_params_from_eq.Rmd",
           "21_ellipse_get_pams.Rmd",
+          "03_points_in_overlap.Rmd",
+          "10_check_sols_ineq.Rmd",
+          "11_linear_programming.Rmd",
+          "13_tickets_soe.Rmd",
+          "14_resize_image_even_border.Rmd",
+          "m15_optimize_run_swim.Rmd",
+          "16_nth_score.Rmd",
+          "23_round_trip_ave_speed.Rmd",
           "m25_cubic_regression.Rmd"
           )
 
