@@ -1,0 +1,88 @@
+```{r,echo=F,warning=F}
+
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    xs = sample(1:9,6)
+    xf = xs[6]
+    xs = sort(xs[1:5])
+    ys = sample(1:9,5,T)
+    df = data.frame(xs,ys)
+    cub_mod = lm(ys ~ poly(xs,3,raw = TRUE),data=df)
+    cf = cub_mod$coefficients
+    yf = predict(cub_mod,data.frame(xs=xf))
+    rs = summary(cub_mod)$adj.r.squared
+    if(rs<0.95 && rs>0.6){break}
+}
+
+cfit = pfix(signif(rev(cf),4),3:0)
+
+
+```
+
+Question
+========
+
+
+Run a cubic regression on the following points:
+
+| x | y |
+|:---:|:---:|
+| `r xs[1]` | `r ys[1]` |
+| `r xs[2]` | `r ys[2]` |
+| `r xs[3]` | `r ys[3]` |
+| `r xs[4]` | `r ys[4]` |
+| `r xs[5]` | `r ys[5]` |
+
+The result of the regression will be a cubic polynomial, which we can call $f$. Evaluate $f(`r xf`)$. The tolerance is $\pm0.01$.
+
+
+Solution
+========
+
+Your cubic regression should give the following polynomial. 
+
+$$f(x)~=~`r cfit`$$
+
+So, $f(`r xf`)=`r yf`$.
+
+
+```{r,echo=F,fig.dim=c(10,5)}
+par(mfrow=c(1,2))
+x5 = data.frame(xs=seq(0,10,0.1))
+pv = predict(cub_mod,x5)
+plot(x5$xs,pv,"l",xlab="x",ylab="y",main="Cubic-Regression Prediction")
+points(xs,ys)
+points(xf,yf,pch=19)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F)
+legend("left",c("given points","cubic fit","prediction"),
+       lwd=c(NA,1,NA),
+       pch=c(1,NA,19))
+```
+
+If you copy/paste the table of points into a Desmos item, it should create a table. If not, add a new table and add the points shown above.
+
+In that item's top-left corner, there should be a "Add Regression" button; click it. Change the regression type to "Cubic Regression". You'll see a cubic curve that does its best to get as close to the points as possible. You can "Export a snapshot to the expression list" by clicking on the button next to `EQUATION`. In that new expression, replace the $y$ with $f(x)$.
+
+Now, in a new item, you should be able to evaluate $f(`r xf`)$. What do you get? (We are using regression to make a prediction. The tolerance is $\pm0.01$.)
+
+
+Meta-information
+============
+extype: num
+exsolution: `r yf`
+exname: cubic_regression
+extol: 0.01

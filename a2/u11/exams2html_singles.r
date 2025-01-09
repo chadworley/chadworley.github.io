@@ -1,11 +1,9 @@
 library("exams")
 
-pppsss = c("17_circ_params_from_graph.Rmd",
-           "18_circ_params_from_eq.Rmd",
-           "19_circ_2nd_coordinate.Rmd",
-           "20_fef_dist_ellipse.Rmd",
-           "21_ellipse_get_pams.Rmd",
-           "22_polynom_to_stndrd_ell.Rmd")
+pppsss = c("23_round_trip_ave_speed.Rmd",
+           "24_lagrange_polynomial.Rmd",
+           "25_cubic_regression.Rmd",
+           "26_predict_with_trendline.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

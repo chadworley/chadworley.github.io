@@ -17,6 +17,7 @@ headers = {
   "Authorization": f"Bearer {access_token}"
 }
 
+# TO GET ASSIGNMENT GROUP NUMBERS
 # url = f"{canvas_url}/api/v1/courses/{course_id}/assignment_groups"
 # print(requests.get(url,headers=headers).json())
 

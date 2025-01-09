@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>23_round_trip_ave_speed</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">23_round_trip_ave_speed</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An alien creature flies a round trip — from home, to school, and back home — using the exact same route both directions (so the distances of the initial and return trips are equal).</p>
+<p>On the initial trip, the creature maintained a speed of 78 meters per second. On the return trip, the creature maintained a speed of 49 meters per second.</p>
+<p>What was the average speed, in m/s, of the entire trip? (The tolerance is <span class="math inline">\(\pm 0.01\)</span> m/s.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You might incorrectly guess the average speed for the trip is simply <span class="math inline">\(\frac{78+49}{2}\)</span>, but you’d be wrong.</p>
+<p>The “easy” way to do this is to pick a distance. You can later check that you’ll get the same answer for any distance.</p>
+<p>I’ll pick a distance of 1000 meters for each trip.</p>
+<ul>
+<li>Time of initial trip = <span class="math inline">\(\frac{1000}{78}=12.8205128\)</span> seconds.</li>
+<li>Time of return trip = <span class="math inline">\(\frac{1000}{49}=20.4081633\)</span> seconds.</li>
+</ul>
+<p>The total distance traveled is 2000 meters. The total time is <span class="math inline">\(12.8205128+20.4081633=33.2286761\)</span> seconds. To find the average speed, divide the total distance by the total time.</p>
+<p><span class="math display">\[\frac{2000~\mathrm{m}}{33.2286761~\mathrm{s}}~=~60.1889764~~ \mathrm{\frac{m}{s}}\]</span></p>
+<p>Of course, there is a cooler way to do this. Let’s use the following variables:</p>
+<p><span class="math display">\[\begin{align}
+s_1 &amp;= \text{speed to school}\\
+s_2 &amp;= \text{speed returning home}\\
+D &amp;= \text{distance}\\
+t_1 &amp;= \text{time to get to school}\\
+t_2 &amp;= \text{time to return home}\\
+\bar{s} &amp;= \text{average speed for round trip}
+\end{align}\]</span></p>
+<p>We can make some simple statements:</p>
+<p><span class="math display">\[\bar{s} = \frac{D}{t_1+t_2}\]</span>
+<span class="math display">\[t_1 = \frac{D}{s_1}\]</span>
+<span class="math display">\[t_2 = \frac{D}{s_2}\]</span></p>
+<p>If you combine all three of the above equations, you should be able to make a formula for <span class="math inline">\(\bar{s}\)</span> that only depends on <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An alien creature flies a round trip — from home, to school, and back home — using the exact same route both directions (so the distances of the initial and return trips are equal).</p>
+<p>On the initial trip, the creature maintained a speed of 11 meters per second. On the return trip, the creature maintained a speed of 44 meters per second.</p>
+<p>What was the average speed, in m/s, of the entire trip? (The tolerance is <span class="math inline">\(\pm 0.01\)</span> m/s.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You might incorrectly guess the average speed for the trip is simply <span class="math inline">\(\frac{11+44}{2}\)</span>, but you’d be wrong.</p>
+<p>The “easy” way to do this is to pick a distance. You can later check that you’ll get the same answer for any distance.</p>
+<p>I’ll pick a distance of 1000 meters for each trip.</p>
+<ul>
+<li>Time of initial trip = <span class="math inline">\(\frac{1000}{11}=90.9090909\)</span> seconds.</li>
+<li>Time of return trip = <span class="math inline">\(\frac{1000}{44}=22.7272727\)</span> seconds.</li>
+</ul>
+<p>The total distance traveled is 2000 meters. The total time is <span class="math inline">\(90.9090909+22.7272727=113.6363636\)</span> seconds. To find the average speed, divide the total distance by the total time.</p>
+<p><span class="math display">\[\frac{2000~\mathrm{m}}{113.6363636~\mathrm{s}}~=~17.6~~ \mathrm{\frac{m}{s}}\]</span></p>
+<p>Of course, there is a cooler way to do this. Let’s use the following variables:</p>
+<p><span class="math display">\[\begin{align}
+s_1 &amp;= \text{speed to school}\\
+s_2 &amp;= \text{speed returning home}\\
+D &amp;= \text{distance}\\
+t_1 &amp;= \text{time to get to school}\\
+t_2 &amp;= \text{time to return home}\\
+\bar{s} &amp;= \text{average speed for round trip}
+\end{align}\]</span></p>
+<p>We can make some simple statements:</p>
+<p><span class="math display">\[\bar{s} = \frac{D}{t_1+t_2}\]</span>
+<span class="math display">\[t_1 = \frac{D}{s_1}\]</span>
+<span class="math display">\[t_2 = \frac{D}{s_2}\]</span></p>
+<p>If you combine all three of the above equations, you should be able to make a formula for <span class="math inline">\(\bar{s}\)</span> that only depends on <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An alien creature flies a round trip — from home, to school, and back home — using the exact same route both directions (so the distances of the initial and return trips are equal).</p>
+<p>On the initial trip, the creature maintained a speed of 69 meters per second. On the return trip, the creature maintained a speed of 61 meters per second.</p>
+<p>What was the average speed, in m/s, of the entire trip? (The tolerance is <span class="math inline">\(\pm 0.01\)</span> m/s.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You might incorrectly guess the average speed for the trip is simply <span class="math inline">\(\frac{69+61}{2}\)</span>, but you’d be wrong.</p>
+<p>The “easy” way to do this is to pick a distance. You can later check that you’ll get the same answer for any distance.</p>
+<p>I’ll pick a distance of 1000 meters for each trip.</p>
+<ul>
+<li>Time of initial trip = <span class="math inline">\(\frac{1000}{69}=14.4927536\)</span> seconds.</li>
+<li>Time of return trip = <span class="math inline">\(\frac{1000}{61}=16.3934426\)</span> seconds.</li>
+</ul>
+<p>The total distance traveled is 2000 meters. The total time is <span class="math inline">\(14.4927536+16.3934426=30.8861962\)</span> seconds. To find the average speed, divide the total distance by the total time.</p>
+<p><span class="math display">\[\frac{2000~\mathrm{m}}{30.8861962~\mathrm{s}}~=~64.7538462~~ \mathrm{\frac{m}{s}}\]</span></p>
+<p>Of course, there is a cooler way to do this. Let’s use the following variables:</p>
+<p><span class="math display">\[\begin{align}
+s_1 &amp;= \text{speed to school}\\
+s_2 &amp;= \text{speed returning home}\\
+D &amp;= \text{distance}\\
+t_1 &amp;= \text{time to get to school}\\
+t_2 &amp;= \text{time to return home}\\
+\bar{s} &amp;= \text{average speed for round trip}
+\end{align}\]</span></p>
+<p>We can make some simple statements:</p>
+<p><span class="math display">\[\bar{s} = \frac{D}{t_1+t_2}\]</span>
+<span class="math display">\[t_1 = \frac{D}{s_1}\]</span>
+<span class="math display">\[t_2 = \frac{D}{s_2}\]</span></p>
+<p>If you combine all three of the above equations, you should be able to make a formula for <span class="math inline">\(\bar{s}\)</span> that only depends on <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An alien creature flies a round trip — from home, to school, and back home — using the exact same route both directions (so the distances of the initial and return trips are equal).</p>
+<p>On the initial trip, the creature maintained a speed of 64 meters per second. On the return trip, the creature maintained a speed of 84 meters per second.</p>
+<p>What was the average speed, in m/s, of the entire trip? (The tolerance is <span class="math inline">\(\pm 0.01\)</span> m/s.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You might incorrectly guess the average speed for the trip is simply <span class="math inline">\(\frac{64+84}{2}\)</span>, but you’d be wrong.</p>
+<p>The “easy” way to do this is to pick a distance. You can later check that you’ll get the same answer for any distance.</p>
+<p>I’ll pick a distance of 1000 meters for each trip.</p>
+<ul>
+<li>Time of initial trip = <span class="math inline">\(\frac{1000}{64}=15.625\)</span> seconds.</li>
+<li>Time of return trip = <span class="math inline">\(\frac{1000}{84}=11.9047619\)</span> seconds.</li>
+</ul>
+<p>The total distance traveled is 2000 meters. The total time is <span class="math inline">\(15.625+11.9047619=27.5297619\)</span> seconds. To find the average speed, divide the total distance by the total time.</p>
+<p><span class="math display">\[\frac{2000~\mathrm{m}}{27.5297619~\mathrm{s}}~=~72.6486486~~ \mathrm{\frac{m}{s}}\]</span></p>
+<p>Of course, there is a cooler way to do this. Let’s use the following variables:</p>
+<p><span class="math display">\[\begin{align}
+s_1 &amp;= \text{speed to school}\\
+s_2 &amp;= \text{speed returning home}\\
+D &amp;= \text{distance}\\
+t_1 &amp;= \text{time to get to school}\\
+t_2 &amp;= \text{time to return home}\\
+\bar{s} &amp;= \text{average speed for round trip}
+\end{align}\]</span></p>
+<p>We can make some simple statements:</p>
+<p><span class="math display">\[\bar{s} = \frac{D}{t_1+t_2}\]</span>
+<span class="math display">\[t_1 = \frac{D}{s_1}\]</span>
+<span class="math display">\[t_2 = \frac{D}{s_2}\]</span></p>
+<p>If you combine all three of the above equations, you should be able to make a formula for <span class="math inline">\(\bar{s}\)</span> that only depends on <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An alien creature flies a round trip — from home, to school, and back home — using the exact same route both directions (so the distances of the initial and return trips are equal).</p>
+<p>On the initial trip, the creature maintained a speed of 89 meters per second. On the return trip, the creature maintained a speed of 95 meters per second.</p>
+<p>What was the average speed, in m/s, of the entire trip? (The tolerance is <span class="math inline">\(\pm 0.01\)</span> m/s.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You might incorrectly guess the average speed for the trip is simply <span class="math inline">\(\frac{89+95}{2}\)</span>, but you’d be wrong.</p>
+<p>The “easy” way to do this is to pick a distance. You can later check that you’ll get the same answer for any distance.</p>
+<p>I’ll pick a distance of 1000 meters for each trip.</p>
+<ul>
+<li>Time of initial trip = <span class="math inline">\(\frac{1000}{89}=11.2359551\)</span> seconds.</li>
+<li>Time of return trip = <span class="math inline">\(\frac{1000}{95}=10.5263158\)</span> seconds.</li>
+</ul>
+<p>The total distance traveled is 2000 meters. The total time is <span class="math inline">\(11.2359551+10.5263158=21.7622708\)</span> seconds. To find the average speed, divide the total distance by the total time.</p>
+<p><span class="math display">\[\frac{2000~\mathrm{m}}{21.7622708~\mathrm{s}}~=~91.9021739~~ \mathrm{\frac{m}{s}}\]</span></p>
+<p>Of course, there is a cooler way to do this. Let’s use the following variables:</p>
+<p><span class="math display">\[\begin{align}
+s_1 &amp;= \text{speed to school}\\
+s_2 &amp;= \text{speed returning home}\\
+D &amp;= \text{distance}\\
+t_1 &amp;= \text{time to get to school}\\
+t_2 &amp;= \text{time to return home}\\
+\bar{s} &amp;= \text{average speed for round trip}
+\end{align}\]</span></p>
+<p>We can make some simple statements:</p>
+<p><span class="math display">\[\bar{s} = \frac{D}{t_1+t_2}\]</span>
+<span class="math display">\[t_1 = \frac{D}{s_1}\]</span>
+<span class="math display">\[t_2 = \frac{D}{s_2}\]</span></p>
+<p>If you combine all three of the above equations, you should be able to make a formula for <span class="math inline">\(\bar{s}\)</span> that only depends on <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An alien creature flies a round trip — from home, to school, and back home — using the exact same route both directions (so the distances of the initial and return trips are equal).</p>
+<p>On the initial trip, the creature maintained a speed of 44 meters per second. On the return trip, the creature maintained a speed of 54 meters per second.</p>
+<p>What was the average speed, in m/s, of the entire trip? (The tolerance is <span class="math inline">\(\pm 0.01\)</span> m/s.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You might incorrectly guess the average speed for the trip is simply <span class="math inline">\(\frac{44+54}{2}\)</span>, but you’d be wrong.</p>
+<p>The “easy” way to do this is to pick a distance. You can later check that you’ll get the same answer for any distance.</p>
+<p>I’ll pick a distance of 1000 meters for each trip.</p>
+<ul>
+<li>Time of initial trip = <span class="math inline">\(\frac{1000}{44}=22.7272727\)</span> seconds.</li>
+<li>Time of return trip = <span class="math inline">\(\frac{1000}{54}=18.5185185\)</span> seconds.</li>
+</ul>
+<p>The total distance traveled is 2000 meters. The total time is <span class="math inline">\(22.7272727+18.5185185=41.2457912\)</span> seconds. To find the average speed, divide the total distance by the total time.</p>
+<p><span class="math display">\[\frac{2000~\mathrm{m}}{41.2457912~\mathrm{s}}~=~48.4897959~~ \mathrm{\frac{m}{s}}\]</span></p>
+<p>Of course, there is a cooler way to do this. Let’s use the following variables:</p>
+<p><span class="math display">\[\begin{align}
+s_1 &amp;= \text{speed to school}\\
+s_2 &amp;= \text{speed returning home}\\
+D &amp;= \text{distance}\\
+t_1 &amp;= \text{time to get to school}\\
+t_2 &amp;= \text{time to return home}\\
+\bar{s} &amp;= \text{average speed for round trip}
+\end{align}\]</span></p>
+<p>We can make some simple statements:</p>
+<p><span class="math display">\[\bar{s} = \frac{D}{t_1+t_2}\]</span>
+<span class="math display">\[t_1 = \frac{D}{s_1}\]</span>
+<span class="math display">\[t_2 = \frac{D}{s_2}\]</span></p>
+<p>If you combine all three of the above equations, you should be able to make a formula for <span class="math inline">\(\bar{s}\)</span> that only depends on <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An alien creature flies a round trip — from home, to school, and back home — using the exact same route both directions (so the distances of the initial and return trips are equal).</p>
+<p>On the initial trip, the creature maintained a speed of 80 meters per second. On the return trip, the creature maintained a speed of 84 meters per second.</p>
+<p>What was the average speed, in m/s, of the entire trip? (The tolerance is <span class="math inline">\(\pm 0.01\)</span> m/s.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You might incorrectly guess the average speed for the trip is simply <span class="math inline">\(\frac{80+84}{2}\)</span>, but you’d be wrong.</p>
+<p>The “easy” way to do this is to pick a distance. You can later check that you’ll get the same answer for any distance.</p>
+<p>I’ll pick a distance of 1000 meters for each trip.</p>
+<ul>
+<li>Time of initial trip = <span class="math inline">\(\frac{1000}{80}=12.5\)</span> seconds.</li>
+<li>Time of return trip = <span class="math inline">\(\frac{1000}{84}=11.9047619\)</span> seconds.</li>
+</ul>
+<p>The total distance traveled is 2000 meters. The total time is <span class="math inline">\(12.5+11.9047619=24.4047619\)</span> seconds. To find the average speed, divide the total distance by the total time.</p>
+<p><span class="math display">\[\frac{2000~\mathrm{m}}{24.4047619~\mathrm{s}}~=~81.9512195~~ \mathrm{\frac{m}{s}}\]</span></p>
+<p>Of course, there is a cooler way to do this. Let’s use the following variables:</p>
+<p><span class="math display">\[\begin{align}
+s_1 &amp;= \text{speed to school}\\
+s_2 &amp;= \text{speed returning home}\\
+D &amp;= \text{distance}\\
+t_1 &amp;= \text{time to get to school}\\
+t_2 &amp;= \text{time to return home}\\
+\bar{s} &amp;= \text{average speed for round trip}
+\end{align}\]</span></p>
+<p>We can make some simple statements:</p>
+<p><span class="math display">\[\bar{s} = \frac{D}{t_1+t_2}\]</span>
+<span class="math display">\[t_1 = \frac{D}{s_1}\]</span>
+<span class="math display">\[t_2 = \frac{D}{s_2}\]</span></p>
+<p>If you combine all three of the above equations, you should be able to make a formula for <span class="math inline">\(\bar{s}\)</span> that only depends on <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An alien creature flies a round trip — from home, to school, and back home — using the exact same route both directions (so the distances of the initial and return trips are equal).</p>
+<p>On the initial trip, the creature maintained a speed of 52 meters per second. On the return trip, the creature maintained a speed of 48 meters per second.</p>
+<p>What was the average speed, in m/s, of the entire trip? (The tolerance is <span class="math inline">\(\pm 0.01\)</span> m/s.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You might incorrectly guess the average speed for the trip is simply <span class="math inline">\(\frac{52+48}{2}\)</span>, but you’d be wrong.</p>
+<p>The “easy” way to do this is to pick a distance. You can later check that you’ll get the same answer for any distance.</p>
+<p>I’ll pick a distance of 1000 meters for each trip.</p>
+<ul>
+<li>Time of initial trip = <span class="math inline">\(\frac{1000}{52}=19.2307692\)</span> seconds.</li>
+<li>Time of return trip = <span class="math inline">\(\frac{1000}{48}=20.8333333\)</span> seconds.</li>
+</ul>
+<p>The total distance traveled is 2000 meters. The total time is <span class="math inline">\(19.2307692+20.8333333=40.0641026\)</span> seconds. To find the average speed, divide the total distance by the total time.</p>
+<p><span class="math display">\[\frac{2000~\mathrm{m}}{40.0641026~\mathrm{s}}~=~49.92~~ \mathrm{\frac{m}{s}}\]</span></p>
+<p>Of course, there is a cooler way to do this. Let’s use the following variables:</p>
+<p><span class="math display">\[\begin{align}
+s_1 &amp;= \text{speed to school}\\
+s_2 &amp;= \text{speed returning home}\\
+D &amp;= \text{distance}\\
+t_1 &amp;= \text{time to get to school}\\
+t_2 &amp;= \text{time to return home}\\
+\bar{s} &amp;= \text{average speed for round trip}
+\end{align}\]</span></p>
+<p>We can make some simple statements:</p>
+<p><span class="math display">\[\bar{s} = \frac{D}{t_1+t_2}\]</span>
+<span class="math display">\[t_1 = \frac{D}{s_1}\]</span>
+<span class="math display">\[t_2 = \frac{D}{s_2}\]</span></p>
+<p>If you combine all three of the above equations, you should be able to make a formula for <span class="math inline">\(\bar{s}\)</span> that only depends on <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

@@ -1,0 +1,82 @@
+```{r,echo=F,warning=F}
+# D = (v+r)*t1
+# D = (v-r)*t2
+# T = t1+t2
+# T = D/(v+r)+D/(v-r)
+# (v+r)*t1 = (v-r)*t2
+# (v+r)/(v-r) = t2/t1
+# 
+
+# round trip, 2 speeds
+# v1*t1 = v2*t2
+# D = v1*t1
+# D = v2*t2
+# a = 2D/(t1+t2)
+# a = 2D/(D/v1+D/v2)
+# a = 2/(1/v1+1/v2) = 2/((v1+v2)/(v1*v2)) = 2(v1*v2)/(v1+v2)
+# a = 2(v1*t1+v2*t2)/(t1+t2)
+# a = 2(v1*t1+v2*t2)/(t1+t2)
+
+while(T){
+   vs = sample(11:99,2)
+    v1 = vs[1]
+    v2 = vs[2]
+    a = 2*v1*v2/(v1+v2) 
+    if(abs(diff(vs))>3 && abs(diff(vs))<40){break}
+}
+
+
+```
+
+Question
+========
+
+An alien creature flies a round trip --- from home, to school, and back home --- using the exact same route both directions (so the distances of the initial and return trips are equal).
+
+On the initial trip, the creature maintained a speed of `r v1` meters per second. On the return trip, the creature maintained a speed of `r v2` meters per second.
+
+What was the average speed, in m/s, of the entire trip?  (The tolerance is $\pm 0.01$ m/s.)
+
+Solution
+========
+
+You might incorrectly guess the average speed for the trip is simply $\frac{`r v1`+`r v2`}{2}$, but you'd be wrong.
+
+The "easy" way to do this is to pick a distance. You can later check that you'll get the same answer for any distance. 
+
+I'll pick a distance of 1000 meters for each trip.
+
+* Time of initial trip = $\frac{1000}{`r v1`}=`r 1000/v1`$ seconds.
+* Time of return trip = $\frac{1000}{`r v2`}=`r 1000/v2`$ seconds.
+
+The total distance traveled is 2000 meters. The total time is $`r 1000/v1`+`r 1000/v2`=`r 1000/v1+1000/v2`$ seconds. To find the average speed, divide the total distance by the total time.
+
+$$\frac{`r 2000`~\mathrm{m}}{`r 1000/v1+1000/v2`~\mathrm{s}}~=~`r a`~~ \mathrm{\frac{m}{s}}$$
+
+Of course, there is a cooler way to do this. Let's use the following variables:
+
+$$\begin{align}
+s_1 &= \text{speed to school}\\
+s_2 &= \text{speed returning home}\\
+D &= \text{distance}\\
+t_1 &= \text{time to get to school}\\
+t_2 &= \text{time to return home}\\
+\bar{s} &= \text{average speed for round trip}
+\end{align}$$
+
+We can make some simple statements:
+
+$$\bar{s} = \frac{D}{t_1+t_2}$$
+$$t_1 = \frac{D}{s_1}$$
+$$t_2 = \frac{D}{s_2}$$
+
+If you combine all three of the above equations, you should be able to make a formula for $\bar{s}$ that only depends on $s_1$ and $s_2$.
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r a`
+exname: round_trip_ave_speed
+extol: 0.01

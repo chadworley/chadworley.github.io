@@ -1,0 +1,82 @@
+```{r,echo=F,warning=F}
+while(T){
+    xys = sample(2:9,7)
+    xs = sort(xys[1:3])
+    ys = xys[4:6]
+    xf = xys[7]
+    if((ys[2]-ys[1])/(xs[2]-xs[1]) != (ys[3]-ys[1])/(xs[3]-xs[1])){break}
+}
+
+
+yf = ys[1]*(xf-xs[2])*(xf-xs[3])/(xs[1]-xs[2])/(xs[1]-xs[3])+
+     ys[2]*(xf-xs[1])*(xf-xs[3])/(xs[2]-xs[1])/(xs[2]-xs[3])+
+     ys[3]*(xf-xs[1])*(xf-xs[2])/(xs[3]-xs[1])/(xs[3]-xs[2])
+
+```
+
+Question
+========
+
+A [Lagrange polynomial](https://en.wikipedia.org/wiki/Lagrange_polynomial) is a polynomial that exactly hits all points from a list.
+
+Let's say we have three points: $(x_1,y_1)$ and $(x_2,y_2)$ and $(x_3,y_3)$. The Lagrange polynomial is:
+
+$$L(x)~~=~~y_1\cdot\frac{(x-x_2)(x-x_3)}{(x_1-x_2)(x_1-x_3)}~+~y_2\cdot\frac{(x-x_1)(x-x_3)}{(x_2-x_1)(x_2-x_3)}~+~y_3\cdot\frac{(x-x_1)(x-x_2)}{(x_3-x_1)(x_3-x_2)}$$
+
+You can probably guess correctly how this would generalize with more points, but this seems tedious enough. Eh, what the heck... if there were four points, it would look like:
+
+$$L(x)~~=~~y_1\cdot\frac{(x-x_2)(x-x_3)(x-x_4)}{(x_1-x_2)(x_1-x_3)(x_1-x_4)}~+~y_2\cdot\frac{(x-x_1)(x-x_3)(x-x_4)}{(x_2-x_1)(x_2-x_3)(x_2-x_4)}~+~y_3\cdot\frac{(x-x_1)(x-x_2)(x-x_4)}{(x_3-x_1)(x_3-x_2)(x_3-x_4)}~+~y_4\cdot\frac{(x-x_1)(x-x_2)(x-x_3)}{(x_4-x_1)(x_4-x_2)(x_4-x_3)}$$
+
+LOL. Anyway, I want you to find the Lagrange polynomial from the following list of three points.
+
+$$(`r xs[1]`,`r ys[1]`)$$
+$$(`r xs[2]`,`r ys[2]`)$$
+$$(`r xs[3]`,`r ys[3]`)$$
+
+First define $L(x)$. Then, evaluate $L(`r xf`)$. The tolerance is $\pm 0.01$.
+
+
+Solution
+========
+
+Okay, this is a bit tedious, but it's not SO bad. Identify the givens:
+
+$$\begin{align}
+x_1 &= `r xs[1]` &&& y_1 &= `r ys[1]` \\
+x_2 &= `r xs[2]` &&& y_2 &= `r ys[2]` \\
+x_3 &= `r xs[3]` &&& y_3 &= `r ys[3]` \\
+\end{align}$$
+
+Plug those values into the Lagrange polynomial for three points. I would type this function (and the three points) into Desmos. Make sure the curve hits all three points!
+
+$$L(x)~~=~~`r ys[1]`\cdot\frac{(x-`r xs[2]`)(x-`r xs[3]`)}{(`r xs[1]`-`r xs[2]`)(`r xs[1]`-`r xs[3]`)}~+~`r ys[2]`\cdot\frac{(x-`r xs[1]`)(x-`r xs[3]`)}{(`r xs[2]`-`r xs[1]`)(`r xs[2]`-`r xs[3]`)}~+~`r ys[3]`\cdot\frac{(x-`r xs[1]`)(x-`r xs[2]`)}{(`r xs[3]`-`r xs[1]`)(`r xs[3]`-`r xs[2]`)}$$
+
+Now, evaluate $L(`r xf`)$.
+$$L(`r xf`)~=~`r yf`$$
+
+```{r,echo=F,fig.dim=c(12,6)}
+par(mfrow=c(1,2))
+x = seq(0,10,0.01)
+y  = ys[1]*(x-xs[2])*(x-xs[3])/(xs[1]-xs[2])/(xs[1]-xs[3])+
+     ys[2]*(x-xs[1])*(x-xs[3])/(xs[2]-xs[1])/(xs[2]-xs[3])+
+     ys[3]*(x-xs[1])*(x-xs[2])/(xs[3]-xs[1])/(xs[3]-xs[2])
+xxx = c(xs,xf)
+yyy = c(ys,yf)
+plot(x,y,"l",lwd=2,col="blue",main="Lagrange Polynomial Interpolation")
+points(xs,ys)
+points(xf,yf,pch=19)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F,xlim=c(0,1),ylim=c(0,1))
+legend("left",c("given points","y=L(x)","interpolated point"),
+       pch=c(1,NA,19),lwd=c(NA,2,NA),col=c("black","blue","black"))
+
+```
+\
+
+
+Meta-information
+============
+extype: num
+exsolution: `r yf`
+exname: lagrange_polynomial
+extol: 0.01

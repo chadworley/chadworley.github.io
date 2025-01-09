@@ -10,9 +10,23 @@ probs = c("01_distance_formula.Rmd",
           "06_archery_target.Rmd",
           "07_three_dim_dist.Rmd",
           "08_circ_by_compltng_sqr.Rmd",
-          "09_ratio_between_points.Rmd")
+          "09_ratio_between_points.Rmd",
+          "10_check_sols_ineq.Rmd",
+          "11_linear_programming.Rmd",
+          "12_dist_point_to_line.Rmd",
+          "13_tickets_soe.Rmd",
+          "14_resize_image_even_border.Rmd",
+          "15_optimize_run_swim.Rmd",
+          "16_nth_score.Rmd",
+          "17_circ_params_from_graph.Rmd",
+          "18_circ_params_from_eq.Rmd",
+          "19_circ_2nd_coordinate.Rmd",
+          "20_fef_dist_ellipse.Rmd",
+          "21_ellipse_get_pams.Rmd",
+          "22_polynom_to_stndrd_ell.Rmd",
+          "23_round_trip_ave_speed.Rmd")
 
-nvers = 10
+nvers = 3
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))
