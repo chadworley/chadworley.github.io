@@ -24,9 +24,12 @@ probs = c("01_distance_formula.Rmd",
           "20_fef_dist_ellipse.Rmd",
           "21_ellipse_get_pams.Rmd",
           "22_polynom_to_stndrd_ell.Rmd",
-          "23_round_trip_ave_speed.Rmd")
+          "23_round_trip_ave_speed.Rmd",
+          "24_lagrange_polynomial.Rmd",
+          "25_cubic_regression.Rmd",
+          "26_predict_with_trendline.Rmd")
 
-nvers = 3
+nvers = 5
 ps = character(0)
 for(prob in probs){
   ps = c(ps,rep(prob,nvers))
