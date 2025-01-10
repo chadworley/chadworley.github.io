@@ -1,0 +1,68 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+
+while(T){
+    R = sample(2:9,1)
+    frac = list(c(2,3),
+                c(3,4),
+                c(2,5),c(3,5),c(4,5),
+                c(5,6),
+                c(2,7),c(3,7),c(4,7),c(5,7),c(6,7),
+                c(3,8),c(5,8),c(7,8),
+                c(2,9),c(4,9),c(5,9),c(7,9),c(8,9))
+    fracn = sample(1:length(frac),1)
+    frac = frac[[fracn]]
+    if(length(unique(c(frac,R)))==3){break}
+}
+
+
+ans = 2*pi*frac[1]/frac[2]
+
+```
+
+Question
+========
+
+A circle with radius $r=`r R`$ centimeters is cut into `r frac[2]` congruent sectors. A length of red string is pulled around the circle, and the string is exactly long enough to span the [arc](https://en.wikipedia.org/wiki/Circular_arc) of `r frac[1]` adjacent sectors, as shown in the diagram below.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+th = seq(0,2*pi,pi/300)
+lines(cos(th),sin(th),lwd=2)
+for(i in seq(0,2*pi,length.out=frac[2]+1)){
+    lines(c(0,cos(i)),c(0,sin(i)))
+}
+th2 = seq(0,2*pi*frac[1]/frac[2],pi/300)
+lines(cos(th2),sin(th2),col="red",lwd=4)
+text(0.5,0.05,paste0("r = ",R,collapse=""))
+```
+\
+
+How long, in centimeters, is the red string? Please answer as a decimal approximation accurate within $\pm 0.01$ centimeters.
+
+Solution
+========
+
+Find the [diameter](https://en.wikipedia.org/wiki/Diameter).
+
+$$d=2r$$
+$$d=2(`r R`)$$
+$$d=`r 2*R`$$
+
+Find the [circumference](https://en.wikipedia.org/wiki/Circumference).
+
+$$C = \pi d$$
+$$C = \pi (`r 2*R`)$$
+$$C~\approx~`r 2*R*pi`$$
+
+
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: arc_length_from_frac
+extol: 0.01
