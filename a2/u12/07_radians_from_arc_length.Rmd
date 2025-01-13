@@ -1,0 +1,50 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+
+while(T){
+    theta = round(runif(1,pi/4,7*pi/4),2)
+    radius = sample(20:99,1)/10
+    L = theta*radius
+    if(round(L,1)==L && length(unique(c(theta,radius,L)))==3){break}
+}
+
+```
+
+Question
+========
+
+Consider a circle with a radius of length $r=`r radius`$ meters. A [central angle](https://en.wikipedia.org/wiki/Central_angle), in [standard position](https://libraryguides.centennialcollege.ca/c.php?g=716824&p=5112868), subtends an [arc](https://en.wikipedia.org/wiki/Circular_arc) of length $`r L`$ meters.
+
+```{r,echo=F,fig.dim=c(5,5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+th = seq(0,2*pi,pi/300)
+lines(cos(th),sin(th),col="grey")
+lines(c(1,0,cos(theta)),c(0,0,sin(theta)),col="black")
+th2 = seq(0,theta,pi/300)
+lines(cos(th2),sin(th2),col="red",lwd=3)
+text(1.1*cos(theta/2),1.1*sin(theta/2),paste0(L," m"),srt=atan(sin(theta/2+pi/2)/cos(theta/2+pi/2))/pi*180,col="red")
+text(0.5,-0.05,paste0(radius," m",collapse=""))
+points(0,0,pch=20)
+lines(0.2*cos(th2),0.2*sin(th2),col=rgb(0.6,0,0.6))
+text(0.3*cos(theta/2),0.3*sin(theta/2),TeX("$\\theta$"),col=rgb(0.6,0,0.6))
+
+```
+\
+
+
+**Find $\theta$ in radians**.
+
+
+Solution
+========
+
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r theta`
+exname: radians_from_unit_arc

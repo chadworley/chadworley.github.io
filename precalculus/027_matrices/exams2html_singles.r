@@ -1,19 +1,6 @@
 library("exams")
 
-pppsss = c("01_sam_stat_pop_param.Rmd",
-           "02_survey_experi_obsstu.Rmd",
-           "03_sample_bias.Rmd",
-           "04_corr_or_cause.Rmd",
-           "05_basic_data_analysis.Rmd",
-           "06_big_data_analysis.Rmd",
-           "07_sd_pop.Rmd",
-           "08_sd_sam.Rmd",
-           "09_read_histogram.Rmd",
-           "10_identify_shape.Rmd",
-           "11_make_hist_see_shape.Rmd",
-           "12_sample_percentiles.Rmd",
-           "13_compare_mean_median.Rmd",
-           "14_compare_boxplots.Rmd")
+pppsss = c("15_spinning_pyramid.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
