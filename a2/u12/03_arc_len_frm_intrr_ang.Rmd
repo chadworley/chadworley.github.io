@@ -1,0 +1,79 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+while(T){
+    R = sample(3:9,1)
+    degi = sample(20:100,1)
+    deg = degi*2
+    frac = c(deg,360)
+    ans = 2*pi*R*frac[1]/frac[2]
+    ang = deg/180*pi
+    ang2 = (2*pi-ang)/2+ang
+    if(deg%%15 != 0){break}
+}
+
+
+```
+
+Question
+========
+
+A length of red string is pulled around the circle with radius $r=`r R`$. The red string [subtends](https://en.wikipedia.org/wiki/Subtended_angle) a [central angle](https://en.wikipedia.org/wiki/Central_angle) with a degree measure of $\psi$°, and the red string also subtends an **[inscribed angle](https://en.wikipedia.org/wiki/Inscribed_angle)** with degree measure of `r degi`°. 
+
+```{r,echo=F,fig.dim=c(5,5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+th = seq(0,2*pi,pi/300)
+lines(cos(th),sin(th),lwd=2)
+th2 = seq(0,2*pi*frac[1]/frac[2],pi/300)
+lines(c(cos(ang),0,1),c(sin(ang),0,0))
+lines(cos(th2),sin(th2),col="red",lwd=4)
+lines(0.05*cos(th2),0.05*sin(th2),col=rgb(0.4,0,0.4))
+text(0.15*cos(ang/2),0.15*sin(ang/2),TeX("$\\psi$°"),adj=c(0.5,0.5),col=rgb(0.4,0,0.4))
+text(0.5,0.05,paste0("r = ",R,collapse=""))
+lines(c(1,cos(ang2),cos(ang)),c(0,sin(ang2),sin(ang)),col="blue")
+x1 = atan2((0-sin(ang2)),(1-cos(ang2)))
+x2 = atan2((sin(ang)-sin(ang2)),(cos(ang)-cos(ang2)))
+xa = mean(c(x1,x2))
+th3 = seq(x1,x2,length.out=300)
+lines(cos(ang2)+0.15*cos(th3),sin(ang2)+0.15*sin(th3),col="blue")
+text(cos(ang2)+0.25*cos(xa),sin(ang2)+0.25*sin(xa),paste0(degi,"°",collapse=""),col="blue")
+
+```
+\
+
+How long, in centimeters, is the red string? Please answer as a decimal approximation accurate within $\pm 0.01$ centimeters.
+
+Solution
+========
+
+The **[inscribed angle theorem](https://en.wikipedia.org/wiki/Inscribed_angle#Statement)** states that an angle $\theta$ inscribed in a circle is half of the central angle $2\theta$ that intercepts the same arc on the circle. Surprisingly, this is independent of where the inscribed angle sits on the circle. I find [this animation](https://en.wikipedia.org/wiki/Inscribed_angle#/media/File:ArcCapable.gif) helpful. Please take a moment to internalize this theorem, as it shows up frequently on standardized tests. 
+
+Anyway, for this problem, from the inscribed-angle theorem, we know $\psi=2\cdot `r degi`=`r deg`$. In other words, our central angle is twice the corresponding inscribed angle.
+
+Find the [diameter](https://en.wikipedia.org/wiki/Diameter).
+
+$$d=2r$$
+$$d=2\cdot`r R`$$
+$$d=`r 2*R`$$
+
+Find the [circumference](https://en.wikipedia.org/wiki/Circumference).
+
+$$C = \pi d$$
+$$C = \pi \cdot `r 2*R`$$
+$$C~\approx~`r 2*R*pi`$$
+
+Remember, there are $360^{\circ}$ in a full circle. The [string's length](https://en.wikipedia.org/wiki/Circular_arc) is $\frac{`r frac[1]`}{`r frac[2]`}$ of the circumference.
+
+$$L~=~\frac{`r frac[1]`}{`r frac[2]`}C$$
+$$L~=~\frac{`r frac[1]`}{`r frac[2]`}d\pi$$
+$$L~=~\frac{`r frac[1]`}{`r frac[2]`}2\pi r$$
+$$L~\approx~\frac{`r frac[1]`}{`r frac[2]`}(`r 2*pi*R`)$$
+$$L~\approx~`r 2*pi*R*frac[1]/frac[2]`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: arc_length_from_frac
+extol: 0.01

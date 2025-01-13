@@ -1,0 +1,85 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+
+R = round(runif(1,3,4.5),2)
+deg = sample(45:260,1)
+ang = deg/180*pi
+L1 = round(2*pi*deg/360,2)
+L2 = round(L1*R,2)
+L1 = L2/R
+
+```
+
+Question
+========
+
+Two concentric circles have radii $r_1=1$ meters and $r_2=`r R`$ meters. A central angle subtends [similar](https://en.wikipedia.org/wiki/Similarity_(geometry)) arcs on both circles: a blue arc on the smaller circle and a red arc on the larger circle. The red arc length is `r L2` meters, as shown in the diagram below.
+
+
+```{r,echo=F,fig.dim=c(7,7)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-5,5),ylim=c(-5,5),axes=F,ann=F)
+th = seq(0,2*pi,pi/300)
+lines(cos(th),sin(th),lwd=2,col="grey")
+lines(R*cos(th),R*sin(th),lwd=2,col="grey")
+lines(c(0,R),c(0,0))
+lines(c(0,R*cos(ang)),c(0,R*sin(ang)))
+points(0,0,pch=20)
+th2 = seq(0,ang,pi/300)
+lines(R*cos(th2),R*sin(th2),col="red",lwd=2)
+text((R+0.2)*cos(ang/2),(R+0.2)*sin(ang/2),paste0(L2," m"),col="red",srt=(-pi/2+ang/2)/pi*180)
+lines(cos(th2),sin(th2),col="blue",lwd=2)
+text(1.2*cos(ang/2),1.2*sin(ang/2),paste0("? m"),col="blue",srt=(-pi/2+ang/2)/pi*180)
+# text(0.5,0.05,TeX("$r_1=1$"),adj=c(0.5,0))
+# text(R/2,-0.05,TeX(paste0("$r_2=$",R)),adj=c(0.5,1))
+
+# lines(c(0,0),c(0,-1.5),lty=2,col="lightgrey")
+# lines(c(1,1),c(0,-1.5),lty=2,col="lightgrey")
+
+lines(c(0,0),c(0,-2.3),lty=2,col="lightgrey")
+lines(c(1,1),c(0,-1.3),lty=2,col="lightgrey")
+lines(c(R,R),c(0,-2.3),lty=2,col="lightgrey")
+
+lines(c(0,0,0,1,1,1),c(-1.5,-1.3,-1.4,-1.4,-1.3,-1.5))
+text(0.5,-1.3,TeX("$r_1=1\\, m$"),adj=c(0.5,0))
+
+lines(c(0,0,0,R,R,R),-0.8+c(-1.5,-1.3,-1.4,-1.4,-1.3,-1.5))
+text(R/2,-2.1,TeX(paste0("$r_2=$",R,"\\, m")),adj=c(0.5,0))
+
+```
+\
+
+What is the length, in meters, of the blue arc? *The tolerance is set to $\pm0.01$ meters.*
+
+Solution
+========
+
+Okay, this might seem absurdly easy if you are comfortable with [similarity](https://en.wikipedia.org/wiki/Similarity_(geometry)).
+
+$$\frac{1}{?} ~=~ \frac{`r R`}{`r L2`}$$
+
+$$?~=~ \frac{`r L2`}{`r R`} ~=~ `r L1`$$
+
+I am trying to introduce the **[radian](https://en.wikipedia.org/wiki/Radian)**, which is the arc length of a unit circle. 
+
+* Massachusetts learning objective F-TF.A.1:
+    * Understand radian measure of an angle as the length of the arc on the unit circle subtended by the angle.
+    
+
+If you look up [circular arc](https://en.wikipedia.org/wiki/Circular_arc#Length) on wikipedia, you'll see a formula relating the arc length ($L$) to radius ($r$) and the central angle **measured in radians** ($\theta$).
+$$L~=~r\theta$$
+
+So, in our case:
+
+$$`r L2`~=~(`r R`)(\theta)$$
+
+$$\theta~=~\frac{`r L2`}{`r R`}~=~ `r L1`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r L1`
+exname: radians_from_r_L
+extol: 0.01
