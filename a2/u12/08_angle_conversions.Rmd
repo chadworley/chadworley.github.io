@@ -1,10 +1,37 @@
 ```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
-rad_dom = c(2,3,4,5,6,8,9,10,12)
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
 
+n = 5
+rad_dom = c(2,3,4,5,6,9,10,12)
+rdoms = sample(rad_dom,n,F)
+rnums = numeric()
+for(i in rdoms){
+    rnums = c(rnums,sample(1:(2*i-1),1))
+}
+for(i in 1:n){
+    g = gcd(rnums[i],rdoms[i])
+    rnums[i] = round(rnums[i]/g)
+    rdoms[i] = round(rdoms[i]/g)
+}
+degs = 180*rnums/rdoms
+tnums = rnums
+tdoms = rdoms*2
+for(i in 1:n){
+    g = gcd(tnums[i],tdoms[i])
+    rnums[i] = round(tnums[i]/g)
+    rdoms[i] = round(tdoms[i]/g)
+}
 ```
 
 Question
-======== 
+========
+
+For each diagram below, a circle is sliced into congruent sectors. An angle, which subtends an integer count of the sectors, is indicated by an circular arc near the center of the circle. You will determine the measure of the angle using degrees, radians, and (fractions of) turns. All radian measures will be expressed in exact form, as a fraction of $\pi$. All fractions will be shown in [reduced form](https://en.wikipedia.org/wiki/Irreducible_fraction), using improper fractions instead of mixed numbers.
+
+
 
 
 
@@ -18,5 +45,5 @@ Solution
 Meta-information
 ============
 extype: num
-exsolution: `r theta`
+exsolution: 
 exname: radians_from_unit_arc
