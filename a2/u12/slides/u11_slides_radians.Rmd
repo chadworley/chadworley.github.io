@@ -1,0 +1,112 @@
+---
+title: "Radians"
+output: slidy_presentation
+---
+
+# Radians
+
+* In mathematics, the standard way to measure an angle is [radians](https://en.wikipedia.org/wiki/Radian).
+    * Not degrees!
+
+$$360^{\circ}~=~2\pi~\text{radians}$$
+$$180^{\circ}~=~\pi~\text{radians}$$
+$$1~\text{radian} ~\approx~`r signif(180/pi,4)`^{\circ}$$
+
+* In radians, common angles are often expressed as a product (multiplication) of $\pi$ and a [rational number](https://en.wikipedia.org/wiki/Rational_number), or a fraction of $\pi$.
+
+$$\begin{align}
+30^{\circ}~&=~\frac{\pi}{6}~\text{radians} \\\\
+45^{\circ}~&=~\frac{\pi}{4}~\text{radians} \\\\
+60^{\circ}~&=~\frac{\pi}{3}~\text{radians} \\\\
+90^{\circ}~&=~\frac{\pi}{2}~\text{radians} \\\\
+120^{\circ}~&=~\frac{2\pi}{3}~\text{radians} \\\\
+135^{\circ}~&=~\frac{3\pi}{4}~\text{radians} \\\\
+150^{\circ}~&=~\frac{5\pi}{6}~\text{radians}
+\end{align}$$
+
+* *Technically, we do not even need to say "radians" as the unit. If an angle is expressed without an explicit unit, we assume the angle is in radians. This is because radians are a "[dimensionless](https://en.wikipedia.org/wiki/Dimensionless_quantity) ratio" of an arc length over a radius.*
+
+# Convert from degrees to radians
+
+* To convert from degrees to radians, use the fact that $180^{\circ}=\pi~\text{radians}$ to make a [conversion factor](https://en.wikipedia.org/wiki/Conversion_of_units#Factor%E2%80%93label_method).
+* In other words, multiply by $\frac{\pi~\text{radians}}{180^{\circ}}$.
+* Example, convert 42° to radians:
+
+
+> - $$42^{\circ}~=~\frac{42^{\circ}}{1}\cdot\frac{\pi~\text{rad}}{180^{\circ}}$$
+> - $$42^{\circ}~=~\frac{7\pi}{30} ~\text{rad}$$
+> - $$42^{\circ}~\approx~ `r 7*pi/30`~\text{rad}$$
+
+
+# Convert from radians to degrees
+
+* To convert from radians to degrees, multiply by $\frac{180^{\circ}}{\pi~\text{radians}}$.
+* Example, convert $\frac{\pi}{9}$ radians to degrees:
+
+> - $$\frac{\pi}{9}\cdot \frac{180^{\circ}}{\pi} ~=~ 20^{\circ}$$
+
+# Visual/geometric interpretation
+
+* Draw a circle of radius $r$.
+* Draw a central angle, $\theta$, in standard position.
+* That central angle subtends an arc length $L$.
+
+```{r,echo=F,fig.dim=c(5,5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+th = seq(0,2*pi,pi/420)
+lines(cos(th),sin(th),col="grey")
+ang = 5*pi/7
+th2 = seq(0,ang,pi/420)
+lines(c(0,1),c(0,0),lwd=2)
+lines(c(0,cos(ang)),c(0,sin(ang)),lwd=2)
+lines(cos(th2),sin(th2),col="red",lwd=3)
+text(cos(ang/2)*1.1,sin(ang/2)*1.1,"L",col="red",cex=2)
+text(0.5,-0.1,"r",cex=2)
+mc = rgb(0.6,0,0.6)
+lines(0.2*cos(th2),0.2*sin(th2),col=mc,lwd=2)
+dt = 0.1
+arrows(0.2*cos(ang-dt),0.2*sin(ang-dt),0.2*cos(ang),0.2*sin(ang),0.1,20,col=mc,lwd=2)
+text(0.3*cos(ang/2),0.3*sin(ang/2),TeX("$\\theta$"),col=mc,cex=2)
+```
+\
+
+* In radians, there is a simple relationship between these three quantities.
+
+$$\theta = \frac{L}{r}$$
+
+> - Notice, in degrees, this is more complicated... $$\theta = \frac{L\cdot 180^{\circ}}{r\cdot\pi}$$
+
+# Learning Objective F-TF.A.1
+
+* F-TF.A.1: Understand radian measure of an angle as the length of the arc on the unit circle subtended by the angle.
+
+
+```{r,echo=F,fig.dim=c(5,5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+th = seq(0,2*pi,pi/420)
+lines(cos(th),sin(th),col="grey")
+ang = 5*pi/7
+th2 = seq(0,ang,pi/420)
+lines(c(0,1),c(0,0),lwd=2)
+lines(c(0,cos(ang)),c(0,sin(ang)),lwd=2)
+lines(cos(th2),sin(th2),col="red",lwd=3)
+text(cos(ang/2)*1.18,sin(ang/2)*1.18,paste0(round(5*pi/7,1)," meters"),col="red",adj=0,cex=1.5)
+text(0.5,-0.1,"1 meter",cex=1.5)
+mc = rgb(0.6,0,0.6)
+lines(0.2*cos(th2),0.2*sin(th2),col=mc,lwd=2)
+dt = 0.1
+arrows(0.2*cos(ang-dt),0.2*sin(ang-dt),0.2*cos(ang),0.2*sin(ang),0.1,20,col=mc,lwd=2)
+text(0.3*cos(ang/2),0.3*sin(ang/2),TeX("$\\theta$"),col=mc,cex=1.5)
+```
+\
+
+* What is the angle measure (in radians)?
+
+> - $\theta~=~2.2$ radians
+
+
+
