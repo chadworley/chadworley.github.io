@@ -1,33 +1,15 @@
 library("exams")
 
 outdir = "./"
-genname = "u11"
-probs = c("01_distance_formula.Rmd",
-          "02_points_within_distance.Rmd",
-          "03_points_in_overlap.Rmd",
-          "04_trilateration.Rmd",
-          "05_triangle_perimeter.Rmd",
-          "06_archery_target.Rmd",
-          "07_three_dim_dist.Rmd",
-          "08_circ_by_compltng_sqr.Rmd",
-          "09_ratio_between_points.Rmd",
-          "10_check_sols_ineq.Rmd",
-          "11_linear_programming.Rmd",
-          "12_dist_point_to_line.Rmd",
-          "13_tickets_soe.Rmd",
-          "14_resize_image_even_border.Rmd",
-          "15_optimize_run_swim.Rmd",
-          "16_nth_score.Rmd",
-          "17_circ_params_from_graph.Rmd",
-          "18_circ_params_from_eq.Rmd",
-          "19_circ_2nd_coordinate.Rmd",
-          "20_fef_dist_ellipse.Rmd",
-          "21_ellipse_get_pams.Rmd",
-          "22_polynom_to_stndrd_ell.Rmd",
-          "23_round_trip_ave_speed.Rmd",
-          "24_lagrange_polynomial.Rmd",
-          "25_cubic_regression.Rmd",
-          "26_predict_with_trendline.Rmd")
+genname = "u12"
+probs = c("01_arc_length_from_frac.Rmd",
+          "02_arc_length_from_degs.Rmd",
+          "03_arc_len_frm_intrr_ang.Rmd",
+          "04_arc_len_from_unit_arc.Rmd",
+          "05_radians_from_r_L.Rmd",
+          "06_radians_from_unit_arc.Rmd",
+          "07_radians_from_arc_length.Rmd",
+          "08_angle_conversions.Rmd")
 
 nvers = 5
 ps = character(0)

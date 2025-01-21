@@ -13,13 +13,12 @@ trips = list(c(3,4,5),
              c(39, 80, 89),
              c(65, 72, 97))
 library(latex2exp)
-for(i in 1:10){
-    png(paste0("pics/im_",sprintf("%03d",i),".png",collapse=""),750,450)
-    layout(matrix(c(1,1,1,2,2,
-                    1,1,1,2,2,
-                    1,1,1,2,2), nrow = 3, ncol = 5, byrow = TRUE))
-    mm = 2 #multiplying for scale
-    bump = 0.1 #text bump
+s = ""
+
+for(i in 1:100){
+    png(paste0("pics/im_",sprintf("%03d",i),".png",collapse=""),500,500)
+    mm = 3.5 #multiplying for scale
+    bump = 0.17 #text bump
     ss = 0.1 #square size
     vns = sample(LETTERS,3)
     ti = sample(1:length(trips),1)
@@ -69,7 +68,7 @@ for(i in 1:10){
     hei = max(yyy)-min(yyy)
     midx = (max(xxx)+min(xxx))/2
     midy = (max(yyy)+min(yyy))/2
-    rad = max(c(wid,hei))/2
+    rad = max(c(wid,hei))/2*1.1
     par(mar=c(0,0,0,0),pty="s")
     plot(0,0,"n",axes=F,ann=F,xlim=c(midx-rad,midx+rad),ylim=c(midy-rad,midy+rad))
     polygon(xvr,yvr,lwd=2*mm,col=rgb(0,0,0,0.1))
@@ -77,7 +76,7 @@ for(i in 1:10){
     text(xlr,ylr,vns,cex=mm)
     text(xnr,ynr,trip,cex=mm)
     par(mar=c(0,0,0,0))
-    plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+    # plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
     fs = c("sin","cos","tan")
     wf = sample(1:3,1)
     ff = fs[wf]
@@ -91,9 +90,14 @@ for(i in 1:10){
             paste0(b,"/",a)
             )
     ante = ans[wv*3-3+wf]
-    text(0,0,paste0("Express\n",ff,"(",vn,")\n as a fraction.",collapse=""),cex=mm*2)
+    que = paste0(ff,"(",vn,")",collapse="")
     dev.off()
-    print(ante)
+    s = paste0(s,sprintf("%03d",i)," - ",que," - ",ante,"\n",collapse="")
 }
+
+fileConn<-file("solutions.txt")
+writeLines(s, fileConn)
+close(fileConn)
+
 
 

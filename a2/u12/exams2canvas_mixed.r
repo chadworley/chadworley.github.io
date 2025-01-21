@@ -3,9 +3,16 @@ n = 30
 outdir = "outcanvas"
 genname = "u12_"
 
-probs = c("08_angle_conversions.Rmd")
+probs = c("01_arc_length_from_frac.Rmd",
+          "02_arc_length_from_degs.Rmd",
+          "03_arc_len_frm_intrr_ang.Rmd",
+          "04_arc_len_from_unit_arc.Rmd",
+          "05_radians_from_r_L.Rmd",
+          "06_radians_from_unit_arc.Rmd",
+          "07_radians_from_arc_length.Rmd",
+          "08_angle_conversions.Rmd")
 
-pnts = c(3)
+pnts = c(2,2,2,2,2,2,2,6)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
