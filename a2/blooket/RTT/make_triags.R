@@ -16,7 +16,7 @@ library(latex2exp)
 s = ""
 
 for(i in 1:100){
-    png(paste0("pics/im_",sprintf("%03d",i),".png",collapse=""),500,500)
+    png(paste0("pics2/im_",sprintf("%03d",i),".png",collapse=""),500,500)
     mm = 3.5 #multiplying for scale
     bump = 0.17 #text bump
     ss = 0.1 #square size
@@ -95,7 +95,7 @@ for(i in 1:100){
     s = paste0(s,sprintf("%03d",i)," - ",que," - ",ante,"\n",collapse="")
 }
 
-fileConn<-file("solutions.txt")
+fileConn<-file("solutions2.txt")
 writeLines(s, fileConn)
 close(fileConn)
 

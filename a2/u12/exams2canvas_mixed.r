@@ -3,16 +3,16 @@ n = 30
 outdir = "outcanvas"
 genname = "u12_"
 
-probs = c("01_arc_length_from_frac.Rmd",
-          "02_arc_length_from_degs.Rmd",
-          "03_arc_len_frm_intrr_ang.Rmd",
-          "04_arc_len_from_unit_arc.Rmd",
-          "05_radians_from_r_L.Rmd",
-          "06_radians_from_unit_arc.Rmd",
-          "07_radians_from_arc_length.Rmd",
-          "08_angle_conversions.Rmd")
+probs = c("09_standard_pos_deg.Rmd",
+          "10_large_angle_deg.Rmd",
+          "11_coterminal_degs.Rmd",
+          "12_plot_angle_rads.Rmd",
+          "13_plot_coterminal_rads.Rmd",
+          "14_large_angle_rad.Rmd",
+          "15_sector_area.Rmd",
+          "16_conical_ratio.Rmd")
 
-pnts = c(2,2,2,2,2,2,2,6)
+pnts = c(2,2,2,2,2,2,3,4)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
@@ -28,20 +28,11 @@ for(i in 1:length(probs)){
 }
 
 
-# pm = list("07_three_dim_dist.Rmd",
-#           "12_dist_point_to_line.Rmd",
-#           "18_circ_params_from_eq.Rmd",
-#           "21_ellipse_get_pams.Rmd",
-#           "03_points_in_overlap.Rmd",
-#           "10_check_sols_ineq.Rmd",
-#           "11_linear_programming.Rmd",
-#           "13_tickets_soe.Rmd",
-#           "14_resize_image_even_border.Rmd",
-#           "m15_optimize_run_swim.Rmd",
-#           "16_nth_score.Rmd",
-#           "23_round_trip_ave_speed.Rmd",
-#           "m25_cubic_regression.Rmd"
-#           )
+# pm = list("01_arc_length_from_frac.Rmd",
+#           "02_arc_length_from_degs.Rmd",
+#           "03_arc_len_frm_intrr_ang.Rmd",
+#           "04_arc_len_from_unit_arc.Rmd",
+#           "05_radians_from_r_L.Rmd")
 # 
 # exams2canvas(pm,
 #              n=n,

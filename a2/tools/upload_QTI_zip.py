@@ -6,14 +6,14 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u12_01_arc_length_from_frac.zip",
-"outcanvas/u12_02_arc_length_from_degs.zip",
-"outcanvas/u12_03_arc_len_frm_intrr_ang.zip",
-"outcanvas/u12_04_arc_len_from_unit_arc.zip",
-"outcanvas/u12_05_radians_from_r_L.zip",
-"outcanvas/u12_06_radians_from_unit_arc.zip",
-"outcanvas/u12_07_radians_from_arc_length.zip",
-"outcanvas/u12_08_angle_conversions.zip"]
+file_path_list = ["outcanvas/u12_09_standard_pos_deg.zip",
+"outcanvas/u12_10_large_angle_deg.zip",
+"outcanvas/u12_11_coterminal_degs.zip",
+"outcanvas/u12_12_plot_angle_rads.zip",
+"outcanvas/u12_13_plot_coterminal_rads.zip",
+"outcanvas/u12_14_large_angle_rad.zip",
+"outcanvas/u12_15_sector_area.zip",
+"outcanvas/u12_16_conical_ratio.zip"]
 
 # fpl = []
 # for i in range(70,100):
