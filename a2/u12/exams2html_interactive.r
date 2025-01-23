@@ -9,7 +9,15 @@ probs = c("01_arc_length_from_frac.Rmd",
           "05_radians_from_r_L.Rmd",
           "06_radians_from_unit_arc.Rmd",
           "07_radians_from_arc_length.Rmd",
-          "08_angle_conversions.Rmd")
+          "08_angle_conversions.Rmd",
+          "09_standard_pos_deg.Rmd",
+          "10_large_angle_deg.Rmd",
+          "11_coterminal_degs.Rmd",
+          "12_plot_angle_rads.Rmd",
+          "13_plot_coterminal_rads.Rmd",
+          "14_large_angle_rad.Rmd",
+          "15_sector_area.Rmd",
+          "16_conical_ratio.Rmd")
 
 nvers = 5
 ps = character(0)

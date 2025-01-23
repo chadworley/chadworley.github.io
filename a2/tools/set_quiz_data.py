@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import os
 
 avt = ["2025-01-22 8:00:00"]*8
-dut = ["2025-01-22 23:59:00"]*8
+dut = ["2025-01-23 23:59:00"]*8
 front = "u12_"
 
 files = ["09_standard_pos_deg.Rmd",
