@@ -1,0 +1,237 @@
+---
+header-includes:
+   - \usepackage{array}
+   - \usepackage{color}
+output: pdf_document
+params:
+    rseed: 1
+    showsol: false
+    titex: "Practice"
+urlcolor: blue
+---
+
+
+```{r,echo=F}
+set.seed(params$rseed)
+library(latex2exp)
+if(params$showsol){
+    solstart = ""
+    solend = "\\vfill"
+    hidesolstart = "<!---"
+    hidesolend = "-->"
+    showsol = T
+} else {
+    solstart = "<!---"
+    solend = "-->"
+    hidesolstart = ""
+    hidesolend = ""
+    showsol = F
+}
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## u12 Radians, Degrees, and Arc Length  `r params$titex` (version `r params$rseed`)
+
+
+1. Write in the angles, in **degrees and radians**. Please put the angles in their standard locations, and put radians in exact, and simplified, form.
+
+\vfill
+
+```{r,echo=F,fig.align='center',fig.dim=c(6.5,6.5)}
+deg_opts = c(0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330,360)
+dos = paste0(deg_opts,"º")
+ras = c("0","\\pi/6","\\pi/4","\\pi/3","\\pi/2","2\\pi/3","3\\pi/4","5\\pi/6",
+        "\\pi","7\\pi/6","5\\pi/4","4\\pi/3","3\\pi/2","5\\pi/3","7\\pi/4","11\\pi/6","2\\pi")
+ras2 = c("0","\\frac{\\pi}{6}","\\frac{\\pi}{4}","\\frac{\\pi}{3}","\\frac{\\pi}{2}","\\frac{2\\pi}{3}","\\frac{3\\pi}{4}","\\frac{5\\pi}{6}",
+        "\\pi","\\frac{7\\pi}{6}","\\frac{5\\pi}{4}","\\frac{4\\pi}{3}","\\frac{3\\pi}{2}","\\frac{5\\pi}{3}","\\frac{7\\pi}{4}","\\frac{11\\pi}{6}","2\\pi")
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-0.95,0.95),ylim=c(-0.95,0.95),axes=F,ann=F)
+t = seq(0,2*pi,pi/1000)
+lines(cos(t),sin(t),lwd=1)
+for(i in c(1/24,5/24,7/24,11/24,13/24,17/24,19/24,23/24)){
+    rho = i*2*pi
+    lines(c(0,cos(rho)),c(0,sin(rho)),lty=3,col="black")
+}
+a = 0.58
+b = 0.98
+c = 0.07
+# xs = c(0,a,a,b,b,a,a,a,b,b,1)
+# ys = c(0,0,c,c,-c,-c,0,-c,-c,0,0)
+xs1 = c(0,a)
+ys1 = c(0,0)
+xs2 = c(a,a,b,b)
+ys2 = c(-c,c,c,-c)
+xs3 = c(b,1)
+ys3 = c(0,0)
+for(i in deg_opts){
+    rho = i*pi/180
+    x = xs1*cos(rho)-ys1*sin(rho)
+    y = xs1*sin(rho)+ys1*cos(rho)
+    lines(x,y,lwd=1)
+    x = xs2*cos(rho)-ys2*sin(rho)
+    y = xs2*sin(rho)+ys2*cos(rho)
+    polygon(x,y,lwd=2)
+    x = xs3*cos(rho)-ys3*sin(rho)
+    y = xs3*sin(rho)+ys3*cos(rho)
+    lines(x,y,lwd=1)
+}
+if(showsol){
+    for(i in 2:(length(deg_opts)-1)){
+        deg = deg_opts[i]
+        rho = deg*pi/180
+        srt = (deg+90)%%180-90
+        rad = paste0("$",dos[i],"=",ras[i],"$",collapse="")
+        text((a+b)/2*cos(rho),(a+b)/2*sin(rho),TeX(rad),col="red",srt=srt)
+    }
+    text((a+b)/2,0,TeX("0  or  $360º=2\\pi$"),col="red")
+}
+
+```
+
+\vfill
+
+\newpage
+
+
+## u12 Radians, Degrees, and Arc Length  `r params$titex` (version `r params$rseed`)
+
+```{r prob2,echo=F}
+deg_opts = c(30,45,60,90,120,135,150,210,225,240,270,300,315,330)
+fullturns = sample(1:3,1)
+deg = fullturns*360+sample(deg_opts,1)
+deg = deg*sample(c(-1,1),1)
+```
+
+2. On the circle below, draw a sketch of a **`r deg`º** angle in standard position. Include the initial ray, the terminal ray, and the spiral arrow indicating direction and full extent of the angle. For your reference, the first few multiples of 360 are 360, 720, 1080, and 1440.
+
+```{r,echo=F,fig.dim=c(2.5,2.5),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-0.95,0.95),ylim=c(-0.95,0.95),axes=F,ann=F)
+t = seq(0,2*pi,pi/1000)
+lines(cos(t),sin(t))
+t = seq(0,2*pi,pi/12)
+for(i in t){
+    lines(c(0,cos(i)),c(0,sin(i)),lty=3,lwd=0.5)
+}
+t = seq(0,2*pi,pi/4)
+for(i in t){
+    lines(c(0,cos(i)),c(0,sin(i)),lty=2,lwd=0.5)
+}
+if(showsol){
+    rf = deg*pi/180
+    lines(c(0,1),c(0,0),col="red",lwd=2)
+    lines(c(0,cos(rf)),c(0,sin(rf)),col="red",lwd=2)
+    ttt = seq(0,rf,sign(rf)*pi/24/100)
+    x = (0.3+ttt/rf*0.5)*cos(ttt)
+    y = (0.3+ttt/rf*0.5)*sin(ttt)
+    lines(x,y,col="red",lwd=3)
+    n = length(x)
+    arrows(x[n-1],y[n-1],x[n],y[n],0.2,20,col="red",lwd=3)
+    points(0.3,0,pch=20,col="red")
+}
+```
+
+
+
+
+```{r prob3,echo=F}
+
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+deg_opts = c(30,45,60,90,120,135,150,210,225,240,270,300,315,330)
+fullturns = sample(1:3,1)
+deg = fullturns*360+sample(deg_opts,1)
+deg = deg*sample(c(-1,1),1)
+num = deg
+den = 180
+ggg = gcd2(num,den)
+num = num/ggg
+den = den/ggg
+
+```
+
+
+3. On the circle below, draw a sketch of a $\cfrac{`r num`\pi}{`r den`}$ angle in standard position. Include the initial ray, the terminal ray, and the spiral arrow indicating direction and full extent of the rotation.
+
+```{r,echo=F,fig.dim=c(2.5,2.5),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-0.95,0.95),ylim=c(-0.95,0.95),axes=F,ann=F)
+t = seq(0,2*pi,pi/1000)
+lines(cos(t),sin(t))
+t = seq(0,2*pi,pi/12)
+for(i in t){
+    lines(c(0,cos(i)),c(0,sin(i)),lty=3,lwd=0.5)
+}
+t = seq(0,2*pi,pi/4)
+for(i in t){
+    lines(c(0,cos(i)),c(0,sin(i)),lty=2,lwd=0.5)
+}
+if(showsol){
+    rf = deg*pi/180
+    lines(c(0,1),c(0,0),col="red",lwd=2)
+    lines(c(0,cos(rf)),c(0,sin(rf)),col="red",lwd=2)
+    ttt = seq(0,rf,sign(rf)*pi/24/100)
+    x = (0.3+ttt/rf*0.5)*cos(ttt)
+    y = (0.3+ttt/rf*0.5)*sin(ttt)
+    lines(x,y,col="red",lwd=3)
+    n = length(x)
+    arrows(x[n-1],y[n-1],x[n],y[n],0.2,20,col="red",lwd=3)
+    points(0.3,0,pch=20,col="red")
+}
+```
+
+
+
+```{r p4, echo=F, results='asis'}
+rt = sample(2:6,2)
+r = rt[1]
+t = rt[2]
+l = r*t
+typ = sample(1:3,1)
+
+rr = r
+tt = t
+ll = l
+
+if(typ==1){
+    rr = "r"
+    v = "r"
+    a = r
+    expl = paste0("r=\\frac{L}{\\theta}=\\frac{",l,"}{",t,"}=",a)
+} else if(typ ==2){
+    tt = "\\theta"
+    v = tt
+    a = t
+    expl = paste0("\\theta=\\frac{L}{r}=\\frac{",l,"}{",r,"}=",a)
+} else {
+    ll = "L"
+    v = "L"
+    a = l
+    expl = paste0("L=r\\theta=",r,"\\cdot",t,"=",a)
+}
+
+wrd1 = paste0("A circle is drawn with a radius of $",rr,"$ meters. A central angle of $",tt,"$ radians is drawn, subtending an arc of length $",ll,"$ meters. Find $",v,"$.")
+wrd2 = paste0("A circle is drawn with a central angle of $",tt,"$ radians. The radius is $",rr,"$ meters and the subtended arc length is $",ll,"$ meters. Find $",v,"$.")
+wrd3 = paste0("A circle, a central angle, and the subtended arc are drawn. The arc length is $",ll,"$ meters. The central angle is $",tt,"$ radians. The radius is $",rr,"$ meters. Find $",v,"$.")
+
+wrds = c(wrd1,wrd2,wrd3)
+wrd = sample(wrds,1)
+
+cat(paste0("4. ",wrd,"\n\n",collapse=""))
+```
+
+
+\vfill
+
+```{r,results='asis',echo=F}
+if(showsol){
+    # cat(paste0("$$\\color{red}",v,"=",a,"$$"))
+    cat(paste0("$$\\color{red}",expl,"$$"))
+} else {
+    cat(paste0("\\phantom{$$8=8$$}"))
+}
+```
+
+\vfill
