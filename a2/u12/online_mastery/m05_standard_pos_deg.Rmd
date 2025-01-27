@@ -1,0 +1,90 @@
+```{r,echo=F}
+while(T){
+  ang = runif(1,0.1,0.9)*2*pi*sample(c(-1,1),1)
+  deg = round(ang/pi*180)
+  if(abs(deg%%90)>5){break}
+}
+
+correct = c(0,ang)
+wrong1 = c(0,-ang)
+wrong2 = c(pi/2,pi/2+ang)
+wrong3 = c(pi/2,pi/2-ang)
+wrong4 = c(pi,pi+ang)
+wrong5 = c(pi,pi-ang)
+wrong6 = c(3*pi/2,3*pi/2+ang)
+wrong7 = c(3*pi/2,3*pi/2-ang)
+allchoices = list(correct,wrong1,wrong2,wrong3,wrong4,wrong5,wrong6,wrong7)
+shuch = sample(allchoices)
+sol = ""
+for(i in 1:length(shuch)){
+  if(shuch[[i]][1]==correct[1] && shuch[[i]][2]==correct[2]){
+    sol = paste0(sol,"1",collapse="")
+    sollet = LETTERS[i]
+  } else {
+    sol = paste0(sol,"0",collapse="")
+  }
+}
+if(ang>0){
+  wrd1 = "positive"
+  wrd2 = "counterclockwise"
+} else {
+  wrd1 = "negative"
+  wrd2 = "clockwise"
+}
+```
+
+Question
+========
+
+Which graph shows a `r deg`$^\circ$ angle in standard position?
+
+```{r,echo=F,fig.dim=c(6,12)}
+par(mfrow = c(4, 2))
+for(i in 1:length(shuch)){
+  par(mar=c(0,3,3,3),pty="s")
+  plot(0,0,type="n",axes=F,xlim=c(-1,1),ylim=c(-1,1),main=LETTERS[i])
+  abline(h=0)
+  abline(v=0)
+  a1 = shuch[[i]][1]
+  a2 = shuch[[i]][2]
+  lines(c(0,cos(a1)),c(0,sin(a1)),col="blue",lwd=3)
+  lines(c(0,cos(a2)),c(0,sin(a2)),col="blue",lwd=3)
+  len = 100
+  th = seq(a1,a2,sign(a2-a1)*pi/100)
+  len = length(th)-1
+  r = 0.7
+  lines(r*cos(th),r*sin(th),lwd=2,col="blue")
+  arrows(r*cos(th[len]),r*sin(th[len]),r*cos(th[len+1]),r*sin(th[len+1]),lwd=2,col="blue")
+}
+
+```
+\
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+* E
+* F
+* G
+* H
+
+
+
+Solution
+========
+
+The standard position of an angle puts the initial side pointing East (horizontally to the right). A positive angle opens COUNTERCLOCKWISE, and a negative angle opens clockwise. The terminal side of the angle is placed at the end of the angle's arc.
+
+
+In this case the angle is `r wrd1`, so the angle rotates `r wrd2`. Thus, the correct answer is `r sollet`.
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: plot_angle_standard_position

@@ -1,0 +1,142 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+library(latex2exp)
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+tdens = c(18,20,24)
+
+rnums = numeric()
+rdens = numeric()
+rdecs = numeric()
+rpris = character()
+degs = numeric()
+
+makepr = function(rnum,rden){
+    if(rden==1){
+        s = paste0("{",rnum,"}\\pi")    
+    } else {
+        s = paste0("\\frac{{",rnum,"}\\pi}{",rden,"}")
+    }
+    s = gsub("{1}","",s,fixed=T)
+    return(s)
+}
+
+tops = c("π","2π","3π","4π","5π","6π","7π","8π","9π","10π","11π","12π",
+         "13π","14π","15π","16π","17π","18π","19π","20π","21π","22π","23π","24π")
+bots = paste0(1:12)
+
+for(tden in tdens){
+    for(tnum in 1:tden){
+        rnum = tnum*2
+        rden = tden
+        gg = gcd(rnum,rden)
+        rnum = round(rnum/gg)
+        rden = round(rden/gg)
+        rdec = round(pi*rnum/rden,5)
+        deg = round(tnum*360/tden)
+        if(rden>1 && !(rdec%in%rdecs)){
+            rnums = c(rnums,rnum)
+            rdens = c(rdens,rden)
+            rdecs = c(rdecs,rdec)
+            rpris = c(rpris,makepr(rnum,rden))
+            degs = c(degs,deg)
+            }
+    }
+}
+
+myord = order(rdecs) 
+rdecs = rdecs[myord]
+rnums = rnums[myord]
+rdens = rdens[myord]
+rpris = rpris[myord]
+degs = degs[myord]
+
+angi = sample(1:length(rdecs),6)
+rdec = rdecs[angi]
+rnum = rnums[angi]
+rden = rdens[angi]
+rpri = rpris[angi]
+deg = degs[angi]
+theta = rdec
+
+al1 = paste0("* ",tops,collapse="\n")
+al2 = paste0("* ",bots,collapse="\n")
+al3 = paste0("* ",degs,collapse="\n")
+
+sol1 = paste0(1*(rnum[1]==1:24),collapse="")
+sol2 = paste0(1*(rden[1]==1:12),collapse="")
+sol3 = paste0(1*(deg[2]==degs),collapse="")
+sol4 = paste0(1*(rnum[3]==1:24),collapse="")
+sol5 = paste0(1*(rden[3]==1:12),collapse="")
+sol6 = paste0(1*(deg[4]==degs),collapse="")
+sol7 = paste0(1*(rnum[5]==1:24),collapse="")
+sol8 = paste0(1*(rden[5]==1:12),collapse="")
+sol9 = paste0(1*(deg[6]==degs),collapse="")
+
+
+```
+
+Question
+========
+
+1. Convert `r deg[1]`° to radians.
+
+* ##ANSWER1## $/$ ##ANSWER2##
+
+2. Convert $`r rpri[2]`$ radians to degrees.
+
+* ##ANSWER3##
+
+3. Convert `r deg[3]`° to radians.
+
+* ##ANSWER4## $/$ ##ANSWER5##
+
+4. Convert $`r rpri[4]`$ radians to degrees.
+
+* ##ANSWER6##
+
+5. Convert `r deg[5]`° to radians.
+
+* ##ANSWER7## $/$ ##ANSWER8##
+
+6. Convert $`r rpri[6]`$ radians to degrees.
+
+* ##ANSWER9##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al3`
+`r al1`
+`r al2`
+`r al3`
+`r al1`
+`r al2`
+`r al3`
+
+
+
+Solution
+========
+
+
+1. Convert `r deg[1]`° to $`r rpri[1]`$ radians.
+2. Convert $`r rpri[2]`$ radians to `r deg[2]`°.
+3. Convert `r deg[3]`° to $`r rpri[3]`$ radians.
+4. Convert $`r rpri[4]`$ radians to `r deg[4]`°.
+5. Convert `r deg[5]`° to $`r rpri[5]`$ radians.
+6. Convert $`r rpri[6]`$ radians to `r deg[6]`°.
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`|`r sol6`|`r sol7`|`r sol8`|`r sol9`
+exname: deg_rad_conv

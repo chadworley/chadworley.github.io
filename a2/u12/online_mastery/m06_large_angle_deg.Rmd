@@ -1,0 +1,132 @@
+```{r,echo=F}
+## Editorial note: it would be nice to show remainder with long division
+
+while(T){
+  ang = runif(1,1.1,3.9)*2*pi*sample(c(-1,1),1)
+  deg = round(ang/pi*180)
+  if(abs(deg%%90)>10 && abs(deg%%90)<80){break}
+}
+correct = c(0,ang)
+wrong1 = c(0,-ang)
+wrong2 = c(0,pi/2*sample(c(-1,1),1)+ang)
+wrong3 = c(0,pi/2*sample(c(-1,1),1)-ang)
+wrong4 = c(0,pi*sample(c(-1,1),1)+ang)
+wrong5 = c(0,pi*sample(c(-1,1),1)-ang)
+wrong6 = c(0,3*pi/2*sample(c(-1,1),1)+ang)
+wrong7 = c(0,3*pi/2*sample(c(-1,1),1)-ang)
+allchoices = list(correct,wrong1,wrong2,wrong3,wrong4,wrong5,wrong6,wrong7)
+shuch = sample(allchoices)
+sol = ""
+for(i in 1:length(shuch)){
+  if(shuch[[i]][1]==correct[1] && shuch[[i]][2]==correct[2]){
+    sol = paste0(sol,"1",collapse="")
+    sollet = LETTERS[i]
+  } else {
+    sol = paste0(sol,"0",collapse="")
+  }
+}
+
+div = floor(abs(deg)/360)
+rem = abs(deg)%%360
+
+qts = rem%/%90
+lq = qts*90
+uq = (qts+1)*90
+
+if(ang>0){
+  wrd1 = "positive"
+  wrd2 = "counterclockwise"
+  q = qts+1
+} else {
+  wrd1 = "negative"
+  wrd2 = "clockwise"
+  q = 4-qts
+}
+
+qls = c("I","II","III","IV")
+
+```
+
+Question
+========
+
+Which graph shows a `r deg`$^\circ$ angle in standard position?
+
+```{r,echo=F,fig.dim=c(6,12)}
+par(mfrow = c(4, 2))
+for(i in 1:length(shuch)){
+  par(mar=c(0,3,3,3),pty="s")
+  plot(0,0,type="n",axes=F,xlim=c(-1,1),ylim=c(-1,1),main=LETTERS[i])
+  abline(h=0)
+  abline(v=0)
+  a1 = shuch[[i]][1]
+  a2 = shuch[[i]][2]
+  lines(c(0,cos(a1)),c(0,sin(a1)),col="blue",lwd=3)
+  lines(c(0,cos(a2)),c(0,sin(a2)),col="blue",lwd=3)
+  len = 500
+  th = seq(a1,a2,sign(a2-a1)*pi/100)
+  len = length(th)-1
+  r = seq(0.4,0.8,0.4/len)
+  lines(r*cos(th),r*sin(th),lwd=2,col="red")
+  arrows(0.8*cos(th[len]),0.8*sin(th[len]),0.8*cos(th[len+1]),0.8*sin(th[len+1]),lwd=2,col="red",length=0.1)
+}
+
+```
+\
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+* E
+* F
+* G
+* H
+
+
+
+Solution
+========
+
+The given angle is `r deg`$^\circ$. The angle is `r wrd1`, so the angle rotates **`r wrd2`**.
+
+Notice if we divide `r abs(deg)` by 360 we get `r div` with a remainder of `r rem`. So, rotate `r div` full times and then also rotate by `r rem`$^\circ$. 
+
+Notice that `r rem`$^\circ$ is between `r lq`$^\circ$ and `r uq`$^\circ$, so it'll need between `r qts` and `r qts+1` quarter turns after the `r div` full turns (all `r wrd2`). That puts the terminal side in quadrant `r q` (quadrant `r qls[q]`).
+
+```{r,echo=F,fig.dim=c(6,6)}
+
+par(mar=c(0,3,3,3),pty="s")
+plot(0,0,type="n",axes=F,xlim=c(-1,1),ylim=c(-1,1))
+abline(h=0)
+abline(v=0)
+a1 = correct[1]
+a2 = correct[2]
+lines(c(0,cos(a1)),c(0,sin(a1)),col="blue",lwd=3)
+lines(c(0,cos(a2)),c(0,sin(a2)),col="blue",lwd=3)
+len = 500
+mi = 0.4
+ma = 0.8
+th = seq(a1,a2,(a2-a1)/len)
+r = seq(mi,ma,(ma-mi)/len)
+len = length(th)-1
+lines(r*cos(th),r*sin(th),lwd=2,col="red")
+arrows(0.8*cos(th[len]),0.8*sin(th[len]),0.8*cos(th[len+1]),0.8*sin(th[len+1]),lwd=2,col="red",length=0.2)
+
+for(i in 0:div){
+  text(i/(abs(deg)/360)*(ma-mi)+mi-0.03,0.04,i)
+}
+
+```
+\
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: plot_angle_standard_position

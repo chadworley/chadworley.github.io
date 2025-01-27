@@ -1,0 +1,55 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+library(latex2exp)
+deg_opts = c(0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330,360)
+dos = paste0(deg_opts,"º")
+ras = c("0","\\pi/6","\\pi/4","\\pi/3","\\pi/2","2\\pi/3","3\\pi/4","5\\pi/6","\\pi","7\\pi/6","5\\pi/4","4\\pi/3","3\\pi/2","5\\pi/3","7\\pi/4","11\\pi/6","2\\pi")
+ras2 = c("0","\\frac{\\pi}{6}","\\frac{\\pi}{4}","\\frac{\\pi}{3}","\\frac{\\pi}{2}","\\frac{2\\pi}{3}","\\frac{3\\pi}{4}","\\frac{5\\pi}{6}","\\pi","\\frac{7\\pi}{6}","\\frac{5\\pi}{4}","\\frac{4\\pi}{3}","\\frac{3\\pi}{2}","\\frac{5\\pi}{3}","\\frac{7\\pi}{4}","\\frac{11\\pi}{6}","2\\pi")
+
+angi = sample(c(2:4,6:8,10:12,14:16),1)
+deg = deg_opts[angi]
+dtex = dos[angi]
+rtex = ras2[angi]
+rad = deg/180*pi
+theta = rad
+
+```
+
+Question
+========
+
+Consider the unit circle (radius equals 1) with a central angle subtending an arc with a length of $`r rtex`$.
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),pty="s")
+th = seq(0,2*pi,pi/300)
+plot(cos(th),sin(th),"l",axes=F,ann=F,xlim=c(-1.3,1.3),ylim=c(-1.3,1.3))
+lines(c(cos(theta),0),c(sin(theta),0),col="black")
+lines(c(0,1),c(0,0),col="purple",lwd=3)
+points(0,0,pch=20,col="purple")
+text(0.5,-0.07,TeX(paste0("$",1,"$")),col="purple")
+th2 = seq(0,theta,pi/300)
+lines(0.2*cos(th2),0.2*sin(th2),col="blue",lwd=3)
+n = length(th2)
+arrows(0.2*cos(th2[n-1]),0.2*sin(th2[n-1]),0.2*cos(th2[n]),0.2*sin(th2[n]),0.07,30,2,"blue",lwd=3)
+text(0.4*cos(theta/2),0.4*sin(theta/2),TeX(paste0("$x^{\\circ}$")),col="blue",cex=2)
+lines(cos(th2),sin(th2),col="red",lwd=3)
+text(1.2*cos(theta/2),1.2*sin(theta/2),TeX(paste0("$",rtex,"$")),col="red")
+```
+\
+
+The central angle measure is $x$ **degrees**. Find $x$.
+
+
+Solution
+========
+
+* You should understand radian measure of an angle as the length of the arc on the unit circle subtended by the angle.
+
+Thus, this question is equivalent to converting $`r rtex`$ radians to degrees.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r deg`
+exname: unit_circle_deg_from_L

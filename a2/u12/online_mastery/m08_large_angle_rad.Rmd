@@ -1,0 +1,159 @@
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+while(T){
+  den = sample(c(5,10,7,14,9,18,11,12,22,24),1)
+  num = sample(1:den,1)
+  div = gcd(den,num)
+  num = round(num/div)
+  den = round(den/div)
+  radnum = num*2
+  radden = den
+  raddiv = gcd(radnum,radden)
+  radnum = round(radnum/raddiv)
+  radden = round(radden/raddiv)
+  deg = den*360/num
+  ang = radnum*pi/radden
+  ref = ang%%(pi/2)
+  ref = min(ref,pi/2-ref)
+  if(radden>2 && radden<9 && radden!=4 && abs(pi/4-ref)>pi/17){break}
+}
+
+offby = sample(c(-3,-2,-1,1,2,3),1)
+ang = ang+offby*2*pi
+deg = ang*180/pi
+
+correct = c(0,ang)
+wrong1 = c(0,-ang)
+wrong2 = c(0,pi/2*sample(c(-1,1),1)+ang)
+wrong3 = c(0,pi/2*sample(c(-1,1),1)-ang)
+wrong4 = c(0,pi*sample(c(-1,1),1)+ang)
+wrong5 = c(0,pi*sample(c(-1,1),1)-ang)
+wrong6 = c(0,3*pi/2*sample(c(-1,1),1)+ang)
+wrong7 = c(0,3*pi/2*sample(c(-1,1),1)-ang)
+allchoices = list(correct,wrong1,wrong2,wrong3,wrong4,wrong5,wrong6,wrong7)
+shuch = sample(allchoices)
+sol = ""
+for(i in 1:length(shuch)){
+  if(shuch[[i]][1]==correct[1] && shuch[[i]][2]==correct[2]){
+    sol = paste0(sol,"1",collapse="")
+    sollet = LETTERS[i]
+  } else {
+    sol = paste0(sol,"0",collapse="")
+  }
+}
+
+if(ang>0){
+  wrd1 = "positive"
+  wrd2 = "counterclockwise"
+} else {
+  wrd1 = "negative"
+  wrd2 = "clockwise"
+}
+
+qls = c("I","II","III","IV")
+
+rn = paste0(radnum)
+if(radnum==1){rn=""}
+
+
+rn3 = radnum+offby*2*radden
+rn2 = radnum+offby*2*radden
+if(rn2 == -1){rn2="-"} else {rn2=paste0(rn2)}
+
+
+```
+
+Question
+========
+
+Which graph shows a $\frac{`r rn2`\pi}{`r radden`}$ angle in standard position?
+
+```{r,echo=F,fig.dim=c(6,12)}
+par(mfrow = c(4, 2))
+for(i in 1:length(shuch)){
+  par(mar=c(0,3,3,3),pty="s")
+  plot(0,0,type="n",axes=F,xlim=c(-1,1),ylim=c(-1,1),main=LETTERS[i])
+  abline(h=0)
+  abline(v=0)
+  a1 = shuch[[i]][1]
+  a2 = shuch[[i]][2]
+  lines(c(0,cos(a1)),c(0,sin(a1)),col="blue",lwd=3)
+  lines(c(0,cos(a2)),c(0,sin(a2)),col="blue",lwd=3)
+  th = seq(a1,a2,sign(a2-a1)*pi/100)
+  len = length(th)
+  if(abs(a2)<2*pi){
+    r = 0.8
+  } else {
+    r = seq(0.4,0.8,length.out=length(th))
+  }
+  lines(r*cos(th),r*sin(th),lwd=2,col="red")
+  arrows(0.8*cos(th[len-1]),0.8*sin(th[len-1]),0.8*cos(th[len]),0.8*sin(th[len]),lwd=2,col="red",length=0.1)
+}
+
+```
+\
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+* E
+* F
+* G
+* H
+
+
+
+Solution
+========
+
+The given angle is $\frac{`r rn2`\pi}{`r radden`}$. The angle is `r wrd1`, so the angle rotates **`r wrd2`**.
+
+Each wedge shown below corresponds to an angle of $\frac{\pi}{`r radden`}$. So, we just need to turn across `r abs(rn3)` wedges `r wrd2`.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,3,3,3),pty="s")
+plot(0,0,type="n",axes=F,xlim=c(-1.3,1.3),ylim=c(-1.3,1.3))
+abline(h=0,col=rgb(0,0,0,0.2))
+abline(v=0,col=rgb(0,0,0,0.2))
+a1 = correct[1]
+a2 = correct[2]
+lines(c(0,cos(a1)),c(0,sin(a1)),col="blue",lwd=3)
+lines(c(0,cos(a2)),c(0,sin(a2)),col="blue",lwd=3)
+len = 500
+th = seq(a1,a2,length.out = len+1)
+if(abs(a2)<2*pi){
+  r = 0.8
+} else {
+  r = seq(0.4,0.8,length.out = len+1)
+}
+lines(r*cos(th),r*sin(th),lwd=2,col="red")
+arrows(0.8*cos(th[len]),0.8*sin(th[len]),0.8*cos(th[len+1]),0.8*sin(th[len+1]),lwd=2,col="red",length=0.2)
+
+for(i in 1:(2*radden-1)){
+  chi = i*pi/radden
+  ni = i
+  if(i==1){
+    ni = ""
+  }
+  lines(c(1.1*cos(chi),0),c(1.1*sin(chi),0),col="purple",lwd=1,lty=2)
+  # text(1.25*cos(chi),1.25*sin(chi),TeX(paste0("$\\frac{",i,"\\pi}{",radden,"}$")))
+}
+
+```
+\
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: plot_angle_standard_position

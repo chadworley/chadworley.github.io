@@ -1,0 +1,124 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+n = 1
+
+while(T){
+    rad_dom = c(5,6,9,10,12)
+    rdoms = sample(rad_dom,n,F)
+    rnums = numeric()
+    slice = rdoms*2
+    for(i in rdoms){
+        rnums = c(rnums,sample(2:(2*i-2),1))
+    }
+    cnt = rnums
+    for(i in 1:n){
+        g = gcd(rnums[i],rdoms[i])
+        rnums[i] = round(rnums[i]/g)
+        rdoms[i] = round(rdoms[i]/g)
+    }
+    rads = rnums/rdoms*pi
+    degs = round(180*rnums/rdoms)
+    tnums = rnums
+    tdoms = rdoms*2
+    for(i in 1:n){
+        g = gcd(tnums[i],tdoms[i])
+        tnums[i] = round(tnums[i]/g)
+        tdoms[i] = round(tdoms[i]/g)
+    }
+    turs = tnums/tdoms
+    if(sum(rnums==rdoms)==0 && sum(rdoms==1)==0){break}
+}
+
+numch = 1:24
+dench = 1:24
+degch = sort(unique(c(seq(0,360,18),seq(0,360,15),seq(0,360,20))))
+radch = degch*pi/180
+turch = degch/360
+
+sols = character()
+for(i in 1:n){
+    sols = c(sols,paste0(1*(degs[i]==degch),collapse=""))
+    sols = c(sols,paste0(1*(rnums[i]==numch),collapse=""))
+    sols = c(sols,paste0(1*(rdoms[i]==dench),collapse=""))
+    sols = c(sols,paste0(1*(abs(rads[i]-radch)<0.001),collapse=""))
+    sols = c(sols,paste0(1*(tnums[i]==numch),collapse=""))
+    sols = c(sols,paste0(1*(tdoms[i]==dench),collapse=""))
+    sols = c(sols,paste0(1*(abs(turs[i]-turch)<0.001),collapse=""))
+}
+
+
+```
+
+Question
+========
+
+
+
+```{r,echo=F,fig.dim=c(5,5),results='asis'}
+library(latex2exp)
+angname = c("\\theta","\\phi","\\omega","\\psi","\\beta")
+angpro = c("theta","phi","omega","psi","beta")
+for(i in 1:n){
+    cat(paste0('\n* The circle below is cut into ',slice[i]," congruent sectors. The central angle, $",angname[i],"$ (",angpro[i],"), subtends ",cnt[i]," of the sectors."))
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+    th = seq(0,2*pi,pi/360)
+    lines(cos(th),sin(th))
+    th2 = seq(0,2*pi,length.out=slice[i]+1)
+    for(t in th2){
+        lines(c(0,cos(t)),c(0,sin(t)),col="grey")
+    }
+    th3 = seq(0,rads[i],pi/360)
+    lines(0.3*cos(th3),0.3*sin(th3),col=rgb(0.8,0,0.8),lwd=2)
+    dt = 0.01
+    arrows(0.3*cos(rads[i]-dt),0.3*sin(rads[i]-dt),0.3*cos(rads[i]),0.3*sin(rads[i]),0.05,18,lwd=2,col=rgb(0.8,0,0.8))
+    text(0.45*cos(rads[i]/2),0.45*sin(rads[i]/2),TeX(paste0("$",angname[i],"$")),col=rgb(0.8,0,0.8),cex=2)
+    cat("\n\n")
+    cat(paste0("* The angle is ##ANSWER",i*7-6,"## degrees.\n",collapse=""))
+    cat(paste0("* The angle is ##ANSWER",i*7-5,"##$\\pi\\bigg/$##ANSWER",i*7-4,"## radians.\n",collapse=""))
+    cat(paste0("* As a decimal approximation, the angle is ##ANSWER",i*7-3,"## radians.\n",collapse=""))
+    cat(paste0("* The angle is ##ANSWER",i*7-2,"##$\\bigg/$##ANSWER",i*7-1,"## turns.\n",collapse=""))
+    cat(paste0("* As a decimal, the angle is ##ANSWER",i*7,"## turns.\n\n",collapse=""))
+}
+```
+\
+
+
+Answerlist
+--------
+
+```{r,echo=F,results='asis'}
+numal = paste0("* ",numch,collapse="\n")
+denal = paste0("* ",dench,collapse="\n")
+degal = paste0("* ",degch,collapse="\n")
+radal = paste0("* ",radch,collapse="\n")
+tural = paste0("* ",turch,collapse="\n")
+for(i in 1:n){
+    cat(paste0(degal,"\n",numal,"\n",denal,"\n",radal,"\n",numal,"\n",denal,"\n",tural,"\n"))
+}
+```
+
+
+Solution
+========
+
+```{r,echo=F,results='asis'}
+for(i in 1:n){
+    cat(paste0('### Circle ',i,'\n\n* The circle is cut into ',slice[i]," congruent sectors. The central angle, $",angname[i],"$ (",angpro[i],"), subtends ",cnt[i]," of the sectors."))
+    cat("\n\n")
+    cat(paste0("The angle is $",degs[i],"^{\\circ}$, which is $\\frac{",rnums[i],"}{",rdoms[i],"}\\pi$ radians, approximately ",rads[i]," radians, which is $\\frac{",tnums[i],"}{",tdoms[i],"}$ of a turn, which is ",turs[i]," turns.\n\n"))
+}
+```
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",n*7),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: radians_from_unit_arc
