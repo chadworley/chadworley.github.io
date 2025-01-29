@@ -1,0 +1,83 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+
+while(T){
+    degcuts = round(c(0,runif(2,15,165),180),1)
+    degs = diff(sort(degcuts))
+    degs = sample(degs)
+    Ad = degs[1]
+    Bd = degs[2]
+    Cd = degs[3]
+    A = Ad/180*pi
+    B = Bd/180*pi
+    C = Cd/180*pi
+    pA = c(0,0)
+    pB = c(1,0)
+    c = 1
+    b = c*sin(B)/sin(C)
+    a = c*sin(A)/sin(C)
+    pC = c(b*cos(A),b*sin(A))
+    throt = runif(1,0,2*pi)
+    prA = c(cos(throt)*pA[1]-sin(throt)*pA[2],sin(throt)*pA[1]+cos(throt)*pA[2])
+    prB = c(cos(throt)*pB[1]-sin(throt)*pB[2],sin(throt)*pB[1]+cos(throt)*pB[2])
+    prC = c(cos(throt)*pC[1]-sin(throt)*pC[2],sin(throt)*pC[1]+cos(throt)*pC[2])
+    xs = c(prA[1],prB[1],prC[1])
+    ys = c(prA[2],prB[2],prC[2])
+    xwid = (max(xs)-min(xs))/2
+    ywid = (max(ys)-min(ys))/2
+    xmid = mean(c(max(xs),min(xs)))
+    ymid = mean(c(max(ys),min(ys)))
+    wid = max(c(xwid,ywid))
+    dt = 0.25*wid
+    rtA = dt/A
+    rtB = dt/B
+    rtC = dt/C/2
+    ptA = c(rtA*cos(A/2),rtA*sin(A/2))
+    ptB = c(1+rtB*cos(pi-B/2),rtB*sin(pi-B/2))
+    th1 = atan2(pA[2]-pC[2],pA[1]-pC[1])
+    th2 = atan2(pB[2]-pC[2],pB[1]-pC[1])
+    th3 = mean(c(th1,th2))
+    ptC = pC+c(rtC*cos(th3),rtC*sin(th3))
+    ptA = c(cos(throt)*ptA[1]-sin(throt)*ptA[2],sin(throt)*ptA[1]+cos(throt)*ptA[2])
+    ptB = c(cos(throt)*ptB[1]-sin(throt)*ptB[2],sin(throt)*ptB[1]+cos(throt)*ptB[2])
+    ptC = c(cos(throt)*ptC[1]-sin(throt)*ptC[2],sin(throt)*ptC[1]+cos(throt)*ptC[2])
+    
+    texA = paste0(Ad,"°",collapse="")
+    texB = paste0(Bd,"°",collapse="")
+    texC = "?"
+    if(min(degs)>15 && min(c(a,b,c))>(1/2) && max(c(a,b,c))<2 && length(unique(c(a,b,c)))==3 && round(Ad)!=Ad && round(Bd)!=Bd && round(Cd)!=Cd){break}
+}
+
+
+```
+
+Question
+========
+
+A triangle is drawn. Two of the interior angle measures are known to be `r texA` and `r texB`. Find the third interior angle measure in degrees.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(xmid-wid,xmid+wid),ylim=c(ymid-wid,ymid+wid))
+polygon(xs,ys,lwd=3,border="darkgrey")
+points(xs,ys,pch=19,cex=0.7)
+text(ptA[1],ptA[2],texA,adj=c(0.5,0.5),col="red")
+text(ptB[1],ptB[2],texB,adj=c(0.5,0.5),col="blue")
+text(ptC[1],ptC[2],texC,adj=c(0.5,0.5))
+```
+\
+
+
+Solution
+========
+
+The interior angle measures sum to 180°.
+
+$$180-`r Ad`-`r Bd`~=~`r Cd`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r Cd`
+exname: triangle_3rd_angle_deg
+extol: 0.0001
