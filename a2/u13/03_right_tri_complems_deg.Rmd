@@ -1,6 +1,6 @@
 ```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
 
-deg1 = round(runif(1,10,80),1)
+deg1 = round(runif(1,15,75),1)
 deg2 = 90-deg1
 
 
@@ -23,8 +23,8 @@ for(i in seq(-1,1,1)){
     lines(c(i,i),c(-dd,dd),col="darkgrey",lwd=1)
     lines(c(-dd,dd),c(i,i),col="darkgrey",lwd=1)
 }
-arrows(-dd*1.04,0,dd*1.04,0,0.1,10,3,lwd=3)
-arrows(0,-dd*1.04,0,dd*1.04,0.1,10,3,lwd=3)
+arrows(-dd*1.04,0,dd*1.04,0,0.1,10,3,lwd=3,col="darkgrey")
+arrows(0,-dd*1.04,0,dd*1.04,0.1,10,3,lwd=3,col="darkgrey")
 text(1.02,-0.04,"1")
 text(-0.03,1.03,"1")
 text(1.17,-0.04,"x")
@@ -32,6 +32,25 @@ text(-0.03,1.17,"y")
 
 th = seq(0,2*pi,pi/360)
 lines(cos(th),sin(th))
+
+rad1 = deg1*pi/180
+
+polygon(c(0,cos(rad1),cos(rad1)),c(0,sin(rad1),0),border="black",lwd=2)
+db = 0.02
+lines(c(cos(rad1)-db,cos(rad1)-db,cos(rad1)),
+      c(0,db,db))
+
+
+th2 = seq(0,rad1,pi/360)
+lines(0.1*cos(th2),0.1*sin(th2),col="red",lwd=2)
+text(0.2*cos(rad1/2),0.2*sin(rad1/2),paste0(deg1,"°",collapse=""),col="red")
+
+rad2 = deg2*pi/180
+th3 = seq(3*pi/2-rad2,3*pi/2,pi/360)
+lines(cos(rad1)+0.1*cos(th3),sin(rad1)+0.1*sin(th3),col="blue",lwd=2)
+text(cos(rad1)+0.2*cos(-pi/2-rad2/2),
+     sin(rad1)+0.2*sin(-pi/2-rad2/2),"?",col="blue")
+
 
 ```
 \
@@ -48,6 +67,6 @@ Solution
 Meta-information
 ============
 extype: num
-exsolution: 
-exname: triangle_3rd_angle_deg
+exsolution: `r deg2`
+exname: right_tri_complems_deg
 extol: 0.0001
