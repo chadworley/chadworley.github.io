@@ -1,0 +1,155 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+library(latex2exp)
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+while(T){
+    degcuts = c(0,sample(seq(5,175,5),2),180)
+    degs = diff(sort(degcuts))
+    degs = sample(degs)
+    Ad = degs[1]
+    Bd = degs[2]
+    Cd = degs[3]
+    A = Ad/180*pi
+    B = Bd/180*pi
+    C = Cd/180*pi
+    pA = c(0,0)
+    pB = c(1,0)
+    c = 1
+    b = c*sin(B)/sin(C)
+    a = c*sin(A)/sin(C)
+    pC = c(b*cos(A),b*sin(A))
+    throt = runif(1,0,2*pi)
+    prA = c(cos(throt)*pA[1]-sin(throt)*pA[2],sin(throt)*pA[1]+cos(throt)*pA[2])
+    prB = c(cos(throt)*pB[1]-sin(throt)*pB[2],sin(throt)*pB[1]+cos(throt)*pB[2])
+    prC = c(cos(throt)*pC[1]-sin(throt)*pC[2],sin(throt)*pC[1]+cos(throt)*pC[2])
+    xs = c(prA[1],prB[1],prC[1])
+    ys = c(prA[2],prB[2],prC[2])
+    xwid = (max(xs)-min(xs))/2
+    ywid = (max(ys)-min(ys))/2
+    xmid = mean(c(max(xs),min(xs)))
+    ymid = mean(c(max(ys),min(ys)))
+    wid = max(c(xwid,ywid))
+    dt = 0.4*wid
+    rtA = dt/A
+    rtB = dt/B
+    rtC = dt/C/2
+    ptA = c(rtA*cos(A/2),rtA*sin(A/2))
+    ptB = c(1+rtB*cos(pi-B/2),rtB*sin(pi-B/2))
+    th1 = atan2(pA[2]-pC[2],pA[1]-pC[1])
+    th2 = atan2(pB[2]-pC[2],pB[1]-pC[1])
+    th3 = mean(c(th1,th2))
+    ptC = pC+c(rtC*cos(th3),rtC*sin(th3))
+    ptA = c(cos(throt)*ptA[1]-sin(throt)*ptA[2],sin(throt)*ptA[1]+cos(throt)*ptA[2])
+    ptB = c(cos(throt)*ptB[1]-sin(throt)*ptB[2],sin(throt)*ptB[1]+cos(throt)*ptB[2])
+    ptC = c(cos(throt)*ptC[1]-sin(throt)*ptC[2],sin(throt)*ptC[1]+cos(throt)*ptC[2])
+    
+    Arnum = Ad
+    Arden = 180
+    gg = gcd(c(Arnum,Arden))
+    Arnum = round(Arnum/gg)
+    Arden = round(Arden/gg)
+    
+    Brnum = Bd
+    Brden = 180
+    gg = gcd(c(Brnum,Brden))
+    Brnum = round(Brnum/gg)
+    Brden = round(Brden/gg)
+    
+    Crnum = Cd
+    Crden = 180
+    gg = gcd(c(Crnum,Crden))
+    Crnum = round(Crnum/gg)
+    Crden = round(Crden/gg)
+    
+    texA = paste0("\\frac{",Arnum,"\\pi}{",Arden,"}",collapse="")
+    if(Arnum==1){
+        texA = paste0("\\frac{\\pi}{",Arden,"}",collapse="")
+    }
+    texB = paste0("\\frac{",Brnum,"\\pi}{",Brden,"}",collapse="")
+    if(Brnum==1){
+        texB = paste0("\\frac{\\pi}{",Brden,"}",collapse="")
+    }
+    texC = paste0("\\frac{",Crnum,"\\pi}{",Crden,"}",collapse="")
+    if(Crnum==1){
+        texC = paste0("\\frac{\\pi}{",Crden,"}",collapse="")
+    }
+    if(min(degs)>1 && length(unique(c(a,b,c)))==3 && Arden>1 && Brden>1 && Crden>1 && length(unique(c(Arden,Brden,Crden)))==3){break}
+}
+
+ach1 = paste0(1:36,"π")
+ach2 = c(2,3,4,6,9,12,18,36)
+
+ach1[1] = "π"
+
+al1 = paste0("* ",ach1,collapse="\n")
+al2 = paste0("* ",ach2,collapse="\n")
+
+sol1 = paste0(1*(1:36==Crnum),collapse="")
+sol2 = paste0(1*(ach2==Crden),collapse="")
+
+```
+
+Question
+========
+
+A triangle is drawn. Two of the interior angle measures are known to be $`r texA`$ and $`r texB`$. Find the third interior angle measure in radians.
+
+
+* ##ANSWER1## / ##ANSWER2##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+
+Solution
+========
+
+The interior angle measures sum to $\pi$ radians (because $\pi$ radians equals 180°). The unknown angle measure can be found by subtracting the other two angles from $\pi$.
+
+$$\pi-`r texA`-`r texB`$$
+
+```{r,echo=F}
+gg = gcd(c(Arden,Brden))
+lcm = Arden*Brden/gg
+mA = lcm/Arden
+mB = lcm/Brden
+
+```
+
+
+
+Find the least common denominator. The least common multiple of `r Arden` and `r Brden` is `r Arden*Brden/gcd(c(Arden,Brden))`.
+
+$$\frac{`r lcm`\pi}{`r lcm`}-\frac{`r mA*Arnum`\pi}{`r mA*Arden`}-\frac{`r mB*Brnum`\pi}{`r mB*Brden`}$$
+
+With common denominators, we can simply subtract the numerators.
+
+
+$$\frac{`r lcm`\pi-`r mA*Arnum`\pi-`r mB*Brnum`\pi}{`r lcm`}$$
+
+Subtract.
+
+$$\frac{`r lcm-mA*Arnum-mB*Brnum`\pi}{`r lcm`}$$
+
+Simplify (if necessary)
+
+$$`r texC`$$
+
+
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: triangle_3rd_angle_rad
+extol: 0.0001
