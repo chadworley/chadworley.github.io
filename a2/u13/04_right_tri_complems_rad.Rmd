@@ -1,0 +1,150 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+library(latex2exp)
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+deg1 = sample(c(seq(15,75,5),seq(18,72,9)),1)
+deg2 = 90-deg1
+
+radnum1 = deg1
+radden1 = 180
+gg = gcd(c(radnum1,radden1))
+radnum1 = round(radnum1/gg)
+radden1 = round(radden1/gg)
+radtex1 = paste0("\\frac{",radnum1,"\\pi}{",radden1,"}")
+if(radnum1==1){
+    radtex1 = paste0("\\frac{\\pi}{",radden1,"}")
+}
+
+radnum2 = deg2
+radden2 = 180
+gg = gcd(c(radnum2,radden2))
+radnum2 = round(radnum2/gg)
+radden2 = round(radden2/gg)
+radtex2 = paste0("\\frac{",radnum2,"\\pi}{",radden2,"}")
+if(radnum2==1){
+    radtex2 = paste0("\\frac{\\pi}{",radden2,"}")
+}
+
+ach1 = paste0(1:36,"π")
+ach2 = 3:36
+
+ach1[1] = "π"
+
+al1 = paste0("* ",ach1,collapse="\n")
+al2 = paste0("* ",ach2,collapse="\n")
+
+sol1 = paste0(1*(1:36==radnum2),collapse="")
+sol2 = paste0(1*(ach2==radden2),collapse="")
+
+```
+
+Question
+========
+
+A right triangle is drawn such that its hypotenuse connects the origin to the edge of the unit circle (which is centered at the origin) in the first quadrant. The acute angle at the origin has a measure of $`r radtex1`$. What is the measure, in radians, of the other acute angle of the right triangle?
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+dd = 1.2
+plot(0,0,"n",xlim=c(-dd,dd),ylim=c(-dd,dd),axes=F,ann=F)
+for(i in seq(-dd,dd,0.1)){
+    lines(c(i,i),c(-dd,dd),col="grey",lwd=0.5)
+    lines(c(-dd,dd),c(i,i),col="grey",lwd=0.5)
+}
+for(i in seq(-1,1,1)){
+    lines(c(i,i),c(-dd,dd),col="darkgrey",lwd=1)
+    lines(c(-dd,dd),c(i,i),col="darkgrey",lwd=1)
+}
+arrows(-dd*1.04,0,dd*1.04,0,0.1,10,3,lwd=3,col="darkgrey")
+arrows(0,-dd*1.04,0,dd*1.04,0.1,10,3,lwd=3,col="darkgrey")
+text(1.02,-0.04,"1")
+text(-0.03,1.03,"1")
+text(1.17,-0.04,"x")
+text(-0.03,1.17,"y")
+
+th = seq(0,2*pi,pi/360)
+lines(cos(th),sin(th))
+
+rad1 = deg1*pi/180
+
+polygon(c(0,cos(rad1),cos(rad1)),c(0,sin(rad1),0),border="black",lwd=2)
+db = 0.04
+lines(c(cos(rad1)-db,cos(rad1)-db,cos(rad1)),
+      c(0,db,db))
+
+
+rl1 = 0.15/rad1
+drl = 0.02
+th2 = seq(0,rad1,pi/360)
+lines((rl1-drl)*cos(th2),(rl1-drl)*sin(th2),col="red",lwd=2)
+text(rl1*cos(rad1/2),rl1*sin(rad1/2),TeX(radtex1),col="red",srt=deg1/2,adj=c(0,0.5),cex=0.5)
+
+rad2 = deg2*pi/180
+th3 = seq(3*pi/2-rad2,3*pi/2,pi/360)
+lines(cos(rad1)+0.1*cos(th3),sin(rad1)+0.1*sin(th3),col="blue",lwd=2)
+text(cos(rad1)+0.2*cos(-pi/2-rad2/2),
+     sin(rad1)+0.2*sin(-pi/2-rad2/2),"?",col="blue")
+
+
+```
+\
+
+* ##ANSWER1## / ##ANSWER2##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+
+
+
+Solution
+========
+
+The interior angle measures sum to $\pi$ radians (because $\pi$ radians equals 180°). The unknown angle measure can be found by subtracting the other two angles from $\pi$. The right angle has a measure of $\frac{\pi}{2}$.
+
+$$\pi-`r radtex1`-\frac{\pi}{2}$$
+
+```{r,echo=F}
+gg = gcd(c(radden1,2))
+lcm = radden1*2/gg
+mA = lcm/radden1
+mB = lcm/2
+
+```
+
+
+
+Find the least common denominator. The least common multiple of `r radden1` and `r 2` is `r lcm`.
+
+$$\frac{`r lcm`\pi}{`r lcm`}-\frac{`r mA*radnum1`\pi}{`r mA*radden1`}-\frac{`r mB`\pi}{`r mB*2`}$$
+
+With common denominators, we can simply subtract the numerators.
+
+
+$$\frac{`r lcm`\pi-`r mA*radnum1`\pi-`r mB`\pi}{`r lcm`}$$
+
+Subtract.
+
+$$\frac{`r lcm-mA*radnum1-mB`\pi}{`r lcm`}$$
+
+Simplify (if necessary)
+
+$$`r radtex2`$$
+
+
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: right_tri_complems_rad

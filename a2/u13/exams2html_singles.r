@@ -1,6 +1,7 @@
 library("exams")
 
 pppsss = c("01_triangle_3rd_angle_deg.Rmd",
+           "02_triangle_3rd_angle_rad.Rmd",
            "03_right_tri_complems_deg.Rmd")
 
 for(ppss in pppsss){
