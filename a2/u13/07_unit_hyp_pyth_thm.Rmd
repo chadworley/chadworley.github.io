@@ -1,0 +1,237 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+library(latex2exp)
+options(scipen=99)
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+while(T){
+    c = sample(2:40,1)
+    b = sample(c(1,2,3,5,6,7,10,11,13,14,15,17,19,21,22,23,26,29,30,31,33,34,35,37,38,39),1)
+    a = sample(1:20,1)
+    gg = gcd(c(a,c))
+    a = round(a/gg)
+    c = round(c/gg)
+    sn = a^2*b
+    sd = c^2
+    asn = c^2-a^2*b
+    lsf = 1
+    for(i in 1:49){
+        if(asn%%(i^2)==0){
+            lsf = i
+        }
+    }
+    aa = lsf
+    bb = round(asn/lsf^2)
+    cc = c
+    if((a^2*b)<(c^2) && max(c(aa,bb,cc))<40 && a>1 && aa>1 && b>1 && bb>1){break}
+}
+
+gtex = paste0("\\frac{",a,"\\sqrt{",b,"}}{",c,"}")
+if(a == 1){
+    gtex = paste0("\\frac{\\sqrt{",b,"}}{",c,"}")
+}
+if(b == 1){
+    gtex = paste0("\\frac{",a,"}{",c,"}")
+}
+atex = paste0("\\frac{",aa,"\\sqrt{",bb,"}}{",cc,"}")
+if(aa == 1){
+    atex = paste0("\\frac{\\sqrt{",bb,"}}{",cc,"}")
+}
+if(bb == 1){
+    atex = paste0("\\frac{",aa,"}{",cc,"}")
+}
+
+y = a*sqrt(b)/c
+x = aa*sqrt(bb)/cc
+
+ach = 1:40
+al = paste0("* ",ach,collapse="\n")
+sol1 = paste0(1*(ach==aa),collapse="")
+sol2 = paste0(1*(ach==bb),collapse="")
+sol3 = paste0(1*(ach==cc),collapse="")
+
+primes = c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
+
+```
+
+Question
+========
+
+A right triangle is drawn with a hypotenuse of length 1 and a leg of length $`r gtex`$. The other leg is of length $x$.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-0.1,1.2),ylim=c(-0.1,1.2))
+arrows(-0.1,0,1.2,0,0.1,20,lwd=2)
+arrows(0,-0.1,0,1.2,0.1,20,lwd=2)
+th = seq(0,2*pi,pi/360)
+lines(cos(th),sin(th),col="darkgrey")
+polygon(c(0,x,x),c(0,0,y),border="purple",lwd=3)
+bmp = 0.03
+polygon(c(x-bmp,x-bmp,x,x),c(0,bmp,bmp,0),border="purple")
+ang = atan(y/x)
+text(x/2,y/2,"1",srt=ang*180/pi,adj=c(0.5,-0.3),cex=2,col="purple")
+text(x,y/2,TeX(gtex),adj=c(-0.2),col="purple")
+text(x/2,0,"x",adj=c(0.5,1.5),col="purple",cex=2)
+
+```
+\
+
+
+The other leg can be expressed as a fraction of a radical.
+
+$$x~=~\frac{a\sqrt{b}}{c}$$
+
+where $a$, $b$, and $c$ are positive integers. Find the length of the other leg. Express the length exactly by stating the values of $a$, $b$, and $c$.
+
+* $a=$ ##ANSWER1##
+* $b=$ ##ANSWER2##
+* $c=$ ##ANSWER3##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+
+
+Solution
+========
+
+Use the [Pythagorean Theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem).
+
+$$\left(`r gtex`\right)^2+x^2~=~1^2$$
+
+
+
+When a product (or quotient) is raised to a power, the power can be distributed to the factors. If there was addition (or subtraction) in the fraction, then this would be more complicated. Also, $1^2=1$.
+
+$$\frac{`r a`^2\cdot `r b`}{`r c`^2}+x^2~=~1$$
+
+Evaluate the numerator and denominator.
+
+
+$$\frac{`r a^2*b`}{`r c^2`}+x^2~=~1$$
+
+Subtract $\frac{`r a^2*b`}{`r c^2`}$ from both sides.
+
+
+$$x^2~=~1-\frac{`r a^2*b`}{`r c^2`}$$
+
+Get a common denominator by recognizing that $1=\frac{`r c^2`}{`r c^2`}$.
+
+
+$$x^2~=~\frac{`r c^2`}{`r c^2`}-\frac{`r a^2*b`}{`r c^2`}$$
+
+In general, $\frac{m}{d}-\frac{n}{d}\equiv \frac{m-n}{d}$, for any $m,n,d$; that's the reason we got a common denominator in the first place.
+
+$$x^2~=~\frac{`r c^2`-`r a^2*b`}{`r c^2`}$$
+
+Simplify the numerator.
+
+
+$$x^2~=~\frac{`r c^2-a^2*b`}{`r c^2`}$$
+
+Take the square root of both sides. We are confident that we are looking for a positive value of $x$, so we do not need to consider the negative square root.
+
+
+$$x~=~\sqrt{\frac{`r c^2-a^2*b`}{`r c^2`}}$$
+
+Since a square-root radical is equivalent to raising to the power of 1/2, we can again distribute this power to the factors of the quotient.
+
+$$x~=~\frac{\sqrt{`r c^2-a^2*b`}}{\sqrt{`r c^2`}}$$
+
+The denominator is easy to simplify, because $\sqrt{`r c^2`}=`r c`$.
+
+
+$$x~=~\frac{\sqrt{`r c^2-a^2*b`}}{`r c`}$$
+
+The numerator is a bit trickier to simplify. We need to find the largest perfect-square factor of `r c^2-a^2*b`. Personally, I'd do this by making a [factor tree](https://en.wikipedia.org/wiki/Integer_factorization#Prime_decomposition) using an algorithm based on [the simplest primality test](https://en.wikipedia.org/wiki/Primality_test#Simple_methods), which involves using [trial division](https://en.wikipedia.org/wiki/Trial_division). Specifically, in this case, I'd start by trying to divide `r c^2-a^2*b` by all [primes](https://en.wikipedia.org/wiki/Prime_number) less than $\sqrt{`r c^2-a^2*b`}\approx `r sqrt(c^2-a^2*b)`$. So, I'd try to divide `r c^2-a^2*b` by all the numbers in this list: `r primes[primes<sqrt(c^2-a^2*b)]`. 
+
+```{r,echo=F}
+fac = 1
+cab = c^2-a^2*b
+for(pr in primes){
+    if(cab%%pr==0){
+        fac = pr
+        break
+    }
+}
+cab2 = round(cab/fac)
+```
+
+After a bit of work, you could find that `r fac` is a factor of `r cab`.
+
+
+$$x~=~\frac{\sqrt{`r fac`\cdot`r cab2`}}{`r c`}$$
+
+We can now repeat that strategy with the non-prime factor until we have only prime factors.
+
+```{r,echo=F,results='asis'}
+cab3 = cab2
+facs = c(fac)
+done = FALSE
+while(!(done)){
+    done = TRUE
+    for(pr in primes[primes<=sqrt(cab3)]){
+        if(cab3%%pr==0){
+            facs = c(facs,pr)
+            cab3 = round(cab3/pr)
+            cat("$$x=\\frac{\\sqrt{",paste0(facs,collapse="\\cdot"),"\\cdot",cab3,"}}{",c,"}$$\n\n")
+            done = FALSE
+            break
+        }
+    }
+}
+
+ufs = unique(c(facs,cab3))
+afs = numeric()
+bfs = numeric()
+for(uf in ufs){
+    n = sum(uf==c(facs,cab3))
+    na = n %/% 2
+    nb = n %% 2
+    afs = c(afs,rep(uf,na))
+    bfs = c(bfs,rep(uf,nb))
+}
+
+ugh = character()
+for(i in afs){
+    ugh = c(ugh,paste0("\\sqrt{",paste0(rep(i,2),collapse="\\cdot"),"}"))
+}
+
+```
+
+Look for factors that repeat. Again, we can treat a square-root radical like a power, so since $(fg)^k\equiv f^kg^k$, we can split up the square root of a product into a product of square roots.
+
+$$\frac{`r paste0(ugh,collapse="\\cdot")`\cdot\sqrt{`r paste0(bfs,collapse="\\cdot")`}}{`r c`}$$
+
+Simplify.
+
+$$\frac{`r paste0(afs,collapse="\\cdot")`\sqrt{`r paste0(bfs,collapse="\\cdot")`}}{`r c`}$$
+
+```{r,echo=F,results='asis'}
+if((length(afs)>1) || (length(bfs)>1)){
+    cat("Simplify more.\n\n")
+    cat(paste0("$$",atex,"$$"))
+}
+```
+
+
+So,
+
+* $a=`r aa`$
+* $b=`r bb`$
+* $c=`r cc`$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: unit_hyp_pyth_thm

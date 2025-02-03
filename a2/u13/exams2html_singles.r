@@ -2,7 +2,11 @@ library("exams")
 
 pppsss = c("01_triangle_3rd_angle_deg.Rmd",
            "02_triangle_3rd_angle_rad.Rmd",
-           "03_right_tri_complems_deg.Rmd")
+           "03_right_tri_complems_deg.Rmd",
+           "04_right_tri_complems_rad.Rmd",
+           "05_reference_angle_deg.Rmd",
+           "06_reference_angle_rad.Rmd",
+           "07_unit_hyp_pyth_thm.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

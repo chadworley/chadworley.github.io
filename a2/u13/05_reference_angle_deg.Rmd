@@ -3,12 +3,18 @@ deg = sample(c(90,180,270),1)+sample(20:70,1)
 if(deg>90 && deg<180){
     ref = 180-deg
     deg2 = 180
+    quad = "II"
+    equ = paste0("180°-",deg,"°=",ref,"°",collapse="")
 } else if(deg>180 && deg<270){
     ref = deg-180
     deg2 = 180
+    quad = "III"
+    equ = paste0(deg,"°-180°","=",ref,"°",collapse="")
 } else if(deg>270 && deg<360){
     ref = 360-deg
     deg2 = 360
+    quad = "IV"
+    equ = paste0("360°-",deg,"°=",ref,"°",collapse="")
 } else {
     ref = -666
     deg2 = 666
@@ -26,7 +32,7 @@ A unit circle was drawn centered at the origin. An initial ray was drawn from th
 
 From the intersection of the circle and the terminal ray, a vertical line segment was drawn. Using the three vertices of intersection between the terminal ray, the vertical line, and the $x$-axis, a right triangle was drawn.
 
-The resulting right triangle has an acute angle at the origin. The measure of this acute angle is called a [reference angle](https://math.libretexts.org/Courses/Cosumnes_River_College/Math_373%3A_Trigonometry_for_Calculus/04%3A_Radian_Measure_and_the_Circular_Functions/4.01%3A_Reference_Angles). Find the measure, **in degrees**, of the reference angle.
+The resulting right triangle has an acute angle at the origin. The measure of this acute angle is called a [reference angle](https://math.libretexts.org/Courses/Cosumnes_River_College/Math_373%3A_Trigonometry_for_Calculus/04%3A_Radian_Measure_and_the_Circular_Functions/4.01%3A_Reference_Angles). Find the measure, **in degrees**, of the reference angle. (The reference angle is always expressed as a positive angle.)
 
 
 ```{r,echo=F,fig.dim=c(6,6)}
@@ -42,6 +48,8 @@ lines(cos(th),sin(th))
 arrows(0,0,1.2*cos(rad),1.2*sin(rad),0.1,20,lwd=2)
 abline(v=cos(rad),lty=2,lwd=0.5)
 polygon(c(0,cos(rad),cos(rad)),c(0,sin(rad),0),lwd=3,border="purple")
+bm = 0.04
+lines(c(cos(rad)-bm*sign(cos(rad)),cos(rad)-bm*sign(cos(rad)),cos(rad)),c(0,bm,bm)*sign(sin(rad)),col="purple")
 th2 = seq(0,rad,pi/360)
 n = length(th2)
 lines(0.2*cos(th2),0.2*sin(th2),col="red",lwd=2)
@@ -57,15 +65,25 @@ text(0.35*cos(mean(th3)),0.35*sin(mean(th3)),"?",col="blue")
 
 
 
-
 Solution
 ========
 
+The process depends on the quadrant. Let's call the given angle measure "$g$" and the reference angle measure "$r$".
 
+* If the terminal side (terminal ray) is in quadrant I, then $r=g$.
+* If the terminal side (terminal ray) is in quadrant II, then $r=180°-g$.
+* If the terminal side (terminal ray) is in quadrant III, then $r=g-180°$.
+* If the terminal side (terminal ray) is in quadrant IV, then $r=360°-g$.
+
+In this case, the terminal side is in quadrant `r quad`, so to find the reference angle:
+
+$$`r equ`$$
+
+The reference angle is `r ref`°.
 
 
 Meta-information
 ============
 extype: num
-exsolution: 
+exsolution: `r ref`
 exname: reference_angle_deg

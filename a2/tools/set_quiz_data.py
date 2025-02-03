@@ -3,20 +3,20 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-01-22 8:00:00"]*8
-dut = ["2025-01-23 23:59:00"]*8
-front = "u12_"
+avt = ["2025-02-03 8:00:00"]*7
+dut = ["2025-02-03 23:59:00"]*7
+front = "u13_"
 
-files = ["09_standard_pos_deg.Rmd",
-"10_large_angle_deg.Rmd",
-"11_coterminal_degs.Rmd",
-"12_plot_angle_rads.Rmd",
-"13_plot_coterminal_rads.Rmd",
-"14_large_angle_rad.Rmd",
-"15_sector_area.Rmd",
-"16_conical_ratio.Rmd"]
+files = ["01_triangle_3rd_angle_deg.Rmd",
+"02_triangle_3rd_angle_rad.Rmd",
+"03_right_tri_complems_deg.Rmd",
+"04_right_tri_complems_rad.Rmd",
+"05_reference_angle_deg.Rmd",
+"06_reference_angle_rad.Rmd",
+"07_unit_hyp_pyth_thm.Rmd"
+]
 
-practice_url_front = "https://chadworley.github.io/a2/u12/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u13/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 

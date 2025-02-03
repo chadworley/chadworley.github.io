@@ -1,0 +1,154 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+library(latex2exp)
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+bas = c(0,90,180,270)
+while(T){
+    q = sample(2:4,1)
+    d = bas[q]+sample(20:70,1)
+    grn = d # given's radian numerator number
+    grd = 180 # given's radian denominator
+    gg = gcd(c(grn,grd))
+    grn = round(grn/gg)
+    grd = round(grd/gg)
+    gtex = paste0("\\frac{",grn,"\\pi}{",grd,"}",collapse="")
+    gr = grn*pi/grd
+    if(q==2){
+        rd = 180-d
+        a1 = pi
+        quad = "II"
+    } else if(q==3){
+        rd = d-180
+        a1 = pi
+        quad = "III"
+    } else if(q==4){
+        rd = 360-d
+        a1 = 2*pi
+        quad = "IV"
+    }
+    rrn = rd
+    rrd = 180
+    gg = gcd(c(rrn,rrd))
+    rrn = round(rrn/gg)
+    rrd = round(rrd/gg)
+    rr = rrn*pi/rrd
+    rtex = paste0("\\frac{",rrn,"\\pi}{",rrd,"}",collapse="")
+    if(grd<=36 && rrd<=36 && rrn>=2){break}
+}
+
+ach1 = paste0(1:18,"π")
+ach1[1] = "π"
+ach2 = 2:36
+
+al1 = paste0("* ",ach1,collapse="\n")
+al2 = paste0("* ",ach2,collapse="\n")
+
+sol1 = paste0(1*(1:18==rrn),collapse="")
+sol2 = paste0(1*(ach2==rrd),collapse="")
+
+```
+
+Question
+========
+
+Find the reference angle, **in radians**, corresponding to a given angle of $`r gtex`$.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+arrows(-1.2,0,1.2,0,0.1,20,0,lwd=1)
+arrows(0,-1.2,0,1.2,0.1,20,0,lwd=1)
+arrows(0,0,1.2,0,0.1,20,lwd=2)
+text(1.1,-0.03,"x")
+text(-0.03,1.1,"y")
+th = seq(0,2*pi,pi/360)
+lines(cos(th),sin(th))
+rad = gr
+arrows(0,0,1.2*cos(rad),1.2*sin(rad),0.1,20,lwd=2)
+abline(v=cos(rad),lty=2,lwd=0.5)
+polygon(c(0,cos(rad),cos(rad)),c(0,sin(rad),0),lwd=3,border="purple")
+bm = 0.04
+lines(c(cos(rad)-bm*sign(cos(rad)),cos(rad)-bm*sign(cos(rad)),cos(rad)),c(0,bm,bm)*sign(sin(rad)),col="purple")
+th2 = seq(0,rad,pi/360)
+n = length(th2)
+lines(0.2*cos(th2),0.2*sin(th2),col="red",lwd=2)
+arrows(0.2*cos(th2[n-1]),0.2*sin(th2[n-1]),0.2*cos(th2[n]),0.2*sin(th2[n]),0.1,20,col="red",lwd=2)
+text(0.3*cos(rad/2),0.3*sin(rad/2),TeX(gtex),col="red")
+rad2 = a1
+th3 = seq(rad,rad2,sign(rad2-rad)*pi/360)
+lines(0.25*cos(th3),0.25*sin(th3),col="blue",lwd=2)
+text(0.35*cos(mean(th3)),0.35*sin(mean(th3)),"?",col="blue")
+
+```
+\
+
+* ##ANSWER1##/##ANSWER2##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+
+Solution
+========
+
+The process depends on the quadrant. Let's call the given angle measure "$g$" and the reference angle measure "$r$".
+
+* If the terminal side (terminal ray) is in quadrant I, then $r=g$.
+* If the terminal side (terminal ray) is in quadrant II, then $r=\pi-g$.
+* If the terminal side (terminal ray) is in quadrant III, then $r=g-\pi$.
+* If the terminal side (terminal ray) is in quadrant IV, then $r=2\pi-g$.
+
+The given angle is in quadrant `r quad`.
+
+```{r,echo=F}
+if(q==2){
+    t1a = "\\pi"
+    t2a = gtex
+    t1b = paste0("\\frac{",grd,"\\pi}{",grd,"}",collapse="")
+    t2b = gtex
+}
+if(q==3){
+    t1a = gtex
+    t2a = "\\pi"
+    t1b = gtex
+    t2b = paste0("\\frac{",grd,"\\pi}{",grd,"}",collapse="")
+}
+if(q==4){
+    t1a = "2\\pi"
+    t2a = gtex
+    t1b = paste0("\\frac{",2*grd,"\\pi}{",grd,"}",collapse="")
+    t2b = gtex
+}
+eq1 = paste0("r=",t1a,"-",t2a,collapse="")
+eq2 = paste0("r=",t1b,"-",t2b,collapse="")
+eq3 = paste0("r=",rtex,collapse="")
+```
+
+$$`r eq1`$$
+
+Get a common denominator.
+
+$$`r eq2`$$
+
+Subtract the fractions.
+
+$$`r eq3`$$
+
+The reference angle is $`r rtex`$.
+
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: reference_angle_rad

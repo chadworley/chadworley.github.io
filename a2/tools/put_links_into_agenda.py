@@ -4,17 +4,17 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "u12_"
-files = ["09_standard_pos_deg.Rmd",
-"10_large_angle_deg.Rmd",
-"11_coterminal_degs.Rmd",
-"12_plot_angle_rads.Rmd",
-"13_plot_coterminal_rads.Rmd",
-"14_large_angle_rad.Rmd",
-"15_sector_area.Rmd",
-"16_conical_ratio.Rmd"]
+front = "u13_"
+files = ["01_triangle_3rd_angle_deg.Rmd",
+"02_triangle_3rd_angle_rad.Rmd",
+"03_right_tri_complems_deg.Rmd",
+"04_right_tri_complems_rad.Rmd",
+"05_reference_angle_deg.Rmd",
+"06_reference_angle_rad.Rmd",
+"07_unit_hyp_pyth_thm.Rmd"
+]
 
-practice_url_front = "https://chadworley.github.io/a2/u12/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u13/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:

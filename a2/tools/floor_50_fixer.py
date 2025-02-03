@@ -17,7 +17,7 @@ headers = {
   "Authorization": f"Bearer {access_token}"
 }
 
-# TO GET ASSIGNMENT GROUP NUMBERS
+#### TO GET ASSIGNMENT GROUP NUMBERS
 # url = f"{canvas_url}/api/v1/courses/{course_id}/assignment_groups"
 # print(requests.get(url,headers=headers).json())
 
@@ -35,16 +35,16 @@ while r.links['current']['url'] != r.links['last']['url']:
     for question in raw:
         data_set.append(question)
 
-## 2126 = effort
-## 2127 = mastery
+## 2212 = effort
+## 2213 = mastery
 
 ept = 0
 mpt = 0
 
 for i in data_set:
-    if i["assignment_group_id"] == 2126:
+    if i["assignment_group_id"] == 2212:
         ept = ept + i["points_possible"]
-    if i["assignment_group_id"] == 2127:
+    if i["assignment_group_id"] == 2213:
         mpt = mpt + i["points_possible"]
 
 print(ept)
