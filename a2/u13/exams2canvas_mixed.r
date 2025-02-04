@@ -3,9 +3,12 @@ n = 30
 outdir = "outcanvas"
 genname = "u13_"
 
-probs = c("07_unit_hyp_pyth_thm.Rmd")
+probs = c("08_uc_other_coord_from_Q.Rmd",
+          "09_uc_slope_from_x_and_Q.Rmd",
+          "10_uc_x_from_slope_Q1.Rmd",
+          "11_uc_x_y_from_slope_and_Q.Rmd")
 
-pnts = c(4)
+pnts = c(3,3,3,3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

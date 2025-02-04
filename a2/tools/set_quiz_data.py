@@ -3,17 +3,14 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-02-03 8:00:00"]*7
-dut = ["2025-02-03 23:59:00"]*7
+avt = ["2025-02-04 8:00:00"]*4
+dut = ["2025-02-04 23:59:00"]*4
 front = "u13_"
 
-files = ["01_triangle_3rd_angle_deg.Rmd",
-"02_triangle_3rd_angle_rad.Rmd",
-"03_right_tri_complems_deg.Rmd",
-"04_right_tri_complems_rad.Rmd",
-"05_reference_angle_deg.Rmd",
-"06_reference_angle_rad.Rmd",
-"07_unit_hyp_pyth_thm.Rmd"
+files = ["08_uc_other_coord_from_Q.Rmd",
+"09_uc_slope_from_x_and_Q.Rmd",
+"10_uc_x_from_slope_Q1.Rmd",
+"11_uc_x_y_from_slope_and_Q.Rmd"
 ]
 
 practice_url_front = "https://chadworley.github.io/a2/u13/outhtml/"

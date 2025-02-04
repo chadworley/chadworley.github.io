@@ -1,0 +1,69 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+m = round(2^runif(1,-3,3),2)
+th1 = atan(m)
+x = cos(th1)
+y = sin(th1)
+
+```
+
+Question
+========
+
+In the first quadrant, a point is on the [unit circle](https://en.wikipedia.org/wiki/Unit_circle) (centered at the origin). A line connecting the point to the origin has a slope of `r m`, as enforced by the diagram below:
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-0.2,1.2),ylim=c(-0.2,1.2))
+th = seq(0,2*pi,pi/360)
+arrows(-1.2,0,1.2,0,0.1,20,3,col="grey")
+arrows(0,-1.2,0,1.2,0.1,20,3,col="grey")
+lines(cos(th),sin(th))
+lines(c(0,cos(th1)),c(0,sin(th1)))
+points(cos(th1),sin(th1),pch=19)
+bmp = 0.03
+lines(c(x-bmp,x-bmp,x),c(0,bmp,bmp))
+lines(c(0,cos(th1)),c(0,0),col="red",lwd=2)
+text(x/2,0,"x",adj=c(0.5,1.5),col="red")
+lines(c(x,x),c(0,y),col="blue",lwd=2)
+text(x,y/2,paste(m,"x"),srt=90,adj=c(0.5,1.5),col="blue")
+text(x/2,y/2,"1",srt=th1/pi*180,adj=c(0.5,-0.5))
+```
+\
+
+Find a decimal approximation of $x$ accurate within $\pm 0.01$.
+
+
+Solution
+========
+
+[Pythagorean Theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem)!
+
+$$x^2+(`r m`x)^2=1^2$$
+
+Evaluate the squares.
+
+$$x^2+`r m^2`x^2=1$$
+
+Combine like terms.
+
+$$`r m^2+1`x^2=1$$
+
+Divide both sides by `r m^2+1`.
+
+$$x^2=\frac{1}{`r m^2+1`}$$
+
+Square root both sides. In this case, we are only interested in the positive square root.
+
+$$x=\sqrt{\frac{1}{`r m^2+1`}}$$
+
+Get a decimal approximation.
+
+$$x=`r sqrt(1/(m^2+1))`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r x`
+exname: uc_x_from_slope_Q1
+extol: 0.001

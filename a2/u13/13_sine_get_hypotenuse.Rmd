@@ -1,20 +1,21 @@
 ```{r,echo=F}
 while(T){
   ang = round(runif(1,pi/7,1.3),2)
-  hyp = round(runif(1,12,99),0)
-  opp = sin(ang)*hyp
-  opp2 = round(opp,0)
+  opp = round(runif(1,11,99),0)
+  opp2 = opp
+  hyp = opp/sin(ang)
+  hyp2 = round(hyp,0)
   angt = sprintf("%.2f",ang)
-  hypt = sprintf("%.0f",round(hyp,0))
-  oppt = sprintf("%.0f",round(opp2,0))
-  if(hyp-opp2>2 && opp2>10 && round(ang*hyp)!=opp2){break}
+  hypt = sprintf("%.0f",round(hyp2,0))
+  oppt = sprintf("%.0f",round(opp,0))
+  if(hyp-opp2>2 && hyp2<99 && round(ang*hyp2)!=opp2 && hyp2!=round(opp2/ang)){break}
 }
 ```
 
 Question
 ========
 
-A right triangle has an angle of `r angt` radians. The hypotenuse has a length of `r hypt` meters. How long, in meters, is the leg opposite the angle?
+A right triangle has an angle of `r angt` radians. The opposite leg has a length of `r oppt` meters. How long, in meters, is the hypotenuse?
 
 ```{r,fig.dim=c(5,5),echo=F}
 library(latex2exp)
@@ -28,11 +29,11 @@ th2 = seq(0,ang,length.out=100)
 #lines(cos(th2),sin(th2),lty=2,col=rgb(1,0.8,0.8))
 #text(1.07*cos(ang/2),1.07*sin(ang/2),paste0(angt,"*",hypt),col=rgb(1,0.8,0.8),cex=0.7)
 lines(c(cos(ang),cos(ang)),c(0,sin(ang)),col="purple",lwd=4)
-text(cos(ang)+0.05,sin(ang)/2,"? m",col="purple",cex=0.8)
+text(cos(ang)+0.05,sin(ang)/2,paste0(oppt," m"),col="purple",cex=0.8)
 lines(c(0,cos(ang)),c(0,sin(ang)),col="blue",lwd=4)
 text(cos(ang)/2+0.05*cos(ang+pi/2),
      sin(ang)/2+0.05*sin(ang+pi/2),
-     paste0(hypt," m"),srt=ang/pi*180,col="blue",cex=0.8)
+     paste0("?"," m"),srt=ang/pi*180,col="blue",cex=0.8)
 lines(0.1*cos(th2),0.1*sin(th2),col="red")
 text(0.16*cos(ang/2),0.16*sin(ang/2),angt,col="red",cex=0.8)
 ```
@@ -54,19 +55,19 @@ $$\cos(\theta)=\frac{\mathrm{adjacent}}{\mathrm{hypotenuse}}$$
 
 $$\tan(\theta)=\frac{\mathrm{opposite}}{\mathrm{adjacent}}$$
 
-In this case, we are given the angle and the **hypotenuse**, and we are asked for the **opposite**. The trigonometric ratio that relates these two sides is [sine](https://en.wikipedia.org/wiki/Trigonometric_functions). Let $x$ represent the requested length.
+In this case, we are given the angle and the **opposite**, and we are asked for the **hypotenuse**. The trigonometric ratio that relates these two sides is [sine](https://en.wikipedia.org/wiki/Trigonometric_functions). Let $x$ represent the requested length.
 
-$$\sin(`r angt`) = \frac{x}{`r hypt`}$$
-Multiply both sides by `r hypt` to solve for $x$.
+$$\sin(`r angt`) = \frac{`r oppt`}{x}$$
+Multiply both sides by $x$ and divide both sides by $\sin(`r angt`)$ to solve for $x$.
 
-$$`r hypt` \cdot \sin(`r angt`) = x$$
-To evaluate $x$, type the following into a modern calculator: ``round(`r hypt`*sin(`r angt`))``. Make sure to be in **radian mode**, not degree mode.
+$$x = \frac{`r oppt`}{\sin(`r angt`)}$$
+To evaluate $x$, type the following into a modern calculator: ``round(`r oppt`/sin(`r angt`))``. Make sure to be in radian mode, not degree mode.
 
-$$x \approx `r oppt`$$
+$$x \approx `r hypt`$$
 
 
 Meta-information
 ============
 extype: num
-exsolution: `r opp2`
-exname: sin_get_opp
+exsolution: `r hyp2`
+exname: sin_get_hyp

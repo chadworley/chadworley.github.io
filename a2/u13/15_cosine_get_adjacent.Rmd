@@ -2,19 +2,19 @@
 while(T){
   ang = round(runif(1,pi/7,1.3),2)
   hyp = round(runif(1,12,99),0)
-  opp = sin(ang)*hyp
-  opp2 = round(opp,0)
+  adj = cos(ang)*hyp
+  adj2 = round(adj,0)
   angt = sprintf("%.2f",ang)
   hypt = sprintf("%.0f",round(hyp,0))
-  oppt = sprintf("%.0f",round(opp2,0))
-  if(hyp-opp2>2 && opp2>10 && round(ang*hyp)!=opp2){break}
+  adjt = sprintf("%.0f",round(adj2,0))
+  if(hyp-adj2>2 && adj2>10 && round((pi/2-ang)*hyp)!=adj2 && hyp!=round(adj2*ang)){break}
 }
 ```
 
 Question
 ========
 
-A right triangle has an angle of `r angt` radians. The hypotenuse has a length of `r hypt` meters. How long, in meters, is the leg opposite the angle?
+A right triangle has an angle of `r angt` radians. The hypotenuse has a length of `r hypt` meters. How long, in meters, is the leg adjacent the angle?
 
 ```{r,fig.dim=c(5,5),echo=F}
 library(latex2exp)
@@ -27,8 +27,8 @@ lines(c(cos(ang)-0.02,cos(ang)-0.02,cos(ang)),c(0,0.02,0.02))
 th2 = seq(0,ang,length.out=100)
 #lines(cos(th2),sin(th2),lty=2,col=rgb(1,0.8,0.8))
 #text(1.07*cos(ang/2),1.07*sin(ang/2),paste0(angt,"*",hypt),col=rgb(1,0.8,0.8),cex=0.7)
-lines(c(cos(ang),cos(ang)),c(0,sin(ang)),col="purple",lwd=4)
-text(cos(ang)+0.05,sin(ang)/2,"? m",col="purple",cex=0.8)
+lines(c(0,cos(ang)),c(0,0),col="purple",lwd=4)
+text(cos(ang)/2,-0.05,"? m",col="purple",cex=0.8)
 lines(c(0,cos(ang)),c(0,sin(ang)),col="blue",lwd=4)
 text(cos(ang)/2+0.05*cos(ang+pi/2),
      sin(ang)/2+0.05*sin(ang+pi/2),
@@ -54,19 +54,18 @@ $$\cos(\theta)=\frac{\mathrm{adjacent}}{\mathrm{hypotenuse}}$$
 
 $$\tan(\theta)=\frac{\mathrm{opposite}}{\mathrm{adjacent}}$$
 
-In this case, we are given the angle and the **hypotenuse**, and we are asked for the **opposite**. The trigonometric ratio that relates these two sides is [sine](https://en.wikipedia.org/wiki/Trigonometric_functions). Let $x$ represent the requested length.
+In this case, we are given the angle and the **hypotenuse**, and we are asked for the **adjacent** leg. The trigonometric ratio that relates these two sides is [cosine](https://en.wikipedia.org/wiki/Trigonometric_functions). Let $x$ represent the requested length.
 
-$$\sin(`r angt`) = \frac{x}{`r hypt`}$$
+$$\cos(`r angt`) = \frac{x}{`r hypt`}$$
 Multiply both sides by `r hypt` to solve for $x$.
 
-$$`r hypt` \cdot \sin(`r angt`) = x$$
-To evaluate $x$, type the following into a modern calculator: ``round(`r hypt`*sin(`r angt`))``. Make sure to be in **radian mode**, not degree mode.
+$$`r hypt` \cdot \cos(`r angt`) = x$$
+To evaluate $x$, type the following into a modern calculator: ``round(`r hypt`*cos(`r angt`))``. Make sure to be in radian mode, not degree mode.
 
-$$x \approx `r oppt`$$
-
+$$x \approx `r adjt`$$
 
 Meta-information
 ============
 extype: num
-exsolution: `r opp2`
-exname: sin_get_opp
+exsolution: `r adj2`
+exname: cos_get_adj

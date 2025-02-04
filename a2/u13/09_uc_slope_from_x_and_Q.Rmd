@@ -1,0 +1,164 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+
+while(T){
+    th = runif(1,0,2*pi)
+    x = cos(th) #runif(1,0.01,0.99)*sample(c(-1,1),1)
+    y = sin(th) #sqrt(1-x^2)*sample(c(-1,1),1)
+    m = y/x
+    if((x<0 || y<0) && abs(x)>0.01 && abs(y)>0.01 && abs(x)<0.99 && abs(y)<0.99 && abs(m)<10 && abs(m)>0.01){break}
+}
+rmn = c("I","II","III","IV")
+
+if(x<0 && y>0){
+    q = 2
+}
+if(x<0 && y<0){
+    q = 3
+}
+if(x>0 && y<0){
+    q = 4
+}
+
+vns = c("x","y")
+vvs = c(x,y)
+kn = sample(1:2,1)
+un = (1:2)[-kn]
+kvn = vns[kn]
+uvn = vns[un]
+kvv = vvs[kn]
+uvv = vvs[un]
+orients = c("vertical","horizontal")
+lo = orients[kn]
+pnt = "(x,y)"
+pnt = gsub(kvn,kvv,pnt,fixed=T)
+
+
+```
+
+Question
+========
+
+A unit circle (a circle with radius of 1) is centered at the origin of a $xy$-plane. On the circle's edge, a point has a $`r kvn`$ coordinate of `r kvv`, and the point is in [quadrant](https://en.wikipedia.org/wiki/Quadrant_(plane_geometry)) `r rmn[q]`.
+
+Another line connects the origin to the point described above. What is the slope of this line that connects the point to the origin? Please be accurate within $\pm 0.001$.
+
+
+Solution
+========
+
+The equation of a unit circle centered at the origin is based on the distance formula.
+
+$$x^2+y^2=1$$
+
+We wish to solve for $`r uvn`$, so subtract $`r kvn`^2$ from both sides.
+
+$$`r uvn`^2=1-`r kvn`^2$$
+
+Now, to isolate $`r uvn`$, we can square-root both sides. We have to accommodate both the positive and negative square roots as possibilities.
+
+$$`r uvn`=\pm \sqrt{1-`r kvn`^2}$$
+
+Plug in the given value.
+
+$$`r uvn`=\pm \sqrt{1-(`r kvv`)^2}$$
+
+$$`r uvn`\approx\pm \sqrt{1-`r kvv^2`}$$
+
+$$`r uvn`\approx\pm \sqrt{`r 1-kvv^2`}$$
+
+$$`r uvn`\approx\pm `r sqrt(1-kvv^2)`$$
+
+We were told the point is in quadrant `r rmn[q]`. Draw a sketch.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+arrows(-1.2,0,1.2,0,0.1,20,3,lwd=2,col="grey")
+arrows(0,-1.2,0,1.2,0.1,20,3,lwd=2,col="grey")
+th = seq(0,2*pi,pi/360)
+lines(cos(th),sin(th),col="red")
+if(kn==1){
+    abline(v=x,lty=2,col="blue")
+    text(x,-1.05*sign(y),paste0("x=",round(x,5),collapse=""),adj=c(0.5,-0.3),srt=90,col="blue")
+} else {
+    abline(h=y,lty=2,col="blue")
+    text(1.05*sign(-x),y,paste0("y=",round(y,5),collapse=""),adj=c(0.5,1.3),srt=0,col="blue")
+}
+# library(extrafont)
+# font_import()
+# loadfonts() 
+text(1.15,1.15,"I",family="Tahoma",font=1,cex=1.3)
+text(-1.15,1.15,"II",family="Tahoma",font=1,cex=1.3)
+text(-1.15,-1.15,"III",family="Tahoma",font=1,cex=1.3)
+text(1.15,-1.15,"IV",family="Tahoma",font=1,cex=1.3)
+points(x,y,pch=20,col="purple",cex=2)
+text(x,y,paste0("(",round(x,4),", ",round(y,4),")"),col="purple",adj=c(0.5+0.6*sign(x),0.5+sign(y)),cex=1.2)
+
+np = c("negative","positive")
+npx = np[round(sign(x)/2+1.5)]
+npy = np[round(sign(y)/2+1.5)]
+
+```
+\
+
+Notice, in quadrant `r rmn[q]`, the $x$ coordinate is `r npx`, and the $y$ coordinate is `r npy`. So, we know that $`r uvn`=`r uvv`$.
+
+
+```{r,echo=F,fig.dim=c(6,30),results="hide",eval=FALSE}
+# library(extrafont)
+par(mar=c(0,0,0,0))
+fnts = extrafont::fonts()
+n = length(fnts)
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-n,0))
+for(i in 1:n){
+    fnt = fnts[i]
+    text(0,-i,paste0("IIIV ",fnt),family=fnt)
+}
+
+```
+\
+
+The slope of the line can be found with the "rise over run" formula.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+arrows(-1.2,0,1.2,0,0.1,20,3,lwd=2,col="grey")
+arrows(0,-1.2,0,1.2,0.1,20,3,lwd=2,col="grey")
+th = seq(0,2*pi,pi/360)
+lines(cos(th),sin(th),col="red")
+abline(0,m,col="maroon",lwd=2)
+
+points(x,y,pch=20,col="purple",cex=2)
+arrows(0,0,x,y,0.15,20,2,col="maroon",lwd=4)
+lines(c(0,x),c(0,0),col="blue",lwd=3)
+lines(c(x,x),c(0,y),col="darkgreen",lwd=3)
+text(x/2,0,TeX(paste0("$\\Delta x = ",round(x,5),"$")),adj=c(0.5,0.5+1*sign(y)),col="blue")
+text(x,y/2,TeX(paste0("$\\Delta y = ",round(y,5),"$")),srt=-90,adj=c(0.5,0.5-1*sign(x)),col="darkgreen")
+```
+\
+
+
+$$\text{slope} ~=~ \frac{\text{rise}}{\text{run}}$$
+
+
+$$\text{slope} ~=~ \frac{\Delta y}{\Delta x}$$
+
+
+$$\text{slope} ~=~ \frac{y_2-y_1}{x_2-x_1}$$
+
+$$\text{slope} ~=~ \frac{`r y`-0}{`r x`-0}$$
+
+$$\text{slope} ~=~ \frac{`r y`}{`r x`}$$
+
+$$\text{slope} ~\approx~ `r y/x`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r m`
+exname: uc_slope_from_x_and_Q
+extol: 0.001
