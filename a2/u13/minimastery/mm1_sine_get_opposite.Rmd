@@ -1,0 +1,57 @@
+```{r,echo=F}
+th = round(runif(1,pi/20,pi/2-pi/20),3)
+hl = round(runif(1,10,100),2)
+al = hl*cos(th)
+ol = hl*sin(th)
+```
+
+Question
+========
+
+Find the length (in meters) or angle measure (in radians) marked by $x$. Your answer should be accurate within 3 [significant figures](https://en.wikipedia.org/wiki/Significant_figures).
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+bmp = 0.03
+xs = c(0,cos(th),cos(th))
+ys = c(0,0,sin(th))
+xlo = cos(th)+bmp
+ylo = sin(th)/2
+srto = 90
+xla = cos(th)/2
+yla = -bmp
+srta = 0
+xlh = cos(th)/2+bmp*cos(th+pi/2)
+ylh = sin(th)/2+bmp*sin(th+pi/2)
+srth = th/pi*180
+xang = bmp*cos(seq(0,th,pi/360))/th
+yang = bmp*sin(seq(0,th,pi/360))/th
+xlang = 2*bmp*cos(th/2)/th
+ylang = 2*bmp*sin(th/2)/th
+
+rotang = runig(1,0,2*pi)
+
+
+polygon(xs,ys)
+text(xlo,ylo,"opp",srt=srto)
+text(xla,yla,"adj",srt=srta)
+text(xlh,ylh,"hyp",srt=srth)
+lines(xang,yang)
+text(xlang,ylang,"ang")
+
+```
+\
+
+
+Solution
+========
+
+
+
+Meta-information
+============
+extype: num
+exsolution: 
+exname: sin_get_opp
+extol: 0.001

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Data Wrangler</title>
+</head>
+<body>
+<h1>Data Wrangler</h1>
+  
+Data (with some delimiters): <br>
+  
+<textarea id="dataInput" rows="10" cols="50"></textarea>
+<br>
+
+<h2>Delimiters:</h2>
+<input type="checkbox" id="comma" value=","> <label for="comma">Comma (,)</label>
+<input type="checkbox" id="space" value=" "> <label for="space">Space ( )</label>
+<input type="checkbox" id="tab" value="\t"> <label for="tab">Tab (\t)</label>
+<input type="checkbox" id="semicolon" value=";"> <label for="semicolon">Semicolon (;)</label>
+<input type="checkbox" id="newline" value="\n"> <label for="newline">Newline (\n)</label>
+<br>
+
+<h2>Table Options:</h2>
+<label for="numCols">Number of Columns:</label>
+<input type="number" id="numCols" value="1">
+<br>
+<input type="radio" id="fillCols" name="fillOrder" value="cols" checked>
+<label for="fillCols">Fill by Column</label>
+<input type="radio" id="fillRows" name="fillOrder" value="rows">
+<label for="fillRows">Fill by Row</label>
+<br>
+
+<button onclick="generateTable()">Generate Table</button>
+<button id="copyButton" onclick="copyTable()" style="display: none;">Copy Table</button>
+<br>
+
+<div id="outputTable"></div>
+
+<script>
+function generateTable() {
+  const dataInput = document.getElementById('dataInput').value;
+  const delimiters = [];
+  if (document.getElementById('comma').checked) {
+    delimiters.push(',');
+  }
+  if (document.getElementById('space').checked) {
+    delimiters.push(' ');
+  }
+  if (document.getElementById('tab').checked) {
+    delimiters.push('\t');
+  }
+  if (document.getElementById('semicolon').checked) {
+    delimiters.push(';');
+  }
+  if (document.getElementById('newline').checked) {
+    delimiters.push('\n');
+  }
+
+  let dataArray = [dataInput]; // Start with the entire input string
+  for (const delimiter of delimiters) {
+    dataArray = dataArray.flatMap(value => value.split(delimiter).map(v => v.trim()));
+  }
+
+  const numCols = parseInt(document.getElementById('numCols').value);
+  const fillOrder = document.querySelector('input[name="fillOrder"]:checked').value;
+
+  let outputTable = '<table>';
+
+  if (fillOrder === 'rows') {
+    // Fill by Rows
+    for (let row = 0; row < Math.ceil(dataArray.length / numCols); row++) {
+      outputTable += '<tr>';
+      for (let col = 0; col < numCols; col++) {
+        const index = col + row * numCols;
+        if (index < dataArray.length) {
+          outputTable += '<td>' + dataArray[index] + '</td>';
+        } else {
+          outputTable += '<td></td>';
+        }
+      }
+      outputTable += '</tr>';
+    }
+  } else {
+    // Fill by Column
+    for (let row = 0; row < Math.ceil(dataArray.length / numCols); row++) {
+      outputTable += '<tr>';
+      for (let col = 0; col < numCols; col++) {
+        const index = col * Math.ceil(dataArray.length / numCols) + row;
+        if (index < dataArray.length) {
+          outputTable += '<td>' + dataArray[index] + '</td>';
+        } else {
+          outputTable += '<td></td>';
+        }
+      }
+      outputTable += '</tr>';
+    }
+  }
+
+  outputTable += '</table>';
+  document.getElementById('outputTable').innerHTML = outputTable;
+  document.getElementById('copyButton').style.display = 'inline-block';
+}
+
+function copyTable() {
+  const table = document.getElementById('outputTable');
+  const range = document.createRange();
+  range.selectNodeContents(table);
+  const selection = window.getSelection();
+  selection.removeAllRanges();
+  selection.addRange(range);
+  document.execCommand('copy');
+  selection.removeAllRanges();
+  alert('Table copied!');
+}
+</script>
+</body>
+</html>
