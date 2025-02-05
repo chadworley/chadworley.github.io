@@ -3,15 +3,21 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-02-04 8:00:00"]*4
-dut = ["2025-02-04 23:59:00"]*4
+avt = ["2025-02-05 8:00:00"]*11
+dut = ["2025-02-05 23:59:00"]*11
 front = "u13_"
 
-files = ["08_uc_other_coord_from_Q.Rmd",
-"09_uc_slope_from_x_and_Q.Rmd",
-"10_uc_x_from_slope_Q1.Rmd",
-"11_uc_x_y_from_slope_and_Q.Rmd"
-]
+files = ["12_sine_get_opposite.Rmd",
+"13_sine_get_hypotenuse.Rmd",
+"14_sine_get_angle.Rmd",
+"15_cosine_get_adjacent.Rmd",
+"16_cosine_get_hypotenuse.Rmd",
+"17_cosine_get_angle.Rmd",
+"18_tangent_get_opposite.Rmd",
+"19_tangent_get_adjacent.Rmd",
+"20_tangent_get_angle.Rmd",
+"21_trigs_from_uc_point_Q1.Rmd",
+"22_pnt_n_slope_from_ang_Q1.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u13/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'

@@ -1,0 +1,132 @@
+```{r,echo=F}
+while(T){
+    th = round(runif(1,0.05,pi/2-0.05),3)
+    x = round(cos(th),3)
+    y = round(sin(th),3)
+    t = round(y/x,3)
+    rt = round(x/y,3)
+    others = round(20^runif(4,-1,1),3)
+    alls = sort(c(x,y,t,rt,th,others))
+    if(min(diff(alls))>0.02){break}
+}
+al = paste0("* ",alls,collapse="\n")
+sol1 = paste0(1*(alls==x),collapse="")
+sol2 = paste0(1*(alls==y),collapse="")
+sol3 = paste0(1*(alls==t),collapse="")
+
+```
+
+Question
+========
+
+A unit circle is drawn centered at the origin. A ray emanates from the origin and intersects the unit circle at point $(x,y)$. An arc along the unit circle from $(0,1)$ to point $(x,y)$ has a length of `r th`, as shown below.
+ 
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-0.2,1.2),ylim=c(-0.2,1.2))
+arrows(-1.2,0,1.2,0,0.1,20,3,col="grey",lwd=2)
+arrows(0,-1.2,0,1.2,0.1,20,3,col="grey",lwd=2)
+points(0,0,pch=20)
+th1 = seq(0,2*pi,pi/360)
+lines(cos(th1),sin(th1),col="grey")
+arrows(0,0,1.1*x,1.1*y,0.2,20,2,lwd=3)
+th2 = seq(0,th,pi/360)
+lines(cos(th2),sin(th2),col="red",lwd=3)
+text(1.05*cos(th/2),1.05*sin(th/2),sprintf("%.3f",th),srt=(th/2-pi/2)/pi*180,col="red",cex=1,adj=c(0.5,0.5))
+points(1,0,pch=19,col="purple")
+text(1,0,"(1,0)",col="purple",adj=c(-0.2,1.5))
+points(0,1,pch=19,col="purple")
+text(0,1,"(0,1)",col="purple",adj=c(-0.2,-0.5))
+points(x,y,pch=19,col="blue")
+text(x,y,paste0("(x,y)",collapse=""),adj=c(1.2,-0.5),col="blue")
+text(0,0,"(0,0)",adj=c(1.2,1.5))
+```
+\
+
+Find the coordinates of the point.
+
+* $x=$ ##ANSWER1##
+* $y=$ ##ANSWER2##
+
+Find the slope of the ray that connects the origin to the point.
+
+* slope = ##ANSWER3##
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+Notice, you can draw a right triangle with a hypotenuse of length 1. Also, remember that the angle measure (in radians) is equivalent to the arc length on the unit circle.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-0.2,1.2),ylim=c(-0.2,1.2))
+arrows(-1.2,0,1.2,0,0.1,20,3,col="grey",lwd=2)
+arrows(0,-1.2,0,1.2,0.1,20,3,col="grey",lwd=2)
+points(0,0,pch=20)
+th1 = seq(0,2*pi,pi/360)
+lines(cos(th1),sin(th1),col="grey")
+arrows(0,0,1.1*x,1.1*y,0.2,20,2,lwd=1,col="darkgrey")
+th2 = seq(0,th,pi/360)
+lines(0.1*cos(th2),0.1*sin(th2),col="red",lwd=3)
+text(0.12*cos(th/2),0.12*sin(th/2),paste0(th," radians"),col="red",cex=0.9,adj=c(0,0.5))
+points(1,0,pch=19,col="purple")
+text(1,0,"(1,0)",col="purple",adj=c(-0.2,1.5))
+points(0,1,pch=19,col="purple")
+text(0,1,"(0,1)",col="purple",adj=c(-0.2,-0.5))
+points(x,y,pch=19,col="red")
+text(x,y,paste0("(x, y)",collapse=""),adj=c(1.2,-0.5),col="red")
+
+lines(c(0,x),c(0,0),col="blue",lwd=5)
+text(x/2,0,"x",adj=c(0.5,1.5),col="blue")
+
+lines(c(x,x),c(0,y),col="darkgreen",lwd=5)
+text(x,y/2,"y",srt=90,adj=c(0.5,1.5),col="darkgreen")
+
+lines(c(0,x),c(0,y),col="maroon",lwd=5)
+text(x/2,y/2,"1",srt=th/pi*180,adj=c(0.5,-0.5),col="maroon")
+```
+\
+
+Use [SOHCAHTOA](https://en.wikipedia.org/wiki/Mnemonics_in_trigonometry#SOH-CAH-TOA) to find the answers.
+
+Find $x$.
+
+$$\cos(`r th`) ~=~ \frac{x}{1}$$
+
+
+$$`r x` ~=~ x$$
+
+Find $y$.
+
+$$\sin(`r th`) ~=~ \frac{y}{1}$$
+
+
+$$`r y` ~=~ y$$
+
+Find the slope. Notice, since the ray goes through $(0,0)$, the slope, which is rise over run, is simply $y/x$. Surprisingly, maybe, this is the same thing as $\tan(\theta)$.
+
+$$\tan(`r th`) ~=~ \text{slope} ~=~ \frac{y}{x} ~=~ \frac{\sin(`r th`)}{\cos(`r th`)}$$
+
+
+$$`r t` ~=~ \text{slope}$$
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: pnt_n_slope_from_ang_Q1

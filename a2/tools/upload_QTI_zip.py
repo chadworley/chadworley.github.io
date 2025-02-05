@@ -6,10 +6,17 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u13_08_uc_other_coord_from_Q.zip",
-"outcanvas/u13_09_uc_slope_from_x_and_Q.zip",
-"outcanvas/u13_10_uc_x_from_slope_Q1.zip",
-"outcanvas/u13_11_uc_x_y_from_slope_and_Q.zip"]
+file_path_list = ["outcanvas/u13_12_sine_get_opposite.zip",
+"outcanvas/u13_13_sine_get_hypotenuse.zip",
+"outcanvas/u13_14_sine_get_angle.zip",
+"outcanvas/u13_15_cosine_get_adjacent.zip",
+"outcanvas/u13_16_cosine_get_hypotenuse.zip",
+"outcanvas/u13_17_cosine_get_angle.zip",
+"outcanvas/u13_18_tangent_get_opposite.zip",
+"outcanvas/u13_19_tangent_get_adjacent.zip",
+"outcanvas/u13_20_tangent_get_angle.zip",
+"outcanvas/u13_21_trigs_from_uc_point_Q1.zip",
+"outcanvas/u13_22_pnt_n_slope_from_ang_Q1.zip"]
 
 # fpl = []
 # for i in range(70,100):
