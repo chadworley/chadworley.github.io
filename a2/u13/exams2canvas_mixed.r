@@ -3,10 +3,13 @@ n = 30
 outdir = "outcanvas"
 genname = "u13_"
 
-probs = c("21_trigs_from_uc_point_Q1.Rmd",
-          "22_pnt_n_slope_from_ang_Q1.Rmd")
+probs = c("23_plr_vect_add_simp.Rmd",
+          "24_polar_to_rect.Rmd",
+          "25_unit_circ_intro.Rmd",
+          "26_unit_circ_float.Rmd",
+          "27_match_parametrics.Rmd")
 
-pnts = c(3,3)
+pnts = c(3,3,3,3,3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

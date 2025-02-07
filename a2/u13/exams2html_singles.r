@@ -1,16 +1,10 @@
 library("exams")
 
-pppsss = c("12_sine_get_opposite.Rmd",
-           "13_sine_get_hypotenuse.Rmd",
-           "14_sine_get_angle.Rmd",
-           "15_cosine_get_adjacent.Rmd",
-           "16_cosine_get_hypotenuse.Rmd",
-           "17_cosine_get_angle.Rmd",
-           "18_tangent_get_opposite.Rmd",
-           "19_tangent_get_adjacent.Rmd",
-           "20_tangent_get_angle.Rmd",
-           "21_trigs_from_uc_point_Q1.Rmd",
-           "22_pnt_n_slope_from_ang_Q1.Rmd")
+pppsss = c("23_plr_vect_add_simp.Rmd",
+           "24_polar_to_rect.Rmd",
+           "25_unit_circ_intro.Rmd",
+           "26_unit_circ_float.Rmd",
+           "27_match_parametrics.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

@@ -3,9 +3,9 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-02-05 8:00:00"]*11
-dut = ["2025-02-05 23:59:00"]*11
-front = "u13_"
+avt = ["2025-02-05 8:00:00"]*9
+dut = ["2025-02-05 23:59:00"]*9
+front = "trig_"
 
 files = ["01_sine_get_opposite.Rmd",
 "02_sine_get_hypotenuse.Rmd",

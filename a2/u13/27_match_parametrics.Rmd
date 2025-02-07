@@ -1,0 +1,235 @@
+```{r,echo=F}
+## 1 circle
+r = sample(2:5,1)
+c = sample(2:5,2)*sample(c(-1,1),2,T)
+xn = paste0(c[1],"+",r,"\\cos(t)")
+yn = paste0(c[2],"+",r,"\\sin(t)")
+v = 0
+w = 2*pi
+vn = "0"
+wn = "2\\pi"
+t = seq(v,w,length.out=1200)
+x = c[1]+r*cos(t)
+y = c[2]+r*sin(t)
+xns = c(xn)
+yns = c(yn)
+xs = list(x)
+ys = list(y)
+vns = c(vn)
+wns = c(wn)
+
+## 2 ellipse
+r = sample(2:8,2)
+xn = paste0(r[1],"\\cos(t)")
+yn = paste0(r[2],"\\sin(t)")
+v = 0
+w = 2*pi
+vn = "0"
+wn = "2\\pi"
+t = seq(v,w,length.out=1200)
+x = r[1]*cos(t)
+y = r[2]*sin(t)
+xns = c(xns,xn)
+yns = c(yns,yn)
+xs[[2]] = x
+ys[[2]] = y
+vns = c(vns,vn)
+wns = c(wns,wn)
+
+## 3 arithmetic spiral
+n = sample(2:8,1)
+xn = paste0("t\\cos(",n,"t)")
+yn = paste0("t\\sin(",n,"t)")
+v = 0
+w = 4*pi
+vn = "0"
+wn = "4\\pi"
+t = seq(v,w,length.out=1200)
+x = t*cos(n*t)
+y = t*sin(n*t)
+xns = c(xns,xn)
+yns = c(yns,yn)
+xs[[3]] = x
+ys[[3]] = y
+vns = c(vns,vn)
+wns = c(wns,wn)
+
+## 4 exponential spiral
+n = sample(8:18,1)
+xn = paste0("e^t\\cos(",n,"t)")
+yn = paste0("e^t\\sin(",n,"t)")
+v = -4*pi
+w = 4*pi
+vn = "-4\\pi"
+wn = "4\\pi"
+t = seq(v,w,length.out=3600)
+x = exp(t)*cos(n*t)
+y = exp(t)*sin(n*t)
+xns = c(xns,xn)
+yns = c(yns,yn)
+xs[[4]] = x
+ys[[4]] = y
+vns = c(vns,vn)
+wns = c(wns,wn)
+
+## 5 sine product function
+n = sample(2:9,4)
+r = sample(5:9,1)
+xn = paste0(r,"\\sin(",n[1],"t)\\cdot\\sin(",n[2],"t)")
+yn = paste0(r,"\\sin(",n[3],"t)\\cdot\\sin(",n[4],"t)")
+v = 0
+w = 2*pi
+vn = "0"
+wn = "2\\pi"
+t = seq(v,w,length.out=1200)
+x = r*sin(n[1]*t)*sin(n[2]*t)
+y = r*sin(n[3]*t)*sin(n[4]*t)
+xns = c(xns,xn)
+yns = c(yns,yn)
+xs[[5]] = x
+ys[[5]] = y
+vns = c(vns,vn)
+wns = c(wns,wn)
+
+
+## 6 moon trajectory
+n = sample(3:9,1)
+r = sample(5:8,1)
+xn = paste0(r,"\\cos(t)+",10-r,"\\cos(",n,"t)")
+yn = paste0(r,"\\sin(t)+",10-r,"\\sin(",n,"t)")
+v = 0
+w = 2*pi
+vn = "0"
+wn = "2\\pi"
+t = seq(v,w,length.out=1200)
+x = r*cos(t)+(10-r)*cos(n*t)
+y = r*sin(t)+(10-r)*sin(n*t)
+xns = c(xns,xn)
+yns = c(yns,yn)
+xs[[6]] = x
+ys[[6]] = y
+vns = c(vns,vn)
+wns = c(wns,wn)
+
+## 7 star
+r = sample(3:7,1)
+n = sample(5:9,1)
+xn = paste0("(",r,"+\\sin(",n,"t))\\cos(t)")
+yn = paste0("(",r,"+\\sin(",n,"t))\\sin(t)")
+v = 0
+w = 2*pi
+vn = "0"
+wn = "2\\pi"
+t = seq(v,w,length.out=1200)
+x = (r+sin(n*t))*cos(t)
+y = (r+sin(n*t))*sin(t)
+xns = c(xns,xn)
+yns = c(yns,yn)
+xs[[7]] = x
+ys[[7]] = y
+vns = c(vns,vn)
+wns = c(wns,wn)
+
+## 8 boring
+v = -2*pi
+w = 2*pi
+vn = "-2\\pi"
+wn = "2\\pi"
+t = seq(v,w,length.out=1200)
+typ = sample(1:4,1)
+if(typ == 1){
+  xn = "t"
+  yn = "\\sin(t)"
+  x = t
+  y = sin(t)
+}
+if(typ == 2){
+  xn = "t"
+  yn = "\\cos(t)"
+  x = t
+  y = cos(t)
+}
+if(typ == 3){
+  xn = "\\cos(t)"
+  yn = "t"
+  x = cos(t)
+  y = t
+}
+if(typ == 4){
+  xn = "\\sin(t)"
+  yn = "t"
+  x = sin(t)
+  y = t
+}
+xns = c(xns,xn)
+yns = c(yns,yn)
+xs[[8]] = x
+ys[[8]] = y
+vns = c(vns,vn)
+wns = c(wns,wn)
+
+
+ord1 = sample(1:8)
+ord2 = sample(1:8)
+
+sol = list()
+for(i in 1:8){
+  sol[[i]] = paste0(1*(ord1[i]==ord2),collapse="")
+}
+
+exps = paste0(1:8,". The following parametric equations match graph ##ANSWER",1:8,"## $$x=",xns[ord1],"$$ $$y=",yns[ord1],"$$ $$",vns,"\\le t \\le ",wns,"$$",collapse="\n")
+
+ch = LETTERS[1:8]
+al = paste0("* ",ch,"\n",collapse="")
+
+```
+
+Question
+========
+
+Match the [parametric equations](https://help.desmos.com/hc/en-us/articles/4406906208397-Parametric-Equations) to their graphs. 
+
+```{r,fig.dim=c(6,12),echo=F}
+par(pty="s",mfrow=c(4,2))
+for(i in 1:8){
+  plot(xs[[ord2[i]]],ys[[ord2[i]]],type="l",xlim=c(-10,10),ylim=c(-10,10),main=LETTERS[i],xlab="x",ylab="y")
+}
+```
+\
+
+
+`r exps`
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+Graph using using Desmos or a similar graphing utility.
+
+In Desmos, to graph parametric equations, use the same notation you'd use for a point, but instead of $(x,y)$, put two expressions with $t$ as the independent variable.
+
+For example, the first one, you'd type:
+
+
+$${\large(}`r xns[ord1[1]]`,~~`r yns[ord1[1]]`{\large)}$$
+And then set the proper domain of $t$.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol[1]`|`r sol[2]`|`r sol[3]`|`r sol[4]`|`r sol[5]`|`r sol[6]`|`r sol[7]`|`r sol[8]`
+exname: match_parametrics
