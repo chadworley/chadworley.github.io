@@ -5,11 +5,12 @@ import os
 
 
 front = "u13_"
-files = ["23_plr_vect_add_simp.Rmd",
-"24_polar_to_rect.Rmd",
-"25_unit_circ_intro.Rmd",
-"26_unit_circ_float.Rmd",
-"27_match_parametrics.Rmd"]
+files = ["28_sin_from_cos_and_Q.Rmd",
+"29_sin_from_tan_and_Q.Rmd",
+"30_cos_from_sin_and_Q.Rmd",
+"31_cos_from_tan_and_Q.Rmd",
+"32_tan_from_sin_and_Q.Rmd",
+"33_tan_from_cos_and_Q.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u13/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
