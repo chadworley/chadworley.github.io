@@ -1,10 +1,11 @@
 library("exams")
 
-pppsss = c("23_plr_vect_add_simp.Rmd",
-           "24_polar_to_rect.Rmd",
-           "25_unit_circ_intro.Rmd",
-           "26_unit_circ_float.Rmd",
-           "27_match_parametrics.Rmd")
+pppsss = c("28_sin_from_cos_and_Q.Rmd",
+           "29_sin_from_tan_and_Q.Rmd",
+           "30_cos_from_sin_and_Q.Rmd",
+           "31_cos_from_tan_and_Q.Rmd",
+           "32_tan_from_sin_and_Q.Rmd",
+           "33_tan_from_cos_and_Q.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

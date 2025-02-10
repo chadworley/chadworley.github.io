@@ -1,0 +1,249 @@
+---
+title: "Unit Circle Definitions of Trigonometric Functions"
+output: 
+    slidy_presentation: default
+    html_document: default
+---
+
+# SOHCAHTOA Review
+
+When you first learn right-triangle trigonometry, you use these definitions:
+
+$$\sin(\theta)=\frac{\text{opp}}{\text{hyp}}$$
+$$\cos(\theta)=\frac{\text{adj}}{\text{hyp}}$$
+$$\tan(\theta)=\frac{\text{opp}}{\text{adj}}$$
+
+```{r,echo=F,fig.dim=c(4,4),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(0,0.9),ylim=c(-0.1,0.8))
+th = seq(0,pi/2,pi/360)
+# arrows(-0.05,0,1.05,0,0.05,15)
+# arrows(0,-0.05,0,1.05,0.05,15)
+# lines(cos(th),sin(th),col="grey",lty=2)
+x = 0.8
+y = 0.6
+t = atan(y/x)
+polygon(c(0,x,x),c(0,0,y),border=rgb(0.3,0,0.7),col=rgb(0.3,0,0.7,0.2),lwd=2)
+dd = 0.03
+lines(c(x-dd,x-dd,x),c(0,dd,dd))
+text(x/2,y/2,"hyp",srt=t*180/pi,adj=c(0.5,-0.3),cex=2)
+text(x/2,0,"opp",srt=0,adj=c(0.5,1.3),cex=2)
+text(x,y/2,"adj",srt=90,adj=c(0.5,1.3),cex=2)
+
+thth = seq(0,t,pi/360)
+n = length(thth)
+lines(0.2*cos(thth),0.2*sin(thth),col="red",lwd=2)
+text(0.25*cos(t/2),0.25*sin(t/2),TeX("$\\theta$"),col="red",cex=2)
+arrows(0.2*cos(thth[n-1]),0.2*sin(thth[n-1]),0.2*cos(thth[n]),0.2*sin(thth[n]),0.1,10,col="red",lwd=3)
+
+```
+
+# A right triangle with unit hypotenuse
+
+If we draw a right triangle, with a hypotenuse with length 1, like in the drawing below, we can get some simpler definitions of the trigonometric functions. In fact, these definitions will be more useful too, because they allow a natural extension to obtuse and negative angles.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-0.1,1.1),ylim=c(-0.1,1.1))
+th = seq(0,pi/2,pi/360)
+arrows(-0.05,0,1.05,0,0.05,15)
+arrows(0,-0.05,0,1.05,0.05,15)
+lines(cos(th),sin(th),col="grey",lty=2)
+x = 0.8
+y = 0.6
+t = atan(y/x)
+polygon(c(0,x,x),c(0,0,y),border=rgb(0.3,0,0.7),col=rgb(0.3,0,0.7,0.2),lwd=2)
+dd = 0.03
+lines(c(x-dd,x-dd,x),c(0,dd,dd))
+text(x/2,y/2,"1",srt=t*180/pi,adj=c(0.5,-0.3),cex=2)
+text(x/2,0,"x",srt=0,adj=c(0.5,1.3),cex=2)
+text(x,y/2,"y",srt=90,adj=c(0.5,1.3),cex=2)
+points(0,0,pch=19)
+text(0,0,"(0,0)",adj=c(1.2,1.2))
+points(x,y,pch=19)
+text(x,y,"(x,y)",adj=c(-0.2,-0.2))
+
+thth = seq(0,t,pi/360)
+n = length(thth)
+lines(0.1*cos(thth),0.1*sin(thth),col="red",lwd=2)
+text(0.15*cos(t/2),0.15*sin(t/2),TeX("$\\theta$"),col="red",cex=2)
+arrows(0.1*cos(thth[n-1]),0.1*sin(thth[n-1]),0.1*cos(thth[n]),0.1*sin(thth[n]),0.05,15,col="red",lwd=2)
+```
+
+$$\sin(\theta)~=~\frac{y}{1}~=~y$$
+$$\cos(\theta)~=~\frac{x}{1}~=~x$$
+$$\tan(\theta)~=~\frac{y}{x}~=~\text{slope from (0,0) to (x,y)}$$
+
+# Example: $\theta=1.2$ radians
+
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-0.1,1.1),ylim=c(-0.1,1.1))
+th = seq(0,pi/2,pi/360)
+arrows(-0.05,0,1.05,0,0.05,15)
+arrows(0,-0.05,0,1.05,0.05,15)
+lines(cos(th),sin(th),col="grey",lty=2)
+x = cos(1.2)
+y = sin(1.2)
+t = atan(y/x)
+polygon(c(0,x,x),c(0,0,y),border=rgb(0.3,0,0.7),col=rgb(0.3,0,0.7,0.2),lwd=2)
+dd = 0.03
+lines(c(x-dd,x-dd,x),c(0,dd,dd))
+text(x/2,y/2,"1",srt=t*180/pi,adj=c(0.5,-0.3),cex=2)
+text(x/2,0,round(x,5),srt=0,adj=c(0.5,1.3),cex=2)
+text(x,y/2,round(y,5),srt=90,adj=c(0.5,1.3),cex=2)
+points(0,0,pch=19)
+text(0,0,"(0,0)",adj=c(1.2,1.2))
+points(x,y,pch=19)
+text(x,y,paste0("(",round(x,5),", ",round(y,5),")"),adj=c(-0.1,0.5))
+
+thth = seq(0,t,pi/360)
+n = length(thth)
+lines(0.15*cos(thth),0.15*sin(thth),col="red",lwd=2)
+text(0.15*cos(t/2),0.15*sin(t/2),round(t,3),srt=t/2*180/pi,col="red",cex=2,adj=c(-0.1,0.5))
+arrows(0.15*cos(thth[n-1]),0.15*sin(thth[n-1]),0.15*cos(thth[n]),0.15*sin(thth[n]),0.05,15,col="red",lwd=2)
+```
+
+$$\sin(`r t`)~=~`r round(y,5)`$$
+$$\cos(`r t`)~=~`r round(x,5)`$$
+$$\tan(`r t`)~=~ \frac{`r y`}{`r x`} ~=~`r round(y/x,5)`$$
+
+# Practice 
+
+```{r,echo=F,fig.dim=c(4,4)}
+set.seed(1234)
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.15,1.15),ylim=c(-1.15,1.15))
+th = seq(0,2*pi,pi/360)
+arrows(-1.05,0,1.05,0,0.05,15,3,col="grey")
+arrows(0,-1.05,0,1.05,0.05,15,3,col="grey")
+lines(cos(th),sin(th),col="grey",lty=2)
+t = round(runif(1,pi/2+0.1,2*pi-0.1),1)
+x = cos(t)
+y = sin(t)
+m = tan(t)
+lines(c(0,x),c(0,y),col=rgb(0.3,0,0.7),lwd=2)
+dd = 0.03
+# lines(c(x-dd,x-dd,x),c(0,dd,dd))
+points(1,0,pch=19,col="maroon")
+text(1,0,"(1,0)",srt=0,adj=c(-0.1,1.3),col="maroon")
+# text(x/2,0,round(x,5),srt=0,adj=c(0.5,1.3),cex=2)
+# text(x,y/2,round(y,5),srt=90,adj=c(0.5,1.3),cex=2)
+points(0,0,pch=19)
+text(0,0,"(0,0)",adj=c(1.2,1.2))
+points(x,y,pch=19,col="blue")
+text(x,y,paste0("(",round(x,5),", ",round(y,5),")"),adj=c(-0.1,0.5),col="blue")
+
+thth = seq(0,t,pi/360)
+n = length(thth)
+angr = 0.3
+lines(angr*cos(thth),angr*sin(thth),col="red",lwd=2)
+text(angr*cos(t/2),angr*sin(t/2),paste0(round(t,3)," radians",collapse=""),srt=(t/2*180/pi+90)%%180-90,col="red",adj=c(0.5+sign(x)*0.6,0.5))
+arrows(angr*cos(thth[n-1]),angr*sin(thth[n-1]),angr*cos(thth[n]),angr*sin(thth[n]),0.05,15,col="red",lwd=2)
+
+x = round(x,5)
+y = round(y,5)
+m = round(y/x,5)
+```
+
+As shown above, on the unit circle, at an angle of $\theta=`r t`$ radians, lies the point $(`r x`,`r y`)$. Write the three trigonometric equations using the given angle and point.
+
+> - $\sin(`r t`)~=~`r y`$
+> - $\cos(`r t`)~=~`r x`$
+> - $\tan(`r t`)~=~\frac{`r y`}{`r x`}~=~`r m`$
+
+# Practice 2
+
+```{r,echo=F,fig.dim=c(4,4)}
+set.seed(12345)
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.15,1.15),ylim=c(-1.15,1.15))
+th = seq(0,2*pi,pi/360)
+arrows(-1.05,0,1.05,0,0.05,15,3,col="grey")
+arrows(0,-1.05,0,1.05,0.05,15,3,col="grey")
+lines(cos(th),sin(th),col="grey",lty=2)
+t = round(runif(1,pi/2+0.1,2*pi-0.1),1)
+x = cos(t)
+y = sin(t)
+m = tan(t)
+lines(c(0,x),c(0,y),col=rgb(0.3,0,0.7),lwd=2)
+dd = 0.03
+# lines(c(x-dd,x-dd,x),c(0,dd,dd))
+points(1,0,pch=19,col="maroon")
+text(1,0,"(1,0)",srt=0,adj=c(-0.1,1.3),col="maroon")
+# text(x/2,0,round(x,5),srt=0,adj=c(0.5,1.3),cex=2)
+# text(x,y/2,round(y,5),srt=90,adj=c(0.5,1.3),cex=2)
+points(0,0,pch=19)
+text(0,0,"(0,0)",adj=c(1.2,1.2))
+points(x,y,pch=19,col="blue")
+text(x,y,paste0("(",round(x,5),", ",round(y,5),")"),adj=c(-0.1,0.5),col="blue")
+
+thth = seq(0,t,pi/360)
+n = length(thth)
+angr = 0.3
+lines(angr*cos(thth),angr*sin(thth),col="red",lwd=2)
+text(angr*cos(t/2),angr*sin(t/2),paste0(round(t,3)," radians",collapse=""),srt=(t/2*180/pi+90)%%180-90,col="red",adj=c(0.5-sign(cos(t/2))*0.6,0.5))
+arrows(angr*cos(thth[n-1]),angr*sin(thth[n-1]),angr*cos(thth[n]),angr*sin(thth[n]),0.05,15,col="red",lwd=2)
+
+x = round(x,5)
+y = round(y,5)
+m = round(y/x,5)
+```
+
+As shown above, on the unit circle, at an angle of $\theta=`r t`$ radians, lies the point $(`r x`,`r y`)$. Write the three trigonometric equations using the given angle and point.
+
+> - $\sin(`r t`)~=~`r y`$
+> - $\cos(`r t`)~=~`r x`$
+> - $\tan(`r t`)~=~\frac{`r y`}{`r x`}~=~`r m`$
+
+# Practice 3
+
+```{r,echo=F,fig.dim=c(4,4)}
+set.seed(1234567)
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.15,1.15),ylim=c(-1.15,1.15))
+th = seq(0,2*pi,pi/360)
+arrows(-1.05,0,1.05,0,0.05,15,3,col="grey")
+arrows(0,-1.05,0,1.05,0.05,15,3,col="grey")
+lines(cos(th),sin(th),col="grey",lty=2)
+t = round(runif(1,pi/2+0.1,2*pi-0.1),1)
+x = cos(t)
+y = sin(t)
+m = tan(t)
+lines(c(0,x),c(0,y),col=rgb(0.3,0,0.7),lwd=2)
+dd = 0.03
+# lines(c(x-dd,x-dd,x),c(0,dd,dd))
+points(1,0,pch=19,col="maroon")
+text(1,0,"(1,0)",srt=0,adj=c(-0.1,1.3),col="maroon")
+# text(x/2,0,round(x,5),srt=0,adj=c(0.5,1.3),cex=2)
+# text(x,y/2,round(y,5),srt=90,adj=c(0.5,1.3),cex=2)
+points(0,0,pch=19)
+text(0,0,"(0,0)",adj=c(1.2,1.2))
+points(x,y,pch=19,col="blue")
+text(x,y,paste0("(",round(x,5),", ",round(y,5),")"),adj=c(-0.1,0.5),col="blue")
+
+thth = seq(0,t,pi/360)
+n = length(thth)
+angr = 0.3
+lines(angr*cos(thth),angr*sin(thth),col="red",lwd=2)
+text(angr*cos(t/2),angr*sin(t/2),paste0(round(t,3)," radians",collapse=""),srt=(t/2*180/pi+90)%%180-90,col="red",adj=c(0.5-sign(cos(t/2))*0.6,0.5))
+arrows(angr*cos(thth[n-1]),angr*sin(thth[n-1]),angr*cos(thth[n]),angr*sin(thth[n]),0.05,15,col="red",lwd=2)
+
+x = round(x,5)
+y = round(y,5)
+m = round(y/x,5)
+```
+
+As shown above, on the unit circle, at an angle of $\theta=`r t`$ radians, lies the point $(`r x`,`r y`)$. Write the three trigonometric equations using the given angle and point.
+
+> - $\sin(`r t`)~=~`r y`$
+> - $\cos(`r t`)~=~`r x`$
+> - $\tan(`r t`)~=~\frac{`r y`}{`r x`}~=~`r m`$
+
