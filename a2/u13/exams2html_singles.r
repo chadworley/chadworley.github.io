@@ -19,7 +19,7 @@ for(ppss in pppsss){
     }
     
     main = function(){
-      set.seed(1)
+      # set.seed(1)
       exams2html_interact(ps,
                      n=1,
                      dir=outdir,
