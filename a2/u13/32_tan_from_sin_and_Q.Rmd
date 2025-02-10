@@ -1,12 +1,14 @@
 ```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
 th = runif(1,pi/20,pi/2-pi/20)+sample(c(0,pi/2,pi,3*pi/2),1)
 th = signif(th,3)
-x = signif(cos(th),3)
+y = signif(sin(th),3)
 q = th%/%(pi/2)+1
-sy = 1-2*(q>2)
-y = sy*sqrt(1-x^2)
-yr = signif(y,3)
+sx = 1-2*(q %in% c(2,3))
+x = sx*sqrt(1-y^2)
+xr = signif(x,3)
 rmn = c("I","II","III","IV")
+m = y/x
+
 ```
 
 Question
@@ -14,16 +16,16 @@ Question
 
 Given:
 
-$$\cos(\theta)~=~`r x`$$
+$$\sin(\theta)~=~`r y`$$
 $$\theta\text{ is in quadrant `r rmn[q]`}$$
 
-Find $\sin(\theta)$. The tolerance is $\pm 0.001$.
+Find $\tan(\theta)$. The tolerance is $\pm 0.001$.
 
 
 Solution
 ========
 
-Remember, $\cos(\theta)$ represents the $x$ value on the unit circle at an angle of $\theta$. Draw a sketch. We know the point of interest is in quadrant `r rmn[q]`.
+Remember, $\sin(\theta)$ represents the $y$ value on the unit circle at an angle of $\theta$. Draw a sketch. We know the point of interest is in quadrant `r rmn[q]`.
 
 ```{r,echo=F,fig.dim=c(6,6)}
 library(latex2exp)
@@ -33,11 +35,11 @@ arrows(-1.3,0,1.3,0,0.1,20,3,lwd=2,col="grey")
 arrows(0,-1.3,0,1.3,0.1,20,3,lwd=2,col="grey")
 thall = seq(0,2*pi,pi/360)
 lines(cos(thall),sin(thall),col="black",lty=3)
-abline(v=x,lty=2,col="blue")
-if(abs(x)>0.6){
-    text(x,-1.15*sign(y),paste0("x=",round(x,5),collapse=""),adj=c(0.5,-0.3),srt=90,col="blue")
+abline(h=y,lty=2,col="blue")
+if(abs(y)>0.6){
+    text(-1.15*sign(x),y,paste0("y=",round(y,5),collapse=""),adj=c(0.5,-0.3),col="blue")
 } else {
-    text(x,0,paste0("x=",round(x,5),collapse=""),adj=c(0.5,-0.3),srt=90,col="blue")
+    text(0,y,paste0("y=",round(y,5),collapse=""),adj=c(0.5,-0.3),col="blue")
 }
 
 thth = seq(0,th,pi/360)
@@ -54,10 +56,10 @@ text(-1.15,1.15,"II",family="Tahoma",font=1,cex=1.3)
 text(-1.15,-1.15,"III",family="Tahoma",font=1,cex=1.3)
 text(1.15,-1.15,"IV",family="Tahoma",font=1,cex=1.3)
 points(x,y,pch=20,col="purple",cex=2)
-text(x,y,paste0("(",round(x,4),",  y)"),col="purple",adj=c(0.5-0.7*sign(x),0.5-0.7*sign(y)))
+text(x,y,paste0("(x, ",round(y,4),")"),col="purple",adj=c(0.5-0.7*sign(x),0.5-0.7*sign(y)))
 
-points(x,-y,pch=19,col="black")
-text(x,-y,adj=c(0.5-0.7*sign(x),0.5+0.7*sign(y)),"wrong\nspot")
+points(-x,y,pch=19,col="black")
+text(-x,y,adj=c(0.5-0.7*sign(x),0.5+0.7*sign(y)),"wrong\nspot")
 srt = (th*180/pi+90)%%180-90
 text(0.5*cos(th),0.5*sin(th),"1",col="red",srt=srt,adj=c(0.5,-0.3))
 
@@ -68,7 +70,7 @@ npy = np[round(sign(y)/2+1.5)]
 ```
 \
 
-You can draw a right triangle. The standard way to do this is by using a segment along the $x$-axis and a vertical segment at $x=`r x`$.
+You can draw a right triangle. The standard way to do this is by using a segment along the $x$-axis and a vertical segment.
 
 ```{r,echo=F,fig.dim=c(6,6)}
 library(latex2exp)
@@ -94,10 +96,10 @@ lines(c(0,cos(th)),c(0,sin(th)),col="red",lwd=3)
 # library(extrafont)
 # font_import()
 # loadfonts() 
-text(1.15,1.15,"I",family="Tahoma",font=1,cex=1.3)
-text(-1.15,1.15,"II",family="Tahoma",font=1,cex=1.3)
-text(-1.15,-1.15,"III",family="Tahoma",font=1,cex=1.3)
-text(1.15,-1.15,"IV",family="Tahoma",font=1,cex=1.3)
+text(1.05,1.05,"I",family="Tahoma",font=1,cex=1.3)
+text(-1.05,1.05,"II",family="Tahoma",font=1,cex=1.3)
+text(-1.05,-1.05,"III",family="Tahoma",font=1,cex=1.3)
+text(1.05,-1.05,"IV",family="Tahoma",font=1,cex=1.3)
 # points(x,y,pch=20,col="purple",cex=2)
 # text(1.01*x,1.01*y,paste0("(",round(x,4),",  y)"),col="purple",adj=c(0.5-0.7*sign(x),0.5-0.7*sign(y)))
 
@@ -106,9 +108,9 @@ text(x,-y,adj=c(0.5-0.7*sign(x),0.5+0.7*sign(y)),"wrong\nspot")
 srt = (th*180/pi+90)%%180-90
 text(0.5*cos(th),0.5*sin(th),"1",col="red",srt=srt,adj=c(0.5,0.5-0.8*sign(y)))
 lines(c(x,x),c(0,y),col="darkorange",lwd=3)
-text(x,y/2,TeX("$|y|=|sin(\\theta)|$"),col="darkorange",srt=90,adj=c(0.5,0.5+0.9*sign(x)))
+text(x,y/2,abs(y),col="darkorange",srt=90,adj=c(0.5,0.5+0.9*sign(x)))
 lines(c(0,x),c(0,0),col="darkgreen",lwd=3)
-text(x/2,0,abs(x),col="darkgreen",srt=0,adj=c(0.5,0.5+0.9*sign(y)))
+text(x/2,0,TeX("$|x|=|cos(\\theta)|$"),col="darkgreen",srt=0,adj=c(0.5,0.5+0.9*sign(y)))
 
 np = c("negative","positive")
 npx = np[round(sign(x)/2+1.5)]
@@ -119,34 +121,35 @@ npy = np[round(sign(y)/2+1.5)]
 
 Use Pythagorean Theorem.
 
-$$(`r x`)^2+|y|^2~=~1^2$$
+$$x^2+`r abs(y)`^2~=~1^2$$
+$$x^2+`r abs(y)`^2~=~1$$
 
-The square of a real number always equals the square of the absolute value of the same real number. Also, $1^2=1$.
+Subtract $(`r y`)^2$ from both sides.
 
-
-$$`r abs(x)`^2+y^2~=~1$$
-
-Subtract $(`r x`)^2$ from both sides.
-
-$$y^2~=~1-`r abs(x)`^2$$
+$$x^2~=~1-`r abs(y)`^2$$
 
 Square root both sides.
 
-$$y~=~\pm \sqrt{(1-`r abs(x)`^2)}$$
+$$|x|~=~\sqrt{(1-`r abs(y)`^2)}$$
 
-We know the quadrant is quadrant `r rmn[q]`, so $y$ is `r npy`.
+We know the quadrant is quadrant `r rmn[q]`, so $x$ is `r npx`.
 
 
-$$y~=~`r y`$$
+$$x~=~`r x`$$
 
 So,
 
-$$\sin(\theta)~=~`r y`$$
+$$\cos(\theta)~=~`r x`$$
+
+Remember, $\tan(\theta)\equiv\frac{\sin(\theta)}{\cos(\theta)}$ for any value of $\theta$. In other words, $\tan(\theta)$ is the slope of the line connecting the point to the origin.
+
+$$\tan(\theta)~=~\frac{`r y`}{`r x`}~=~ `r m`$$
+
 
 
 Meta-information
 ============
 extype: num
-exsolution: `r y`
-exname: sin_from_cos_and_Q
+exsolution: `r x`
+exname: cos_from_sin_and_Q
 extol: 0.001

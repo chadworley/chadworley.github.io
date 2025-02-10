@@ -4,18 +4,18 @@ import os
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
 
-# Variables
-course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u13_23_plr_vect_add_simp.zip",
-"outcanvas/u13_24_polar_to_rect.zip",
-"outcanvas/u13_25_unit_circ_intro.zip",
-"outcanvas/u13_26_unit_circ_float.zip",
-"outcanvas/u13_27_match_parametrics.zip"]
+# # Variables
+# course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
+# file_path_list = ["outcanvas/u13_23_plr_vect_add_simp.zip",
+# "outcanvas/u13_24_polar_to_rect.zip",
+# "outcanvas/u13_25_unit_circ_intro.zip",
+# "outcanvas/u13_26_unit_circ_float.zip",
+# "outcanvas/u13_27_match_parametrics.zip"]
 
-# fpl = []
-# for i in range(70,100):
-#     fpl.append("ET_0"+str(i)+".zip")
-# file_path_list = fpl
+fpl = []
+for i in range(100,120):
+    fpl.append("ET_"+str(i)+".zip")
+file_path_list = fpl
 
 canvas_url = 'https://bart.instructure.com'
 
