@@ -1,0 +1,54 @@
+---
+title: "Right-triangle trigonometry cheat sheet"
+output: pdf_document
+---
+
+\pagenumbering{gobble}
+
+
+* On a right triangle with a marked acute angle, we can identify the leg **opposite** the marked angle by starting at the angle, drawing a line through the center of mass of the triangle, and continuing until hitting a side.
+
+* The **hypotenuse** is opposite the right angle, and the hypotenuse is always the longest side of a right triangle.
+
+* The **adjacent** leg is the leg (not hypotenuse) that touches the marked angle.
+
+* Below I've drawn a right triangle in standard orientation, but in problems, the right triangle is often rotated and reflected, so it is important to have a process for identifying the hypotenuse, and whether a leg is opposite a given angle or adjacent a given angle.
+
+```{r,echo=F,fig.dim=c(2,2),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(0,0.9),ylim=c(-0.1,0.8))
+th = seq(0,pi/2,pi/360)
+# arrows(-0.05,0,1.05,0,0.05,15)
+# arrows(0,-0.05,0,1.05,0.05,15)
+# lines(cos(th),sin(th),col="grey",lty=2)
+x = 0.8
+y = 0.6
+t = atan(y/x)
+polygon(c(0,x,x),c(0,0,y),border=rgb(0.3,0,0.7),lwd=2)
+dd = 0.03
+lines(c(x-dd,x-dd,x),c(0,dd,dd))
+text(x/2,y/2,"hyp",srt=t*180/pi,adj=c(0.5,-0.3))
+text(x/2,0,"adj",srt=0,adj=c(0.5,1.3))
+text(x,y/2,"opp",srt=90,adj=c(0.5,1.3))
+
+thth = seq(0,t,pi/360)
+n = length(thth)
+ar = 0.2
+art = 0.27
+lines(ar*cos(thth),ar*sin(thth),col="red",lwd=2)
+text(art*cos(t/2),art*sin(t/2),TeX("$\\theta$"),col="red")
+arrows(ar*cos(thth[n-1]),ar*sin(thth[n-1]),ar*cos(thth[n]),ar*sin(thth[n]),0.1,20,col="red",lwd=3)
+arrows(ar*cos(thth[n-1]),ar*sin(thth[n-1]),ar*cos(thth[n]),ar*sin(thth[n]),0.08,10,col="red",lwd=3)
+```
+
+## SOHCAHTOA
+
+\begin{align*}
+\sin(\theta) ~&=~ \frac{\text{opp}}{\text{hyp}} & \text{opp} ~&=~ \text{hyp}\cdot\sin(\theta) & \text{hyp} ~&=~ \frac{\text{opp}}{\sin(\theta)} & \theta ~=~ \arcsin\left(\frac{\text{opp}}{\text{hyp}}\right)\\\\
+\cos(\theta) ~&=~ \frac{\text{adj}}{\text{hyp}} & \text{adj} ~&=~ \text{hyp}\cdot\cos(\theta) & \text{hyp} ~&=~ \frac{\text{adj}}{\cos(\theta)} & \theta ~=~ \arccos\left(\frac{\text{adj}}{\text{hyp}}\right)\\\\
+\tan(\theta) ~&=~ \frac{\text{opp}}{\text{adj}} & \text{opp} ~&=~ \text{adj}\cdot\tan(\theta) & \text{adj} ~&=~ \frac{\text{opp}}{\tan(\theta)} & \theta ~=~ \arctan\left(\frac{\text{opp}}{\text{adj}}\right)
+\end{align*}
+
+
+
