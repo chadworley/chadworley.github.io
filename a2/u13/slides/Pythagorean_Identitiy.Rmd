@@ -1,0 +1,159 @@
+---
+title: "Pythagorean Identity"
+output: slidy_presentation
+---
+
+# Pythagorean Identity
+
+```{r,echo=F,fig.dim=c(3,3),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.05,1.05),ylim=c(-1.05,1.05))
+th = seq(0,2*pi,pi/360)
+arrows(-1.05,0,1.05,0,0.05,15,3)
+arrows(0,-1.05,0,1.05,0.05,15,3)
+lines(cos(th),sin(th),col="darkgrey",lty=2)
+x = -0.6
+y = 0.8
+t = atan2(y,x)
+lines(c(0,x),c(0,y),lwd=2,col="blue")
+# dd = 0.03
+# lines(c(x-dd,x-dd,x),c(0,dd,dd))
+text(x/2,y/2,"1",srt=(t*180/pi+90)%%180-90,adj=c(0.5,-0.3),col="blue")
+# text(x/2,0,"adj",srt=0,adj=c(0.5,1.3))
+# text(x,y/2,"opp",srt=90,adj=c(0.5,1.3))
+
+thth = seq(0,t,pi/360)
+n = length(thth)
+ar = 0.2
+art = 0.34
+lines(ar*cos(thth),ar*sin(thth),col="red",lwd=2)
+text(art*cos(t/2),art*sin(t/2),TeX("$\\theta$"),col="red")
+# arrows(ar*cos(thth[n-1]),ar*sin(thth[n-1]),ar*cos(thth[n]),ar*sin(thth[n]),0.1,20,col="red",lwd=3)
+arrows(ar*cos(thth[n-1]),ar*sin(thth[n-1]),ar*cos(thth[n]),ar*sin(thth[n]),0.05,30,col="red",lwd=2)
+
+points(x,y,pch=19,col="maroon")
+text(x,y,"(x,y)",adj=1.2,col="maroon")
+text(1/sqrt(2),1/sqrt(2),TeX("$x^2+y^2=1$"),srt=-45,col="darkgrey",adj=c(0.5,-0.2))
+
+```
+
+* Every point on the unit circle is a distance of 1 unit away from the origin.
+* For any point $(x,y)$ on the unit circle, $x^2+y^2=1$ (distance formula).
+* We define $\sin(\theta)$ to be the $y$ coordinate on the unit circle at angle $\theta$.
+* We define $\cos(\theta)$ to be the $x$ coordinate on the unit circle at angle $\theta$.
+* We define $\tan(\theta)$ to be $y/x$, or the slope of the segment connection $(0,0)$ to $(x,y)$.
+* So,
+
+$$\sin^2(\theta)+\cos^2(\theta)=1$$
+
+* Notice, this new notation (putting an exponent between the trig function and its argument) is weird/bad but standard. To write this in a more familiar way, we could write $(\sin(\theta))^2+(\cos(\theta))^2=1$; however, you'll almost always see the Pythagorean identity, and trig functions raised to any power, written as they are shown in $\sin^2(\theta)+\cos^2(\theta)=1$.
+
+# Example 1
+
+1. If $\sin(\theta)=`r round(sin(0.7),3)`$, then what is $\cos(\theta)$?
+
+```{r,echo=F}
+y = round(sin(0.7),3)
+x = sqrt(1-y^2)
+```
+
+We can use the Pythagorean identity.
+
+$$(`r y`)^2+\cos^2(\theta)=1$$
+
+Subtract $(`r y`)^2$ from both sides.
+
+$$\cos^2(\theta)=1-(`r y`)^2$$
+
+Square root both sides.
+
+$$|\cos(\theta)|=\sqrt{1-(`r y`)^2}$$
+
+Get a decimal approximation.
+
+
+$$|\cos(\theta)|=`r sqrt(1-y^2)`$$
+
+
+Notice there are two possibilities: $\cos(\theta)=`r sqrt(1-y^2)`$ or $\cos(\theta)=`r -sqrt(1-y^2)`$. We can visualize this by drawing a unit circle and a horizontal line $y=`r y`$.
+
+
+```{r,echo=F,fig.dim=c(3,3),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.05,1.05),ylim=c(-1.05,1.05))
+th = seq(0,2*pi,pi/360)
+arrows(-1.05,0,1.05,0,0.05,15,3)
+arrows(0,-1.05,0,1.05,0.05,15,3)
+lines(cos(th),sin(th),col="darkgrey",lty=2)
+t = atan2(y,x)
+# lines(c(0,x),c(0,y),lwd=2,col="blue")
+# dd = 0.03
+# lines(c(x-dd,x-dd,x),c(0,dd,dd))
+# text(x/2,y/2,"1",srt=(t*180/pi+90)%%180-90,adj=c(0.5,-0.3),col="blue")
+# text(x/2,0,"adj",srt=0,adj=c(0.5,1.3))
+# text(x,y/2,"opp",srt=90,adj=c(0.5,1.3))
+
+thth = seq(0,t,pi/360)
+n = length(thth)
+
+text(1/sqrt(2),-1/sqrt(2),TeX("$x^2+y^2=1$"),srt=45,col="darkgrey",adj=c(0.5,-0.2))
+abline(h=y)
+
+points(x,y,pch=19)
+points(-x,y,pch=19)
+```
+\
+
+Notice, there are two points of intersection. The two points share a common $y$ coordinate, but their $x$ coordinates are opposites. The question would need to specify a quadrant for you to give a single answer!
+
+# "But, but, woe is me. I can't do all that algebra!"
+
+Never fear. I've done the algebra and stored the results in formulae! (These can be found on the [cheat sheet](https://chadworley.github.io/a2/u13/rtt_cheat_sheet/cheat_sheet_uc_trig.pdf).)
+
+\begin{align*}
+\sin^2(\theta)+\cos^2(\theta)&=1 & |\sin(\theta)|&=\sqrt{1-\cos^2(\theta)} & |\cos(\theta)|&=\sqrt{1-\sin^2(\theta)}\\\\
+\tan^2(\theta)+1&=\frac{1}{\cos^2(\theta)} & |\tan(\theta)|&=\sqrt{\frac{1-\cos^2(\theta)}{\cos^2(\theta)}} &
+|\cos(\theta)|&=\sqrt{\frac{1}{\tan^2(\theta)+1}}\\\\
+\tan^2(\theta)+1&=\frac{1}{1-\sin^2(\theta)} & |\tan(\theta)|&=\sqrt{\frac{\sin^2(\theta)}{1-\sin^2(\theta)}} &
+|\sin(\theta)|&=\sqrt{\frac{\tan^2(\theta)}{\tan^2(\theta)+1}}\\\\
+\end{align*}
+
+# Example 2
+
+* Given:
+    * $\sin(\theta)=0.5$
+    * $\theta$ is in quadrant II
+* Find $\tan(\theta)$.
+
+Find the formula that gets $\tan(\theta)$ from $\sin(\theta)$.
+
+$$|\tan(\theta)|=\sqrt{\frac{\sin^2(\theta)}{1-\sin^2(\theta)}}$$
+
+Substitute the given.
+
+$$|\tan(\theta)|=\sqrt{\frac{(0.5)^2}{1-(0.5)^2}}$$
+
+Evaluate a decimal approximation.
+
+
+$$|\tan(\theta)|=`r sqrt(0.5^2/(1-0.5^2))`$$
+
+In quadrant II, the slope will be **negative** for a line connecting a point on the circle to the origin. Thus,
+
+
+$$\tan(\theta)=`r -sqrt(0.5^2/(1-0.5^2))`$$
+
+
+
+
+
+
+
+
+
+
+
+
+
