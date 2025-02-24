@@ -1,0 +1,71 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+# Get resistance in watts per square meter per delta T
+options(scipen=99)
+while(T){
+   P = signif(runif(1,1,10),3) #Watts
+    V = signif(runif(1,2,12),3) #Volts
+    I = signif(P/V,3) #Amps
+    P = V*I
+    h = signif(runif(1,0.1,0.3),3) #m
+    r = signif(runif(1,0.05,0.15),3) #m
+    A = 2*pi*r^2+2*pi*r*h
+    T1 = signif(runif(1,17,24),3) #C
+    T2 = signif(T1+runif(1,3,20),3) #C
+    dT = T2-T1
+    R = A*dT/P 
+    if(length(unique(c(V,I,P,h,r,A,T1,T2,dT,R)))==10){break}
+}
+
+
+```
+
+Question
+========
+
+A electric heating unit is placed into an otherwise empty (thin) metal can with a (thin) metal lid. The can is wrapped in an insulating material (with an impermeable surface) and hung from the ceiling by a thin wire. A thermocouple is used to measure the temperature on both sides of the insulating material, and a fan is placed nearby to blow room temperature air across the insulation's surface (to hopefully bring the outside surface temperature equal to room temperature). The heating unit is run at a constant voltage and amperage (so, constant power), and sufficient time is given until temperatures stop changing (the system has reached steady-state equilibrium).
+
+Our goal is to calculate the [R-value](https://en.wikipedia.org/wiki/R-value_(insulation)) of the insulating material. The R-value is the quotient of the product of surface area ($A$) times the temperature difference ($\Delta T$) divided by power ($P$).
+
+$$R = \frac{A\cdot \Delta T}{P}$$
+
+Each of these values themselves must first be calculated.
+
+* The power (in Watts) is the product of the voltage ($V$, in Volts) and current ($I$, in Amps).
+
+$$P=VI$$
+
+* The surface area of a cylinder is the sum of two circles and a rectangle bent around the circumference. The surface area of a cylinder can be calculated from its radius ($r$) and height ($h$). We will assume the insulation is thin enough that its outer surface area is approximately equal to the surface area of the can.
+
+$$A=2\pi r^2+2\pi rh$$
+
+* The temperature difference is found by subtracting the inner temperature by the outer temperature.
+
+$$\Delta T = T_2-T_1$$
+
+### Measurements
+
+* The heating element was run at $V=`r V`$ volts and $I=`r I`$ amps.
+* The can has a radius of $r=`r r`$ meters and a height of $h=`r h`$ meters.
+* The outer surface's temperature was $T_1=`r T1`$ °C and the inner surface's temperature was $T_2=`r T2`$ °C.
+
+
+Find the $R$-value.
+
+
+Solution
+========
+
+$$P=(`r V`)(`r I`)=`r P`~\text{Watts}$$
+$$A=2\pi (`r r`)^2+2\pi (`r r`)(`r h`)=`r A`~\text{square meters}$$
+$$\Delta T=`r T2`-`r T1`=`r dT`$$
+
+$$R = \frac{(`r A`)(`r dT`)}{`r P`}=`r R`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r R`
+exname: get_R-val
+extol: `r R/1000`

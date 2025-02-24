@@ -1,0 +1,354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>01_get_R-val</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">01_get_R-val</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A electric heating unit is placed into an otherwise empty (thin) metal can with a (thin) metal lid. The can is wrapped in an insulating material (with an impermeable surface) and hung from the ceiling by a thin wire. A thermocouple is used to measure the temperature on both sides of the insulating material, and a fan is placed nearby to blow room temperature air across the insulation’s surface (to hopefully bring the outside surface temperature equal to room temperature). The heating unit is run at a constant voltage and amperage (so, constant power), and sufficient time is given until temperatures stop changing (the system has reached steady-state equilibrium).</p>
+<p>Our goal is to calculate the <a href="https://en.wikipedia.org/wiki/R-value_(insulation)">R-value</a> of the insulating material. The R-value is the quotient of the product of surface area (<span class="math inline">\(A\)</span>) times the temperature difference (<span class="math inline">\(\Delta T\)</span>) divided by power (<span class="math inline">\(P\)</span>).</p>
+<p><span class="math display">\[R = \frac{A\cdot \Delta T}{P}\]</span></p>
+<p>Each of these values themselves must first be calculated.</p>
+<ul>
+<li>The power (in Watts) is the product of the voltage (<span class="math inline">\(V\)</span>, in Volts) and current (<span class="math inline">\(I\)</span>, in Amps).</li>
+</ul>
+<p><span class="math display">\[P=VI\]</span></p>
+<ul>
+<li>The surface area of a cylinder is the sum of two circles and a rectangle bent around the circumference. The surface area of a cylinder can be calculated from its radius (<span class="math inline">\(r\)</span>) and height (<span class="math inline">\(h\)</span>). We will assume the insulation is thin enough that its outer surface area is approximately equal to the surface area of the can.</li>
+</ul>
+<p><span class="math display">\[A=2\pi r^2+2\pi rh\]</span></p>
+<ul>
+<li>The temperature difference is found by subtracting the inner temperature by the outer temperature.</li>
+</ul>
+<p><span class="math display">\[\Delta T = T_2-T_1\]</span></p>
+<h3 id="measurements">Measurements</h3>
+<ul>
+<li>The heating element was run at <span class="math inline">\(V=5.72\)</span> volts and <span class="math inline">\(I=0.593\)</span> amps.</li>
+<li>The can has a radius of <span class="math inline">\(r=0.141\)</span> meters and a height of <span class="math inline">\(h=0.215\)</span> meters.</li>
+<li>The outer surface’s temperature was <span class="math inline">\(T_1=18.4\)</span> °C and the inner surface’s temperature was <span class="math inline">\(T_2=36.7\)</span> °C.</li>
+</ul>
+<p>Find the <span class="math inline">\(R\)</span>-value.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[P=(5.72)(0.593)=3.39196~\text{Watts}\]</span>
+<span class="math display">\[A=2\pi (0.141)^2+2\pi (0.141)(0.215)=0.3153908~\text{square meters}\]</span>
+<span class="math display">\[\Delta T=36.7-18.4=18.3\]</span></p>
+<p><span class="math display">\[R = \frac{(0.3153908)(18.3)}{3.39196}=1.7015681\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A electric heating unit is placed into an otherwise empty (thin) metal can with a (thin) metal lid. The can is wrapped in an insulating material (with an impermeable surface) and hung from the ceiling by a thin wire. A thermocouple is used to measure the temperature on both sides of the insulating material, and a fan is placed nearby to blow room temperature air across the insulation’s surface (to hopefully bring the outside surface temperature equal to room temperature). The heating unit is run at a constant voltage and amperage (so, constant power), and sufficient time is given until temperatures stop changing (the system has reached steady-state equilibrium).</p>
+<p>Our goal is to calculate the <a href="https://en.wikipedia.org/wiki/R-value_(insulation)">R-value</a> of the insulating material. The R-value is the quotient of the product of surface area (<span class="math inline">\(A\)</span>) times the temperature difference (<span class="math inline">\(\Delta T\)</span>) divided by power (<span class="math inline">\(P\)</span>).</p>
+<p><span class="math display">\[R = \frac{A\cdot \Delta T}{P}\]</span></p>
+<p>Each of these values themselves must first be calculated.</p>
+<ul>
+<li>The power (in Watts) is the product of the voltage (<span class="math inline">\(V\)</span>, in Volts) and current (<span class="math inline">\(I\)</span>, in Amps).</li>
+</ul>
+<p><span class="math display">\[P=VI\]</span></p>
+<ul>
+<li>The surface area of a cylinder is the sum of two circles and a rectangle bent around the circumference. The surface area of a cylinder can be calculated from its radius (<span class="math inline">\(r\)</span>) and height (<span class="math inline">\(h\)</span>). We will assume the insulation is thin enough that its outer surface area is approximately equal to the surface area of the can.</li>
+</ul>
+<p><span class="math display">\[A=2\pi r^2+2\pi rh\]</span></p>
+<ul>
+<li>The temperature difference is found by subtracting the inner temperature by the outer temperature.</li>
+</ul>
+<p><span class="math display">\[\Delta T = T_2-T_1\]</span></p>
+<h3 id="measurements">Measurements</h3>
+<ul>
+<li>The heating element was run at <span class="math inline">\(V=8.61\)</span> volts and <span class="math inline">\(I=1.1\)</span> amps.</li>
+<li>The can has a radius of <span class="math inline">\(r=0.0562\)</span> meters and a height of <span class="math inline">\(h=0.226\)</span> meters.</li>
+<li>The outer surface’s temperature was <span class="math inline">\(T_1=18.4\)</span> °C and the inner surface’s temperature was <span class="math inline">\(T_2=24.4\)</span> °C.</li>
+</ul>
+<p>Find the <span class="math inline">\(R\)</span>-value.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[P=(8.61)(1.1)=9.471~\text{Watts}\]</span>
+<span class="math display">\[A=2\pi (0.0562)^2+2\pi (0.0562)(0.226)=0.0996491~\text{square meters}\]</span>
+<span class="math display">\[\Delta T=24.4-18.4=6\]</span></p>
+<p><span class="math display">\[R = \frac{(0.0996491)(6)}{9.471}=0.063129\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A electric heating unit is placed into an otherwise empty (thin) metal can with a (thin) metal lid. The can is wrapped in an insulating material (with an impermeable surface) and hung from the ceiling by a thin wire. A thermocouple is used to measure the temperature on both sides of the insulating material, and a fan is placed nearby to blow room temperature air across the insulation’s surface (to hopefully bring the outside surface temperature equal to room temperature). The heating unit is run at a constant voltage and amperage (so, constant power), and sufficient time is given until temperatures stop changing (the system has reached steady-state equilibrium).</p>
+<p>Our goal is to calculate the <a href="https://en.wikipedia.org/wiki/R-value_(insulation)">R-value</a> of the insulating material. The R-value is the quotient of the product of surface area (<span class="math inline">\(A\)</span>) times the temperature difference (<span class="math inline">\(\Delta T\)</span>) divided by power (<span class="math inline">\(P\)</span>).</p>
+<p><span class="math display">\[R = \frac{A\cdot \Delta T}{P}\]</span></p>
+<p>Each of these values themselves must first be calculated.</p>
+<ul>
+<li>The power (in Watts) is the product of the voltage (<span class="math inline">\(V\)</span>, in Volts) and current (<span class="math inline">\(I\)</span>, in Amps).</li>
+</ul>
+<p><span class="math display">\[P=VI\]</span></p>
+<ul>
+<li>The surface area of a cylinder is the sum of two circles and a rectangle bent around the circumference. The surface area of a cylinder can be calculated from its radius (<span class="math inline">\(r\)</span>) and height (<span class="math inline">\(h\)</span>). We will assume the insulation is thin enough that its outer surface area is approximately equal to the surface area of the can.</li>
+</ul>
+<p><span class="math display">\[A=2\pi r^2+2\pi rh\]</span></p>
+<ul>
+<li>The temperature difference is found by subtracting the inner temperature by the outer temperature.</li>
+</ul>
+<p><span class="math display">\[\Delta T = T_2-T_1\]</span></p>
+<h3 id="measurements">Measurements</h3>
+<ul>
+<li>The heating element was run at <span class="math inline">\(V=5.84\)</span> volts and <span class="math inline">\(I=1.23\)</span> amps.</li>
+<li>The can has a radius of <span class="math inline">\(r=0.0998\)</span> meters and a height of <span class="math inline">\(h=0.254\)</span> meters.</li>
+<li>The outer surface’s temperature was <span class="math inline">\(T_1=22\)</span> °C and the inner surface’s temperature was <span class="math inline">\(T_2=41.9\)</span> °C.</li>
+</ul>
+<p>Find the <span class="math inline">\(R\)</span>-value.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[P=(5.84)(1.23)=7.1832~\text{Watts}\]</span>
+<span class="math display">\[A=2\pi (0.0998)^2+2\pi (0.0998)(0.254)=0.2218545~\text{square meters}\]</span>
+<span class="math display">\[\Delta T=41.9-22=19.9\]</span></p>
+<p><span class="math display">\[R = \frac{(0.2218545)(19.9)}{7.1832}=0.6146153\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A electric heating unit is placed into an otherwise empty (thin) metal can with a (thin) metal lid. The can is wrapped in an insulating material (with an impermeable surface) and hung from the ceiling by a thin wire. A thermocouple is used to measure the temperature on both sides of the insulating material, and a fan is placed nearby to blow room temperature air across the insulation’s surface (to hopefully bring the outside surface temperature equal to room temperature). The heating unit is run at a constant voltage and amperage (so, constant power), and sufficient time is given until temperatures stop changing (the system has reached steady-state equilibrium).</p>
+<p>Our goal is to calculate the <a href="https://en.wikipedia.org/wiki/R-value_(insulation)">R-value</a> of the insulating material. The R-value is the quotient of the product of surface area (<span class="math inline">\(A\)</span>) times the temperature difference (<span class="math inline">\(\Delta T\)</span>) divided by power (<span class="math inline">\(P\)</span>).</p>
+<p><span class="math display">\[R = \frac{A\cdot \Delta T}{P}\]</span></p>
+<p>Each of these values themselves must first be calculated.</p>
+<ul>
+<li>The power (in Watts) is the product of the voltage (<span class="math inline">\(V\)</span>, in Volts) and current (<span class="math inline">\(I\)</span>, in Amps).</li>
+</ul>
+<p><span class="math display">\[P=VI\]</span></p>
+<ul>
+<li>The surface area of a cylinder is the sum of two circles and a rectangle bent around the circumference. The surface area of a cylinder can be calculated from its radius (<span class="math inline">\(r\)</span>) and height (<span class="math inline">\(h\)</span>). We will assume the insulation is thin enough that its outer surface area is approximately equal to the surface area of the can.</li>
+</ul>
+<p><span class="math display">\[A=2\pi r^2+2\pi rh\]</span></p>
+<ul>
+<li>The temperature difference is found by subtracting the inner temperature by the outer temperature.</li>
+</ul>
+<p><span class="math display">\[\Delta T = T_2-T_1\]</span></p>
+<h3 id="measurements">Measurements</h3>
+<ul>
+<li>The heating element was run at <span class="math inline">\(V=9.77\)</span> volts and <span class="math inline">\(I=0.452\)</span> amps.</li>
+<li>The can has a radius of <span class="math inline">\(r=0.0712\)</span> meters and a height of <span class="math inline">\(h=0.287\)</span> meters.</li>
+<li>The outer surface’s temperature was <span class="math inline">\(T_1=21.6\)</span> °C and the inner surface’s temperature was <span class="math inline">\(T_2=26.7\)</span> °C.</li>
+</ul>
+<p>Find the <span class="math inline">\(R\)</span>-value.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[P=(9.77)(0.452)=4.41604~\text{Watts}\]</span>
+<span class="math display">\[A=2\pi (0.0712)^2+2\pi (0.0712)(0.287)=0.1602454~\text{square meters}\]</span>
+<span class="math display">\[\Delta T=26.7-21.6=5.1\]</span></p>
+<p><span class="math display">\[R = \frac{(0.1602454)(5.1)}{4.41604}=0.1850643\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A electric heating unit is placed into an otherwise empty (thin) metal can with a (thin) metal lid. The can is wrapped in an insulating material (with an impermeable surface) and hung from the ceiling by a thin wire. A thermocouple is used to measure the temperature on both sides of the insulating material, and a fan is placed nearby to blow room temperature air across the insulation’s surface (to hopefully bring the outside surface temperature equal to room temperature). The heating unit is run at a constant voltage and amperage (so, constant power), and sufficient time is given until temperatures stop changing (the system has reached steady-state equilibrium).</p>
+<p>Our goal is to calculate the <a href="https://en.wikipedia.org/wiki/R-value_(insulation)">R-value</a> of the insulating material. The R-value is the quotient of the product of surface area (<span class="math inline">\(A\)</span>) times the temperature difference (<span class="math inline">\(\Delta T\)</span>) divided by power (<span class="math inline">\(P\)</span>).</p>
+<p><span class="math display">\[R = \frac{A\cdot \Delta T}{P}\]</span></p>
+<p>Each of these values themselves must first be calculated.</p>
+<ul>
+<li>The power (in Watts) is the product of the voltage (<span class="math inline">\(V\)</span>, in Volts) and current (<span class="math inline">\(I\)</span>, in Amps).</li>
+</ul>
+<p><span class="math display">\[P=VI\]</span></p>
+<ul>
+<li>The surface area of a cylinder is the sum of two circles and a rectangle bent around the circumference. The surface area of a cylinder can be calculated from its radius (<span class="math inline">\(r\)</span>) and height (<span class="math inline">\(h\)</span>). We will assume the insulation is thin enough that its outer surface area is approximately equal to the surface area of the can.</li>
+</ul>
+<p><span class="math display">\[A=2\pi r^2+2\pi rh\]</span></p>
+<ul>
+<li>The temperature difference is found by subtracting the inner temperature by the outer temperature.</li>
+</ul>
+<p><span class="math display">\[\Delta T = T_2-T_1\]</span></p>
+<h3 id="measurements">Measurements</h3>
+<ul>
+<li>The heating element was run at <span class="math inline">\(V=5.86\)</span> volts and <span class="math inline">\(I=0.58\)</span> amps.</li>
+<li>The can has a radius of <span class="math inline">\(r=0.0882\)</span> meters and a height of <span class="math inline">\(h=0.103\)</span> meters.</li>
+<li>The outer surface’s temperature was <span class="math inline">\(T_1=23.1\)</span> °C and the inner surface’s temperature was <span class="math inline">\(T_2=31.9\)</span> °C.</li>
+</ul>
+<p>Find the <span class="math inline">\(R\)</span>-value.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[P=(5.86)(0.58)=3.3988~\text{Watts}\]</span>
+<span class="math display">\[A=2\pi (0.0882)^2+2\pi (0.0882)(0.103)=0.1059586~\text{square meters}\]</span>
+<span class="math display">\[\Delta T=31.9-23.1=8.8\]</span></p>
+<p><span class="math display">\[R = \frac{(0.1059586)(8.8)}{3.3988}=0.2743427\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A electric heating unit is placed into an otherwise empty (thin) metal can with a (thin) metal lid. The can is wrapped in an insulating material (with an impermeable surface) and hung from the ceiling by a thin wire. A thermocouple is used to measure the temperature on both sides of the insulating material, and a fan is placed nearby to blow room temperature air across the insulation’s surface (to hopefully bring the outside surface temperature equal to room temperature). The heating unit is run at a constant voltage and amperage (so, constant power), and sufficient time is given until temperatures stop changing (the system has reached steady-state equilibrium).</p>
+<p>Our goal is to calculate the <a href="https://en.wikipedia.org/wiki/R-value_(insulation)">R-value</a> of the insulating material. The R-value is the quotient of the product of surface area (<span class="math inline">\(A\)</span>) times the temperature difference (<span class="math inline">\(\Delta T\)</span>) divided by power (<span class="math inline">\(P\)</span>).</p>
+<p><span class="math display">\[R = \frac{A\cdot \Delta T}{P}\]</span></p>
+<p>Each of these values themselves must first be calculated.</p>
+<ul>
+<li>The power (in Watts) is the product of the voltage (<span class="math inline">\(V\)</span>, in Volts) and current (<span class="math inline">\(I\)</span>, in Amps).</li>
+</ul>
+<p><span class="math display">\[P=VI\]</span></p>
+<ul>
+<li>The surface area of a cylinder is the sum of two circles and a rectangle bent around the circumference. The surface area of a cylinder can be calculated from its radius (<span class="math inline">\(r\)</span>) and height (<span class="math inline">\(h\)</span>). We will assume the insulation is thin enough that its outer surface area is approximately equal to the surface area of the can.</li>
+</ul>
+<p><span class="math display">\[A=2\pi r^2+2\pi rh\]</span></p>
+<ul>
+<li>The temperature difference is found by subtracting the inner temperature by the outer temperature.</li>
+</ul>
+<p><span class="math display">\[\Delta T = T_2-T_1\]</span></p>
+<h3 id="measurements">Measurements</h3>
+<ul>
+<li>The heating element was run at <span class="math inline">\(V=8\)</span> volts and <span class="math inline">\(I=0.668\)</span> amps.</li>
+<li>The can has a radius of <span class="math inline">\(r=0.0686\)</span> meters and a height of <span class="math inline">\(h=0.199\)</span> meters.</li>
+<li>The outer surface’s temperature was <span class="math inline">\(T_1=22.8\)</span> °C and the inner surface’s temperature was <span class="math inline">\(T_2=37.2\)</span> °C.</li>
+</ul>
+<p>Find the <span class="math inline">\(R\)</span>-value.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[P=(8)(0.668)=5.344~\text{Watts}\]</span>
+<span class="math display">\[A=2\pi (0.0686)^2+2\pi (0.0686)(0.199)=0.1153427~\text{square meters}\]</span>
+<span class="math display">\[\Delta T=37.2-22.8=14.4\]</span></p>
+<p><span class="math display">\[R = \frac{(0.1153427)(14.4)}{5.344}=0.3108037\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A electric heating unit is placed into an otherwise empty (thin) metal can with a (thin) metal lid. The can is wrapped in an insulating material (with an impermeable surface) and hung from the ceiling by a thin wire. A thermocouple is used to measure the temperature on both sides of the insulating material, and a fan is placed nearby to blow room temperature air across the insulation’s surface (to hopefully bring the outside surface temperature equal to room temperature). The heating unit is run at a constant voltage and amperage (so, constant power), and sufficient time is given until temperatures stop changing (the system has reached steady-state equilibrium).</p>
+<p>Our goal is to calculate the <a href="https://en.wikipedia.org/wiki/R-value_(insulation)">R-value</a> of the insulating material. The R-value is the quotient of the product of surface area (<span class="math inline">\(A\)</span>) times the temperature difference (<span class="math inline">\(\Delta T\)</span>) divided by power (<span class="math inline">\(P\)</span>).</p>
+<p><span class="math display">\[R = \frac{A\cdot \Delta T}{P}\]</span></p>
+<p>Each of these values themselves must first be calculated.</p>
+<ul>
+<li>The power (in Watts) is the product of the voltage (<span class="math inline">\(V\)</span>, in Volts) and current (<span class="math inline">\(I\)</span>, in Amps).</li>
+</ul>
+<p><span class="math display">\[P=VI\]</span></p>
+<ul>
+<li>The surface area of a cylinder is the sum of two circles and a rectangle bent around the circumference. The surface area of a cylinder can be calculated from its radius (<span class="math inline">\(r\)</span>) and height (<span class="math inline">\(h\)</span>). We will assume the insulation is thin enough that its outer surface area is approximately equal to the surface area of the can.</li>
+</ul>
+<p><span class="math display">\[A=2\pi r^2+2\pi rh\]</span></p>
+<ul>
+<li>The temperature difference is found by subtracting the inner temperature by the outer temperature.</li>
+</ul>
+<p><span class="math display">\[\Delta T = T_2-T_1\]</span></p>
+<h3 id="measurements">Measurements</h3>
+<ul>
+<li>The heating element was run at <span class="math inline">\(V=3.08\)</span> volts and <span class="math inline">\(I=2.65\)</span> amps.</li>
+<li>The can has a radius of <span class="math inline">\(r=0.0911\)</span> meters and a height of <span class="math inline">\(h=0.245\)</span> meters.</li>
+<li>The outer surface’s temperature was <span class="math inline">\(T_1=22.7\)</span> °C and the inner surface’s temperature was <span class="math inline">\(T_2=36.7\)</span> °C.</li>
+</ul>
+<p>Find the <span class="math inline">\(R\)</span>-value.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[P=(3.08)(2.65)=8.162~\text{Watts}\]</span>
+<span class="math display">\[A=2\pi (0.0911)^2+2\pi (0.0911)(0.245)=0.192383~\text{square meters}\]</span>
+<span class="math display">\[\Delta T=36.7-22.7=14\]</span></p>
+<p><span class="math display">\[R = \frac{(0.192383)(14)}{8.162}=0.329988\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A electric heating unit is placed into an otherwise empty (thin) metal can with a (thin) metal lid. The can is wrapped in an insulating material (with an impermeable surface) and hung from the ceiling by a thin wire. A thermocouple is used to measure the temperature on both sides of the insulating material, and a fan is placed nearby to blow room temperature air across the insulation’s surface (to hopefully bring the outside surface temperature equal to room temperature). The heating unit is run at a constant voltage and amperage (so, constant power), and sufficient time is given until temperatures stop changing (the system has reached steady-state equilibrium).</p>
+<p>Our goal is to calculate the <a href="https://en.wikipedia.org/wiki/R-value_(insulation)">R-value</a> of the insulating material. The R-value is the quotient of the product of surface area (<span class="math inline">\(A\)</span>) times the temperature difference (<span class="math inline">\(\Delta T\)</span>) divided by power (<span class="math inline">\(P\)</span>).</p>
+<p><span class="math display">\[R = \frac{A\cdot \Delta T}{P}\]</span></p>
+<p>Each of these values themselves must first be calculated.</p>
+<ul>
+<li>The power (in Watts) is the product of the voltage (<span class="math inline">\(V\)</span>, in Volts) and current (<span class="math inline">\(I\)</span>, in Amps).</li>
+</ul>
+<p><span class="math display">\[P=VI\]</span></p>
+<ul>
+<li>The surface area of a cylinder is the sum of two circles and a rectangle bent around the circumference. The surface area of a cylinder can be calculated from its radius (<span class="math inline">\(r\)</span>) and height (<span class="math inline">\(h\)</span>). We will assume the insulation is thin enough that its outer surface area is approximately equal to the surface area of the can.</li>
+</ul>
+<p><span class="math display">\[A=2\pi r^2+2\pi rh\]</span></p>
+<ul>
+<li>The temperature difference is found by subtracting the inner temperature by the outer temperature.</li>
+</ul>
+<p><span class="math display">\[\Delta T = T_2-T_1\]</span></p>
+<h3 id="measurements">Measurements</h3>
+<ul>
+<li>The heating element was run at <span class="math inline">\(V=7.53\)</span> volts and <span class="math inline">\(I=1.07\)</span> amps.</li>
+<li>The can has a radius of <span class="math inline">\(r=0.129\)</span> meters and a height of <span class="math inline">\(h=0.206\)</span> meters.</li>
+<li>The outer surface’s temperature was <span class="math inline">\(T_1=17.2\)</span> °C and the inner surface’s temperature was <span class="math inline">\(T_2=28.3\)</span> °C.</li>
+</ul>
+<p>Find the <span class="math inline">\(R\)</span>-value.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[P=(7.53)(1.07)=8.0571~\text{Watts}\]</span>
+<span class="math display">\[A=2\pi (0.129)^2+2\pi (0.129)(0.206)=0.2715279~\text{square meters}\]</span>
+<span class="math display">\[\Delta T=28.3-17.2=11.1\]</span></p>
+<p><span class="math display">\[R = \frac{(0.2715279)(11.1)}{8.0571}=0.3740749\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
