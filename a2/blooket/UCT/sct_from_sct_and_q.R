@@ -21,49 +21,70 @@ for(i in 1:1000){
     
     if(qt==1){ # cos -> sin
         g = round(cos(th),3) #given
-        gt = paste0("cos(θ)=",sprintf("%.03f",g),"\nQuadrant = ",rmn[q],
-                    "\nFind sin(θ). Express sin(θ) using 3 significant figures.",
+        gt = paste0("cos(θ)=",sprintf("%.03f",g),"\n\nQuadrant = ",rmn[q],
+                    "\n\nFind sin(θ). Express sin(θ) using 3 significant figures.",
                     collapse="")
         aa = sqrt(1-g^2)
         a = sy*aa
     }
     if(qt==2){ # sin -> cos
         g = round(sin(th),3) #given
-        gt = paste0("sin(θ)=",sprintf("%.03f",g),"\nQuadrant = ",rmn[q],
-                    "\nFind cos(θ). Express cos(θ) using 3 significant figures.",
+        gt = paste0("sin(θ) = ",sprintf("%.03f",g),"\n\nQuadrant = ",rmn[q],
+                    "\n\nFind cos(θ). Express cos(θ) using 3 significant figures.",
                     collapse="")
         aa = sqrt(1-g^2)
         a = sx*aa
     }
     if(qt==3){ # cos -> tan
         g = round(cos(th),3) #given
-        gt = paste0("cos(θ)=",sprintf("%.03f",g),"\nQuadrant = ",rmn[q],
-                    "\nFind tan(θ). Express tan(θ) using 3 significant figures.",
+        gt = paste0("cos(θ) = ",sprintf("%.03f",g),"\n\nQuadrant = ",rmn[q],
+                    "\n\nFind tan(θ). Express tan(θ) using 3 significant figures.",
                     collapse="")
         aa = sqrt((1-g^2)/g^2)
         a = sx*sy*aa
     }
     if(qt==4){ # tan -> cos
-        g = round(tan(th),3) #given
-        gt = paste0("tan(θ)=",sprintf("%.03f",g),"\nQuadrant = ",rmn[q],
-                    "\nFind cos(θ). Express cos(θ) using 3 significant figures.",
-                    collapse="")
+        g = signif(tan(th),3) #given
+        if(abs(g)>10){
+            gt = paste0("tan(θ) = ",sprintf("%.01f",g),"\n\nQuadrant = ",rmn[q],
+                        "\n\nFind cos(θ). Express cos(θ) using 3 significant figures.",
+                        collapse="")
+        } else if(abs(g)>1){
+            gt = paste0("tan(θ) = ",sprintf("%.02f",g),"\n\nQuadrant = ",rmn[q],
+                        "\n\nFind cos(θ). Express cos(θ) using 3 significant figures.",
+                        collapse="")
+        } else {
+            gt = paste0("tan(θ) = ",sprintf("%.03f",g),"\n\nQuadrant = ",rmn[q],
+                        "\n\nFind cos(θ). Express cos(θ) using 3 significant figures.",
+                        collapse="")
+        }
+        
         aa = sqrt(1/(g^2+1))
         a = sx*aa
     }
     if(qt==5){ # sin -> tan
         g = round(sin(th),3) #given
-        gt = paste0("sin(θ)=",sprintf("%.03f",g),"\nQuadrant = ",rmn[q],
-                    "\nFind tan(θ). Express tan(θ) using 3 significant figures.",
+        gt = paste0("sin(θ) = ",sprintf("%.03f",g),"\n\nQuadrant = ",rmn[q],
+                    "\n\nFind tan(θ). Express tan(θ) using 3 significant figures.",
                     collapse="")
         aa = sqrt(g^2/(1-g^2))
         a = sx*sy*aa
     }
     if(qt==6){ # tan -> sin
-        g = round(tan(th),3) #given
-        gt = paste0("tan(θ)=",sprintf("%.03f",g),"\nQuadrant = ",rmn[q],
-                    "\nFind sin(θ). Express sin(θ) using 3 significant figures.",
-                    collapse="")
+        g = signif(tan(th),3) #given
+        if(abs(g)>10){
+            gt = paste0("tan(θ) = ",sprintf("%.01f",g),"\n\nQuadrant = ",rmn[q],
+                        "\n\nFind sin(θ). Express sin(θ) using 3 significant figures.",
+                        collapse="")
+        } else if(abs(g)>1) {
+            gt = paste0("tan(θ) = ",sprintf("%.02f",g),"\n\nQuadrant = ",rmn[q],
+                        "\n\nFind sin(θ). Express sin(θ) using 3 significant figures.",
+                        collapse="")
+        } else {
+            gt = paste0("tan(θ) = ",sprintf("%.03f",g),"\n\nQuadrant = ",rmn[q],
+                        "\n\nFind sin(θ). Express sin(θ) using 3 significant figures.",
+                        collapse="")
+        }
         aa = sqrt(g^2/(g^2+1))
         a = sy*aa
     }
