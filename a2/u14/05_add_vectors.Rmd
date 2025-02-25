@@ -1,0 +1,186 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+while(T){
+    th = signif(runif(2,pi/4,2*pi),3)
+    r = signif(runif(2,40,99),3)
+    x = r*cos(th)
+    y = r*sin(th)
+    xc = sum(x)
+    yc = sum(y)
+    tc = (atan2(yc,xc)+2*pi)%%(2*pi)
+    rc = sqrt(xc^2+yc^2)
+    if(abs(diff(th))>0.5 && abs(diff(th))<(2*pi-0.5) && abs(pi-abs(diff(th)))>(pi/20) && abs(xc)<100 && abs(yc)<100 && abs(pi/2-th[1]%%(pi/2))>(pi/20) && abs(pi/2-th[2]%%(pi/2))>(pi/20) && abs(pi/2-tc%%(pi/2))>(pi/20) && min(abs(c(xc,yc)))>10 && rc>10){break}
+}
+
+ans1 = round(rc,1)
+ans2 = round(tc,2)
+
+ach1 = ans1+(0:5-sample(0:5,1))*0.3
+ach2 = ans2+(0:5-sample(0:5,1))*0.03
+
+al1 = paste0("* ",ach1,collapse="\n")
+al2 = paste0("* ",ach2,collapse="\n")
+
+sol1 = paste0(1*(ans1==ach1),collapse = "")
+sol2 = paste0(1*(ans2==ach2),collapse = "")
+
+```
+
+Question
+========
+
+We are given two vectors: $\vec{A}$ and $\vec{B}$. Each vector has a direction and magnitude. The direction is given in radians counterclockwise from the positive $x$ axis. The magnitude is the length of the vector.
+
+Vector $\vec{A}$ is directed `r th[1]` radians counterclockwise from the positive $x$ axis, and it has a magnitude of `r r[1]`.
+
+$$\theta_{\vec{A}}=`r th[1]`$$
+$$||\vec{A}||=`r r[1]`$$
+
+
+```{r,echo=F,fig.dim=c(5,5),fig.cap="vector A",fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-100,100),ylim=c(-100,100),axes=F,ann=F)
+for(i in seq(-100,100,10)){
+    lines(c(-100,100),c(i,i),lwd=0.8,col="grey")
+    lines(c(i,i),c(-100,100),lwd=0.8,col="grey")
+}
+for(i in seq(-100,100,50)){
+    lines(c(-100,100),c(i,i),lwd=1,col="black")
+    lines(c(i,i),c(-100,100),lwd=1,col="black")
+}
+arrows(-106,0,106,0,0.1,15,1.5,lwd=3)
+arrows(0,-106,0,106,0.1,15,1.5,lwd=3)
+text(100,-5,"100",cex=0.8)
+text(100,5,"x",cex=0.8)
+text(-7,100,"100",cex=0.8)
+text(7,100,"y",cex=0.8)
+arrows(0,0,x[1],y[1],0.1,15,col="red",lwd=4)
+ths = seq(0,2*pi,pi/360)
+lines(r[1]*cos(ths),r[1]*sin(ths),col="red",lty=3)
+th2 = seq(0,th[1],pi/360)
+n = length(th2)
+angr = 25
+# lines(angr*cos(th2),angr*sin(th2),col=rgb(0.7,0.1,0.1),lwd=2)
+# arrows(angr*cos(th2[n-1]),angr*sin(th2[n-1]),angr*cos(th2[n]),angr*sin(th2[n]),0.05,20,lwd=2,col=rgb(0.7,0.1,0.1))
+angrt = 35
+# text(angrt*cos(th[1]/2),angrt*sin(th[1]/2),th[1],srt=(th[1]/2/pi*180+90)%%180-90,col=rgb(0.7,0.1,0.1))
+
+```
+\
+
+Vector $\vec{B}$ is directed `r th[2]` radians counterclockwise from the positive $x$ axis, and it has a magnitude of `r r[2]`.
+
+$$\theta_{\vec{B}}=`r th[2]`$$
+$$||\vec{B}||=`r r[2]`$$
+
+```{r,echo=F,fig.dim=c(5,5),fig.cap="vector B",fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-100,100),ylim=c(-100,100),axes=F,ann=F)
+for(i in seq(-100,100,10)){
+    lines(c(-100,100),c(i,i),lwd=0.8,col="grey")
+    lines(c(i,i),c(-100,100),lwd=0.8,col="grey")
+}
+for(i in seq(-100,100,50)){
+    lines(c(-100,100),c(i,i),lwd=1,col="black")
+    lines(c(i,i),c(-100,100),lwd=1,col="black")
+}
+arrows(-106,0,106,0,0.1,15,1.5,lwd=3)
+arrows(0,-106,0,106,0.1,15,1.5,lwd=3)
+text(100,-5,"100",cex=0.8)
+text(100,5,"x",cex=0.8)
+text(-7,100,"100",cex=0.8)
+text(7,100,"y",cex=0.8)
+arrows(0,0,x[2],y[2],0.1,15,col="blue",lwd=4)
+ths = seq(0,2*pi,pi/360)
+lines(r[2]*cos(ths),r[2]*sin(ths),col="blue",lty=3)
+th2 = seq(0,th[2],pi/360)
+n = length(th2)
+# lines(angr*cos(th2),angr*sin(th2),col=rgb(0.1,0.1,0.7),lwd=2)
+# arrows(angr*cos(th2[n-1]),angr*sin(th2[n-1]),angr*cos(th2[n]),angr*sin(th2[n]),0.05,20,lwd=2,col=rgb(0.1,0.1,0.7))
+# text(angrt*cos(th[2]/2),angrt*sin(th[2]/2),th[2],srt=(th[2]/2/pi*180+90)%%180-90,col=rgb(0.1,0.1,0.7))
+
+```
+\
+
+We are interested in a third vector, $\vec{C}$, which is the sum of the other two vectors.
+
+$$\vec{C}=\vec{A}+\vec{B}$$
+
+Graphically, to find the sum of two vectors, place the foot of the second vector at the head of the first vector, and then the resultant sum is the vector that goes from the foot of the first vector to the head of the second (shifted) vector. This will be easier to understand graphically:
+
+```{r,echo=F,fig.dim=c(5,5),fig.cap="vector C is the sum of vector A and vector B",fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-100,100),ylim=c(-100,100),axes=F,ann=F)
+for(i in seq(-100,100,10)){
+    lines(c(-100,100),c(i,i),lwd=0.8,col="grey")
+    lines(c(i,i),c(-100,100),lwd=0.8,col="grey")
+}
+for(i in seq(-100,100,50)){
+    lines(c(-100,100),c(i,i),lwd=1,col="black")
+    lines(c(i,i),c(-100,100),lwd=1,col="black")
+}
+arrows(-106,0,106,0,0.1,15,1.5,lwd=3)
+arrows(0,-106,0,106,0.1,15,1.5,lwd=3)
+text(100,-5,"100",cex=0.8)
+text(100,5,"x",cex=0.8)
+text(-7,100,"100",cex=0.8)
+text(7,100,"y",cex=0.8)
+arrows(0,0,x[1],y[1],0.1,15,col=rgb(1,0.6,0.6),lwd=2,lty = 1)
+arrows(x[1],y[1],x[1]+x[2],y[1]+y[2],0.1,15,col=rgb(0.6,0.6,1),lwd=2,lty=1)
+arrows(0,0,xc,yc,0.1,15,col=rgb(0.6,0,0.6),lwd=3)
+thc = atan2(yc,xc)
+text(xc/2,yc/2,"C",srt=(thc*180/pi+90)%%180-90,col=rgb(0.6,0,0.6),adj=c(0.5,-0.2))
+
+```
+\
+
+Find the direction (between 0 and $2\pi$) and magnitude of vector $\vec{C}$.
+
+* Direction: ##ANSWER1##
+* Magnitude: ##ANSWER2##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+
+Solution
+========
+
+Find the horizontal and vertical components of vector $\vec{A}$:
+
+$$A_x ~=~ `r r[1]`\cdot \cos(`r th[1]`) ~\approx~ `r r[1]*cos(th[1])`$$
+$$A_y ~=~ `r r[1]`\cdot \sin(`r th[1]`) ~\approx~ `r r[1]*sin(th[1])`$$
+
+Find the horizontal and vertical components of vector $\vec{B}$:
+
+$$B_x ~=~ `r r[2]`\cdot \cos(`r th[2]`) ~\approx~ `r r[2]*cos(th[2])`$$
+$$B_y ~=~ `r r[2]`\cdot \sin(`r th[2]`) ~\approx~ `r r[2]*sin(th[2])`$$
+
+Add the corresponding components to get $C_x$ and $C_y$.
+
+
+$$C_x ~=~ A_x+B_x ~\approx~ `r xc`$$
+$$C_y ~=~ A_y+B_y  ~\approx~ `r yc`$$
+
+Use Pythagorean Theorem to get the magnitude of vector $\vec{C}$.
+
+$$||\vec{C}||~=~\sqrt{(C_x)^2+(C_y)^2} ~\approx~ `r rc`$$
+
+To find the direction, use Desmos' `arctan` function with 2 separate arguments ($C_y$ then $C_x$ separated by a comma).
+
+$$\arctan(C_y,C_x)~\approx~`r atan2(yc,xc)`$$
+
+If you get a negative angle, find the coterminal angle between 0 and $2\pi$ by adding $2\pi$.
+
+
+$$\theta_{\vec{C}}~\approx~`r tc`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: add_vectors
