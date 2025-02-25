@@ -1,0 +1,91 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+options(scipen=99)
+
+while(T){
+    bearing = round(runif(1,10,35)+sample(0:7,1)*45)
+    distance = round(runif(1,100,500))
+    th = bearing/180*pi
+    dy = distance*cos(bearing/180*pi)
+    dx = distance*sin(bearing/180*pi)
+    dy2 = distance*cos(bearing)
+    dx2 = distance*sin(bearing)
+    ardy = abs(round(dy))
+    ardx = abs(round(dx))
+    ardy2 = abs(round(dy2))
+    ardx2 = abs(round(dx2))
+    ns = c("South","North")[round(sign(dy)/2+1.5)]
+    ew = c("West","East")[round(sign(dx)/2+1.5)]
+    if(min(diff(sort(c(ardx,ardy,ardy2,ardx2))))>3){break}
+}
+
+ach = sort(c(ardx,ardy,ardy2,ardx2))
+al = paste0("* ",ach," km",collapse="\n")
+
+sol1 = paste0(1*(ach==ardy),collapse="")
+sol2 = paste0(1*(c("South","North")==ns),collapse="")
+sol3 = paste0(1*(ach==ardx),collapse="")
+sol4 = paste0(1*(c("West","East")==ew),collapse="")
+
+```
+
+Question
+========
+
+In navigation, direction is often given as a [bearing](https://en.wikipedia.org/wiki/Bearing_(navigation)#Absolute), which is in degrees **clockwise** from **north**. If the north used as reference is the true geographical north (as opposed to magnetic north) then the bearing is a **true bearing**.
+
+An adventurer walks `r distance` kilometers at a true bearing of `r bearing`°. Assuming that a flat-earth approximation is valid for this short distance (and the bearing can be maintained by walking in a straight line because the adventurer is not near a pole), find the distance traveled N/S and E/W.
+
+* ##ANSWER1## ##ANSWER2##
+* ##ANSWER3## ##ANSWER4##
+
+Answerlist
+--------
+
+`r al`
+* South
+* North
+`r al`
+* West
+* East
+
+
+Solution
+========
+
+Draw a sketch. Remember, bearings are given as degrees CLOCKWISE from NORTH. This is different from how mathematicians typically indicate direction as radians counterclockwise from east.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1.1,1.1),ylim=c(-1.1,1.1),axes=F,ann=F)
+arrows(-1,0,1,0,0.1,10,3)
+arrows(0,-1,0,1,0.1,10,3)
+text(0,1.1,"N")
+text(1.1,0,"E")
+text(0,-1.1,"S")
+text(-1.1,0,"W")
+x = sin(th)
+y = cos(th)
+
+arrows(0,0,x,y,0.2,15,2,lwd=2,col="blue")
+text(x/2,y/2,distance,srt=(90-bearing+90)%%180-90,adj=c(0.5,-0.2),col="blue")
+
+ths = seq(0,th,pi/360)
+polygon(c(0,0.1*sin(ths)),c(0,0.1*cos(ths)),col=rgb(1,0,0,0.5),border="red")
+text(0.2*sin(th/2),0.2*cos(th/2),paste0(bearing,"°",collapse=""),col="red")
+```
+\
+
+In this system, to get the "vertical" component, you can multiply the distance by the cosine of the angle (in DEGREE MODE). To get the "horizontal" component, multiply the distance by the sine of the angle. Notice, the roles of sine and cosine are switched around.
+
+$$`r distance`\cdot \cos(`r bearing`^{\circ}) = `r dy`$$
+$$`r distance`\cdot \sin(`r bearing`^{\circ}) = `r dx`$$
+
+So, approximately `r ardy` kilometers `r ns` and approximately `r ardx` kilometers `r ew`.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: bearing_distance_decomp
