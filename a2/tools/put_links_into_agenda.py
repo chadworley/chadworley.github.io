@@ -4,15 +4,14 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "u13_"
-files = ["28_sin_from_cos_and_Q.Rmd",
-"29_sin_from_tan_and_Q.Rmd",
-"30_cos_from_sin_and_Q.Rmd",
-"31_cos_from_tan_and_Q.Rmd",
-"32_tan_from_sin_and_Q.Rmd",
-"33_tan_from_cos_and_Q.Rmd"]
+front = "u14_"
+files = ["01_shadow_speed.Rmd",
+"02_sunset_shadow_speed.Rmd",
+"03_bearing_distance_decomp.Rmd",
+"04_rect_to_polar.Rmd",
+"05_add_vectors.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u13/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u14/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:

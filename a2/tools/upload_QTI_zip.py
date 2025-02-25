@@ -6,7 +6,11 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u13_32_tan_from_sin_and_Q.zip"]
+file_path_list = ["outcanvas/u14_01_shadow_speed.zip",
+"outcanvas/u14_02_sunset_shadow_speed.zip",
+"outcanvas/u14_03_bearing_distance_decomp.zip",
+"outcanvas/u14_04_rect_to_polar.zip",
+"outcanvas/u14_05_add_vectors.zip"]
 
 ## FOR UPLOADING ETS
 # fpl = []
