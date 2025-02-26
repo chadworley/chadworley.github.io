@@ -3,6 +3,9 @@ options(scipen=99)
 bearing = round(runif(1,10,80)+sample(0:3,1)*90,1)
 distance = round(runif(1,100,500),1)
 
+dy = distance*cos(bearing/pi*180)
+dx = distance*sin(bearing/pi*180)
+
 ```
 
 Question
@@ -10,9 +13,11 @@ Question
 
 For Earth, 1 degree of latitude is approximately 111 kilometers (or 69 miles). Near the equator, 1 degree of longitude is also approximately 111 kilometers (but this gets smaller near the poles). 
 
-Latitude and longitude are often expressed as an ordered pair. Personally, I prefer [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees), instead of using a [degrees-minutes-seconds notation](https://en.wikipedia.org/wiki/Degree_(angle)#Subdivisions).
+Latitude and longitude are often expressed as an ordered pair. Personally, I (like [international standard ISO 6709](https://en.wikipedia.org/wiki/ISO_6709)) prefer [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees), instead of using a [degrees-minutes-seconds notation](https://en.wikipedia.org/wiki/Degree_(angle)#Subdivisions).
 
-A boat starts at [Null Island](https://en.wikipedia.org/wiki/Null_Island), whose geographic coordinates are [0.00,0.00]. The boat points at a [true bearing](https://en.wikipedia.org/wiki/Bearing_(navigation)#Absolute) of `r bearing`° and travels `r distance` kilometers. Assuming that 1 degree of latitude or longitude is equal to exactly 111 kilometers, and assuming neither the ocean current nor the wind has any effect, find the new geographic coordinates in decimal degrees.
+A boat starts at [Null Island](https://en.wikipedia.org/wiki/Null_Island), whose geographic coordinates (latitude and longitude) are [0.0000, 0.0000]. The boat points at a [true bearing](https://en.wikipedia.org/wiki/Bearing_(navigation)#Absolute) of `r bearing`° and travels `r distance` kilometers. Assuming that 1 degree of latitude or longitude is equal to exactly 111 kilometers, and assuming neither the ocean current nor the wind has any effect, find the new geographic coordinates in decimal degrees.
+
+Latitude (a measure of north-south) comes first. Longitude (a measure of east-west) comes second.
 
 
 
@@ -20,6 +25,23 @@ A boat starts at [Null Island](https://en.wikipedia.org/wiki/Null_Island), whose
 Solution
 ========
 
+Find the north-south displacement:
+
+$$`r distance` \cdot \cos(`r bearing`°) ~=~ `r dy`~\text{km}$$
+
+Find the east-west displacement:
+
+$$`r distance` \cdot \sin(`r bearing`°) ~=~ `r dx`~\text{km}$$
+
+There are 111 kilometers of north-south displacement per degree of latitude.
+
+$$\frac{`r dy`~\text{km}}{111~\mathrm{\frac{km}{°lat}}} ~=~ `r dy/111` ~\text{°lat}$$
+
+There are 111 kilometers of east-west displacement per degree of longitude (when near the equator).
+
+$$\frac{`r dx`~\text{km}}{111~\mathrm{\frac{km}{°lon}}} ~=~ `r dx/111` ~\text{°lon}$$
+
+So, the new geographic coordinates are [`r round(dy/111,4)`,`r round(dx/111,4)`]
 
 
 Meta-information

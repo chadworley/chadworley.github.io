@@ -1,0 +1,138 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+
+while(T){
+    xy = round(runif(2,2,9)*sample(c(-1,1),2,T),1)
+    x = xy[1]
+    y = xy[2]
+    rA = sqrt(x^2+y^2)
+    thA = atan2(y,x)
+    degA = atan2(y,x)/pi*180
+    deg = round(runif(1,20,160),1)*sample(c(-1,1),1)
+    th = round(deg/180*pi,3)
+    deg = th/pi*180
+    thB = thA+th
+    
+    dirs = c("clockwise","counterclockwise")
+    dir = dirs[round(sign(deg)/2+1.5)]
+    nps = c("negative","positive")
+    np = nps[round(sign(deg)/2+1.5)]
+    
+    degB = degA+deg
+    rB = rA
+    
+    xB = rB*cos(degB/180*pi)
+    yB = rB*sin(degB/180*pi)
+    
+    
+    degD = degA-deg
+    xD = rB*cos(degD/180*pi)
+    yD = rB*sin(degD/180*pi)
+    
+    xans = round(xB,1)
+    yans = round(yB,1)
+    
+    xbad = round(xD,1)
+    ybad = round(yD,1)
+    
+    achx = xans+(0:5-sample(0:5,1))*0.3
+    achy = yans+(0:5-sample(0:5,1))*0.3
+    bachx = xbad+(0:5-sample(0:5,1))*0.3
+    bachy = ybad+(0:5-sample(0:5,1))*0.3
+    ach = sort(unique(c(achx,achy,-achx,-achy,xbad,ybad,-xbad,-ybad)))
+    
+    if(abs(diff(abs(xy)))>1 && rA<10 && rA>3 && min(diff(ach))>0.1 && abs(xB)>0.5 && abs(yB)>0.5){break}
+}
+
+al = paste0("* ",sprintf("%.01f",ach),collapse="\n")
+sol1 = paste0(1*(xans==ach),collapse="")
+sol2 = paste0(1*(yans==ach),collapse="")
+
+```
+
+Question
+========
+
+In an $xy$-plane, point $A$ has coordinates $(`r sprintf("%.01f",x)`,`r sprintf("%.01f",y)`)$. That point is rotated `r sprintf("%.03f",abs(th))` radians `r dir` around the origin, producing point $B$. Find the ([Cartesian](https://en.wikipedia.org/wiki/Cartesian_coordinate_system)) coordinates of $B$.
+
+* (##ANSWER1##,##ANSWER2##)
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+Since we are turning `r dir`, the turning angle is `r np`.
+
+$$\theta_T = `r th`$$
+
+Find [polar coordinates](https://en.wikipedia.org/wiki/Polar_coordinate_system) of point $A$. Use distance formula (Pythagorean theorem) to get the radius, and use the [two-argument arctangent](https://en.wikipedia.org/wiki/Atan2) to get the angle.
+
+$$r_A~=~\sqrt{(`r x`)^2+(`r y`)^2}~=~`r rA`$$
+$$\theta_A~=~\arctan(`r y`,`r x`)~=~`r thA`$$
+
+When we rotate around the origin, the radius stays the same.
+
+$$r_B~=~r_A$$
+$$r_B~=~`r rA`$$
+
+We add the turning angle to the original angle to find the terminal angle.
+
+$$\theta_B~=~\theta_A+\theta_T$$
+$$\theta_B~=~(`r thA`)+(`r th`)$$
+$$\theta_B~=~`r thB`$$
+
+Convert the polar coordinates of point $B$ back into Cartesian coordinates.
+
+$$x_B ~=~ r_B \cdot \cos(\theta_B) ~\approx~ `r sprintf("%.01f",xB)`$$
+$$y_B ~=~ r_B \cdot \sin(\theta_B) ~\approx~ `r sprintf("%.01f",yB)`$$
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-11,11),ylim=c(-11,11),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(i,i),c(-10,10),col="lightgrey",lwd=0.8)
+    lines(c(-10,10),c(i,i),col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=1.2)
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=1.2)
+}
+
+arrows(-10.5,0,10.5,0,0.05,20,3)
+arrows(0,-10.5,0,10.5,0.05,20,3)
+
+thetas = seq(0,2*pi,pi/180)
+lines(rA*cos(thetas),rA*sin(thetas),lty=2)
+thetas2 = seq(thA,thB,pi/180*sign(th))
+rmark = 1
+polygon(c(0,rmark*cos(thetas2)),c(0,rmark*sin(thetas2)),col=rgb(0.6,0,0.6,0.3),border=NA)
+lines(rmark*cos(thetas2),rmark*sin(thetas2),col=rgb(0.6,0,0.6),lwd=2)
+n = length(thetas2)
+arrows(rmark*cos(thetas2[n-1]),rmark*sin(thetas2[n-1]),rmark*cos(thetas2[n]),rmark*sin(thetas2[n]),0.05,30,col=rgb(0.6,0,0.6),lwd=2)
+ttt = thA+th/2
+text(rmark*cos(ttt),rmark*sin(ttt),sprintf("%.03f",th),srt=(ttt*180/pi+90)%%180-90,
+     col=rgb(0.6,0,0.6),adj=c(0.5-0.6*sign(cos(ttt)),0.5))
+
+lines(c(0,x),c(0,y),lty=2,col="red")
+points(x,y,pch=20,cex=2,col="red")
+text(x+cos(thA),y+sin(thA),"A",col="red")
+lines(c(0,xB),c(0,yB),lty=2,col="blue")
+points(xB,yB,pch=20,cex=2,col="blue")
+text(xB+cos(thB),yB+sin(thB),"B",col="blue")
+points(0,0,pch=19)
+
+```
+\
+
+I should also mention that there are [other ways](https://en.wikipedia.org/wiki/Rotation_matrix#In_two_dimensions) to determine the result of a rotation.
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: rotate_point_rads

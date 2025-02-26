@@ -1,0 +1,145 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+
+wo = sample(1:3,1,F,c(2,3,3))
+
+while(T){
+    xy = sample(2:9,4)*sample(c(-1,1),4,T)
+    x1 = xy[1]
+    x2 = xy[2]
+    y1 = xy[3]
+    y2 = xy[4]
+    deg1 = atan2(y1,x1)/pi*180
+    deg2 = atan2(y2,x2)/pi*180
+    th1 = atan2(y1,x1)
+    th2 = atan2(y2,x2)
+    
+    poss1 = (deg2-deg1)
+    poss2 = (360-abs(poss1))*(-sign(deg2-deg1))
+    
+    dir = c("clockwise","counterclockwise")
+    
+    alphae = deg2-deg1
+    betae = deg2+360-deg1
+    gammae = deg2-(deg1+360)
+    
+    
+    alr = th2-th1
+    ber = th2-th1+2*pi
+    gar = th2-th1-2*pi
+    
+    if(abs(poss1)<abs(poss2)){
+        wd = dir[round(sign(poss1)/2+1.5)]
+        dt = poss1
+    } else {
+        wd = dir[round(sign(poss2)/2+1.5)]
+        dt = poss2
+    }
+    adt = abs(dt)
+    possr = c(alr,ber,gar)
+    apossr = abs(possr)
+    adr = min(apossr)
+    isadr = (adr==apossr)
+    dr = possr[isadr]
+    
+    alpha = round(deg2-deg1,1)
+    beta = round(deg2+360-deg1,1)
+    gamma = round(deg2-(deg1+360),1)
+    
+    if(adt>15 && adt<175 && abs(c(alphae,betae,gammae))[wo]==adt){break}
+}
+
+
+
+
+
+
+
+```
+
+Question
+========
+
+In the video game [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)), a player rotates a space ship to aim projectiles at asteroids.
+
+The ship is located at $(0,0)$ and currently points towards $(`r x1`, `r y1`)$. The ship hopes to rotate to aim at $(`r x2`, `r y2`)$ with as little turning as possible. Using **radians**, and positive (or negative) for counterclockwise (or clockwise), what turning angle should the ship use? 
+
+(*The tolerance is $\pm 0.001$ radians.*)
+
+
+Solution
+========
+
+I would first use [two-argument arctangent](https://en.wikipedia.org/wiki/Atan2) to find a standard angle (rotating from positive $x$ axis) for each given point. In Desmos, you can just use ``arctan(`r y1`,`r x1`)`` and ``arctan(`r y2`,`r x2`)``. Remember, RADIAN MODE.
+
+$$\theta_1 ~=~ \arctan(`r y1`,`r x1`)~=~`r round(th1,4)`$$
+
+$$\theta_2 ~=~ \arctan(`r y2`,`r x2`)~=~`r round(th2,4)`$$
+
+Now... unfortunately... we cannot simply assume $\theta_2-\theta_1$ will give the desired turning angle. It would definitely accomplish the task of turning from point 1 to point 2, but $\theta_2-\theta_1$ might not be the smallest turn. To make sure we get the smallest turning angle, we can consider 3 coterminal turning angles.
+
+$$\alpha ~=~ \theta_2-\theta_1$$
+$$\beta ~=~ \alpha+2\pi$$
+$$\gamma ~=~ \alpha-2\pi$$
+
+Using the formulae above, calculate the three possible turning angles that would turn from the first point to the second point.
+
+$$\alpha ~=~ `r round(alr,3)`$$
+$$\beta ~=~ `r round(ber,3)`$$
+$$\gamma ~=~ `r round(gar,3)`$$
+
+Find the option with the least ABSOLUTE value. Also, remember, in math, positive angles correspond to counterclockwise rotations, and negative angles correspond to clockwise rotations. (This is reversed in [navigation with bearings](https://en.wikipedia.org/wiki/Bearing_(navigation)).)
+
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(i,i),c(-10,10),col="lightgrey",lwd=0.8)
+    lines(c(-10,10),c(i,i),col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=1.2)
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=1.2)
+}
+
+
+points(x1,y1,pch=20,cex=2,col="red")
+points(x2,y2,pch=20,cex=2,col="red")
+
+xship = c(0.4,-0.3,-0.1,-0.3)*1.5
+yship = c(0,0.2,0,-0.2)*1.5
+
+xship2 = cos(th1)*xship-sin(th1)*yship
+yship2 = sin(th1)*xship+cos(th1)*yship
+
+ths = seq(th1,th1+dr,pi/180*sign(dr))
+n = length(ths)
+xs = 2*cos(ths)
+ys = 2*sin(ths)
+
+th = th1+dr/2
+deg = th/pi*180
+
+polygon(c(0,xs),c(0,ys),col=rgb(0,0,1,0.4),border="blue",lwd=0.4)
+lines(xs,ys,col="blue",lwd=2)
+text(2*cos(th),2*sin(th),paste0(sprintf("%.04f",dr)),col="blue",srt=(deg+90)%%180-90,
+     adj=c(0.5-0.7*sign(cos(th)),0.5))
+
+lines(c(0,x1),c(0,y1),col="red",lty=2)
+lines(c(0,x2),c(0,y2),col="red",lty=2)
+arrows(xs[n-1],ys[n-1],xs[n],ys[n],0.06,20,col="blue",lwd=2)
+
+polygon(xship2,yship2,col=rgb(1,0.4,1),border="black",lwd=1.5)
+
+```
+\
+
+The ship should turn `r round(adr,3)` radians `r wd`, so the turning angle should be `r round(dr,3)` radians.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r dr`
+exname: short_turn_rads
+extol: 0.001

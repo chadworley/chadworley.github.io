@@ -3,11 +3,12 @@ xy = sample(2:9,2)*sample(c(-1,1),2,T)
 x = xy[1]
 y = xy[2]
 th = atan2(y,x)
+thpr = sprintf("%.03f",abs(th))
 deg = th/pi*180
 degpr = sprintf("%.01f",abs(deg))
-ans1 = abs(round(deg,1))
-ach1 = ans1+(0:5-sample(0:5,1))*0.3
-al1 = paste0("* ",sprintf("%.01f°",ach1),collapse="\n")
+ans1 = abs(round(th,3))
+ach1 = ans1+(0:5-sample(0:5,1))*0.003
+al1 = paste0("* ",sprintf("%.03f",ach1),collapse="\n")
 sol1 = paste0(1*(ach1==ans1),collapse="")
 
 ach2 = c("clockwise","counterclockwise")
@@ -22,7 +23,7 @@ Question
 
 In the video game [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)), a player rotates a space ship to aim projectiles at asteroids.
 
-If the ship is located at (0,0) and currently points towards (1,0), how many **degrees**, and in which direction, should the ship rotate to aim at (`r x`, `r y`) with as little turning as possible?
+If the ship is located at $(0,0)$ and currently points towards $(1,0)$, how many **radians**, and in which direction, should the ship rotate to aim at $(`r x`, `r y`)$ with as little turning as possible?
 
 * ##ANSWER1## ##ANSWER2##
 
@@ -41,7 +42,7 @@ This is a perfect setup for using [two-argument arctangent](https://en.wikipedia
 
 In Desmos, this can be done by typing ``arctan(`r y`,`r x`)``. Notice, the two-argument arctangent takes the $y$ coordinate first and the $x$ coordinate second. You can blame the writers of Fortran in 1961.
 
-Make sure you are in DEGREE MODE.
+Make sure you are in RADIAN MODE.
 
 A positive angle indicates counterclockwise turning. A negative angle indicates clockwise turning.
 
@@ -67,14 +68,13 @@ xs = 2*cos(ths)
 ys = 2*sin(ths)
 polygon(c(0,xs),c(0,ys),col=rgb(0,0,1,0.4),border="blue",lwd=0.4)
 lines(xs,ys,col="blue",lwd=2)
-text(2*cos(th/2),2*sin(th/2),paste0(degpr,"°"),col="blue",srt=(deg/2+90)%%180-90,
+text(2*cos(th/2),2*sin(th/2),thpr,col="blue",srt=(deg/2+90)%%180-90,
      adj=c(0.5-0.7*sign(cos(th/2)),0.5))
 
 lines(c(0,x),c(0,y),col="red",lty=2)
 arrows(xs[n-1],ys[n-1],xs[n],ys[n],0.06,20,col="blue",lwd=2)
 
 polygon(c(0.4,-0.3,-0.1,-0.3),c(0,0.2,0,-0.2),col=rgb(1,0.4,1),border="black",lwd=1.5)
-
 ```
 \
 
@@ -84,4 +84,4 @@ Meta-information
 extype: cloze
 exclozetype: schoice|schoice
 exsolution: `r sol1`|`r sol2`
-exname: turn_atan2
+exname: turn_atan2_rads
