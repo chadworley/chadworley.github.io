@@ -1,0 +1,204 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+while(T){
+    vr = round(runif(1,1.0,3.5),1)
+    vc = round(runif(1,1.0,3.5),1)
+    th = round(runif(1,pi/6,5*pi/6),2)
+    deg = th/pi*180 #round(th/pi*180)
+    # th = deg/180*pi
+    xc = vc*cos(th)
+    yc = vc*sin(th)
+    
+    xt = xc+vr
+    yt = yc
+    
+    rt = sqrt(xt^2+yt^2)
+    tht = atan2(yt,xt)
+    degt = tht*180/pi
+    if(abs(diff(c(vr,vc)))>0.2 && abs(deg-90)>5 && abs(degt-deg)>2 && abs(rt-max(c(vr,vc)))>0.1){break}
+}
+
+ans1 = round(rt,1)
+ans2 = round(tht,3)
+ach1 = ans1+(0:5-sample(0:5,1))*0.1
+ach2 = ans2+(0:5-sample(0:5,1))*0.01
+sol1 = paste0(1*(ach1==ans1),collapse="")
+sol2 = paste0(1*(ach2==ans2),collapse="")
+al1 = paste0("* ",sprintf("%.01f",ach1),collapse="\n")
+al2 = paste0("* ",sprintf("%.02f",ach2),collapse="\n")
+
+```
+
+Question
+========
+
+A canoe travels `r sprintf("%.01f",vc)` m/s **relative to the water**. A river, heading east, flows at `r sprintf("%.01f",vr)` m/s. The canoe points at a direction `r sprintf("%.02f",th)` radians counterclockwise from east.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+polygon(c(-1,-1,1,1),c(-1,1,1,-1),col="darkgreen")
+polygon(c(-1,-1,1,1),c(-0.8,0.8,0.8,-0.8),col="lightblue")
+vm = max(c(vr,vc))
+vrp = vr/vm
+vcp = vc/vm
+
+ths = seq(0,th,pi/360)
+polygon(-0.1+c(0,0.15*cos(ths)),-0.5+c(0,0.15*sin(ths)),col=rgb(1,0,0,0.4),border=NA)
+lines(-0.1+0.15*cos(ths),-0.5+0.15*sin(ths),col=rgb(1,0,0),lwd=2)
+text(-0.1+0.15*cos(th/2),-0.5+0.15*sin(th/2),sprintf("%.02f",th),srt=(deg/2+90)%%180-90,adj=c(0.5-0.7*sign(cos(th/2)),0.5),col="red")
+
+arrows(-0.1,-0.5,-0.1+vrp,-0.5,0.1,20,2,"blue",1,2)
+arrows(-0.1,-0.5,-0.1+vcp*cos(th),-0.5+vcp*sin(th),0.1,20,2,"brown",1,2)
+text(-0.1+vrp/2,-0.5,paste0(sprintf("%.01f",vr)," m/s"),col="blue",adj=c(0.5,1.2))
+text(-0.1+vcp*cos(th)/2,-0.5+vcp*sin(th)/2,paste0(sprintf("%.01f",vc)," m/s"),srt=(deg+90)%%180-90,col="brown",adj=c(0.5,0.5-0.7*sign(cos(th))))
+
+angcan = pi/6
+thcan = seq(pi/2-angcan,pi/2+angcan,pi/360)
+cany = sin(thcan)-sin(pi/2-angcan)
+canx = cos(thcan)
+
+canx = c(canx,rev(canx))
+cany = c(cany,-rev(cany))
+
+rcx = canx*cos(th)-cany*sin(th)
+rcy = canx*sin(th)+cany*cos(th)
+
+polygon(rcx/10-0.1,rcy/10-0.5,col="brown")
+
+```
+\
+
+
+Find the canoe's total speed, in m/s, and direction of travel, as radians counterclockwise from east.
+
+* Speed = ##ANSWER1##
+* Direction = ##ANSWER2##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+
+Solution
+========
+
+First, find the [rectangular coordinates](https://en.wikipedia.org/wiki/Vector_notation#Rectangular_coordinates) of each velocity vector. The two formulas:
+
+$$x~=~r\cdot\cos(\theta)$$
+$$y~=~r\cdot\sin(\theta)$$
+
+We will use $\vec{v}_1$ for the canoe's velocity **relative to water**. It is shown below with approximate rectangular coordinates (found from formulas above, using $r=`r vc`$ and $\theta=`r sprintf("%.02f",th)`$).
+
+$$\vec{v}_1 = (`r sprintf("%.03f",xc)`,`r sprintf("%.03f",yc)`)$$
+
+We will use $\vec{v}_2$ for the river's velocity vector. Since the river flows directly east, all of its speed is in the positive horizontal direction.
+
+
+$$\vec{v}_2 = (`r sprintf("%.03f",vr)`,`r sprintf("%.03f",0)`)$$
+
+Now, add the corresponding components to find $\vec{v}_3$, the velocity of the canoe **relative to the ground**.
+
+$$\vec{v}_3 = (`r sprintf("%.03f",xc+vr)`,`r sprintf("%.03f",yc)`)$$
+
+Lastly, we need to find the [polar coordinates](https://en.wikipedia.org/wiki/Vector_notation#Polar_coordinates). The formulas are given below. Notice, I am using the [two-argument arctangent](https://en.wikipedia.org/wiki/Atan2) function.
+
+$$r~=~\sqrt{x^2+y^2}$$
+$$\theta~=~\arctan(y,x)$$
+
+So,
+
+$$r=\sqrt{(`r sprintf("%.03f",xt)`)^2+(`r sprintf("%.03f",yt)`)^2}~=~`r rt`$$
+
+$$\theta=\arctan(`r sprintf("%.03f",yt)`,`r sprintf("%.03f",xt)`)~=~`r tht`$$
+
+This can be visualized.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+polygon(c(-1,-1,1,1),c(-1,1,1,-1),col="darkgreen")
+polygon(c(-1,-1,1,1),c(-0.8,0.8,0.8,-0.8),col="lightblue")
+vm = max(c(vr,vc))
+vrp = vr/vm/2
+vcp = vc/vm/2
+
+# ths = seq(0,th,pi/360)
+# polygon(-0.1+c(0,0.15*cos(ths)),-0.5+c(0,0.15*sin(ths)),col=rgb(1,0,0,0.4),border=NA)
+# lines(-0.1+0.15*cos(ths),-0.5+0.15*sin(ths),col=rgb(1,0,0),lwd=2)
+# text(-0.1+0.15*cos(th/2),-0.5+0.15*sin(th/2),paste0(sprintf("%d",round(deg)),"°"),srt=(deg/2+90)%%180-90,adj=c(0.5-0.7*sign(cos(th/2)),0.5),col="red")
+
+arrows(-0.1,-0.5,-0.1+vrp,-0.5,0.05,10,2,"blue",1,1)
+arrows(-0.1,-0.5,-0.1+vcp*cos(th),-0.5+vcp*sin(th),0.05,10,2,"brown",1,1)
+arrows(-0.1+vcp*cos(th),-0.5+vcp*sin(th),-0.1+vrp+vcp*cos(th),-0.5+vcp*sin(th),0.05,10,2,"blue",1,1)
+arrows(-0.1+vrp,-0.5,-0.1+vcp*cos(th)+vrp,-0.5+vcp*sin(th),0.05,10,2,"brown",1,1)
+arrows(-0.1,-0.5,-0.1+vcp*cos(th)+vrp,-0.5+vcp*sin(th),0.1,10,2,"black",1,lwd=2)
+
+# text(-0.1+vrp/2,-0.5,paste0(sprintf("%.01f",vr)," m/s"),col="blue",adj=c(0.5,1.2))
+# text(-0.1+vcp*cos(th)/2,-0.5+vcp*sin(th)/2,paste0(sprintf("%.01f",vc)," m/s"),srt=(deg+90)%%180-90,col="brown",adj=c(0.5,0.5-0.7*sign(cos(th))))
+
+angcan = pi/6
+thcan = seq(pi/2-angcan,pi/2+angcan,pi/360)
+cany = sin(thcan)-sin(pi/2-angcan)
+canx = cos(thcan)
+canx = c(canx,rev(canx))
+cany = c(cany,-rev(cany))
+rcx = canx*cos(th)-cany*sin(th)
+rcy = canx*sin(th)+cany*cos(th)
+
+fracs = c(0,0.25,0.5,0.75,1)
+
+for(i in fracs){
+    polygon(rcx/10-0.1+i*rt*cos(tht)/vm/2,rcy/10-0.5+i*rt*sin(tht)/vm/2,col=rgb(0.5,0.2,0.2,0.5),border=rgb(0,0,0,0.5))
+}
+```
+\
+
+```{r,echo=F,fig.dim=c(5,5),animation.hook="gifski",interval=0.1}
+par(mar=c(0,0,0,0),pty="s")
+
+scatx = runif(50,-2,1)
+scaty = runif(50,-0.75,0.75)
+
+squigx = seq(-0.1,0.1,0.001)
+squigy = 0.01*sin(squigx/0.1*2*pi)
+
+for(i in seq(0,1,0.02)){
+    plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+    polygon(c(-1.2,-1.2,1.2,1.2),c(-1.2,1.2,1.2,-1.2),col="darkgreen")
+    polygon(c(-1.2,-1.2,1.2,1.2),c(-0.8,0.8,0.8,-0.8),col="lightblue")
+    vm = max(c(vr,vc))
+    vrp = vr/vm/2
+    vcp = vc/vm/2
+    rtp = rt/vm/2
+    
+    angcan = pi/6
+    thcan = seq(pi/2-angcan,pi/2+angcan,pi/360)
+    cany = sin(thcan)-sin(pi/2-angcan)
+    canx = cos(thcan)
+    canx = c(canx,rev(canx))
+    cany = c(cany,-rev(cany))
+    rcx = canx*cos(th)-cany*sin(th)
+    rcy = canx*sin(th)+cany*cos(th)
+    # points(scatx+i*vr/vm/2,scaty,pch=19,col="white")
+    for(j in 1:length(scatx)){
+        lines(scatx[j]+i*vr/vm/2+squigx,scaty[j]+squigy,pch=19,col="white")
+    }
+    lines(-0.1+i*rt*cos(tht)/vm/2+vcp*c(0,cos(th)),-0.5+i*rt*sin(tht)/vm/2+vcp*c(0,sin(th)),col="brown",lty=2)
+    lines(-0.1+2*rtp*c(0,cos(tht)),-0.5+2*rtp*c(0,sin(tht)),col="grey",lty=2)
+    lines(-0.1+i*rt*cos(tht)/vm/2+rtp*c(0,cos(tht)),-0.5+i*rt*sin(tht)/vm/2+rtp*c(0,sin(tht)),col="black",lty=2)
+    lines(-0.1+i*rt*cos(tht)/vm/2+vrp*c(0,1),-0.5+i*rt*sin(tht)/vm/2+0*c(0,1),col="blue",lty=2)
+    polygon(rcx/10-0.1+i*rt*cos(tht)/vm/2,rcy/10-0.5+i*rt*sin(tht)/vm/2,col=rgb(0.5,0.2,0.2),border=rgb(0,0,0))
+    
+}
+```
+\
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: canoe_river_degs
