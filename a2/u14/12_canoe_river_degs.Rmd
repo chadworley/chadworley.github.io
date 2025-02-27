@@ -25,14 +25,14 @@ ach2 = ans2+(0:5-sample(0:5,1))*1
 sol1 = paste0(1*(ach1==ans1),collapse="")
 sol2 = paste0(1*(ach2==ans2),collapse="")
 al1 = paste0("* ",sprintf("%.01f m/s",ach1),collapse="\n")
-al2 = paste0("* ",sprintf("%d°",ach2),collapse="\n")
+al2 = paste0("* ",sprintf("%.0f°",ach2),collapse="\n")
 
 ```
 
 Question
 ========
 
-A canoe travels `r sprintf("%.01f",vc)` m/s **relative to the water**. A river, heading east, flows at `r sprintf("%.01f",vr)` m/s. The canoe points at a direction `r sprintf("%d",deg)`° counterclockwise from east.
+A canoe travels `r sprintf("%.01f",vc)` m/s **relative to the water**. A river, heading east, flows at `r sprintf("%.01f",vr)` m/s. The canoe points at a direction `r sprintf("%.0f",deg)`° counterclockwise from east.
 
 ```{r,echo=F,fig.dim=c(5,5)}
 par(mar=c(0,0,0,0),pty="s")
@@ -46,7 +46,7 @@ vcp = vc/vm
 ths = seq(0,th,pi/360)
 polygon(-0.1+c(0,0.15*cos(ths)),-0.5+c(0,0.15*sin(ths)),col=rgb(1,0,0,0.4),border=NA)
 lines(-0.1+0.15*cos(ths),-0.5+0.15*sin(ths),col=rgb(1,0,0),lwd=2)
-text(-0.1+0.15*cos(th/2),-0.5+0.15*sin(th/2),paste0(sprintf("%d",round(deg)),"°"),srt=(deg/2+90)%%180-90,adj=c(0.5-0.7*sign(cos(th/2)),0.5),col="red")
+text(-0.1+0.15*cos(th/2),-0.5+0.15*sin(th/2),paste0(sprintf("%.0f",round(deg)),"°"),srt=(deg/2+90)%%180-90,adj=c(0.5-0.7*sign(cos(th/2)),0.5),col="red")
 
 arrows(-0.1,-0.5,-0.1+vrp,-0.5,0.1,20,2,"blue",1,2)
 arrows(-0.1,-0.5,-0.1+vcp*cos(th),-0.5+vcp*sin(th),0.1,20,2,"brown",1,2)
@@ -70,7 +70,7 @@ polygon(rcx/10-0.1,rcy/10-0.5,col="brown")
 \
 
 
-Find the canoe's total speed, in m/s, and direction of travel, as degrees counterclockwise from east.
+Find the canoe's total speed, in m/s, and direction of travel, as degrees counterclockwise from east. (In other words, find the canoe's velocity **relative to the ground**, in polar form.)
 
 * Speed = ##ANSWER1##
 * Direction = ##ANSWER2##
@@ -128,7 +128,7 @@ vcp = vc/vm/2
 # ths = seq(0,th,pi/360)
 # polygon(-0.1+c(0,0.15*cos(ths)),-0.5+c(0,0.15*sin(ths)),col=rgb(1,0,0,0.4),border=NA)
 # lines(-0.1+0.15*cos(ths),-0.5+0.15*sin(ths),col=rgb(1,0,0),lwd=2)
-# text(-0.1+0.15*cos(th/2),-0.5+0.15*sin(th/2),paste0(sprintf("%d",round(deg)),"°"),srt=(deg/2+90)%%180-90,adj=c(0.5-0.7*sign(cos(th/2)),0.5),col="red")
+# text(-0.1+0.15*cos(th/2),-0.5+0.15*sin(th/2),paste0(sprintf("%.0f",round(deg)),"°"),srt=(deg/2+90)%%180-90,adj=c(0.5-0.7*sign(cos(th/2)),0.5),col="red")
 
 arrows(-0.1,-0.5,-0.1+vrp,-0.5,0.05,10,2,"blue",1,1)
 arrows(-0.1,-0.5,-0.1+vcp*cos(th),-0.5+vcp*sin(th),0.05,10,2,"brown",1,1)
@@ -156,7 +156,7 @@ for(i in fracs){
 ```
 \
 
-```{r,echo=F,fig.dim=c(5,5),animation.hook="gifski",interval=0.1}
+```{r,echo=F,fig.dim=c(3,3),animation.hook="gifski",interval=0.1}
 par(mar=c(0,0,0,0),pty="s")
 
 scatx = runif(50,-2,1)
@@ -165,7 +165,7 @@ scaty = runif(50,-0.75,0.75)
 squigx = seq(-0.1,0.1,0.001)
 squigy = 0.01*sin(squigx/0.1*2*pi)
 
-for(i in seq(0,1,0.02)){
+for(i in seq(0,1,0.04)){
     plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
     polygon(c(-1.2,-1.2,1.2,1.2),c(-1.2,1.2,1.2,-1.2),col="darkgreen")
     polygon(c(-1.2,-1.2,1.2,1.2),c(-0.8,0.8,0.8,-0.8),col="lightblue")
@@ -196,7 +196,7 @@ for(i in seq(0,1,0.02)){
 ```
 \
 
-So the speed of the canoe is `r rt` m/s at a direction of `r degt`° counterclockwise from east.
+So, if we round like the answer choices, the speed of the canoe is `r sprintf("%.01f",rt)` m/s at a direction of `r sprintf("%.0f",degt)`° counterclockwise from east.
 
 
 Meta-information

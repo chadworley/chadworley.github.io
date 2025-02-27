@@ -1,0 +1,569 @@
+---
+title: "Two very special right triangles"
+author: "Mr. Worley"
+output: beamer_presentation
+---
+
+
+# Introduction
+
+>- This is a story about two very special right triangles.
+>- Their simplicity makes them special. Hmm... this seems demeaning. 
+>- Elegance! Let's call them elegant.
+>- We can determine their angles AND lengths, without trigonometry!
+
+# Triangles
+
+* Triangles are polygons with 3 sides.
+* The sum of the interior angles equals 180°, or $\pi$ radians.
+* But you knew all that already, right?
+
+# Right Triangles
+
+>- What makes a triangle "right"?
+>- Yup! One angle must be 90°. What is that in radians?
+>- Wow! You got it! A right triangle has an angle that measures $\frac{\pi}{2}$ radians.
+>- If you know two lengths of a right triangle how do you find the third length?
+>- Common... this is a very important theorem...
+>- Yup! The Pythagorean Theorem.
+
+# Pythagorean Theorem
+
+```{r,echo=F,fig.dim=c(2,2),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+polygon(c(0.1,0.9,0.9),c(0.2,0.2,0.8),col=rgb(0.1,0.1,0.1,0.2),border=NA,lwd=2)
+lines(c(0.85,0.85,0.9),c(0.2,0.25,0.25))
+lines(c(0.1,0.9),c(0.2,0.2),col="red",lwd=3)
+text(0.5,0.2,"a",adj=c(0.5,1.3),col="red")
+lines(c(0.9,0.9),c(0.2,0.8),col="blue",lwd=3)
+text(0.9,0.5,"b",adj=c(-0.3,0.5),col="blue")
+lines(c(0.1,0.9),c(0.2,0.8),col="purple",lwd=3)
+text(0.5,0.5,"c",adj=c(0.5,-0.3),srt=atan(6/8)/pi*180,col="purple")
+```
+
+$$a^2+b^2=c^2$$
+
+* We call the two shorter side the "legs", and the longest side the "hypotenuse".
+* If a triangle is right, then the sum of the squares of the legs equals the square of the hypotenuse.
+
+# The Isosceles Right Triangle
+
+>- Our first special right triangle is isosceles. Do you remember what "isosceles" means?
+>- Isosceles triangles have two congruent sides (and two congruent angles). Can you picture what a isosceles RIGHT triangle looks like?
+>- Can you predict the angle measures of a right isosceles triangle?
+>- In degrees?
+>- In radians?
+
+# Picture of IRT
+
+* Here's a picture of IRT. Elegant IRT.
+
+```{r,echo=F,fig.dim=c(2,2),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+polygon(c(0.1,0.9,0.9),c(0.1,0.1,0.9),col=rgb(0.7,0.7,0.9),border=rgb(0.3,0.3,0.7),lwd=2)
+lines(c(0.85,0.85,0.9),c(0.2,0.25,0.25)-0.1,lwd=2)
+th1 = seq(0,pi/4,pi/360)
+lines(0.1+0.1*cos(th1),0.1+0.1*sin(th1),lwd=2,col="red")
+text(0.1+0.1*cos(pi/8),0.1+0.1*sin(pi/8),TeX("$\\pi/4$"),srt=180/8,adj=c(-0.2,0.5),col="red")
+th2 = seq(3*pi/2-pi/4,3*pi/2,pi/360)
+lines(0.9+0.1*cos(th2),0.9+0.1*sin(th2),lwd=2,col="red")
+text(0.9+0.1*cos(3*pi/2-pi/8),0.9+0.1*sin(3*pi/2-pi/8),TeX("$\\pi/4$"),srt=3*180/8,adj=c(1.2,0.5),col="red")
+text(0.8,0.2,TeX("$\\pi/2$"))
+
+polygon(c(0.1,0.9,0.9),c(0.1,0.1,0.9),border=rgb(0.3,0.3,0.7),lwd=2)
+
+lines(c(0.5,0.5),c(0.08,0.12),lwd=3)
+lines(c(0.88,0.92),c(0.5,0.5),lwd=3)
+```
+
+* The angle measures are 45°, 45°, and 90°. 
+* In radians, the angle measures are $\frac{\pi}{4}$, $\frac{\pi}{4}$, and $\frac{\pi}{2}$.
+* The two legs are congruent.
+
+# The lengths of IRT
+
+>- Earlier I said we'd also get the lengths, without trigonometry!
+>- But the lengths can be anything. We can double the size and get another IRT.
+>- There are infinite IRTs of varying sizes!
+
+# Infinite sizes of IRTs
+
+```{r,echo=F,fig.dim=c(3,3)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+r = 0.58
+for(i in seq(-200,-2,3)){
+    s = exp(i/30)
+    polygon(1/2+c(-s*(2-r),s*r,s*r),-1/2+c(-s*r,-s*r,s*(2-r)),border=hsv((i/11)%%1,1,0.9),lwd=s*4)
+}
+```
+
+>- Ahhh! Let's pick a specific IRT.
+
+# Set the hypotenuse length to 1.
+
+>- Let's set the hypotenuse length to $1$.
+>- Why might I pick a hypotenuse of length $1$?
+>- Just because I can?
+>- Maybe because $1$ is my favorite number? (It's not. For some reason I like 24.)
+>- The unit circle!
+>- If the hypotenuse is $1$, it can connect the origin to the edge of the unit circle. (The unit circle has a radius of $1$, and we usually assume it is centered at the origin.)
+
+# IRT with hypotenuse as a radius of unit circle
+
+```{r,echo=F,fig.dim=c(3,3),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1.1,1.1),ylim=c(-1.1,1.1),axes=F,ann=F)
+arrows(-1.1,0,1.1,0,0.1,20,3)
+arrows(0,-1.1,0,1.1,0.1,20,3)
+th = seq(0,2*pi,pi/360)
+polygon(cos(th),sin(th),lty=3)
+polygon(c(0,sqrt(2)/2,sqrt(2)/2),c(0,0,sqrt(2)/2),col=rgb(0.7,0.7,0.9),border=rgb(0.3,0.3,0.7),lwd=2)
+lines(c(0,sqrt(2)/2),c(0,sqrt(2)/2),col="purple",lwd=2)
+text(sqrt(2)/4,sqrt(2)/4,"1",srt=45,adj=c(0.5,-0.2),col="purple")
+```
+
+>- How do I find the lengths of the legs?
+
+# Maybe Pythagoras can help?
+
+```{r,echo=F,fig.dim=c(2,2),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+polygon(c(0.1,0.9,0.9),c(0.1,0.1,0.9),col=rgb(0.7,0.7,0.9),border=rgb(0.3,0.3,0.7),lwd=2)
+lines(c(0.85,0.85,0.9),c(0.2,0.25,0.25)-0.1,lwd=2)
+th1 = seq(0,pi/4,pi/360)
+lines(0.1+0.1*cos(th1),0.1+0.1*sin(th1),lwd=2,col="red")
+text(0.1+0.1*cos(pi/8),0.1+0.1*sin(pi/8),TeX("$\\pi/4$"),srt=180/8,adj=c(-0.2,0.5),col="red")
+th2 = seq(3*pi/2-pi/4,3*pi/2,pi/360)
+lines(0.9+0.1*cos(th2),0.9+0.1*sin(th2),lwd=2,col="red")
+text(0.9+0.1*cos(3*pi/2-pi/8),0.9+0.1*sin(3*pi/2-pi/8),TeX("$\\pi/4$"),srt=3*180/8,adj=c(1.2,0.5),col="red")
+text(0.8,0.2,TeX("$\\pi/2$"))
+
+polygon(c(0.1,0.9,0.9),c(0.1,0.1,0.9),border=rgb(0.3,0.3,0.7),lwd=2)
+
+text(0.5,0.5,"1",srt=45,adj=c(0.5,-0.2),cex=1)
+text(0.5,0.1,"a",adj=c(0.5,1.2),cex=1)
+text(0.9,0.5,"b",adj=c(-0.2,0.5),cex=1)
+```
+
+>- Hmm... we know IRT is isosceles... so...
+>- $a=b$
+>- Let's just use $x$ because $x$ is our favorite variable.
+
+# The legs of IRT are congruent!
+
+```{r,echo=F,fig.dim=c(2,2),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+polygon(c(0.1,0.9,0.9),c(0.1,0.1,0.9),col=rgb(0.7,0.7,0.9),border=rgb(0.3,0.3,0.7),lwd=2)
+lines(c(0.85,0.85,0.9),c(0.2,0.25,0.25)-0.1,lwd=2)
+th1 = seq(0,pi/4,pi/360)
+lines(0.1+0.1*cos(th1),0.1+0.1*sin(th1),lwd=2,col="red")
+text(0.1+0.1*cos(pi/8),0.1+0.1*sin(pi/8),TeX("$\\pi/4$"),srt=180/8,adj=c(-0.2,0.5),col="red")
+th2 = seq(3*pi/2-pi/4,3*pi/2,pi/360)
+lines(0.9+0.1*cos(th2),0.9+0.1*sin(th2),lwd=2,col="red")
+text(0.9+0.1*cos(3*pi/2-pi/8),0.9+0.1*sin(3*pi/2-pi/8),TeX("$\\pi/4$"),srt=3*180/8,adj=c(1.2,0.5),col="red")
+text(0.8,0.2,TeX("$\\pi/2$"))
+
+polygon(c(0.1,0.9,0.9),c(0.1,0.1,0.9),border=rgb(0.3,0.3,0.7),lwd=2)
+
+text(0.5,0.5,"1",srt=45,adj=c(0.5,-0.2),cex=1)
+text(0.5,0.1,"x",adj=c(0.5,1.2),cex=1)
+text(0.9,0.5,"x",adj=c(-0.3,0.5),cex=1)
+```
+
+>- It's time for Pythagoras!
+
+$$x^2+x^2=1^2$$
+
+# Al-Jabr (Algrebra) for IRT
+
+>- Solve $x^2+x^2=1^2$.
+>- Combine like terms. 
+>- Also, $1^2=1$. $$2x^2=1$$
+>- Divide both sides by $2$.
+>- $$x^2=\frac{1}{2}$$
+>- Take the (positive) square root of both sides.
+>- $$x=\sqrt{\frac{1}{2}}$$
+
+# Al-Jabr (Algrebra) for IRT cont.
+
+>- $$x=\sqrt{\frac{1}{2}}$$
+>- For reasons, when we simplify, we do not leave fractions inside a radical. Distribute the radical to both factors of the quotient. This is allowed because $\left(\frac{g}{h}\right)^p\equiv\frac{g^p}{h^p}$ and $\sqrt{z}\equiv z^{1/2}$.
+>- $$x=\frac{\sqrt{1}}{\sqrt{2}}$$
+>- We know $\sqrt{1}=1$.
+>- $$x=\frac{1}{\sqrt{2}}$$
+
+# Al-Jabr (Algrebra) for IRT cont..
+
+>- $$x=\frac{1}{\sqrt{2}}$$
+>- For reasons, when we simplify, we do not leave radicals in denominators. We need to "rationalize the denominator". To do this, multiply both the numerator and denominator by the radical in the denominator.
+>- $$x=\frac{1\cdot \sqrt{2}}{\sqrt{2}\cdot \sqrt{2}}$$
+>- Simplify.
+>- $$x=\frac{\sqrt{2}}{2}$$
+
+# Boom! We know everything about IRT, without using trigonometry!
+
+```{r,echo=F,fig.dim=c(3,3),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+polygon(c(0.1,0.9,0.9),c(0.1,0.1,0.9),col=rgb(0.7,0.7,0.9),border=rgb(0.3,0.3,0.7),lwd=2)
+lines(c(0.85,0.85,0.9),c(0.2,0.25,0.25)-0.1,lwd=2)
+th1 = seq(0,pi/4,pi/360)
+lines(0.1+0.1*cos(th1),0.1+0.1*sin(th1),lwd=2,col="red")
+text(0.1+0.1*cos(pi/8),0.1+0.1*sin(pi/8),TeX("$\\pi/4$"),srt=180/8,adj=c(-0.2,0.5),col="red")
+th2 = seq(3*pi/2-pi/4,3*pi/2,pi/360)
+lines(0.9+0.1*cos(th2),0.9+0.1*sin(th2),lwd=2,col="red")
+text(0.9+0.1*cos(3*pi/2-pi/8),0.9+0.1*sin(3*pi/2-pi/8),TeX("$\\pi/4$"),srt=3*180/8,adj=c(1.2,0.5),col="red")
+text(0.8,0.2,TeX("$\\pi/2$"))
+
+polygon(c(0.1,0.9,0.9),c(0.1,0.1,0.9),border=rgb(0.3,0.3,0.7),lwd=2)
+
+text(0.5,0.5,"1",srt=45,adj=c(0.5,-0.2),cex=1)
+text(0.5,0.1,TeX("$\\sqrt{2}/2$"),adj=c(0.5,1.2),cex=1)
+text(0.9,0.5,TeX("$\\frac{\\sqrt{2}}{2}$"),adj=c(-0.2,0.5),cex=1)
+```
+
+
+
+# Apply IRT knowledge to the unit circle (use symmetry)
+
+```{r,echo=F,fig.dim=c(3,3),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1.1,1.1),ylim=c(-1.1,1.1),axes=F,ann=F)
+arrows(-1.1,0,1.1,0,0.1,20,3)
+arrows(0,-1.1,0,1.1,0.1,20,3)
+th = seq(0,2*pi,pi/360)
+polygon(cos(th),sin(th),lty=3)
+# polygon(c(0,sqrt(2)/2,sqrt(2)/2),c(0,0,sqrt(2)/2),col=rgb(0.7,0.7,0.9),border=rgb(0.3,0.3,0.7),lwd=2)
+# lines(c(0,sqrt(2)/2),c(0,sqrt(2)/2),col="purple",lwd=2)
+# text(sqrt(2)/4,sqrt(2)/4,"1",srt=45,adj=c(0.5,-0.2),col="purple")
+tops = c("","3","5","7")
+xstr = c("","-","-","")
+ystr = c("","","-","-")
+for(i in 0:3){
+    th = i*pi/2+pi/4
+    lines(c(0,cos(th)/5),c(0,sin(th)/5),lty=3)
+    lines(c(4*cos(th)/5,cos(th)),c(4*sin(th)/5,sin(th)),lty=3)
+    text(cos(th)/2,sin(th)/2,TeX(paste0("$",tops[i+1],"\\pi/4=",round(th/pi*180),"$°")),srt=(th/pi*180+90)%%180-90,cex=0.7)
+    points(cos(th),sin(th),pch=20)
+    text(1.1*cos(th),1.1*sin(th),TeX(paste0("$\\left(\\frac{",xstr[i+1],"\\sqrt{2}}{2},\\frac{",ystr[i+1],"\\sqrt{2}}{2}\\right)$")),adj=c(0.5-0.5*sign(cos(th))),cex=0.5)
+}
+```
+
+
+# Trigonometric implications of IRT
+
+\begin{align*}
+\cos\left(\frac{\pi}{4}\right) &= \frac{\sqrt{2}}{2} & \sin\left(\frac{\pi}{4}\right) &= \frac{\sqrt{2}}{2} & \tan\left(\frac{\pi}{4}\right) &= 1  \\\\
+\cos\left(\frac{3\pi}{4}\right) &= \frac{-\sqrt{2}}{2} & \sin\left(\frac{3\pi}{4}\right) &= \frac{\sqrt{2}}{2} & \tan\left(\frac{3\pi}{4}\right) &= -1 \\\\
+\cos\left(\frac{5\pi}{4}\right) &= \frac{-\sqrt{2}}{2} & \sin\left(\frac{5\pi}{4}\right) &= \frac{-\sqrt{2}}{2} & \tan\left(\frac{5\pi}{4}\right) &= 1 \\\\
+\cos\left(\frac{7\pi}{4}\right) &= \frac{\sqrt{2}}{2} & \sin\left(\frac{7\pi}{4}\right) &= \frac{-\sqrt{2}}{2} & \tan\left(\frac{7\pi}{4}\right) &= -1
+\end{align*}
+
+# Can I get a decimal please?
+
+$$\frac{\sqrt{2}}{2} \approx `r sqrt(2)/2`$$
+
+```{r,echo=FALSE,fig.dim=c(2.5,2.5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+for(i in seq(0,1,0.1)){
+    lines(c(0,1),c(i,i),col="grey",lwd=0.8)
+    lines(c(i,i),c(0,1),col="grey",lwd=0.8)
+}
+for(i in seq(0,1,0.5)){
+    lines(c(0,1),c(i,i),col="darkgrey",lwd=1.2)
+    lines(c(i,i),c(0,1),col="darkgrey",lwd=1.2)
+}
+arrows(-1,0,1.1,0,0.1,20,2)
+arrows(0,-1,0,1.1,0.1,20,2)
+th = seq(0,pi/2,pi/360)
+lines(cos(th),sin(th),lty=2,lwd=1)
+lines(c(0,1),c(0,1),col="red",lty=2)
+points(sqrt(2)/2,sqrt(2)/2,pch=20,col="red")
+text(0.7,0,"0.7",adj=c(0.5,1.5),cex=0.7)
+text(0,0.7,"0.7",adj=c(1.5,0.5),cex=0.7)
+lines(c(-0.01,0.01),c(0.7,0.7),lwd=2)
+lines(c(0.7,0.7),c(-0.01,0.01),lwd=2)
+
+```
+
+
+# Does IRT show up on the SAT?
+
+* IRT is on the SAT formula sheet. But, NOT with hypotenuse=1. Instead...
+
+```{r,echo=F,fig.dim=c(1.5,1.5),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+polygon(c(0,1,1),c(0,0,1))
+lines(c(0.9,0.9,1),c(0,0.1,0.1))
+text(0.5,0.5,"c",srt=45,adj=c(0.5,-0.2))
+text(0.5,0,"s",adj=c(0.5,1.2))
+text(1,0.5,"s",adj=c(-0.2,0.5))
+```
+
+$$s^2+s^2=c^2$$
+$$2s^2=c^2$$
+$$\sqrt{2}\cdot s=c$$
+
+# IRT on the SAT
+
+>- Most people will call this the 45-45-90 triangle.
+
+```{r,echo=F,fig.dim=c(1.5,1.5),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+polygon(c(0,1,1),c(0,0,1))
+lines(c(0.9,0.9,1),c(0,0.1,0.1))
+text(0.5,0.5,TeX("$s\\sqrt{2}$"),srt=45,adj=c(0.5,-0.2))
+text(0.5,0,"s",adj=c(0.5,1.2))
+text(1,0.5,"s",adj=c(-0.2,0.5))
+text(0.3*cos(pi/8),0.3*sin(pi/8),"45°")
+text(1+0.3*cos(3*pi/2-pi/8),1+0.3*sin(3*pi/2-pi/8),"45°")
+```
+
+
+>- For example, if a square has a width of 5 meters, how long is the diagonal?
+>- $5\sqrt{2}~\approx~ 5\cdot 1.414 ~\approx~ `r signif(5*sqrt(2),3)`$ meters
+
+# There's ANOTHER special right triangle????
+
+>- Yes.
+>- We'll cover this one much faster.
+
+# Cut an equilateral triangle in half.
+
+>- What is an equilateral triangle?
+>- An equilateral triangle has three congruent sides and three congruent angles. How big is each interior angle of an equilateral triangle?
+>- Each angle of an equilateral is $60$°, which is $\frac{\pi}{3}$ radians.
+>- If we bisect an angle, the resulting angle measure is...
+>- $30$° or $\frac{\pi}{6}$ radians.
+
+# Cut an equilateral triangle in half..
+
+```{r,echo=F,fig.dim=c(3,3),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+xb = sqrt(3)/2
+plot(0,0,"n",xlim=c(0,1),ylim=c(-1/2,1/2),axes=F,ann=F)
+polygon(c(0,xb,xb),c(0,1/2,-1/2),lty=2)
+polygon(c(0,xb,xb),c(0,1/2,0),col=rgb(0,0,0,0.1),lwd=2)
+lines(c(xb-0.1,xb-0.1,xb),c(0,0.1,0.1))
+text(xb/2,1/4,"1",srt=30,adj=c(0.5,-0.3))
+text(xb,1/4,"1/2",adj=c(-0.2,0.5))
+text(xb/2,0,"x",adj=c(0.5,1.2))
+
+th1 = seq(0,pi/6,pi/360)
+polygon(c(0,0.1*cos(th1)),c(0,0.1*sin(th1)),col=rgb(1,0,0,0.2),border=NA)
+lines(0.1*cos(th1),0.1*sin(th1),col="red")
+text(0.1*cos(pi/12),0.1*sin(pi/12),TeX("$\\pi/6$"),srt=15,adj=c(-0.2,0.5),col="red")
+
+th2 = seq(7*pi/6,3*pi/2,pi/360)
+polygon(xb+c(0,0.1*cos(th2)),0.5+c(0,0.1*sin(th2)),col=rgb(0,0,1,0.2),border=NA)
+lines(xb+0.1*cos(th2),0.5+0.1*sin(th2),col="blue")
+text(xb+0.1*cos(3*pi/2-pi/6),1/2+0.1*sin(3*pi/2-pi/6),TeX("$\\pi/3$"),srt=60,adj=c(1.2,0.5),col="blue")
+
+```
+
+* We can call this one Half of an Equilateral Triangle (HET)
+
+# Algebra for HET
+
+
+\begin{align*}
+x^2+\left(\frac{1}{2}\right)^2&=1^2\\
+x^2+\frac{1}{4}&=1 \\
+x^2&=1-\frac{1}{4} \\
+x^2&=\frac{3}{4} \\
+x&=\sqrt{\frac{3}{4}} \\
+x&=\frac{\sqrt{3}}{\sqrt{4}} \\
+x&=\frac{\sqrt{3}}{2}
+\end{align*} 
+
+# Decimal approximation of $\sqrt{3}/2$
+
+$$\frac{\sqrt{3}}{2}\approx `r sqrt(3)/2`$$
+
+```{r,echo=FALSE,fig.dim=c(2.5,2.5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+for(i in seq(0,1,0.1)){
+    lines(c(0,1),c(i,i),col="grey",lwd=0.8)
+    lines(c(i,i),c(0,1),col="grey",lwd=0.8)
+}
+for(i in seq(0,1,0.5)){
+    lines(c(0,1),c(i,i),col="darkgrey",lwd=1.2)
+    lines(c(i,i),c(0,1),col="darkgrey",lwd=1.2)
+}
+arrows(-1,0,1.1,0,0.1,20,2)
+arrows(0,-1,0,1.1,0.1,20,2)
+th = seq(0,pi/2,pi/360)
+lines(cos(th),sin(th),lty=2,lwd=1)
+lines(c(0,xb),c(0,1/2),col="blue",lty=2)
+points(xb,1/2,pch=20,col="blue")
+lines(c(0,1/2),c(0,xb),col="blue",lty=2)
+points(1/2,xb,pch=20,col="blue")
+text(0.9,0,"0.9",adj=c(0.5,1.5),cex=0.7)
+text(0,0.9,"0.9",adj=c(1.5,0.5),cex=0.7)
+text(0.5,0,"0.5",adj=c(0.5,1.5),cex=0.7)
+text(0,0.5,"0.5",adj=c(1.5,0.5),cex=0.7)
+
+```
+
+# Unit circle coordinates from HET
+
+```{r,echo=F,fig.dim=c(4,3),fig.align='center'}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-1.1*4/3,1.1*4/3),ylim=c(-1.1,1.1),axes=F,ann=F)
+arrows(-1.1,0,1.1,0,0.1,20,3)
+arrows(0,-1.1,0,1.1,0.1,20,3)
+th = seq(0,2*pi,pi/360)
+polygon(cos(th),sin(th),lty=3)
+
+ths = c(pi/6,pi/3,2*pi/3,5*pi/6,7*pi/6,4*pi/3,5*pi/3,11*pi/6)
+thtop = c("","","2","5","7","4","5","11")
+thbot = c(6,3,3,6,6,3,3,6)
+xlabs = c("\\frac{\\sqrt{3}}{2}","\\frac{1}{2}","\\frac{-1}{2}","\\frac{-\\sqrt{3}}{2}",
+          "\\frac{-\\sqrt{3}}{2}","\\frac{-1}{2}","\\frac{1}{2}","\\frac{\\sqrt{3}}{2}")
+ylabs = c("\\frac{1}{2}","\\frac{\\sqrt{3}}{2}","\\frac{\\sqrt{3}}{2}","\\frac{1}{2}",
+          "\\frac{-1}{2}","\\frac{-\\sqrt{3}}{2}","\\frac{-\\sqrt{3}}{2}","\\frac{-1}{2}")
+for(i in 1:8){
+    th = ths[i]
+    lines(c(0,cos(th)/5),c(0,sin(th)/5),lty=3)
+    lines(c(4*cos(th)/5,cos(th)),c(4*sin(th)/5,sin(th)),lty=3)
+    text(cos(th)/2,sin(th)/2,TeX(paste0("$",thtop[i],"\\pi/",thbot[i],"=",round(th/pi*180),"$°")),srt=(th/pi*180+90)%%180-90,cex=0.6)
+    points(cos(th),sin(th),pch=20)
+    text(1.1*cos(th),1.1*sin(th),TeX(paste0("$\\left(",xlabs[i],",",ylabs[i],"\\right)$")),adj=c(0.5-0.5*sign(cos(th))),cex=0.6)
+}
+```
+
+
+# Some trig implications from HET
+
+\begin{align*}
+\cos\left(\frac{\pi}{6}\right) &= \frac{\sqrt{3}}{2} & \sin\left(\frac{\pi}{6}\right) &= \frac{1}{2} & \tan\left(\frac{\pi}{6}\right) &= \frac{\sqrt{3}}{3}  \\\\
+\cos\left(\frac{\pi}{3}\right) &= \frac{1}{2} & \sin\left(\frac{\pi}{3}\right) &= \frac{\sqrt{3}}{2} & \tan\left(\frac{\pi}{3}\right) &= \sqrt{3} \\\\
+\cos\left(\frac{2\pi}{3}\right) &= \frac{-1}{2} & \sin\left(\frac{2\pi}{3}\right) &= \frac{\sqrt{3}}{2} & \tan\left(\frac{2\pi}{3}\right) &= -\sqrt{3} \\\\
+\cos\left(\frac{5\pi}{6}\right) &= \frac{-\sqrt{3}}{2} & \sin\left(\frac{5\pi}{6}\right) &= \frac{1}{2} & \tan\left(\frac{5\pi}{6}\right) &= \frac{-\sqrt{3}}{3}  
+\end{align*}
+
+# How get $\tan(\pi/6)$?
+
+\begin{align*}
+\tan(\pi/6) ~&=~ \frac{\sin(\pi/6)}{\cos(\pi/6)} \\\\
+&=~ \frac{1/2}{\sqrt{3}/2} \\\\
+&=~ \frac{1}{\sqrt{3}} \\\\
+&=~ \frac{1\cdot \sqrt{3}}{\sqrt{3}\cdot\sqrt{3}} \\\\
+&=~ \frac{\sqrt{3}}{3} 
+\end{align*}
+
+# How get $\tan(\pi/3)$?
+
+\begin{align*}
+\tan(\pi/3) ~&=~ \frac{\sin(\pi/3)}{\cos(\pi/3)} \\\\
+&=~ \frac{\sqrt{3}/2}{1/2} \\\\
+&=~ \sqrt{3}
+\end{align*}
+
+# HET on the SAT
+
+>- The 30-60-90 triangle is on the SAT formula sheet. Notice, we can multiply our sides by $2x$ to get their version of HET.
+
+```{r,echo=F,fig.dim=c(2,2),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,1),ylim=c(-0.3,0.7),axes=F,ann=F)
+polygon(c(0,xb,xb),c(0,0,1/2))
+lines(c(xb-0.1,xb-0.1,xb),c(0,0.1,0.1))
+text(xb/2,1/4,TeX("$2x$"),srt=30,adj=c(0.5,-0.2))
+text(xb/2,0,TeX("$x\\sqrt{3}$"),adj=c(0.5,1.2))
+text(xb,1/4,"x",adj=c(-0.2,0.5))
+text(0.3*cos(pi/12),0.3*sin(pi/12),"30°")
+text(xb+0.15*cos(3*pi/2-pi/6),1/2+0.15*sin(3*pi/2-pi/6),"60°")
+```
+
+>- Example: An equilateral triangle has side lengths of 10 meters; what is the height?
+>- If $10=2x$, then the height equals $5\sqrt{3}\approx `r 5*sqrt(3)`$
+
+# Unit circle
+
+\vspace{-0.3in}
+
+```{r,echo=F,fig.dim=c(6,6),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+th = seq(0,2*pi,pi/360)
+arrows(-1.05,0,1.05,0,0.05,15,3)
+arrows(0,-1.05,0,1.05,0.05,15,3)
+polygon(c(0.2,0.2,0.8,0.8),c(-0.1,0.1,0.1,-0.1),border="white",col="white")
+polygon(c(-0.3,-0.3,-0.7,-0.7),c(-0.1,0.1,0.1,-0.1),border="white",col="white")
+polygon(c(-0.1,0.1,0.1,-0.1),c(0.3,0.3,0.7,0.7),border="white",col="white")
+polygon(c(-0.1,0.1,0.1,-0.1),c(-0.3,-0.3,-0.7,-0.7),border="white",col="white")
+
+lines(cos(th),sin(th),col="black",lty=1)
+nums_dot = c(1,5,7,11,13,17,19,23)
+nums_30 = c(2,4,8,10,14,16,20,22)
+nums_45 = c(3,9,15,21)
+nums_90 = c(6,12,18,24)
+
+lty = rep(c(1,3,2,1,2,3),4)
+col = rep(c("black","grey","maroon","black","maroon","grey"),4)
+pac = c("$(1,0)$",
+        "",
+        "$\\left(\\frac{\\sqrt{3}}{2},\\frac{1}{2}\\right)$",
+        "$\\left(\\frac{\\sqrt{2}}{2},\\frac{\\sqrt{2}}{2}\\right)$",
+        "$\\left(\\frac{1}{2},\\frac{\\sqrt{3}}{2}\\right)$",
+        "",
+        "$(0,1)$",
+        "",
+        "$\\left(\\frac{-1}{2},\\frac{\\sqrt{3}}{2}\\right)$",
+        "$\\left(\\frac{-\\sqrt{2}}{2},\\frac{\\sqrt{2}}{2}\\right)$",
+        "$\\left(\\frac{-\\sqrt{3}}{2},\\frac{1}{2}\\right)$",
+        "",
+        "$(-1,0)$",
+        "",
+        "$\\left(\\frac{-\\sqrt{3}}{2},\\frac{-1}{2}\\right)$",
+        "$\\left(\\frac{-\\sqrt{2}}{2},\\frac{-\\sqrt{2}}{2}\\right)$",
+        "$\\left(\\frac{-1}{2},\\frac{-\\sqrt{3}}{2}\\right)$",
+        "",
+        "$(0,-1)$",
+        "",
+        "$\\left(\\frac{1}{2},\\frac{-\\sqrt{3}}{2}\\right)$",
+        "$\\left(\\frac{\\sqrt{2}}{2},\\frac{-\\sqrt{2}}{2}\\right)$",
+        "$\\left(\\frac{\\sqrt{3}}{2},\\frac{-1}{2}\\right)$",
+        "")
+
+angs = c("0 or $2\\pi=360$°",
+         "","$\\pi/6=30$°","$\\pi/4=45$°","$\\pi/3=60$°","","$\\pi/2=90$°",
+         "","$2\\pi/3=120$°","$3\\pi/4=135$°","$5\\pi/6=150$°","","$\\pi=180$°",
+         "","$7\\pi/6=210$°","$5\\pi/4=225$°","$4\\pi/3=240$°","","$3\\pi/2=270$°",
+         "","$5\\pi/3=300$°","$7\\pi/4=315$°","$11\\pi/6=330$°",""
+         )
+
+for(i in 1:24){
+    t = (i-1)*pi/12
+    lines(c(0,cos(t)),c(0,sin(t)),lty=3,col="lightgrey")
+    lines(c(0,0.25*cos(t)),c(0,0.25*sin(t)),lty=lty[i],col=col[i])
+    lines(c(0.75*cos(t),cos(t)),c(0.75*sin(t),sin(t)),lty=lty[i],col=col[i])
+    text(1.17*cos(t),1.17*sin(t),TeX(pac[i]),col=col[i],cex=0.7)
+    if(pac[i]!=""){
+        points(cos(t),sin(t),pch=19,col=col[i])
+    }
+    text(0.5*cos(t),0.5*sin(t),TeX(angs[i]),col=col[i],srt=(t/pi*180+90)%%180-90,cex=1)
+}
+```
+
+
+
+
+
+
+

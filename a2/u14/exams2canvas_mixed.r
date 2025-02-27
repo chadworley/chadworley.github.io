@@ -3,14 +3,10 @@ n = 30
 outdir = "outcanvas"
 genname = "u14_"
 
-probs = c("06_turn_atan2_degs.Rmd",
-          "07_turn_atan2_rads.Rmd",
-          "08_short_turn_degs.Rmd",
-          "09_short_turn_rads.Rmd",
-          "10_rotate_point_degs.Rmd",
-          "11_rotate_point_rads.Rmd")
+probs = c("12_canoe_river_degs.Rmd",
+          "13_canoe_river_rads.Rmd")
 
-pnts = c(3,3,4,4,5,5)
+pnts = c(4,4)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

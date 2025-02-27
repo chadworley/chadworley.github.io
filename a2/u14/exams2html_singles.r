@@ -1,11 +1,7 @@
 library("exams")
 
-pppsss = c("06_turn_atan2_degs.Rmd",
-           "07_turn_atan2_rads.Rmd",
-           "08_short_turn_degs.Rmd",
-           "09_short_turn_rads.Rmd",
-           "10_rotate_point_degs.Rmd",
-           "11_rotate_point_rads.Rmd")
+pppsss = c("12_canoe_river_degs.Rmd",
+           "13_canoe_river_rads.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
