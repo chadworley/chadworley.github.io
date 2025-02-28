@@ -5,8 +5,7 @@ import os
 
 
 front = "u14_"
-files = ["12_canoe_river_degs.Rmd",
-"13_canoe_river_rads.Rmd"]
+files = ["12_canoe_river_degs.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u14/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
