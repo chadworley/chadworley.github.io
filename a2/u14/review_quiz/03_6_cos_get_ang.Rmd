@@ -1,0 +1,149 @@
+```{r,echo=F}
+while(T){
+    th = signif(round(runif(1,pi/12,pi/2-pi/12),3),3)
+    al = round(runif(1,10,100),1)
+    hl = round(al/cos(th),1)
+    ol = hl*sin(th)
+    ans = acos(al/hl)
+    tol = 0.1
+    an2 = signif(ans,3)
+    canpass = T
+    if(an2>1){
+        if(an2%%0.01==0){
+            canpass = F
+        }
+    } else {
+        if(an2%%0.001==0){
+            canpass = F
+        }
+    }
+    if(ol>10 && al>10 && hl<100 && canpass){break}
+}
+
+angstr = "x"
+astr = sprintf("%.1f",signif(al,3))
+ostr = ""
+hstr = sprintf("%.1f",signif(hl,3))
+
+if(th<1){
+    angstr2 = sprintf("%.3f",signif(ans,3))
+    tol = 0.001
+} else {
+    angstr2 = sprintf("%.2f",signif(ans,3))
+    tol = 0.01
+}
+
+```
+
+Question
+========
+
+Find the length or angle measure marked by $x$. Please express your answer with 3 [significant figures](https://en.wikipedia.org/wiki/Significant_figures).
+
+```{r,echo=F,fig.dim=c(3,3)}
+par(mar=c(0,0,0,0),pty="s")
+
+refl = sample(c(T,F),1)
+
+bmp = 0.05
+xs = c(0,cos(th),cos(th))
+ys = c(0,0,sin(th))
+xlo = cos(th)+bmp
+ylo = sin(th)/2
+srto = 90
+xla = cos(th)/2
+yla = -bmp
+srta = 0
+xlh = cos(th)/2+bmp*cos(th+pi/2)
+ylh = sin(th)/2+bmp*sin(th+pi/2)
+srth = th/pi*180
+xang = bmp*cos(seq(0,th,pi/360))/th
+yang = bmp*sin(seq(0,th,pi/360))/th
+xlang = bmp*cos(th/2)/th+1*bmp*cos(th/2)
+ylang = bmp*sin(th/2)/th+1*bmp*sin(th/2)
+srtang = th/2/pi*180
+xsq = c(cos(th)-bmp,cos(th)-bmp,cos(th))
+ysq = c(0,bmp,bmp)
+
+if(refl){
+    xs = -xs
+    xlo = -xlo
+    srto = -90
+    xla = -xla
+    srta = 0
+    xlh = -xlh
+    srth = -th/pi*180
+    xang = -xang
+    xlang = -xlang
+    srtang = -th/2/pi*180
+    xsq = -xsq
+}
+
+rotang = runif(1,0,2*pi)
+
+xs2 = xs*cos(rotang)-ys*sin(rotang)
+ys2 = xs*sin(rotang)+ys*cos(rotang)
+xlo2 = xlo*cos(rotang)-ylo*sin(rotang)
+ylo2 = xlo*sin(rotang)+ylo*cos(rotang)
+srto2 = (srto+rotang/pi*180+90)%%180-90
+xla2 = xla*cos(rotang)-yla*sin(rotang)
+yla2 = xla*sin(rotang)+yla*cos(rotang)
+srta2 = (srta+rotang/pi*180+90)%%180-90
+xlh2 = xlh*cos(rotang)-ylh*sin(rotang)
+ylh2 = xlh*sin(rotang)+ylh*cos(rotang)
+srth2 = (srth+rotang/pi*180+90)%%180-90
+srtang2 = (srtang+rotang/pi*180+90)%%180-90
+xang2 = xang*cos(rotang)-yang*sin(rotang)
+yang2 = xang*sin(rotang)+yang*cos(rotang)
+xlang2 = xlang*cos(rotang)-ylang*sin(rotang)
+ylang2 = xlang*sin(rotang)+ylang*cos(rotang)
+xsq2 = xsq*cos(rotang)-ysq*sin(rotang)
+ysq2 = xsq*sin(rotang)+ysq*cos(rotang)
+
+xxx = c(xs2,xlo2,xla2,xlh2,xlang2)
+yyy = c(ys2,ylo2,yla2,ylh2,ylang2)
+
+widx = (max(xxx)-min(xxx))/2
+widy = (max(yyy)-min(yyy))/2
+midx = (max(xxx)+min(xxx))/2
+midy = (max(yyy)+min(yyy))/2
+wid = max(c(widx,widy))
+
+plot(0,0,"n",xlim=c(midx-wid,midx+wid),ylim=c(midy-wid,midy+wid),axes=F,ann=F)
+
+polygon(xs2,ys2)
+lines(xsq2,ysq2)
+text(xlo2,ylo2,ostr,srt=srto2)
+text(xla2,yla2,astr,srt=srta2)
+text(xlh2,ylh2,hstr,srt=srth2)
+polygon(c(0,xang2),c(0,yang2),border="red",col=rgb(1,0,0,0.2))
+text(xlang2,ylang2,angstr,srt=srtang2,col="red")
+
+```
+\
+
+
+Solution
+========
+
+$$\cos(x)~=~\frac{`r al`}{`r hl`}$$
+
+So,
+
+
+$$x~=~\arccos\left(\frac{`r al`}{`r hl`}\right)$$
+
+$$x=`r ans`$$
+
+Express with 3 significant figures.
+
+
+$$x=`r angstr2`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r signif(an2,3)`
+exname: cos_get_ang
+extol: `r tol`

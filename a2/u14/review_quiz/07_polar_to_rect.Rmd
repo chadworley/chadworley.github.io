@@ -1,0 +1,150 @@
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+while(T){
+  rdn = sample(5:15,1)
+  rnf = sample((rdn%/%2+1):(rdn*2-1),1)
+  ttx = paste0("\\frac{",rnf,"\\pi}{",rdn,"}",collapse = "")
+  t = rnf*pi/rdn
+  r = sample(310:750,1)/100
+  x = r*cos(t)
+  y = r*sin(t)
+  xa = round(x,2)
+  ya = round(y,2)
+  n = 8
+  d = 0.05
+  which1 = sample(1:n,1)
+  ac1 = round(seq(xa-d*(which1-1),xa+d*(n-which1),length.out=n),2)
+  which2 = sample(1:n,1)
+  ac2 = round(seq(ya-d*(which2-1),ya+d*(n-which2),length.out=n),2)
+  al1 = paste0("* ",ac1,collapse="\n")
+  al2 = paste0("* ",ac2,collapse="\n")
+  sol1 = paste0(1*(ac1==xa),collapse="")
+  sol2 = paste0(1*(ac2==ya),collapse="")
+  if(gcd2(rdn,rnf)==1 && abs(x)>1.2 && abs(y)>1.2 &&
+     abs(x)<4.5 && abs(y)<4.5 && round(r,1)!=r && sum(ac1==xa)==1 && sum(ac2==ya)==1){break}
+}
+
+```
+
+Question
+========
+
+A point on a Cartesian plane is given in [polar coordinates](https://en.wikipedia.org/wiki/Polar_coordinate_system):
+$$r = `r r`$$
+$$\theta=`r ttx`$$
+
+```{r,echo=F,fig.dim=c(8,8)}
+library(latex2exp)
+par(pty="s")
+plot(x,y,xlim=c(-5,5),ylim=c(-5,5))
+arrows(-5,0,5,0,length=0.1,angle=8,code=3,lwd=1)
+arrows(0,-5,0,5,length=0.1,angle=8,code=3,lwd=1)
+lines(c(0,x,x,0),c(0,0,y,0),lwd=2,col="purple")
+lines(c(0,x),c(0,y),lwd=3,col="red")
+text(x/2+0.5*cos(t+pi/2*sign(x*y)),
+     y/2+0.5*sin(t+pi/2*sign(x*y)),"r",col="red",cex=1.5)
+th = seq(0,t,length.out=100)
+lines(cos(th),sin(th),col="blue")
+arrows(cos(th[99]),sin(th[99]),cos(th[100]),sin(th[100]),col="blue",length=0.05,angle=20,lwd=2)
+text(1.4*cos(t/2),1.4*sin(t/2),TeX("$\\theta$"),col="blue",cex=1.5)
+points(x,y,pch=19,col="purple",cex=1.3)
+text(x,y+sign(y)/2,"(x,y)",col="purple")
+```
+\
+
+
+Please determine the rectangular coordinates ($x$ and $y$).
+
+* The horizontal coordinate: $x=$ ##ANSWER1##
+* The vertical coordinate: $y=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+
+
+Solution
+========
+
+```{r,echo=FALSE}
+if(t<3*pi/2){
+  refinit = "\\pi"
+  refnmr = abs(rnf-rdn)
+} else {
+  refinit = "2\\pi"
+  refnmr = abs(rnf-2*rdn)
+}
+refnmrt = paste0(refnmr)
+if(refnmrt=="1"){refnmrt=""}
+```
+
+We can use right-triangle trigonometry. Start by finding the [reference angle](https://courses.lumenlearning.com/csn-precalculus/chapter/reference-angles/). To do this, find the absolute difference between the angle and the nearest multiple of $\pi$. So, in this case, the reference angle ($\phi$) is:
+
+$$\phi ~=~ \left|`r ttx`-`r refinit`\right|$$
+
+$$\phi ~=~ \frac{`r refnmrt`\pi}{`r rdn`}$$
+
+```{r,echo=F,fig.dim=c(8,8)}
+library(latex2exp)
+par(pty="s")
+plot(x,y,xlim=c(-5,5),ylim=c(-5,5))
+arrows(-5,0,5,0,length=0.1,angle=8,code=3,lwd=1)
+arrows(0,-5,0,5,length=0.1,angle=8,code=3,lwd=1)
+lines(c(0,x,x,0),c(0,0,y,0),lwd=2,col="purple")
+lines(c(0,x),c(0,y),lwd=3,col="red")
+text(x/2+0.5*cos(t+pi/2*sign(x*y)),
+     y/2+0.5*sin(t+pi/2*sign(x*y)),"r",col="red",cex=1.5)
+if(t<3*pi/2){t2=pi}else{t2=2*pi}
+th = seq(t2,t,length.out=100)
+lines(cos(th),sin(th),col="blue")
+text(1.4*cos(th[50]),1.4*sin(th[50]),TeX("$\\phi$"),col="blue",cex=1)
+points(x,y,pch=19,col="purple",cex=1.3)
+text(x,y+sign(y)/2,"(x,y)",col="purple")
+```
+\
+
+
+Remember, $r=`r r`$. Use trigonometry to calculate the lengths of the right triangle.
+
+$$|x| ~=~ `r r`\cos\left(\frac{`r refnmrt`\pi}{`r rdn`}\right) ~=~ `r r*cos(abs(t-t2))`$$
+
+$$|y| ~=~ `r r`\sin\left(\frac{`r refnmrt`\pi}{`r rdn`}\right) ~=~ `r r*sin(abs(t-t2))`$$
+
+```{r,echo=FALSE}
+qn = t%/%(pi/2)+1
+```
+
+Since we are in quadrant `r qn`, we know the signs of $x$ and $y$.
+
+$$x = `r x`$$
+
+$$y = `r y`$$
+
+If you round to the hundredths place:
+
+$$x = `r xa`$$
+$$y = `r ya`$$
+
+### Another approach
+
+It turns out that the trigonometric functions are defined for all angles (not just acute angles). The way they are defined actually makes this problem trivial. There is no need to find an acute reference angle.
+
+$$x = r \cos(\theta)$$
+
+$$y = r \sin(\theta)$$
+
+Using these above formulas will work directly. 
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: polar_to_rect

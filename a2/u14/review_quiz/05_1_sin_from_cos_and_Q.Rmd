@@ -1,0 +1,152 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+th = runif(1,pi/20,pi/2-pi/20)+sample(c(0,pi/2,pi,3*pi/2),1)
+th = signif(th,3)
+x = signif(cos(th),3)
+q = th%/%(pi/2)+1
+sy = 1-2*(q>2)
+y = sy*sqrt(1-x^2)
+yr = signif(y,3)
+rmn = c("I","II","III","IV")
+```
+
+Question
+========
+
+Given:
+
+$$\cos(\theta)~=~`r x`$$
+$$\theta~\text{ is in quadrant `r rmn[q]`}$$
+
+Find $\sin(\theta)$. The tolerance is $\pm 0.001$.
+
+
+Solution
+========
+
+Remember, $\cos(\theta)$ represents the $x$ coordinate on the unit circle at an angle of $\theta$, and $\sin(\theta)$ represents the $y$ coordinate. Draw a sketch. We know the point of interest is in quadrant `r rmn[q]`.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.3,1.3),ylim=c(-1.3,1.3))
+arrows(-1.3,0,1.3,0,0.1,20,3,lwd=2,col="grey")
+arrows(0,-1.3,0,1.3,0.1,20,3,lwd=2,col="grey")
+thall = seq(0,2*pi,pi/360)
+lines(cos(thall),sin(thall),col="black",lty=3)
+abline(v=x,lty=2,col="blue")
+if(abs(x)>0.6){
+    text(x,-1.15*sign(y),paste0("x=",round(x,5),collapse=""),adj=c(0.5,-0.3),srt=90,col="blue")
+} else {
+    text(x,0,paste0("x=",round(x,5),collapse=""),adj=c(0.5,-0.3),srt=90,col="blue")
+}
+
+thth = seq(0,th,pi/360)
+# polygon(c(0,cos(thth)),c(0,sin(thth)),border=F,col=rgb(0.5,0,0.2,0.1))
+lines(cos(thth),sin(thth),col="maroon",lwd=3)
+lines(c(0,cos(th)),c(0,sin(th)),col="red")
+text(1.05*cos(th/2),1.05*sin(th/2),TeX("$\\theta$"),col="maroon",cex=1.5)
+
+# library(extrafont)
+# font_import()
+# loadfonts() 
+text(1.15,1.15,"I",family="Tahoma",font=1,cex=1.3)
+text(-1.15,1.15,"II",family="Tahoma",font=1,cex=1.3)
+text(-1.15,-1.15,"III",family="Tahoma",font=1,cex=1.3)
+text(1.15,-1.15,"IV",family="Tahoma",font=1,cex=1.3)
+points(x,y,pch=20,col="purple",cex=2)
+text(x,y,paste0("(",round(x,4),",  y)"),col="purple",adj=c(0.5-0.7*sign(x),0.5-0.7*sign(y)))
+
+points(x,-y,pch=19,col="black")
+text(x,-y,adj=c(0.5-0.7*sign(x),0.5+0.7*sign(y)),"wrong\nspot")
+srt = (th*180/pi+90)%%180-90
+text(0.5*cos(th),0.5*sin(th),"1",col="red",srt=srt,adj=c(0.5,-0.3))
+
+np = c("negative","positive")
+npx = np[round(sign(x)/2+1.5)]
+npy = np[round(sign(y)/2+1.5)]
+
+```
+\
+
+You can draw a right triangle. The standard way to do this is by using a segment along the $x$-axis and a vertical segment at $x=`r x`$. I've labelled the lengths using positive numbers. I will later consider the signs (positive or negative) of $x$ and $y$ based on the quadrant.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,
+     xlim=c(sign(x)*(0.5-sign(x)*0.6),sign(x)*(0.5+sign(x)*0.6)),
+     ylim=c(sign(y)*(0.5-sign(y)*0.6),sign(y)*(0.5+sign(y)*0.6)))
+arrows(-1.1,0,1.1,0,0.1,20,3,lwd=2,col="grey")
+arrows(0,-1.1,0,1.1,0.1,20,3,lwd=2,col="grey")
+thall = seq(0,2*pi,pi/360)
+bmp = 0.02
+bx = bmp*sign(x)
+by = bmp*sign(y)
+lines(c(x-bx,x-bx,x),c(0,by,by))
+
+lines(cos(thall),sin(thall),col="grey",lty=3)
+thth = seq(0,th,pi/360)
+# polygon(c(0,cos(thth)),c(0,sin(thth)),border=F,col=rgb(0.5,0,0.2,0.1))
+lines(cos(thth),sin(thth),col=rgb(0.8,0,0.6),lwd=1)
+lines(c(0,cos(th)),c(0,sin(th)),col="red",lwd=3)
+# text(1.05*cos(th/2),1.05*sin(th/2),TeX("$\\theta$"),col="maroon",cex=1.5)
+
+# library(extrafont)
+# font_import()
+# loadfonts() 
+text(1.05,1.05,"I",family="Tahoma",font=1,cex=1.3)
+text(-1.05,1.05,"II",family="Tahoma",font=1,cex=1.3)
+text(-1.05,-1.05,"III",family="Tahoma",font=1,cex=1.3)
+text(1.05,-1.05,"IV",family="Tahoma",font=1,cex=1.3)
+# points(x,y,pch=20,col="purple",cex=2)
+# text(1.01*x,1.01*y,paste0("(",round(x,4),",  y)"),col="purple",adj=c(0.5-0.7*sign(x),0.5-0.7*sign(y)))
+
+points(x,-y,pch=19,col="black")
+text(x,-y,adj=c(0.5-0.7*sign(x),0.5+0.7*sign(y)),"wrong\nspot")
+srt = (th*180/pi+90)%%180-90
+text(0.5*cos(th),0.5*sin(th),"1",col="red",srt=srt,adj=c(0.5,0.5-0.8*sign(y)))
+lines(c(x,x),c(0,y),col="darkorange",lwd=3)
+text(x,y/2,TeX("$|y|=|sin(\\theta)|$"),col="darkorange",srt=90,adj=c(0.5,0.5+0.9*sign(x)))
+lines(c(0,x),c(0,0),col="darkgreen",lwd=3)
+text(x/2,0,abs(x),col="darkgreen",srt=0,adj=c(0.5,0.5+0.9*sign(y)))
+
+np = c("negative","positive")
+npx = np[round(sign(x)/2+1.5)]
+npy = np[round(sign(y)/2+1.5)]
+
+```
+\
+
+Use Pythagorean Theorem.
+
+$$(`r x`)^2+|y|^2~=~1^2$$
+
+The square of a real number always equals the square of the absolute value of the same real number. Also, $1^2=1$.
+
+
+$$`r abs(x)`^2+y^2~=~1$$
+
+Subtract $`r abs(x)`^2$ from both sides.
+
+$$y^2~=~1-`r abs(x)`^2$$
+
+Square root both sides.
+
+$$|y|~=~ \sqrt{(1-`r abs(x)`^2)}$$
+
+We know the quadrant is quadrant `r rmn[q]`, so $y$ is `r npy`.
+
+
+$$y~=~`r y`$$
+
+So,
+
+$$\sin(\theta)~=~`r y`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r y`
+exname: sin_from_cos_and_Q
+extol: 0.001

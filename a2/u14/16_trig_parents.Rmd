@@ -1,0 +1,182 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+n = 10
+isok = function(ths){
+    return(min(ths)<(pi/2) && max(ths)>(3*pi/2) && min(diff(ths))>(pi/20) && min(diff(ths))<(pi/12) && min(abs(ths-pi/2))>(pi/20) && min(abs(ths-pi))>(pi/20) && min(abs(ths-3*pi/2))>(pi/20) && min(abs(ths))>(pi/20) && min(abs(ths-2*pi))>(pi/20))
+}
+
+isdiffenough = function(t1,t2){
+    maxmin=0
+    for(t in t1){
+        maxmin = max(c(maxmin,min(abs(t2-t))))
+    }
+    return(maxmin>(pi/12))
+}
+
+while(T){
+    ths = sort(runif(n,0,2*pi))
+    if(isok(ths)){break}
+}
+ths = round(ths,3)
+
+while(T){
+    tw1 = round(sort(runif(n,0,2*pi)),3)
+    if(isok(tw1) && isdiffenough(tw1,ths)){break}
+}
+
+while(T){
+    tw2 = round(sort(runif(n,0,2*pi)),3)
+    if(isok(tw2) && isdiffenough(tw2,ths)){break}
+}
+
+while(T){
+    tw3 = round(sort(runif(n,0,2*pi)),3)
+    if(isok(tw3) && isdiffenough(tw3,ths)){break}
+}
+
+tl = list(ths,tw1,tw2,tw3)
+ord = sample(1:4)
+sol1 = paste0(1*(1==ord),collapse="")
+al1 = paste0("* ",c("A","B","C","D"),collapse="\n")
+
+ord2 = sample(1:4)
+sol2 = paste0(1*(1==ord2),collapse="")
+al2 = paste0("* ",c("E","F","G","H"),collapse="\n")
+
+ord3 = sample(1:4)
+sol3 = paste0(1*(1==ord3),collapse="")
+al3 = paste0("* ",c("J","K","L","M"),collapse="\n")
+
+```
+
+Question
+========
+
+We began by defining the trigonometric ratios of **right triangles**. We saw it was beneficial to move to unit-**circle** definitions to allow for any angle (not just acute angles of right triangles). Now, we will see that when we plot trigonometric functions, we get **[waves](https://en.wikipedia.org/wiki/Sine_and_cosine#Graph_of_a_function_and_its_elementary_properties)** (and other [periodic](https://en.wikipedia.org/wiki/Periodic_function) functions).
+
+In [Desmos](https://www.desmos.com/calculator), you can store a list of angles (in radians) with the following expression: ``T=[`r ths`]``
+
+$$T=[`r ths`]$$
+
+From that list of angles, you can plot the corresponding points on the unit circle with the following expression: `(cos(T),sin(T))`. Find the corresponding graph.
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(mar=c(3,3,3,3),mfrow=c(2,2),pty="s")
+pc = function(ts,ml){
+    plot(0,0,"n",xlim=c(-1.1,1.1),ylim=c(-1.1,1.1),main=ml)
+    ttt = seq(0,2*pi,pi/360)
+    lines(cos(ttt),sin(ttt),lty=3,col="grey")
+    arrows(-1.1,0,1.1,0,0.1,20,3)
+    arrows(0,-1.1,0,1.1,0.1,20,3)
+    points(cos(ts),sin(ts),pch=20,col="black",cex=1.2)
+    points(cos(ts),sin(ts),pch=20,col=hsv(ts/2/pi,1,1))
+}
+
+pc(tl[[ord[1]]],"A")
+pc(tl[[ord[2]]],"B")
+pc(tl[[ord[3]]],"C")
+pc(tl[[ord[4]]],"D")
+
+```
+\
+
+* Plot ##ANSWER1## matches the given list of angles.
+
+Now, in Desmos, you can type `(T,sin(T))` to get the points along the sine wave. Find the corresponding graph.
+
+```{r,echo=F,fig.dim=c(6,12)}
+par(mar=c(3,3,3,3),mfrow=c(4,1))
+wf = function(ts,ml){
+    plot(0,0,"n",xlim=c(-0.1,round(2*pi,1)+0.1),ylim=c(-1.1,1.1),main=ml,asp=1)
+    ttt = seq(0,2*pi,pi/360)
+    lines(ttt,sin(ttt),lty=3,col="grey")
+    arrows(-0.4,0,6.3,0,0.1,20,3)
+    arrows(0,-1.2,0,1.2,0.1,20,3)
+    points(ts,sin(ts),pch=20,col="black",cex=1.2)
+    points(ts,sin(ts),pch=20,col=hsv(ts/2/pi,1,1))
+}
+
+wf(tl[[ord2[1]]],"E")
+wf(tl[[ord2[2]]],"F")
+wf(tl[[ord2[3]]],"G")
+wf(tl[[ord2[4]]],"H")
+
+```
+\
+
+* Plot ##ANSWER2## matches the given list of angles.
+
+Lastly, in Desmos, you can type `(T,cos(T))` to get the points along the cosine wave. Find the corresponding graph.
+
+```{r,echo=F,fig.dim=c(6,12)}
+par(mar=c(3,3,3,3),mfrow=c(4,1))
+cw = function(ts,ml){
+    plot(0,0,"n",xlim=c(-0.1,round(2*pi,1)+0.1),ylim=c(-1.1,1.1),main=ml,asp=1)
+    ttt = seq(0,2*pi,pi/360)
+    lines(ttt,cos(ttt),lty=3,col="grey")
+    arrows(-0.4,0,6.3,0,0.1,20,3)
+    arrows(0,-1.2,0,1.2,0.1,20,3)
+    points(ts,cos(ts),pch=20,col="black",cex=1.2)
+    points(ts,cos(ts),pch=20,col=hsv(ts/2/pi,1,1))
+}
+
+cw(tl[[ord2[1]]],"J")
+cw(tl[[ord2[2]]],"K")
+cw(tl[[ord2[3]]],"L")
+cw(tl[[ord2[4]]],"M")
+
+```
+\
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al3`
+
+Solution
+========
+
+We are hoping to see how the unit-circle points correspond to the points on the waves. I think [this animation](https://en.wikipedia.org/wiki/Sine_and_cosine#/media/File:Circle_cos_sin.gif) does a great job of showing that the sine wave is created by plotting the $y$ coordinate (of the unit circle) as a function of time, and the cosine wave is created by plotting the $x$ coordinate as a function of time (and the angle grows linearly in time).
+
+Here's another attempt to show the connection between the unit circle and the sine wave:
+
+```{r,echo=F,fig.dim=c(8/1.5,3/1.5),animation.hook="gifski",interval=0.15}
+n = 40
+for(i in 1:n){
+    tmax = i/n*2*pi
+    par(mar=c(0,0,0,0))
+    plot(0,0,"n",xlim=c(-1.3,8-1.3),ylim=c(-1.5,1.5))
+    points(ths,sin(ths),cex=1)
+    points(cos(ths),sin(ths),cex=1)
+    arrows(-1.2,0,6.7,0,0.1,20,3)
+    arrows(0,-1.2,0,1.2,0.1,20,3)
+    ttt = seq(0,tmax,pi/360)
+    lines(ttt,sin(ttt),lty=3,col="grey")
+    for(tt in seq(0,tmax,pi/1080)){
+        lines(cos(tt)*c(0.99,1.01),sin(tt)*c(0.99,1.01),col=hsv(tt/2/pi,1,1),lwd=0.5)
+        lines(c(tt,tt),c(-0.01,0.01),col=hsv(tt/2/pi,1,1),lwd=0.5)
+    }
+    tq = ths[ths<tmax]
+    for(thth in tq){
+        lines(c(cos(thth),cos(thth),thth,thth),c(0,sin(thth),sin(thth),0),lty=2,col=hsv(thth/2/pi,1,1))
+    }
+    points(cos(tq),sin(tq),pch=20,col="black",cex=1.2)
+    points(cos(tq),sin(tq),pch=20,col=hsv(ths/2/pi,1,1),cex=1)
+    points(tq,sin(tq),pch=20,col="black",cex=1.2)
+    points(tq,sin(tq),pch=20,col=hsv(ths/2/pi,1,1),cex=1)
+}
+```
+\
+
+
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: circle_to_wave

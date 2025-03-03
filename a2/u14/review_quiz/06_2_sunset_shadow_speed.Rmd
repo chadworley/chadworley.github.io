@@ -1,0 +1,100 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+options(scipen=99)
+intv = 0.05
+th = signif(runif(1,pi/10,pi/2-pi/10),3) #radians
+v = signif(runif(1,2000,5000),3) #m/s
+nf = min(c(ceiling((10000/(cos(th)*v))/intv)+3,
+           ceiling((10000/(sin(th)*v))/intv)+3)
+         )
+vx = v*cos(th)
+vy = v*sin(th)
+
+
+```
+
+Question
+========
+
+At sunset, the sun's rays are parallel to the local flat ground. A rocket is launched at an [angle of elevation](https://en.wikipedia.org/wiki/Elevation_(ballistics)) of `r th` radians above the horizon at a speed of `r v` meters per second. Its shadow is projected onto a tall cliff to the east.
+
+```{r,echo=F,fig.dim=c(3,3),animation.hook="gifski",interval=intv}
+for(i in 1:nf){
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",xlim=c(0,10000),ylim=c(0,10000),axes=F,ann=F)
+    polygon(c(-1000,11000,11000,-1000),c(99999,99999,0,0),col="#ffbc7a")
+    polygon(c(10000,11000,11000,10000),c(-1000,-1000,10000,10000),col="#6d6765")
+    polygon(c(-1000,11000,11000,-1000),c(-1000,-1000,0,0),col="royalblue")
+    t = intv*i
+    xs = cos(th)*v*t+cos(th)*c(0,300)
+    ys = sin(th)*v*t+sin(th)*c(0,300)
+    # lines(xs,ys-20,pch=19,col="black",lwd=6)
+    if(mean(xs)<10000){
+        lines(xs,ys,pch=19,col="red",lwd=6)
+        if(max(ys)<10000){
+            lines(c(10200,10200),ys,pch=19,col="black",lwd=6)
+        }
+    } else {
+        lines(c(10200,10200),ys,pch=19,col="yellow",lwd=20)
+    }
+    
+}
+```
+\
+
+How fast, in meters per second, is the shadow moving up the cliff? The tolerance is $\pm 10$ m/s.
+
+
+Solution
+========
+
+We recognize that velocity is a [vector](https://en.wikipedia.org/wiki/Euclidean_vector). In this scenario, we can think of the vector as a 2D vector given in [polar form](https://en.wikipedia.org/wiki/Polar_coordinate_system).
+
+Using basic right-triangle trigonometry, you can find the horizontal component of the velocity.
+
+Draw a vector with [magnitude (length)](https://en.wikipedia.org/wiki/Magnitude_(mathematics)#Euclidean_vector_space) of `r v` m/s and angle of `r th` radians. We can indicate the magnitude with double vertical lines on either side of the vector's name. We can also indicate magnitude by leaving off the arrow.
+
+$$||\vec{v}||~=~ v ~=~`r v`~\mathrm{\frac{m}{s}}$$
+
+We want to decompose the vector into its horizontal component ($\vec{v}_x$) and its vertical component ($\vec{v}_y$). The vertical component's magnitude (denoted as $||\vec{v}_y||$, or more simply as $v_y$) is the speed of the shadow.
+
+```{r,echo=F,fig.dim=c(5,5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+x = cos(th)
+y = sin(th)
+arrows(0,0,x,y,0.09,10,col="red",lwd=2)
+arrows(0,0,x,0,0.09,10,col="black",lwd=2)
+arrows(x,0,x,y,0.09,10,col="blue",lwd=2)
+angr = 0.1
+ths = seq(0,th,pi/360)
+lines(angr*cos(ths),angr*sin(ths),col="darkgreen")
+angrt = 0.11
+text(angrt*cos(th/2),angrt*sin(th/2),th,srt=th/2/pi*180,col="darkgreen",adj=c(-0.1,0.5))
+text(x/2,y/2,v,srt=th/pi*180,adj=c(0.5,-0.2),col="red")
+text(x/2,0,TeX("$v_x$"),adj=c(0.5,1.2))
+text(x,y/2,TeX("$v_y$"),adj=c(-0.1,0.5),col="blue")
+
+```
+\
+
+We can set up the sine equation.
+
+$$\sin(`r th`)~=~\frac{v_y}{`r v`}$$
+
+Solve for $v_y$.
+
+$$v_y~=~`r v`\cdot\sin(`r th`)$$
+
+Evaluate with a calculator. Remember, we are in RADIAN MODE!
+
+$$v_y~=~`r vy`$$
+$$v_y~\approx~`r signif(vy,3)`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r vy`
+exname: sunset_shadow_speed
+extol: 10
