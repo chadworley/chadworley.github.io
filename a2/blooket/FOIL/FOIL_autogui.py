@@ -4,7 +4,7 @@ from random import sample, randint, choices
 
 # time.sleep(5)
 print(position())
-PAUSE = 3 #wait after each click
+PAUSE = 1 #wait after each click
 
 # points taken at 100% zoom
 # wide as possible without sidebar (approx half screen)
@@ -40,16 +40,16 @@ pi = Point(x=625, y=374)
 save = Point(x=726, y=225)
 cancel = Point(x=609, y=228)
 a1t = Point(x=276, y=552)
+ta_a1 = Point(x=429, y=602)
 
 def pressem(a):
     for i in a:
+        keyUp("fn")
         if(i=="#"):
             press("right")
-        elif(i=="F"):
-            click(frac)
         else:
-            write(i)
-        time.sleep(0.05)
+            press(i)
+        time.sleep(0.01)
 
 def quadstr(cf): 
     #Get quadratic polynomial string from coefficients
@@ -125,97 +125,30 @@ for i in range(1000):
     b = sample(list(range(1,9)),1)[0]*sample([-1,1],1)[0]
     
     ans = quadstr([1,a+b,a*b])
-    ws = [quadstr([1,-a-b,a*b]),
-          quadstr([1,-a-b,-a*b]),
-          quadstr([1,a+b,-a*b]),
-          quadstr([1,a*b,a+b]),
-          quadstr([1,-a*b,a+b]),
-          quadstr([1,-a*b,-a-b]),
-          quadstr([1,a*b,-a-b]),
-          quadstr([1,a-b,a*b]),
-          quadstr([1,b-a,a*b]),
-          quadstr([1,a+b-1,a*b]),
-          quadstr([1,a+b+1,a*b]),
-          quadstr([1,a+b,a*b-1]),
-          quadstr([1,a+b,a*b+1]),
-          quadstr([1,a+b,(a+1)*b]),
-          quadstr([1,a+b,a*(b+1)]),
-          quadstr([1,a+b,(a-1)*b]),
-          quadstr([1,a+b,a*(b-1)]),
-          quadstr([1,(a+1)*b,a+b,]),
-          quadstr([1,a*(b+1),a+b]),
-          quadstr([1,(a-1)*b,a+b]),
-          quadstr([1,a*(b-1),a+b]),
-          quadstr([1,a,b]),
-          quadstr([1,b,a]),
-          quadstr([1,0,a*b]),
-          quadstr([1,0,a+b]),
-          quadstr([a,0,b]),
-          quadstr([b,0,a]),
-          quadstr([1,a+b,b-a]),
-          quadstr([1,a+b,a-b]),
-          quadstr([a+b,0,a*b])
-          ]
-    was = []
-    for ww in ws:
-        if ww not in was and ww!=ans:
-            was.append(ww)
-    allposs = sample([ans]+sample(was,3),4)
-    wo = allposs.index(ans)
-    print(ans)
-    que = plbstr([1,a,1,b])
+    que = plbstr([1,a,1,b])+" = Ax^2#+Bx+C"
+    
+    wi = randint(1,2)
+    unk = ["A","B","C"][wi]
+    val = [1,a+b,a*b][wi]
     
     st = 0.3
     click(add_que)
     time.sleep(1)
+    write("The equality is true for any x.  "+unk+" = ?",interval=0.02)
     click(math)
     time.sleep(1)
     pressem(que)
-    time.sleep(0.1)
+    time.sleep(0.2)
     click(mat_ins)
     time.sleep(1)
-    # enter math 1
-    click(math1)
-    time.sleep(1)
-    pressem(allposs[0])
-    time.sleep(0.1)
-    click(mat_ins)
-    time.sleep(1)
-    if allposs[0]==ans:
-        click(check1)
-        time.sleep(0.1)
-    # enter math 2
-    click(math2)
-    time.sleep(1)
-    pressem(allposs[1])
-    time.sleep(0.1)
-    click(mat_ins)
-    time.sleep(1)
-    if allposs[1]==ans:
-        click(check2)
-        time.sleep(0.1)
-    # enter math 3
-    click(math3)
-    time.sleep(1)
-    pressem(allposs[2])
-    time.sleep(0.1)
-    click(mat_ins)
-    time.sleep(1)
-    if allposs[2]==ans:
-        click(check3)
-        time.sleep(0.1)
-    # enter math 4
-    click(math4)
-    time.sleep(1)
-    pressem(allposs[3])
-    time.sleep(0.1)
-    click(mat_ins)
-    time.sleep(1)
-    if allposs[3]==ans:
-        click(check4)
-        time.sleep(0.1)
+    click(qt_drop)
+    time.sleep(0.5)
+    click(qt_ta)
+    time.sleep(0.5)
+    click(ta_a1)
+    write(str(val))
     click(save)
-    time.sleep(1.5)
+    time.sleep(1)
 
 # time.sleep(st)
 # time.sleep(st)
