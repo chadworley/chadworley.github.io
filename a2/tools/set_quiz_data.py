@@ -3,8 +3,8 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-03-05 8:00:00"]*2
-dut = ["2025-03-05 23:59:00"]*2
+avt = ["2025-03-05 8:00:00"]*3
+dut = ["2025-03-05 23:59:00"]*3
 front = "u15_"
 
 files = ["01_circle_to_wave.Rmd",

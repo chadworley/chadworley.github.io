@@ -1,0 +1,61 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+pq = sample(c(-9:-1,1:9),2,T)
+p = pq[1]
+q = pq[2]
+a = 1
+b = p+q
+c = p*q
+
+exp = paste0("x^2+{",b,"}x+{",c,"}",collapse="")
+exp = gsub("{1}x","x",exp,fixed=T)
+exp = gsub("+{-1}x","-x",exp,fixed=T)
+exp = gsub("+{0}x","",exp,fixed=T)
+exp = gsub("+{0}","",exp,fixed=T)
+exp = gsub("{","",exp,fixed=T)
+exp = gsub("}","",exp,fixed=T)
+exp = gsub("+-","-",exp,fixed=T)
+
+z = -9:9
+alls = numeric()
+for(z1 in z){
+    for(z2 in z){
+        alls = c(alls,z1+z2,z1*z2)
+    }
+}
+alls = sort(unique(alls))
+
+al = paste0("* ",alls,collapse="\n")
+sol1 = paste0(1*(b==alls))
+sol2 = paste0(1*(c==alls))
+
+```
+
+Question
+========
+
+For all values of $x$, the equivalence below is true.
+
+$$`r exp`=x^2+Bx+C$$
+
+Find $B$ and $C$.
+
+* $B=$ ##ANSWER1##
+* $C=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+
+Solution
+========
+
+
+
+Meta-information
+============
+extype: num
+exsolution: 
+exname: trig_parents
