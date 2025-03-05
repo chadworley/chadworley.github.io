@@ -23,19 +23,21 @@ for(z1 in z){
     }
 }
 alls = sort(unique(alls))
-
 al = paste0("* ",alls,collapse="\n")
-sol1 = paste0(1*(b==alls))
-sol2 = paste0(1*(c==alls))
+sol1 = paste0(1*(b==alls),collapse="")
+sol2 = paste0(1*(c==alls),collapse="")
+
+binom_prod = paste0("(x+",p,")(x+",q,")",collapse="")
+binom_prod = gsub("+-","-",binom_prod,fixed=T)
 
 ```
 
 Question
 ========
 
-For all values of $x$, the equivalence below is true.
+The equivalence below is true for any value of $x$.
 
-$$`r exp`=x^2+Bx+C$$
+$$`r binom_prod` \equiv x^2+Bx+C$$
 
 Find $B$ and $C$.
 
@@ -52,10 +54,17 @@ Answerlist
 Solution
 ========
 
+FOIL!
+
+$$`r binom_prod`~=~x^2+(`r q`)x+(`r p`)x+(`r p*q`)$$
+
+Combine like terms.
+
 
 
 Meta-information
 ============
-extype: num
-exsolution: 
-exname: trig_parents
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: FOIL

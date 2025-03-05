@@ -3,9 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "u15_"
 
-probs = c("03_sin_amp.Rmd")
+probs = c("01_circle_to_wave.Rmd")
 
-pnts = c(2)
+pnts = c(4)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
