@@ -1,7 +1,8 @@
 library("exams")
 
-pppsss = c("12_canoe_river_degs.Rmd",
-           "13_canoe_river_rads.Rmd")
+pppsss = c("01_circle_to_wave.Rmd",
+           "02_trig_parents.Rmd",
+           "03_sin_amp.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
