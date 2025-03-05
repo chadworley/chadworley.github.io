@@ -128,7 +128,6 @@ for i in range(1000):
     ans1 = plbstr([1,a,1,b])
     ans2 = plbstr([1,b,1,a])
     wi = randint(1,2)
-    unk = ["A","B","C"][wi]
     val = [1,a+b,a*b][wi]
     st = 0.3
     click(add_que)
@@ -150,6 +149,12 @@ for i in range(1000):
         click(AAA)
         click(AAA)
         write(ans2)
+    else:
+        sss = "(x+"+str(a)+")^2"
+        sss = sss.replace("+-","-")
+        click(AAA)
+        click(AAA)
+        write(sss)
     time.sleep(0.2)
     click(save)
     time.sleep(1)

@@ -56,16 +56,16 @@ def quadstr(cf):
     #For blooket, I'm using "#" to mean right arrow keystroke
     s = ""
     if cf[0] != 0:
-        if abs(cf[0])==1:
+        if cf[0]==1:
             s = s+"x^2#"
-        elif abs(cf[0])==-1:
+        elif cf[0]==-1:
             s = s+"-x^2#"
         else:
             s = s+str(cf[0])+"x^2#"
         if cf[1] != 0:
-            if abs(cf[1])==1:
+            if cf[1]==1:
                 s = s+"+x"
-            elif abs(cf[1])==-1:
+            elif cf[1]==-1:
                 s = s+"-x"
             elif cf[1]>0:
                 s = s+"+"+str(cf[1])+"x"
@@ -77,9 +77,9 @@ def quadstr(cf):
             else:
                 s = s+str(cf[2])
     elif cf[1] != 0:
-        if abs(cf[1])==1:
+        if cf[1]==1:
                 s = s+"x"
-        elif abs(cf[1])==-1:
+        elif cf[1]==-1:
             s = s+"-x"
         elif cf[1]>0:
             s = s+str(cf[1])+"x"

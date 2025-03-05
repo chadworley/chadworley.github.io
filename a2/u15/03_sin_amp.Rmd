@@ -1,0 +1,82 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+A = round(runif(1,1.5,4.9),1)
+```
+
+Question
+========
+
+Below is a graph of $y=A\cdot \sin(t)$ and, as a dotted line, the parent function $y=\sin(t)$.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+x = seq(-2*pi,2*pi,pi/360)
+par(mar=c(0,0,0,0),pty="s")
+mm = 5
+plot(0,0,"n",xlim=c(-mm,mm),ylim=c(-mm,mm),axes=F,ann=F)
+for(i in seq(-mm,mm,0.1)){
+    lines(c(-mm,mm),c(i,i),lwd=0.8,col="lightgrey")
+    lines(c(i,i),c(-mm,mm),lwd=0.8,col="lightgrey")
+}
+for(i in seq(-mm,mm,0.5)){
+    lines(c(-mm,mm),c(i,i),lwd=1,col="grey")
+    lines(c(i,i),c(-mm,mm),lwd=1,col="grey")
+}
+for(i in seq(-mm,mm,1)){
+    lines(c(-mm,mm),c(i,i),lwd=1.2,col="darkgrey")
+    lines(c(i,i),c(-mm,mm),lwd=1.2,col="darkgrey")
+}
+for(i in seq(-mm,mm,5)){
+    lines(c(-mm,mm),c(i,i),lwd=1.4,col="black")
+    lines(c(i,i),c(-mm,mm),lwd=1.4,col="black")
+}
+for(i in -mm:mm){
+    if(i!=0){
+        text(0,i,i,adj=c(1.1,0.5))
+        text(i,0,i,adj=c(0.5,1.1))
+    }
+}
+text(mm*1.05,0,"t",adj=c(0.5,-0.5))
+text(0,mm*1.05,"y",adj=c(-0.5,0.5))
+
+arrows(-mm*1.05,0,mm*1.05,0,0.1,20,3,lwd=2)
+arrows(0,-mm*1.05,0,mm*1.05,0.1,20,3,lwd=2)
+lines(x,A*sin(x),lwd=2,col="blue")
+lines(x,sin(x),lwd=1,lty=2,col="blue")
+legend("topright",c(TeX("$y=A\\cdot\\sin(t)$"),TeX("$y=\\sin(t)$")),col=c("blue","blue"),lwd=c(2,1),lty=c(1,2))
+
+```
+
+What is the value of $A$?
+
+
+Solution
+========
+
+When the output of a function is multiplied by a constant, the result is a [vertical stretch](https://mathbitsnotebook.com/Algebra1/FunctionGraphs/FNGFunctionVerticalStretchCompress.html). Notice the parent function has extremes at $y=-1$ and $y=1$. The child function has extremes at $y=-`r A`$ and $y=`r A`$. Thus, the parent function was stretched by a factor of `r A`.
+
+In general, for periodic functions, if we find **half the difference** of the max minus min, we call that the **[amplitude](https://en.wikipedia.org/wiki/Amplitude)**.
+
+
+
+A temporal [sinusoidal wave](https://en.wikipedia.org/wiki/Sine_wave#Sinusoid_form) can be described precisely by 4 parameters:
+
+* [Amplitude](https://en.wikipedia.org/wiki/Amplitude): half the difference of max and min of the wave.
+* Midline (or offset, or [DC bias](https://en.wikipedia.org/wiki/DC_bias)): the average of the wave.
+* [Frequency](https://en.wikipedia.org/wiki/Frequency): number of repetitions per unit of time.
+* [Initial phase](https://en.wikipedia.org/wiki/Phase_(waves)): where in the cycle the wave is at $t=0$.
+
+There are other important parameters that are related to the four above.
+
+* [Period](https://en.wikipedia.org/wiki/Periodic_function), which is the reciprocal of frequency.
+* [Angular frequency](https://en.wikipedia.org/wiki/Angular_frequency), which is radians per second, found by multiplying the frequency by $2\pi$.
+
+Also, some waves are spatial (instead of temporal). In that case, the distance between peaks is the [wavelength](https://en.wikipedia.org/wiki/Wavelength) ($\lambda$). Spatio-temporal waves have both period and wavelength, which are related by the speed ($c$) of the wave. $c=\frac{\lambda}{P}$.
+
+
+https://en.wikipedia.org/wiki/Waveform
+
+Meta-information
+============
+extype: num
+exsolution: 
+exname: trig_parents
