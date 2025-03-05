@@ -1,5 +1,5 @@
 library("exams")
-n = 30
+n = 15
 outdir = "outcanvas"
 genname = "u15_"
 

@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("01_circle_to_wave.Rmd")
+pppsss = c("01_get_R-val.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
@@ -14,7 +14,7 @@ for(ppss in pppsss){
     }
     
     main = function(){
-      # set.seed(1)
+      set.seed(1)
       exams2html_interact(ps,
                      n=1,
                      dir=outdir,
