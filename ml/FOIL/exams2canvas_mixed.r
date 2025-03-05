@@ -1,5 +1,5 @@
 library("exams")
-n = 100
+n = 50
 outdir = "outcanvas"
 genname = "FOIL_"
 probs = c("01_FOIL.Rmd")
@@ -13,7 +13,7 @@ for(i in 1:length(probs)){
                n=n,
                dir=outdir,
                points=pnts[i],
-               maxattempts = 10,
+               maxattempts = 20,
                name=names[i],
                template = "canvas_qti12.xml",
                cloze = list(enumerate = FALSE))

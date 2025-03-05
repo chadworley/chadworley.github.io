@@ -3,21 +3,13 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-02-05 8:00:00"]*9
-dut = ["2025-02-05 23:59:00"]*9
-front = "trig_"
+avt = ["2025-03-05 8:00:00"]*1
+dut = ["2025-03-05 23:59:00"]*1
+front = "FOIL_"
 
-files = ["01_sine_get_opposite.Rmd",
-"02_sine_get_hypotenuse.Rmd",
-"03_sine_get_angle.Rmd",
-"04_cosine_get_adjacent.Rmd",
-"05_cosine_get_hypotenuse.Rmd",
-"06_cosine_get_angle.Rmd",
-"07_tangent_get_opposite.Rmd",
-"08_tangent_get_adjacent.Rmd",
-"09_tangent_get_angle.Rmd"]
+files = ["01_FOIL.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/ml/trig/outhtml/"
+practice_url_front = "https://chadworley.github.io/ml/FOIL/outhtml/"
 course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 

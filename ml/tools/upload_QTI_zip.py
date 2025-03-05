@@ -6,15 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/trig_01_sine_get_opposite.zip",
-"outcanvas/trig_02_sine_get_hypotenuse.zip",
-"outcanvas/trig_03_sine_get_angle.zip",
-"outcanvas/trig_04_cosine_get_adjacent.zip",
-"outcanvas/trig_05_cosine_get_hypotenuse.zip",
-"outcanvas/trig_06_cosine_get_angle.zip",
-"outcanvas/trig_07_tangent_get_opposite.zip",
-"outcanvas/trig_08_tangent_get_adjacent.zip",
-"outcanvas/trig_09_tangent_get_angle.zip"
+file_path_list = ["outcanvas/FOIL_01_FOIL.zip","outcanvas/FOIL__mastery.zip"
 ]
 
 # fpl = []
