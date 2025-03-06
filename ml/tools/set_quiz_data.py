@@ -3,11 +3,11 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-03-05 8:00:00"]*1
-dut = ["2025-03-05 23:59:00"]*1
-front = "FOIL_"
+avt = ["2025-03-06 8:00:00"]*1
+dut = ["2025-03-06 23:59:00"]*1
+front = "factor_"
 
-files = ["01_FOIL.Rmd"]
+files = ["02_factor_MC.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/ml/FOIL/outhtml/"
 course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
