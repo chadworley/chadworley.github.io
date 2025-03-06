@@ -1,0 +1,139 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+k = round(runif(1,0.1,3.8),1)*sample(c(-1,1),1)
+
+pork = paste0("y=\\sin(x)+",k,collapse="")
+pork = gsub("+-","-",pork,fixed=T)
+
+```
+
+Question
+========
+
+Below, on the $ty$ plane, is a graph of $y=\sin(t)+k$ with a random parameter $k$ and, as a dotted line, the parent function $y=\sin(t)$.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+x = seq(-2*pi,2*pi,pi/360)
+par(mar=c(0,0,0,0),pty="s")
+mm = 5
+plot(0,0,"n",xlim=c(-mm,mm),ylim=c(-mm,mm),axes=F,ann=F)
+for(i in seq(-mm,mm,0.1)){
+    lines(c(-mm,mm),c(i,i),lwd=0.8,col="lightgrey")
+    lines(c(i,i),c(-mm,mm),lwd=0.8,col="lightgrey")
+}
+for(i in seq(-mm,mm,0.5)){
+    lines(c(-mm,mm),c(i,i),lwd=1,col="grey")
+    lines(c(i,i),c(-mm,mm),lwd=1,col="grey")
+}
+for(i in seq(-mm,mm,1)){
+    lines(c(-mm,mm),c(i,i),lwd=1.2,col="darkgrey")
+    lines(c(i,i),c(-mm,mm),lwd=1.2,col="darkgrey")
+}
+for(i in seq(-mm,mm,5)){
+    lines(c(-mm,mm),c(i,i),lwd=1.4,col="black")
+    lines(c(i,i),c(-mm,mm),lwd=1.4,col="black")
+}
+for(i in -mm:mm){
+    if(i!=0){
+        text(0,i,i,adj=c(1.1,0.5))
+        text(i,0,i,adj=c(0.5,1.1))
+    }
+}
+text(mm*1.05,0,"t",adj=c(0.5,-0.5))
+text(0,mm*1.05,"y",adj=c(-0.5,0.5))
+
+arrows(-mm*1.05,0,mm*1.05,0,0.1,20,3,lwd=2)
+arrows(0,-mm*1.05,0,mm*1.05,0.1,20,3,lwd=2)
+lines(x,sin(x)+k,lwd=2,col="blue")
+lines(x,sin(x),lwd=1,lty=2,col="purple")
+legend("topright",c(TeX("$y=\\sin(t)+k$"),TeX("$y=\\sin(t)$")),col=c("blue","purple"),lwd=c(2,1),lty=c(1,2))
+
+```
+\
+
+What is the value of $k$?
+
+
+Solution
+========
+
+When we add/subtract a constant from the output of a function, the graphical result is a [vertical shift](https://mathbitsnotebook.com/Algebra1/FunctionGraphs/FNGFunctionTransVertical.html). Notice the parent function has extremes at $y=-1$ and $y=1$, so the parent function has a midline at $y=0$. The child function has extremes at $y=`r -1+k`$ and $y=`r 1+k`$, and those values have an average of `r k`. So the midline is at $y=`r k`$ and so $k=`r k`$.
+
+For sinusoidal functions, the midline is at **the average** of the max and min. In signal processing, the midline is called the [DC bias](https://en.wikipedia.org/wiki/DC_bias). For example, in Audacity, there is a function to remove [DC offset](https://manual.audacityteam.org/man/dc_offset.html).
+
+A temporal [sinusoidal wave](https://en.wikipedia.org/wiki/Sine_wave#Sinusoid_form) can be described precisely by 4 parameters:
+
+* [Amplitude](https://en.wikipedia.org/wiki/Amplitude): half the difference of max and min of the wave.
+* Midline (or offset, or [DC bias](https://en.wikipedia.org/wiki/DC_bias)): the average of the wave.
+* [Frequency](https://en.wikipedia.org/wiki/Frequency): number of repetitions per unit of time.
+* [Initial phase](https://en.wikipedia.org/wiki/Phase_(waves)): where in the cycle the wave is at $t=0$.
+
+There are other important parameters that are related to the four above.
+
+* [Period](https://en.wikipedia.org/wiki/Periodic_function), which is the reciprocal of frequency.
+* [Angular frequency](https://en.wikipedia.org/wiki/Angular_frequency), which is radians per second, found by multiplying the frequency by $2\pi$.
+
+Also, some waves are spatial (instead of temporal). In that case, the distance between peaks is the [wavelength](https://en.wikipedia.org/wiki/Wavelength) ($\lambda$). Spatio-temporal waves have both period and wavelength, which are related by the velocity ($v$) of the wave. $v=\frac{\lambda}{P}$.
+
+https://en.wikipedia.org/wiki/Sine_wave
+
+https://en.wikipedia.org/wiki/Waveform
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+x = seq(-2*pi,2*pi,pi/360)
+par(mar=c(0,0,0,0),pty="s")
+mm = 5
+plot(0,0,"n",xlim=c(-mm,mm),ylim=c(-mm,mm),axes=F,ann=F)
+for(i in seq(-mm,mm,0.1)){
+    lines(c(-mm,mm),c(i,i),lwd=0.8,col="lightgrey")
+    lines(c(i,i),c(-mm,mm),lwd=0.8,col="lightgrey")
+}
+for(i in seq(-mm,mm,0.5)){
+    lines(c(-mm,mm),c(i,i),lwd=1,col="grey")
+    lines(c(i,i),c(-mm,mm),lwd=1,col="grey")
+}
+for(i in seq(-mm,mm,1)){
+    lines(c(-mm,mm),c(i,i),lwd=1.2,col="darkgrey")
+    lines(c(i,i),c(-mm,mm),lwd=1.2,col="darkgrey")
+}
+for(i in seq(-mm,mm,5)){
+    lines(c(-mm,mm),c(i,i),lwd=1.4,col="black")
+    lines(c(i,i),c(-mm,mm),lwd=1.4,col="black")
+}
+for(i in -mm:mm){
+    if(i!=0){
+        text(0,i,i,adj=c(1.1,0.5))
+        text(i,0,i,adj=c(0.5,1.1))
+    }
+}
+text(mm*1.05,0,"t",adj=c(0.5,-0.5))
+text(0,mm*1.05,"y",adj=c(-0.5,0.5))
+
+arrows(-mm*1.05,0,mm*1.05,0,0.1,20,3,lwd=2)
+arrows(0,-mm*1.05,0,mm*1.05,0.1,20,3,lwd=2)
+lines(x,sin(x)+k,lwd=2,col="blue")
+lines(x,sin(x),lwd=1,lty=2,col="purple")
+legend("topright",c(TeX("$y=\\sin(t)+k$"),TeX("$y=\\sin(t)$")),col=c("blue","purple"),lwd=c(2,1),lty=c(1,2))
+
+abline(h=-1+k,col="orange",lwd=3)
+text(-4,-1+k,paste0("minimum @ y=",-1+k),adj=c(0,1.4),col="orange")
+abline(h=1+k,col="orange",lwd=3)
+text(-4,1+k,paste0("maximum @ y=",1+k),adj=c(0,-0.4),col="orange")
+
+abline(h=k,col="red",lwd=3)
+text(-4,k,paste0("midline @ y=",k),adj=c(0,-0.4),col="red")
+
+```
+\
+
+$$k=\frac{(`r 1+k`)+(`r -1+k`)}{2}=`r k`$$
+
+Thus, the curve was $`r pork`$.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r k`
+exname: sin_midline

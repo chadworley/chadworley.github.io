@@ -1,0 +1,175 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+library(latex2exp)
+while(T){
+    A = round(runif(1,1.1,4),1)
+    P = round(runif(1,0.2,1.4),1)*4
+    D = round(runif(1,0.4,4),1)*sample(c(-1,1),1)
+    if(A+abs(D)<4.7 && length(unique(abs(c(A,P,D))))==3){break}
+}
+
+aposs = round(seq(0.5,4,0.1),1)
+pposs = round(seq(0.4,1.4*4,0.4),1)
+dposs = round(seq(-4,4,0.1),1)
+
+al1 = paste0("* ",aposs,collapse="\n")
+al2 = paste0("* ",pposs,collapse="\n")
+al3 = paste0("* ",dposs,collapse="\n")
+
+sol1 = paste0(1*(aposs==A),collapse="")
+sol2 = paste0(1*(pposs==P),collapse="")
+sol3 = paste0(1*(dposs==D),collapse="")
+
+```
+
+Question
+========
+
+Below, on the $ty$ plane, is a graph of $y=A\sin\left(\frac{2\pi}{P}t\right)+D$ with random parameters $A$, $P$, and $D$.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+mm = 5
+x = seq(-mm,mm,pi/360)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-mm,mm),ylim=c(-mm,mm),axes=F,ann=F)
+for(i in seq(-mm,mm,0.1)){
+    lines(c(-mm,mm),c(i,i),lwd=0.8,col="lightgrey")
+    lines(c(i,i),c(-mm,mm),lwd=0.8,col="lightgrey")
+}
+for(i in seq(-mm,mm,0.5)){
+    lines(c(-mm,mm),c(i,i),lwd=1,col="grey")
+    lines(c(i,i),c(-mm,mm),lwd=1,col="grey")
+}
+for(i in seq(-mm,mm,1)){
+    lines(c(-mm,mm),c(i,i),lwd=1.2,col="darkgrey")
+    lines(c(i,i),c(-mm,mm),lwd=1.2,col="darkgrey")
+}
+for(i in seq(-mm,mm,5)){
+    lines(c(-mm,mm),c(i,i),lwd=1.4,col="black")
+    lines(c(i,i),c(-mm,mm),lwd=1.4,col="black")
+}
+for(i in -mm:mm){
+    if(i!=0){
+        text(0,i,i,adj=c(1.1,0.5))
+        text(i,0,i,adj=c(0.5,1.1))
+    }
+}
+text(mm*1.05,0,"t",adj=c(0.5,-0.5))
+text(0,mm*1.05,"y",adj=c(-0.5,0.5))
+
+arrows(-mm*1.05,0,mm*1.05,0,0.1,20,3,lwd=2)
+arrows(0,-mm*1.05,0,mm*1.05,0.1,20,3,lwd=2)
+lines(x,A*sin(2*pi/P*x)+D,lwd=2,col="blue")
+```
+\
+
+What are the values of the parameters?
+
+* $A=$ ##ANSWER1##
+* $P=$ ##ANSWER2##
+* $D=$ ##ANSWER3##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al3`
+
+
+Solution
+========
+
+Combine the techniques for finding amplitude, period, and midline.
+
+```{r,echo=F,fig.dim=c(6,6)}
+library(latex2exp)
+mm = 5
+x = seq(-mm,mm,pi/360)
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-mm,mm),ylim=c(-mm,mm),axes=F,ann=F)
+for(i in seq(-mm,mm,0.1)){
+    lines(c(-mm,mm),c(i,i),lwd=0.8,col="lightgrey")
+    lines(c(i,i),c(-mm,mm),lwd=0.8,col="lightgrey")
+}
+for(i in seq(-mm,mm,0.5)){
+    lines(c(-mm,mm),c(i,i),lwd=1,col="lightgrey")
+    lines(c(i,i),c(-mm,mm),lwd=1,col="lightgrey")
+}
+for(i in seq(-mm,mm,1)){
+    lines(c(-mm,mm),c(i,i),lwd=1.2,col="grey")
+    lines(c(i,i),c(-mm,mm),lwd=1.2,col="grey")
+}
+for(i in seq(-mm,mm,5)){
+    lines(c(-mm,mm),c(i,i),lwd=1.4,col="darkgrey")
+    lines(c(i,i),c(-mm,mm),lwd=1.4,col="darkgrey")
+}
+for(i in -mm:mm){
+    if(i!=0){
+        text(0,i,i,adj=c(1.1,0.5),col="darkgrey")
+        text(i,0,i,adj=c(0.5,1.1),col="darkgrey")
+    }
+}
+text(mm*1.05,0,"t",adj=c(0.5,-0.5))
+text(0,mm*1.05,"y",adj=c(-0.5,0.5))
+
+arrows(-mm*1.05,0,mm*1.05,0,0.1,20,3,lwd=2,col="darkgrey")
+arrows(0,-mm*1.05,0,mm*1.05,0.1,20,3,lwd=2,col="darkgrey")
+lines(x,A*sin(2*pi/P*x)+D,lwd=2,col="lightblue")
+
+bmp = 0
+yl = A+D
+
+abline(h=D+A,lwd=1,lty=2,col="brown")
+text(4,A+D,paste0("y=",A+D),col="brown",adj=c(0.5,-0.3),cex=1)
+abline(h=D-A,lwd=1,lty=2,col="brown")
+text(4,D-A,paste0("y=",D-A),col="brown",adj=c(0.5,-0.3),cex=1)
+
+abline(v=1/4*P,lwd=1,lty=2,col="brown")
+text(1/4*P,-4*sign(D),paste0("t=",round(P/4,1)),col="brown",adj=c(0.5,-0.3),cex=1,srt=90)
+abline(v=-3/4*P,lwd=1,lty=2,col="brown")
+text(-3/4*P,-4*sign(D),paste0("t=",round(-3*P/4,1)),col="brown",adj=c(0.5,-0.3),cex=1,srt=90)
+
+lines(c(rep(-3/4*P,3),rep(1/4*P,3)),c(yl-bmp,yl+bmp,yl,yl,yl+bmp,yl-bmp),lwd=3,col="red")
+text(-1/4*P,A+D,P,col="red",adj=c(0.5,-0.3),cex=1.5)
+
+abline(h=D,col="maroon",lwd=3)
+text(4,D,paste0("y=",D),col="maroon",adj=c(0.5,-0.3),cex=1.5)
+
+x1 = 1/4*P
+lines(c(x1-bmp,x1+bmp,x1,x1,x1-bmp,x1+bmp),c(D,D,D,D+A,D+A,D+A),col="darkorange",lwd=3)
+text(x1,D+A/2,round(A,1),adj=c(-0.3,0.5),col="darkorange",cex=1.5)
+
+
+```
+\
+
+Identify the maximum and minimum.
+
+$$\mathrm{max}~=~`r D+A`$$
+$$\mathrm{min}~=~`r D-A`$$
+
+The amplitude is half the difference of max and min.
+
+$$A~=~\frac{(`r D+A`)-(`r D-A`)}{2}~=~`r A`$$
+
+The midline is at the average of the max and min.
+
+$$D~=~\frac{(`r D+A`)+(`r D-A`)}{2}~=~`r D`$$
+
+To get the period, find the $t$ coordinates of two peaks.
+
+$$t_\mathrm{peak_1}=`r round(-3*P/4,1)`$$
+$$t_\mathrm{peak_2}=`r round(P/4,1)`$$
+
+The period is the difference of those times.
+
+$$P ~=~ `r round(P/4,1)`-(`r round(-3/4*P,1)`) ~=~ `r P`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: sin_amp_per_mid

@@ -1,11 +1,18 @@
 library("exams")
-n = 15
+n = 30
 outdir = "outcanvas"
 genname = "u15_"
 
-probs = c("01_circle_to_wave.Rmd")
+probs = c("04_wave_vert_reflect.Rmd",
+          "05_sin_mid.Rmd",
+          "06_sin_period.Rmd",
+          "07_sin_amp_per_mid.Rmd",
+          "08_get_freq.Rmd",
+          "09_wave_amp.Rmd",
+          "10_wave_period.Rmd",
+          "11_wave_midline.Rmd")
 
-pnts = c(4)
+pnts = c(3,3,3,5,4,3,3,3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

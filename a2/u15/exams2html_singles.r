@@ -1,6 +1,13 @@
 library("exams")
 
-pppsss = c("01_circle_to_wave.Rmd")
+pppsss = c("04_wave_vert_reflect.Rmd",
+           "05_sin_mid.Rmd",
+           "06_sin_period.Rmd",
+           "07_sin_amp_per_mid.Rmd",
+           "08_get_freq.Rmd",
+           "09_wave_amp.Rmd",
+           "10_wave_period.Rmd",
+           "11_wave_midline.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

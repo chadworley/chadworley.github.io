@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAV Viewer</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            margin-top: 10px;
+        }
+        #controls {
+            margin: 10px 0;
+        }
+        .axis {
+            position: absolute;
+            color: black;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>WAV File Viewer</h1>
+    <input type="file" id="fileInput" accept=".wav">
+    <div id="controls">
+        <button id="play">Play</button>
+        <button id="zoomIn">Zoom In</button>
+        <button id="zoomOut">Zoom Out</button>
+    </div>
+    <canvas id="waveformCanvas" width="800" height="200"></canvas>
+    <audio id="audio" controls></audio>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const waveformCanvas = document.getElementById('waveformCanvas');
+        const audio = document.getElementById('audio');
+        const playBtn = document.getElementById('play');
+        const zoomInBtn = document.getElementById('zoomIn');
+        const zoomOutBtn = document.getElementById('zoomOut');
+        let audioBuffer;
+        let zoomLevel = 1;
+
+        fileInput.addEventListener('change', handleFileSelect);
+        playBtn.addEventListener('click', () => {
+            audio.play();
+        });
+        zoomInBtn.addEventListener('click', () => {
+            zoomLevel = zoomLevel / 2; 
+            drawWaveform();
+        });
+        zoomOutBtn.addEventListener('click', () => {
+            zoomLevel = zoomLevel * 2;
+            drawWaveform();
+        });
+
+        async function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const arrayBuffer = await file.arrayBuffer();
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+                audio.src = URL.createObjectURL(file);
+                drawWaveform();
+            }
+        }
+
+        function drawWaveform() {
+            if (!audioBuffer) return;
+            const canvasContext = waveformCanvas.getContext('2d');
+            const channelData = audioBuffer.getChannelData(0);
+
+            canvasContext.clearRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+            canvasContext.beginPath();
+            canvasContext.strokeStyle = 'black';
+
+            const step = Math.ceil(channelData.length / (waveformCanvas.width / zoomLevel));
+            for (let x = 0; x < waveformCanvas.width; x++) {
+                const min = Math.min(...channelData.slice(x * step, (x + 1) * step));
+                const max = Math.max(...channelData.slice(x * step, (x + 1) * step));
+                const yMin = (1 + min) * 0.5 * waveformCanvas.height;
+                const yMax = (1 + max) * 0.5 * waveformCanvas.height;
+                canvasContext.moveTo(x, yMin);
+                canvasContext.lineTo(x, yMax);
+            }
+            canvasContext.stroke();
+
+            drawAxes(channelData.length);
+        }
+
+        function drawAxes(dataLength) {
+            const canvasContext = waveformCanvas.getContext('2d');
+
+            // Draw X-axis
+            canvasContext.beginPath();
+            canvasContext.moveTo(0, waveformCanvas.height / 2);
+            canvasContext.lineTo(waveformCanvas.width, waveformCanvas.height / 2);
+            canvasContext.strokeStyle = 'black';
+            canvasContext.stroke();
+
+            // Draw Y-axis
+            canvasContext.beginPath();
+            canvasContext.moveTo(0, 0);
+            canvasContext.lineTo(0, waveformCanvas.height);
+            canvasContext.stroke();
+
+            // Add Y-axis grid lines and labels
+            for (let i = -1; i <= 1; i += 0.1) {
+                const y = (1 + i) * 0.5 * waveformCanvas.height;
+                canvasContext.beginPath();
+                canvasContext.moveTo(0, y);
+                canvasContext.lineTo(waveformCanvas.width, y);
+                canvasContext.strokeStyle = 'black';
+                canvasContext.stroke();
+                if (Math.abs(i) <= 1) {
+                    canvasContext.fillText(i.toFixed(1), -20, y);
+                }
+            }
+
+            // Add X-axis tick marks and labels
+            const scaleFactor = audioBuffer.sampleRate / (waveformCanvas.width / zoomLevel);
+            for (let x = 0; x <= waveformCanvas.width; x += 100) {
+                const time = 100*(x * zoomLevel) / audioBuffer.sampleRate;
+                
+                canvasContext.strokeStyle = 'blue';
+                canvasContext.fillText(time.toFixed(6) + 's', x, waveformCanvas.height / 2 + 15);
+                canvasContext.beginPath();
+                canvasContext.moveTo(x, waveformCanvas.height / 2 - 5);
+                canvasContext.lineTo(x, waveformCanvas.height / 2 + 5);
+                canvasContext.stroke();
+            }
+        }
+    </script>
+</body>
+</html>
