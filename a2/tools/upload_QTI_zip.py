@@ -6,15 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u15_01_circle_to_wave.zip",
-"outcanvas/u15_04_wave_vert_reflect.zip",
-"outcanvas/u15_05_sin_mid.zip",
-"outcanvas/u15_06_sin_period.zip",
-"outcanvas/u15_07_sin_amp_per_mid.zip",
-"outcanvas/u15_08_get_freq.zip",
-"outcanvas/u15_09_wave_amp.zip",
-"outcanvas/u15_10_wave_period.zip",
-"outcanvas/u15_11_wave_midline.zip"]
+file_path_list = ["outcanvas/u15_04_wave_vert_reflect.zip"]
 
 ## FOR UPLOADING ETS
 # fpl = []

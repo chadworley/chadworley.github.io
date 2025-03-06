@@ -2,7 +2,7 @@ library("exams")
 n = 30
 outdir = "outcanvas"
 genname = "FOIL_"
-probs = c("01_FOIL.Rmd")
+probs = c("02_factor_MC.Rmd")
 
 # pnts = rep(5,length(probs))
 # 
@@ -28,16 +28,16 @@ probs = c("01_FOIL.Rmd")
 #           "divide_plus.Rmd",
 #           "divide_minus.Rmd")
 
-probs = list("01_FOIL.Rmd",
-             "01_FOIL.Rmd",
-             "01_FOIL.Rmd",
-             "01_FOIL.Rmd",
-             "01_FOIL.Rmd")
+probs = list("02_factor_MC.Rmd",
+             "02_factor_MC.Rmd",
+             "02_factor_MC.Rmd",
+             "02_factor_MC.Rmd",
+             "02_factor_MC.Rmd")
 
 exams2canvas(probs,
              n=n,
              dir=outdir,
-             points=c(3,3,3,3,3),
+             points=c(2,2,2,2,2),
              maxattempts = 10,
              name=paste0(genname,"_mastery"),
              template = "canvas_qti12.xml",

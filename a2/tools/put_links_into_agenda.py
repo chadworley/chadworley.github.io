@@ -5,15 +5,7 @@ import os
 
 
 front = "u15_"
-files = ["04_wave_vert_reflect.Rmd",
-"05_sin_mid.Rmd",
-"06_sin_period.Rmd",
-"07_sin_amp_per_mid.Rmd",
-"08_get_freq.Rmd",
-"09_wave_amp.Rmd",
-"10_wave_period.Rmd",
-"11_wave_midline.Rmd"
-]
+files = ["04_wave_vert_reflect.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u15/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
