@@ -3,11 +3,11 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-03-06 8:00:00"]
-dut = ["2025-03-06 23:59:00"]
+avt = ["2025-03-07 8:00:00"]
+dut = ["2025-03-07 23:59:00"]
 front = "u15_"
 
-files = ["04_wave_vert_reflect.Rmd"
+files = ["12_fit_monthly_temp.Rmd"
 ]
 
 practice_url_front = "https://chadworley.github.io/a2/u15/outhtml/"

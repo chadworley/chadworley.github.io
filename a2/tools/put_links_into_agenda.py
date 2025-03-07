@@ -5,7 +5,7 @@ import os
 
 
 front = "u15_"
-files = ["04_wave_vert_reflect.Rmd"]
+files = ["12_fit_monthly_temp.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u15/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
