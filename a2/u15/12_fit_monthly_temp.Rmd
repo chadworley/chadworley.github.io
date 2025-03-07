@@ -1,0 +1,89 @@
+```{r,echo=F,warning=F}
+# Monthly average temperatures
+minT = sample(5:50,1)
+maxT = sample(60:95,1)
+A = (maxT-minT)/2
+midT = mean(c(minT,maxT))
+x = 1:36
+y = round(-A*cos(x/12*2*pi)+midT+rnorm(length(x),0,2),1)
+ccc = paste0("| ",x," | ",y," |",collapse="\n")
+
+data = data.frame(x,y)
+mod <- y ~ a1*sin(b1*x-c1)+d1
+start_vals <- list(a1=A, b1=2*pi/12, c1=pi/2, d1=midT)
+fit <- nls(mod, data = data, start = start_vals)
+cf = summary(fit)$coefficients
+
+xpred = sample(2:11,1)
+mns = c("January","February","March","April","May","June","July","August","September","October","November","December")
+
+mnth = mns[xpred]
+xp = 36+xpred
+ans = cf[1]*sin(cf[2]*xp-cf[3])+cf[4]
+
+```
+
+Question
+========
+
+In Maedupton, the monthly average temperatures approximately follow a sinusoidal function. The last three years of data (starting in January of 2022 and ending with December of 2024) are shown below.  
+
+| Month | Average Temp (°F) |
+|:---:|:---:|
+`r ccc`
+
+1. Copy the data into [Desmos](https://www.desmos.com/calculator). The data should automatically fill a table.
+2. Click the `Add Regression` button near the top-left of the table. The icon looks like a bunch of dots with a line through them.
+3. Switch the regression to `Sinusoidal Regression`. It will automatically use a 4-parameter sine function ([amplitude](https://en.wikipedia.org/wiki/Amplitude), [angular frequency](https://en.wikipedia.org/wiki/Angular_frequency), horizontal shift, and vertical shift).
+
+$$y=A\sin(Bt-C)+D$$
+$$\begin{aligned}
+A&=\text{amplitude} \\
+B&=\text{angular frequency} \\
+C&=\text{phase shift} \\
+D&=\text{vertical shift (offset)} \\ &\phantom{=}\text{ midline is at } y=D
+\end{aligned}$$
+
+In this scenario, $D$ represents our best guess for the yearly average temperature of Maedupton, and $A$ represents how much the winter/summer monthly averages get above or below $D$.
+
+The relationship between angular frequency ($B$) and period ($P$) is reciprocal:
+$$P=\frac{2\pi}{B}$$
+We expect the period to be 12 months, so we expect $B$ to be $\frac{2\pi}{12}\approx `r pi/6`$. Notice that with the limited data, the fit will not give that value exactly. It would be reasonable to force $B$ to equal $\pi/6$ exactly, and it is possible to do that in Desmos, but let's not worry about that for this problem.
+
+Lastly, parameter $C$ simply shifts our curve horizontally. Since we are using a sine function, but our data start near their minimum, we shift the curve about 1/4 of the period. Notice, your fitted value of $C$ will be near $\pi/2\approx`r pi/2`$ (quarter circle in radians), but since January or February is the coldest month (not December), $C$ will probably be a bit more than $\pi/2$.
+
+4. Using the curve of best fit, predict the average temperature in `r mnth` of 2025.
+
+
+
+Solution
+========
+
+`r mnth` of 2025 would be month number `r xp`.
+
+Your fit should give the following values for the parameters:
+
+$$A=`r cf[1]`$$
+$$B=`r cf[2]`$$
+$$C=`r cf[3]`$$
+$$D=`r cf[4]`$$
+
+So your best-fit curve is:
+$$f(t)~=~`r round(cf[1],5)`\cdot \sin(`r round(cf[2],5)`t-`r round(cf[3],5)`)+`r round(cf[4],5)`$$
+
+We want to determine $f(`r xp`)$.
+
+$$f(`r xp`)~=~`r cf[1]*sin(cf[2]*xp-cf[3])+cf[4]`$$
+
+In Desmos, you can click and drag on the curve until the horizontal coordinate equals `r xp` and read off the vertical coordinate.
+
+
+Alternatively, in the regression box, near the word `EQUATION`, click on the icon of an arrow pointing into a notebook. If you hover over the icon is says `Export a snapshot to the expression list`. After you export the expression, you can alter the $y=$ to $f(x)=$. In another expression, you can then write $f(`r xp`)$.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: fit_monthly_temp
+extol: 0.1

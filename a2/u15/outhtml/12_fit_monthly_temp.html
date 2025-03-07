@@ -1,0 +1,1634 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>12_fit_monthly_temp</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">12_fit_monthly_temp</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Maedupton, the monthly average temperatures approximately follow a sinusoidal function. The last three years of data (starting in January of 2022 and ending with December of 2024) are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Month</th>
+<th align="center">Average Temp (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">44.4</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">51.2</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">56.8</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">63.4</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">64.4</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">68.7</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">65.3</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">60.3</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">56</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">50.2</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">46.3</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">46.2</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">46.6</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">52.5</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">55.9</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">62.9</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">70.4</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">70</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">64.9</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">61.8</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">59</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">49.3</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">46.4</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">44</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">44.7</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">49.8</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">57.8</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">63.9</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">70.7</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">69.6</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">66.4</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">63.8</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">58.4</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">55.1</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">44.8</td>
+</tr>
+<tr class="even">
+<td align="center">36</td>
+<td align="center">43.3</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li>Copy the data into <a href="https://www.desmos.com/calculator">Desmos</a>. The data should automatically fill a table.</li>
+<li>Click the <code>Add Regression</code> button near the top-left of the table. The icon looks like a bunch of dots with a line through them.</li>
+<li>Switch the regression to <code>Sinusoidal Regression</code>. It will automatically use a 4-parameter sine function (<a href="https://en.wikipedia.org/wiki/Amplitude">amplitude</a>, <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a>, horizontal shift, and vertical shift).</li>
+</ol>
+<p><span class="math display">\[y=A\sin(Bt-C)+D\]</span>
+<span class="math display">\[\begin{aligned}
+A&amp;=\text{amplitude} \\
+B&amp;=\text{angular frequency} \\
+C&amp;=\text{phase shift} \\
+D&amp;=\text{vertical shift (offset)} \\ &amp;\phantom{=}\text{ midline is at } y=D
+\end{aligned}\]</span></p>
+<p>In this scenario, <span class="math inline">\(D\)</span> represents our best guess for the yearly average temperature of Maedupton, and <span class="math inline">\(A\)</span> represents how much the winter/summer monthly averages get above or below <span class="math inline">\(D\)</span>.</p>
+<p>The relationship between angular frequency (<span class="math inline">\(B\)</span>) and period (<span class="math inline">\(P\)</span>) is reciprocal:
+<span class="math display">\[P=\frac{2\pi}{B}\]</span>
+We expect the period to be 12 months, so we expect <span class="math inline">\(B\)</span> to be <span class="math inline">\(\frac{2\pi}{12}\approx 0.5235988\)</span>. Notice that with the limited data, the fit will not give that value exactly. It would be reasonable to force <span class="math inline">\(B\)</span> to equal <span class="math inline">\(\pi/6\)</span> exactly, and it is possible to do that in Desmos, but let’s not worry about that for this problem.</p>
+<p>Lastly, parameter <span class="math inline">\(C\)</span> simply shifts our curve horizontally. Since we are using a sine function, but our data start near their minimum, we shift the curve about 1/4 of the period. Notice, your fitted value of <span class="math inline">\(C\)</span> will be near <span class="math inline">\(\pi/2\approx1.5707963\)</span> (quarter circle in radians), but since January or February is the coldest month (not December), <span class="math inline">\(C\)</span> will probably be a bit more than <span class="math inline">\(\pi/2\)</span>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the curve of best fit, predict the average temperature in May of 2025.</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>May of 2025 would be month number 41.</p>
+<p>Your fit should give the following values for the parameters:</p>
+<p><span class="math display">\[A=12.295682\]</span>
+<span class="math display">\[B=0.5198915\]</span>
+<span class="math display">\[C=1.4867645\]</span>
+<span class="math display">\[D=56.7258869\]</span></p>
+<p>So your best-fit curve is:
+<span class="math display">\[f(t)~=~12.29568\cdot \sin(0.51989t-1.48676)+56.72589\]</span></p>
+<p>We want to determine <span class="math inline">\(f(41)\)</span>.</p>
+<p><span class="math display">\[f(41)~=~66.9321537\]</span></p>
+<p>In Desmos, you can click and drag on the curve until the horizontal coordinate equals 41 and read off the vertical coordinate.</p>
+<p>Alternatively, in the regression box, near the word <code>EQUATION</code>, click on the icon of an arrow pointing into a notebook. If you hover over the icon is says <code>Export a snapshot to the expression list</code>. After you export the expression, you can alter the <span class="math inline">\(y=\)</span> to <span class="math inline">\(f(x)=\)</span>. In another expression, you can then write <span class="math inline">\(f(41)\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Maedupton, the monthly average temperatures approximately follow a sinusoidal function. The last three years of data (starting in January of 2022 and ending with December of 2024) are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Month</th>
+<th align="center">Average Temp (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">44.7</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">48.9</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">59.6</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">61.4</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">68.5</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">71.1</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">69.7</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">67.8</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">53.2</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">49.8</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">41.6</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">42</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">46.9</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">46.6</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">58.6</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">61.2</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">69.4</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">68.1</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">67.4</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">63.8</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">55.8</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">51.6</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">46.9</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">43.5</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">41.8</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">50.9</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">53.6</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">65.8</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">68.8</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">71.7</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">69.3</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">63.5</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">56.6</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">49.5</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">44.5</td>
+</tr>
+<tr class="even">
+<td align="center">36</td>
+<td align="center">42.5</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li>Copy the data into <a href="https://www.desmos.com/calculator">Desmos</a>. The data should automatically fill a table.</li>
+<li>Click the <code>Add Regression</code> button near the top-left of the table. The icon looks like a bunch of dots with a line through them.</li>
+<li>Switch the regression to <code>Sinusoidal Regression</code>. It will automatically use a 4-parameter sine function (<a href="https://en.wikipedia.org/wiki/Amplitude">amplitude</a>, <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a>, horizontal shift, and vertical shift).</li>
+</ol>
+<p><span class="math display">\[y=A\sin(Bt-C)+D\]</span>
+<span class="math display">\[\begin{aligned}
+A&amp;=\text{amplitude} \\
+B&amp;=\text{angular frequency} \\
+C&amp;=\text{phase shift} \\
+D&amp;=\text{vertical shift (offset)} \\ &amp;\phantom{=}\text{ midline is at } y=D
+\end{aligned}\]</span></p>
+<p>In this scenario, <span class="math inline">\(D\)</span> represents our best guess for the yearly average temperature of Maedupton, and <span class="math inline">\(A\)</span> represents how much the winter/summer monthly averages get above or below <span class="math inline">\(D\)</span>.</p>
+<p>The relationship between angular frequency (<span class="math inline">\(B\)</span>) and period (<span class="math inline">\(P\)</span>) is reciprocal:
+<span class="math display">\[P=\frac{2\pi}{B}\]</span>
+We expect the period to be 12 months, so we expect <span class="math inline">\(B\)</span> to be <span class="math inline">\(\frac{2\pi}{12}\approx 0.5235988\)</span>. Notice that with the limited data, the fit will not give that value exactly. It would be reasonable to force <span class="math inline">\(B\)</span> to equal <span class="math inline">\(\pi/6\)</span> exactly, and it is possible to do that in Desmos, but let’s not worry about that for this problem.</p>
+<p>Lastly, parameter <span class="math inline">\(C\)</span> simply shifts our curve horizontally. Since we are using a sine function, but our data start near their minimum, we shift the curve about 1/4 of the period. Notice, your fitted value of <span class="math inline">\(C\)</span> will be near <span class="math inline">\(\pi/2\approx1.5707963\)</span> (quarter circle in radians), but since January or February is the coldest month (not December), <span class="math inline">\(C\)</span> will probably be a bit more than <span class="math inline">\(\pi/2\)</span>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the curve of best fit, predict the average temperature in March of 2025.</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>March of 2025 would be month number 39.</p>
+<p>Your fit should give the following values for the parameters:</p>
+<p><span class="math display">\[A=14.0731051\]</span>
+<span class="math display">\[B=0.5225444\]</span>
+<span class="math display">\[C=1.5642851\]</span>
+<span class="math display">\[D=56.5443864\]</span></p>
+<p>So your best-fit curve is:
+<span class="math display">\[f(t)~=~14.07311\cdot \sin(0.52254t-1.56429)+56.54439\]</span></p>
+<p>We want to determine <span class="math inline">\(f(39)\)</span>.</p>
+<p><span class="math display">\[f(39)~=~56.0574231\]</span></p>
+<p>In Desmos, you can click and drag on the curve until the horizontal coordinate equals 39 and read off the vertical coordinate.</p>
+<p>Alternatively, in the regression box, near the word <code>EQUATION</code>, click on the icon of an arrow pointing into a notebook. If you hover over the icon is says <code>Export a snapshot to the expression list</code>. After you export the expression, you can alter the <span class="math inline">\(y=\)</span> to <span class="math inline">\(f(x)=\)</span>. In another expression, you can then write <span class="math inline">\(f(39)\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Maedupton, the monthly average temperatures approximately follow a sinusoidal function. The last three years of data (starting in January of 2022 and ending with December of 2024) are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Month</th>
+<th align="center">Average Temp (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">14.7</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">22.5</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">43.4</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">61</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">76.8</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">80.5</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">75.7</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">63.6</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">44.2</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">26.2</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">15.1</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">5.8</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">14.6</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">25.2</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">42.7</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">63</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">78.5</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">82.4</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">74.2</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">65.4</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">44.8</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">28.1</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">16.6</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">8.7</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">11.8</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">28.3</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">44.2</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">59</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">77</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">81.2</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">74.7</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">64.5</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">42.1</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">25.3</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">14.4</td>
+</tr>
+<tr class="even">
+<td align="center">36</td>
+<td align="center">6.9</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li>Copy the data into <a href="https://www.desmos.com/calculator">Desmos</a>. The data should automatically fill a table.</li>
+<li>Click the <code>Add Regression</code> button near the top-left of the table. The icon looks like a bunch of dots with a line through them.</li>
+<li>Switch the regression to <code>Sinusoidal Regression</code>. It will automatically use a 4-parameter sine function (<a href="https://en.wikipedia.org/wiki/Amplitude">amplitude</a>, <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a>, horizontal shift, and vertical shift).</li>
+</ol>
+<p><span class="math display">\[y=A\sin(Bt-C)+D\]</span>
+<span class="math display">\[\begin{aligned}
+A&amp;=\text{amplitude} \\
+B&amp;=\text{angular frequency} \\
+C&amp;=\text{phase shift} \\
+D&amp;=\text{vertical shift (offset)} \\ &amp;\phantom{=}\text{ midline is at } y=D
+\end{aligned}\]</span></p>
+<p>In this scenario, <span class="math inline">\(D\)</span> represents our best guess for the yearly average temperature of Maedupton, and <span class="math inline">\(A\)</span> represents how much the winter/summer monthly averages get above or below <span class="math inline">\(D\)</span>.</p>
+<p>The relationship between angular frequency (<span class="math inline">\(B\)</span>) and period (<span class="math inline">\(P\)</span>) is reciprocal:
+<span class="math display">\[P=\frac{2\pi}{B}\]</span>
+We expect the period to be 12 months, so we expect <span class="math inline">\(B\)</span> to be <span class="math inline">\(\frac{2\pi}{12}\approx 0.5235988\)</span>. Notice that with the limited data, the fit will not give that value exactly. It would be reasonable to force <span class="math inline">\(B\)</span> to equal <span class="math inline">\(\pi/6\)</span> exactly, and it is possible to do that in Desmos, but let’s not worry about that for this problem.</p>
+<p>Lastly, parameter <span class="math inline">\(C\)</span> simply shifts our curve horizontally. Since we are using a sine function, but our data start near their minimum, we shift the curve about 1/4 of the period. Notice, your fitted value of <span class="math inline">\(C\)</span> will be near <span class="math inline">\(\pi/2\approx1.5707963\)</span> (quarter circle in radians), but since January or February is the coldest month (not December), <span class="math inline">\(C\)</span> will probably be a bit more than <span class="math inline">\(\pi/2\)</span>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the curve of best fit, predict the average temperature in June of 2025.</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>June of 2025 would be month number 42.</p>
+<p>Your fit should give the following values for the parameters:</p>
+<p><span class="math display">\[A=36.2678791\]</span>
+<span class="math display">\[B=0.524721\]</span>
+<span class="math display">\[C=1.6088683\]</span>
+<span class="math display">\[D=44.6066823\]</span></p>
+<p>So your best-fit curve is:
+<span class="math display">\[f(t)~=~36.26788\cdot \sin(0.52472t-1.60887)+44.60668\]</span></p>
+<p>We want to determine <span class="math inline">\(f(42)\)</span>.</p>
+<p><span class="math display">\[f(42)~=~80.873072\]</span></p>
+<p>In Desmos, you can click and drag on the curve until the horizontal coordinate equals 42 and read off the vertical coordinate.</p>
+<p>Alternatively, in the regression box, near the word <code>EQUATION</code>, click on the icon of an arrow pointing into a notebook. If you hover over the icon is says <code>Export a snapshot to the expression list</code>. After you export the expression, you can alter the <span class="math inline">\(y=\)</span> to <span class="math inline">\(f(x)=\)</span>. In another expression, you can then write <span class="math inline">\(f(42)\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Maedupton, the monthly average temperatures approximately follow a sinusoidal function. The last three years of data (starting in January of 2022 and ending with December of 2024) are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Month</th>
+<th align="center">Average Temp (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">35.5</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">44.4</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">52.7</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">63.9</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">70.4</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">73.3</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">70.8</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">59</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">53</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">46.8</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">35.6</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">34.9</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">36.8</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">44.6</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">52.5</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">61.2</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">69.6</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">72.4</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">69.1</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">62.6</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">53.8</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">41.9</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">38.8</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">38.4</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">39.5</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">42.6</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">49.4</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">62.6</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">71.2</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">73.6</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">67</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">60.3</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">53.3</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">44.8</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">38.3</td>
+</tr>
+<tr class="even">
+<td align="center">36</td>
+<td align="center">35.6</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li>Copy the data into <a href="https://www.desmos.com/calculator">Desmos</a>. The data should automatically fill a table.</li>
+<li>Click the <code>Add Regression</code> button near the top-left of the table. The icon looks like a bunch of dots with a line through them.</li>
+<li>Switch the regression to <code>Sinusoidal Regression</code>. It will automatically use a 4-parameter sine function (<a href="https://en.wikipedia.org/wiki/Amplitude">amplitude</a>, <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a>, horizontal shift, and vertical shift).</li>
+</ol>
+<p><span class="math display">\[y=A\sin(Bt-C)+D\]</span>
+<span class="math display">\[\begin{aligned}
+A&amp;=\text{amplitude} \\
+B&amp;=\text{angular frequency} \\
+C&amp;=\text{phase shift} \\
+D&amp;=\text{vertical shift (offset)} \\ &amp;\phantom{=}\text{ midline is at } y=D
+\end{aligned}\]</span></p>
+<p>In this scenario, <span class="math inline">\(D\)</span> represents our best guess for the yearly average temperature of Maedupton, and <span class="math inline">\(A\)</span> represents how much the winter/summer monthly averages get above or below <span class="math inline">\(D\)</span>.</p>
+<p>The relationship between angular frequency (<span class="math inline">\(B\)</span>) and period (<span class="math inline">\(P\)</span>) is reciprocal:
+<span class="math display">\[P=\frac{2\pi}{B}\]</span>
+We expect the period to be 12 months, so we expect <span class="math inline">\(B\)</span> to be <span class="math inline">\(\frac{2\pi}{12}\approx 0.5235988\)</span>. Notice that with the limited data, the fit will not give that value exactly. It would be reasonable to force <span class="math inline">\(B\)</span> to equal <span class="math inline">\(\pi/6\)</span> exactly, and it is possible to do that in Desmos, but let’s not worry about that for this problem.</p>
+<p>Lastly, parameter <span class="math inline">\(C\)</span> simply shifts our curve horizontally. Since we are using a sine function, but our data start near their minimum, we shift the curve about 1/4 of the period. Notice, your fitted value of <span class="math inline">\(C\)</span> will be near <span class="math inline">\(\pi/2\approx1.5707963\)</span> (quarter circle in radians), but since January or February is the coldest month (not December), <span class="math inline">\(C\)</span> will probably be a bit more than <span class="math inline">\(\pi/2\)</span>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the curve of best fit, predict the average temperature in March of 2025.</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>March of 2025 would be month number 39.</p>
+<p>Your fit should give the following values for the parameters:</p>
+<p><span class="math display">\[A=18.3550171\]</span>
+<span class="math display">\[B=0.5233328\]</span>
+<span class="math display">\[C=1.5673865\]</span>
+<span class="math display">\[D=53.3297709\]</span></p>
+<p>So your best-fit curve is:
+<span class="math display">\[f(t)~=~18.35502\cdot \sin(0.52333t-1.56739)+53.32977\]</span></p>
+<p>We want to determine <span class="math inline">\(f(39)\)</span>.</p>
+<p><span class="math display">\[f(39)~=~53.2019623\]</span></p>
+<p>In Desmos, you can click and drag on the curve until the horizontal coordinate equals 39 and read off the vertical coordinate.</p>
+<p>Alternatively, in the regression box, near the word <code>EQUATION</code>, click on the icon of an arrow pointing into a notebook. If you hover over the icon is says <code>Export a snapshot to the expression list</code>. After you export the expression, you can alter the <span class="math inline">\(y=\)</span> to <span class="math inline">\(f(x)=\)</span>. In another expression, you can then write <span class="math inline">\(f(39)\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Maedupton, the monthly average temperatures approximately follow a sinusoidal function. The last three years of data (starting in January of 2022 and ending with December of 2024) are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Month</th>
+<th align="center">Average Temp (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">19.7</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">34.8</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">49.2</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">61.9</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">69.2</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">78.1</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">70.6</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">64.8</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">48.6</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">36.1</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">24.3</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">19.9</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">21.7</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">32.6</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">47.4</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">61.8</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">71.2</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">74.6</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">71.7</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">60.2</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">46.4</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">30.8</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">25.4</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">20.1</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">23.5</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">32.3</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">47</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">59.1</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">69.2</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">71.2</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">73.3</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">61.5</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">45.3</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">36.1</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">24.9</td>
+</tr>
+<tr class="even">
+<td align="center">36</td>
+<td align="center">21.5</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li>Copy the data into <a href="https://www.desmos.com/calculator">Desmos</a>. The data should automatically fill a table.</li>
+<li>Click the <code>Add Regression</code> button near the top-left of the table. The icon looks like a bunch of dots with a line through them.</li>
+<li>Switch the regression to <code>Sinusoidal Regression</code>. It will automatically use a 4-parameter sine function (<a href="https://en.wikipedia.org/wiki/Amplitude">amplitude</a>, <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a>, horizontal shift, and vertical shift).</li>
+</ol>
+<p><span class="math display">\[y=A\sin(Bt-C)+D\]</span>
+<span class="math display">\[\begin{aligned}
+A&amp;=\text{amplitude} \\
+B&amp;=\text{angular frequency} \\
+C&amp;=\text{phase shift} \\
+D&amp;=\text{vertical shift (offset)} \\ &amp;\phantom{=}\text{ midline is at } y=D
+\end{aligned}\]</span></p>
+<p>In this scenario, <span class="math inline">\(D\)</span> represents our best guess for the yearly average temperature of Maedupton, and <span class="math inline">\(A\)</span> represents how much the winter/summer monthly averages get above or below <span class="math inline">\(D\)</span>.</p>
+<p>The relationship between angular frequency (<span class="math inline">\(B\)</span>) and period (<span class="math inline">\(P\)</span>) is reciprocal:
+<span class="math display">\[P=\frac{2\pi}{B}\]</span>
+We expect the period to be 12 months, so we expect <span class="math inline">\(B\)</span> to be <span class="math inline">\(\frac{2\pi}{12}\approx 0.5235988\)</span>. Notice that with the limited data, the fit will not give that value exactly. It would be reasonable to force <span class="math inline">\(B\)</span> to equal <span class="math inline">\(\pi/6\)</span> exactly, and it is possible to do that in Desmos, but let’s not worry about that for this problem.</p>
+<p>Lastly, parameter <span class="math inline">\(C\)</span> simply shifts our curve horizontally. Since we are using a sine function, but our data start near their minimum, we shift the curve about 1/4 of the period. Notice, your fitted value of <span class="math inline">\(C\)</span> will be near <span class="math inline">\(\pi/2\approx1.5707963\)</span> (quarter circle in radians), but since January or February is the coldest month (not December), <span class="math inline">\(C\)</span> will probably be a bit more than <span class="math inline">\(\pi/2\)</span>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the curve of best fit, predict the average temperature in April of 2025.</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>April of 2025 would be month number 40.</p>
+<p>Your fit should give the following values for the parameters:</p>
+<p><span class="math display">\[A=27.4056361\]</span>
+<span class="math display">\[B=0.5234542\]</span>
+<span class="math display">\[C=1.5897582\]</span>
+<span class="math display">\[D=47.3814513\]</span></p>
+<p>So your best-fit curve is:
+<span class="math display">\[f(t)~=~27.40564\cdot \sin(0.52345t-1.58976)+47.38145\]</span></p>
+<p>We want to determine <span class="math inline">\(f(40)\)</span>.</p>
+<p><span class="math display">\[f(40)~=~60.4928228\]</span></p>
+<p>In Desmos, you can click and drag on the curve until the horizontal coordinate equals 40 and read off the vertical coordinate.</p>
+<p>Alternatively, in the regression box, near the word <code>EQUATION</code>, click on the icon of an arrow pointing into a notebook. If you hover over the icon is says <code>Export a snapshot to the expression list</code>. After you export the expression, you can alter the <span class="math inline">\(y=\)</span> to <span class="math inline">\(f(x)=\)</span>. In another expression, you can then write <span class="math inline">\(f(40)\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Maedupton, the monthly average temperatures approximately follow a sinusoidal function. The last three years of data (starting in January of 2022 and ending with December of 2024) are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Month</th>
+<th align="center">Average Temp (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">21</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">34.4</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">46.3</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">60.9</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">73.6</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">74.6</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">74.5</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">64.1</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">47.3</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">33.4</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">25.9</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">19.3</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">21.7</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">33.5</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">48</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">58.2</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">73.4</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">78.3</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">74.5</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">61.7</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">47.4</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">32.3</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">22.2</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">19.3</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">19.2</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">36.4</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">47.7</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">62.1</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">73.7</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">72.8</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">71.7</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">62.8</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">46.8</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">32.3</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">20.6</td>
+</tr>
+<tr class="even">
+<td align="center">36</td>
+<td align="center">19.5</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li>Copy the data into <a href="https://www.desmos.com/calculator">Desmos</a>. The data should automatically fill a table.</li>
+<li>Click the <code>Add Regression</code> button near the top-left of the table. The icon looks like a bunch of dots with a line through them.</li>
+<li>Switch the regression to <code>Sinusoidal Regression</code>. It will automatically use a 4-parameter sine function (<a href="https://en.wikipedia.org/wiki/Amplitude">amplitude</a>, <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a>, horizontal shift, and vertical shift).</li>
+</ol>
+<p><span class="math display">\[y=A\sin(Bt-C)+D\]</span>
+<span class="math display">\[\begin{aligned}
+A&amp;=\text{amplitude} \\
+B&amp;=\text{angular frequency} \\
+C&amp;=\text{phase shift} \\
+D&amp;=\text{vertical shift (offset)} \\ &amp;\phantom{=}\text{ midline is at } y=D
+\end{aligned}\]</span></p>
+<p>In this scenario, <span class="math inline">\(D\)</span> represents our best guess for the yearly average temperature of Maedupton, and <span class="math inline">\(A\)</span> represents how much the winter/summer monthly averages get above or below <span class="math inline">\(D\)</span>.</p>
+<p>The relationship between angular frequency (<span class="math inline">\(B\)</span>) and period (<span class="math inline">\(P\)</span>) is reciprocal:
+<span class="math display">\[P=\frac{2\pi}{B}\]</span>
+We expect the period to be 12 months, so we expect <span class="math inline">\(B\)</span> to be <span class="math inline">\(\frac{2\pi}{12}\approx 0.5235988\)</span>. Notice that with the limited data, the fit will not give that value exactly. It would be reasonable to force <span class="math inline">\(B\)</span> to equal <span class="math inline">\(\pi/6\)</span> exactly, and it is possible to do that in Desmos, but let’s not worry about that for this problem.</p>
+<p>Lastly, parameter <span class="math inline">\(C\)</span> simply shifts our curve horizontally. Since we are using a sine function, but our data start near their minimum, we shift the curve about 1/4 of the period. Notice, your fitted value of <span class="math inline">\(C\)</span> will be near <span class="math inline">\(\pi/2\approx1.5707963\)</span> (quarter circle in radians), but since January or February is the coldest month (not December), <span class="math inline">\(C\)</span> will probably be a bit more than <span class="math inline">\(\pi/2\)</span>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the curve of best fit, predict the average temperature in November of 2025.</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>November of 2025 would be month number 47.</p>
+<p>Your fit should give the following values for the parameters:</p>
+<p><span class="math display">\[A=28.8662929\]</span>
+<span class="math display">\[B=0.5260214\]</span>
+<span class="math display">\[C=1.6218334\]</span>
+<span class="math display">\[D=47.6689678\]</span></p>
+<p>So your best-fit curve is:
+<span class="math display">\[f(t)~=~28.86629\cdot \sin(0.52602t-1.62183)+47.66897\]</span></p>
+<p>We want to determine <span class="math inline">\(f(47)\)</span>.</p>
+<p><span class="math display">\[f(47)~=~21.8131822\]</span></p>
+<p>In Desmos, you can click and drag on the curve until the horizontal coordinate equals 47 and read off the vertical coordinate.</p>
+<p>Alternatively, in the regression box, near the word <code>EQUATION</code>, click on the icon of an arrow pointing into a notebook. If you hover over the icon is says <code>Export a snapshot to the expression list</code>. After you export the expression, you can alter the <span class="math inline">\(y=\)</span> to <span class="math inline">\(f(x)=\)</span>. In another expression, you can then write <span class="math inline">\(f(47)\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Maedupton, the monthly average temperatures approximately follow a sinusoidal function. The last three years of data (starting in January of 2022 and ending with December of 2024) are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Month</th>
+<th align="center">Average Temp (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">36.3</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">43.7</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">54.5</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">63.7</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">72.9</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">72.8</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">73.8</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">63.5</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">53.2</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">47.1</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">37.6</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">30.5</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">35.6</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">45.7</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">55.2</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">63.1</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">74.3</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">75.7</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">72</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">62.9</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">56.3</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">45.1</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">36.4</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">31.2</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">36.5</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">44.7</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">55.1</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">67.3</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">71.9</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">74.6</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">74.8</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">65.7</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">57</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">39.9</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">37.6</td>
+</tr>
+<tr class="even">
+<td align="center">36</td>
+<td align="center">31.6</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li>Copy the data into <a href="https://www.desmos.com/calculator">Desmos</a>. The data should automatically fill a table.</li>
+<li>Click the <code>Add Regression</code> button near the top-left of the table. The icon looks like a bunch of dots with a line through them.</li>
+<li>Switch the regression to <code>Sinusoidal Regression</code>. It will automatically use a 4-parameter sine function (<a href="https://en.wikipedia.org/wiki/Amplitude">amplitude</a>, <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a>, horizontal shift, and vertical shift).</li>
+</ol>
+<p><span class="math display">\[y=A\sin(Bt-C)+D\]</span>
+<span class="math display">\[\begin{aligned}
+A&amp;=\text{amplitude} \\
+B&amp;=\text{angular frequency} \\
+C&amp;=\text{phase shift} \\
+D&amp;=\text{vertical shift (offset)} \\ &amp;\phantom{=}\text{ midline is at } y=D
+\end{aligned}\]</span></p>
+<p>In this scenario, <span class="math inline">\(D\)</span> represents our best guess for the yearly average temperature of Maedupton, and <span class="math inline">\(A\)</span> represents how much the winter/summer monthly averages get above or below <span class="math inline">\(D\)</span>.</p>
+<p>The relationship between angular frequency (<span class="math inline">\(B\)</span>) and period (<span class="math inline">\(P\)</span>) is reciprocal:
+<span class="math display">\[P=\frac{2\pi}{B}\]</span>
+We expect the period to be 12 months, so we expect <span class="math inline">\(B\)</span> to be <span class="math inline">\(\frac{2\pi}{12}\approx 0.5235988\)</span>. Notice that with the limited data, the fit will not give that value exactly. It would be reasonable to force <span class="math inline">\(B\)</span> to equal <span class="math inline">\(\pi/6\)</span> exactly, and it is possible to do that in Desmos, but let’s not worry about that for this problem.</p>
+<p>Lastly, parameter <span class="math inline">\(C\)</span> simply shifts our curve horizontally. Since we are using a sine function, but our data start near their minimum, we shift the curve about 1/4 of the period. Notice, your fitted value of <span class="math inline">\(C\)</span> will be near <span class="math inline">\(\pi/2\approx1.5707963\)</span> (quarter circle in radians), but since January or February is the coldest month (not December), <span class="math inline">\(C\)</span> will probably be a bit more than <span class="math inline">\(\pi/2\)</span>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the curve of best fit, predict the average temperature in August of 2025.</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>August of 2025 would be month number 44.</p>
+<p>Your fit should give the following values for the parameters:</p>
+<p><span class="math display">\[A=21.1037081\]</span>
+<span class="math display">\[B=0.5242295\]</span>
+<span class="math display">\[C=1.5838727\]</span>
+<span class="math display">\[D=54.4637048\]</span></p>
+<p>So your best-fit curve is:
+<span class="math display">\[f(t)~=~21.10371\cdot \sin(0.52423t-1.58387)+54.4637\]</span></p>
+<p>We want to determine <span class="math inline">\(f(44)\)</span>.</p>
+<p><span class="math display">\[f(44)~=~64.7462523\]</span></p>
+<p>In Desmos, you can click and drag on the curve until the horizontal coordinate equals 44 and read off the vertical coordinate.</p>
+<p>Alternatively, in the regression box, near the word <code>EQUATION</code>, click on the icon of an arrow pointing into a notebook. If you hover over the icon is says <code>Export a snapshot to the expression list</code>. After you export the expression, you can alter the <span class="math inline">\(y=\)</span> to <span class="math inline">\(f(x)=\)</span>. In another expression, you can then write <span class="math inline">\(f(44)\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Maedupton, the monthly average temperatures approximately follow a sinusoidal function. The last three years of data (starting in January of 2022 and ending with December of 2024) are shown below.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Month</th>
+<th align="center">Average Temp (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">43.4</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">52.2</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">66.6</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">80.6</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">90.5</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">92.9</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">87.2</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">84</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">65.9</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">52.5</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">44.2</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">37.5</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">40.3</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">56.9</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">69.7</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">79.8</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">93.5</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">93.6</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">91.7</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">80.4</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">66.5</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">54.5</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">43.4</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">38</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">41.9</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">55.6</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">63.9</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">81.9</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">90.4</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">96.4</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">90.4</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">78.8</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">66.5</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">47.7</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">41.6</td>
+</tr>
+<tr class="even">
+<td align="center">36</td>
+<td align="center">40.5</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li>Copy the data into <a href="https://www.desmos.com/calculator">Desmos</a>. The data should automatically fill a table.</li>
+<li>Click the <code>Add Regression</code> button near the top-left of the table. The icon looks like a bunch of dots with a line through them.</li>
+<li>Switch the regression to <code>Sinusoidal Regression</code>. It will automatically use a 4-parameter sine function (<a href="https://en.wikipedia.org/wiki/Amplitude">amplitude</a>, <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a>, horizontal shift, and vertical shift).</li>
+</ol>
+<p><span class="math display">\[y=A\sin(Bt-C)+D\]</span>
+<span class="math display">\[\begin{aligned}
+A&amp;=\text{amplitude} \\
+B&amp;=\text{angular frequency} \\
+C&amp;=\text{phase shift} \\
+D&amp;=\text{vertical shift (offset)} \\ &amp;\phantom{=}\text{ midline is at } y=D
+\end{aligned}\]</span></p>
+<p>In this scenario, <span class="math inline">\(D\)</span> represents our best guess for the yearly average temperature of Maedupton, and <span class="math inline">\(A\)</span> represents how much the winter/summer monthly averages get above or below <span class="math inline">\(D\)</span>.</p>
+<p>The relationship between angular frequency (<span class="math inline">\(B\)</span>) and period (<span class="math inline">\(P\)</span>) is reciprocal:
+<span class="math display">\[P=\frac{2\pi}{B}\]</span>
+We expect the period to be 12 months, so we expect <span class="math inline">\(B\)</span> to be <span class="math inline">\(\frac{2\pi}{12}\approx 0.5235988\)</span>. Notice that with the limited data, the fit will not give that value exactly. It would be reasonable to force <span class="math inline">\(B\)</span> to equal <span class="math inline">\(\pi/6\)</span> exactly, and it is possible to do that in Desmos, but let’s not worry about that for this problem.</p>
+<p>Lastly, parameter <span class="math inline">\(C\)</span> simply shifts our curve horizontally. Since we are using a sine function, but our data start near their minimum, we shift the curve about 1/4 of the period. Notice, your fitted value of <span class="math inline">\(C\)</span> will be near <span class="math inline">\(\pi/2\approx1.5707963\)</span> (quarter circle in radians), but since January or February is the coldest month (not December), <span class="math inline">\(C\)</span> will probably be a bit more than <span class="math inline">\(\pi/2\)</span>.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the curve of best fit, predict the average temperature in February of 2025.</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>February of 2025 would be month number 38.</p>
+<p>Your fit should give the following values for the parameters:</p>
+<p><span class="math display">\[A=27.7521144\]</span>
+<span class="math display">\[B=0.5255038\]</span>
+<span class="math display">\[C=1.5854285\]</span>
+<span class="math display">\[D=66.803276\]</span></p>
+<p>So your best-fit curve is:
+<span class="math display">\[f(t)~=~27.75211\cdot \sin(0.5255t-1.58543)+66.80328\]</span></p>
+<p>We want to determine <span class="math inline">\(f(38)\)</span>.</p>
+<p><span class="math display">\[f(38)~=~54.3377425\]</span></p>
+<p>In Desmos, you can click and drag on the curve until the horizontal coordinate equals 38 and read off the vertical coordinate.</p>
+<p>Alternatively, in the regression box, near the word <code>EQUATION</code>, click on the icon of an arrow pointing into a notebook. If you hover over the icon is says <code>Export a snapshot to the expression list</code>. After you export the expression, you can alter the <span class="math inline">\(y=\)</span> to <span class="math inline">\(f(x)=\)</span>. In another expression, you can then write <span class="math inline">\(f(38)\)</span>.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

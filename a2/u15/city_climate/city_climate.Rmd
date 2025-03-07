@@ -1,0 +1,95 @@
+---
+output: pdf_document
+urlcolor: blue
+---
+
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+# \sc When should I visit _______?
+
+## Pick a city/location
+
+1. Go to this website: [https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/city/mapping](https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/city/mapping)
+2. Notice we see many locations around the US. By default, you can see last month's average temperature.
+3. You can change the year, month, and time scale to think about some places you might want to visit. Choose a location that you want to analyze for this worksheet. Do not pick the same city as anyone sitting near you.
+4. Click on that dot to go to "**City Time Series**". **What city/location did you pick?**
+
+\vspace{16pt}
+
+## Get 5 years of monthly temperature averages
+
+5. Set `Time Scale` to `1-Month`. 
+6. Set `Month` to `All Months`.
+7. Set `Start Year` to `2020`. 
+8. Set `End Year` to `2024`.
+9. Click `Plot`. Check the graph to make sure no data are missing. If there are gaps, choose a difference city.
+
+## Data wrangling (always the hardest part of data analysis)
+
+Our goal is to get those 5 years of data into Desmos. I'm going to guess the best way is to download the csv file, but we might need to pivot.
+
+10. Click to Download the `CSV` file.
+11. In a [new google sheet](https://sheets.new), Import the csv file.
+12. Fix column A so under Date is numbers 1 through `r 12*5` instead of 202001, 202002, etc...
+13. Copy the two columns into a new expression in [Desmos](https://www.desmos.com/calculator). They should automatically fill a table.
+
+## Add Regression
+
+14. Near the top-left of the Desmos table is an icon that looks like a bunch of dots with a line through them. When you hover over it, it should say `Add Regression`. Click this icon.
+15. The default regression is a linear regression. Notice you'll see a linear equation with two parameters, the slope and a $y$-intercept: ($y=mx+b$, with parameters $m$ and $b$). **What could those parameters represent in this scenario?**
+
+\vspace{30pt}
+
+16. Change the regression to `Sinusoidal Regression`. You'll now see an equation with four parameters: $y=A\cdot\sin(Bx-C)+D$.
+17. We called parameter $A$ the amplitude. **What is your value for parameter $A$? And what does it represent in this scenario?**
+
+\vspace{40pt}
+
+18. We called parameter $D$ the vertical shift (and the midline is at $y=D$. **What is your value for parameter $D$? And what does it represent in this scenario?**
+
+\vspace{40pt}
+
+\newpage
+
+19. **What is your value for parameter $B$?**
+
+\vspace{20pt}
+
+20. Parameter $B$ is called the angular frequency. To find the period ($P$), use this formula: $P=\frac{2\pi}{B}$. **What is your value for $P$ and what does it represent in this scenario?**
+
+\vspace{40pt}
+
+21. Parameter $C$ changes the initial phase. Because your data starts in winter, and you are using a sine function, the wave is probably shifted about a quarter of a period, so about $\pi/2\approx`r pi/2`$ radians. Since the coldest months are probably labeled 1 or 2 (and 13 or 14 and... NOT 0, 12, 24...) your $C$ is probably a bit more than $\pi/2$. What is your value for $C$?
+
+\vspace{30pt}
+
+22. **Using the best-fit curve, predict the average temperature at your location for April 2025.**
+
+\vspace{40pt}
+
+
+## MORE DATA!
+
+23. Go back to your City Time Series (at the NCEI/NOAA website). Keep the same settings as before, except this time set `Start Year` to as early as possible, and set `End Year` to 2025. Click Plot.
+
+24. If you see any gaps in the curve, set the `Start Year` to after the gap. We do not have the time for dealing with those gaps. Download the CSV, fix the Date column, and copy/paste into Desmos.
+
+25. Add Regression. Look at the linear regression. **Do you think the slope is meaningful?**
+
+\vspace{40pt}
+
+26. Switch to a sinusoidal regression. Desmos probably fails to identify the period. Let's set the period to exactly 12 months to help Desmos fit the data better. Click the 3-dot icon to the right of the drop-down menu, and click `Export as custom regression`.
+
+27. Replace $b$ with $\frac{2\pi}{12}$, since we know the period should be 12 months. That should help a lot.
+
+28. Let's add another term to the custom regression. Add $mx_1$, so the custom regression now looks like:
+$$y_1 \sim a\cdot\sin\left(\frac{2\pi}{12}x_1+c\right)+d+mx_1$$
+**What effect does this additional term have on the curve?**
+
+\vspace{40pt}
+
+**Why might it be important for a climate model to include this $mx_1$ term?**
+
+
+

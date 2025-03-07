@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("04_wave_vert_reflect.Rmd")
+pppsss = c("12_fit_monthly_temp.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
