@@ -3,9 +3,12 @@ n = 30
 outdir = "outcanvas"
 genname = "u15_"
 
-probs = c("12_fit_monthly_temp.Rmd")
+probs = c("13_mass_spring_period.Rmd",
+          "14_pick_wave_pams.Rmd",
+          "15_pick_wave_pams2.Rmd",
+          "16_ferris_wheel_key_drop.Rmd")
 
-pnts = c(5)
+pnts = c(3,3,3,3)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

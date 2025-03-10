@@ -1,7 +1,5 @@
 library(latex2exp)
 
-
-
 which_type = 3 #sample(1:4,1)
 while(which_type==1){
     # ax+by = P

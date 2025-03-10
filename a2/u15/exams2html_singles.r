@@ -1,6 +1,9 @@
 library("exams")
 
-pppsss = c("12_fit_monthly_temp.Rmd")
+pppsss = c("13_mass_spring_period.Rmd",
+           "14_pick_wave_pams.Rmd",
+           "15_pick_wave_pams2.Rmd",
+           "16_ferris_wheel_key_drop.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

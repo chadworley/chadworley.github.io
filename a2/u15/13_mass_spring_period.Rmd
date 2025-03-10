@@ -1,0 +1,111 @@
+```{r,echo=F,warning=F}
+dt = 0.1
+tf = 5
+H = 4 #height of room
+miny = runif(1,0.4,1)
+A = runif(1,0.4,1.2)
+maxy = miny+2*A
+P = runif(1,1,3)
+B = 2*pi/P
+D = mean(c(miny,maxy))
+C = 0 #runif(1,0,2*pi)
+tdata = seq(0,tf,dt)
+ydata = round(A*cos(B*tdata+C)+D+runif(length(tdata),-0.04,0.04),2)
+
+data = data.frame(tdata,ydata)
+mod <- ydata ~ a1*sin(b1*tdata+c1)+d1
+start_vals <- list(a1=A, b1=B, c1=C+pi/2, d1=D)
+fit <- nls(mod, data = data, start = start_vals)
+cf = summary(fit)$coefficients
+
+Pfit = 2*pi/cf[2]
+
+```
+
+Question
+========
+
+The canonical example of [simple harmonic motion](https://en.wikipedia.org/wiki/Simple_harmonic_motion) is a mass-spring system. A lightweight spring is attached to a ceiling, and a moderately heavy mass is attached to the dangling end. If the mass is pulled away from its resting elevation, and released, the weight will bounce up and down, approximately following a sinusoidal function in time. By placing the mass-spring system close to a marked wall, and by using a camera with a long [focal length](https://en.wikipedia.org/wiki/Focal_length#In_photography), the position (in meters above floor) of the mass was tracked over time (in seconds).
+
+Of course, in order to exactly follow a sinusoidal path through time, a few unrealistic assumptions need to be true. There should be no friction (no air resistance nor internal resistance of the bending spring). Also, the spring should exactly follow [Hooke's law](https://en.wikipedia.org/wiki/Hooke%27s_law).
+
+```{r,echo=F,fig.dim=c(3,3),animation.hook='gifski',interval=dt}
+nloop = round((H-D)/0.1)
+boxr = 0.2
+yspr = seq(0,1,1/(nloop*12))
+xspr = H/2+boxr/2*sin(yspr*nloop*2*pi)
+allpoints = list()
+allexts = c()
+for(i in seq(0,tf,dt)){
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",xlim=c(0,H),ylim=c(0,H),axes=F,ann=F)
+    y = A*cos(B*i+C)+D
+    ybt = y+boxr
+    lines(xspr,yspr*(H-ybt)+ybt,col="grey")
+    polygon(H/2+boxr*c(-1,-1,1,1),y+boxr*c(1,-1,-1,1),col="blue")
+    polygon(c(-1,-1,5,5),c(H*2,H,H,H*2),col="darkgrey")
+    polygon(c(-1,-1,5,5),c(-H,0,0,-H),col="darkgrey")
+    text(0,0,paste0("t = ",sprintf("%.01f s",i)),adj=c(-0.3,-0.3))
+    for(yy in seq(0.1,H-0.1,0.1)){
+        lines(c(H/2-boxr*3,H/2-2*boxr),c(yy,yy),col="lightgrey",lwd=0.7)
+    }
+    for(yy in seq(0,H,0.5)){
+        if(yy>0 && yy<H){
+            lines(c(H/2-boxr*3.5,H/2-1.5*boxr),c(yy,yy),col="grey",lwd=0.9)
+        }
+    }
+    for(yy in seq(0,H,1)){
+        if(yy>0 && yy<H){
+            lines(c(H/2-boxr*4,H/2-1*boxr),c(yy,yy),col="darkgrey",lwd=1.1)
+            text(H/2-boxr*4,yy,paste0(round(yy)," m"),adj=c(1.3,0.5),col="darkgrey")}
+    }
+    extent = i/tf
+    allpoints[[length(allpoints)+1]] = c(H/2-boxr*2.5,y)
+    allexts = c(allexts,extent)
+    for(j in 1:length(allexts)){
+        points(allpoints[[j]][1],allpoints[[j]][2],pch=19,cex=1.4)
+        points(allpoints[[j]][1],allpoints[[j]][2],pch=19,cex=1,col=hsv(allexts[j],1,0.9))
+    }
+    points(H/2,y,pch=19,cex=1.4)
+    points(H/2,y,pch=19,col=hsv(extent,1,0.9))
+}
+```
+\
+
+After capturing the video, elevation measurements were recorded every 0.1 seconds over an interval of 5 seconds.
+
+| $t$ (time in seconds) | $y$ (height in meters) |
+|:---:|:---:|
+`r paste0("| ",sprintf("%.01f",tdata)," | ",sprintf("%.02f",ydata)," |",collapse="\n")`
+
+1. Run a sinusoidal regression on the data.
+2. The regression will have the form $y = A\sin(Bt+C)+D$, where the parameters are $A$, $B$, $C$, and $D$, which are the amplitude, [angular frequency](https://en.wikipedia.org/wiki/Angular_frequency), phase shift, and vertical offset (or midline constant).
+3. Using the angular frequency, calculate the [period](https://en.wikipedia.org/wiki/Periodic_function) ($P$) using $P=\frac{2\pi}{B}$.
+
+Using the process outlined above, report the period of the best-fit curve. The tolerance is $\pm 0.001$ seconds.
+
+
+Solution
+========
+
+1. Copy and paste data into a [Desmos](https://www.desmos.com/calculator) expression.
+2. Click the `Add Regression` icon.
+3. Choose `Sinusoidal Regression`.
+4. The best-fit curve has four parameters:
+$$y~=~`r round(cf[1],5)`\cdot \sin(`r round(cf[2],5)`t+`r round(cf[3],5)`)+`r round(cf[4],5)`$$
+5. Recognize that the angular frequency is the multiplier inside the argument.
+$$B=`r round(cf[2],5)`$$
+6. Use the formula to calculate the period from the angular frequency. (This formula is always the same.)
+$$P~=~\frac{2\pi}{B}$$
+$$P~=~\frac{2\pi}{`r round(cf[2],5)`}$$
+$$P~=~`r signif(Pfit,5)`$$
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r Pfit`
+exname: mass_spring_period
+extol: 0.001

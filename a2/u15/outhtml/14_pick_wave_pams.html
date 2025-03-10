@@ -1,0 +1,402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>14_pick_wave_pams</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">14_pick_wave_pams</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mass-spring system oscillates with the following characteristics:</p>
+<ol style="list-style-type: decimal">
+<li>The frequency is 0.51 hertz.</li>
+<li>The amplitude is 1.5 meters.</li>
+<li>The midline is at -0.3 meters.</li>
+<li>At <span class="math inline">\(t=0\)</span>, the mass is at the midline with an downwards velocity.</li>
+</ol>
+<p>Choose a trigonometric function (<span class="math inline">\(g\)</span>), and the parameters (<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(D\)</span>), to model this oscillatory motion.</p>
+<p><span class="math display">\[y~=~A\cdot g(Bt)+D\]</span></p>
+<ul>
+<li><span class="math inline">\(g=\)</span> <select><option>--------</option><option> sin</option><option>cos </option></select></li>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -21</option><option>-12</option><option>-9.4</option><option>-4.2</option><option>-3.2</option><option>-1.9</option><option>-1.5</option><option>-0.51</option><option>-0.3</option><option>0.3</option><option>0.51</option><option>1.5</option><option>1.9</option><option>3.2</option><option>4.2</option><option>9.4</option><option>12</option><option>21 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> 0.3</option><option>0.51</option><option>1.5</option><option>1.9</option><option>3.2</option><option>4.2</option><option>9.4</option><option>12</option><option>21 </option></select></li>
+<li><span class="math inline">\(D=\)</span> <select><option>--------</option><option> -21</option><option>-12</option><option>-9.4</option><option>-4.2</option><option>-3.2</option><option>-1.9</option><option>-1.5</option><option>-0.51</option><option>-0.3</option><option>0.3</option><option>0.51</option><option>1.5</option><option>1.9</option><option>3.2</option><option>4.2</option><option>9.4</option><option>12</option><option>21 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The only calculation needed is to convert the <a href="https://en.wikipedia.org/wiki/Frequency">frequency</a> (<span class="math inline">\(f=0.51\)</span>) into <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a> (<span class="math inline">\(B\)</span>) by multiplying by <span class="math inline">\(2\pi\)</span>.
+<span class="math display">\[B=2\pi f\]</span>
+<span class="math display">\[B=3.2044245\]</span></p>
+<ol style="list-style-type: decimal">
+<li>If the wave starts at a midline and is increasing (going up), then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a midline and is decreasing (going down), then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a maximum, then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+<li>If the wave starts at a minimum, then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+</ol>
+<p>The amplitude is the absolute value of <span class="math inline">\(A\)</span>.
+<span class="math display">\[|A|~=~1.5\]</span></p>
+<p>The midline is simply given:
+<span class="math display">\[D=-0.3\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y ~=~ -1.5\cdot\sin(3.2t)-0.3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mass-spring system oscillates with the following characteristics:</p>
+<ol style="list-style-type: decimal">
+<li>The amplitude is 0.16 meters.</li>
+<li>The midline is at 1.5 meters.</li>
+<li>The frequency is 8.4 hertz.</li>
+<li>At <span class="math inline">\(t=0\)</span>, the mass is at the midline with an downwards velocity.</li>
+</ol>
+<p>Choose a trigonometric function (<span class="math inline">\(g\)</span>), and the parameters (<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(D\)</span>), to model this oscillatory motion.</p>
+<p><span class="math display">\[y~=~A\cdot g(Bt)+D\]</span></p>
+<ul>
+<li><span class="math inline">\(g=\)</span> <select><option>--------</option><option> sin</option><option>cos </option></select></li>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -53</option><option>-39</option><option>-9.4</option><option>-8.4</option><option>-4.2</option><option>-1.5</option><option>-1</option><option>-0.75</option><option>-0.16</option><option>0.16</option><option>0.75</option><option>1</option><option>1.5</option><option>4.2</option><option>8.4</option><option>9.4</option><option>39</option><option>53 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> 0.16</option><option>0.75</option><option>1</option><option>1.5</option><option>4.2</option><option>8.4</option><option>9.4</option><option>39</option><option>53 </option></select></li>
+<li><span class="math inline">\(D=\)</span> <select><option>--------</option><option> -53</option><option>-39</option><option>-9.4</option><option>-8.4</option><option>-4.2</option><option>-1.5</option><option>-1</option><option>-0.75</option><option>-0.16</option><option>0.16</option><option>0.75</option><option>1</option><option>1.5</option><option>4.2</option><option>8.4</option><option>9.4</option><option>39</option><option>53 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The only calculation needed is to convert the <a href="https://en.wikipedia.org/wiki/Frequency">frequency</a> (<span class="math inline">\(f=8.4\)</span>) into <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a> (<span class="math inline">\(B\)</span>) by multiplying by <span class="math inline">\(2\pi\)</span>.
+<span class="math display">\[B=2\pi f\]</span>
+<span class="math display">\[B=52.7787566\]</span></p>
+<ol style="list-style-type: decimal">
+<li>If the wave starts at a midline and is increasing (going up), then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a midline and is decreasing (going down), then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a maximum, then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+<li>If the wave starts at a minimum, then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+</ol>
+<p>The amplitude is the absolute value of <span class="math inline">\(A\)</span>.
+<span class="math display">\[|A|~=~0.16\]</span></p>
+<p>The midline is simply given:
+<span class="math display">\[D=1.5\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y ~=~ -0.16\cdot\sin(53t)+1.5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mass-spring system oscillates with the following characteristics:</p>
+<ol style="list-style-type: decimal">
+<li>The amplitude is 2 meters.</li>
+<li>The frequency is 3.5 hertz.</li>
+<li>The midline is at -0.1 meters.</li>
+<li>At <span class="math inline">\(t=0\)</span>, the mass is at the minimum height.</li>
+</ol>
+<p>Choose a trigonometric function (<span class="math inline">\(g\)</span>), and the parameters (<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(D\)</span>), to model this oscillatory motion.</p>
+<p><span class="math display">\[y~=~A\cdot g(Bt)+D\]</span></p>
+<ul>
+<li><span class="math inline">\(g=\)</span> <select><option>--------</option><option> sin</option><option>cos </option></select></li>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -63</option><option>-22</option><option>-13</option><option>-3.5</option><option>-3.1</option><option>-2</option><option>-1.8</option><option>-0.63</option><option>-0.1</option><option>0.1</option><option>0.63</option><option>1.8</option><option>2</option><option>3.1</option><option>3.5</option><option>13</option><option>22</option><option>63 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> 0.1</option><option>0.63</option><option>1.8</option><option>2</option><option>3.1</option><option>3.5</option><option>13</option><option>22</option><option>63 </option></select></li>
+<li><span class="math inline">\(D=\)</span> <select><option>--------</option><option> -63</option><option>-22</option><option>-13</option><option>-3.5</option><option>-3.1</option><option>-2</option><option>-1.8</option><option>-0.63</option><option>-0.1</option><option>0.1</option><option>0.63</option><option>1.8</option><option>2</option><option>3.1</option><option>3.5</option><option>13</option><option>22</option><option>63 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The only calculation needed is to convert the <a href="https://en.wikipedia.org/wiki/Frequency">frequency</a> (<span class="math inline">\(f=3.5\)</span>) into <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a> (<span class="math inline">\(B\)</span>) by multiplying by <span class="math inline">\(2\pi\)</span>.
+<span class="math display">\[B=2\pi f\]</span>
+<span class="math display">\[B=21.9911486\]</span></p>
+<ol style="list-style-type: decimal">
+<li>If the wave starts at a midline and is increasing (going up), then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a midline and is decreasing (going down), then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a maximum, then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+<li>If the wave starts at a minimum, then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+</ol>
+<p>The amplitude is the absolute value of <span class="math inline">\(A\)</span>.
+<span class="math display">\[|A|~=~2\]</span></p>
+<p>The midline is simply given:
+<span class="math display">\[D=-0.1\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y ~=~ -2\cdot\cos(22t)-0.1\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mass-spring system oscillates with the following characteristics:</p>
+<ol style="list-style-type: decimal">
+<li>The frequency is 0.14 hertz.</li>
+<li>The midline is at 3.9 meters.</li>
+<li>The amplitude is 0.18 meters.</li>
+<li>At <span class="math inline">\(t=0\)</span>, the mass is at the midline with an upwards velocity.</li>
+</ol>
+<p>Choose a trigonometric function (<span class="math inline">\(g\)</span>), and the parameters (<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(D\)</span>), to model this oscillatory motion.</p>
+<p><span class="math display">\[y~=~A\cdot g(Bt)+D\]</span></p>
+<ul>
+<li><span class="math inline">\(g=\)</span> <select><option>--------</option><option> sin</option><option>cos </option></select></li>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -45</option><option>-35</option><option>-25</option><option>-3.9</option><option>-1.6</option><option>-1.1</option><option>-0.88</option><option>-0.18</option><option>-0.14</option><option>0.14</option><option>0.18</option><option>0.88</option><option>1.1</option><option>1.6</option><option>3.9</option><option>25</option><option>35</option><option>45 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> 0.14</option><option>0.18</option><option>0.88</option><option>1.1</option><option>1.6</option><option>3.9</option><option>25</option><option>35</option><option>45 </option></select></li>
+<li><span class="math inline">\(D=\)</span> <select><option>--------</option><option> -45</option><option>-35</option><option>-25</option><option>-3.9</option><option>-1.6</option><option>-1.1</option><option>-0.88</option><option>-0.18</option><option>-0.14</option><option>0.14</option><option>0.18</option><option>0.88</option><option>1.1</option><option>1.6</option><option>3.9</option><option>25</option><option>35</option><option>45 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The only calculation needed is to convert the <a href="https://en.wikipedia.org/wiki/Frequency">frequency</a> (<span class="math inline">\(f=0.14\)</span>) into <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a> (<span class="math inline">\(B\)</span>) by multiplying by <span class="math inline">\(2\pi\)</span>.
+<span class="math display">\[B=2\pi f\]</span>
+<span class="math display">\[B=0.8796459\]</span></p>
+<ol style="list-style-type: decimal">
+<li>If the wave starts at a midline and is increasing (going up), then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a midline and is decreasing (going down), then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a maximum, then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+<li>If the wave starts at a minimum, then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+</ol>
+<p>The amplitude is the absolute value of <span class="math inline">\(A\)</span>.
+<span class="math display">\[|A|~=~0.18\]</span></p>
+<p>The midline is simply given:
+<span class="math display">\[D=3.9\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y ~=~ 0.18\cdot\sin(0.88t)+3.9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mass-spring system oscillates with the following characteristics:</p>
+<ol style="list-style-type: decimal">
+<li>The midline is at -1.2 meters.</li>
+<li>The frequency is 0.21 hertz.</li>
+<li>The amplitude is 0.58 meters.</li>
+<li>At <span class="math inline">\(t=0\)</span>, the mass is at the maximum height.</li>
+</ol>
+<p>Choose a trigonometric function (<span class="math inline">\(g\)</span>), and the parameters (<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(D\)</span>), to model this oscillatory motion.</p>
+<p><span class="math display">\[y~=~A\cdot g(Bt)+D\]</span></p>
+<ul>
+<li><span class="math inline">\(g=\)</span> <select><option>--------</option><option> sin</option><option>cos </option></select></li>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -30</option><option>-11</option><option>-7.5</option><option>-5.2</option><option>-3.6</option><option>-1.3</option><option>-1.2</option><option>-0.58</option><option>-0.21</option><option>0.21</option><option>0.58</option><option>1.2</option><option>1.3</option><option>3.6</option><option>5.2</option><option>7.5</option><option>11</option><option>30 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> 0.21</option><option>0.58</option><option>1.2</option><option>1.3</option><option>3.6</option><option>5.2</option><option>7.5</option><option>11</option><option>30 </option></select></li>
+<li><span class="math inline">\(D=\)</span> <select><option>--------</option><option> -30</option><option>-11</option><option>-7.5</option><option>-5.2</option><option>-3.6</option><option>-1.3</option><option>-1.2</option><option>-0.58</option><option>-0.21</option><option>0.21</option><option>0.58</option><option>1.2</option><option>1.3</option><option>3.6</option><option>5.2</option><option>7.5</option><option>11</option><option>30 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The only calculation needed is to convert the <a href="https://en.wikipedia.org/wiki/Frequency">frequency</a> (<span class="math inline">\(f=0.21\)</span>) into <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a> (<span class="math inline">\(B\)</span>) by multiplying by <span class="math inline">\(2\pi\)</span>.
+<span class="math display">\[B=2\pi f\]</span>
+<span class="math display">\[B=1.3194689\]</span></p>
+<ol style="list-style-type: decimal">
+<li>If the wave starts at a midline and is increasing (going up), then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a midline and is decreasing (going down), then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a maximum, then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+<li>If the wave starts at a minimum, then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+</ol>
+<p>The amplitude is the absolute value of <span class="math inline">\(A\)</span>.
+<span class="math display">\[|A|~=~0.58\]</span></p>
+<p>The midline is simply given:
+<span class="math display">\[D=-1.2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y ~=~ 0.58\cdot\cos(1.3t)-1.2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mass-spring system oscillates with the following characteristics:</p>
+<ol style="list-style-type: decimal">
+<li>The midline is at -0.33 meters.</li>
+<li>The amplitude is 3.1 meters.</li>
+<li>The frequency is 0.21 hertz.</li>
+<li>At <span class="math inline">\(t=0\)</span>, the mass is at the midline with an upwards velocity.</li>
+</ol>
+<p>Choose a trigonometric function (<span class="math inline">\(g\)</span>), and the parameters (<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(D\)</span>), to model this oscillatory motion.</p>
+<p><span class="math display">\[y~=~A\cdot g(Bt)+D\]</span></p>
+<ul>
+<li><span class="math inline">\(g=\)</span> <select><option>--------</option><option> sin</option><option>cos </option></select></li>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -30</option><option>-19</option><option>-3.1</option><option>-2.1</option><option>-2</option><option>-1.3</option><option>-0.33</option><option>-0.21</option><option>0.21</option><option>0.33</option><option>1.3</option><option>2</option><option>2.1</option><option>3.1</option><option>19</option><option>30 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> 0.21</option><option>0.33</option><option>1.3</option><option>2</option><option>2.1</option><option>3.1</option><option>19</option><option>30 </option></select></li>
+<li><span class="math inline">\(D=\)</span> <select><option>--------</option><option> -30</option><option>-19</option><option>-3.1</option><option>-2.1</option><option>-2</option><option>-1.3</option><option>-0.33</option><option>-0.21</option><option>0.21</option><option>0.33</option><option>1.3</option><option>2</option><option>2.1</option><option>3.1</option><option>19</option><option>30 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The only calculation needed is to convert the <a href="https://en.wikipedia.org/wiki/Frequency">frequency</a> (<span class="math inline">\(f=0.21\)</span>) into <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a> (<span class="math inline">\(B\)</span>) by multiplying by <span class="math inline">\(2\pi\)</span>.
+<span class="math display">\[B=2\pi f\]</span>
+<span class="math display">\[B=1.3194689\]</span></p>
+<ol style="list-style-type: decimal">
+<li>If the wave starts at a midline and is increasing (going up), then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a midline and is decreasing (going down), then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a maximum, then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+<li>If the wave starts at a minimum, then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+</ol>
+<p>The amplitude is the absolute value of <span class="math inline">\(A\)</span>.
+<span class="math display">\[|A|~=~3.1\]</span></p>
+<p>The midline is simply given:
+<span class="math display">\[D=-0.33\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y ~=~ 3.1\cdot\sin(1.3t)-0.33\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mass-spring system oscillates with the following characteristics:</p>
+<ol style="list-style-type: decimal">
+<li>The amplitude is 5 meters.</li>
+<li>The midline is at -0.2 meters.</li>
+<li>The frequency is 1.6 hertz.</li>
+<li>At <span class="math inline">\(t=0\)</span>, the mass is at the minimum height.</li>
+</ol>
+<p>Choose a trigonometric function (<span class="math inline">\(g\)</span>), and the parameters (<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(D\)</span>), to model this oscillatory motion.</p>
+<p><span class="math display">\[y~=~A\cdot g(Bt)+D\]</span></p>
+<ul>
+<li><span class="math inline">\(g=\)</span> <select><option>--------</option><option> sin</option><option>cos </option></select></li>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -31</option><option>-10</option><option>-5</option><option>-3.9</option><option>-1.6</option><option>-1.3</option><option>-0.2</option><option>0.2</option><option>1.3</option><option>1.6</option><option>3.9</option><option>5</option><option>10</option><option>31 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> 0.2</option><option>1.3</option><option>1.6</option><option>3.9</option><option>5</option><option>10</option><option>31 </option></select></li>
+<li><span class="math inline">\(D=\)</span> <select><option>--------</option><option> -31</option><option>-10</option><option>-5</option><option>-3.9</option><option>-1.6</option><option>-1.3</option><option>-0.2</option><option>0.2</option><option>1.3</option><option>1.6</option><option>3.9</option><option>5</option><option>10</option><option>31 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The only calculation needed is to convert the <a href="https://en.wikipedia.org/wiki/Frequency">frequency</a> (<span class="math inline">\(f=1.6\)</span>) into <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a> (<span class="math inline">\(B\)</span>) by multiplying by <span class="math inline">\(2\pi\)</span>.
+<span class="math display">\[B=2\pi f\]</span>
+<span class="math display">\[B=10.0530965\]</span></p>
+<ol style="list-style-type: decimal">
+<li>If the wave starts at a midline and is increasing (going up), then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a midline and is decreasing (going down), then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a maximum, then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+<li>If the wave starts at a minimum, then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+</ol>
+<p>The amplitude is the absolute value of <span class="math inline">\(A\)</span>.
+<span class="math display">\[|A|~=~5\]</span></p>
+<p>The midline is simply given:
+<span class="math display">\[D=-0.2\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y ~=~ -5\cdot\cos(10t)-0.2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mass-spring system oscillates with the following characteristics:</p>
+<ol style="list-style-type: decimal">
+<li>The frequency is 2.7 hertz.</li>
+<li>The amplitude is 3.1 meters.</li>
+<li>The midline is at -0.27 meters.</li>
+<li>At <span class="math inline">\(t=0\)</span>, the mass is at the maximum height.</li>
+</ol>
+<p>Choose a trigonometric function (<span class="math inline">\(g\)</span>), and the parameters (<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(D\)</span>), to model this oscillatory motion.</p>
+<p><span class="math display">\[y~=~A\cdot g(Bt)+D\]</span></p>
+<ul>
+<li><span class="math inline">\(g=\)</span> <select><option>--------</option><option> sin</option><option>cos </option></select></li>
+<li><span class="math inline">\(A=\)</span> <select><option>--------</option><option> -23</option><option>-19</option><option>-17</option><option>-3.1</option><option>-2.7</option><option>-2.3</option><option>-2</option><option>-1.7</option><option>-0.27</option><option>0.27</option><option>1.7</option><option>2</option><option>2.3</option><option>2.7</option><option>3.1</option><option>17</option><option>19</option><option>23 </option></select></li>
+<li><span class="math inline">\(B=\)</span> <select><option>--------</option><option> 0.27</option><option>1.7</option><option>2</option><option>2.3</option><option>2.7</option><option>3.1</option><option>17</option><option>19</option><option>23 </option></select></li>
+<li><span class="math inline">\(D=\)</span> <select><option>--------</option><option> -23</option><option>-19</option><option>-17</option><option>-3.1</option><option>-2.7</option><option>-2.3</option><option>-2</option><option>-1.7</option><option>-0.27</option><option>0.27</option><option>1.7</option><option>2</option><option>2.3</option><option>2.7</option><option>3.1</option><option>17</option><option>19</option><option>23 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The only calculation needed is to convert the <a href="https://en.wikipedia.org/wiki/Frequency">frequency</a> (<span class="math inline">\(f=2.7\)</span>) into <a href="https://en.wikipedia.org/wiki/Angular_frequency">angular frequency</a> (<span class="math inline">\(B\)</span>) by multiplying by <span class="math inline">\(2\pi\)</span>.
+<span class="math display">\[B=2\pi f\]</span>
+<span class="math display">\[B=16.9646003\]</span></p>
+<ol style="list-style-type: decimal">
+<li>If the wave starts at a midline and is increasing (going up), then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a midline and is decreasing (going down), then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\sin\)</span>.</li>
+<li>If the wave starts at a maximum, then <span class="math inline">\(A&gt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+<li>If the wave starts at a minimum, then <span class="math inline">\(A&lt;0\)</span> and <span class="math inline">\(g=\cos\)</span>.</li>
+</ol>
+<p>The amplitude is the absolute value of <span class="math inline">\(A\)</span>.
+<span class="math display">\[|A|~=~3.1\]</span></p>
+<p>The midline is simply given:
+<span class="math display">\[D=-0.27\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[y ~=~ 3.1\cdot\cos(17t)-0.27\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

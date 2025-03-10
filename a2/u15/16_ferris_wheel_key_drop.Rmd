@@ -1,0 +1,147 @@
+```{r,echo=F,warning=F}
+par(scipen=99)
+A = round(runif(1,20,125),1) #m, radius of ferris wheel
+v = runif(1,0.5,4) #m/s
+B = v/A #radians/s
+f = B/2/pi #turns/s
+P = round(1/f,0)
+while(T){
+    t = round(P*runif(1,2,3),0)
+    x = A*sin(B*t)
+    if(abs(x)>5 && abs(abs(x)-A)>3){break}
+}
+B = signif(2*pi/P,6)
+tfin = t
+xfin = x
+axfin = abs(x)
+
+```
+
+Question
+========
+
+A Ferris wheel has a radius of `r A` meters, and (while spinning) one rotation takes `r P` seconds.
+
+Samuel gets into a carriage at the bottom of the Ferris wheel. At $t=0$, the wheel starts spinning, and it spins continuously for `r t` seconds until an abrupt stop. At that moment, Samuel drops his keys, which fall directly down to the ground.
+
+```{r,echo=F,fig.dim=c(2,2),animation.hook='gifski',interval=0.1}
+drawstills = function(){
+    polygon(c(-2,2,2,-2),c(-2,-2,2,2),col="skyblue")
+    polygon(c(-2,2,2,-2),c(-1,-1,-2,-2),col="darkgreen")
+    thcirc = seq(0,2*pi,pi/360)
+    for(tthh in seq(0,2*pi,pi/30)){
+        lines(c(0,cos(tthh+thcur)),c(0.05,0.05+sin(tthh+thcur)),lwd=0.5,col="grey")
+    }
+    lines(c(-1.05,0,1.05),c(-1,0.05,-1),col="black",lwd=3)
+    lines(c(-1.05,0,1.05),c(-1,0.05,-1),col="white",lwd=2)
+    lines(cos(thcirc),sin(thcirc)+0.05,col="black",lwd=3)
+    lines(cos(thcirc),sin(thcirc)+0.05,col="white",lwd=2)
+}
+drawcar = function(x,y){
+    wid = 0.025
+    polygon(c(x,x-wid,x-wid,x+wid,x+wid),c(y+0.005,y-wid,y-2*wid,y-2*wid,y-wid),
+            lwd=1,col="white",border="black")
+}
+drawsam = function(x,y){
+    wid = 0.025
+    swid = wid/2
+    lines(c(x-swid,x,x,x-swid,x,x+swid,x,x,x+swid),
+          c(y-1.2*wid,y-1.2*wid,y-wid*1.5,y-2*wid,y-wid*1.5,y-2*wid,y-1.5*wid,
+            y-1.2*wid,y-1.2*wid),col="black")
+    points(x,y-0.7*wid,pch=19,cex=0.3)
+}
+
+nframes = 70
+nrots = t/P
+drad = nrots*2*pi/nframes
+totrad = nrots*2*pi
+rads = seq(0,totrad,drad)
+
+for(thcur in rads){
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+    drawstills()
+    thadd = seq(0,2*pi,2*pi/12)
+    for(thc in thadd){
+        drawcar(cos(thc+thcur),0.05+sin(thc+thcur))
+    }
+    drawsam(sin(thcur),0.05-cos(thcur))
+}
+ystop = 0.05-cos(totrad)
+xstop = sin(totrad)
+
+ykey = seq(ystop,-1,length.out=10)
+
+for(i in 1:10){
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+    drawstills()
+    thadd = seq(0,2*pi,2*pi/12)
+    for(thc in thadd){
+        drawcar(cos(thc+totrad),0.05+sin(thc+totrad))
+    }
+    drawsam(sin(totrad),0.05-cos(totrad))
+    points(xstop,ykey[i],pch=8,col="gold")
+}
+
+for(i in 1:30){
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+    drawstills()
+    thadd = seq(0,2*pi,2*pi/12)
+    for(thc in thadd){
+        drawcar(cos(thc+totrad),0.05+sin(thc+totrad))
+    }
+    drawsam(sin(totrad),0.05-cos(totrad))
+    points(xstop,-1,pch=8,col="gold")
+    bmp = 0.02
+    lines(c(0,0),c(0.05,-1),col="red",lty=2)
+    lines(c(0,0,0,xstop,xstop,xstop),c(-1-bmp,-1+bmp,-1,-1,-1-bmp,-1+bmp),lwd=3,col="red")
+    text(xstop/2,-1+rnorm(1,0,0.005),"?",col="red",adj=c(0.5,-0.4),cex=2)
+}
+
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1,1),ylim=c(-1,1))
+
+```
+\
+
+How far, in meters, are the keys from where Samuel entered the carriage? The tolerance is $\pm 0.1$ meters.
+
+Solution
+========
+
+Since Samuel got on at the bottom of the wheel, he begins at the midline (horizontally). Thus, we can use a stretched, but unshifted, sine wave to model Samuel's horizontal position over time.
+
+$$x~=~A\cdot\sin(Bt)$$
+
+The amplitude will match the radius of the wheel.
+
+$$A=`r A`$$
+
+To get $B$, the angular frequency, we divide $2\pi$ by the period (which was given to us).
+
+$$B~=~\frac{2\pi}{P}$$
+
+$$B~=~\frac{2\pi}{`r P`}$$
+
+$$B~\approx~`r B`$$
+
+Notice,
+
+$$x~=~`r A`\cdot\sin(`r B`\cdot `r t`)$$
+
+$$x~=~`r xfin`$$
+
+We only care about the absolute value of $x$.
+
+$$|x| ~=~ `r axfin`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r axfin`
+exname: ferris_wheel_key_drop
+extol: 0.1
