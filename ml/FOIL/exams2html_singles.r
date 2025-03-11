@@ -1,6 +1,7 @@
 library("exams")
 
-pppsss = c("02_factor_MC.Rmd")
+pppsss = c("03_slv_quadratric.Rmd",
+           "04_slv_quadratric_int.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
