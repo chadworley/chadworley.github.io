@@ -5,8 +5,7 @@ import os
 
 
 front = "u15_"
-files = ["13_mass_spring_period.Rmd","14_pick_wave_pams.Rmd","15_pick_wave_pams2.Rmd",
-"16_ferris_wheel_key_drop.Rmd"]
+files = ["17_pick_wave_pams3.Rmd","18_pick_wave_pams4.Rmd","19_wave_feats_from_eq.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u15/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
