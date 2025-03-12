@@ -15,10 +15,11 @@ while(T){
     off = D
     
     ach = unique(c(amp,angf,per,fre,off,signif(runif(3,0.1,9.9),2)))
-    if(length(ach)==8){break}
+    ach = sort(unique(c(-ach,ach)))
+    if(length(ach)==16 && min(diff(ach))>0.05){break}
 }
 
-ach = sort(unique(c(-ach,ach)))
+
 al = paste0("* ",ach,collapse="\n")
 
 sol1 = paste0(1*(ach==amp),collapse="")
