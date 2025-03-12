@@ -7,7 +7,7 @@ avt = ["2025-03-11 7:00:00"]
 dut = ["2025-03-11 22:59:00"]
 front = "fctr_"
 
-files = ["03_slv_quadratric.Rmd"]
+files = ["04_slv_quadratric_int.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/ml/FOIL/outhtml/"
 course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'

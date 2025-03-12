@@ -3,7 +3,7 @@ n = 15
 outdir = "outcanvas"
 genname = "u15_"
 
-probs = c("16_ferris_wheel_key_drop.Rmd")
+probs = c("19_wave_feats_from_eq.Rmd")
 
 pnts = c(3)
 

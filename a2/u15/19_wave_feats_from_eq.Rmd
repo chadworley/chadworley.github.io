@@ -1,0 +1,111 @@
+```{r,echo=F,warning=F}
+# F-TF.B.5. Choose trigonometric functions to model periodic phenomena with specified amplitude, frequency, and midline.
+while(T){
+    A = round(runif(1,1.5,9.5)*sample(c(-1,1),1),1)
+    B = round(runif(1,1.5,9.5),1)
+    D = round(runif(1,1.5,9.5)*sample(c(-1,1),1),1)
+    g = sample(c("cos","sin"),1)
+    pD = paste0("+",D)
+    pD = gsub("+-","-",pD,fixed=T)
+    
+    amp = abs(A)
+    angf = B
+    fre = signif(B/2/pi,2)
+    per = signif(2*pi/B,2)
+    off = D
+    
+    ach = unique(c(amp,angf,per,fre,off,signif(runif(3,0.1,9.9),2)))
+    if(length(ach)==8){break}
+}
+
+ach = sort(unique(c(-ach,ach)))
+al = paste0("* ",ach,collapse="\n")
+
+sol1 = paste0(1*(ach==amp),collapse="")
+sol2 = paste0(1*(ach==angf),collapse="")
+sol3 = paste0(1*(ach==per),collapse="")
+sol4 = paste0(1*(ach==fre),collapse="")
+sol5 = paste0(1*(ach==off),collapse="")
+
+t0bch = c("maximum","minimum","midline, increasing","midline, decreasing")
+al2 = paste0("* ",t0bch,collapse="\n")
+if(A>0 && g=="cos"){
+    t0b = "maximum"
+}
+if(A<0 && g=="cos"){
+    t0b = "minimum"
+}
+if(A>0 && g=="sin"){
+    t0b = "midline, increasing"
+}
+if(A<0 && g=="sin"){
+    t0b = "midline, decreasing"
+}
+
+sol6 = paste0(1*(t0bch==t0b),collapse="")
+
+```
+
+Question
+========
+
+A wave is given as an equation:
+$$y~=~`r A`\cdot\`r g`(`r B`t)`r pD`$$
+
+* Amplitude: ##ANSWER1##
+* Angular Frequency: ##ANSWER2##
+* Frequency: ##ANSWER3##
+* Period: ##ANSWER4##
+* Offset: ##ANSWER5##
+* At $t=0$: ##ANSWER6##
+
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al2`
+
+
+Solution
+========
+
+* Amplitude: `r amp`
+* Angular Frequency: `r angf`
+* Frequency: `r fre`
+* Period: `r per`
+* Offset: `r off`
+* At $t=0$: `r t0b`
+
+Here are the formulas:
+
+* If $y=A\sin(Bt)+D$ then
+    * amplitude = $|A|$
+    * angular frequency = $B$
+    * frequency = $\frac{B}{2\pi}$
+    * period = $\frac{2\pi}{B}$
+    * offset = $D$, so midline is at $y=D$
+    * If $A>0$ then at $t=0$ the wave is at midline and increasing
+    * If $A<0$ then at $t=0$ the wave is at midline and decreasing
+* If $y=A\cos(Bt)+D$ then
+    * amplitude = $|A|$
+    * angular frequency = $B$
+    * frequency = $\frac{B}{2\pi}$
+    * period = $\frac{2\pi}{B}$
+    * offset = $D$, so midline is at $y=D$
+    * If $A>0$ then at $t=0$ the wave is at maximum
+    * If $A<0$ then at $t=0$ the wave is at minimum
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`|`r sol6`
+exname: wave_feats_from_eq

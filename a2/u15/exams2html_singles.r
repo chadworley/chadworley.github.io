@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("16_ferris_wheel_key_drop.Rmd")
+pppsss = c("19_wave_feats_from_eq.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

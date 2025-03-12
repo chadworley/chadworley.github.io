@@ -1,0 +1,172 @@
+```{r,echo=F,warning=F}
+# F-TF.B.5. Choose trigonometric functions to model periodic phenomena with specified amplitude, frequency, and midline.
+P = sample(c(4,6,8,10),1)
+A = sample(c(2,3,4),1)*sample(c(-1,1),1)
+D = sample(c(-2,-1,1,2),1)
+gch = c("sin","cos")
+cs = sample(c("cos","sin"))
+x = seq(-10,10,0.05)
+if(cs[1]=="cos"){
+    y = A*cos(2*pi/P*x)+D
+    st = paste0("y=",A,"\\cos\\left(\\frac{\\pi}{",round(P/2),"}t\\right)+",D)
+    st = gsub("+-","-",st,fixed=T)
+}
+if(cs[1]=="sin"){
+    y = A*sin(2*pi/P*x)+D
+    st = paste0("y=",A,"\\sin\\left(\\frac{\\pi}{",round(P/2),"}t\\right)+",D)
+    st = gsub("+-","-",st,fixed=T)
+}
+B = 2*pi/P
+f = 1/P
+g = cs[1]
+
+achA = c(-4,-3,-2,-1,0,1,2,3,4)
+alA = paste0("* ",achA,collapse="\n")
+solA = paste0(1*(achA==A),collapse="")
+
+achg = gch
+alg = paste0("* ",achg,collapse="\n")
+solg = paste0(1*(achg==g),collapse="")
+
+achP = 2:12
+alP = paste0("* ",achP,collapse="\n")
+solP = paste0(1*(achP==P),collapse="")
+
+achD = c(-3,-2,-1,0,1,2,3)
+alD = paste0("* ",achD,collapse="\n")
+solD = paste0(1*(achD==D),collapse="")
+
+statements = c(paste0("The amplitude is ",abs(A)," meters."),
+               paste0("The period is ",P," seconds."),
+               paste0("The midline is at ",D," meters."))
+
+x = seq(-10,10,0.05)
+if(g=="sin" && A>0){
+    s4 = "At $t=0$, the mass is at the midline with an upwards velocity."
+    y = A*sin(2*pi*f*x)+D
+}
+if(g=="sin" && A<0){
+    s4 = "At $t=0$, the mass is at the midline with an downwards velocity."
+    y = A*sin(2*pi*f*x)+D
+}
+if(g=="cos" && A>0){
+    s4 = "At $t=0$, the mass is at the maximum height."
+    y = A*cos(2*pi*f*x)+D
+}
+if(g=="cos" && A<0){
+    s4 = "At $t=0$, the mass is at the minimum height."
+    y = A*cos(2*pi*f*x)+D
+}
+
+st = sample(statements)
+st = paste0(1:3,". ",st,collapse="\n")
+
+
+Dstr = paste0("+",D)
+if(D<0){
+    Dstr = paste0(D)
+}
+
+
+```
+
+Question
+========
+
+A [mass-spring system](https://en.wikipedia.org/wiki/Simple_harmonic_motion#Examples) oscillates over time. The position (in meters) of the mass is plotted as a function of time (in seconds).
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F,xlim=c(-10,10),ylim=c(-6,6),asp=1)
+for(xx in seq(-10,10,1)){
+    lines(c(xx,xx),c(-6,6),col="grey",lwd=0.8)    
+}
+for(yy in seq(-6,6,1)){
+    lines(c(-10,10),c(yy,yy),col="grey",lwd=0.8)    
+}
+for(xx in seq(-10,10,5)){
+    lines(c(xx,xx),c(-6,6),col="darkgrey",lwd=1.2)    
+}
+for(yy in seq(-5,5,5)){
+    lines(c(-10,10),c(yy,yy),col="darkgrey",lwd=1.2)    
+}
+arrows(-10.5,0,10.5,0,0.1,15,3,lwd=1.5)
+arrows(0,-6.5,0,6.5,0.1,15,3,lwd=1.5)
+text(10.5,0,"t",adj=c(0.5,1.3))
+text(10,0,"10",adj=c(0.5,-0.3))
+text(-10,0,"-10",adj=c(0.5,-0.3))
+text(0,6.3,"y",adj=c(1.3,0.5))
+text(0,5,"5",adj=c(-0.3,0.5))
+text(0,-5,"-5",adj=c(-0.3,0.5))
+
+lines(x,y,col="blue",lwd=2)
+```
+\
+
+Choose a trigonometric function ($g$), and the parameters ($A$, $P$, and $D$), to model this oscillatory motion.
+
+$$y~=~A\cdot g\left(\frac{2\pi}{P}t\right)+D$$
+
+* $g=$ ##ANSWER1##
+* $A=$ ##ANSWER2##
+* $P=$ ##ANSWER3##
+* $D=$ ##ANSWER4##
+
+
+Answerlist
+--------
+
+`r alg`
+`r alA`
+`r alP`
+`r alD`
+
+Solution
+========
+
+`r paste0("* ",statements,collapse="\n")`
+
+The amplitude is the absolute value of $A$.
+$$|A|~=~`r abs(A)`$$
+
+1. If when $t=0$ (at $y$-axis) the wave is at midline and is increasing, then $A>0$ and $g=\sin$.
+2. If when $t=0$ (at $y$-axis) the wave is at midline and is decreasing, then $A<0$ and $g=\sin$.
+3. If when $t=0$ (at $y$-axis) the wave is at maximum, then $A>0$ and $g=\cos$.
+4. If when $t=0$ (at $y$-axis) the wave is at minimum, then $A<0$ and $g=\cos$.
+
+$$A=`r A`$$
+$$g=\`r g`$$
+
+
+The vertical shift is determined by the midline at $y=`r D`$.
+
+$$D=`r D`$$
+
+So,
+
+$$y ~=~ `r signif(A,2)`\cdot\`r g`\left(\frac{2\pi}{`r P`}t\right)`r Dstr`$$
+
+* $g=\`r g`$ 
+* $A=`r A`$
+* $P=`r P`$
+* $D=`r D`$
+
+### Extra stuff
+
+Of course, we would typically simplify the fraction.
+
+
+$$y ~=~ `r signif(A,2)`\cdot\`r g`\left(\frac{\pi}{`r round(P/2)`}t\right)`r Dstr`$$
+
+The value $\frac{\pi}{`r round(P/2)`}\approx`r B`$ is called the angular frequency, which we've been representing with $B$.
+
+$$B=\frac{2\pi}{P}$$
+$$P=\frac{2\pi}{B}$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r solg`|`r solA`|`r solP`|`r solD`
+exname: pick_wave_pams3
