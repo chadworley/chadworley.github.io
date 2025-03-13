@@ -5,7 +5,7 @@
 #                                     showsol = F,
 #                                     titex = "Practice"))
 #     rmarkdown::render(input = "draw_waves.Rmd",
-#                       output_file = paste0("practice/u12ws2_prac_sol_v",sprintf("%03d",jjj)),
+#                       output_file = paste0("practice/u15ws2_prac_sol_v",sprintf("%03d",jjj)),
 #                       params = list(rseed = jjj,
 #                                     showsol = T,
 #                                     titex = "Solution"))
@@ -15,7 +15,7 @@ for(jjj in 900:999){
     rmarkdown::render(input = "draw_waves.Rmd",
                       output_file = paste0("real/u15ws2_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
                                                                                                   showsol = F,
-                                                                                                  titex = "EXAM"))
+                                                                                                  titex = "QUIZ"))
     rmarkdown::render(input = "draw_waves.Rmd",
                       output_file = paste0("real/u15ws2_sol_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
                                                                                                       showsol = T,
