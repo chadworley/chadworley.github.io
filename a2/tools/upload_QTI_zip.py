@@ -6,7 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/u15_19_wave_feats_from_eq.zip"]
+file_path_list = ["outcanvas/u15_20_spatiotemporal_wave.zip"]
 
 ## FOR UPLOADING ETS
 # fpl = []
@@ -28,7 +28,6 @@ for file_path in file_path_list:
       "pre_attachment[name]": os.path.basename(file_path),
       "pre_attachment[size]": file_size
   }
-
   response = requests.post(url, headers=headers, data=data)
 
   # Get the upload URL
@@ -46,6 +45,3 @@ for file_path in file_path_list:
       upload_response = requests.post(upload_url,data=data,files=files)
   print(upload_response.json())
 
- 
- 
- 

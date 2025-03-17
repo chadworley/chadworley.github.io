@@ -1,11 +1,11 @@
 library("exams")
-n = 15
+n = 12
 outdir = "outcanvas"
 genname = "u15_"
 
-probs = c("19_wave_feats_from_eq.Rmd")
+probs = c("20_spatiotemporal_wave.Rmd")
 
-pnts = c(3)
+pnts = c(4)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

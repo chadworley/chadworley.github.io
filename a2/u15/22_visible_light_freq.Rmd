@@ -1,0 +1,76 @@
+```{r,echo=F,warning=F}
+lambda = runif(1,400,660)
+freq = 3.00*10^8/(lambda*10^(-9))
+ls = seq(380,690,10)
+hs = c(250,250,250,249,249,249,247,245,242,238,226,190,143,126,122,117,113,104,93,62,28,14,7,5,3,2,1,1,1,0,0,0)
+cname = c(rep("violet",5),
+          rep("indigo",2),
+          rep("blue",4),
+          rep("green",4),
+          rep("yellow",5),
+          rep("orange",4),
+          rep("red",8))
+llo = max(ls[ls<=lambda])
+lhi = min(ls[ls>lambda])
+lilo = which(ls==llo)
+lihi = which(ls==lhi)
+h1 = hs[lilo]
+h2 = hs[lihi]
+ext = (lambda-llo)/(lhi-llo)
+hue = h1+ext*(h2-h1)
+hue = hue/360
+ci = which(ls==llo)
+col = cname[ci]
+
+f = signif(freq,3)
+ff = f/10^14
+
+lam = 3e8/ff/10^14
+lam2 = signif(lam*10^7,3)
+lam3 = lam*10^9
+
+```
+
+Question
+========
+
+In a vacuum, electromagnetic radiation propagates at the speed of light: $3.00 \cdot 10^{8}$ meters per second. In Earth's air, the speed of light is almost as fast, and using three significant digits, the speed of light in Earth's air is also $3.00 \cdot 10^{8}$ meters per second. (Water slows light down to about $2.25 \cdot 10^{8}$ meters per second.)
+
+A [laser](https://en.wikipedia.org/wiki/Laser) produces light at a single frequency (or at least a very narrow band) of light. When a laser outputs light at $`r sprintf("%.02f",ff)`\cdot 10^{14}$ Hz, the "color" is approximately (very approximately) the color shown below:
+
+```{r,echo=F,fig.dim=c(1,1)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+polygon(c(0,1,1,0),c(0,0,1,1),col=hsv(hue,1,1))
+```
+\
+
+Assuming that light travels through air, what is the wavelength in **[nanometers](https://en.wikipedia.org/wiki/Nanometre)**?
+
+
+Solution
+========
+
+We can find the wavelength by dividing the velocity of light ($c$) by the frequency ($f$).
+
+$$\lambda = \frac{c}{f}$$
+
+Notice you could use dimensional analysis to help confirm the relationship. Remember, [hertz](https://en.wikipedia.org/wiki/Hertz) are cycles per second, or in SI units, simply $\mathrm{s^{-1}}$.
+
+$$\left(\mathrm{\frac{meter}{cycle}}\right)~=~\frac{\left(\mathrm{\frac{meter}{second}}\right)}{\left(\mathrm{\frac{cycle}{second}}\right)}$$
+
+In [scientific notation](https://en.wikipedia.org/wiki/Scientific_notation),
+
+$$\lambda~=~\frac{3.00\cdot 10^8~\mathrm{m/s}}{`r ff`\cdot 10^{14}~\mathrm{1/s}}~\approx~`r lam2`\cdot 10^{-7}~\mathrm{m}$$
+
+One nanometer equals $10^{-9}$ meters, so we can rewrite the number: $\lambda\approx `r lam2*100`\cdot10^{-9}$ meters which is approximately `r lam2*100` nanometers. You could have also used a conversion factor based on the fact that $10^9$ nanometers equals $1$ meter.
+
+$$\lambda\approx~`r lam2`\cdot 10^{-7}~\mathrm{m} \cdot \frac{10^9~\mathrm{nm}}{1~\mathrm{m}}~=~`r lam2*100`~\mathrm{nm}$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r lam3`
+exname: visible_light_freq
+extol: 1

@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>22_visible_light_freq</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">22_visible_light_freq</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a vacuum, electromagnetic radiation propagates at the speed of light: <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. In Earth’s air, the speed of light is almost as fast, and using three significant digits, the speed of light in Earth’s air is also <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. (Water slows light down to about <span class="math inline">\(2.25 \cdot 10^{8}\)</span> meters per second.)</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Laser">laser</a> produces light at a single frequency (or at least a very narrow band) of light. When a laser outputs light at <span class="math inline">\(5.02\cdot 10^{14}\)</span> Hz, the “color” is approximately (very approximately) the color shown below:</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<p>Assuming that light travels through air, what is the wavelength in <strong><a href="https://en.wikipedia.org/wiki/Nanometre">nanometers</a></strong>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can find the wavelength by dividing the velocity of light (<span class="math inline">\(c\)</span>) by the frequency (<span class="math inline">\(f\)</span>).</p>
+<p><span class="math display">\[\lambda = \frac{c}{f}\]</span></p>
+<p>Notice you could use dimensional analysis to help confirm the relationship. Remember, <a href="https://en.wikipedia.org/wiki/Hertz">hertz</a> are cycles per second, or in SI units, simply <span class="math inline">\(\mathrm{s^{-1}}\)</span>.</p>
+<p><span class="math display">\[\left(\mathrm{\frac{meter}{cycle}}\right)~=~\frac{\left(\mathrm{\frac{meter}{second}}\right)}{\left(\mathrm{\frac{cycle}{second}}\right)}\]</span></p>
+<p>In <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>,</p>
+<p><span class="math display">\[\lambda~=~\frac{3.00\cdot 10^8~\mathrm{m/s}}{5.02\cdot 10^{14}~\mathrm{1/s}}~\approx~5.98\cdot 10^{-7}~\mathrm{m}\]</span></p>
+<p>One nanometer equals <span class="math inline">\(10^{-9}\)</span> meters, so we can rewrite the number: <span class="math inline">\(\lambda\approx 598\cdot10^{-9}\)</span> meters which is approximately 598 nanometers. You could have also used a conversion factor based on the fact that <span class="math inline">\(10^9\)</span> nanometers equals <span class="math inline">\(1\)</span> meter.</p>
+<p><span class="math display">\[\lambda\approx~5.98\cdot 10^{-7}~\mathrm{m} \cdot \frac{10^9~\mathrm{nm}}{1~\mathrm{m}}~=~598~\mathrm{nm}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a vacuum, electromagnetic radiation propagates at the speed of light: <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. In Earth’s air, the speed of light is almost as fast, and using three significant digits, the speed of light in Earth’s air is also <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. (Water slows light down to about <span class="math inline">\(2.25 \cdot 10^{8}\)</span> meters per second.)</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Laser">laser</a> produces light at a single frequency (or at least a very narrow band) of light. When a laser outputs light at <span class="math inline">\(5.45\cdot 10^{14}\)</span> Hz, the “color” is approximately (very approximately) the color shown below:</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<p>Assuming that light travels through air, what is the wavelength in <strong><a href="https://en.wikipedia.org/wiki/Nanometre">nanometers</a></strong>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can find the wavelength by dividing the velocity of light (<span class="math inline">\(c\)</span>) by the frequency (<span class="math inline">\(f\)</span>).</p>
+<p><span class="math display">\[\lambda = \frac{c}{f}\]</span></p>
+<p>Notice you could use dimensional analysis to help confirm the relationship. Remember, <a href="https://en.wikipedia.org/wiki/Hertz">hertz</a> are cycles per second, or in SI units, simply <span class="math inline">\(\mathrm{s^{-1}}\)</span>.</p>
+<p><span class="math display">\[\left(\mathrm{\frac{meter}{cycle}}\right)~=~\frac{\left(\mathrm{\frac{meter}{second}}\right)}{\left(\mathrm{\frac{cycle}{second}}\right)}\]</span></p>
+<p>In <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>,</p>
+<p><span class="math display">\[\lambda~=~\frac{3.00\cdot 10^8~\mathrm{m/s}}{5.45\cdot 10^{14}~\mathrm{1/s}}~\approx~5.5\cdot 10^{-7}~\mathrm{m}\]</span></p>
+<p>One nanometer equals <span class="math inline">\(10^{-9}\)</span> meters, so we can rewrite the number: <span class="math inline">\(\lambda\approx 550\cdot10^{-9}\)</span> meters which is approximately 550 nanometers. You could have also used a conversion factor based on the fact that <span class="math inline">\(10^9\)</span> nanometers equals <span class="math inline">\(1\)</span> meter.</p>
+<p><span class="math display">\[\lambda\approx~5.5\cdot 10^{-7}~\mathrm{m} \cdot \frac{10^9~\mathrm{nm}}{1~\mathrm{m}}~=~550~\mathrm{nm}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a vacuum, electromagnetic radiation propagates at the speed of light: <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. In Earth’s air, the speed of light is almost as fast, and using three significant digits, the speed of light in Earth’s air is also <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. (Water slows light down to about <span class="math inline">\(2.25 \cdot 10^{8}\)</span> meters per second.)</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Laser">laser</a> produces light at a single frequency (or at least a very narrow band) of light. When a laser outputs light at <span class="math inline">\(5.70\cdot 10^{14}\)</span> Hz, the “color” is approximately (very approximately) the color shown below:</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<p>Assuming that light travels through air, what is the wavelength in <strong><a href="https://en.wikipedia.org/wiki/Nanometre">nanometers</a></strong>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can find the wavelength by dividing the velocity of light (<span class="math inline">\(c\)</span>) by the frequency (<span class="math inline">\(f\)</span>).</p>
+<p><span class="math display">\[\lambda = \frac{c}{f}\]</span></p>
+<p>Notice you could use dimensional analysis to help confirm the relationship. Remember, <a href="https://en.wikipedia.org/wiki/Hertz">hertz</a> are cycles per second, or in SI units, simply <span class="math inline">\(\mathrm{s^{-1}}\)</span>.</p>
+<p><span class="math display">\[\left(\mathrm{\frac{meter}{cycle}}\right)~=~\frac{\left(\mathrm{\frac{meter}{second}}\right)}{\left(\mathrm{\frac{cycle}{second}}\right)}\]</span></p>
+<p>In <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>,</p>
+<p><span class="math display">\[\lambda~=~\frac{3.00\cdot 10^8~\mathrm{m/s}}{5.7\cdot 10^{14}~\mathrm{1/s}}~\approx~5.26\cdot 10^{-7}~\mathrm{m}\]</span></p>
+<p>One nanometer equals <span class="math inline">\(10^{-9}\)</span> meters, so we can rewrite the number: <span class="math inline">\(\lambda\approx 526\cdot10^{-9}\)</span> meters which is approximately 526 nanometers. You could have also used a conversion factor based on the fact that <span class="math inline">\(10^9\)</span> nanometers equals <span class="math inline">\(1\)</span> meter.</p>
+<p><span class="math display">\[\lambda\approx~5.26\cdot 10^{-7}~\mathrm{m} \cdot \frac{10^9~\mathrm{nm}}{1~\mathrm{m}}~=~526~\mathrm{nm}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a vacuum, electromagnetic radiation propagates at the speed of light: <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. In Earth’s air, the speed of light is almost as fast, and using three significant digits, the speed of light in Earth’s air is also <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. (Water slows light down to about <span class="math inline">\(2.25 \cdot 10^{8}\)</span> meters per second.)</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Laser">laser</a> produces light at a single frequency (or at least a very narrow band) of light. When a laser outputs light at <span class="math inline">\(6.19\cdot 10^{14}\)</span> Hz, the “color” is approximately (very approximately) the color shown below:</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<p>Assuming that light travels through air, what is the wavelength in <strong><a href="https://en.wikipedia.org/wiki/Nanometre">nanometers</a></strong>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can find the wavelength by dividing the velocity of light (<span class="math inline">\(c\)</span>) by the frequency (<span class="math inline">\(f\)</span>).</p>
+<p><span class="math display">\[\lambda = \frac{c}{f}\]</span></p>
+<p>Notice you could use dimensional analysis to help confirm the relationship. Remember, <a href="https://en.wikipedia.org/wiki/Hertz">hertz</a> are cycles per second, or in SI units, simply <span class="math inline">\(\mathrm{s^{-1}}\)</span>.</p>
+<p><span class="math display">\[\left(\mathrm{\frac{meter}{cycle}}\right)~=~\frac{\left(\mathrm{\frac{meter}{second}}\right)}{\left(\mathrm{\frac{cycle}{second}}\right)}\]</span></p>
+<p>In <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>,</p>
+<p><span class="math display">\[\lambda~=~\frac{3.00\cdot 10^8~\mathrm{m/s}}{6.19\cdot 10^{14}~\mathrm{1/s}}~\approx~4.85\cdot 10^{-7}~\mathrm{m}\]</span></p>
+<p>One nanometer equals <span class="math inline">\(10^{-9}\)</span> meters, so we can rewrite the number: <span class="math inline">\(\lambda\approx 485\cdot10^{-9}\)</span> meters which is approximately 485 nanometers. You could have also used a conversion factor based on the fact that <span class="math inline">\(10^9\)</span> nanometers equals <span class="math inline">\(1\)</span> meter.</p>
+<p><span class="math display">\[\lambda\approx~4.85\cdot 10^{-7}~\mathrm{m} \cdot \frac{10^9~\mathrm{nm}}{1~\mathrm{m}}~=~485~\mathrm{nm}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a vacuum, electromagnetic radiation propagates at the speed of light: <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. In Earth’s air, the speed of light is almost as fast, and using three significant digits, the speed of light in Earth’s air is also <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. (Water slows light down to about <span class="math inline">\(2.25 \cdot 10^{8}\)</span> meters per second.)</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Laser">laser</a> produces light at a single frequency (or at least a very narrow band) of light. When a laser outputs light at <span class="math inline">\(4.55\cdot 10^{14}\)</span> Hz, the “color” is approximately (very approximately) the color shown below:</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<p>Assuming that light travels through air, what is the wavelength in <strong><a href="https://en.wikipedia.org/wiki/Nanometre">nanometers</a></strong>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can find the wavelength by dividing the velocity of light (<span class="math inline">\(c\)</span>) by the frequency (<span class="math inline">\(f\)</span>).</p>
+<p><span class="math display">\[\lambda = \frac{c}{f}\]</span></p>
+<p>Notice you could use dimensional analysis to help confirm the relationship. Remember, <a href="https://en.wikipedia.org/wiki/Hertz">hertz</a> are cycles per second, or in SI units, simply <span class="math inline">\(\mathrm{s^{-1}}\)</span>.</p>
+<p><span class="math display">\[\left(\mathrm{\frac{meter}{cycle}}\right)~=~\frac{\left(\mathrm{\frac{meter}{second}}\right)}{\left(\mathrm{\frac{cycle}{second}}\right)}\]</span></p>
+<p>In <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>,</p>
+<p><span class="math display">\[\lambda~=~\frac{3.00\cdot 10^8~\mathrm{m/s}}{4.55\cdot 10^{14}~\mathrm{1/s}}~\approx~6.59\cdot 10^{-7}~\mathrm{m}\]</span></p>
+<p>One nanometer equals <span class="math inline">\(10^{-9}\)</span> meters, so we can rewrite the number: <span class="math inline">\(\lambda\approx 659\cdot10^{-9}\)</span> meters which is approximately 659 nanometers. You could have also used a conversion factor based on the fact that <span class="math inline">\(10^9\)</span> nanometers equals <span class="math inline">\(1\)</span> meter.</p>
+<p><span class="math display">\[\lambda\approx~6.59\cdot 10^{-7}~\mathrm{m} \cdot \frac{10^9~\mathrm{nm}}{1~\mathrm{m}}~=~659~\mathrm{nm}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a vacuum, electromagnetic radiation propagates at the speed of light: <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. In Earth’s air, the speed of light is almost as fast, and using three significant digits, the speed of light in Earth’s air is also <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. (Water slows light down to about <span class="math inline">\(2.25 \cdot 10^{8}\)</span> meters per second.)</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Laser">laser</a> produces light at a single frequency (or at least a very narrow band) of light. When a laser outputs light at <span class="math inline">\(5.17\cdot 10^{14}\)</span> Hz, the “color” is approximately (very approximately) the color shown below:</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<p>Assuming that light travels through air, what is the wavelength in <strong><a href="https://en.wikipedia.org/wiki/Nanometre">nanometers</a></strong>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can find the wavelength by dividing the velocity of light (<span class="math inline">\(c\)</span>) by the frequency (<span class="math inline">\(f\)</span>).</p>
+<p><span class="math display">\[\lambda = \frac{c}{f}\]</span></p>
+<p>Notice you could use dimensional analysis to help confirm the relationship. Remember, <a href="https://en.wikipedia.org/wiki/Hertz">hertz</a> are cycles per second, or in SI units, simply <span class="math inline">\(\mathrm{s^{-1}}\)</span>.</p>
+<p><span class="math display">\[\left(\mathrm{\frac{meter}{cycle}}\right)~=~\frac{\left(\mathrm{\frac{meter}{second}}\right)}{\left(\mathrm{\frac{cycle}{second}}\right)}\]</span></p>
+<p>In <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>,</p>
+<p><span class="math display">\[\lambda~=~\frac{3.00\cdot 10^8~\mathrm{m/s}}{5.17\cdot 10^{14}~\mathrm{1/s}}~\approx~5.8\cdot 10^{-7}~\mathrm{m}\]</span></p>
+<p>One nanometer equals <span class="math inline">\(10^{-9}\)</span> meters, so we can rewrite the number: <span class="math inline">\(\lambda\approx 580\cdot10^{-9}\)</span> meters which is approximately 580 nanometers. You could have also used a conversion factor based on the fact that <span class="math inline">\(10^9\)</span> nanometers equals <span class="math inline">\(1\)</span> meter.</p>
+<p><span class="math display">\[\lambda\approx~5.8\cdot 10^{-7}~\mathrm{m} \cdot \frac{10^9~\mathrm{nm}}{1~\mathrm{m}}~=~580~\mathrm{nm}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a vacuum, electromagnetic radiation propagates at the speed of light: <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. In Earth’s air, the speed of light is almost as fast, and using three significant digits, the speed of light in Earth’s air is also <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. (Water slows light down to about <span class="math inline">\(2.25 \cdot 10^{8}\)</span> meters per second.)</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Laser">laser</a> produces light at a single frequency (or at least a very narrow band) of light. When a laser outputs light at <span class="math inline">\(6.52\cdot 10^{14}\)</span> Hz, the “color” is approximately (very approximately) the color shown below:</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<p>Assuming that light travels through air, what is the wavelength in <strong><a href="https://en.wikipedia.org/wiki/Nanometre">nanometers</a></strong>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can find the wavelength by dividing the velocity of light (<span class="math inline">\(c\)</span>) by the frequency (<span class="math inline">\(f\)</span>).</p>
+<p><span class="math display">\[\lambda = \frac{c}{f}\]</span></p>
+<p>Notice you could use dimensional analysis to help confirm the relationship. Remember, <a href="https://en.wikipedia.org/wiki/Hertz">hertz</a> are cycles per second, or in SI units, simply <span class="math inline">\(\mathrm{s^{-1}}\)</span>.</p>
+<p><span class="math display">\[\left(\mathrm{\frac{meter}{cycle}}\right)~=~\frac{\left(\mathrm{\frac{meter}{second}}\right)}{\left(\mathrm{\frac{cycle}{second}}\right)}\]</span></p>
+<p>In <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>,</p>
+<p><span class="math display">\[\lambda~=~\frac{3.00\cdot 10^8~\mathrm{m/s}}{6.52\cdot 10^{14}~\mathrm{1/s}}~\approx~4.6\cdot 10^{-7}~\mathrm{m}\]</span></p>
+<p>One nanometer equals <span class="math inline">\(10^{-9}\)</span> meters, so we can rewrite the number: <span class="math inline">\(\lambda\approx 460\cdot10^{-9}\)</span> meters which is approximately 460 nanometers. You could have also used a conversion factor based on the fact that <span class="math inline">\(10^9\)</span> nanometers equals <span class="math inline">\(1\)</span> meter.</p>
+<p><span class="math display">\[\lambda\approx~4.6\cdot 10^{-7}~\mathrm{m} \cdot \frac{10^9~\mathrm{nm}}{1~\mathrm{m}}~=~460~\mathrm{nm}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a vacuum, electromagnetic radiation propagates at the speed of light: <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. In Earth’s air, the speed of light is almost as fast, and using three significant digits, the speed of light in Earth’s air is also <span class="math inline">\(3.00 \cdot 10^{8}\)</span> meters per second. (Water slows light down to about <span class="math inline">\(2.25 \cdot 10^{8}\)</span> meters per second.)</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Laser">laser</a> produces light at a single frequency (or at least a very narrow band) of light. When a laser outputs light at <span class="math inline">\(5.37\cdot 10^{14}\)</span> Hz, the “color” is approximately (very approximately) the color shown below:</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-2" /><br />
+</p>
+<p>Assuming that light travels through air, what is the wavelength in <strong><a href="https://en.wikipedia.org/wiki/Nanometre">nanometers</a></strong>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can find the wavelength by dividing the velocity of light (<span class="math inline">\(c\)</span>) by the frequency (<span class="math inline">\(f\)</span>).</p>
+<p><span class="math display">\[\lambda = \frac{c}{f}\]</span></p>
+<p>Notice you could use dimensional analysis to help confirm the relationship. Remember, <a href="https://en.wikipedia.org/wiki/Hertz">hertz</a> are cycles per second, or in SI units, simply <span class="math inline">\(\mathrm{s^{-1}}\)</span>.</p>
+<p><span class="math display">\[\left(\mathrm{\frac{meter}{cycle}}\right)~=~\frac{\left(\mathrm{\frac{meter}{second}}\right)}{\left(\mathrm{\frac{cycle}{second}}\right)}\]</span></p>
+<p>In <a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>,</p>
+<p><span class="math display">\[\lambda~=~\frac{3.00\cdot 10^8~\mathrm{m/s}}{5.37\cdot 10^{14}~\mathrm{1/s}}~\approx~5.59\cdot 10^{-7}~\mathrm{m}\]</span></p>
+<p>One nanometer equals <span class="math inline">\(10^{-9}\)</span> meters, so we can rewrite the number: <span class="math inline">\(\lambda\approx 559\cdot10^{-9}\)</span> meters which is approximately 559 nanometers. You could have also used a conversion factor based on the fact that <span class="math inline">\(10^9\)</span> nanometers equals <span class="math inline">\(1\)</span> meter.</p>
+<p><span class="math display">\[\lambda\approx~5.59\cdot 10^{-7}~\mathrm{m} \cdot \frac{10^9~\mathrm{nm}}{1~\mathrm{m}}~=~559~\mathrm{nm}\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

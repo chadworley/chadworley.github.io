@@ -1,0 +1,94 @@
+```{r,echo=F,warning=F}
+n = 60
+height = runif(1,0.1,4) #meters
+wavelength = 24.635*height^0.799073 #meters
+period = 0.981497*sqrt(wavelength) #seconds
+velocity = wavelength/period #m/s
+windspeed = velocity*1.73065 #m/s
+interval = period/n
+
+L = signif(wavelength,3)
+v = signif(velocity,3)
+P = L/v
+h = signif(height,3)
+
+str1 = paste0("The wave height equals ",h," meters.")
+str2 = paste0("The wavelength equals ",L," meters.")
+str3 = paste0("The wave speed equals ",v," meters/second.")
+strs = sample(c(str1,str2,str3))
+
+```
+
+Question
+========
+
+A mallard floats in a large ocean (in deep water far from shore). The mallard is not moving in [cardinal directions](https://en.wikipedia.org/wiki/Cardinal_direction), but the mallard is bobbing up and down as the [wind waves](https://en.wikipedia.org/wiki/Wind_wave) pass.
+
+In deep water, with a large fetch, when wind is consistently blowing at `r signif(windspeed,3)` meters per second, the waves will have the following (approximate) characteristics:
+
+* `r strs[1]`
+* `r strs[2]`
+* `r strs[3]`
+
+I've animated this below... somewhat to scale.
+
+```{r,echo=F,fig.dim=c(4,3),animation.hook='gifski',interval=interval}
+
+drawduck = function(x,y,s=0.3,rot=0){
+    th = seq(0,2*pi,pi/360)
+    x1 = cos(th)*s
+    y1 = sin(th)*s/3+s/3
+    x1r = x1*cos(rot)-y1*sin(rot)
+    y1r = x1*sin(rot)+y1*cos(rot)
+    polygon(x1r+x,y1r+y,col="brown",lwd=0.7)
+    x2 = cos(pi/4)*s*5/4+cos(th)*s/4
+    y2 = sin(pi/4)*s/3*5/4+s/3+sin(th)*s/4
+    x2r = x2*cos(rot)-y2*sin(rot)
+    y2r = x2*sin(rot)+y2*cos(rot)
+    polygon(x2r+x,y2r+y,col="darkgreen",lwd=0.7)
+    x3 = cos(pi/4)*s*5/4+s/4+c(0,0,s/4)
+    y3 = sin(pi/4)*s/3*5/4+s/3+c(-s/8,s/12,-s/12)
+    x3r = x3*cos(rot)-y3*sin(rot)
+    y3r = x3*sin(rot)+y3*cos(rot)
+    polygon(x3r+x,y3r+y,col="yellow",lwd=0.7)
+    
+}
+for(t in seq(0,period,length.out=n)){
+    par(mar=c(0,0,0,0))
+    plot(0,0,"n",xlim=c(-1,7),ylim=c(-3,3),asp=1,axes=F,ann=F)
+    A = height/2
+    B1 = 2*pi/wavelength
+    B2 = 2*pi/period
+    xx = seq(-1,7,0.01)
+    polygon(c(-1,xx,7),c(-3,A*sin(B1*xx+B2*t),-3),col="blue",lwd=0.7)
+    rotang = atan(A*B1*cos(B2*t))
+    drawduck(0,A*sin(B2*t),0.2,rotang) 
+}
+
+```
+\
+
+What is the period (in seconds) of these waves? In other words, how much time does it take for the mallard to complete a cycle? The tolerance is $\pm 0.01$ seconds.
+
+
+Solution
+========
+
+
+When you have the wavelength ($\lambda$) and the wave speed ($v$), it is easy to calculate the period ($P$).
+
+$$P~=~\frac{\lambda}{v}$$
+
+Notice, that [dimensional analysis](https://en.wikipedia.org/wiki/Dimensional_analysis) can help confirm the relationship.
+
+$$\mathrm{(second)}~=~\frac{\mathrm{(meter)}}{\left(\mathrm{\frac{meter}{second}}\right)}$$
+
+You should get approximately $P=`r sprintf("%.02f",P)`$ seconds.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r P`
+exname: bobbing_duck
+extol: 0.01

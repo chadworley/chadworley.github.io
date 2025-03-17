@@ -1,0 +1,153 @@
+```{r,echo=F,warning=F}
+while(T){
+    P = round(runif(1,0.8,3.9),1)
+    L = round(runif(1,0.8,3.9),1)
+    v = P/L
+    B1 = round(2*pi/L,3)
+    B2 = round(2*pi/P,3)
+    P = 2*pi/B2
+    L = 2*pi/B1
+    P1 = round(P,1)
+    L1 = round(L,1)
+    P4 = signif(P,4)
+    L4 = signif(L,4)
+    if(P1 != L1){break}
+}
+ach = round(seq(0,4,0.1),1)
+al = paste0("* ",sprintf("%.01f",ach),collapse="\n")
+sol1 = paste0(1*(ach==L1),collapse="")
+sol2 = paste0(1*(ach==P1),collapse="")
+
+```
+
+Question
+========
+
+When most people think of waves, they do not simply picture an object bouncing up and down in time (like we've been modeling with temporal waves). When most people think of waves, they think of spatiotemporal waves: waves that vary in time **and** space.
+
+In [Desmos](https://www.desmos.com/calculator), we can make an animation of a spatiotemporal wave.
+
+1. Type the following expression in Desmos.
+$$y=\sin(`r sprintf("%.03f",B1)`x+`r sprintf("%.03f",B2)`t)$$
+2. Set up a slider for $t$. I'd recommend setting the boundaries such that $0\le t \le 4$. I choose 4 as a maximum because Desmos takes approximately 4 seconds (at 1x speed) to go from minimum to maximum when animating a slider.
+
+Our goal is to identify the [wavelength](https://en.wikipedia.org/wiki/Wavelength) ($\lambda$) and the period ($P$). Because our horizontal axis is spatial ($x$), the horizontal distance between peaks is the wavelength. To find the wavelength click on two adjacent peaks, find the $x$ value of each peak, and take the absolute difference.
+
+* $\lambda=$ ##ANSWER1##
+
+To find the period, slowly increase the $t$ slider until a full cycle has completed.
+
+* $P=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+
+Solution
+========
+
+The [wavelength](https://en.wikipedia.org/wiki/Wavelength) is the horizontal distance between peaks. In Desmos, you should be able to click on each peak to find its spatial coordinates. I've shown what this should look like when $t=0$.
+
+```{r,echo=F,fig.dim=c(6,4)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,6),ylim=c(-2,2),axes=F,ann=F,asp=1)
+for(i in seq(0,6,0.1)){
+    lines(c(i,i),c(-2,2),col="lightgrey",lwd=0.6)
+}
+for(i in seq(-2,2,0.1)){
+    lines(c(0,6),c(i,i),col="lightgrey",lwd=0.6)
+}
+for(i in seq(0,6,0.5)){
+    lines(c(i,i),c(-2,2),col="grey",lwd=1)
+}
+for(i in seq(-2,2,0.5)){
+    lines(c(0,6),c(i,i),col="grey",lwd=1.0)
+}
+for(i in seq(0,6,1)){
+    lines(c(i,i),c(-2,2),col="darkgrey",lwd=1.2)
+}
+for(i in seq(-2,2,1)){
+    lines(c(0,6),c(i,i),col="darkgrey",lwd=1.2)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+
+x = seq(0,6,pi/360)
+y = sin(B1*x)
+lines(x,y,col="blue",lwd=2)
+xp1 = L/4
+xp2 = 5*L/4
+points(c(xp1,xp2),c(1,1),col=c("purple","red"),pch=20)
+text(xp1,1,paste0("(",sprintf("%.03f",xp1),", 1)"),col="purple",adj=c(-0.1,-0.4))
+text(xp2,1,paste0("(",sprintf("%.03f",xp2),", 1)"),col="red",adj=c(-0.1,-0.4))
+
+lines(c(xp1,xp1,xp2,xp2),c(1.6,1.7,1.7,1.6),col="maroon",lwd=1.7)
+text(mean(c(xp1,xp2)),1.7,sprintf("%.03f",xp2-xp1),col="maroon",adj=c(0.5,-0.4))
+
+text(0,-1.75,"t=0",adj=c(-0.2,0.5))
+```
+\
+
+So, rounded to the nearest tenth, $\lambda=`r L1`$.
+
+To find the period, you can slowly increase the $t$ slider until a full cycle has completed.
+
+```{r,echo=F,fig.dim=c(2,2*2/3),animation.hook='gifski',interval=0.2}
+drawgrid = function(){
+    par(mar=c(0,0,0,0))
+    plot(0,0,"n",xlim=c(0,6),ylim=c(-2,2),axes=F,ann=F,asp=1)
+    for(i in seq(0,6,0.1)){
+        lines(c(i,i),c(-2,2),col="lightgrey",lwd=0.8)
+    }
+    for(i in seq(-2,2,0.1)){
+        lines(c(0,6),c(i,i),col="lightgrey",lwd=0.8)
+    }
+    for(i in seq(0,6,1)){
+        lines(c(i,i),c(-2,2),col="darkgrey",lwd=1.2)
+    }
+    for(i in seq(-2,2,1)){
+        lines(c(0,6),c(i,i),col="darkgrey",lwd=1.2)
+    }
+    abline(h=0,lwd=2)
+    abline(v=0,lwd=2)
+}
+for(i in 1:8){
+    drawgrid()
+    x = seq(0,6,pi/360)
+    y = sin(B1*x)
+    lines(x,y,col="blue",lwd=2)
+    text(0,-1.75,"t=0.00",adj=c(-0.2,0.5),col=hsv(i/24,1,0.8))
+}
+for(t in seq(0,P,length.out=20)){
+    drawgrid()
+    x = seq(0,6,pi/360)
+    y = sin(B1*x+B2*t)
+    lines(x,y,col="blue",lwd=2)
+    y0 = sin(B1*x)
+    lines(x,y0,col="blue",lwd=1,lty=2)
+    text(0,-1.75,sprintf("t=%.02f",t),adj=c(-0.2,0.5))
+}
+for(i in 1:8){
+    drawgrid()
+    x = seq(0,6,pi/360)
+    y = sin(B1*x)
+    lines(x,y,col="blue",lwd=2)
+    text(0,-1.75,sprintf("t=%.02f",P),adj=c(-0.2,0.5),col=hsv(i/24,1,0.8))
+}
+```
+\
+
+The period (rounded to the nearest tenth) is the time it takes to complete a full cycle.
+$$P=`r P1`$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: spatiotemporal_wave
