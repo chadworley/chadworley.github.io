@@ -1,0 +1,1266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>05_multiply_binomials</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">05_multiply_binomials</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let polynomials <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span> be defined below.
+<span class="math display">\[p(x)~=~ {3}x^{10}-{3}x^{5}\]</span>
+<span class="math display">\[q(x)~=~ {3}x^{8}+{4}x^{2}\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> is used to <strong>multiply</strong> two binomials. Let’s visualize the FOIL method with a product table.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(3x^{10}\)</span></th>
+<th align="center"><span class="math inline">\(-3x^{5}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(3x^{8}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(4x^{2}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+<p>Let <span class="math inline">\(r(x)\)</span> represent the result of multiplying <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span>.</p>
+<p><span class="math display">\[r(x) ~=~ p(x)\cdot q(x)\]</span></p>
+<p><span class="math display">\[r(x) ~=~  \left({3}x^{10}-{3}x^{5}\right)\cdot \left({3}x^{8}+{4}x^{2}\right)\]</span></p>
+<p>Thus, we can write <span class="math inline">\(r(x)\)</span> in standard form (highest degree to lowest degree)?</p>
+<ul>
+<li><span class="math inline">\(r(x)=\)</span> <select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(3x^{10}\)</span></th>
+<th align="center"><span class="math inline">\(-3x^{5}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(3x^{8}\)</span></td>
+<td align="center"><span class="math inline">\(9x^{18}\)</span></td>
+<td align="center"><span class="math inline">\(-9x^{13}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(4x^{2}\)</span></td>
+<td align="center"><span class="math inline">\(12x^{12}\)</span></td>
+<td align="center"><span class="math inline">\(-12x^{7}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {9}x^{18}-{9}x^{13}+{12}x^{12}-{12}x^{7}\)</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let polynomials <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span> be defined below.
+<span class="math display">\[p(x)~=~ {-2}x^{6}-{3}x^{2}\]</span>
+<span class="math display">\[q(x)~=~ {-5}x^{11}+{6}x^{6}\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> is used to <strong>multiply</strong> two binomials. Let’s visualize the FOIL method with a product table.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-2x^{6}\)</span></th>
+<th align="center"><span class="math inline">\(-3x^{2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-5x^{11}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(6x^{6}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+<p>Let <span class="math inline">\(r(x)\)</span> represent the result of multiplying <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span>.</p>
+<p><span class="math display">\[r(x) ~=~ p(x)\cdot q(x)\]</span></p>
+<p><span class="math display">\[r(x) ~=~  \left({-2}x^{6}-{3}x^{2}\right)\cdot \left({-5}x^{11}+{6}x^{6}\right)\]</span></p>
+<p>Thus, we can write <span class="math inline">\(r(x)\)</span> in standard form (highest degree to lowest degree)?</p>
+<ul>
+<li><span class="math inline">\(r(x)=\)</span> <select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-2x^{6}\)</span></th>
+<th align="center"><span class="math inline">\(-3x^{2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-5x^{11}\)</span></td>
+<td align="center"><span class="math inline">\(10x^{17}\)</span></td>
+<td align="center"><span class="math inline">\(15x^{13}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(6x^{6}\)</span></td>
+<td align="center"><span class="math inline">\(-12x^{12}\)</span></td>
+<td align="center"><span class="math inline">\(-18x^{8}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {10}x^{17}+{15}x^{13}-{12}x^{12}-{18}x^{8}\)</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let polynomials <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span> be defined below.
+<span class="math display">\[p(x)~=~ {4}x^{9}-{2}x^{7}\]</span>
+<span class="math display">\[q(x)~=~ {-4}x^{11}+{3}x^{8}\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> is used to <strong>multiply</strong> two binomials. Let’s visualize the FOIL method with a product table.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(4x^{9}\)</span></th>
+<th align="center"><span class="math inline">\(-2x^{7}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-4x^{11}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3x^{8}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+<p>Let <span class="math inline">\(r(x)\)</span> represent the result of multiplying <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span>.</p>
+<p><span class="math display">\[r(x) ~=~ p(x)\cdot q(x)\]</span></p>
+<p><span class="math display">\[r(x) ~=~  \left({4}x^{9}-{2}x^{7}\right)\cdot \left({-4}x^{11}+{3}x^{8}\right)\]</span></p>
+<p>Thus, we can write <span class="math inline">\(r(x)\)</span> in standard form (highest degree to lowest degree)?</p>
+<ul>
+<li><span class="math inline">\(r(x)=\)</span> <select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(4x^{9}\)</span></th>
+<th align="center"><span class="math inline">\(-2x^{7}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-4x^{11}\)</span></td>
+<td align="center"><span class="math inline">\(-16x^{20}\)</span></td>
+<td align="center"><span class="math inline">\(8x^{18}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(3x^{8}\)</span></td>
+<td align="center"><span class="math inline">\(12x^{17}\)</span></td>
+<td align="center"><span class="math inline">\(-6x^{15}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {-16}x^{20}+{8}x^{18}+{12}x^{17}-{6}x^{15}\)</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let polynomials <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span> be defined below.
+<span class="math display">\[p(x)~=~ {4}x^{7}-{6}x^{3}\]</span>
+<span class="math display">\[q(x)~=~ {-4}x^{7}-{2}x^{2}\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> is used to <strong>multiply</strong> two binomials. Let’s visualize the FOIL method with a product table.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(4x^{7}\)</span></th>
+<th align="center"><span class="math inline">\(-6x^{3}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-4x^{7}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-2x^{2}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+<p>Let <span class="math inline">\(r(x)\)</span> represent the result of multiplying <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span>.</p>
+<p><span class="math display">\[r(x) ~=~ p(x)\cdot q(x)\]</span></p>
+<p><span class="math display">\[r(x) ~=~  \left({4}x^{7}-{6}x^{3}\right)\cdot \left({-4}x^{7}-{2}x^{2}\right)\]</span></p>
+<p>Thus, we can write <span class="math inline">\(r(x)\)</span> in standard form (highest degree to lowest degree)?</p>
+<ul>
+<li><span class="math inline">\(r(x)=\)</span> <select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(4x^{7}\)</span></th>
+<th align="center"><span class="math inline">\(-6x^{3}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-4x^{7}\)</span></td>
+<td align="center"><span class="math inline">\(-16x^{14}\)</span></td>
+<td align="center"><span class="math inline">\(24x^{10}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-2x^{2}\)</span></td>
+<td align="center"><span class="math inline">\(-8x^{9}\)</span></td>
+<td align="center"><span class="math inline">\(12x^{5}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {-16}x^{14}+{24}x^{10}-{8}x^{9}+{12}x^{5}\)</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let polynomials <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span> be defined below.
+<span class="math display">\[p(x)~=~ {-2}x^{10}+{2}x^{8}\]</span>
+<span class="math display">\[q(x)~=~ {6}x^{8}-{2}x^{5}\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> is used to <strong>multiply</strong> two binomials. Let’s visualize the FOIL method with a product table.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-2x^{10}\)</span></th>
+<th align="center"><span class="math inline">\(2x^{8}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(6x^{8}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-2x^{5}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+<p>Let <span class="math inline">\(r(x)\)</span> represent the result of multiplying <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span>.</p>
+<p><span class="math display">\[r(x) ~=~ p(x)\cdot q(x)\]</span></p>
+<p><span class="math display">\[r(x) ~=~  \left({-2}x^{10}+{2}x^{8}\right)\cdot \left({6}x^{8}-{2}x^{5}\right)\]</span></p>
+<p>Thus, we can write <span class="math inline">\(r(x)\)</span> in standard form (highest degree to lowest degree)?</p>
+<ul>
+<li><span class="math inline">\(r(x)=\)</span> <select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-2x^{10}\)</span></th>
+<th align="center"><span class="math inline">\(2x^{8}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(6x^{8}\)</span></td>
+<td align="center"><span class="math inline">\(-12x^{18}\)</span></td>
+<td align="center"><span class="math inline">\(12x^{16}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-2x^{5}\)</span></td>
+<td align="center"><span class="math inline">\(4x^{15}\)</span></td>
+<td align="center"><span class="math inline">\(-4x^{13}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {-12}x^{18}+{12}x^{16}+{4}x^{15}-{4}x^{13}\)</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let polynomials <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span> be defined below.
+<span class="math display">\[p(x)~=~ {4}x^{10}-{2}x^{2}\]</span>
+<span class="math display">\[q(x)~=~ {3}x^{12}-{3}x^{8}\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> is used to <strong>multiply</strong> two binomials. Let’s visualize the FOIL method with a product table.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(4x^{10}\)</span></th>
+<th align="center"><span class="math inline">\(-2x^{2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(3x^{12}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-3x^{8}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+<p>Let <span class="math inline">\(r(x)\)</span> represent the result of multiplying <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span>.</p>
+<p><span class="math display">\[r(x) ~=~ p(x)\cdot q(x)\]</span></p>
+<p><span class="math display">\[r(x) ~=~  \left({4}x^{10}-{2}x^{2}\right)\cdot \left({3}x^{12}-{3}x^{8}\right)\]</span></p>
+<p>Thus, we can write <span class="math inline">\(r(x)\)</span> in standard form (highest degree to lowest degree)?</p>
+<ul>
+<li><span class="math inline">\(r(x)=\)</span> <select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(4x^{10}\)</span></th>
+<th align="center"><span class="math inline">\(-2x^{2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(3x^{12}\)</span></td>
+<td align="center"><span class="math inline">\(12x^{22}\)</span></td>
+<td align="center"><span class="math inline">\(-6x^{14}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(-3x^{8}\)</span></td>
+<td align="center"><span class="math inline">\(-12x^{18}\)</span></td>
+<td align="center"><span class="math inline">\(6x^{10}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {12}x^{22}-{12}x^{18}-{6}x^{14}+{6}x^{10}\)</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let polynomials <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span> be defined below.
+<span class="math display">\[p(x)~=~ {-6}x^{4}-{4}x^{3}\]</span>
+<span class="math display">\[q(x)~=~ {-6}x^{11}+{6}x^{2}\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> is used to <strong>multiply</strong> two binomials. Let’s visualize the FOIL method with a product table.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-6x^{4}\)</span></th>
+<th align="center"><span class="math inline">\(-4x^{3}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-6x^{11}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(6x^{2}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+<p>Let <span class="math inline">\(r(x)\)</span> represent the result of multiplying <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span>.</p>
+<p><span class="math display">\[r(x) ~=~ p(x)\cdot q(x)\]</span></p>
+<p><span class="math display">\[r(x) ~=~  \left({-6}x^{4}-{4}x^{3}\right)\cdot \left({-6}x^{11}+{6}x^{2}\right)\]</span></p>
+<p>Thus, we can write <span class="math inline">\(r(x)\)</span> in standard form (highest degree to lowest degree)?</p>
+<ul>
+<li><span class="math inline">\(r(x)=\)</span> <select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(-6x^{4}\)</span></th>
+<th align="center"><span class="math inline">\(-4x^{3}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(-6x^{11}\)</span></td>
+<td align="center"><span class="math inline">\(36x^{15}\)</span></td>
+<td align="center"><span class="math inline">\(24x^{14}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(6x^{2}\)</span></td>
+<td align="center"><span class="math inline">\(-36x^{6}\)</span></td>
+<td align="center"><span class="math inline">\(-24x^{5}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {36}x^{15}+{24}x^{14}-{36}x^{6}-{24}x^{5}\)</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let polynomials <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span> be defined below.
+<span class="math display">\[p(x)~=~ {5}x^{12}-{5}x^{2}\]</span>
+<span class="math display">\[q(x)~=~ {6}x^{12}+{2}x^{7}\]</span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/FOIL_method">FOIL method</a> is used to <strong>multiply</strong> two binomials. Let’s visualize the FOIL method with a product table.</p>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(5x^{12}\)</span></th>
+<th align="center"><span class="math inline">\(-5x^{2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(6x^{12}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(2x^{7}\)</span></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+<td align="center"><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></td>
+</tr>
+</tbody>
+</table>
+<p>Let <span class="math inline">\(r(x)\)</span> represent the result of multiplying <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(q(x)\)</span>.</p>
+<p><span class="math display">\[r(x) ~=~ p(x)\cdot q(x)\]</span></p>
+<p><span class="math display">\[r(x) ~=~  \left({5}x^{12}-{5}x^{2}\right)\cdot \left({6}x^{12}+{2}x^{7}\right)\]</span></p>
+<p>Thus, we can write <span class="math inline">\(r(x)\)</span> in standard form (highest degree to lowest degree)?</p>
+<ul>
+<li><span class="math inline">\(r(x)=\)</span> <select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>4</option><option>6</option><option>8</option><option>9</option><option>10</option><option>12</option><option>15</option><option>16</option><option>18</option><option>20</option><option>24</option><option>25</option><option>30</option><option>36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup><select><option>--------</option><option> -36</option><option>-30</option><option>-25</option><option>-24</option><option>-20</option><option>-18</option><option>-16</option><option>-15</option><option>-12</option><option>-10</option><option>-9</option><option>-8</option><option>-6</option><option>-4</option><option>+4</option><option>+6</option><option>+8</option><option>+9</option><option>+10</option><option>+12</option><option>+15</option><option>+16</option><option>+18</option><option>+20</option><option>+24</option><option>+25</option><option>+30</option><option>+36 </option></select><span class="math inline">\(x\)</span><sup class="sml"><select><option>--------</option><option> 0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24 </option></select></sup></li>
+</ul>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css">
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+</style>
+<div class="boxy">
+<table>
+<thead>
+<tr class="header">
+<th align="center">*</th>
+<th align="center"><span class="math inline">\(5x^{12}\)</span></th>
+<th align="center"><span class="math inline">\(-5x^{2}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(6x^{12}\)</span></td>
+<td align="center"><span class="math inline">\(30x^{24}\)</span></td>
+<td align="center"><span class="math inline">\(-30x^{14}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(2x^{7}\)</span></td>
+<td align="center"><span class="math inline">\(10x^{19}\)</span></td>
+<td align="center"><span class="math inline">\(-10x^{9}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math inline">\(r(x) = {30}x^{24}+{10}x^{19}-{30}x^{14}-{10}x^{9}\)</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

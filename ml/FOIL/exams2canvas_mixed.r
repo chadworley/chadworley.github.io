@@ -1,9 +1,11 @@
 library("exams")
 n = 30
 outdir = "outcanvas"
-genname = "fctr_slv_quad_"
-# probs = c("03_slv_quadratric.Rmd",
-#           "04_slv_quadratric_int.Rmd")
+genname = "FOIL_"
+
+# probs = c("05_multiply_binomials.Rmd",
+#           "06_FOIL_A_ne_0.Rmd",
+#           "07_FOIL_A_ne_0_negs.Rmd")
 # 
 # pnts = rep(4,length(probs))
 # 
@@ -21,16 +23,16 @@ genname = "fctr_slv_quad_"
 # }
 
 
-# probs = list("03_slv_quadratric.Rmd",
-#              "04_slv_quadratric_int.Rmd",
-#              "04_slv_quadratric_int.Rmd",
-#              "04_slv_quadratric_int.Rmd")
-# 
-# exams2canvas(probs,
-#              n=n,
-#              dir=outdir,
-#              points=c(2,2,2,2),
-#              maxattempts = 10,
-#              name=paste0(genname,"_mastery"),
-#              template = "canvas_qti12.xml",
-#              cloze = list(enumerate = FALSE))
+probs = list("06_FOIL_A_ne_0.Rmd",
+             "07_FOIL_A_ne_0_negs.Rmd",
+             "07_FOIL_A_ne_0_negs.Rmd",
+             "07_FOIL_A_ne_0_negs.Rmd")
+
+exams2canvas(probs,
+             n=n,
+             dir=outdir,
+             points=c(3,3,3,3),
+             maxattempts = 10,
+             name=paste0(genname,"_mastery_2"),
+             template = "canvas_qti12.xml",
+             cloze = list(enumerate = FALSE))

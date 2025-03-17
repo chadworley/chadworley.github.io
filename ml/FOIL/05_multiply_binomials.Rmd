@@ -1,0 +1,239 @@
+```{r,echo=FALSE}
+options(scipen=999)
+
+cposs = c(2:6,(-2):(-6))
+crposs = numeric()
+for(i in cposs){
+    for(j in cposs){
+        crposs = sort(unique(c(crposs,i*j)))
+    }
+}
+dposs = 0:24
+
+while(T){
+    dp = rev(sort(sample(2:12,2)))
+    dq = rev(sort(sample(2:12,2)))
+    cp = sample(cposs,2)
+    cq = sample(cposs,2)
+    
+    P = paste0("{",cp,"}x^{",dp,"}",collapse = "+")
+    P = gsub("+{-","-{",P,fixed=T)
+    Q = paste0("{",cq,"}x^{",dq,"}",collapse = "+")
+    Q = gsub("+{-","-{",Q,fixed=T)
+    
+    dr1 = dp[1]+dq[1]
+    dr2 = dp[2]+dq[1]
+    dr3 = dp[1]+dq[2]
+    dr4 = dp[2]+dq[2]
+    
+    dr = c(dr1,dr2,dr3,dr4)
+    
+    cr1 = cp[1]*cq[1]
+    cr2 = cp[2]*cq[1]
+    cr3 = cp[1]*cq[2]
+    cr4 = cp[2]*cq[2]
+    
+    cr = c(cr1,cr2,cr3,cr4)
+    
+    if(dr2<dr3){
+        dr = c(dr1,dr3,dr2,dr4)
+        cr = c(cr1,cr3,cr2,cr4)
+    }
+    if(length(unique(dr))==4){break}
+}
+
+alc = paste0("* ",crposs,collapse="\n")
+ald = paste0("* ",dposs,collapse="\n")
+
+sol1 = paste0(1*(cr1==crposs),collapse="")
+sol2 = paste0(1*(dr1==dposs),collapse="")
+sol3 = paste0(1*(cr2==crposs),collapse="")
+sol4 = paste0(1*(dr2==dposs),collapse="")
+sol5 = paste0(1*(cr3==crposs),collapse="")
+sol6 = paste0(1*(dr3==dposs),collapse="")
+sol7 = paste0(1*(cr4==crposs),collapse="")
+sol8 = paste0(1*(dr4==dposs),collapse="")
+
+al9 = alc
+sol9 = sol1
+al10 = ald
+sol10 = sol2
+sol11 = paste0(1*(cr[2]==crposs),collapse="")
+sol12 = paste0(1*(dr[2]==dposs),collapse="")
+sol13 = paste0(1*(cr[3]==crposs),collapse="")
+sol14 = paste0(1*(dr[3]==dposs),collapse="")
+sol15 = sol7
+sol16 = sol8
+
+crpossmid = character()
+for(i in crposs){
+    if(i<0){
+        crpossmid = c(crpossmid,paste0(i))
+    } else {
+        crpossmid = c(crpossmid,paste0("+",i,collapse=""))
+    }
+}
+
+
+alcm = paste0("* ",crpossmid,collapse="\n")
+
+R = paste0("{",cr,"}x^{",dr,"}",collapse="+")
+R = gsub("+{-","-{",R,fixed=T)
+
+```
+
+
+Question
+========
+
+Let polynomials $p(x)$ and $q(x)$ be defined below.
+$$p(x)~=~ `r P`$$
+$$q(x)~=~ `r Q`$$
+
+The [FOIL method](https://en.wikipedia.org/wiki/FOIL_method) is used to **multiply** two binomials. Let's visualize the FOIL method with a product table.
+
+```{css,echo=F}
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+```
+
+<div class="boxy">
+
+|  \* | $`r cp[1]`x^{`r dp[1]`}$ | $`r cp[2]`x^{`r dp[2]`}$ |
+|:---:|:---:|:---:|
+|$`r cq[1]`x^{`r dq[1]`}$|##ANSWER1##$x$<sup class="sml">##ANSWER2##</sup> |##ANSWER3##$x$<sup class="sml">##ANSWER4##</sup> |
+|$`r cq[2]`x^{`r dq[2]`}$|##ANSWER5##$x$<sup class="sml">##ANSWER6##</sup> | ##ANSWER7##$x$<sup class="sml">##ANSWER8##</sup> |
+
+Let $r(x)$ represent the result of multiplying $p(x)$ and $q(x)$.
+
+$$r(x) ~=~ p(x)\cdot q(x)$$
+
+$$r(x) ~=~  \left(`r P`\right)\cdot \left(`r Q`\right)$$
+
+Thus, we can write $r(x)$ in standard form (highest degree to lowest degree)?
+
+* $r(x)=$ ##ANSWER9##$x$<sup class="sml">##ANSWER10##</sup>##ANSWER11##$x$<sup class="sml">##ANSWER12##</sup>##ANSWER13##$x$<sup class="sml">##ANSWER14##</sup>##ANSWER15##$x$<sup class="sml">##ANSWER16##</sup>
+
+
+</div>
+
+
+Answerlist
+--------
+
+`r alc`
+`r ald`
+`r alc`
+`r ald`
+`r alc`
+`r ald`
+`r alc`
+`r ald`
+`r al9`
+`r al10`
+`r alcm`
+`r ald`
+`r alcm`
+`r ald`
+`r alcm`
+`r ald`
+
+
+Solution
+========
+
+```{css,echo=F}
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+.sml select {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0em;
+}
+```
+
+<div class="boxy">
+
+|  \* | $`r cp[1]`x^{`r dp[1]`}$ | $`r cp[2]`x^{`r dp[2]`}$ |
+|:---:|:---:|:---:|
+|$`r cq[1]`x^{`r dq[1]`}$ | $`r cr1`x^{`r dr1`}$ | $`r cr2`x^{`r dr2`}$|
+|$`r cq[2]`x^{`r dq[2]`}$ | $`r cr3`x^{`r dr3`}$ | $`r cr4`x^{`r dr4`}$|
+
+</div>
+
+$r(x) = `r R`$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",16),collapse="|")`
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`|`r sol6`|`r sol7`|`r sol8`|`r sol9`|`r sol10`|`r sol11`|`r sol12`|`r sol13`|`r sol14`|`r sol15`|`r sol16`
+exname: multiply_binomials

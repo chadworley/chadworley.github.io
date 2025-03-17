@@ -6,8 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/fctr_04_slv_quadratric_int.zip",
-"outcanvas/fctr_slv_quad__mastery.zip"]
+file_path_list = ["outcanvas/FOIL__mastery_2.zip"]
 
 # fpl = []
 # for i in range(70,100):
