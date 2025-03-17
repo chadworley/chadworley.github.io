@@ -3,11 +3,13 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-03-12 7:00:00"]
-dut = ["2025-03-12 22:59:00"]
+avt = ["2025-03-17 7:00:00"]*3
+dut = ["2025-03-17 22:59:00"]*3
 front = "u15_"
 
-files = ["19_wave_feats_from_eq.Rmd"]
+files = ["20_spatiotemporal_wave.Rmd",
+"21_bobbing_duck.Rmd",
+"22_visible_light_freq.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u15/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'

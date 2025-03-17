@@ -5,7 +5,9 @@ import os
 
 
 front = "u15_"
-files = ["17_pick_wave_pams3.Rmd","18_pick_wave_pams4.Rmd","19_wave_feats_from_eq.Rmd"]
+files = ["20_spatiotemporal_wave.Rmd",
+"21_bobbing_duck.Rmd",
+"22_visible_light_freq.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u15/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
