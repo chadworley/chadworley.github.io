@@ -1,8 +1,6 @@
 library("exams")
 
-pppsss = c("20_spatiotemporal_wave.Rmd",
-           "21_bobbing_duck.Rmd",
-           "22_visible_light_freq.Rmd")
+pppsss = c("19_wave_feats_from_eq.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

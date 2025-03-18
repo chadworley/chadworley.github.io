@@ -1,0 +1,122 @@
+---
+header-includes:
+   - \usepackage{array}
+   - \usepackage{color}
+output: pdf_document
+params:
+    rseed: 1
+    showsol: true
+    titex: "Practice"
+urlcolor: blue
+---
+
+```{r,echo=F}
+set.seed(params$rseed)
+library(latex2exp)
+if(params$showsol){
+    solstart = ""
+    solend = "\\vfill"
+    hidesolstart = "<!---"
+    hidesolend = "-->"
+    showsol = T
+} else {
+    solstart = "<!---"
+    solend = "-->"
+    hidesolstart = ""
+    hidesolend = ""
+    showsol = F
+}
+```
+
+```{r,echo=F}
+mnpq = list()
+binpros = character()
+quads = character()
+foils = character()
+foil2 = character()
+
+make_quad = function(A,B,C){
+    exp = paste0(A,"x^2+{",B,"}x+{",C,"}",collapse="")
+    exp = gsub("{1}x","x",exp,fixed=T)
+    exp = gsub("+{-1}x","-x",exp,fixed=T)
+    exp = gsub("+{0}x","",exp,fixed=T)
+    exp = gsub("+{0}","",exp,fixed=T)
+    exp = gsub("{","",exp,fixed=T)
+    exp = gsub("}","",exp,fixed=T)
+    exp = gsub("+-","-",exp,fixed=T)
+    return(exp)
+}
+make_bp = function(m,n,p,q){
+    fexp = paste0("(",m,"x+",n,")(",p,"x+",q,")",collapse="")
+    fexp = gsub("+-","-",fexp,fixed=T)
+    return(fexp)
+}
+make_foil = function(m,n,p,q){
+    exp = paste0("(",m,")(",p,")x^2+(",m,")(",q,")x+(",n,")(",p,")x+(",n,")(",q,")",collapse="")
+    return(exp)
+}
+make_foil2 = function(m,n,p,q){
+    exp = paste0("(",m*p,")x^2+(",m*q,")x+(",n*p,")x+(",n*q,")",collapse="")
+    return(exp)
+}
+
+while(length(mnpq)<10){
+    ab = sort(sample(c(-9:-2,2:9),4,T))
+    if(!(list(ab) %in% mnpq)){
+        mnpq[[length(mnpq)+1]]=ab
+        ab = sample(ab)
+        binp = make_bp(ab[1],ab[2],ab[3],ab[4])
+        binpros = c(binpros,binp)
+        quads = c(quads,make_quad(ab[1]*ab[3],
+                                  ab[1]*ab[4]+ab[2]*ab[3],
+                                  ab[2]*ab[4]))
+        foils = c(foils,make_foil(ab[1],ab[2],ab[3],ab[4]))
+        foil2 = c(foil2,make_foil2(ab[1],ab[2],ab[3],ab[4]))
+    }
+}
+```
+
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## FOIL when $A\ne 1$ `r params$titex` (version `r params$rseed`)
+
+### FOIL the expressions shown below:
+
+
+```{r,echo=F,results='asis'}
+for(i in 1:5){
+    cat(paste0(i,". $",binpros[i],"$\n\n\\vfill\n\n"))
+    if(params$showsol){
+        cat("\\color{red}$$")
+        cat(foils[i])
+        cat("$$\n$$")
+        cat(foil2[i])
+        cat("$$\n$$")
+        cat(quads[i])
+        cat("$$ \\color{black}\n\n\\vfill\n\n")
+    }
+}
+
+```
+
+\newpage
+
+### FOIL the expressions shown below:
+
+
+```{r,echo=F,results='asis'}
+for(i in 6:10){
+    cat(paste0(i,". $",binpros[i],"$\n\n\\vfill\n\n"))
+    if(params$showsol){
+        cat("\\color{red}$$")
+        cat(foils[i])
+        cat("$$\n$$")
+        cat(foil2[i])
+        cat("$$\n$$")
+        cat(quads[i])
+        cat("$$ \\color{black}\n\n\\vfill\n\n")
+    }
+}
+
+```
