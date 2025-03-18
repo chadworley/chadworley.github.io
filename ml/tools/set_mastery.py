@@ -3,9 +3,9 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-03-06 8:00:00"]*1
-dut = ["2025-03-06 23:59:00"]*1
-fn = "factor_MC_mastery"
+avt = ["2025-03-17 8:00:00"]*1
+dut = ["2025-03-17 23:59:00"]*1
+fn = "FOIL__mastery_2"
 
 
 # practice_url_front = "https://chadworley.github.io/ml/FOIL/outhtml/"

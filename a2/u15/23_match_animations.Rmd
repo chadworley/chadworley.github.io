@@ -1,0 +1,124 @@
+```{r,echo=F,warning=F}
+## This uses gifski
+## install.packages('gifski', repos = c('https://r-rust.r-universe.dev', 'https://cloud.r-project.org'))
+## https://r-rust.r-universe.dev/gifski
+
+n = 8
+ts = seq(0,2*pi-2*pi/n,length.out=n)
+
+fs = c("y=\\sin(x)\\cdot \\cos(t)",
+       "y=\\frac{\\sin(x-t)+\\sin(x+t)}{2}",
+       "y=\\sin(x+t)",
+       "y=\\sin(x)\\cos(t)+\\cos(x)\\sin(t)",
+       "y=\\sin(x)+\\cos(t)",
+       "y=\\sin(x\\cdot t)")
+
+ans = c(1,1,2,2,3,4)
+
+mkf = function(typ,ttl){
+  x = seq(-2*pi,2*pi,length.out=1000)
+  for (t in ts){
+    par(mar=c(5,5,2,2))
+    if(typ==1){
+      plot(x,sin(x)*cos(t),type="l",xlim=c(-6,6),ylim=c(-3,3),xlab="x",ylab="y",main=ttl)
+    }
+    if(typ==2){
+      plot(x,sin(x+t),type="l",xlim=c(-6,6),ylim=c(-3,3),xlab="x",ylab="y",main=ttl)
+    }
+    if(typ==3){
+      plot(x,sin(x)+cos(t),type="l",xlim=c(-6,6),ylim=c(-3,3),xlab="x",ylab="y",main=ttl)
+    }
+    if(typ==4){
+      plot(x,sin(x*t),type="l",xlim=c(-6,6),ylim=c(-3,3),xlab="x",ylab="y",main=ttl)
+    }
+    
+  }
+}
+
+ord = sample(1:4)
+ord2 = sample(1:length(fs))
+
+sol1 = paste0(1*(ans[ord2[1]]==ord),collapse="")
+sol2 = paste0(1*(ans[ord2[2]]==ord),collapse="")
+sol3 = paste0(1*(ans[ord2[3]]==ord),collapse="")
+sol4 = paste0(1*(ans[ord2[4]]==ord),collapse="")
+sol5 = paste0(1*(ans[ord2[5]]==ord),collapse="")
+sol6 = paste0(1*(ans[ord2[6]]==ord),collapse="")
+
+```
+
+Question
+========
+
+Match the animations to the equations.
+
+```{r, animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(6,3)}
+mkf(ord[1],"A")
+```
+\
+
+```{r, animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(6,3)}
+mkf(ord[2],"B")
+```
+\
+
+
+```{r, animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(6,3)}
+mkf(ord[3],"C")
+```
+\
+
+```{r, animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(6,3)}
+mkf(ord[4],"D")
+```
+\
+
+Match each equation to its animation. In the animations, $t$ goes from 0 to $2\pi$.
+
+* $`r fs[ord2[1]]`~\to$  ##ANSWER1##
+* $`r fs[ord2[2]]`~\to$  ##ANSWER2##
+* $`r fs[ord2[3]]`~\to$  ##ANSWER3##
+* $`r fs[ord2[4]]`~\to$  ##ANSWER4##
+* $`r fs[ord2[5]]`~\to$  ##ANSWER5##
+* $`r fs[ord2[6]]`~\to$  ##ANSWER6##
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+* A
+* B
+* C
+* D
+* A
+* B
+* C
+* D
+* A
+* B
+* C
+* D
+* A
+* B
+* C
+* D
+* A
+* B
+* C
+* D
+
+
+Solution
+========
+
+Use Desmos to make each animation. Set $t$ to a slider with boundaries of 0 and $2\pi$. Press play.
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`|`r sol6`
+exname: match_animations
