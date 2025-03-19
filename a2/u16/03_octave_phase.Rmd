@@ -1,0 +1,54 @@
+```{r,echo=F,warning=F}
+phase = runif(1,pi/6,2*pi-pi/6)
+```
+
+Question
+========
+
+In [additive synthesis](https://en.wikipedia.org/wiki/Additive_synthesis), a musician combines [pure tones](https://en.wikipedia.org/wiki/Pure_tone) by adding together sine waves to produce a large variety of tones.
+
+In [harmonic](https://en.wikipedia.org/wiki/Harmonic_series_(music)#Terminology) additive synthesis, a sine wave with a [fundamental frequency](https://en.wikipedia.org/wiki/Fundamental_frequencybvcvc  ) is added to sine waves with positive-integer multiples of the fundamental frequency. Each harmonic has its own amplitude and phase shift. The exact set of frequencies, their amplitudes, and their phases dictates the [timbre](https://en.wikipedia.org/wiki/Timbre) of the [musical tone](https://en.wikipedia.org/wiki/Musical_tone).
+
+For example, the musician might combine a sine wave with amplitude of 1 and frequency of 100 Hz with another sine wave with amplitude 1 and frequency of 200 Hz. In [Desmos](https://www.desmos.com/calculator), you can generate this tone with `tone([100,200],[1,1])`.
+
+Interestingly, Desmos does not allow us to control the phase of the component waves when using the `tone` function. In most cases, the [psychoacoustic](https://en.wikipedia.org/wiki/Psychoacoustics) perception (of human hearing) won't distinguish between various phase shifts. However, we can see some striking visual changes to the [waveform](https://en.wikipedia.org/wiki/Waveform) when we change the initial phase of a component.
+
+For example, in Desmos, type the following equation, using a slider for $c$.
+
+$$y~~=~~\sin(2\pi100 t)~+~\sin(2\pi 200 t+c)$$
+
+The slider $c$ represents a horizontal shift in the 200-Hz wave. **Find the (approximate) value of $c$, such that $0\le c < 2\pi$ to achieve the waveform shown below:**
+
+```{r,echo=F,fig.dim=c(8,6)}
+tf = 3/100
+plot(0,0,"n",xlim=c(0,tf),ylim=c(-2,2),xlab="t",ylab="y")
+x = seq(-1,tf+1,tf/1000)
+y = sin(2*pi*100*x)+sin(2*pi*200*x+phase)
+abline(h=seq(-2,2,0.2),col="lightgrey",lwd=0.6)
+abline(h=c(-2,-1,1,2),col="darkgrey")
+abline(h=0)
+lines(x,y,lwd=2,col="blue")
+```
+\
+
+Notice, you'll need to selectively zoom in on the horizontal axis.
+
+
+Solution
+========
+
+1. Type `y = sin(2 pi 100 t) + sin(2 pi 200 t + c)` into Desmos, and add a slider for $c$ (but not $t$). 
+2. Click the `Graph Settings` button (which looks like a wrench in the top-right corner of the graph).
+3. Change the $x$ axis to have limits so that $0\le x \le `r 0.03`$.
+4. Change the $y$ axis to have limits so that $-2\le x \le 2$.
+5. Adjust slider $c$ until the waveform matches the prompt's graph. I find it helpful to look at the $y$-coordinates of the peaks and troughs.
+
+The exact value of $c$ was `r phase`, but the tolerance was $\pm 0.1$, so you didn't have to be super precise.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r phase`
+exname: additive_synth
+extol: `r 0.1`
