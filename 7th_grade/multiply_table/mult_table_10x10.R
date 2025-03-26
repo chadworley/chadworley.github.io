@@ -1,13 +1,13 @@
-pdf("mult_10x10.pdf",width = 8.5,height=11)
+pdf("mult_20x40.pdf",width = 8.5,height=11)
 
-nc = 10
-nr = 20
+nc = 20
+nr = 40
 
 par(mar=c(1,1,1,1))
 plot(0,0,"n",axes=F,ann=F,xlim=c(0,1),ylim=c(0,1))
 for(i in 1:nc){
     for(j in 1:nr){
-        text((i-0.5)/nc,1-(j-0.5)/nr,i*j,cex=2,col=hsv((log(i*j/3+exp(1)))%%1,1,0.5))
+        text((i-0.5)/nc,1-(j-0.5)/nr,i*j,cex=1,col=hsv((log(i*j/3+exp(1)))%%1,1,0.5))
     }
 }
 for(i in 0:nr){

@@ -1,0 +1,302 @@
+---
+header-includes:
+   - \usepackage{array}
+   - \usepackage{color}
+   - \usepackage{tabularx}
+output: pdf_document
+params:
+    rseed: 1
+    showsol: false
+    titex: "Practice"
+urlcolor: blue
+---
+
+```{r,echo=F}
+# set.seed(params$rseed)
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## u16we (`r params$titex` v`r params$rseed`)
+
+<!-- 1 -->
+
+```{r,echo=F}
+r = 2^runif(1,1,7)
+th = runif(1,pi/4,7*pi/4)
+L = r*th
+wu = sample(1:3,1)
+if(wu==1){
+    r = signif(r,2)
+    th = signif(th,2)
+    L = r*th
+    marks = c(paste0(r," m"),paste0(th),"$L$")
+    geqs = c(paste0("The radius is ",signif(r,2)," meters.",collapse=""),
+             paste0("The angle measure is ",signif(th,2)," radians.",collapse=""))
+    ask = c("How long is the arc in meters?")
+    sol = paste0("$L=",signif(L,4),"$ meters.")
+}
+if(wu==2){
+    r = signif(r,2)
+    L = signif(L,2)
+    th = L/r
+    marks = c(paste0(r, " m"),"$\\theta$",paste0(L," m"))
+    geqs = c(paste0("The radius is ",r," meters.",collapse=""),
+             paste0("The arc length is ",L," meters.",collapse=""))
+    ask = c("What is the angle measure in radians?")
+    sol = paste0("$\\theta=",signif(th,4),"$ radians.")
+}
+if(wu==3){
+    L = signif(L,2)
+    th = signif(th,2)
+    r = L/th
+    marks = c("$r$",paste0(th),paste0(L," m"))
+    geqs = c(paste0("The angle measure is ",signif(th,2)," radians.",collapse=""),
+             paste0("The arc length is ",L," meters.",collapse=""))
+    ask = c("How long is the radius in meters?")
+    sol = paste0("$r = ",signif(r,4),"$ meters.")
+}
+geqs = sample(geqs)
+```
+
+1. In the figure below, we see a circle and a central angle that subtends an arc. `r geqs[1]` `r geqs[2]` `r ask`
+
+```{r,echo=F,fig.dim=c(2,2)}
+library(latex2exp)
+cex=0.8
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",axes=F,ann=F,xlim=c(-1.2,1.2),ylim=c(-1.2,1.2))
+thetas = seq(0,2*pi,pi/1000)
+lines(cos(thetas),sin(thetas),lty=2)
+lines(c(1,0,cos(th)),c(0,0,sin(th)))
+lines(c(0,1),c(0,0),lwd=2,col="black")
+text(0.6,0,TeX(marks[1]),adj=c(0.5,1.3),col="black",cex=cex)
+th2 = seq(0,th,pi/360)
+lines(0.2*cos(th2),0.2*sin(th2),col="blue",lwd=1.2)
+n = length(th2)
+arrows(0.2*cos(th2[n-1]),0.2*sin(th2[n-1]),0.2*cos(th2[n]),0.2*sin(th2[n]),0.03,30,col="blue")
+rotang = (th/2/pi*180+90)%%180-90
+if(wu!=2){
+    if(rotang>0){
+        text(0.2*cos(th/2),0.2*sin(th/2),TeX(marks[2]),col="blue",adj=c(-0.2,0.5),srt=rotang,cex=cex)
+    } else {
+        text(0.2*cos(th/2),0.2*sin(th/2),TeX(marks[2]),col="blue",adj=c(1.2,0.5),srt=rotang,cex=cex)
+    }
+} else {
+    text(0.35*cos(th/2),0.35*sin(th/2),TeX(marks[2]),col="blue",adj=c(0.5,0.5),cex=cex)
+}
+
+rotangL = (th/2/pi*180)%%180-90
+lines(cos(th2),sin(th2),col="maroon",lwd=1.2)
+if(wu!=1){
+    if(rotang>0){
+        text(cos(th/2),sin(th/2),TeX(marks[3]),col="maroon",adj=c(0.5,-0.2),srt=rotangL,cex=cex)
+    } else {
+        text(cos(th/2),sin(th/2),TeX(marks[3]),col="maroon",adj=c(0.5,-0.2),srt=rotangL,cex=cex)
+    }
+} else {
+    text(1.15*cos(th/2),1.15*sin(th/2),TeX(marks[3]),col="maroon",adj=c(0.5,0.5),cex=cex)
+}
+# text(1.2*cos(th/2),1.2*sin(th/2),TeX(marks[3]),col="maroon")
+```
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat(paste0("\\color{red} \n\n $$\\theta = \\frac{L}{r}$$ \n\n",sol," \\color{black}"))
+}
+```
+
+\vfill
+
+<!-- 2 -->
+
+```{r,echo=F}
+# pick an angle greater than 2pi, and a negative angle
+# draw angles in standard position on a unit circle
+# find sin or cos of the angles
+
+d4i = c(2,5,8,11)
+
+while(T){
+    ii = sample(1:12,2)
+    i1 = ii[1]
+    i2 = ii[2]
+    i1in = (i1 %in% d4i)
+    i2in = (i2 %in% d4i)
+    if(i1 != 13-i2 && sum(c(i1in,i2in))==1){break}
+}
+
+sc = sample(c("s","c"))
+np = sample(c("n","p"))
+
+ang1poss = c("\\frac{13\\pi}{6}","\\frac{9\\pi}{4}","\\frac{7\\pi}{3}",
+             "\\frac{8\\pi}{3}","\\frac{11\\pi}{4}","\\frac{17\\pi}{6}",
+             "\\frac{19\\pi}{6}","\\frac{13\\pi}{4}","\\frac{10\\pi}{3}",
+             "\\frac{11\\pi}{3}","\\frac{15\\pi}{4}","\\frac{23\\pi}{6}")
+ang2poss = c("\\frac{-13\\pi}{6}","\\frac{-9\\pi}{4}","\\frac{-7\\pi}{3}",
+             "\\frac{-8\\pi}{3}","\\frac{-11\\pi}{4}","\\frac{-17\\pi}{6}",
+             "\\frac{-19\\pi}{6}","\\frac{-13\\pi}{4}","\\frac{-10\\pi}{3}",
+             "\\frac{-11\\pi}{3}","\\frac{-15\\pi}{4}","\\frac{-23\\pi}{6}")
+
+
+A1poss = c("13\\pi/6","9\\pi/4","7\\pi/3",
+           "8\\pi/3","11\\pi/4","17\\pi/6",
+           "19\\pi/6","13\\pi/4","10\\pi/3",
+           "11\\pi/3","15\\pi/4","23\\pi/6")
+A2poss = c("-13\\pi/6","-9\\pi/4","-7\\pi/3",
+           "-8\\pi/3","-11\\pi/4","-17\\pi/6",
+           "-19\\pi/6","-13\\pi/4","-10\\pi/3",
+           "-11\\pi/3","-15\\pi/4","-23\\pi/6")
+
+a1p = c(13*pi/6,9*pi/4,7*pi/3,8*pi/3,11*pi/4,17*pi/6,19*pi/6,13*pi/4,10*pi/3,11*pi/3,15*pi/4,23*pi/6)
+a2p = -a1p
+ca1 = c("\\frac{\\sqrt{3}}{2}","\\frac{\\sqrt{2}}{2}","\\frac{1}{2}",
+        "\\frac{-1}{2}","\\frac{-\\sqrt{2}}{2}","\\frac{-\\sqrt{3}}{2}",
+        "\\frac{-\\sqrt{3}}{2}","\\frac{-\\sqrt{2}}{2}","\\frac{-1}{2}",
+        "\\frac{1}{2}","\\frac{\\sqrt{2}}{2}","\\frac{\\sqrt{3}}{2}")
+sa1 = c("\\frac{1}{2}","\\frac{\\sqrt{2}}{2}","\\frac{\\sqrt{3}}{2}",
+        "\\frac{\\sqrt{3}}{2}","\\frac{\\sqrt{2}}{2}","\\frac{1}{2}",
+        "\\frac{-1}{2}","\\frac{-\\sqrt{2}}{2}","\\frac{-\\sqrt{3}}{2}",
+        "\\frac{-\\sqrt{3}}{2}","\\frac{-\\sqrt{2}}{2}","\\frac{-1}{2}")
+ca2 = c("\\frac{\\sqrt{3}}{2}","\\frac{\\sqrt{2}}{2}","\\frac{1}{2}",
+        "\\frac{-1}{2}","\\frac{-\\sqrt{2}}{2}","\\frac{-\\sqrt{3}}{2}",
+        "\\frac{-\\sqrt{3}}{2}","\\frac{-\\sqrt{2}}{2}","\\frac{-1}{2}",
+        "\\frac{1}{2}","\\frac{\\sqrt{2}}{2}","\\frac{\\sqrt{3}}{2}")
+sa2 = c("\\frac{-1}{2}","\\frac{-\\sqrt{2}}{2}","\\frac{-\\sqrt{3}}{2}",
+        "\\frac{-\\sqrt{3}}{2}","\\frac{-\\sqrt{2}}{2}","\\frac{-1}{2}",
+        "\\frac{1}{2}","\\frac{\\sqrt{2}}{2}","\\frac{\\sqrt{3}}{2}",
+        "\\frac{\\sqrt{3}}{2}","\\frac{\\sqrt{2}}{2}","\\frac{1}{2}")
+
+Ca1 = c("\\sqrt{3}/2","\\sqrt{2}/2","1/2",
+        "-1/2","-\\sqrt{2}/2","-\\sqrt{3}/2",
+        "-\\sqrt{3}/2","-\\sqrt{2}/2","-1/2",
+        "1/2","\\sqrt{2}/2","\\sqrt{3}/2")
+Sa1 = c("1/2","\\sqrt{2}/2","\\sqrt{3}/2",
+        "\\sqrt{3}/2","\\sqrt{2}/2","1/2",
+        "-1/2","-\\sqrt{2}/2","-\\sqrt{3}/2",
+        "-\\sqrt{3}/2","-\\sqrt{2}/2","-1/2")
+Ca2 = Ca1
+Sa2 = c("-1/2","-\\sqrt{2}/2","-\\sqrt{3}/2",
+        "-\\sqrt{3}/2","-\\sqrt{2}/2","-1/2",
+        "1/2","\\sqrt{2}/2","\\sqrt{3}/2",
+        "\\sqrt{3}/2","\\sqrt{2}/2","1/2")
+
+if(sc[1]=="s"){
+    if(np[1]=="n"){
+        a1 = ang2poss[i1]
+        a2 = ang1poss[i2]
+        A1 = A2poss[i1]
+        A2 = A1poss[i2]
+        t1 = sa2[i1]
+        t2 = ca1[i2]
+        p1 = paste0("$\\sin\\left(",a1,"\\right)$")
+        p2 = paste0("$\\cos\\left(",a2,"\\right)$")
+        q1 = paste0("$\\sin(",A1,")$")
+        q2 = paste0("$\\cos(",A2,")$")
+        th1 = a2p[i1]
+        th2 = a1p[i2]
+    } else {
+        a1 = ang1poss[i1]
+        a2 = ang2poss[i2]
+        A1 = A1poss[i1]
+        A2 = A2poss[i2]
+        t1 = sa1[i1]
+        t2 = ca2[i2]
+        p1 = paste0("$\\sin\\left(",a1,"\\right)$")
+        p2 = paste0("$\\cos\\left(",a2,"\\right)$")
+        q1 = paste0("$\\sin(",A1,")$")
+        q2 = paste0("$\\cos(",A2,")$")
+        th1 = a1p[i1]
+        th2 = a2p[i2]
+    }
+} else {
+    if(np[1]=="n"){
+        a1 = ang2poss[i1]
+        a2 = ang1poss[i2]
+        A1 = A2poss[i1]
+        A2 = A1poss[i2]
+        t1 = ca2[i1]
+        t2 = sa1[i2]
+        p1 = paste0("$\\cos\\left(",a1,"\\right)$")
+        p2 = paste0("$\\sin\\left(",a2,"\\right)$")
+        q1 = paste0("$\\cos(",A1,")$")
+        q2 = paste0("$\\sin(",A2,")$")
+        th1 = a2p[i1]
+        th2 = a1p[i2]
+    } else {
+        a1 = ang1poss[i1]
+        a2 = ang2poss[i2]
+        A1 = A1poss[i1]
+        A2 = A2poss[i2]
+        t1 = ca1[i1]
+        t2 = sa2[i2]
+        p1 = paste0("$\\cos\\left(",a1,"\\right)$")
+        p2 = paste0("$\\sin\\left(",a2,"\\right)$")
+        q1 = paste0("$\\cos(",A1,")$")
+        q2 = paste0("$\\sin(",A2,")$")
+        th1 = a1p[i1]
+        th2 = a2p[i2]
+    }
+}
+
+```
+
+2. Consider angles $`r a1`$ and $`r a2`$. For each angle, use a spiral with an arrow head to **mark** the angle on a circle below in standard position. Then, find **exact** expressions for `r p1` and `r p2` by using a unit circle (provided separately).
+
+```{r,echo=F,fig.dim=c(8,3)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F,xlim=c(0,8),ylim=c(0,3),asp=1)
+thetas = seq(0,2*pi,pi/360)
+lines(cos(thetas)+2,sin(thetas)+1.5)
+lines(cos(thetas)+6,sin(thetas)+1.5)
+th3 = seq(0,2*pi,pi/12)
+for(i in th3){
+    lines(c(0,cos(i))+2,c(0,sin(i))+1.5,lty=3,lwd=0.8)
+    lines(c(0,cos(i))+6,c(0,sin(i))+1.5,lty=3,lwd=0.8)
+}
+th4 = seq(0,2*pi,pi/6)
+for(i in th4){
+    lines(c(0,cos(i))+2,c(0,sin(i))+1.5,lty=2,lwd=0.8)
+    lines(c(0,cos(i))+6,c(0,sin(i))+1.5,lty=2,lwd=0.8)
+}
+th4 = seq(0,2*pi,pi/4)
+for(i in th4){
+    lines(c(0,cos(i))+2,c(0,sin(i))+1.5,lty=1,lwd=0.8)
+    lines(c(0,cos(i))+6,c(0,sin(i))+1.5,lty=1,lwd=0.8)
+}
+points(c(2,6),c(1.5,1.5),pch=20)
+text(2,2.8,TeX(paste0("Mark $",a1,"$")),cex=cex)
+text(6,2.8,TeX(paste0("Mark $",a2,"$")),cex=cex)
+
+text(2,0.2,TeX(paste0("Find ",q1)),cex=cex)
+text(6,0.2,TeX(paste0("Find ",q2)),cex=cex)
+if(params$showsol){
+    thth = seq(0,th1,pi/360*sign(th1))
+    xs = 2+(0.4+abs(thth)/10/pi)*cos(thth)
+    ys = 1.5+(0.4+abs(thth)/10/pi)*sin(thth)
+    n = length(xs)
+    lines(xs,ys,col="red")
+    arrows(xs[n-1],ys[n-1],xs[n],ys[n],0.1,20,col="red")
+    thth = seq(0,th2,pi/360*sign(th2))
+    xs = 6+(0.4+abs(thth)/10/pi)*cos(thth)
+    ys = 1.5+(0.4+abs(thth)/10/pi)*sin(thth)
+    lines(xs,ys,col="red")
+    n = length(xs)
+    arrows(xs[n-1],ys[n-1],xs[n],ys[n],0.1,20,col="red")
+}
+
+```
+
+
+\vfill
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat(paste0("\\color{red} ",q1,"$=",t1,"$ \\hspace{4in} ",q2,"$=",t2,"$ \\color{black}\n\n\\vfill"))
+}
+```
+
+
+
+
+
