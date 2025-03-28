@@ -6,7 +6,7 @@ header-includes:
 output: pdf_document
 params:
     rseed: 1
-    showsol: false
+    showsol: true
     titex: "Practice"
 urlcolor: blue
 ---
@@ -19,7 +19,8 @@ Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
 
 ## u16we (`r params$titex` v`r params$rseed`)
 
-<!-- 1 -->
+
+### Question 1
 
 ```{r,echo=F}
 r = 2^runif(1,1,7)
@@ -59,7 +60,7 @@ if(wu==3){
 geqs = sample(geqs)
 ```
 
-1. In the figure below, we see a circle and a central angle that subtends an arc. `r geqs[1]` `r geqs[2]` `r ask`
+In the figure below, we see a circle and a central angle that subtends an arc. `r geqs[1]` `r geqs[2]` `r ask`
 
 ```{r,echo=F,fig.dim=c(2,2)}
 library(latex2exp)
@@ -108,7 +109,7 @@ if(params$showsol){
 
 \vfill
 
-<!-- 2 -->
+### Question 2
 
 ```{r,echo=F}
 # pick an angle greater than 2pi, and a negative angle
@@ -241,7 +242,7 @@ if(sc[1]=="s"){
 
 ```
 
-2. Consider angles $`r a1`$ and $`r a2`$. For each angle, use a spiral with an arrow head to **mark** the angle on a circle below in standard position. Then, find **exact** expressions for `r p1` and `r p2` by using a unit circle (provided separately).
+Consider angles $`r a1`$ and $`r a2`$. For each angle, use a spiral with an arrow head to **mark** the angle on a circle below in standard position. Then, find **exact** expressions for `r p1` and `r p2` by using a unit circle (provided separately).
 
 ```{r,echo=F,fig.dim=c(8,3)}
 par(mar=c(0,0,0,0))
@@ -295,6 +296,204 @@ if(params$showsol){
     cat(paste0("\\color{red} ",q1,"$=",t1,"$ \\hspace{4in} ",q2,"$=",t2,"$ \\color{black}\n\n\\vfill"))
 }
 ```
+
+\vfill
+
+\newpage
+
+
+### Question 3
+
+```{r,echo=F}
+pts = list(c(5, 12, 13),c(8, 15, 17),c(7, 24, 25),c(20, 21, 29),c(12, 35, 37),c(9, 40, 41),c(28, 45, 53),c(11, 60, 61),c(16, 63, 65),c(33, 56, 65),c(48, 55, 73),c(36, 77, 85),c(39, 80, 89),c(65, 72, 97))
+i = sample(1:length(pts),1)
+pt = pts[[i]]
+A = pt[1]
+B = pt[2]
+C = pt[3]
+Q = sample(2:4,1)
+if(Q==1){
+    signs = c(1,1,1)
+}
+if(Q==2){
+    signs = c(1,-1,-1)
+}
+if(Q==3){
+    signs = c(-1,-1,1)
+}
+if(Q==4){
+    signs = c(-1,1,-1)
+}
+st = c(signs[1]*B,C)
+ct = c(signs[2]*A,C)
+tt = c(signs[3]*B,A)
+rmn = c("I","II","III","IV")
+qt = sample(1:6,1)
+
+if(qt==1){
+    giv = paste0("\\sin(\\theta)=\\frac{",st[1],"}{",st[2],"}",collapse="")
+    At = "A"
+    Bt = paste0(B)
+    Ct = paste0(C)
+    ask = paste0("\\cos(\\theta)")
+    ans = paste0("\\cos(\\theta)=\\frac{",ct[1],"}{",ct[2],"}",collapse="")
+    stp = paste0("$$A=\\sqrt{",C,"^2-",B,"^2}$$")
+    stp2 = paste0("$$A=",A,"$$")
+}
+if(qt==2){
+    At = "A"
+    Bt = paste0(B)
+    Ct = paste0(C)
+    giv = paste0("\\sin(\\theta)=\\frac{",st[1],"}{",st[2],"}",collapse="")
+    ask = paste0("\\tan(\\theta)")
+    ans = paste0("\\tan(\\theta)=\\frac{~\\frac{",st[1],"}{",st[2],"}~}{~\\frac{",ct[1],"}{",ct[2],"}~}=\\frac{",tt[1],"}{",tt[2],"}",collapse="")
+    stp = paste0("$$A=\\sqrt{",C,"^2-",B,"^2}$$")
+    stp2 = paste0("$$A=",A,"$$")
+}
+if(qt==3){
+    At = paste0(A)
+    Bt = "B"
+    Ct = paste0(C)
+    giv = paste0("\\cos(\\theta)=\\frac{",ct[1],"}{",ct[2],"}",collapse="")
+    ask = paste0("\\sin(\\theta)")
+    ans = paste0("\\sin(\\theta)=\\frac{",st[1],"}{",st[2],"}",collapse="")
+    stp = paste0("$$B=\\sqrt{",C,"^2-",A,"^2}$$")
+    stp2 = paste0("$$B=",B,"$$")
+}
+if(qt==4){
+    At = paste0(A)
+    Bt = "B"
+    Ct = paste0(C)
+    giv = paste0("\\cos(\\theta)=\\frac{",ct[1],"}{",ct[2],"}",collapse="")
+    ask = paste0("\\tan(\\theta)")
+    ans = paste0("\\tan(\\theta)=\\frac{~\\frac{",st[1],"}{",st[2],"}~}{~\\frac{",ct[1],"}{",ct[2],"}~}=\\frac{",tt[1],"}{",tt[2],"}",collapse="")
+    stp = paste0("$$B=\\sqrt{",C,"^2-",A,"^2}$$")
+    stp2 = paste0("$$B=",B,"$$")
+}
+if(qt==5){
+    At = paste0(A)
+    Bt = paste0(B)
+    Ct = "C"
+    giv = paste0("\\tan(\\theta)=\\frac{",tt[1],"}{",tt[2],"}",collapse="")
+    ask = paste0("\\sin(\\theta)")
+    ans = paste0("\\sin(\\theta)=\\frac{",st[1],"}{",st[2],"}",collapse="")
+    stp = paste0("$$C=\\sqrt{",A,"^2+",B,"^2}$$")
+    stp2 = paste0("$$C=",C,"$$")
+}
+if(qt==6){
+    At = paste0(A)
+    Bt = paste0(B)
+    Ct = "C"
+    giv = paste0("\\tan(\\theta)=\\frac{",tt[1],"}{",tt[2],"}",collapse="")
+    ask = paste0("\\cos(\\theta)")
+    ans = paste0("\\cos(\\theta)=\\frac{",ct[1],"}{",ct[2],"}",collapse="")
+    stp = paste0("$$C=\\sqrt{",A,"^2+",B,"^2}$$")
+    stp2 = paste0("$$C=",C,"$$")
+}
+
+```
+
+If $`r giv`$, and $\theta$ is in quadrant $\text{`r rmn[Q]`}$, determine an exact value for $`r ask`$.
+
+```{r,echo=F,eval=params$showsol,fig.dim=c(1.5,1.5),results='asis'}
+library(latex2exp)
+cat("\\color{red}")
+cat("Ignore any negatives and the quadrant, and draw a right triangle in standard (quadrant I) orientation.\n\n")
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,C*1.1),ylim=c(-C*0.1,C),axes=F,ann=F)
+polygon(c(0,A,A),c(0,0,B),border = "red")
+text(A/2,0,At,adj=c(0.5,1.2),col="red")
+text(A,B/2,Bt,adj=c(-0.2,0.5),col="red")
+text(A/2,B/2,Ct,srt=atan(B/A)/pi*180,adj=c(0.5,-0.2),col="red")
+thh = seq(0,atan(B/A),pi/1000)
+polygon(c(0,cos(thh)*C/20),c(0,sin(thh)*C/20),col="red",border="red")
+cat("\n\nSolve the Pythagorean Equation\n\n")
+cat(paste0("$$",At,"^2+",Bt,"^2=",Ct,"^2$$\n"))
+cat(stp)
+cat("\n")
+cat(stp2)
+cat("\n")
+cat(paste0("Rescale the triangle so the hypotenuse is 1 to use the hypotenuse as a radius on the unit circle. Also reflect the triangle into Quadrant ",rmn[Q],"."))
+cat("\\color{black}\n\n")
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-1.1,1.1),ylim=c(-1.1,1.1),axes=F,ann=F)
+ths = seq(0,2*pi,pi/360)
+col1 = rgb(1,0.9,0.9)
+lines(cos(ths),sin(ths),col=col1)
+abline(h=0,col=col1)
+abline(v=0,col=col1)
+xx = ct[1]/ct[2]
+yy = st[1]/st[2]
+polygon(c(0,xx,xx),c(0,0,yy),border="red")
+text(xx/2,0,TeX(paste0("$\\frac{",ct[1],"}{",ct[2],"}$")),adj=c(0.5,0.5+0.7*sign(yy)),col="red",cex=0.4)
+text(xx,yy/2,TeX(paste0("$\\frac{",st[1],"}{",st[2],"}$")),adj=c(0.5-0.8*sign(xx),0.5),col="red",cex=0.4)
+
+```
+
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat("\\color{red}\n\n")
+    cat(paste0("$$",ans,"$$\n\n"))
+    cat("\\color{black}")
+}
+```
+
+\vfill
+
+\vfill
+
+
+### Question 4
+
+```{r,echo=F}
+qt = sample(1:4,1)
+while(T){
+  AfD = round(runif(3,2,9),2)
+  if(min(diff(sort(AfD)))>1){break}
+}
+A = AfD[1]
+f = AfD[2]
+D = AfD[3]*sample(c(-1,1),1)
+if(qt==1){
+    g = "sin"
+    ic = "midline and moving up"
+}
+if(qt==2){
+    g = "sin"
+    ic = "midline and moving down"
+    A = -A
+}
+if(qt==3){
+    g = "cos"
+    ic = "maximum height"
+}
+if(qt==4){
+    g = "cos"
+    ic = "minimum height"
+    A = -A
+}
+states = c(paste0("an amplitude of ",abs(A)," meters",collapse=""),
+           paste0("a frequency of ",f," Hz",collapse=""),
+           paste0("a midline at $y=",D,"$ meters",collapse=""))
+states = sample(states)
+pD = paste0("+",D)
+pD = gsub("+-","-",pD,fixed=T)
+```
+
+A mass-spring system oscillates vertically with `r states[1]`, `r states[2]`, and `r states[3]`. At $t=0$, the mass is at the `r ic`. Write an equation to model the height ($y$ in meters) as a function of time ($t$ in seconds).
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat("\\color{red}\n\nAny of these equations would get full credit.")
+    cat(paste0("$$y=",A,"\\",g,"(2\\pi",f,"t)",pD,"$$ or $$y=",A,"\\",g,"(",2*f,"\\pi t)",pD,"$$ or $$y=",A,"\\",g,"(",signif(2*f*pi,4)," t)",pD))
+    cat("$$\\color{black}")
+}
+```
+
+
+
+\vfill
 
 
 
