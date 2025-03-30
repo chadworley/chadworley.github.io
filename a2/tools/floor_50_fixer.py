@@ -42,10 +42,11 @@ ept = 0
 mpt = 0
 
 for i in data_set:
-    if i["assignment_group_id"] == 2212:
-        ept = ept + i["points_possible"]
-    if i["assignment_group_id"] == 2213:
-        mpt = mpt + i["points_possible"]
+    if not i["points_possible"] is None:
+        if i["assignment_group_id"] == 2212:
+            ept = ept + i["points_possible"]
+        if i["assignment_group_id"] == 2213:
+            mpt = mpt + i["points_possible"]
 
 print(ept)
 print(mpt)

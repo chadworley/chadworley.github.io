@@ -17,8 +17,10 @@ urlcolor: blue
 
 Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
 
-## u16we (`r params$titex` v`r params$rseed`)
+## Trig Final (`r params$titex` v`r params$rseed`)
 
+* You can use a calculator (like [Desmos](https://www.desmos.com/calculator))
+* You should have a unit-circle with special angles and coordinates marked.
 
 ### Question 1
 
@@ -103,7 +105,7 @@ if(wu!=1){
 
 ```{r,echo=F,results='asis'}
 if(params$showsol){
-    cat(paste0("\\color{red} \n\n $$\\theta = \\frac{L}{r}$$ \n\n",sol," \\color{black}"))
+    cat(paste0("\\color{red} \n\n $$\\begin{aligned}\\theta &= \\frac{L}{r}&&& r&=\\frac{L}{\\theta} &&& L&=r\\theta \\end{aligned}$$ \n\n",sol," \\color{black}"))
 }
 ```
 
@@ -293,7 +295,7 @@ if(params$showsol){
 
 ```{r,echo=F,results='asis'}
 if(params$showsol){
-    cat(paste0("\\color{red} ",q1,"$=",t1,"$ \\hspace{4in} ",q2,"$=",t2,"$ \\color{black}\n\n\\vfill"))
+    cat(paste0("\\color{red} \\hspace{1in} ",q1,"$=",t1,"$ \\hspace{2in} ",q2,"$=",t2,"$ \\color{black}\n\n\\vfill"))
 }
 ```
 
@@ -398,7 +400,7 @@ If $`r giv`$, and $\theta$ is in quadrant $\text{`r rmn[Q]`}$, determine an exac
 ```{r,echo=F,eval=params$showsol,fig.dim=c(1.5,1.5),results='asis'}
 library(latex2exp)
 cat("\\color{red}")
-cat("Ignore any negatives and the quadrant, and draw a right triangle in standard (quadrant I) orientation.\n\n")
+cat("Ignore any negatives and the quadrant, and draw a right triangle (based on SOHCAHTOA) in standard (quadrant I) orientation.\n\n")
 par(mar=c(0,0,0,0))
 plot(0,0,"n",xlim=c(0,C*1.1),ylim=c(-C*0.1,C),axes=F,ann=F)
 polygon(c(0,A,A),c(0,0,B),border = "red")
@@ -407,13 +409,15 @@ text(A,B/2,Bt,adj=c(-0.2,0.5),col="red")
 text(A/2,B/2,Ct,srt=atan(B/A)/pi*180,adj=c(0.5,-0.2),col="red")
 thh = seq(0,atan(B/A),pi/1000)
 polygon(c(0,cos(thh)*C/20),c(0,sin(thh)*C/20),col="red",border="red")
+thq1 = atan(B/A)
+lines(c(-C/20,-C/20,0)+A,c(0,C/20,C/20),col="red")
 cat("\n\nSolve the Pythagorean Equation\n\n")
 cat(paste0("$$",At,"^2+",Bt,"^2=",Ct,"^2$$\n"))
 cat(stp)
 cat("\n")
 cat(stp2)
 cat("\n")
-cat(paste0("Rescale the triangle so the hypotenuse is 1 to use the hypotenuse as a radius on the unit circle. Also reflect the triangle into Quadrant ",rmn[Q],"."))
+cat(paste0("Rescale the triangle so the hypotenuse is 1. Reflect the triangle into Quadrant ",rmn[Q]," in a unit circle."))
 cat("\\color{black}\n\n")
 par(mar=c(0,0,0,0))
 plot(0,0,"n",xlim=c(-1.1,1.1),ylim=c(-1.1,1.1),axes=F,ann=F)
@@ -424,9 +428,15 @@ abline(h=0,col=col1)
 abline(v=0,col=col1)
 xx = ct[1]/ct[2]
 yy = st[1]/st[2]
+dath = (atan2(st[1],ct[1])+4*pi)%%(2*pi)
+ttthhh = seq(0,dath,pi/360)
+lines(cos(ttthhh),sin(ttthhh),col="maroon")
+text(1.1*cos(dath/2),1.1*sin(dath/2),TeX("$\\theta$"),col="maroon",cex=0.6)
 polygon(c(0,xx,xx),c(0,0,yy),border="red")
+lines(xx-c(0.05,0.05,0)*sign(xx),c(0,0.05,0.05)*sign(yy),col="red")
 text(xx/2,0,TeX(paste0("$\\frac{",ct[1],"}{",ct[2],"}$")),adj=c(0.5,0.5+0.7*sign(yy)),col="red",cex=0.4)
 text(xx,yy/2,TeX(paste0("$\\frac{",st[1],"}{",st[2],"}$")),adj=c(0.5-0.8*sign(xx),0.5),col="red",cex=0.4)
+text(xx/2,yy/2,"1",srt=(dath/pi*180+90)%%180-90,col="red",cex=0.4,adj=c(0.5,0.5-0.8*sign(yy)))
 
 ```
 
