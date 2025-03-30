@@ -1,4 +1,4 @@
-for(jjj in 1:50){
+for(jjj in 0:50){
     rmarkdown::render(input = "trig_final.Rmd",
                       output_file = paste0("practice/trig_final_prac_v",sprintf("%03d",jjj)),
                       params = list(rseed = jjj,
