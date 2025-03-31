@@ -35,7 +35,7 @@ cpos = [A1c_pos,A2c_pos,A3c_pos,A4c_pos]
 Save_pos = pag.Point(711,228)
 
 pag.click(switch_win_pos)
-for i in range(100):
+for i in range(300):
     ifn = "q{:03d}.png".format(i+1)
     ans = sols[i]
     # ca = ans[0]

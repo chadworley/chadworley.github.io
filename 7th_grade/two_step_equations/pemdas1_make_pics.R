@@ -7,7 +7,7 @@ fixer = function(ex){
 s=""
 
 
-for(i in 1:100){
+for(i in 1:300){
     print(i)
     qt = sample(1:8,1)
     if(qt==1){ #(x+a)*b
