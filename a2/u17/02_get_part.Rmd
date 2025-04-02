@@ -1,0 +1,58 @@
+```{r,echo=F,warning=F}
+fraction = runif(1,0.02,0.95)
+total = 2^(runif(1,1,10))
+part = fraction*total
+
+total = signif(total,3)
+part = signif(part,3)
+fraction = signif(part/total,3)
+percentage = fraction*100
+place_lead = floor(log(percentage,10))
+ss = paste0("%.0",-(place_lead-2),"f")
+perst = paste0(sprintf(ss[1],percentage),"%")
+
+# What percentage of total is part?
+# Part is what percent of total?
+
+prompt1 = paste0("What is ",perst," of ",total,"?")
+prompt2 = paste0(perst," of ",total," is what?")
+prompts = c(prompt1,prompt2)
+pid = sample(c(1,2),1)
+prompt = prompts[pid]
+
+s1v1 = paste0(part,"~=~ x \\frac{1}{100} \\cdot", total)
+s1v2 = paste0("x \\frac{1}{100} \\cdot", total,"~=~",part)
+s1s = c(s1v1,s1v2)
+s1 = s1s[pid]
+
+```
+
+Question
+========
+
+`r prompt`
+
+Please write your answer using **3 significant figures**.
+
+
+Solution
+========
+
+Use the English-to-Math translation table.
+
+| English | Math |
+|:---:|:---:|
+| is | = |
+| what | $x$ |
+| percentage | $\frac{1}{100}$ or $\%$ |
+| of | $\cdot$ (times) |
+
+Write the statement in algebraic notation.
+$$`r s1`$$
+
+
+Meta-information
+============
+extype: string
+exsolution: 
+exname: get_percentage
