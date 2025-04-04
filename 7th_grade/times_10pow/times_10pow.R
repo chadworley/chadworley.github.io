@@ -6,51 +6,41 @@ Question #,Question Text,Answer 1,Answer 2,"Answer 3
 (Max: 300 seconds)","Correct Answer(s)
 (Only include Answer #)",,'
 
-fnam = "times_10pow.csv"
+fn = "times_10pow.csv"
 
-write(s,file=fnam)
-options(scipen = 99)
+write(s,file=fn)
+
+fixer = function(ex){
+    ex = gsub("")
+}
 
 
 for(i in 1:1000){
-    mantissa = signif(runif(1,1,9.99),3)
-    pexp = sample(-1:2,1)
-    percentage = mantissa*10^pexp
-    fraction = mantissa*10^(pexp-2)
-    badfrac = mantissa*10^(pexp+2)
-    badper = mantissa*10^(pexp-4)
-    qtype = sample(1:2,1)
-    if(qtype==1){
-        qstr = paste0("Convert ",percentage,"% to a decimal fraction.")
-        while(T){
-            ii = sort(sample(-3:2,4))
-            ach = mantissa*10^ii
-            if(fraction %in% ach){break}
+    mantissa = signif(sample(100:999,1)/100,3)
+    pexp = sample(-2:3,1)
+    factor1 = signif(mantissa*10^pexp,3)
+    qt = sample(1:2,1)
+    if(qt==1){
+        factor2 = sample(c(10,100),1)
+        factors = sample(c(factor1,factor2))
+        qstr = paste0("Evaluate the product  ",factors[1]," × ",factors[2])
+        ans = prod(factors)
+    } else {
+        qqt = sample(1:2,1)
+        if(qqt==1){
+            factor2 = sample(c(10,100),1)
+            qstr = paste0("Evaluate the quotient  ",factor1," ÷ ",factor2)
+            ans = factor1/factor2
+        } else {
+            factor2 = sample(c(0.1,0.01),1)
+            factors = sample(c(factor1,factor2))
+            qstr = paste0("Evaluate the product  ",factors[1]," × ",factors[2])
+            ans = prod(factors)
         }
-        sol = which(ach==fraction)
     }
-    else{
-        qstr = paste0("Convert ",fraction," to a percentage.")
-        while(T){
-            ii = sort(sample(-3:2,4))
-            ach = mantissa*10^ii
-            if(percentage %in% ach){break}
-        }
-        sol = which(ach==percentage)
-        ach = paste0(ach,"%")
-    }
-    
-    # qstr = paste0("Convert ",dos[picks[1]]," to radians.")
-    # ca = rad_opts[picks[1]]
-    # was = rad_opts[picks[2:4]]
-    # ch = sample(c(ca,was))
-    # sol = which(ch==ca)
-    ans1 = ach[1]
-    ans2 = ach[2]
-    ans3 = ach[3]
-    ans4 = ach[4]
-    q = paste0(i,',"',qstr,'",',ans1,",",ans2,",",ans3,",",ans4,",60,",sol,",,",collapse="")
-    write(q,file=fnam,append=TRUE)
+    q = paste0(i,',"',qstr,'",',ans,",,,,12,,,typing",collapse="")
+    write(q,file=fn,append=TRUE)
 }
+
 
 

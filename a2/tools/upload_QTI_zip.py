@@ -13,7 +13,7 @@ course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
 # FOR UPLOADING ETS
 fpl = []
-for i in range(120,130):
+for i in range(130,140):
     fpl.append("ET_"+str(i)+".zip")
 file_path_list = fpl
 
