@@ -7,15 +7,15 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-# file_path_list = ["outcanvas/u16_01_match_animations.zip",
-# "outcanvas/u16_02_string_animation.zip",
-# "outcanvas/u16_03_octave_phase.zip"]
+file_path_list = ["outcanvas/u17_01_percent_of.zip",
+"outcanvas/u17_02_percent_more.zip",
+"outcanvas/u17_03_percent_less.zip"]
 
 # FOR UPLOADING ETS
-fpl = []
-for i in range(130,140):
-    fpl.append("ET_"+str(i)+".zip")
-file_path_list = fpl
+# fpl = []
+# for i in range(130,140):
+#     fpl.append("ET_"+str(i)+".zip")
+# file_path_list = fpl
 
 canvas_url = 'https://bart.instructure.com'
 
