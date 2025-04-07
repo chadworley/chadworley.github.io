@@ -6,7 +6,10 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
-file_path_list = ["outcanvas/FOIL__mastery_2.zip"]
+file_path_list = ["outcanvas/Apr07_01_percent_of.zip",
+"outcanvas/Apr07_02_percent_more.zip",
+"outcanvas/Apr07_03_percent_less.zip",
+"outcanvas/Apr07_mastery.zip"]
 
 # fpl = []
 # for i in range(70,100):
