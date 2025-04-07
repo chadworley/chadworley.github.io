@@ -3,15 +3,15 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-03-17 7:00:00"]*3
-dut = ["2025-03-17 22:59:00"]*3
-front = "FOIL_"
+avt = ["2025-04-07 7:00:00"]*3
+dut = ["2025-04-07 22:59:00"]*3
+front = "Apr07_"
 
-files = ["05_multiply_binomials.Rmd",
-"06_FOIL_A_ne_0.Rmd",
-"07_FOIL_A_ne_0_negs.Rmd"]
+files = ["01_percent_of.Rmd",
+"02_percent_more.Rmd",
+"03_percent_less.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/ml/FOIL/outhtml/"
+practice_url_front = "https://chadworley.github.io/ml/percentage/outhtml/"
 course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 
