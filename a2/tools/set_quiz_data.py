@@ -3,8 +3,8 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-03-18 7:00:00"]*3
-dut = ["2025-03-19 22:59:00"]*3
+avt = ["2025-04-07 7:00:00"]*3
+dut = ["2025-04-07 22:59:00"]*3
 front = "u17_"
 
 files = ["01_percent_of.Rmd",
