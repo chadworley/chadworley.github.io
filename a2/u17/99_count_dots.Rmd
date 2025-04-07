@@ -1,0 +1,120 @@
+```{r,echo=FALSE}
+options(scipen=99)
+# k = 0.5
+# ths = c(-pi/4,pi/4)
+# d = 11
+# k = 0.32
+# ths = c(-pi/4,0,pi/4)
+# d = 8
+# k = 0.24
+# ths = c(-6*pi/24,-2*pi/24,2*pi/24,6*pi/24)
+# d = 6
+# k = 0.19
+# ths = c(-pi/4,-pi/8,0,pi/8,pi/4)
+# d = 5
+# k = 0.19
+# ths = c(-pi/2,-pi/4,0,pi/4,pi/2)
+# d = 5
+
+NN = sample(3:7,1)
+k = floor(100.0/NN)/100*2#-sample(1:4,1)/100
+ths = seq(-pi+pi/(NN),pi-pi/(NN),2*pi/(NN))
+d = sample(3:5,1) #ceiling(log(0.001,k))+1
+xmin = 0
+xmax = 0
+ymin = 0
+ymax = 0
+x = list(0)
+y = list(0)
+t = list(pi/2)
+l = 1
+x1s = c(0)
+x2s = c(0)
+y1s = c(0)
+y2s = c(0)
+cols = c(1)
+xends = numeric()
+yends = numeric()
+for(i in 2:d){
+  l = l*k
+  for(j in 1:length(x[[i-1]])){
+    xp = x[[i-1]][j]
+    yp = y[[i-1]][j]
+    tp = t[[i-1]][j]
+    for(th in ths){
+      tc = tp+th
+      xc = xp+l*cos(tc)
+      yc = yp+l*sin(tc)
+      if(i==d){
+          xends = c(xends,xc)
+          yends = c(yends,yc)
+      }
+      x1s = c(x1s,xp)
+      x2s = c(x2s,xc)
+      y1s = c(y1s,yp)
+      y2s = c(y2s,yc)
+      cols = c(cols,i)
+      if(length(x)<i){
+        x[[i]] = xc
+        y[[i]] = yc
+        t[[i]] = tc
+      } else {
+        x[[i]] = c(x[[i]],xc)
+        y[[i]] = c(y[[i]],yc)
+        t[[i]] = c(t[[i]],tc)
+      }
+      if(xc<xmin){
+        xmin = xc
+      }
+      if(xc>xmax){
+        xmax = xc
+      }
+      if(yc<ymin){
+        ymin = yc
+      }
+      if(yc>ymax){
+        ymax = yc
+      }
+    }
+  }
+}
+xrange = xmax-xmin
+yrange = ymax-ymin
+xmid = (xmin+xmax)/2
+ymid = (ymin+ymax)/2
+rad = max(c(xrange,yrange))/2
+sol = 1/(1-NN*k)
+```
+
+Question
+========
+
+```{r,fig.dim=c(6,6),echo=FALSE}
+par(mar=c(0,0,0,0))
+plot(0,0,type="n",
+     xlim=c(xmid-rad,xmid+rad),
+     ylim=c(ymid-rad,ymid+rad),ann=F,axes=F)
+for(i in 1:length(x1s)){
+  lines(c(x1s[i],x2s[i]),c(y1s[i],y2s[i]))
+}
+points(xends,yends,pch=19,cex=0.4,col="red")
+```
+\
+
+
+
+The tolerance is $\pm 0.01$.
+
+Solution
+========
+
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: 
+extol: 0.01
+exname: fractal_lines

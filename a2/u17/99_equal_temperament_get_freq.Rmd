@@ -1,7 +1,6 @@
 ```{r,echo=FALSE}
 options(scipen=99)
 
-
 webs = c("https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology",
 "https://en.wikipedia.org/wiki/Equal_temperament#7-tone_equal_temperament",
 "https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology",
@@ -41,27 +40,23 @@ Let's assume a [concert pitch](https://en.wikipedia.org/wiki/Concert_pitch) of [
 
 $$f = 440 \cdot 2^{(k-`r i440`)/`r N`} $$
 
-The inverse of exponentiation is the [logarithm](https://en.wikipedia.org/wiki/Logarithm). This allows us to create a formula to calculate the key number from the frequency.
-
-$$k = `r N` \log_2\left(\frac{f}{440}\right)+`r i440`$$
-
-What key number produces a frequency of $f=`r f`$ Hz? (Please round to nearest integer.)
+What is the frequency,  in [Hz](https://en.wikipedia.org/wiki/Hertz), of key number $k=$ `r i2`? *The tolerance is $\pm 1$ Hz.*
 
 Solution
 ========
 
-$$k = `r N` \log_2\left(\frac{`r f`}{440}\right)+`r i440`$$
+$$f = 440 \cdot 2^{(`r i2`-`r i440`)/`r N`}$$
 
-$$k=`r i2`$$
+$$f = 440 \cdot 2^{`r i2-i440`/`r N`}$$
 
-If your calculator does not allow logs with base 2, you can use the [change-of-base  identity](https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base).
+$$f = `r 440*2^((i2-i440)/N)`$$
 
-$$k = `r N` \frac{\log\left(\frac{`r f`}{440}\right)}{\log(2)}+`r i440`= `r i2`$$
+`r f` Hz
 
 
 Meta-information
 ============
 extype: num
-exsolution: `r i2`
-extol: 0
+exsolution: `r f`
+extol: 1
 exname: equal_temperament_get_freq

@@ -9,19 +9,21 @@ fraction = signif(part/total,3)
 percentage = fraction*100
 place_lead = floor(log(percentage,10))
 ss = paste0("%.0",-(place_lead-2),"f")
+ans = paste0(sprintf(ss[1],percentage),"%")
 perst = paste0(sprintf(ss[1],percentage),"%")
+perstex = paste0(sprintf(ss[1],percentage),"\\%")
 
 # What percentage of total is part?
 # Part is what percent of total?
 
-prompt1 = paste0("What is ",perst," of ",total,"?")
-prompt2 = paste0(perst," of ",total," is what?")
+prompt1 = paste0(part," is what percentage of ",total,"?")
+prompt2 = paste0("What percentage of ",total," is ",part,"?")
 prompts = c(prompt1,prompt2)
 pid = sample(c(1,2),1)
 prompt = prompts[pid]
 
-s1v1 = paste0(part,"~=~ x \\frac{1}{100} \\cdot", total)
-s1v2 = paste0("x \\frac{1}{100} \\cdot", total,"~=~",part)
+s1v1 = paste0(part,"~=~ x  \\cdot", total)
+s1v2 = paste0("x \\cdot", total,"~=~",part)
 s1s = c(s1v1,s1v2)
 s1 = s1s[pid]
 
@@ -34,25 +36,24 @@ Question
 
 Please write your answer using **3 significant figures**.
 
-
 Solution
 ========
 
-Use the English-to-Math translation table.
-
-| English | Math |
-|:---:|:---:|
-| is | = |
-| what | $x$ |
-| percentage | $\frac{1}{100}$ or $\%$ |
-| of | $\cdot$ (times) |
 
 Write the statement in algebraic notation.
+
 $$`r s1`$$
 
+Solve the equation.
+
+$$x=`r fraction`$$
+
+Expressed as a percentage, we multiply the fraction by 100 and multiply by "%". You can understand $\%=0.01=\frac{1}{100}$.
+
+$$x=`r perstex`$$
 
 Meta-information
 ============
 extype: string
-exsolution: 
+exsolution: `r ans`
 exname: get_percentage
