@@ -1,7 +1,7 @@
 library("exams")
 n = 30
 outdir = "outcanvas"
-genname = "u17_"
+genname = "u17_Apr8"
 
 # probs = c("04_percent_changes.Rmd",
 #           "05_certificate_of_deposit.Rmd",
