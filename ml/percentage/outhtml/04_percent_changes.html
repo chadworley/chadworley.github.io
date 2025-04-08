@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>04_percent_changes</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">04_percent_changes</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>On Monday morning, an investor purchased a stock for $7.70. During the first day, the stock price increased by 23%. During the second day, the stock price increased by 78%. During the third day, the stock price decreased by 15%. After the three days, what was the final price of the stock?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the scale factors. Find the product of the inital price and all the scale factors.</p>
+<p><span class="math display">\[7.7\cdot 1.23\cdot1.78\cdot0.85~=~14.33\]</span></p>
+<p>If you wanted to, you could break this down into three changes.</p>
+<p><span class="math display">\[P_1 ~=~ 1.23\cdot 7.7 ~=~ 9.471\]</span>
+<span class="math display">\[P_2 ~=~ 1.78\cdot 9.471 ~=~ 16.85838\]</span>
+<span class="math display">\[P_3 ~=~ 0.85\cdot 16.85838 ~=~ 14.329623\]</span></p>
+<p>Now, most stocks are reported rounded to the nearest cent… so these intermediate values might not be entirely realistic… but please do not round the intermediate values when doing this problem.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>On Monday morning, an investor purchased a stock for $40.84. During the first day, the stock price increased by 77%. During the second day, the stock price decreased by 60%. During the third day, the stock price decreased by 56%. After the three days, what was the final price of the stock?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the scale factors. Find the product of the inital price and all the scale factors.</p>
+<p><span class="math display">\[40.84\cdot 1.77\cdot0.4\cdot0.44~=~12.72\]</span></p>
+<p>If you wanted to, you could break this down into three changes.</p>
+<p><span class="math display">\[P_1 ~=~ 1.77\cdot 40.84 ~=~ 72.2868\]</span>
+<span class="math display">\[P_2 ~=~ 0.4\cdot 72.2868 ~=~ 28.91472\]</span>
+<span class="math display">\[P_3 ~=~ 0.44\cdot 28.91472 ~=~ 12.7224768\]</span></p>
+<p>Now, most stocks are reported rounded to the nearest cent… so these intermediate values might not be entirely realistic… but please do not round the intermediate values when doing this problem.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>On Monday morning, an investor purchased a stock for $23.48. During the first day, the stock price decreased by 74%. During the second day, the stock price increased by 48%. During the third day, the stock price decreased by 74%. After the three days, what was the final price of the stock?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the scale factors. Find the product of the inital price and all the scale factors.</p>
+<p><span class="math display">\[23.48\cdot 0.26\cdot1.48\cdot0.26~=~2.35\]</span></p>
+<p>If you wanted to, you could break this down into three changes.</p>
+<p><span class="math display">\[P_1 ~=~ 0.26\cdot 23.48 ~=~ 6.1048\]</span>
+<span class="math display">\[P_2 ~=~ 1.48\cdot 6.1048 ~=~ 9.035104\]</span>
+<span class="math display">\[P_3 ~=~ 0.26\cdot 9.035104 ~=~ 2.349127\]</span></p>
+<p>Now, most stocks are reported rounded to the nearest cent… so these intermediate values might not be entirely realistic… but please do not round the intermediate values when doing this problem.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>On Monday morning, an investor purchased a stock for $913.48. During the first day, the stock price increased by 67%. During the second day, the stock price decreased by 11%. During the third day, the stock price increased by 13%. After the three days, what was the final price of the stock?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the scale factors. Find the product of the inital price and all the scale factors.</p>
+<p><span class="math display">\[913.48\cdot 1.67\cdot0.89\cdot1.13~=~1534.21\]</span></p>
+<p>If you wanted to, you could break this down into three changes.</p>
+<p><span class="math display">\[P_1 ~=~ 1.67\cdot 913.48 ~=~ 1525.5116\]</span>
+<span class="math display">\[P_2 ~=~ 0.89\cdot 1525.5116 ~=~ 1357.705324\]</span>
+<span class="math display">\[P_3 ~=~ 1.13\cdot 1357.705324 ~=~ 1534.2070161\]</span></p>
+<p>Now, most stocks are reported rounded to the nearest cent… so these intermediate values might not be entirely realistic… but please do not round the intermediate values when doing this problem.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>On Monday morning, an investor purchased a stock for $88.18. During the first day, the stock price decreased by 36%. During the second day, the stock price decreased by 29%. During the third day, the stock price increased by 27%. After the three days, what was the final price of the stock?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the scale factors. Find the product of the inital price and all the scale factors.</p>
+<p><span class="math display">\[88.18\cdot 0.64\cdot0.71\cdot1.27~=~50.89\]</span></p>
+<p>If you wanted to, you could break this down into three changes.</p>
+<p><span class="math display">\[P_1 ~=~ 0.64\cdot 88.18 ~=~ 56.4352\]</span>
+<span class="math display">\[P_2 ~=~ 0.71\cdot 56.4352 ~=~ 40.068992\]</span>
+<span class="math display">\[P_3 ~=~ 1.27\cdot 40.068992 ~=~ 50.8876198\]</span></p>
+<p>Now, most stocks are reported rounded to the nearest cent… so these intermediate values might not be entirely realistic… but please do not round the intermediate values when doing this problem.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>On Monday morning, an investor purchased a stock for $5.43. During the first day, the stock price decreased by 58%. During the second day, the stock price increased by 53%. During the third day, the stock price increased by 57%. After the three days, what was the final price of the stock?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the scale factors. Find the product of the inital price and all the scale factors.</p>
+<p><span class="math display">\[5.43\cdot 0.42\cdot1.53\cdot1.57~=~5.48\]</span></p>
+<p>If you wanted to, you could break this down into three changes.</p>
+<p><span class="math display">\[P_1 ~=~ 0.42\cdot 5.43 ~=~ 2.2806\]</span>
+<span class="math display">\[P_2 ~=~ 1.53\cdot 2.2806 ~=~ 3.489318\]</span>
+<span class="math display">\[P_3 ~=~ 1.57\cdot 3.489318 ~=~ 5.4782293\]</span></p>
+<p>Now, most stocks are reported rounded to the nearest cent… so these intermediate values might not be entirely realistic… but please do not round the intermediate values when doing this problem.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>On Monday morning, an investor purchased a stock for $9.58. During the first day, the stock price decreased by 70%. During the second day, the stock price increased by 85%. During the third day, the stock price decreased by 6%. After the three days, what was the final price of the stock?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the scale factors. Find the product of the inital price and all the scale factors.</p>
+<p><span class="math display">\[9.58\cdot 0.3\cdot1.85\cdot0.94~=~5\]</span></p>
+<p>If you wanted to, you could break this down into three changes.</p>
+<p><span class="math display">\[P_1 ~=~ 0.3\cdot 9.58 ~=~ 2.874\]</span>
+<span class="math display">\[P_2 ~=~ 1.85\cdot 2.874 ~=~ 5.3169\]</span>
+<span class="math display">\[P_3 ~=~ 0.94\cdot 5.3169 ~=~ 4.997886\]</span></p>
+<p>Now, most stocks are reported rounded to the nearest cent… so these intermediate values might not be entirely realistic… but please do not round the intermediate values when doing this problem.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>On Monday morning, an investor purchased a stock for $722.06. During the first day, the stock price decreased by 82%. During the second day, the stock price decreased by 59%. During the third day, the stock price increased by 29%. After the three days, what was the final price of the stock?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the scale factors. Find the product of the inital price and all the scale factors.</p>
+<p><span class="math display">\[722.06\cdot 0.18\cdot0.41\cdot1.29~=~68.74\]</span></p>
+<p>If you wanted to, you could break this down into three changes.</p>
+<p><span class="math display">\[P_1 ~=~ 0.18\cdot 722.06 ~=~ 129.9708\]</span>
+<span class="math display">\[P_2 ~=~ 0.41\cdot 129.9708 ~=~ 53.288028\]</span>
+<span class="math display">\[P_3 ~=~ 1.29\cdot 53.288028 ~=~ 68.7415561\]</span></p>
+<p>Now, most stocks are reported rounded to the nearest cent… so these intermediate values might not be entirely realistic… but please do not round the intermediate values when doing this problem.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
