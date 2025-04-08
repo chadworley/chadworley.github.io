@@ -3,13 +3,17 @@ import time
 from datetime import datetime, timedelta
 import os
 
-avt = ["2025-04-07 7:00:00"]*3
-dut = ["2025-04-07 22:59:00"]*3
+files = ["04_percent_changes.Rmd",
+"05_certificate_of_deposit.Rmd",
+"06_exponential_population.Rmd",
+"07_equal_temperament_up.Rmd",
+"08_equal_temperament_down.Rmd",
+"09_mug_cooling.Rmd"]
+
+avt = ["2025-04-08 7:00:00"]*len(files)
+dut = ["2025-04-08 22:59:00"]*len(files)
 front = "u17_"
 
-files = ["01_percent_of.Rmd",
-"02_percent_more.Rmd",
-"03_percent_less.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'

@@ -5,9 +5,12 @@ import os
 
 
 front = "u17_"
-files = ["01_percent_of.Rmd",
-"02_percent_more.Rmd",
-"03_percent_less.Rmd"]
+files = ["04_percent_changes.Rmd",
+"05_certificate_of_deposit.Rmd",
+"06_exponential_population.Rmd",
+"07_equal_temperament_up.Rmd",
+"08_equal_temperament_down.Rmd",
+"09_mug_cooling.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
