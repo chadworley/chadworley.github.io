@@ -1,0 +1,39 @@
+```{r,echo=F,warning=F}
+options(scipen=99)
+td = runif(1,10,60)
+sf = round(2^(1/td),4)
+r = round(sf-1,4)
+n = sample(c(15,20,30,40,45,60,90,120),1)
+A = 1000*(1+r)^n
+
+```
+
+Question
+========
+
+When organisms reproduce during abundance without predators, disease, or other culling factors, exponential population growth is expected. Common organisms regularly cultured in laboratories, like [Escherichia coli](https://en.wikipedia.org/wiki/Escherichia_coli) and [Saccharomyces cerevisiae](https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae), can exhibit this type of [exponential population growth](https://en.wikipedia.org/wiki/Bacterial_growth).
+
+Under some conditions, a culture of E. coli is expected to increase its population size by `r 100*r`% every minute. If at $t=0$ minutes there are 1000 cells, how many cells do you predict there will be after `r n` minutes?
+
+Solution
+========
+
+Find the scale factor.
+
+$$1+`r r` ~=~ `r 1+r`$$
+
+Multiply the initial population size by the scale factor `r n` times.
+
+$$1000 \cdot `r 1+r`^{`r n`} ~=~ `r A`$$
+
+If we use $r=`r r`$, we can write a formula to find the population at time $t$ ($P_t$) from the initial population at time 0 ($P_0$), and the growth rate $r$.
+
+$$P_t~=~P_0\cdot (1+r)^{t}$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r A`
+exname: exponential_population
+extol: 1

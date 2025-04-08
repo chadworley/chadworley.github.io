@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>06_exponential_population</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">06_exponential_population</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When organisms reproduce during abundance without predators, disease, or other culling factors, exponential population growth is expected. Common organisms regularly cultured in laboratories, like <a href="https://en.wikipedia.org/wiki/Escherichia_coli">Escherichia coli</a> and <a href="https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae">Saccharomyces cerevisiae</a>, can exhibit this type of <a href="https://en.wikipedia.org/wiki/Bacterial_growth">exponential population growth</a>.</p>
+<p>Under some conditions, a culture of E. coli is expected to increase its population size by 1.62% every minute. If at <span class="math inline">\(t=0\)</span> minutes there are 1000 cells, how many cells do you predict there will be after 120 minutes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0162 ~=~ 1.0162\]</span></p>
+<p>Multiply the initial population size by the scale factor 120 times.</p>
+<p><span class="math display">\[1000 \cdot 1.0162^{120} ~=~ 6878.6445627\]</span></p>
+<p>If we use <span class="math inline">\(r=0.0162\)</span>, we can write a formula to find the population at time <span class="math inline">\(t\)</span> (<span class="math inline">\(P_t\)</span>) from the initial population at time 0 (<span class="math inline">\(P_0\)</span>), and the growth rate <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[P_t~=~P_0\cdot (1+r)^{t}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When organisms reproduce during abundance without predators, disease, or other culling factors, exponential population growth is expected. Common organisms regularly cultured in laboratories, like <a href="https://en.wikipedia.org/wiki/Escherichia_coli">Escherichia coli</a> and <a href="https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae">Saccharomyces cerevisiae</a>, can exhibit this type of <a href="https://en.wikipedia.org/wiki/Bacterial_growth">exponential population growth</a>.</p>
+<p>Under some conditions, a culture of E. coli is expected to increase its population size by 1.87% every minute. If at <span class="math inline">\(t=0\)</span> minutes there are 1000 cells, how many cells do you predict there will be after 120 minutes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0187 ~=~ 1.0187\]</span></p>
+<p>Multiply the initial population size by the scale factor 120 times.</p>
+<p><span class="math display">\[1000 \cdot 1.0187^{120} ~=~ 9237.5486577\]</span></p>
+<p>If we use <span class="math inline">\(r=0.0187\)</span>, we can write a formula to find the population at time <span class="math inline">\(t\)</span> (<span class="math inline">\(P_t\)</span>) from the initial population at time 0 (<span class="math inline">\(P_0\)</span>), and the growth rate <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[P_t~=~P_0\cdot (1+r)^{t}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When organisms reproduce during abundance without predators, disease, or other culling factors, exponential population growth is expected. Common organisms regularly cultured in laboratories, like <a href="https://en.wikipedia.org/wiki/Escherichia_coli">Escherichia coli</a> and <a href="https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae">Saccharomyces cerevisiae</a>, can exhibit this type of <a href="https://en.wikipedia.org/wiki/Bacterial_growth">exponential population growth</a>.</p>
+<p>Under some conditions, a culture of E. coli is expected to increase its population size by 1.69% every minute. If at <span class="math inline">\(t=0\)</span> minutes there are 1000 cells, how many cells do you predict there will be after 20 minutes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0169 ~=~ 1.0169\]</span></p>
+<p>Multiply the initial population size by the scale factor 20 times.</p>
+<p><span class="math display">\[1000 \cdot 1.0169^{20} ~=~ 1398.1859918\]</span></p>
+<p>If we use <span class="math inline">\(r=0.0169\)</span>, we can write a formula to find the population at time <span class="math inline">\(t\)</span> (<span class="math inline">\(P_t\)</span>) from the initial population at time 0 (<span class="math inline">\(P_0\)</span>), and the growth rate <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[P_t~=~P_0\cdot (1+r)^{t}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When organisms reproduce during abundance without predators, disease, or other culling factors, exponential population growth is expected. Common organisms regularly cultured in laboratories, like <a href="https://en.wikipedia.org/wiki/Escherichia_coli">Escherichia coli</a> and <a href="https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae">Saccharomyces cerevisiae</a>, can exhibit this type of <a href="https://en.wikipedia.org/wiki/Bacterial_growth">exponential population growth</a>.</p>
+<p>Under some conditions, a culture of E. coli is expected to increase its population size by 1.27% every minute. If at <span class="math inline">\(t=0\)</span> minutes there are 1000 cells, how many cells do you predict there will be after 20 minutes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0127 ~=~ 1.0127\]</span></p>
+<p>Multiply the initial population size by the scale factor 20 times.</p>
+<p><span class="math display">\[1000 \cdot 1.0127^{20} ~=~ 1287.1115858\]</span></p>
+<p>If we use <span class="math inline">\(r=0.0127\)</span>, we can write a formula to find the population at time <span class="math inline">\(t\)</span> (<span class="math inline">\(P_t\)</span>) from the initial population at time 0 (<span class="math inline">\(P_0\)</span>), and the growth rate <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[P_t~=~P_0\cdot (1+r)^{t}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When organisms reproduce during abundance without predators, disease, or other culling factors, exponential population growth is expected. Common organisms regularly cultured in laboratories, like <a href="https://en.wikipedia.org/wiki/Escherichia_coli">Escherichia coli</a> and <a href="https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae">Saccharomyces cerevisiae</a>, can exhibit this type of <a href="https://en.wikipedia.org/wiki/Bacterial_growth">exponential population growth</a>.</p>
+<p>Under some conditions, a culture of E. coli is expected to increase its population size by 1.87% every minute. If at <span class="math inline">\(t=0\)</span> minutes there are 1000 cells, how many cells do you predict there will be after 20 minutes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0187 ~=~ 1.0187\]</span></p>
+<p>Multiply the initial population size by the scale factor 20 times.</p>
+<p><span class="math display">\[1000 \cdot 1.0187^{20} ~=~ 1448.5254273\]</span></p>
+<p>If we use <span class="math inline">\(r=0.0187\)</span>, we can write a formula to find the population at time <span class="math inline">\(t\)</span> (<span class="math inline">\(P_t\)</span>) from the initial population at time 0 (<span class="math inline">\(P_0\)</span>), and the growth rate <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[P_t~=~P_0\cdot (1+r)^{t}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When organisms reproduce during abundance without predators, disease, or other culling factors, exponential population growth is expected. Common organisms regularly cultured in laboratories, like <a href="https://en.wikipedia.org/wiki/Escherichia_coli">Escherichia coli</a> and <a href="https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae">Saccharomyces cerevisiae</a>, can exhibit this type of <a href="https://en.wikipedia.org/wiki/Bacterial_growth">exponential population growth</a>.</p>
+<p>Under some conditions, a culture of E. coli is expected to increase its population size by 4.07% every minute. If at <span class="math inline">\(t=0\)</span> minutes there are 1000 cells, how many cells do you predict there will be after 20 minutes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0407 ~=~ 1.0407\]</span></p>
+<p>Multiply the initial population size by the scale factor 20 times.</p>
+<p><span class="math display">\[1000 \cdot 1.0407^{20} ~=~ 2220.8083989\]</span></p>
+<p>If we use <span class="math inline">\(r=0.0407\)</span>, we can write a formula to find the population at time <span class="math inline">\(t\)</span> (<span class="math inline">\(P_t\)</span>) from the initial population at time 0 (<span class="math inline">\(P_0\)</span>), and the growth rate <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[P_t~=~P_0\cdot (1+r)^{t}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When organisms reproduce during abundance without predators, disease, or other culling factors, exponential population growth is expected. Common organisms regularly cultured in laboratories, like <a href="https://en.wikipedia.org/wiki/Escherichia_coli">Escherichia coli</a> and <a href="https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae">Saccharomyces cerevisiae</a>, can exhibit this type of <a href="https://en.wikipedia.org/wiki/Bacterial_growth">exponential population growth</a>.</p>
+<p>Under some conditions, a culture of E. coli is expected to increase its population size by 6.85% every minute. If at <span class="math inline">\(t=0\)</span> minutes there are 1000 cells, how many cells do you predict there will be after 120 minutes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0685 ~=~ 1.0685\]</span></p>
+<p>Multiply the initial population size by the scale factor 120 times.</p>
+<p><span class="math display">\[1000 \cdot 1.0685^{120} ~=~ 2837547.7596645\]</span></p>
+<p>If we use <span class="math inline">\(r=0.0685\)</span>, we can write a formula to find the population at time <span class="math inline">\(t\)</span> (<span class="math inline">\(P_t\)</span>) from the initial population at time 0 (<span class="math inline">\(P_0\)</span>), and the growth rate <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[P_t~=~P_0\cdot (1+r)^{t}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When organisms reproduce during abundance without predators, disease, or other culling factors, exponential population growth is expected. Common organisms regularly cultured in laboratories, like <a href="https://en.wikipedia.org/wiki/Escherichia_coli">Escherichia coli</a> and <a href="https://en.wikipedia.org/wiki/Saccharomyces_cerevisiae">Saccharomyces cerevisiae</a>, can exhibit this type of <a href="https://en.wikipedia.org/wiki/Bacterial_growth">exponential population growth</a>.</p>
+<p>Under some conditions, a culture of E. coli is expected to increase its population size by 2.63% every minute. If at <span class="math inline">\(t=0\)</span> minutes there are 1000 cells, how many cells do you predict there will be after 45 minutes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0263 ~=~ 1.0263\]</span></p>
+<p>Multiply the initial population size by the scale factor 45 times.</p>
+<p><span class="math display">\[1000 \cdot 1.0263^{45} ~=~ 3216.2129828\]</span></p>
+<p>If we use <span class="math inline">\(r=0.0263\)</span>, we can write a formula to find the population at time <span class="math inline">\(t\)</span> (<span class="math inline">\(P_t\)</span>) from the initial population at time 0 (<span class="math inline">\(P_0\)</span>), and the growth rate <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[P_t~=~P_0\cdot (1+r)^{t}\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

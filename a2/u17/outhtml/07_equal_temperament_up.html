@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>07_equal_temperament_up</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">07_equal_temperament_up</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an ascending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.9463094\)</span>% higher than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 443 Hz. What will the frequency be of the <span class="math inline">\(C^{\#}_5\)</span> that is 4 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> higher than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0594631~=~1.0594631\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{1/12}\)</span>.</p>
+<p>You multiply the given frequency by the scale factor 4 times.</p>
+<p><span class="math display">\[443\cdot 1.0594631^{4} ~=~ 558.1450251\]</span></p>
+<p>Some composers (including BART legend
+James Bergin), compose in other equal temperaments. Some common ones include <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">5, 7, 9</a>, <a href="https://en.wikipedia.org/wiki/15_equal_temperament">15</a>, <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17</a>, <a href="https://en.wikipedia.org/wiki/19_equal_temperament">19</a>, <a href="https://en.wikipedia.org/wiki/22_equal_temperament">22</a>, <a href="https://en.wikipedia.org/wiki/23_equal_temperament">23</a>, <a href="https://en.wikipedia.org/wiki/Quarter_tone">24</a>,
+<a href="https://en.wikipedia.org/wiki/31_equal_temperament">31</a>,
+<a href="https://en.wikipedia.org/wiki/34_equal_temperament">34</a>, <a href="https://en.wikipedia.org/wiki/41_equal_temperament">41</a>,
+<a href="https://en.wikipedia.org/wiki/53_equal_temperament">53</a>, <a href="https://en.wikipedia.org/wiki/58_equal_temperament">58</a>, <a href="https://en.wikipedia.org/wiki/72_equal_temperament">72</a>, and <a href="https://en.wikipedia.org/wiki/96_equal_temperament">96</a> (I believe Mr. Bergin is partial to 72-EDO). In a 72-tone equal temperament, two adjacent notes have a scale factor of <span class="math inline">\(2^{1/72}\approx 1.0096735\)</span>, so as you play a chromatic scale, the frequency increases by 0.9673533% for each note.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an ascending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.9463094\)</span>% higher than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 450 Hz. What will the frequency be of the <span class="math inline">\(F_5\)</span> that is 8 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> higher than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0594631~=~1.0594631\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{1/12}\)</span>.</p>
+<p>You multiply the given frequency by the scale factor 8 times.</p>
+<p><span class="math display">\[450\cdot 1.0594631^{8} ~=~ 714.3304734\]</span></p>
+<p>Some composers (including BART legend
+James Bergin), compose in other equal temperaments. Some common ones include <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">5, 7, 9</a>, <a href="https://en.wikipedia.org/wiki/15_equal_temperament">15</a>, <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17</a>, <a href="https://en.wikipedia.org/wiki/19_equal_temperament">19</a>, <a href="https://en.wikipedia.org/wiki/22_equal_temperament">22</a>, <a href="https://en.wikipedia.org/wiki/23_equal_temperament">23</a>, <a href="https://en.wikipedia.org/wiki/Quarter_tone">24</a>,
+<a href="https://en.wikipedia.org/wiki/31_equal_temperament">31</a>,
+<a href="https://en.wikipedia.org/wiki/34_equal_temperament">34</a>, <a href="https://en.wikipedia.org/wiki/41_equal_temperament">41</a>,
+<a href="https://en.wikipedia.org/wiki/53_equal_temperament">53</a>, <a href="https://en.wikipedia.org/wiki/58_equal_temperament">58</a>, <a href="https://en.wikipedia.org/wiki/72_equal_temperament">72</a>, and <a href="https://en.wikipedia.org/wiki/96_equal_temperament">96</a> (I believe Mr. Bergin is partial to 72-EDO). In a 72-tone equal temperament, two adjacent notes have a scale factor of <span class="math inline">\(2^{1/72}\approx 1.0096735\)</span>, so as you play a chromatic scale, the frequency increases by 0.9673533% for each note.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an ascending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.9463094\)</span>% higher than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 432 Hz. What will the frequency be of the <span class="math inline">\(G_5\)</span> that is 10 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> higher than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0594631~=~1.0594631\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{1/12}\)</span>.</p>
+<p>You multiply the given frequency by the scale factor 10 times.</p>
+<p><span class="math display">\[432\cdot 1.0594631^{10} ~=~ 769.7364925\]</span></p>
+<p>Some composers (including BART legend
+James Bergin), compose in other equal temperaments. Some common ones include <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">5, 7, 9</a>, <a href="https://en.wikipedia.org/wiki/15_equal_temperament">15</a>, <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17</a>, <a href="https://en.wikipedia.org/wiki/19_equal_temperament">19</a>, <a href="https://en.wikipedia.org/wiki/22_equal_temperament">22</a>, <a href="https://en.wikipedia.org/wiki/23_equal_temperament">23</a>, <a href="https://en.wikipedia.org/wiki/Quarter_tone">24</a>,
+<a href="https://en.wikipedia.org/wiki/31_equal_temperament">31</a>,
+<a href="https://en.wikipedia.org/wiki/34_equal_temperament">34</a>, <a href="https://en.wikipedia.org/wiki/41_equal_temperament">41</a>,
+<a href="https://en.wikipedia.org/wiki/53_equal_temperament">53</a>, <a href="https://en.wikipedia.org/wiki/58_equal_temperament">58</a>, <a href="https://en.wikipedia.org/wiki/72_equal_temperament">72</a>, and <a href="https://en.wikipedia.org/wiki/96_equal_temperament">96</a> (I believe Mr. Bergin is partial to 72-EDO). In a 72-tone equal temperament, two adjacent notes have a scale factor of <span class="math inline">\(2^{1/72}\approx 1.0096735\)</span>, so as you play a chromatic scale, the frequency increases by 0.9673533% for each note.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an ascending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.9463094\)</span>% higher than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 439 Hz. What will the frequency be of the <span class="math inline">\(D_5\)</span> that is 5 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> higher than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0594631~=~1.0594631\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{1/12}\)</span>.</p>
+<p>You multiply the given frequency by the scale factor 5 times.</p>
+<p><span class="math display">\[439\cdot 1.0594631^{5} ~=~ 585.994696\]</span></p>
+<p>Some composers (including BART legend
+James Bergin), compose in other equal temperaments. Some common ones include <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">5, 7, 9</a>, <a href="https://en.wikipedia.org/wiki/15_equal_temperament">15</a>, <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17</a>, <a href="https://en.wikipedia.org/wiki/19_equal_temperament">19</a>, <a href="https://en.wikipedia.org/wiki/22_equal_temperament">22</a>, <a href="https://en.wikipedia.org/wiki/23_equal_temperament">23</a>, <a href="https://en.wikipedia.org/wiki/Quarter_tone">24</a>,
+<a href="https://en.wikipedia.org/wiki/31_equal_temperament">31</a>,
+<a href="https://en.wikipedia.org/wiki/34_equal_temperament">34</a>, <a href="https://en.wikipedia.org/wiki/41_equal_temperament">41</a>,
+<a href="https://en.wikipedia.org/wiki/53_equal_temperament">53</a>, <a href="https://en.wikipedia.org/wiki/58_equal_temperament">58</a>, <a href="https://en.wikipedia.org/wiki/72_equal_temperament">72</a>, and <a href="https://en.wikipedia.org/wiki/96_equal_temperament">96</a> (I believe Mr. Bergin is partial to 72-EDO). In a 72-tone equal temperament, two adjacent notes have a scale factor of <span class="math inline">\(2^{1/72}\approx 1.0096735\)</span>, so as you play a chromatic scale, the frequency increases by 0.9673533% for each note.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an ascending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.9463094\)</span>% higher than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 439 Hz. What will the frequency be of the <span class="math inline">\(F_5\)</span> that is 8 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> higher than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0594631~=~1.0594631\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{1/12}\)</span>.</p>
+<p>You multiply the given frequency by the scale factor 8 times.</p>
+<p><span class="math display">\[439\cdot 1.0594631^{8} ~=~ 696.8690618\]</span></p>
+<p>Some composers (including BART legend
+James Bergin), compose in other equal temperaments. Some common ones include <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">5, 7, 9</a>, <a href="https://en.wikipedia.org/wiki/15_equal_temperament">15</a>, <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17</a>, <a href="https://en.wikipedia.org/wiki/19_equal_temperament">19</a>, <a href="https://en.wikipedia.org/wiki/22_equal_temperament">22</a>, <a href="https://en.wikipedia.org/wiki/23_equal_temperament">23</a>, <a href="https://en.wikipedia.org/wiki/Quarter_tone">24</a>,
+<a href="https://en.wikipedia.org/wiki/31_equal_temperament">31</a>,
+<a href="https://en.wikipedia.org/wiki/34_equal_temperament">34</a>, <a href="https://en.wikipedia.org/wiki/41_equal_temperament">41</a>,
+<a href="https://en.wikipedia.org/wiki/53_equal_temperament">53</a>, <a href="https://en.wikipedia.org/wiki/58_equal_temperament">58</a>, <a href="https://en.wikipedia.org/wiki/72_equal_temperament">72</a>, and <a href="https://en.wikipedia.org/wiki/96_equal_temperament">96</a> (I believe Mr. Bergin is partial to 72-EDO). In a 72-tone equal temperament, two adjacent notes have a scale factor of <span class="math inline">\(2^{1/72}\approx 1.0096735\)</span>, so as you play a chromatic scale, the frequency increases by 0.9673533% for each note.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an ascending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.9463094\)</span>% higher than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 435 Hz. What will the frequency be of the <span class="math inline">\(D^{\#}_5\)</span> that is 6 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> higher than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0594631~=~1.0594631\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{1/12}\)</span>.</p>
+<p>You multiply the given frequency by the scale factor 6 times.</p>
+<p><span class="math display">\[435\cdot 1.0594631^{6} ~=~ 615.1828996\]</span></p>
+<p>Some composers (including BART legend
+James Bergin), compose in other equal temperaments. Some common ones include <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">5, 7, 9</a>, <a href="https://en.wikipedia.org/wiki/15_equal_temperament">15</a>, <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17</a>, <a href="https://en.wikipedia.org/wiki/19_equal_temperament">19</a>, <a href="https://en.wikipedia.org/wiki/22_equal_temperament">22</a>, <a href="https://en.wikipedia.org/wiki/23_equal_temperament">23</a>, <a href="https://en.wikipedia.org/wiki/Quarter_tone">24</a>,
+<a href="https://en.wikipedia.org/wiki/31_equal_temperament">31</a>,
+<a href="https://en.wikipedia.org/wiki/34_equal_temperament">34</a>, <a href="https://en.wikipedia.org/wiki/41_equal_temperament">41</a>,
+<a href="https://en.wikipedia.org/wiki/53_equal_temperament">53</a>, <a href="https://en.wikipedia.org/wiki/58_equal_temperament">58</a>, <a href="https://en.wikipedia.org/wiki/72_equal_temperament">72</a>, and <a href="https://en.wikipedia.org/wiki/96_equal_temperament">96</a> (I believe Mr. Bergin is partial to 72-EDO). In a 72-tone equal temperament, two adjacent notes have a scale factor of <span class="math inline">\(2^{1/72}\approx 1.0096735\)</span>, so as you play a chromatic scale, the frequency increases by 0.9673533% for each note.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an ascending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.9463094\)</span>% higher than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 442 Hz. What will the frequency be of the <span class="math inline">\(F^{\#}_5\)</span> that is 9 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> higher than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0594631~=~1.0594631\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{1/12}\)</span>.</p>
+<p>You multiply the given frequency by the scale factor 9 times.</p>
+<p><span class="math display">\[442\cdot 1.0594631^{9} ~=~ 743.3524311\]</span></p>
+<p>Some composers (including BART legend
+James Bergin), compose in other equal temperaments. Some common ones include <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">5, 7, 9</a>, <a href="https://en.wikipedia.org/wiki/15_equal_temperament">15</a>, <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17</a>, <a href="https://en.wikipedia.org/wiki/19_equal_temperament">19</a>, <a href="https://en.wikipedia.org/wiki/22_equal_temperament">22</a>, <a href="https://en.wikipedia.org/wiki/23_equal_temperament">23</a>, <a href="https://en.wikipedia.org/wiki/Quarter_tone">24</a>,
+<a href="https://en.wikipedia.org/wiki/31_equal_temperament">31</a>,
+<a href="https://en.wikipedia.org/wiki/34_equal_temperament">34</a>, <a href="https://en.wikipedia.org/wiki/41_equal_temperament">41</a>,
+<a href="https://en.wikipedia.org/wiki/53_equal_temperament">53</a>, <a href="https://en.wikipedia.org/wiki/58_equal_temperament">58</a>, <a href="https://en.wikipedia.org/wiki/72_equal_temperament">72</a>, and <a href="https://en.wikipedia.org/wiki/96_equal_temperament">96</a> (I believe Mr. Bergin is partial to 72-EDO). In a 72-tone equal temperament, two adjacent notes have a scale factor of <span class="math inline">\(2^{1/72}\approx 1.0096735\)</span>, so as you play a chromatic scale, the frequency increases by 0.9673533% for each note.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an ascending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.9463094\)</span>% higher than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 431 Hz. What will the frequency be of the <span class="math inline">\(G_5\)</span> that is 10 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> higher than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1+0.0594631~=~1.0594631\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{1/12}\)</span>.</p>
+<p>You multiply the given frequency by the scale factor 10 times.</p>
+<p><span class="math display">\[431\cdot 1.0594631^{10} ~=~ 767.954695\]</span></p>
+<p>Some composers (including BART legend
+James Bergin), compose in other equal temperaments. Some common ones include <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">5, 7, 9</a>, <a href="https://en.wikipedia.org/wiki/15_equal_temperament">15</a>, <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17</a>, <a href="https://en.wikipedia.org/wiki/19_equal_temperament">19</a>, <a href="https://en.wikipedia.org/wiki/22_equal_temperament">22</a>, <a href="https://en.wikipedia.org/wiki/23_equal_temperament">23</a>, <a href="https://en.wikipedia.org/wiki/Quarter_tone">24</a>,
+<a href="https://en.wikipedia.org/wiki/31_equal_temperament">31</a>,
+<a href="https://en.wikipedia.org/wiki/34_equal_temperament">34</a>, <a href="https://en.wikipedia.org/wiki/41_equal_temperament">41</a>,
+<a href="https://en.wikipedia.org/wiki/53_equal_temperament">53</a>, <a href="https://en.wikipedia.org/wiki/58_equal_temperament">58</a>, <a href="https://en.wikipedia.org/wiki/72_equal_temperament">72</a>, and <a href="https://en.wikipedia.org/wiki/96_equal_temperament">96</a> (I believe Mr. Bergin is partial to 72-EDO). In a 72-tone equal temperament, two adjacent notes have a scale factor of <span class="math inline">\(2^{1/72}\approx 1.0096735\)</span>, so as you play a chromatic scale, the frequency increases by 0.9673533% for each note.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

@@ -3,11 +3,14 @@ n = 30
 outdir = "outcanvas"
 genname = "u17_"
 
-probs = c("01_percent_of.Rmd",
-          "02_percent_more.Rmd",
-          "03_percent_less.Rmd")
+probs = c("04_percent_changes.Rmd",
+          "05_certificate_of_deposit.Rmd",
+          "06_exponential_population.Rmd",
+          "07_equal_temperament_up.Rmd",
+          "08_equal_temperament_down.Rmd",
+          "09_mug_cooling.Rmd")
 
-pnts = c(2,2,2)
+pnts = c(2,2,2,2,2,2)
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

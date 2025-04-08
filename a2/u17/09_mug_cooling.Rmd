@@ -1,0 +1,39 @@
+```{r,echo=F,warning=F}
+options(scipen=99)
+thalf = runif(1,4,20)
+# 1/2 = (r)^thalf
+k = (1/2)^(1/thalf)
+pd = round((1-k)*100,2)
+k = 1-pd/100
+Td0 = sample(50:99,1)
+t = sample(ceiling(thalf/2):floor(thalf*3),1)
+
+Tdf = Td0*k^t
+```
+
+Question
+========
+
+At $t=0$ minutes, a cup of coffee is `r Td0` [Kelvin](https://en.wikipedia.org/wiki/Kelvin) hotter than the surrounding air. Each minute, this amount decreases by `r pd`%. After `r t` minutes, how many Kelvin above surrounding-air temperature is the cup of coffee?
+
+
+Solution
+========
+
+Find the scale factor.
+
+$$1-`r pd/100`~=~`r k`$$
+
+Multiply the initial amount by the scale factor `r t` times.
+
+$$`r Td0`\cdot `r k`^{`r t`}~=~`r Tdf`$$
+
+So, after `r t` minutes, the coffee is only `r round(Tdf)` Kelvin hotter than the surrounding air.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r Tdf`
+exname: mug_cooling
+extol: 1

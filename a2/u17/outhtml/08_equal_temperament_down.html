@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>08_equal_temperament_down</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">08_equal_temperament_down</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an descending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.6125687\)</span>% lower than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 436 Hz. What will the frequency be of the <span class="math inline">\(C_4\)</span> that is 9 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> lower than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0561257~=~0.9438743\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{-1/12}\)</span> (when descending by <a href="https://en.wikipedia.org/wiki/Semitone">semitones</a>).</p>
+<p>You multiply the given frequency by the scale factor 9 times.</p>
+<p><span class="math display">\[436\cdot 0.9438743^{9} ~=~ 259.2471511\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an descending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.6125687\)</span>% lower than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 433 Hz. What will the frequency be of the <span class="math inline">\(A^{\#}_3\)</span> that is 11 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> lower than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0561257~=~0.9438743\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{-1/12}\)</span> (when descending by <a href="https://en.wikipedia.org/wiki/Semitone">semitones</a>).</p>
+<p>You multiply the given frequency by the scale factor 11 times.</p>
+<p><span class="math display">\[433\cdot 0.9438743^{11} ~=~ 229.3737599\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an descending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.6125687\)</span>% lower than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 436 Hz. What will the frequency be of the <span class="math inline">\(C_4\)</span> that is 9 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> lower than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0561257~=~0.9438743\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{-1/12}\)</span> (when descending by <a href="https://en.wikipedia.org/wiki/Semitone">semitones</a>).</p>
+<p>You multiply the given frequency by the scale factor 9 times.</p>
+<p><span class="math display">\[436\cdot 0.9438743^{9} ~=~ 259.2471511\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an descending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.6125687\)</span>% lower than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 444 Hz. What will the frequency be of the <span class="math inline">\(C^{\#}_4\)</span> that is 8 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> lower than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0561257~=~0.9438743\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{-1/12}\)</span> (when descending by <a href="https://en.wikipedia.org/wiki/Semitone">semitones</a>).</p>
+<p>You multiply the given frequency by the scale factor 8 times.</p>
+<p><span class="math display">\[444\cdot 0.9438743^{8} ~=~ 279.7024731\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an descending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.6125687\)</span>% lower than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 449 Hz. What will the frequency be of the <span class="math inline">\(D^{\#}_4\)</span> that is 6 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> lower than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0561257~=~0.9438743\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{-1/12}\)</span> (when descending by <a href="https://en.wikipedia.org/wiki/Semitone">semitones</a>).</p>
+<p>You multiply the given frequency by the scale factor 6 times.</p>
+<p><span class="math display">\[449\cdot 0.9438743^{6} ~=~ 317.4909448\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an descending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.6125687\)</span>% lower than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 442 Hz. What will the frequency be of the <span class="math inline">\(D_4\)</span> that is 7 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> lower than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0561257~=~0.9438743\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{-1/12}\)</span> (when descending by <a href="https://en.wikipedia.org/wiki/Semitone">semitones</a>).</p>
+<p>You multiply the given frequency by the scale factor 7 times.</p>
+<p><span class="math display">\[442\cdot 0.9438743^{7} ~=~ 294.9996078\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an descending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.6125687\)</span>% lower than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 445 Hz. What will the frequency be of the <span class="math inline">\(F_4\)</span> that is 4 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> lower than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0561257~=~0.9438743\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{-1/12}\)</span> (when descending by <a href="https://en.wikipedia.org/wiki/Semitone">semitones</a>).</p>
+<p>You multiply the given frequency by the scale factor 4 times.</p>
+<p><span class="math display">\[445\cdot 0.9438743^{4} ~=~ 353.1967341\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Most modern music is written in a <a href="https://en.wikipedia.org/wiki/Equal_temperament#Mathematics">twelve-tone equal temperament</a> system. Thus, when playing an descending <a href="https://en.wikipedia.org/wiki/Chromatic_scale">chromatic scale</a>, every new note’s <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequency</a> is approximately <span class="math inline">\(5.6125687\)</span>% lower than the previous note’s.</p>
+<p>Typically, the A above <a href="https://en.wikipedia.org/wiki/C_(musical_note)#Middle_C">middle C</a> (noted as <span class="math inline">\(A_4\)</span> in <a href="https://en.wikipedia.org/wiki/Scientific_pitch_notation">scientific pitch notation</a>) is tuned to a frequency of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a>, but throughout history this was not so standardized.</p>
+<p>Let’s imagine an orchestra tunes <span class="math inline">\(A_4\)</span> to 448 Hz. What will the frequency be of the <span class="math inline">\(C^{\#}_4\)</span> that is 8 <a href="https://en.wikipedia.org/wiki/Semitone">notes</a> lower than <span class="math inline">\(A_4\)</span>?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0561257~=~0.9438743\]</span></p>
+<p>The exact scale factor for twelve-tone equal temperament is <span class="math inline">\(2^{-1/12}\)</span> (when descending by <a href="https://en.wikipedia.org/wiki/Semitone">semitones</a>).</p>
+<p>You multiply the given frequency by the scale factor 8 times.</p>
+<p><span class="math display">\[448\cdot 0.9438743^{8} ~=~ 282.2223152\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

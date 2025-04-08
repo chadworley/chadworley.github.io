@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>09_mug_cooling</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">09_mug_cooling</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>At <span class="math inline">\(t=0\)</span> minutes, a cup of coffee is 78 <a href="https://en.wikipedia.org/wiki/Kelvin">Kelvin</a> hotter than the surrounding air. Each minute, this amount decreases by 4.2%. After 29 minutes, how many Kelvin above surrounding-air temperature is the cup of coffee?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.042~=~0.958\]</span></p>
+<p>Multiply the initial amount by the scale factor 29 times.</p>
+<p><span class="math display">\[78\cdot 0.958^{29}~=~22.4747239\]</span></p>
+<p>So, after 29 minutes, the coffee is only 22 Kelvin hotter than the surrounding air.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>At <span class="math inline">\(t=0\)</span> minutes, a cup of coffee is 59 <a href="https://en.wikipedia.org/wiki/Kelvin">Kelvin</a> hotter than the surrounding air. Each minute, this amount decreases by 4.9%. After 32 minutes, how many Kelvin above surrounding-air temperature is the cup of coffee?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.049~=~0.951\]</span></p>
+<p>Multiply the initial amount by the scale factor 32 times.</p>
+<p><span class="math display">\[59\cdot 0.951^{32}~=~11.8203015\]</span></p>
+<p>So, after 32 minutes, the coffee is only 12 Kelvin hotter than the surrounding air.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>At <span class="math inline">\(t=0\)</span> minutes, a cup of coffee is 67 <a href="https://en.wikipedia.org/wiki/Kelvin">Kelvin</a> hotter than the surrounding air. Each minute, this amount decreases by 14.2%. After 11 minutes, how many Kelvin above surrounding-air temperature is the cup of coffee?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.142~=~0.858\]</span></p>
+<p>Multiply the initial amount by the scale factor 11 times.</p>
+<p><span class="math display">\[67\cdot 0.858^{11}~=~12.4289651\]</span></p>
+<p>So, after 11 minutes, the coffee is only 12 Kelvin hotter than the surrounding air.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>At <span class="math inline">\(t=0\)</span> minutes, a cup of coffee is 74 <a href="https://en.wikipedia.org/wiki/Kelvin">Kelvin</a> hotter than the surrounding air. Each minute, this amount decreases by 5.44%. After 20 minutes, how many Kelvin above surrounding-air temperature is the cup of coffee?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0544~=~0.9456\]</span></p>
+<p>Multiply the initial amount by the scale factor 20 times.</p>
+<p><span class="math display">\[74\cdot 0.9456^{20}~=~24.1758076\]</span></p>
+<p>So, after 20 minutes, the coffee is only 24 Kelvin hotter than the surrounding air.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>At <span class="math inline">\(t=0\)</span> minutes, a cup of coffee is 85 <a href="https://en.wikipedia.org/wiki/Kelvin">Kelvin</a> hotter than the surrounding air. Each minute, this amount decreases by 4.75%. After 38 minutes, how many Kelvin above surrounding-air temperature is the cup of coffee?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0475~=~0.9525\]</span></p>
+<p>Multiply the initial amount by the scale factor 38 times.</p>
+<p><span class="math display">\[85\cdot 0.9525^{38}~=~13.3748319\]</span></p>
+<p>So, after 38 minutes, the coffee is only 13 Kelvin hotter than the surrounding air.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>At <span class="math inline">\(t=0\)</span> minutes, a cup of coffee is 66 <a href="https://en.wikipedia.org/wiki/Kelvin">Kelvin</a> hotter than the surrounding air. Each minute, this amount decreases by 7.66%. After 23 minutes, how many Kelvin above surrounding-air temperature is the cup of coffee?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0766~=~0.9234\]</span></p>
+<p>Multiply the initial amount by the scale factor 23 times.</p>
+<p><span class="math display">\[66\cdot 0.9234^{23}~=~10.5562812\]</span></p>
+<p>So, after 23 minutes, the coffee is only 11 Kelvin hotter than the surrounding air.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>At <span class="math inline">\(t=0\)</span> minutes, a cup of coffee is 53 <a href="https://en.wikipedia.org/wiki/Kelvin">Kelvin</a> hotter than the surrounding air. Each minute, this amount decreases by 8.91%. After 13 minutes, how many Kelvin above surrounding-air temperature is the cup of coffee?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0891~=~0.9109\]</span></p>
+<p>Multiply the initial amount by the scale factor 13 times.</p>
+<p><span class="math display">\[53\cdot 0.9109^{13}~=~15.7541507\]</span></p>
+<p>So, after 13 minutes, the coffee is only 16 Kelvin hotter than the surrounding air.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>At <span class="math inline">\(t=0\)</span> minutes, a cup of coffee is 58 <a href="https://en.wikipedia.org/wiki/Kelvin">Kelvin</a> hotter than the surrounding air. Each minute, this amount decreases by 4.54%. After 21 minutes, how many Kelvin above surrounding-air temperature is the cup of coffee?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find the scale factor.</p>
+<p><span class="math display">\[1-0.0454~=~0.9546\]</span></p>
+<p>Multiply the initial amount by the scale factor 21 times.</p>
+<p><span class="math display">\[58\cdot 0.9546^{21}~=~21.8614027\]</span></p>
+<p>So, after 21 minutes, the coffee is only 22 Kelvin hotter than the surrounding air.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

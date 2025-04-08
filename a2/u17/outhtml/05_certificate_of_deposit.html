@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>05_certificate_of_deposit</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">05_certificate_of_deposit</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider a <a href="https://en.wikipedia.org/wiki/Certificate_of_deposit">certificate of deposit</a> (CD) with 2.64% <a href="https://en.wikipedia.org/wiki/Annual_percentage_yield">APY</a> and a maturity term of 4 years. An investor invests $250000 in this CD. When the CD matures (after 4 years), how much money can be withdrawn?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Each year the value increases by 2.64%, and this compounding occurs 4 times.</p>
+<p>Find the <a href="https://chadworley.github.io/a2/u17/slides_percent/slides_percent.html">scale factor</a>.
+<span class="math display">\[1+0.0264~=~ 1.0264\]</span></p>
+<p>Multiply the principal ($250000) by the scale factor 4 times. Remember, repeated multiplication can be represented with an exponent.</p>
+<p><span class="math display">\[250000\cdot 1.0264^{4}~=~ 277463.96\]</span></p>
+<p>So, after 4 years, this CD is worth $277463.96. You need to remember to withdraw in a short grace period, otherwise the money will typically roll into a new CD, and you’ll need to wait another 4 years to withdraw without penalties.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider a <a href="https://en.wikipedia.org/wiki/Certificate_of_deposit">certificate of deposit</a> (CD) with 6.6% <a href="https://en.wikipedia.org/wiki/Annual_percentage_yield">APY</a> and a maturity term of 10 years. An investor invests $1100 in this CD. When the CD matures (after 10 years), how much money can be withdrawn?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Each year the value increases by 6.6%, and this compounding occurs 10 times.</p>
+<p>Find the <a href="https://chadworley.github.io/a2/u17/slides_percent/slides_percent.html">scale factor</a>.
+<span class="math display">\[1+0.066~=~ 1.066\]</span></p>
+<p>Multiply the principal ($1100) by the scale factor 10 times. Remember, repeated multiplication can be represented with an exponent.</p>
+<p><span class="math display">\[1100\cdot 1.066^{10}~=~ 2084.32\]</span></p>
+<p>So, after 10 years, this CD is worth $2084.32. You need to remember to withdraw in a short grace period, otherwise the money will typically roll into a new CD, and you’ll need to wait another 10 years to withdraw without penalties.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider a <a href="https://en.wikipedia.org/wiki/Certificate_of_deposit">certificate of deposit</a> (CD) with 6.79% <a href="https://en.wikipedia.org/wiki/Annual_percentage_yield">APY</a> and a maturity term of 4 years. An investor invests $770000 in this CD. When the CD matures (after 4 years), how much money can be withdrawn?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Each year the value increases by 6.79%, and this compounding occurs 4 times.</p>
+<p>Find the <a href="https://chadworley.github.io/a2/u17/slides_percent/slides_percent.html">scale factor</a>.
+<span class="math display">\[1+0.0679~=~ 1.0679\]</span></p>
+<p>Multiply the principal ($770000) by the scale factor 4 times. Remember, repeated multiplication can be represented with an exponent.</p>
+<p><span class="math display">\[770000\cdot 1.0679^{4}~=~ 1001412.65\]</span></p>
+<p>So, after 4 years, this CD is worth $1001412.65. You need to remember to withdraw in a short grace period, otherwise the money will typically roll into a new CD, and you’ll need to wait another 4 years to withdraw without penalties.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider a <a href="https://en.wikipedia.org/wiki/Certificate_of_deposit">certificate of deposit</a> (CD) with 2.09% <a href="https://en.wikipedia.org/wiki/Annual_percentage_yield">APY</a> and a maturity term of 9 years. An investor invests $810 in this CD. When the CD matures (after 9 years), how much money can be withdrawn?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Each year the value increases by 2.09%, and this compounding occurs 9 times.</p>
+<p>Find the <a href="https://chadworley.github.io/a2/u17/slides_percent/slides_percent.html">scale factor</a>.
+<span class="math display">\[1+0.0209~=~ 1.0209\]</span></p>
+<p>Multiply the principal ($810) by the scale factor 9 times. Remember, repeated multiplication can be represented with an exponent.</p>
+<p><span class="math display">\[810\cdot 1.0209^{9}~=~ 975.74\]</span></p>
+<p>So, after 9 years, this CD is worth $975.74. You need to remember to withdraw in a short grace period, otherwise the money will typically roll into a new CD, and you’ll need to wait another 9 years to withdraw without penalties.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider a <a href="https://en.wikipedia.org/wiki/Certificate_of_deposit">certificate of deposit</a> (CD) with 5.56% <a href="https://en.wikipedia.org/wiki/Annual_percentage_yield">APY</a> and a maturity term of 4 years. An investor invests $9900 in this CD. When the CD matures (after 4 years), how much money can be withdrawn?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Each year the value increases by 5.56%, and this compounding occurs 4 times.</p>
+<p>Find the <a href="https://chadworley.github.io/a2/u17/slides_percent/slides_percent.html">scale factor</a>.
+<span class="math display">\[1+0.0556~=~ 1.0556\]</span></p>
+<p>Multiply the principal ($9900) by the scale factor 4 times. Remember, repeated multiplication can be represented with an exponent.</p>
+<p><span class="math display">\[9900\cdot 1.0556^{4}~=~ 12292.29\]</span></p>
+<p>So, after 4 years, this CD is worth $12292.29. You need to remember to withdraw in a short grace period, otherwise the money will typically roll into a new CD, and you’ll need to wait another 4 years to withdraw without penalties.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider a <a href="https://en.wikipedia.org/wiki/Certificate_of_deposit">certificate of deposit</a> (CD) with 3.32% <a href="https://en.wikipedia.org/wiki/Annual_percentage_yield">APY</a> and a maturity term of 7 years. An investor invests $9400 in this CD. When the CD matures (after 7 years), how much money can be withdrawn?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Each year the value increases by 3.32%, and this compounding occurs 7 times.</p>
+<p>Find the <a href="https://chadworley.github.io/a2/u17/slides_percent/slides_percent.html">scale factor</a>.
+<span class="math display">\[1+0.0332~=~ 1.0332\]</span></p>
+<p>Multiply the principal ($9400) by the scale factor 7 times. Remember, repeated multiplication can be represented with an exponent.</p>
+<p><span class="math display">\[9400\cdot 1.0332^{7}~=~ 11814.59\]</span></p>
+<p>So, after 7 years, this CD is worth $11814.59. You need to remember to withdraw in a short grace period, otherwise the money will typically roll into a new CD, and you’ll need to wait another 7 years to withdraw without penalties.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider a <a href="https://en.wikipedia.org/wiki/Certificate_of_deposit">certificate of deposit</a> (CD) with 2.39% <a href="https://en.wikipedia.org/wiki/Annual_percentage_yield">APY</a> and a maturity term of 8 years. An investor invests $6600 in this CD. When the CD matures (after 8 years), how much money can be withdrawn?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Each year the value increases by 2.39%, and this compounding occurs 8 times.</p>
+<p>Find the <a href="https://chadworley.github.io/a2/u17/slides_percent/slides_percent.html">scale factor</a>.
+<span class="math display">\[1+0.0239~=~ 1.0239\]</span></p>
+<p>Multiply the principal ($6600) by the scale factor 8 times. Remember, repeated multiplication can be represented with an exponent.</p>
+<p><span class="math display">\[6600\cdot 1.0239^{8}~=~ 7972.68\]</span></p>
+<p>So, after 8 years, this CD is worth $7972.68. You need to remember to withdraw in a short grace period, otherwise the money will typically roll into a new CD, and you’ll need to wait another 8 years to withdraw without penalties.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider a <a href="https://en.wikipedia.org/wiki/Certificate_of_deposit">certificate of deposit</a> (CD) with 6.12% <a href="https://en.wikipedia.org/wiki/Annual_percentage_yield">APY</a> and a maturity term of 4 years. An investor invests $930000 in this CD. When the CD matures (after 4 years), how much money can be withdrawn?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Each year the value increases by 6.12%, and this compounding occurs 4 times.</p>
+<p>Find the <a href="https://chadworley.github.io/a2/u17/slides_percent/slides_percent.html">scale factor</a>.
+<span class="math display">\[1+0.0612~=~ 1.0612\]</span></p>
+<p>Multiply the principal ($930000) by the scale factor 4 times. Remember, repeated multiplication can be represented with an exponent.</p>
+<p><span class="math display">\[930000\cdot 1.0612^{4}~=~ 1179429.3\]</span></p>
+<p>So, after 4 years, this CD is worth $1179429.3. You need to remember to withdraw in a short grace period, otherwise the money will typically roll into a new CD, and you’ll need to wait another 4 years to withdraw without penalties.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

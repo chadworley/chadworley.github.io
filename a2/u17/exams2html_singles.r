@@ -1,8 +1,11 @@
 library("exams")
 
-pppsss = c("01_percent_of.Rmd",
-           "02_percent_more.Rmd",
-           "03_percent_less.Rmd")
+pppsss = c("04_percent_changes.Rmd",
+           "05_certificate_of_deposit.Rmd",
+           "06_exponential_population.Rmd",
+           "07_equal_temperament_up.Rmd",
+           "08_equal_temperament_down.Rmd",
+           "09_mug_cooling.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

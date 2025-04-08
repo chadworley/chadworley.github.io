@@ -1,0 +1,39 @@
+```{r,echo=F,warning=F}
+options(scipen=99)
+# 2, 3, 5, 7, 10, 20, 30
+n = sample(3:10,1)
+r = round(runif(1,0.02,0.07),4)
+Pmant = sample(11:99,1)/10
+Pexp = sample(2:5,1)
+P = signif(Pmant*10^Pexp,3)
+A = P*(1+r)^n
+
+```
+
+Question
+========
+
+Consider a [certificate of deposit](https://en.wikipedia.org/wiki/Certificate_of_deposit) (CD) with `r r*100`% [APY](https://en.wikipedia.org/wiki/Annual_percentage_yield) and a maturity term of `r n` years. An investor invests $`r P` in this CD. When the CD matures (after `r n` years), how much money can be withdrawn?
+
+
+Solution
+========
+
+Each year the value increases by `r r*100`%, and this compounding occurs `r n` times.
+
+Find the [scale factor](https://chadworley.github.io/a2/u17/slides_percent/slides_percent.html).
+$$1+`r r`~=~ `r 1+r`$$
+
+Multiply the principal ($`r P`) by the scale factor `r n` times. Remember, repeated multiplication can be represented with an exponent.
+
+$$`r P`\cdot `r 1+r`^{`r n`}~=~ `r round(A,2)`$$
+
+So, after `r n` years, this CD is worth $`r round(A,2)`. You need to remember to withdraw in a short grace period, otherwise the money will typically roll into a new CD, and you'll need to wait another `r n` years to withdraw without penalties.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r A`
+exname: certificate_of_deposit
+extol: 0.01
