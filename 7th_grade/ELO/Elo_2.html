@@ -10,7 +10,6 @@
         th, td { border: 1px solid #333; padding: 10px; text-align: left; }
         th { cursor: pointer; background-color: #f2f2f2; }
         #nameInput { margin: 20px; }
-        #status { margin: 20px; }
     </style>
 </head>
 <body>
@@ -18,7 +17,6 @@
 <h1>ELO Tracker</h1>
 <input type="text" id="nameInput" placeholder="Enter student names (comma-separated)">
 <button onclick="addNames()">Add Names</button>
-<div id="status"></div>
 
 <table id="eloTable">
     <thead>
@@ -32,7 +30,6 @@
 
 <script>
     let eloScores = {};
-    let selectedWinner = null;
 
     function addNames() {
         const namesInput = document.getElementById('nameInput').value;
@@ -52,43 +49,29 @@
         const sortedNames = Object.keys(eloScores).sort();
         sortedNames.forEach(name => {
             const row = document.createElement('tr');
-            row.innerHTML = `<td onclick="selectWinner('${name}')">${name}</td><td>${eloScores[name]}</td>`;
+            row.innerHTML = `<td onclick="registerWin('${name}')">${name}</td><td>${eloScores[name]}</td>`;
             body.appendChild(row);
         });
     }
 
-    function selectWinner(winner) {
-        if (selectedWinner) {
-            // Reset if a winner is already selected
-            document.getElementById('status').innerText = `Cancelled. No action taken.`;
-            selectedWinner = null;
-            return;
+    function registerWin(winner) {
+        const players = Object.keys(eloScores);
+        const loser = prompt(`Who did ${winner} beat? (${players.filter(p => p !== winner).join(', ')})`);
+        if (eloScores[loser]) {
+            // Basic ELO Update - Winner gains points, loser loses points
+            const K = 32;
+            var RA = eloScores[winner];
+            var RB = eloScores[loser];
+            var EA = 1.0/(1.0+10.0^(RB-RA)/400)
+            var EB = 1.0/(1.0+10.0^(RA-RB)/400)
+            var diff = K*(1-EA)
+            eloScores[winner] += Math.round(diff); // Example value for gain
+            eloScores[loser] -= Math.round(diff); // Example value for loss
+            
+            displayScores();
+        } else {
+            alert("Invalid player name.");
         }
-
-        selectedWinner = winner;
-        document.getElementById('status').innerText = `Selected winner: ${winner}. Click on loser.`;
-
-        document.querySelectorAll('td').forEach(td => {
-            td.onclick = function() { 
-                if (this.innerText !== winner) {
-                    registerWin(winner, this.innerText);
-                }
-            };
-        });
-    }
-
-    function registerWin(winner, loser) {
-        const K = 32;
-        var RA = eloScores[winner];
-        var RB = eloScores[loser];
-        var EA = 1.0/(1.0+10.0^(RB-RA)/400)
-        var EB = 1.0/(1.0+10.0^(RA-RB)/400)
-        var diff = K*(1-EA)
-        eloScores[winner] += Math.round(diff); // Example value for gain
-        eloScores[loser] -= Math.round(diff); // Example value for loss
-        document.getElementById('status').innerText = `${winner} wins against ${loser}. Points updated.`;
-        selectedWinner = null; // Reset winner selection
-        displayScores();
     }
 
     function sortTable(columnIndex) {
