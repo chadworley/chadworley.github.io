@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>12_cmpnd_intrst_continuous</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">12_cmpnd_intrst_continuous</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns compound interest with <a href="https://en.wikipedia.org/wiki/Compound_interest#Continuous_compounding">continuous compounding</a>.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=7000\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.04 ~=~4\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n\to\infty\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=30\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 30 years by using the continuous compounding formula.</p>
+<p><span class="math display">\[A ~=~ Pe^{rt}\]</span>
+<a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler’s number</a>, <span class="math inline">\(e\)</span>, is approximately 2.7182818. You can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[A ~=~ 7000 \cdot e^{(0.04)(30)} ~=~ 23240.82\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns compound interest with <a href="https://en.wikipedia.org/wiki/Compound_interest#Continuous_compounding">continuous compounding</a>.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=23000\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.04 ~=~4\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n\to\infty\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=20\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 20 years by using the continuous compounding formula.</p>
+<p><span class="math display">\[A ~=~ Pe^{rt}\]</span>
+<a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler’s number</a>, <span class="math inline">\(e\)</span>, is approximately 2.7182818. You can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[A ~=~ 23000 \cdot e^{(0.04)(20)} ~=~ 51187.44\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns compound interest with <a href="https://en.wikipedia.org/wiki/Compound_interest#Continuous_compounding">continuous compounding</a>.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=25000\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.02 ~=~2\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n\to\infty\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=30\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 30 years by using the continuous compounding formula.</p>
+<p><span class="math display">\[A ~=~ Pe^{rt}\]</span>
+<a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler’s number</a>, <span class="math inline">\(e\)</span>, is approximately 2.7182818. You can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[A ~=~ 25000 \cdot e^{(0.02)(30)} ~=~ 45552.97\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns compound interest with <a href="https://en.wikipedia.org/wiki/Compound_interest#Continuous_compounding">continuous compounding</a>.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=5900\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.07 ~=~7\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n\to\infty\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=20\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 20 years by using the continuous compounding formula.</p>
+<p><span class="math display">\[A ~=~ Pe^{rt}\]</span>
+<a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler’s number</a>, <span class="math inline">\(e\)</span>, is approximately 2.7182818. You can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[A ~=~ 5900 \cdot e^{(0.07)(20)} ~=~ 23925.68\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns compound interest with <a href="https://en.wikipedia.org/wiki/Compound_interest#Continuous_compounding">continuous compounding</a>.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=220\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.09 ~=~9\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n\to\infty\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=10\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 10 years by using the continuous compounding formula.</p>
+<p><span class="math display">\[A ~=~ Pe^{rt}\]</span>
+<a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler’s number</a>, <span class="math inline">\(e\)</span>, is approximately 2.7182818. You can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[A ~=~ 220 \cdot e^{(0.09)(10)} ~=~ 541.11\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns compound interest with <a href="https://en.wikipedia.org/wiki/Compound_interest#Continuous_compounding">continuous compounding</a>.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=11000\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.06 ~=~6\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n\to\infty\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=15\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 15 years by using the continuous compounding formula.</p>
+<p><span class="math display">\[A ~=~ Pe^{rt}\]</span>
+<a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler’s number</a>, <span class="math inline">\(e\)</span>, is approximately 2.7182818. You can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[A ~=~ 11000 \cdot e^{(0.06)(15)} ~=~ 27055.63\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns compound interest with <a href="https://en.wikipedia.org/wiki/Compound_interest#Continuous_compounding">continuous compounding</a>.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=870\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.08 ~=~8\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n\to\infty\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=15\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 15 years by using the continuous compounding formula.</p>
+<p><span class="math display">\[A ~=~ Pe^{rt}\]</span>
+<a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler’s number</a>, <span class="math inline">\(e\)</span>, is approximately 2.7182818. You can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[A ~=~ 870 \cdot e^{(0.08)(15)} ~=~ 2888.5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns compound interest with <a href="https://en.wikipedia.org/wiki/Compound_interest#Continuous_compounding">continuous compounding</a>.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=970\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.07 ~=~7\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n\to\infty\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=30\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 30 years by using the continuous compounding formula.</p>
+<p><span class="math display">\[A ~=~ Pe^{rt}\]</span>
+<a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">Euler’s number</a>, <span class="math inline">\(e\)</span>, is approximately 2.7182818. You can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[A ~=~ 970 \cdot e^{(0.07)(30)} ~=~ 7921.18\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

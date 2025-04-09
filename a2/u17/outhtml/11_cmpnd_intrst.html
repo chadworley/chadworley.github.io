@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>11_cmpnd_intrst</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">11_cmpnd_intrst</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns <a href="https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding">compound interest</a> with periodic compounding.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=470\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.09 ~=~9\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n=3\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=30\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 30 years, using the formula below:</p>
+<p><span class="math display">\[A = P\left(1+\frac{r}{n}\right)^{nt}\]</span>
+For the final amount, you can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Notice the definition of <span class="math inline">\(r\)</span> is a bit tricky. Really, 3 times per year the money grows by multiplication by <span class="math inline">\(\left(1+\frac{0.09}{3}\right)\)</span> which equals 1.03. Over 30 years, this multiplication occurs 90 times.</p>
+<p><span class="math display">\[A ~=~ 470 \cdot (1.03)^{90} ~=~ 6721.22\]</span></p>
+<p>Each year, the money actually grows by multiplying by <span class="math inline">\(\left(1+\frac{0.09}{3}\right)^{3}\)</span>, which equals 1.092727, which is more than the <span class="math inline">\(1.09\)</span> you might expect from <span class="math inline">\(r\)</span>. In the US, credit cards will often state an APR, but compound monthly (or even daily!), so the <a href="https://en.wikipedia.org/wiki/Effective_interest_rate">effective interest rate</a> is higher (if you allow the debt to linger).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns <a href="https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding">compound interest</a> with periodic compounding.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=38000\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.07 ~=~7\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n=12\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=20\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 20 years, using the formula below:</p>
+<p><span class="math display">\[A = P\left(1+\frac{r}{n}\right)^{nt}\]</span>
+For the final amount, you can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Notice the definition of <span class="math inline">\(r\)</span> is a bit tricky. Really, 12 times per year the money grows by multiplication by <span class="math inline">\(\left(1+\frac{0.07}{12}\right)\)</span> which equals 1.0058333. Over 20 years, this multiplication occurs 240 times.</p>
+<p><span class="math display">\[A ~=~ 38000 \cdot (1.0058333)^{240} ~=~ 153472.08\]</span></p>
+<p>Each year, the money actually grows by multiplying by <span class="math inline">\(\left(1+\frac{0.07}{12}\right)^{12}\)</span>, which equals 1.0722901, which is more than the <span class="math inline">\(1.07\)</span> you might expect from <span class="math inline">\(r\)</span>. In the US, credit cards will often state an APR, but compound monthly (or even daily!), so the <a href="https://en.wikipedia.org/wiki/Effective_interest_rate">effective interest rate</a> is higher (if you allow the debt to linger).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns <a href="https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding">compound interest</a> with periodic compounding.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=70000\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.09 ~=~9\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n=3\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=15\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 15 years, using the formula below:</p>
+<p><span class="math display">\[A = P\left(1+\frac{r}{n}\right)^{nt}\]</span>
+For the final amount, you can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Notice the definition of <span class="math inline">\(r\)</span> is a bit tricky. Really, 3 times per year the money grows by multiplication by <span class="math inline">\(\left(1+\frac{0.09}{3}\right)\)</span> which equals 1.03. Over 15 years, this multiplication occurs 45 times.</p>
+<p><span class="math display">\[A ~=~ 70000 \cdot (1.03)^{45} ~=~ 264711.71\]</span></p>
+<p>Each year, the money actually grows by multiplying by <span class="math inline">\(\left(1+\frac{0.09}{3}\right)^{3}\)</span>, which equals 1.092727, which is more than the <span class="math inline">\(1.09\)</span> you might expect from <span class="math inline">\(r\)</span>. In the US, credit cards will often state an APR, but compound monthly (or even daily!), so the <a href="https://en.wikipedia.org/wiki/Effective_interest_rate">effective interest rate</a> is higher (if you allow the debt to linger).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns <a href="https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding">compound interest</a> with periodic compounding.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=43000\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.07 ~=~7\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n=3\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=20\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 20 years, using the formula below:</p>
+<p><span class="math display">\[A = P\left(1+\frac{r}{n}\right)^{nt}\]</span>
+For the final amount, you can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Notice the definition of <span class="math inline">\(r\)</span> is a bit tricky. Really, 3 times per year the money grows by multiplication by <span class="math inline">\(\left(1+\frac{0.07}{3}\right)\)</span> which equals 1.0233333. Over 20 years, this multiplication occurs 60 times.</p>
+<p><span class="math display">\[A ~=~ 43000 \cdot (1.0233333)^{60} ~=~ 171591.47\]</span></p>
+<p>Each year, the money actually grows by multiplying by <span class="math inline">\(\left(1+\frac{0.07}{3}\right)^{3}\)</span>, which equals 1.071646, which is more than the <span class="math inline">\(1.07\)</span> you might expect from <span class="math inline">\(r\)</span>. In the US, credit cards will often state an APR, but compound monthly (or even daily!), so the <a href="https://en.wikipedia.org/wiki/Effective_interest_rate">effective interest rate</a> is higher (if you allow the debt to linger).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns <a href="https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding">compound interest</a> with periodic compounding.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=300\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.06 ~=~6\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n=52\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=10\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 10 years, using the formula below:</p>
+<p><span class="math display">\[A = P\left(1+\frac{r}{n}\right)^{nt}\]</span>
+For the final amount, you can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Notice the definition of <span class="math inline">\(r\)</span> is a bit tricky. Really, 52 times per year the money grows by multiplication by <span class="math inline">\(\left(1+\frac{0.06}{52}\right)\)</span> which equals 1.0011538. Over 10 years, this multiplication occurs 520 times.</p>
+<p><span class="math display">\[A ~=~ 300 \cdot (1.0011538)^{520} ~=~ 546.45\]</span></p>
+<p>Each year, the money actually grows by multiplying by <span class="math inline">\(\left(1+\frac{0.06}{52}\right)^{52}\)</span>, which equals 1.0617998, which is more than the <span class="math inline">\(1.06\)</span> you might expect from <span class="math inline">\(r\)</span>. In the US, credit cards will often state an APR, but compound monthly (or even daily!), so the <a href="https://en.wikipedia.org/wiki/Effective_interest_rate">effective interest rate</a> is higher (if you allow the debt to linger).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns <a href="https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding">compound interest</a> with periodic compounding.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=140\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.04 ~=~4\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n=3\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=10\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 10 years, using the formula below:</p>
+<p><span class="math display">\[A = P\left(1+\frac{r}{n}\right)^{nt}\]</span>
+For the final amount, you can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Notice the definition of <span class="math inline">\(r\)</span> is a bit tricky. Really, 3 times per year the money grows by multiplication by <span class="math inline">\(\left(1+\frac{0.04}{3}\right)\)</span> which equals 1.0133333. Over 10 years, this multiplication occurs 30 times.</p>
+<p><span class="math display">\[A ~=~ 140 \cdot (1.0133333)^{30} ~=~ 208.3\]</span></p>
+<p>Each year, the money actually grows by multiplying by <span class="math inline">\(\left(1+\frac{0.04}{3}\right)^{3}\)</span>, which equals 1.0405357, which is more than the <span class="math inline">\(1.04\)</span> you might expect from <span class="math inline">\(r\)</span>. In the US, credit cards will often state an APR, but compound monthly (or even daily!), so the <a href="https://en.wikipedia.org/wiki/Effective_interest_rate">effective interest rate</a> is higher (if you allow the debt to linger).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns <a href="https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding">compound interest</a> with periodic compounding.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=1300\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.06 ~=~6\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n=52\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=20\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 20 years, using the formula below:</p>
+<p><span class="math display">\[A = P\left(1+\frac{r}{n}\right)^{nt}\]</span>
+For the final amount, you can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Notice the definition of <span class="math inline">\(r\)</span> is a bit tricky. Really, 52 times per year the money grows by multiplication by <span class="math inline">\(\left(1+\frac{0.06}{52}\right)\)</span> which equals 1.0011538. Over 20 years, this multiplication occurs 1040 times.</p>
+<p><span class="math display">\[A ~=~ 1300 \cdot (1.0011538)^{1040} ~=~ 4313.17\]</span></p>
+<p>Each year, the money actually grows by multiplying by <span class="math inline">\(\left(1+\frac{0.06}{52}\right)^{52}\)</span>, which equals 1.0617998, which is more than the <span class="math inline">\(1.06\)</span> you might expect from <span class="math inline">\(r\)</span>. In the US, credit cards will often state an APR, but compound monthly (or even daily!), so the <a href="https://en.wikipedia.org/wiki/Effective_interest_rate">effective interest rate</a> is higher (if you allow the debt to linger).</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investment earns <a href="https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding">compound interest</a> with periodic compounding.</p>
+<ul>
+<li>Principal = <span class="math inline">\(P=33000\)</span> USD</li>
+<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual interest rate</a> = <span class="math inline">\(r~=~0.03 ~=~3\%\)</span></li>
+<li>Compounding frequency = <span class="math inline">\(n=4\)</span> per year</li>
+<li>Time = <span class="math inline">\(t=15\)</span> years</li>
+</ul>
+<p>Calculate the amount, in USD, after 15 years, using the formula below:</p>
+<p><span class="math display">\[A = P\left(1+\frac{r}{n}\right)^{nt}\]</span>
+For the final amount, you can round to the nearest dollar. (<em>Tolerance is <span class="math inline">\(\pm 1\)</span></em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Notice the definition of <span class="math inline">\(r\)</span> is a bit tricky. Really, 4 times per year the money grows by multiplication by <span class="math inline">\(\left(1+\frac{0.03}{4}\right)\)</span> which equals 1.0075. Over 15 years, this multiplication occurs 60 times.</p>
+<p><span class="math display">\[A ~=~ 33000 \cdot (1.0075)^{60} ~=~ 51667.47\]</span></p>
+<p>Each year, the money actually grows by multiplying by <span class="math inline">\(\left(1+\frac{0.03}{4}\right)^{4}\)</span>, which equals 1.0303392, which is more than the <span class="math inline">\(1.03\)</span> you might expect from <span class="math inline">\(r\)</span>. In the US, credit cards will often state an APR, but compound monthly (or even daily!), so the <a href="https://en.wikipedia.org/wiki/Effective_interest_rate">effective interest rate</a> is higher (if you allow the debt to linger).</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

@@ -1,0 +1,50 @@
+```{r,echo=F,warning=F}
+options(scipen=99)
+p = sample(5:40,1)
+r = p/100
+k1 = 1+r
+k2 = 1-r
+man = sample(1:9,1)
+pwr = sample(2:3,1)
+P = man*10^pwr
+incdec = sample(c("increases","decreases"))
+if(incdec[1]=="increases"){
+    k1=k1
+    k2=k2
+} else {
+    k3=k1
+    k1=k2
+    k2=k3
+}
+A = P*k1*k2
+
+```
+
+Question
+========
+
+A stock is purchased at $`r P`. During the first day, the price `r incdec[1]` by `r p`%. During the second day, the price `r incdec[2]` by `r p`%. What is the price of the stock after the second day?
+
+(*Do not round the intermediate steps. Your final answer should be accurate to at least the nearest cent.*)
+
+Solution
+========
+
+Find the first [scale factor](https://chadworley.github.io/a2/u17/slides_percent/slides_percent.html#(1)).
+$$s_1 ~=~ `r k1`$$
+Find the second scale factor.
+$$s_2 ~=~ `r k2`$$
+
+To find the final price, multiply the initial price by both scale factors.
+
+$$`r P` \cdot `r k1` \cdot `r k2` ~=~ `r A`$$
+
+And isn't it interesting that these two percent changes do not "undo" each other to bring the final price back to the initial price.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r A`
+exname: inc_dec_weirdness
+extol: 0.01

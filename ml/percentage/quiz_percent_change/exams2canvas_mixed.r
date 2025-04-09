@@ -25,18 +25,18 @@ genname = "Apr8"
 #                cloze = list(enumerate = FALSE))
 # }
 
-
-
-pm = list("01_percent_changes.Rmd",
-          "02_repeat_inc.Rmd",
-          "03_repeat_dec.Rmd"
-)
-
-exams2canvas(pm,
-             n=n,
-             dir=outdir,
-             points=rep(2,length(pm)),
-             maxattempts = 6,
-             name=paste0(genname,"_mastery"),
-             template = "canvas_qti12.xml",
-             cloze = list(enumerate = FALSE))
+# 
+# 
+# pm = list("01_percent_changes.Rmd",
+#           "02_repeat_inc.Rmd",
+#           "03_repeat_dec.Rmd"
+# )
+# 
+# exams2canvas(pm,
+#              n=n,
+#              dir=outdir,
+#              points=rep(2,length(pm)),
+#              maxattempts = 6,
+#              name=paste0(genname,"_mastery"),
+#              template = "canvas_qti12.xml",
+#              cloze = list(enumerate = FALSE))

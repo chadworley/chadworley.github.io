@@ -5,12 +5,12 @@ import os
 
 
 front = "u17_"
-files = ["04_percent_changes.Rmd",
-"05_certificate_of_deposit.Rmd",
-"06_exponential_population.Rmd",
-"07_equal_temperament_up.Rmd",
-"08_equal_temperament_down.Rmd",
-"09_mug_cooling.Rmd"]
+files = ["10_inc_dec_weirdness.Rmd",
+"11_cmpnd_intrst.Rmd",
+"12_cmpnd_intrst_continuous.Rmd",
+"13_doubling_time_from_graph.Rmd",
+"14_half_life_from_graph.Rmd",
+"15_geometric_value_from_index.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

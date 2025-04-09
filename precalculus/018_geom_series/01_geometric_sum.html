@@ -11,7 +11,7 @@
 
 
 
-<title>99_compound_interest_periodic.knit</title>
+<title>01_geometric_sum.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -354,41 +354,56 @@ display: none;
 
 <div id="question" class="section level1">
 <h1>Question</h1>
-<p>An investment earns <a href="https://en.wikipedia.org/wiki/Compound_interest#Periodic_compounding">compound
-interest</a> with periodic compounding.</p>
-<ul>
-<li>Principal = <span class="math inline">\(P=390\)</span> USD</li>
-<li>Nominal <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate#Multiple_definitions_of_effective_APR">annual
-interest rate</a> = <span class="math inline">\(r~=~0.08
-~=~8\%\)</span></li>
-<li>Compounding frequency = <span class="math inline">\(n=52\)</span>
-per year</li>
-<li>Time = <span class="math inline">\(t=20\)</span> years</li>
-</ul>
-<p>Calculate the amount, in USD, after 20 years, using the formula
-below:</p>
-<p><span class="math display">\[A =
-P\left(1+\frac{r}{n}\right)^{nt}\]</span> For the final amount, you can
-round to the nearest penny. (<em>Tolerance is <span class="math inline">\(\pm 0.01\)</span></em>)</p>
+<p>A geometric sequence has a first term 700 and a common ratio 0.96.
+Find the sum of the first 24 terms.</p>
+<p>The tolerance is <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p>(<em>We call the <strong>sum</strong> of a geometric sequence a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric
+series</a>.</em>)</p>
 </div>
 <div id="solution" class="section level1">
 <h1>Solution</h1>
-<p>Notice the definition of <span class="math inline">\(r\)</span> is a
-bit tricky. Really, 52 times per year the money grows by multiplication
-by <span class="math inline">\(\left(1+\frac{0.08}{52}\right)\)</span>
-which equals 1.0015385. Over 20 years, this multiplication occurs 1040
-times.</p>
-<p><span class="math display">\[A ~=~ 390 \cdot (1.0015385)^{1040} ~=~
-1929.31\]</span></p>
-<p>Each year, the money actually grows by multiplying by <span class="math inline">\(\left(1+\frac{0.08}{52}\right)^{52}\)</span>,
-which equals 1.0832205, which is more than the <span class="math inline">\(1.08\)</span> you might expect from <span class="math inline">\(r\)</span>. In the US, credit cards will often
-state an APR, but compound monthly (or even daily!), so the <a href="https://en.wikipedia.org/wiki/Effective_interest_rate">effective
-interest rate</a> is higher (if you allow the debt to linger).</p>
+<p>It might be helpful to reference <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric
+series</a>. Identify the parameters.</p>
+<p><span class="math display">\[a = 700\]</span></p>
+<p><span class="math display">\[r = 0.96\]</span></p>
+<p>Define the explicit formula to find the <span class="math inline">\(n\)</span>th term.</p>
+<p><span class="math display">\[a_n = (700)(0.96)^{(n-1)}\]</span></p>
+<p>The sum of the first 24 terms could be donated with <span class="math inline">\(S_{24}\)</span> or with the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">upper-case
+Sigma summation operator</a>.</p>
+<p><span class="math display">\[S_{24} =
+\sum_{i=1}^{24}(700)(0.96)^{(i-1)} \]</span></p>
+<p>A constant factor (multiplier) can be brought in front of a summation
+operator.</p>
+<p><span class="math display">\[S_{24} =
+700\sum_{i=1}^{24}(0.96)^{(i-1)} \]</span></p>
+<p>Just to be clear, we are attempting to find the following sum:</p>
+<p><span class="math display">\[S_{24} =
+(700)\left(1+0.96+0.96^2+0.96^3+\ldots+0.96^{20}+0.96^{21}+0.96^{22}+0.96^{23}\right)
+\]</span></p>
+<p>If you are cool, you might multiply both sides by 0.96, and
+distribute to all the terms in the summation.</p>
+<p><span class="math display">\[0.96\cdot S_{24} =
+(700)\left(0.96+0.96^2+0.96^3+0.96^4+\ldots+0.96^{21}+0.96^{22}+0.96^{23}+0.96^{24}\right)
+\]</span></p>
+<p>Subtract the previous two equations and simplify by eliminating the
+opposite terms.</p>
+<p><span class="math display">\[S_{24} - 0.96\cdot S_{24} =
+(700)(1-0.96^{24})\]</span></p>
+<p>Factor out <span class="math inline">\(S_{24}\)</span> from the terms
+on the left side of the equation.</p>
+<p><span class="math display">\[S_{24}(1-0.96)=
+(700)(1-0.96^{24})\]</span></p>
+<p>Divide both sides by <span class="math inline">\((1-0.96)\)</span>.</p>
+<p><span class="math display">\[S_{24}=
+\frac{(700)(1-0.96^{24})}{(1-0.96)}\]</span></p>
+<p>This process suggests the geometric series formula.</p>
+<p><span class="math display">\[S_n = \frac{a(1-r^n)}{1-r} \]</span></p>
+<p><span class="math display">\[S_{24}= 10930.2681823\]</span></p>
 </div>
 <div id="meta-information" class="section level1">
 <h1>Meta-information</h1>
-<p>extype: num exsolution: 1929.309085 extol: 0.01 exname:
-compound_interest_periodic</p>
+<p>extype: num exsolution: 10930.2681823 extol: 0.01 exname:
+geometric_series</p>
 </div>
 
 

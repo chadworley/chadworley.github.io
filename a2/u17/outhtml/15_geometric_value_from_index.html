@@ -1,0 +1,290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>15_geometric_value_from_index</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">15_geometric_value_from_index</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric sequence</a> has a common <strong>ratio</strong> between subsequent terms (<em>remember an arithmetic progression has a common <strong>difference</strong> between terms</em>).</p>
+<p>Let <span class="math inline">\(g_{n}\)</span> represent the <span class="math inline">\(n\)</span>th value in a geometric progression with the following <a href="https://en.wikipedia.org/wiki/Recurrence_relation">recursive</a> definition:
+<span class="math display">\[g_1 = 9\]</span>
+<span class="math display">\[g_{[n+1]} = g_{[n]}\cdot 5\]</span>
+where <span class="math inline">\(n\)</span> is any <a href="https://en.wikipedia.org/wiki/Natural_number">natural number</a>. Using this recursive definition can produce the next few values.
+<span class="math display">\[g_2 ~=~ g_1 \cdot 5 ~=~ 9\cdot5 ~=~ 45\]</span>
+<span class="math display">\[g_3 ~=~ g_2 \cdot 5 ~=~ 45\cdot5 ~=~ 225\]</span>
+<span class="math display">\[g_4 ~=~ g_3 \cdot 5 ~=~ 225\cdot5 ~=~ 1125\]</span></p>
+<p>In general, if a geometric progression has an initial term <span class="math inline">\(g_1\)</span> and a common ratio <span class="math inline">\(r\)</span>, we can write an explicit formula to find the <span class="math inline">\(n\)</span>th value.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<ul>
+<li>Evaluate <span class="math inline">\(g_{8}\)</span></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the explicit formula.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<p><span class="math display">\[g_{8} = (9)(5)^{8-1} \]</span></p>
+<p><span class="math display">\[g_{8} = (9)(5)^{7} \]</span></p>
+<p><span class="math display">\[g_{8} = (9)(78125) \]</span></p>
+<p><span class="math display">\[g_{8} = 703125 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric sequence</a> has a common <strong>ratio</strong> between subsequent terms (<em>remember an arithmetic progression has a common <strong>difference</strong> between terms</em>).</p>
+<p>Let <span class="math inline">\(g_{n}\)</span> represent the <span class="math inline">\(n\)</span>th value in a geometric progression with the following <a href="https://en.wikipedia.org/wiki/Recurrence_relation">recursive</a> definition:
+<span class="math display">\[g_1 = 3\]</span>
+<span class="math display">\[g_{[n+1]} = g_{[n]}\cdot 5\]</span>
+where <span class="math inline">\(n\)</span> is any <a href="https://en.wikipedia.org/wiki/Natural_number">natural number</a>. Using this recursive definition can produce the next few values.
+<span class="math display">\[g_2 ~=~ g_1 \cdot 5 ~=~ 3\cdot5 ~=~ 15\]</span>
+<span class="math display">\[g_3 ~=~ g_2 \cdot 5 ~=~ 15\cdot5 ~=~ 75\]</span>
+<span class="math display">\[g_4 ~=~ g_3 \cdot 5 ~=~ 75\cdot5 ~=~ 375\]</span></p>
+<p>In general, if a geometric progression has an initial term <span class="math inline">\(g_1\)</span> and a common ratio <span class="math inline">\(r\)</span>, we can write an explicit formula to find the <span class="math inline">\(n\)</span>th value.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<ul>
+<li>Evaluate <span class="math inline">\(g_{7}\)</span></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the explicit formula.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<p><span class="math display">\[g_{7} = (3)(5)^{7-1} \]</span></p>
+<p><span class="math display">\[g_{7} = (3)(5)^{6} \]</span></p>
+<p><span class="math display">\[g_{7} = (3)(15625) \]</span></p>
+<p><span class="math display">\[g_{7} = 46875 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric sequence</a> has a common <strong>ratio</strong> between subsequent terms (<em>remember an arithmetic progression has a common <strong>difference</strong> between terms</em>).</p>
+<p>Let <span class="math inline">\(g_{n}\)</span> represent the <span class="math inline">\(n\)</span>th value in a geometric progression with the following <a href="https://en.wikipedia.org/wiki/Recurrence_relation">recursive</a> definition:
+<span class="math display">\[g_1 = 4\]</span>
+<span class="math display">\[g_{[n+1]} = g_{[n]}\cdot 5\]</span>
+where <span class="math inline">\(n\)</span> is any <a href="https://en.wikipedia.org/wiki/Natural_number">natural number</a>. Using this recursive definition can produce the next few values.
+<span class="math display">\[g_2 ~=~ g_1 \cdot 5 ~=~ 4\cdot5 ~=~ 20\]</span>
+<span class="math display">\[g_3 ~=~ g_2 \cdot 5 ~=~ 20\cdot5 ~=~ 100\]</span>
+<span class="math display">\[g_4 ~=~ g_3 \cdot 5 ~=~ 100\cdot5 ~=~ 500\]</span></p>
+<p>In general, if a geometric progression has an initial term <span class="math inline">\(g_1\)</span> and a common ratio <span class="math inline">\(r\)</span>, we can write an explicit formula to find the <span class="math inline">\(n\)</span>th value.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<ul>
+<li>Evaluate <span class="math inline">\(g_{7}\)</span></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the explicit formula.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<p><span class="math display">\[g_{7} = (4)(5)^{7-1} \]</span></p>
+<p><span class="math display">\[g_{7} = (4)(5)^{6} \]</span></p>
+<p><span class="math display">\[g_{7} = (4)(15625) \]</span></p>
+<p><span class="math display">\[g_{7} = 62500 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric sequence</a> has a common <strong>ratio</strong> between subsequent terms (<em>remember an arithmetic progression has a common <strong>difference</strong> between terms</em>).</p>
+<p>Let <span class="math inline">\(g_{n}\)</span> represent the <span class="math inline">\(n\)</span>th value in a geometric progression with the following <a href="https://en.wikipedia.org/wiki/Recurrence_relation">recursive</a> definition:
+<span class="math display">\[g_1 = 8\]</span>
+<span class="math display">\[g_{[n+1]} = g_{[n]}\cdot 2\]</span>
+where <span class="math inline">\(n\)</span> is any <a href="https://en.wikipedia.org/wiki/Natural_number">natural number</a>. Using this recursive definition can produce the next few values.
+<span class="math display">\[g_2 ~=~ g_1 \cdot 2 ~=~ 8\cdot2 ~=~ 16\]</span>
+<span class="math display">\[g_3 ~=~ g_2 \cdot 2 ~=~ 16\cdot2 ~=~ 32\]</span>
+<span class="math display">\[g_4 ~=~ g_3 \cdot 2 ~=~ 32\cdot2 ~=~ 64\]</span></p>
+<p>In general, if a geometric progression has an initial term <span class="math inline">\(g_1\)</span> and a common ratio <span class="math inline">\(r\)</span>, we can write an explicit formula to find the <span class="math inline">\(n\)</span>th value.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<ul>
+<li>Evaluate <span class="math inline">\(g_{7}\)</span></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the explicit formula.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<p><span class="math display">\[g_{7} = (8)(2)^{7-1} \]</span></p>
+<p><span class="math display">\[g_{7} = (8)(2)^{6} \]</span></p>
+<p><span class="math display">\[g_{7} = (8)(64) \]</span></p>
+<p><span class="math display">\[g_{7} = 512 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric sequence</a> has a common <strong>ratio</strong> between subsequent terms (<em>remember an arithmetic progression has a common <strong>difference</strong> between terms</em>).</p>
+<p>Let <span class="math inline">\(g_{n}\)</span> represent the <span class="math inline">\(n\)</span>th value in a geometric progression with the following <a href="https://en.wikipedia.org/wiki/Recurrence_relation">recursive</a> definition:
+<span class="math display">\[g_1 = 7\]</span>
+<span class="math display">\[g_{[n+1]} = g_{[n]}\cdot 3\]</span>
+where <span class="math inline">\(n\)</span> is any <a href="https://en.wikipedia.org/wiki/Natural_number">natural number</a>. Using this recursive definition can produce the next few values.
+<span class="math display">\[g_2 ~=~ g_1 \cdot 3 ~=~ 7\cdot3 ~=~ 21\]</span>
+<span class="math display">\[g_3 ~=~ g_2 \cdot 3 ~=~ 21\cdot3 ~=~ 63\]</span>
+<span class="math display">\[g_4 ~=~ g_3 \cdot 3 ~=~ 63\cdot3 ~=~ 189\]</span></p>
+<p>In general, if a geometric progression has an initial term <span class="math inline">\(g_1\)</span> and a common ratio <span class="math inline">\(r\)</span>, we can write an explicit formula to find the <span class="math inline">\(n\)</span>th value.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<ul>
+<li>Evaluate <span class="math inline">\(g_{6}\)</span></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the explicit formula.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<p><span class="math display">\[g_{6} = (7)(3)^{6-1} \]</span></p>
+<p><span class="math display">\[g_{6} = (7)(3)^{5} \]</span></p>
+<p><span class="math display">\[g_{6} = (7)(243) \]</span></p>
+<p><span class="math display">\[g_{6} = 1701 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric sequence</a> has a common <strong>ratio</strong> between subsequent terms (<em>remember an arithmetic progression has a common <strong>difference</strong> between terms</em>).</p>
+<p>Let <span class="math inline">\(g_{n}\)</span> represent the <span class="math inline">\(n\)</span>th value in a geometric progression with the following <a href="https://en.wikipedia.org/wiki/Recurrence_relation">recursive</a> definition:
+<span class="math display">\[g_1 = 7\]</span>
+<span class="math display">\[g_{[n+1]} = g_{[n]}\cdot 3\]</span>
+where <span class="math inline">\(n\)</span> is any <a href="https://en.wikipedia.org/wiki/Natural_number">natural number</a>. Using this recursive definition can produce the next few values.
+<span class="math display">\[g_2 ~=~ g_1 \cdot 3 ~=~ 7\cdot3 ~=~ 21\]</span>
+<span class="math display">\[g_3 ~=~ g_2 \cdot 3 ~=~ 21\cdot3 ~=~ 63\]</span>
+<span class="math display">\[g_4 ~=~ g_3 \cdot 3 ~=~ 63\cdot3 ~=~ 189\]</span></p>
+<p>In general, if a geometric progression has an initial term <span class="math inline">\(g_1\)</span> and a common ratio <span class="math inline">\(r\)</span>, we can write an explicit formula to find the <span class="math inline">\(n\)</span>th value.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<ul>
+<li>Evaluate <span class="math inline">\(g_{6}\)</span></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the explicit formula.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<p><span class="math display">\[g_{6} = (7)(3)^{6-1} \]</span></p>
+<p><span class="math display">\[g_{6} = (7)(3)^{5} \]</span></p>
+<p><span class="math display">\[g_{6} = (7)(243) \]</span></p>
+<p><span class="math display">\[g_{6} = 1701 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric sequence</a> has a common <strong>ratio</strong> between subsequent terms (<em>remember an arithmetic progression has a common <strong>difference</strong> between terms</em>).</p>
+<p>Let <span class="math inline">\(g_{n}\)</span> represent the <span class="math inline">\(n\)</span>th value in a geometric progression with the following <a href="https://en.wikipedia.org/wiki/Recurrence_relation">recursive</a> definition:
+<span class="math display">\[g_1 = 2\]</span>
+<span class="math display">\[g_{[n+1]} = g_{[n]}\cdot 4\]</span>
+where <span class="math inline">\(n\)</span> is any <a href="https://en.wikipedia.org/wiki/Natural_number">natural number</a>. Using this recursive definition can produce the next few values.
+<span class="math display">\[g_2 ~=~ g_1 \cdot 4 ~=~ 2\cdot4 ~=~ 8\]</span>
+<span class="math display">\[g_3 ~=~ g_2 \cdot 4 ~=~ 8\cdot4 ~=~ 32\]</span>
+<span class="math display">\[g_4 ~=~ g_3 \cdot 4 ~=~ 32\cdot4 ~=~ 128\]</span></p>
+<p>In general, if a geometric progression has an initial term <span class="math inline">\(g_1\)</span> and a common ratio <span class="math inline">\(r\)</span>, we can write an explicit formula to find the <span class="math inline">\(n\)</span>th value.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<ul>
+<li>Evaluate <span class="math inline">\(g_{7}\)</span></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the explicit formula.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<p><span class="math display">\[g_{7} = (2)(4)^{7-1} \]</span></p>
+<p><span class="math display">\[g_{7} = (2)(4)^{6} \]</span></p>
+<p><span class="math display">\[g_{7} = (2)(4096) \]</span></p>
+<p><span class="math display">\[g_{7} = 8192 \]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric sequence</a> has a common <strong>ratio</strong> between subsequent terms (<em>remember an arithmetic progression has a common <strong>difference</strong> between terms</em>).</p>
+<p>Let <span class="math inline">\(g_{n}\)</span> represent the <span class="math inline">\(n\)</span>th value in a geometric progression with the following <a href="https://en.wikipedia.org/wiki/Recurrence_relation">recursive</a> definition:
+<span class="math display">\[g_1 = 9\]</span>
+<span class="math display">\[g_{[n+1]} = g_{[n]}\cdot 2\]</span>
+where <span class="math inline">\(n\)</span> is any <a href="https://en.wikipedia.org/wiki/Natural_number">natural number</a>. Using this recursive definition can produce the next few values.
+<span class="math display">\[g_2 ~=~ g_1 \cdot 2 ~=~ 9\cdot2 ~=~ 18\]</span>
+<span class="math display">\[g_3 ~=~ g_2 \cdot 2 ~=~ 18\cdot2 ~=~ 36\]</span>
+<span class="math display">\[g_4 ~=~ g_3 \cdot 2 ~=~ 36\cdot2 ~=~ 72\]</span></p>
+<p>In general, if a geometric progression has an initial term <span class="math inline">\(g_1\)</span> and a common ratio <span class="math inline">\(r\)</span>, we can write an explicit formula to find the <span class="math inline">\(n\)</span>th value.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<ul>
+<li>Evaluate <span class="math inline">\(g_{8}\)</span></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the explicit formula.</p>
+<p><span class="math display">\[g_n = g_1r^{n-1} \]</span></p>
+<p><span class="math display">\[g_{8} = (9)(2)^{8-1} \]</span></p>
+<p><span class="math display">\[g_{8} = (9)(2)^{7} \]</span></p>
+<p><span class="math display">\[g_{8} = (9)(128) \]</span></p>
+<p><span class="math display">\[g_{8} = 1152 \]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

@@ -14,8 +14,6 @@ avt = ["2025-04-08 7:00:00"]*len(files)
 dut = ["2025-04-08 22:59:00"]*len(files)
 
 
-
-
 practice_url_front = "https://chadworley.github.io/ml/percentage/outhtml/"
 course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
