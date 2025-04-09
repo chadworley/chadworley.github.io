@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELO Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 50%; border-collapse: collapse; margin: 20px; }
+        th, td { border: 1px solid #333; padding: 10px; text-align: left; }
+        th { cursor: pointer; background-color: #f2f2f2; }
+        #nameInput { margin: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>ELO Tracker</h1>
+<input type="text" id="nameInput" placeholder="Enter student names (comma-separated)">
+<button onclick="addNames()">Add Names</button>
+
+<table id="eloTable">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0)">Name</th>
+            <th onclick="sortTable(1)">ELO Score</th>
+        </tr>
+    </thead>
+    <tbody id="eloBody"></tbody>
+</table>
+
+<script>
+    let eloScores = {};
+
+    function addNames() {
+        const namesInput = document.getElementById('nameInput').value;
+        const names = namesInput.split(',').map(name => name.trim()).filter(name => name);
+        names.forEach(name => {
+            if (!eloScores[name]) {
+                eloScores[name] = 1200; // Initial ELO score
+            }
+        });
+        document.getElementById('nameInput').value = '';
+        displayScores();
+    }
+
+    function displayScores() {
+        const body = document.getElementById('eloBody');
+        body.innerHTML = '';
+        const sortedNames = Object.keys(eloScores).sort();
+        sortedNames.forEach(name => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td onclick="registerWin('${name}')">${name}</td><td>${eloScores[name]}</td>`;
+            body.appendChild(row);
+        });
+    }
+
+    function registerWin(winner) {
+        const players = Object.keys(eloScores);
+        const loser = prompt(`Who did ${winner} beat? (${players.filter(p => p !== winner).join(', ')})`);
+        if (eloScores[loser]) {
+            // Basic ELO Update - Winner gains points, loser loses points
+            eloScores[winner] += 20; // Example value for gain
+            eloScores[loser] -= 20; // Example value for loss
+            displayScores();
+        } else {
+            alert("Invalid player name.");
+        }
+    }
+
+    function sortTable(columnIndex) {
+        const table = document.getElementById("eloTable");
+        const rows = Array.from(table.rows).slice(1);
+        const sortedRows = rows.sort((a, b) => {
+            const aText = a.cells[columnIndex].innerText;
+            const bText = b.cells[columnIndex].innerText;
+            return columnIndex === 1 ? (parseInt(bText) - parseInt(aText)) : (aText.localeCompare(bText));
+        });
+        sortedRows.forEach(row => table.appendChild(row));
+    }
+</script>
+
+</body>
+</html>
