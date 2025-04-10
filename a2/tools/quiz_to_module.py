@@ -4,16 +4,10 @@ from datetime import datetime, timedelta
 import os
 
 files = ["16_logistic_map.Rmd",
-"17_gen_fib_seqs.Rmd",
-"18_sum_geometric.Rmd",
-"19_geometric_sum.Rmd",
-"20_fractal_lines.Rmd",
-"21_fractal_area.Rmd"]
+"17_gen_fib_seqs.Rmd"]
 
-avt = ["2025-04-10 7:00:00"]*len(files)
-dut = ["2025-04-10 22:59:00"]*len(files)
 front = "u17_"
-
+module_search = "Unit 17"
 
 practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
@@ -25,44 +19,35 @@ if(is_DST):
 else:
     tdel = 5
 
-
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
 headers = {"Authorization": f"Bearer {access_token}"}
 
+url = f"{canvas_url}/api/v1/courses/{course_id}/modules/"
+searchdata = {"search_term":module_search}
+response = requests.get(url,data=searchdata,headers=headers)
+mod_id = response.json()[0]['id']
+print(mod_id)
 
-def set_quiz_ass(name,avt,dut,assdesc=" "):
+
+def quiz_to_mod(name):
     searchdata = {"search_term":name}
-    url = f"{canvas_url}/api/v1/courses/{course_id}/quizzes/"
-    response = requests.get(url,data=searchdata,headers=headers)
-    myid = response.json()[0]["id"]
-    data = {'quiz[due_at]': dut,
-            "quiz[unlock_at]": avt,
-            "quiz[shuffle_answers]": 0,
-            "quiz[published]": 1,
-            "quiz[notify_of_update]":0,
-            "quiz[allowed_attempts]":10}
-    response = requests.put(url+str(myid),data=data,headers=headers)
     url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"
     response = requests.get(url,data=searchdata,headers=headers)
-    assid = response.json()[0]['id']
-    data = {'assignment[post_to_sis]': 1,
-            'assignment[description]':assdesc}
-    url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"+str(assid)
+    myid = response.json()[0]["id"]
+    data = {'module_item[title]': name,
+            "module_item[type]": "Assignment",
+            "module_item[content_id]": myid}
+    url = f"{canvas_url}/api/v1/courses/{course_id}/modules/{mod_id}/items"
     response = requests.put(url,data=data,headers=headers)
+    print(data)
+    print(response.json())
 
 
 for i in range(len(files)):
-    A = datetime.strptime(avt[i],"%Y-%m-%d %H:%M:%S")
-    D = datetime.strptime(dut[i],"%Y-%m-%d %H:%M:%S")
-    A = A+timedelta(hours=tdel)
-    D = D+timedelta(hours=tdel)
-    A = A.strftime("%Y-%m-%dT%H:%M:%SZ")
-    D = D.strftime("%Y-%m-%dT%H:%M:%SZ")
     pref = files[i].split(".")[0]
     name = front+pref
-    assdesc = "<a href='"+practice_url_front+pref+".html'>examples with solutions</a>"
-    set_quiz_ass(name,A,D,assdesc)
+    quiz_to_mod(name)
 
 
 

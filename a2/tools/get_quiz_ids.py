@@ -3,8 +3,6 @@ import time
 from datetime import datetime, timedelta
 import os
 
-
-front = "u17_"
 files = ["16_logistic_map.Rmd",
 "17_gen_fib_seqs.Rmd",
 "18_sum_geometric.Rmd",
@@ -12,50 +10,42 @@ files = ["16_logistic_map.Rmd",
 "20_fractal_lines.Rmd",
 "21_fractal_area.Rmd"]
 
+front = "u17_"
+module_search = "Unit 17"
+
 practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"
-agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
+course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
+canvas_url = 'https://bart.instructure.com'
+
+is_DST = False
+if(is_DST):
+    tdel = 4
+else:
+    tdel = 5
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
 headers = {"Authorization": f"Bearer {access_token}"}
-course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
-canvas_url = 'https://bart.instructure.com'
 
-def get_ass_id(name):
+url = f"{canvas_url}/api/v1/courses/{course_id}/modules/"
+searchdata = {"search_term":module_search}
+response = requests.get(url,data=searchdata,headers=headers)
+mod_id = response.json()[0]['id']
+print(mod_id)
+
+
+def quiz_to_mod(name):
     searchdata = {"search_term":name}
     url = f"{canvas_url}/api/v1/courses/{course_id}/quizzes/"
     response = requests.get(url,data=searchdata,headers=headers)
-    assid = response.json()[0]['id']
-    return(assid)
-# 
-# def set_quiz_ass(name,avt,dut,assdesc=" "):
-#     searchdata = {"search_term":name}
-#     url = f"{canvas_url}/api/v1/courses/{course_id}/quizzes/"
-#     response = requests.get(url,data=searchdata,headers=headers)
-#     myid = response.json()[0]["id"]
-#     data = {'quiz[due_at]': dut,
-#             "quiz[unlock_at]": avt,
-#             "quiz[shuffle_answers]": 0,
-#             "quiz[published]": 1,
-#             "quiz[notify_of_update]":0,
-#             "quiz[allowed_attempts]":10}
-#     response = requests.put(url+str(myid),data=data,headers=headers)
-#     url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"
-#     response = requests.get(url,data=searchdata,headers=headers)
-#     assid = response.json()[0]['id']
-#     data = {'assignment[post_to_sis]': 1,
-#             'assignment[description]':assdesc}
-#     url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"+str(assid)
-#     response = requests.put(url,data=data,headers=headers)
+    myid = response.json()[0]["id"]
+    print(myid)
 
 
 for i in range(len(files)):
     pref = files[i].split(".")[0]
     name = front+pref
-    theid = get_ass_id(name)
-    link1 = practice_url_front+pref+".html"
-    link2 = f"{canvas_url}/courses/{course_id}/quizzes/{theid}"
-    print("* "+name+" [Canvas]("+link2+")/[public]("+link1+")")
+    quiz_to_mod(name)
 
 
 
