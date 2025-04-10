@@ -1,0 +1,47 @@
+```{r,echo=FALSE}
+options(scipen=99)
+
+while(T){
+    k = round(runif(1,0.05,0.95),2)
+    f1 = 0
+    f2 = 1
+    n = sample(10:40,1)
+    
+    f = c(f1,f2)
+    for(i in 3:n){
+        fa = k*f[i-2]+f[i-1]
+        f=c(f,fa)
+    }
+    if(fa<10^6){break}
+}
+
+```
+
+
+Question
+========
+
+As stated in [this wikipedia article](https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers), many variations of the Fibonacci sequence have been studied. Consider the following recursive definition:
+
+$$\begin{align}f(n)~~&=~~`r k`\cdot f(n-2)~+~f(n-1)\\
+f(1)~~&=~~0\\
+f(2)~~&=~~1
+\end{align}$$
+
+Find $f(`r n`)$. The tolerance is $\pm 0.1$.
+
+Solution
+========
+
+Type the equations into Desmos. Click `Create Table`. Extend the table to $x=`r n`$ to find $f(`r n`)$.
+
+$$f(`r n`)=`r fa`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r fa`
+exname: gen_fib_seqs
+extol: 0.1

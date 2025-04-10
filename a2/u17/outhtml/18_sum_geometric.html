@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>18_sum_geometric</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">18_sum_geometric</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the geometric series with the following recursive definition:</p>
+<p><span class="math display">\[f(n)~=~0.872\cdot f(n-1)\]</span>
+<span class="math display">\[f(1)~=~1\]</span></p>
+<p>Find the sum of the first 15 terms of the series.</p>
+<p><span class="math display">\[\sum_{n=1}^{15}f(n) ~=~ ?\]</span></p>
+<p><em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>In Desmos, you can type in the first two equations to define the sequence recursively. Click <code>Create Table</code> and generate the first 15 terms:</p>
+<p><span class="math display">\[f(1)~=~1\]</span>
+<span class="math display">\[f(2)~=~0.872\]</span>
+<span class="math display">\[f(3)~=~0.760384\]</span>
+<span class="math display">\[f(4)~=~0.663054848\]</span>
+<span class="math display">\[f(5)~=~0.578183827456\]</span>
+<span class="math display">\[f(6)~=~0.504176297541632\]</span>
+<span class="math display">\[f(7)~=~0.439641731456303\]</span>
+<span class="math display">\[f(8)~=~0.383367589829896\]</span>
+<span class="math display">\[f(9)~=~0.33429653833167\]</span>
+<span class="math display">\[f(10)~=~0.291506581425216\]</span>
+<span class="math display">\[f(11)~=~0.254193739002788\]</span>
+<span class="math display">\[f(12)~=~0.221656940410431\]</span>
+<span class="math display">\[f(13)~=~0.193284852037896\]</span>
+<span class="math display">\[f(14)~=~0.168544390977045\]</span>
+<span class="math display">\[f(15)~=~0.146970708931984\]</span></p>
+<p>Now, you just need to add all 15 terms.</p>
+<p><span class="math display">\[f(1)+f(2)+f(3)+f(4)+f(5)+f(6)+f(7)+f(8)+f(9)+f(10)+f(11)+f(12)+f(13)+f(14)+f(15) ~=~ 6.811262\]</span></p>
+<p>Luckily, Desmos understands <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">Capital-sigma notation</a>! To get the upper-case sigma, which means “sum”, you can type <code>sum</code>. You should be able to type the expression using the <a href="https://en.wikipedia.org/wiki/Summation">summation</a> operator.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the geometric series with the following recursive definition:</p>
+<p><span class="math display">\[f(n)~=~0.886\cdot f(n-1)\]</span>
+<span class="math display">\[f(1)~=~1\]</span></p>
+<p>Find the sum of the first 8 terms of the series.</p>
+<p><span class="math display">\[\sum_{n=1}^{8}f(n) ~=~ ?\]</span></p>
+<p><em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>In Desmos, you can type in the first two equations to define the sequence recursively. Click <code>Create Table</code> and generate the first 8 terms:</p>
+<p><span class="math display">\[f(1)~=~1\]</span>
+<span class="math display">\[f(2)~=~0.886\]</span>
+<span class="math display">\[f(3)~=~0.784996\]</span>
+<span class="math display">\[f(4)~=~0.695506456\]</span>
+<span class="math display">\[f(5)~=~0.616218720016\]</span>
+<span class="math display">\[f(6)~=~0.545969785934176\]</span>
+<span class="math display">\[f(7)~=~0.48372923033768\]</span>
+<span class="math display">\[f(8)~=~0.428584098079184\]</span></p>
+<p>Now, you just need to add all 8 terms.</p>
+<p><span class="math display">\[f(1)+f(2)+f(3)+f(4)+f(5)+f(6)+f(7)+f(8) ~=~ 5.4410043\]</span></p>
+<p>Luckily, Desmos understands <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">Capital-sigma notation</a>! To get the upper-case sigma, which means “sum”, you can type <code>sum</code>. You should be able to type the expression using the <a href="https://en.wikipedia.org/wiki/Summation">summation</a> operator.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the geometric series with the following recursive definition:</p>
+<p><span class="math display">\[f(n)~=~1.127\cdot f(n-1)\]</span>
+<span class="math display">\[f(1)~=~1\]</span></p>
+<p>Find the sum of the first 10 terms of the series.</p>
+<p><span class="math display">\[\sum_{n=1}^{10}f(n) ~=~ ?\]</span></p>
+<p><em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>In Desmos, you can type in the first two equations to define the sequence recursively. Click <code>Create Table</code> and generate the first 10 terms:</p>
+<p><span class="math display">\[f(1)~=~1\]</span>
+<span class="math display">\[f(2)~=~1.127\]</span>
+<span class="math display">\[f(3)~=~1.270129\]</span>
+<span class="math display">\[f(4)~=~1.431435383\]</span>
+<span class="math display">\[f(5)~=~1.613227676641\]</span>
+<span class="math display">\[f(6)~=~1.81810759157441\]</span>
+<span class="math display">\[f(7)~=~2.04900725570436\]</span>
+<span class="math display">\[f(8)~=~2.30923117717881\]</span>
+<span class="math display">\[f(9)~=~2.60250353668052\]</span>
+<span class="math display">\[f(10)~=~2.93302148583894\]</span></p>
+<p>Now, you just need to add all 10 terms.</p>
+<p><span class="math display">\[f(1)+f(2)+f(3)+f(4)+f(5)+f(6)+f(7)+f(8)+f(9)+f(10) ~=~ 18.1536631\]</span></p>
+<p>Luckily, Desmos understands <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">Capital-sigma notation</a>! To get the upper-case sigma, which means “sum”, you can type <code>sum</code>. You should be able to type the expression using the <a href="https://en.wikipedia.org/wiki/Summation">summation</a> operator.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the geometric series with the following recursive definition:</p>
+<p><span class="math display">\[f(n)~=~1.067\cdot f(n-1)\]</span>
+<span class="math display">\[f(1)~=~1\]</span></p>
+<p>Find the sum of the first 14 terms of the series.</p>
+<p><span class="math display">\[\sum_{n=1}^{14}f(n) ~=~ ?\]</span></p>
+<p><em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>In Desmos, you can type in the first two equations to define the sequence recursively. Click <code>Create Table</code> and generate the first 14 terms:</p>
+<p><span class="math display">\[f(1)~=~1\]</span>
+<span class="math display">\[f(2)~=~1.067\]</span>
+<span class="math display">\[f(3)~=~1.138489\]</span>
+<span class="math display">\[f(4)~=~1.214767763\]</span>
+<span class="math display">\[f(5)~=~1.296157203121\]</span>
+<span class="math display">\[f(6)~=~1.38299973573011\]</span>
+<span class="math display">\[f(7)~=~1.47566071802402\]</span>
+<span class="math display">\[f(8)~=~1.57452998613163\]</span>
+<span class="math display">\[f(9)~=~1.68002349520245\]</span>
+<span class="math display">\[f(10)~=~1.79258506938102\]</span>
+<span class="math display">\[f(11)~=~1.91268826902954\]</span>
+<span class="math display">\[f(12)~=~2.04083838305452\]</span>
+<span class="math display">\[f(13)~=~2.17757455471918\]</span>
+<span class="math display">\[f(14)~=~2.32347204988536\]</span></p>
+<p>Now, you just need to add all 14 terms.</p>
+<p><span class="math display">\[f(1)+f(2)+f(3)+f(4)+f(5)+f(6)+f(7)+f(8)+f(9)+f(10)+f(11)+f(12)+f(13)+f(14) ~=~ 22.0767862\]</span></p>
+<p>Luckily, Desmos understands <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">Capital-sigma notation</a>! To get the upper-case sigma, which means “sum”, you can type <code>sum</code>. You should be able to type the expression using the <a href="https://en.wikipedia.org/wiki/Summation">summation</a> operator.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the geometric series with the following recursive definition:</p>
+<p><span class="math display">\[f(n)~=~0.856\cdot f(n-1)\]</span>
+<span class="math display">\[f(1)~=~1\]</span></p>
+<p>Find the sum of the first 13 terms of the series.</p>
+<p><span class="math display">\[\sum_{n=1}^{13}f(n) ~=~ ?\]</span></p>
+<p><em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>In Desmos, you can type in the first two equations to define the sequence recursively. Click <code>Create Table</code> and generate the first 13 terms:</p>
+<p><span class="math display">\[f(1)~=~1\]</span>
+<span class="math display">\[f(2)~=~0.856\]</span>
+<span class="math display">\[f(3)~=~0.732736\]</span>
+<span class="math display">\[f(4)~=~0.627222016\]</span>
+<span class="math display">\[f(5)~=~0.536902045696\]</span>
+<span class="math display">\[f(6)~=~0.459588151115776\]</span>
+<span class="math display">\[f(7)~=~0.393407457355104\]</span>
+<span class="math display">\[f(8)~=~0.336756783495969\]</span>
+<span class="math display">\[f(9)~=~0.28826380667255\]</span>
+<span class="math display">\[f(10)~=~0.246753818511702\]</span>
+<span class="math display">\[f(11)~=~0.211221268646017\]</span>
+<span class="math display">\[f(12)~=~0.180805405960991\]</span>
+<span class="math display">\[f(13)~=~0.154769427502608\]</span></p>
+<p>Now, you just need to add all 13 terms.</p>
+<p><span class="math display">\[f(1)+f(2)+f(3)+f(4)+f(5)+f(6)+f(7)+f(8)+f(9)+f(10)+f(11)+f(12)+f(13) ~=~ 6.0244262\]</span></p>
+<p>Luckily, Desmos understands <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">Capital-sigma notation</a>! To get the upper-case sigma, which means “sum”, you can type <code>sum</code>. You should be able to type the expression using the <a href="https://en.wikipedia.org/wiki/Summation">summation</a> operator.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the geometric series with the following recursive definition:</p>
+<p><span class="math display">\[f(n)~=~0.902\cdot f(n-1)\]</span>
+<span class="math display">\[f(1)~=~1\]</span></p>
+<p>Find the sum of the first 10 terms of the series.</p>
+<p><span class="math display">\[\sum_{n=1}^{10}f(n) ~=~ ?\]</span></p>
+<p><em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>In Desmos, you can type in the first two equations to define the sequence recursively. Click <code>Create Table</code> and generate the first 10 terms:</p>
+<p><span class="math display">\[f(1)~=~1\]</span>
+<span class="math display">\[f(2)~=~0.902\]</span>
+<span class="math display">\[f(3)~=~0.813604\]</span>
+<span class="math display">\[f(4)~=~0.733870808\]</span>
+<span class="math display">\[f(5)~=~0.661951468816\]</span>
+<span class="math display">\[f(6)~=~0.597080224872032\]</span>
+<span class="math display">\[f(7)~=~0.538566362834573\]</span>
+<span class="math display">\[f(8)~=~0.485786859276785\]</span>
+<span class="math display">\[f(9)~=~0.43817974706766\]</span>
+<span class="math display">\[f(10)~=~0.395238131855029\]</span></p>
+<p>Now, you just need to add all 10 terms.</p>
+<p><span class="math display">\[f(1)+f(2)+f(3)+f(4)+f(5)+f(6)+f(7)+f(8)+f(9)+f(10) ~=~ 6.5662776\]</span></p>
+<p>Luckily, Desmos understands <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">Capital-sigma notation</a>! To get the upper-case sigma, which means “sum”, you can type <code>sum</code>. You should be able to type the expression using the <a href="https://en.wikipedia.org/wiki/Summation">summation</a> operator.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the geometric series with the following recursive definition:</p>
+<p><span class="math display">\[f(n)~=~1.194\cdot f(n-1)\]</span>
+<span class="math display">\[f(1)~=~1\]</span></p>
+<p>Find the sum of the first 12 terms of the series.</p>
+<p><span class="math display">\[\sum_{n=1}^{12}f(n) ~=~ ?\]</span></p>
+<p><em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>In Desmos, you can type in the first two equations to define the sequence recursively. Click <code>Create Table</code> and generate the first 12 terms:</p>
+<p><span class="math display">\[f(1)~=~1\]</span>
+<span class="math display">\[f(2)~=~1.194\]</span>
+<span class="math display">\[f(3)~=~1.425636\]</span>
+<span class="math display">\[f(4)~=~1.702209384\]</span>
+<span class="math display">\[f(5)~=~2.032438004496\]</span>
+<span class="math display">\[f(6)~=~2.42673097736822\]</span>
+<span class="math display">\[f(7)~=~2.89751678697766\]</span>
+<span class="math display">\[f(8)~=~3.45963504365132\]</span>
+<span class="math display">\[f(9)~=~4.13080424211968\]</span>
+<span class="math display">\[f(10)~=~4.9321802650909\]</span>
+<span class="math display">\[f(11)~=~5.88902323651853\]</span>
+<span class="math display">\[f(12)~=~7.03149374440313\]</span></p>
+<p>Now, you just need to add all 12 terms.</p>
+<p><span class="math display">\[f(1)+f(2)+f(3)+f(4)+f(5)+f(6)+f(7)+f(8)+f(9)+f(10)+f(11)+f(12) ~=~ 38.1216677\]</span></p>
+<p>Luckily, Desmos understands <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">Capital-sigma notation</a>! To get the upper-case sigma, which means “sum”, you can type <code>sum</code>. You should be able to type the expression using the <a href="https://en.wikipedia.org/wiki/Summation">summation</a> operator.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the geometric series with the following recursive definition:</p>
+<p><span class="math display">\[f(n)~=~1.055\cdot f(n-1)\]</span>
+<span class="math display">\[f(1)~=~1\]</span></p>
+<p>Find the sum of the first 10 terms of the series.</p>
+<p><span class="math display">\[\sum_{n=1}^{10}f(n) ~=~ ?\]</span></p>
+<p><em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>In Desmos, you can type in the first two equations to define the sequence recursively. Click <code>Create Table</code> and generate the first 10 terms:</p>
+<p><span class="math display">\[f(1)~=~1\]</span>
+<span class="math display">\[f(2)~=~1.055\]</span>
+<span class="math display">\[f(3)~=~1.113025\]</span>
+<span class="math display">\[f(4)~=~1.174241375\]</span>
+<span class="math display">\[f(5)~=~1.238824650625\]</span>
+<span class="math display">\[f(6)~=~1.30696000640937\]</span>
+<span class="math display">\[f(7)~=~1.37884280676189\]</span>
+<span class="math display">\[f(8)~=~1.45467916113379\]</span>
+<span class="math display">\[f(9)~=~1.53468651499615\]</span>
+<span class="math display">\[f(10)~=~1.61909427332094\]</span></p>
+<p>Now, you just need to add all 10 terms.</p>
+<p><span class="math display">\[f(1)+f(2)+f(3)+f(4)+f(5)+f(6)+f(7)+f(8)+f(9)+f(10) ~=~ 12.8753538\]</span></p>
+<p>Luckily, Desmos understands <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">Capital-sigma notation</a>! To get the upper-case sigma, which means “sum”, you can type <code>sum</code>. You should be able to type the expression using the <a href="https://en.wikipedia.org/wiki/Summation">summation</a> operator.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

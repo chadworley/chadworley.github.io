@@ -1,11 +1,11 @@
 library("exams")
 
-pppsss = c("10_inc_dec_weirdness.Rmd",
-           "11_cmpnd_intrst.Rmd",
-           "12_cmpnd_intrst_continuous.Rmd",
-           "13_doubling_time_from_graph.Rmd",
-           "14_half_life_from_graph.Rmd",
-           "15_geometric_value_from_index.Rmd")
+pppsss = c("16_logistic_map.Rmd",
+           "17_gen_fib_seqs.Rmd",
+           "18_sum_geometric.Rmd",
+           "19_geometric_sum.Rmd",
+           "20_fractal_lines.Rmd",
+           "21_fractal_area.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>17_gen_fib_seqs</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">17_gen_fib_seqs</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>As stated in <a href="https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers">this wikipedia article</a>, many variations of the Fibonacci sequence have been studied. Consider the following recursive definition:</p>
+<p><span class="math display">\[\begin{align}f(n)~~&amp;=~~0.62\cdot f(n-2)~+~f(n-1)\\
+f(1)~~&amp;=~~0\\
+f(2)~~&amp;=~~1
+\end{align}\]</span></p>
+<p>Find <span class="math inline">\(f(18)\)</span>. The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Type the equations into Desmos. Click <code>Create Table</code>. Extend the table to <span class="math inline">\(x=18\)</span> to find <span class="math inline">\(f(18)\)</span>.</p>
+<p><span class="math display">\[f(18)=242.1280728\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>As stated in <a href="https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers">this wikipedia article</a>, many variations of the Fibonacci sequence have been studied. Consider the following recursive definition:</p>
+<p><span class="math display">\[\begin{align}f(n)~~&amp;=~~0.25\cdot f(n-2)~+~f(n-1)\\
+f(1)~~&amp;=~~0\\
+f(2)~~&amp;=~~1
+\end{align}\]</span></p>
+<p>Find <span class="math inline">\(f(10)\)</span>. The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Type the equations into Desmos. Click <code>Create Table</code>. Extend the table to <span class="math inline">\(x=10\)</span> to find <span class="math inline">\(f(10)\)</span>.</p>
+<p><span class="math display">\[f(10)=3.8476562\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>As stated in <a href="https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers">this wikipedia article</a>, many variations of the Fibonacci sequence have been studied. Consider the following recursive definition:</p>
+<p><span class="math display">\[\begin{align}f(n)~~&amp;=~~0.51\cdot f(n-2)~+~f(n-1)\\
+f(1)~~&amp;=~~0\\
+f(2)~~&amp;=~~1
+\end{align}\]</span></p>
+<p>Find <span class="math inline">\(f(13)\)</span>. The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Type the equations into Desmos. Click <code>Create Table</code>. Extend the table to <span class="math inline">\(x=13\)</span> to find <span class="math inline">\(f(13)\)</span>.</p>
+<p><span class="math display">\[f(13)=25.4668915\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>As stated in <a href="https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers">this wikipedia article</a>, many variations of the Fibonacci sequence have been studied. Consider the following recursive definition:</p>
+<p><span class="math display">\[\begin{align}f(n)~~&amp;=~~0.94\cdot f(n-2)~+~f(n-1)\\
+f(1)~~&amp;=~~0\\
+f(2)~~&amp;=~~1
+\end{align}\]</span></p>
+<p>Find <span class="math inline">\(f(21)\)</span>. The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Type the equations into Desmos. Click <code>Create Table</code>. Extend the table to <span class="math inline">\(x=21\)</span> to find <span class="math inline">\(f(21)\)</span>.</p>
+<p><span class="math display">\[f(21)=4941.934445\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>As stated in <a href="https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers">this wikipedia article</a>, many variations of the Fibonacci sequence have been studied. Consider the following recursive definition:</p>
+<p><span class="math display">\[\begin{align}f(n)~~&amp;=~~0.82\cdot f(n-2)~+~f(n-1)\\
+f(1)~~&amp;=~~0\\
+f(2)~~&amp;=~~1
+\end{align}\]</span></p>
+<p>Find <span class="math inline">\(f(29)\)</span>. The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Type the equations into Desmos. Click <code>Create Table</code>. Extend the table to <span class="math inline">\(x=29\)</span> to find <span class="math inline">\(f(29)\)</span>.</p>
+<p><span class="math display">\[f(29)=77736.033005\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>As stated in <a href="https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers">this wikipedia article</a>, many variations of the Fibonacci sequence have been studied. Consider the following recursive definition:</p>
+<p><span class="math display">\[\begin{align}f(n)~~&amp;=~~0.92\cdot f(n-2)~+~f(n-1)\\
+f(1)~~&amp;=~~0\\
+f(2)~~&amp;=~~1
+\end{align}\]</span></p>
+<p>Find <span class="math inline">\(f(15)\)</span>. The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Type the equations into Desmos. Click <code>Create Table</code>. Extend the table to <span class="math inline">\(x=15\)</span> to find <span class="math inline">\(f(15)\)</span>.</p>
+<p><span class="math display">\[f(15)=283.4531233\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>As stated in <a href="https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers">this wikipedia article</a>, many variations of the Fibonacci sequence have been studied. Consider the following recursive definition:</p>
+<p><span class="math display">\[\begin{align}f(n)~~&amp;=~~0.71\cdot f(n-2)~+~f(n-1)\\
+f(1)~~&amp;=~~0\\
+f(2)~~&amp;=~~1
+\end{align}\]</span></p>
+<p>Find <span class="math inline">\(f(13)\)</span>. The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Type the equations into Desmos. Click <code>Create Table</code>. Extend the table to <span class="math inline">\(x=13\)</span> to find <span class="math inline">\(f(13)\)</span>.</p>
+<p><span class="math display">\[f(13)=56.267242\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>As stated in <a href="https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers">this wikipedia article</a>, many variations of the Fibonacci sequence have been studied. Consider the following recursive definition:</p>
+<p><span class="math display">\[\begin{align}f(n)~~&amp;=~~0.5\cdot f(n-2)~+~f(n-1)\\
+f(1)~~&amp;=~~0\\
+f(2)~~&amp;=~~1
+\end{align}\]</span></p>
+<p>Find <span class="math inline">\(f(33)\)</span>. The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Type the equations into Desmos. Click <code>Create Table</code>. Extend the table to <span class="math inline">\(x=33\)</span> to find <span class="math inline">\(f(33)\)</span>.</p>
+<p><span class="math display">\[f(33)=12477.2880859\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

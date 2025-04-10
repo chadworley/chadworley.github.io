@@ -1,0 +1,1514 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>16_logistic_map</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">16_logistic_map</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Desmos, we can <a href="https://help.desmos.com/hc/en-us/articles/25917735966989-Recursion#h_01HVHM10ASS971T6VMMHEX9HD9">produce sequences defined recursively</a>. In basic <a href="https://en.wikipedia.org/wiki/Chaos_theory">Chaos Theory</a>, it is common to discuss the <a href="https://en.wikipedia.org/wiki/Logistic_map">logistic map</a>.</p>
+<p>Let’s produce a sequence using the logistic map with <span class="math inline">\(r=3.72643\)</span> and <span class="math inline">\(f(1)=0.39\)</span>. In Desmos, write the following expressions:
+<span class="math display">\[f(n)~=~ 3.72643\cdot f(n-1) \cdot \Big(1-f(n-1)\Big)\]</span>
+<span class="math display">\[f(1)~=~ 0.39\]</span></p>
+<p>You can then click on the <code>Create Table</code> button that shows up to the left of your first equation. By default, it will show the first 5 elements of the sequence in the table (along with the indices in the first column):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.39</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.886517697</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.37489402421913</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.873283261566687</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.412365277949644</td>
+</tr>
+</tbody>
+</table>
+<p>If you click on the last row’s <span class="math inline">\(x\)</span> value and repeatedly hit the <code>Enter</code> key on your keyboard, you can extend the sequence as far as you’d like.</p>
+<p>Find the <strong>35th</strong> term of the sequence.</p>
+<p><span class="math display">\[f(35)~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(35)=0.4239431\]</span></p>
+<p>In Desmos, if you follow those steps, you can generate the entire sequence:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.39</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.886517697</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.37489402421913</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.873283261566687</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.412365277949644</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">0.902989097026912</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">0.326434476794821</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">0.81934883036365</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">0.551572472275598</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">0.921696239985649</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">0.268944953764915</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">0.732666689293474</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">0.729881727239944</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">0.734682039047213</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">0.726371910350677</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">0.740649420044822</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">0.715801951589523</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">0.758065857606118</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">0.683434763817907</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">0.806219418563945</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">0.582178920586291</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">0.906441520840755</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">0.316020977323933</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">0.805474251034946</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">0.583877480520225</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">0.905390456106997</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">0.319200695179349</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">0.809796507981244</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">0.573967567925594</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">0.911219452066938</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">0.301462829294588</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">0.784722778313223</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">0.629516773776755</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">0.869098147111061</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">0.423943113979605</td>
+</tr>
+</tbody>
+</table>
+<p>You might notice there is not really a pattern. That’s chaos!</p>
+<p>More specifically, if you adjust <span class="math inline">\(f(1)\)</span> very slightly (maybe make <span class="math inline">\(f(1)=0.4\)</span> or <span class="math inline">\(f(1)=0.38\)</span> ), you should see that <span class="math inline">\(f(35)\)</span> can change a lot. This phenomenon is called the <a href="https://en.wikipedia.org/wiki/Butterfly_effect">butterfly effect</a>: a small change to the initial conditions can cause a large change in final conditions.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Desmos, we can <a href="https://help.desmos.com/hc/en-us/articles/25917735966989-Recursion#h_01HVHM10ASS971T6VMMHEX9HD9">produce sequences defined recursively</a>. In basic <a href="https://en.wikipedia.org/wiki/Chaos_theory">Chaos Theory</a>, it is common to discuss the <a href="https://en.wikipedia.org/wiki/Logistic_map">logistic map</a>.</p>
+<p>Let’s produce a sequence using the logistic map with <span class="math inline">\(r=3.93289\)</span> and <span class="math inline">\(f(1)=0.41\)</span>. In Desmos, write the following expressions:
+<span class="math display">\[f(n)~=~ 3.93289\cdot f(n-1) \cdot \Big(1-f(n-1)\Big)\]</span>
+<span class="math display">\[f(1)~=~ 0.41\]</span></p>
+<p>You can then click on the <code>Create Table</code> button that shows up to the left of your first equation. By default, it will show the first 5 elements of the sequence in the table (along with the indices in the first column):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.41</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.951366091</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.18196951835282</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.58543668369185</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.954514656859574</td>
+</tr>
+</tbody>
+</table>
+<p>If you click on the last row’s <span class="math inline">\(x\)</span> value and repeatedly hit the <code>Enter</code> key on your keyboard, you can extend the sequence as far as you’d like.</p>
+<p>Find the <strong>35th</strong> term of the sequence.</p>
+<p><span class="math display">\[f(35)~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(35)=0.0759626\]</span></p>
+<p>In Desmos, if you follow those steps, you can generate the entire sequence:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.41</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.951366091</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.18196951835282</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.58543668369185</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.954514656859574</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">0.170752030403471</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">0.556880605638445</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">0.97049801472413</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">0.112605004669191</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">0.392994495728927</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">0.938190209664616</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">0.228065695998581</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">0.692392105339694</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">0.837647669218483</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">0.534849645091063</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">0.978446013892981</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">0.0829423367344487</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">0.299147040457037</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">0.824562200242511</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">0.568929421825722</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">0.964536296634204</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">0.134528549823984</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">0.457908817576741</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">0.97625472606402</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">0.0911700374433799</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">0.325871642342053</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">0.863974581403751</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">0.462203081118244</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">0.977603945513118</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">0.0861085469569439</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">0.30949431510491</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">0.840488420126851</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">0.527273264002263</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">0.980297094776319</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">0.0759625934304157</td>
+</tr>
+</tbody>
+</table>
+<p>You might notice there is not really a pattern. That’s chaos!</p>
+<p>More specifically, if you adjust <span class="math inline">\(f(1)\)</span> very slightly (maybe make <span class="math inline">\(f(1)=0.42\)</span> or <span class="math inline">\(f(1)=0.4\)</span> ), you should see that <span class="math inline">\(f(35)\)</span> can change a lot. This phenomenon is called the <a href="https://en.wikipedia.org/wiki/Butterfly_effect">butterfly effect</a>: a small change to the initial conditions can cause a large change in final conditions.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Desmos, we can <a href="https://help.desmos.com/hc/en-us/articles/25917735966989-Recursion#h_01HVHM10ASS971T6VMMHEX9HD9">produce sequences defined recursively</a>. In basic <a href="https://en.wikipedia.org/wiki/Chaos_theory">Chaos Theory</a>, it is common to discuss the <a href="https://en.wikipedia.org/wiki/Logistic_map">logistic map</a>.</p>
+<p>Let’s produce a sequence using the logistic map with <span class="math inline">\(r=3.80828\)</span> and <span class="math inline">\(f(1)=0.55\)</span>. In Desmos, write the following expressions:
+<span class="math display">\[f(n)~=~ 3.80828\cdot f(n-1) \cdot \Big(1-f(n-1)\Big)\]</span>
+<span class="math display">\[f(1)~=~ 0.55\]</span></p>
+<p>You can then click on the <code>Create Table</code> button that shows up to the left of your first equation. By default, it will show the first 5 elements of the sequence in the table (along with the indices in the first column):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.55</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.9425493</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.206218807833474</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.623387297111165</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.894091126424352</td>
+</tr>
+</tbody>
+</table>
+<p>If you click on the last row’s <span class="math inline">\(x\)</span> value and repeatedly hit the <code>Enter</code> key on your keyboard, you can extend the sequence as far as you’d like.</p>
+<p>Find the <strong>31st</strong> term of the sequence.</p>
+<p><span class="math display">\[f(31)~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(31)=0.3063459\]</span></p>
+<p>In Desmos, if you follow those steps, you can generate the entire sequence:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.55</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.9425493</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.206218807833474</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.623387297111165</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.894091126424352</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">0.360614350763754</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">0.878081368176279</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">0.407693431430656</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">0.919621540354485</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">0.281499537984581</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">0.770253375274644</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">0.673925084557022</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">0.836869777392848</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">0.51990163697681</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">0.950561634911166</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">0.178967122040323</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">0.559580632561629</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">0.938551170476805</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">0.219634440689846</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">0.652720733848381</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">0.863247114725995</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">0.449573294542878</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">0.942386105211894</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">0.206768787619534</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">0.624616781102742</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">0.89292991694399</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">0.364094723752945</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">0.881730138753959</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">0.397135440231819</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">0.911774141251859</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">0.306345875294534</td>
+</tr>
+</tbody>
+</table>
+<p>You might notice there is not really a pattern. That’s chaos!</p>
+<p>More specifically, if you adjust <span class="math inline">\(f(1)\)</span> very slightly (maybe make <span class="math inline">\(f(1)=0.56\)</span> or <span class="math inline">\(f(1)=0.54\)</span> ), you should see that <span class="math inline">\(f(31)\)</span> can change a lot. This phenomenon is called the <a href="https://en.wikipedia.org/wiki/Butterfly_effect">butterfly effect</a>: a small change to the initial conditions can cause a large change in final conditions.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Desmos, we can <a href="https://help.desmos.com/hc/en-us/articles/25917735966989-Recursion#h_01HVHM10ASS971T6VMMHEX9HD9">produce sequences defined recursively</a>. In basic <a href="https://en.wikipedia.org/wiki/Chaos_theory">Chaos Theory</a>, it is common to discuss the <a href="https://en.wikipedia.org/wiki/Logistic_map">logistic map</a>.</p>
+<p>Let’s produce a sequence using the logistic map with <span class="math inline">\(r=3.83199\)</span> and <span class="math inline">\(f(1)=0.44\)</span>. In Desmos, write the following expressions:
+<span class="math display">\[f(n)~=~ 3.83199\cdot f(n-1) \cdot \Big(1-f(n-1)\Big)\]</span>
+<span class="math display">\[f(1)~=~ 0.44\]</span></p>
+<p>You can then click on the <code>Create Table</code> button that shows up to the left of your first equation. By default, it will show the first 5 elements of the sequence in the table (along with the indices in the first column):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.44</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.944202336</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.201885652097445</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.617440254643644</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.905145876132087</td>
+</tr>
+</tbody>
+</table>
+<p>If you click on the last row’s <span class="math inline">\(x\)</span> value and repeatedly hit the <code>Enter</code> key on your keyboard, you can extend the sequence as far as you’d like.</p>
+<p>Find the <strong>22nd</strong> term of the sequence.</p>
+<p><span class="math display">\[f(22)~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(22)=0.1541935\]</span></p>
+<p>In Desmos, if you follow those steps, you can generate the entire sequence:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.44</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.944202336</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.201885652097445</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.617440254643644</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.905145876132087</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">0.329002472043534</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">0.845949520099949</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">0.499380834818006</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">0.957996030947151</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">0.154197881363311</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">0.499771564459169</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">0.957997300036046</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">0.154193426763207</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">0.499759758710521</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">0.957997278833336</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">0.154193501186461</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">0.499759955951077</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">0.957997279196347</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">0.154193499912263</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">0.499759952574126</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">0.957997279190134</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">0.154193499934069</td>
+</tr>
+</tbody>
+</table>
+<p>You might notice there is not really a pattern. That’s chaos!</p>
+<p>More specifically, if you adjust <span class="math inline">\(f(1)\)</span> very slightly (maybe make <span class="math inline">\(f(1)=0.45\)</span> or <span class="math inline">\(f(1)=0.43\)</span> ), you should see that <span class="math inline">\(f(22)\)</span> can change a lot. This phenomenon is called the <a href="https://en.wikipedia.org/wiki/Butterfly_effect">butterfly effect</a>: a small change to the initial conditions can cause a large change in final conditions.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Desmos, we can <a href="https://help.desmos.com/hc/en-us/articles/25917735966989-Recursion#h_01HVHM10ASS971T6VMMHEX9HD9">produce sequences defined recursively</a>. In basic <a href="https://en.wikipedia.org/wiki/Chaos_theory">Chaos Theory</a>, it is common to discuss the <a href="https://en.wikipedia.org/wiki/Logistic_map">logistic map</a>.</p>
+<p>Let’s produce a sequence using the logistic map with <span class="math inline">\(r=3.74668\)</span> and <span class="math inline">\(f(1)=0.43\)</span>. In Desmos, write the following expressions:
+<span class="math display">\[f(n)~=~ 3.74668\cdot f(n-1) \cdot \Big(1-f(n-1)\Big)\]</span>
+<span class="math display">\[f(1)~=~ 0.43\]</span></p>
+<p>You can then click on the <code>Create Table</code> button that shows up to the left of your first equation. By default, it will show the first 5 elements of the sequence in the table (along with the indices in the first column):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.43</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.918311268</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.281059759423097</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.757073535092573</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.689063899015396</td>
+</tr>
+</tbody>
+</table>
+<p>If you click on the last row’s <span class="math inline">\(x\)</span> value and repeatedly hit the <code>Enter</code> key on your keyboard, you can extend the sequence as far as you’d like.</p>
+<p>Find the <strong>36th</strong> term of the sequence.</p>
+<p><span class="math display">\[f(36)~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(36)=0.9340605\]</span></p>
+<p>In Desmos, if you follow those steps, you can generate the entire sequence:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.43</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.918311268</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.281059759423097</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.757073535092573</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.689063899015396</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">0.802744331758374</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">0.593271302668625</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">0.90407562282856</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">0.32492292138568</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">0.821826826624607</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">0.548616961963791</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">0.927814313467141</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">0.250933567760595</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">0.704248124414312</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">0.780368640198438</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">0.642156319801825</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">0.860955519728446</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">0.448519232021455</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">0.926740288375918</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">0.254372319686905</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">0.710621715408385</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">0.770461628947354</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">0.662602258567661</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">0.837609674779319</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">0.509622317678875</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">0.936323098654797</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">0.223385130376149</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">0.649989834546016</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">0.852381125623771</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">0.471435536200016</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">0.933612976662249</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">0.232218426371809</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">0.668006925238838</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">0.83091498542462</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">0.526390827275898</td>
+</tr>
+<tr class="even">
+<td align="center">36</td>
+<td align="center">0.934060528183389</td>
+</tr>
+</tbody>
+</table>
+<p>You might notice there is not really a pattern. That’s chaos!</p>
+<p>More specifically, if you adjust <span class="math inline">\(f(1)\)</span> very slightly (maybe make <span class="math inline">\(f(1)=0.44\)</span> or <span class="math inline">\(f(1)=0.42\)</span> ), you should see that <span class="math inline">\(f(36)\)</span> can change a lot. This phenomenon is called the <a href="https://en.wikipedia.org/wiki/Butterfly_effect">butterfly effect</a>: a small change to the initial conditions can cause a large change in final conditions.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Desmos, we can <a href="https://help.desmos.com/hc/en-us/articles/25917735966989-Recursion#h_01HVHM10ASS971T6VMMHEX9HD9">produce sequences defined recursively</a>. In basic <a href="https://en.wikipedia.org/wiki/Chaos_theory">Chaos Theory</a>, it is common to discuss the <a href="https://en.wikipedia.org/wiki/Logistic_map">logistic map</a>.</p>
+<p>Let’s produce a sequence using the logistic map with <span class="math inline">\(r=3.6241\)</span> and <span class="math inline">\(f(1)=0.28\)</span>. In Desmos, write the following expressions:
+<span class="math display">\[f(n)~=~ 3.6241\cdot f(n-1) \cdot \Big(1-f(n-1)\Big)\]</span>
+<span class="math display">\[f(1)~=~ 0.28\]</span></p>
+<p>You can then click on the <code>Create Table</code> button that shows up to the left of your first equation. By default, it will show the first 5 elements of the sequence in the table (along with the indices in the first column):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.28</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.73061856</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.713277530643478</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.741174457669068</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.695228792116241</td>
+</tr>
+</tbody>
+</table>
+<p>If you click on the last row’s <span class="math inline">\(x\)</span> value and repeatedly hit the <code>Enter</code> key on your keyboard, you can extend the sequence as far as you’d like.</p>
+<p>Find the <strong>24th</strong> term of the sequence.</p>
+<p><span class="math display">\[f(24)~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(24)=0.8145708\]</span></p>
+<p>In Desmos, if you follow those steps, you can generate the entire sequence:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.28</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.73061856</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.713277530643478</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.741174457669068</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.695228792116241</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">0.767895033245166</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">0.645931501438275</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">0.828846155121695</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">0.514115573512948</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">0.905302900192926</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">0.310692495116925</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">0.776146927254939</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">0.62966155172064</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">0.845096203175755</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">0.474425895507585</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">0.903654712406704</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">0.315524558589661</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">0.782692569816805</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">0.616404725847722</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">0.856918226830328</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">0.444348651725147</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">0.894800899317876</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">0.341144686854605</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">0.814570798394323</td>
+</tr>
+</tbody>
+</table>
+<p>You might notice there is not really a pattern. That’s chaos!</p>
+<p>More specifically, if you adjust <span class="math inline">\(f(1)\)</span> very slightly (maybe make <span class="math inline">\(f(1)=0.29\)</span> or <span class="math inline">\(f(1)=0.27\)</span> ), you should see that <span class="math inline">\(f(24)\)</span> can change a lot. This phenomenon is called the <a href="https://en.wikipedia.org/wiki/Butterfly_effect">butterfly effect</a>: a small change to the initial conditions can cause a large change in final conditions.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Desmos, we can <a href="https://help.desmos.com/hc/en-us/articles/25917735966989-Recursion#h_01HVHM10ASS971T6VMMHEX9HD9">produce sequences defined recursively</a>. In basic <a href="https://en.wikipedia.org/wiki/Chaos_theory">Chaos Theory</a>, it is common to discuss the <a href="https://en.wikipedia.org/wiki/Logistic_map">logistic map</a>.</p>
+<p>Let’s produce a sequence using the logistic map with <span class="math inline">\(r=3.69167\)</span> and <span class="math inline">\(f(1)=0.43\)</span>. In Desmos, write the following expressions:
+<span class="math display">\[f(n)~=~ 3.69167\cdot f(n-1) \cdot \Big(1-f(n-1)\Big)\]</span>
+<span class="math display">\[f(1)~=~ 0.43\]</span></p>
+<p>You can then click on the <code>Create Table</code> button that shows up to the left of your first equation. By default, it will show the first 5 elements of the sequence in the table (along with the indices in the first column):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.43</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.904828317</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.317904594992127</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.800506387132822</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.589544604840734</td>
+</tr>
+</tbody>
+</table>
+<p>If you click on the last row’s <span class="math inline">\(x\)</span> value and repeatedly hit the <code>Enter</code> key on your keyboard, you can extend the sequence as far as you’d like.</p>
+<p>Find the <strong>36th</strong> term of the sequence.</p>
+<p><span class="math display">\[f(36)~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(36)=0.7165389\]</span></p>
+<p>In Desmos, if you follow those steps, you can generate the entire sequence:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.43</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.904828317</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.317904594992127</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.800506387132822</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.589544604840734</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">0.893316817760505</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">0.351823094539353</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">0.841861734118942</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">0.491474075036174</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">0.922649147352324</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">0.263465990570349</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">0.716374700469943</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">0.750080853318866</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">0.692038858980767</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">0.786772685004628</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">0.619319827712337</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">0.87035837729769</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">0.416548374931258</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">0.897208068778671</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">0.340467034861029</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">0.828961667114508</td>
+</tr>
+<tr class="even">
+<td align="center">22</td>
+<td align="center">0.52342055724053</td>
+</tr>
+<tr class="odd">
+<td align="center">23</td>
+<td align="center">0.920892535937046</td>
+</tr>
+<tr class="even">
+<td align="center">24</td>
+<td align="center">0.26893621470049</td>
+</tr>
+<tr class="odd">
+<td align="center">25</td>
+<td align="center">0.725817492994394</td>
+</tr>
+<tr class="even">
+<td align="center">26</td>
+<td align="center">0.734666177662974</td>
+</tr>
+<tr class="odd">
+<td align="center">27</td>
+<td align="center">0.719623822956325</td>
+</tr>
+<tr class="even">
+<td align="center">28</td>
+<td align="center">0.744851187057851</td>
+</tr>
+<tr class="odd">
+<td align="center">29</td>
+<td align="center">0.701594116951221</td>
+</tr>
+<tr class="even">
+<td align="center">30</td>
+<td align="center">0.772887337205383</td>
+</tr>
+<tr class="odd">
+<td align="center">31</td>
+<td align="center">0.648008068678998</td>
+</tr>
+<tr class="even">
+<td align="center">32</td>
+<td align="center">0.842046343157201</td>
+</tr>
+<tr class="odd">
+<td align="center">33</td>
+<td align="center">0.491007980979533</td>
+</tr>
+<tr class="even">
+<td align="center">34</td>
+<td align="center">0.922619004831424</td>
+</tr>
+<tr class="odd">
+<td align="center">35</td>
+<td align="center">0.263560048832227</td>
+</tr>
+<tr class="even">
+<td align="center">36</td>
+<td align="center">0.716538932194323</td>
+</tr>
+</tbody>
+</table>
+<p>You might notice there is not really a pattern. That’s chaos!</p>
+<p>More specifically, if you adjust <span class="math inline">\(f(1)\)</span> very slightly (maybe make <span class="math inline">\(f(1)=0.44\)</span> or <span class="math inline">\(f(1)=0.42\)</span> ), you should see that <span class="math inline">\(f(36)\)</span> can change a lot. This phenomenon is called the <a href="https://en.wikipedia.org/wiki/Butterfly_effect">butterfly effect</a>: a small change to the initial conditions can cause a large change in final conditions.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In Desmos, we can <a href="https://help.desmos.com/hc/en-us/articles/25917735966989-Recursion#h_01HVHM10ASS971T6VMMHEX9HD9">produce sequences defined recursively</a>. In basic <a href="https://en.wikipedia.org/wiki/Chaos_theory">Chaos Theory</a>, it is common to discuss the <a href="https://en.wikipedia.org/wiki/Logistic_map">logistic map</a>.</p>
+<p>Let’s produce a sequence using the logistic map with <span class="math inline">\(r=3.85009\)</span> and <span class="math inline">\(f(1)=0.92\)</span>. In Desmos, write the following expressions:
+<span class="math display">\[f(n)~=~ 3.85009\cdot f(n-1) \cdot \Big(1-f(n-1)\Big)\]</span>
+<span class="math display">\[f(1)~=~ 0.92\]</span></p>
+<p>You can then click on the <code>Create Table</code> button that shows up to the left of your first equation. By default, it will show the first 5 elements of the sequence in the table (along with the indices in the first column):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.92</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.283366624</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.78183770084918</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.656700266039119</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.867983642551983</td>
+</tr>
+</tbody>
+</table>
+<p>If you click on the last row’s <span class="math inline">\(x\)</span> value and repeatedly hit the <code>Enter</code> key on your keyboard, you can extend the sequence as far as you’d like.</p>
+<p>Find the <strong>21st</strong> term of the sequence.</p>
+<p><span class="math display">\[f(21)~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f(21)=0.9614425\]</span></p>
+<p>In Desmos, if you follow those steps, you can generate the entire sequence:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x\)</span></th>
+<th align="center"><span class="math inline">\(f(x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.92</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.283366624</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.78183770084918</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0.656700266039119</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">0.867983642551983</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">0.441174262358066</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">0.94919938903283</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">0.185650989028049</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">0.582074698931619</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">0.936587307348785</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">0.228662709025534</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">0.679063760774263</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">0.839073867128165</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">0.519873466230531</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">0.961001889013019</td>
+</tr>
+<tr class="even">
+<td align="center">16</td>
+<td align="center">0.144290817509998</td>
+</tr>
+<tr class="odd">
+<td align="center">17</td>
+<td align="center">0.475374375733308</td>
+</tr>
+<tr class="even">
+<td align="center">18</td>
+<td align="center">0.960187723145558</td>
+</tr>
+<tr class="odd">
+<td align="center">19</td>
+<td align="center">0.147178389397864</td>
+</tr>
+<tr class="even">
+<td align="center">20</td>
+<td align="center">0.483251404226641</td>
+</tr>
+<tr class="odd">
+<td align="center">21</td>
+<td align="center">0.961442490231148</td>
+</tr>
+</tbody>
+</table>
+<p>You might notice there is not really a pattern. That’s chaos!</p>
+<p>More specifically, if you adjust <span class="math inline">\(f(1)\)</span> very slightly (maybe make <span class="math inline">\(f(1)=0.93\)</span> or <span class="math inline">\(f(1)=0.91\)</span> ), you should see that <span class="math inline">\(f(21)\)</span> can change a lot. This phenomenon is called the <a href="https://en.wikipedia.org/wiki/Butterfly_effect">butterfly effect</a>: a small change to the initial conditions can cause a large change in final conditions.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

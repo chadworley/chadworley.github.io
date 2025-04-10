@@ -1,0 +1,49 @@
+```{r,echo=FALSE}
+options(scipen=99)
+
+k = round(1+runif(1,0.01,0.2)*sample(c(-1,1),1),3)
+n = sample(8:15,1)
+
+f = k^(0:(n-1))
+S = sum(f)
+
+```
+
+
+Question
+========
+
+Consider the geometric series with the following recursive definition:
+
+$$f(n)~=~`r k`\cdot f(n-1)$$
+$$f(1)~=~1$$
+
+Find the sum of the first `r n` terms of the series.
+
+$$\sum_{n=1}^{`r n`}f(n) ~=~ ?$$
+
+*The tolerance is $\pm 0.1$.*
+
+
+Solution
+========
+
+In Desmos, you can type in the first two equations to define the sequence recursively. Click `Create Table` and generate the first `r n` terms:
+
+
+`r paste0("$$f(",1:n,")~=~",f,"$$",collapse="\n")`
+
+Now, you just need to add all `r n` terms.
+
+$$`r paste0("f(",1:n,")",collapse="+")` ~=~ `r S`$$
+
+Luckily, Desmos understands [Capital-sigma notation](https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation)! To get the upper-case sigma, which means "sum", you can type `sum`. You should be able to type the expression using the [summation](https://en.wikipedia.org/wiki/Summation) operator.
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r S`
+exname: sum_geometric
+extol: 0.1
