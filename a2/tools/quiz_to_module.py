@@ -3,8 +3,7 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["16_logistic_map.Rmd",
-"17_gen_fib_seqs.Rmd"]
+files = ["16_logistic_map.Rmd"]
 
 front = "u17_"
 module_search = "Unit 17"
@@ -30,24 +29,26 @@ mod_id = response.json()[0]['id']
 print(mod_id)
 
 
-def quiz_to_mod(name):
+def quiz_to_mod(name,mod_id):
     searchdata = {"search_term":name}
-    url = f"{canvas_url}/api/v1/courses/{course_id}/assignments/"
+    url = f"{canvas_url}/api/v1/courses/{course_id}/quizzes/"
     response = requests.get(url,data=searchdata,headers=headers)
     myid = response.json()[0]["id"]
-    data = {'module_item[title]': name,
-            "module_item[type]": "Assignment",
+    data = {"module_item[type]": "Quiz",
             "module_item[content_id]": myid}
     url = f"{canvas_url}/api/v1/courses/{course_id}/modules/{mod_id}/items"
     response = requests.put(url,data=data,headers=headers)
+    # response = requests.get(url,headers=headers)
     print(data)
     print(response.json())
+    # print(len(response.json()[0]))
+    # print(response.length)
 
 
 for i in range(len(files)):
     pref = files[i].split(".")[0]
     name = front+pref
-    quiz_to_mod(name)
+    quiz_to_mod(name,mod_id)
 
 
 
