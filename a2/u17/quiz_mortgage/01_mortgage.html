@@ -9,10 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="MrW" />
 
 
-<title>mortgage</title>
+<title>01_mortgage.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -349,64 +348,42 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">mortgage</h1>
-<h4 class="author">MrW</h4>
 
 </div>
 
 
-<p>A mortgage has principal <span class="math inline">\(P\)</span>,
-interest rate <span class="math inline">\(r\)</span>. Let functon <span class="math inline">\(f\)</span> represent the amount of debt remaining
-after <span class="math inline">\(x\)</span> months. We can define the
-function recursively.</p>
-<p><span class="math display">\[f(x)~~=~~
-\left(1+\frac{r}{12}\right)\cdot f(x-1)~-~ k\]</span></p>
-<p><span class="math display">\[f(0)~=~ P\]</span></p>
-<p>It’ll be helpful to define the monthly scale factor <span class="math inline">\(m\)</span>.</p>
-<p><span class="math display">\[m~=~\left(1+\frac{r}{12}\right)\]</span></p>
-<p>We can restate the recursive definition.</p>
-<p><span class="math display">\[f(x)~~=~~ m\cdot f(x-1)~-~
-k\]</span></p>
-<p><span class="math display">\[f(0)~=~ P\]</span></p>
-<p>Express the first few iterations to look for patterns. After some
-trail-and-error, I decided it would be helpful to expand all the
-expressions (getting rid of parentheses).</p>
-<p><span class="math display">\[f(1)~=~mP-k\]</span> <span class="math display">\[f(2)~=~m(mP-k)-k~=~m^2P-mk-k\]</span></p>
-<p><span class="math display">\[f(3)~=~m(m^2P-mk-k)-k~=~m^3P-m^2k-mk-k\]</span></p>
-<p><span class="math display">\[f(4)~=~m(m^3P-m^2k-mk-k)-k~=~m^4P-m^3k-m^2k-mk-k\]</span></p>
-<p>Notice the geometric series. We can apply the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html">partial
-geometric series formula</a>.</p>
-<p><span class="math display">\[f(4)~=~ m^4P -k(1+m+m^2+m^3) ~=~
-m^4P-k\frac{1-m^4}{1-m}\]</span></p>
-<p><span class="math display">\[f(5)~=~ m^5P -k(1+m+m^2+m^3+m^4) ~=~
-m^5P-k\frac{1-m^5}{1-m}\]</span></p>
-<p><span class="math display">\[f(n) ~=~
-m^nP-k\frac{1-m^n}{1-m}\]</span></p>
-<p>Solve <span class="math inline">\(f(n)=0\)</span>.</p>
-<p><span class="math display">\[0 ~=~
-m^nP-k\frac{1-m^n}{1-m}\]</span></p>
-<p><span class="math display">\[k\frac{1-m^n}{1-m} ~=~ m^nP\]</span></p>
-<p><span class="math display">\[\frac{k}{1-m} -\frac{km^n}{1-m} ~=~
-m^nP\]</span></p>
-<p><span class="math display">\[\frac{k}{1-m} ~=~ m^nP +
-\frac{km^n}{1-m} \]</span></p>
-<p><span class="math display">\[\frac{k}{1-m} ~=~ m^n\left(P +
-\frac{k}{1-m}\right) \]</span></p>
-<p><span class="math display">\[\frac{k}{1-m} ~=~
-m^n\left(\frac{P-Pm+k}{1-m}\right) \]</span></p>
-<p><span class="math display">\[\frac{k}{P-Pm+k} ~=~ m^n\]</span></p>
-<p><span class="math display">\[\log\left(\frac{k}{P-Pm+k}\right) ~=~
-n\log(m)\]</span></p>
-<p><span class="math display">\[n~=~\log_m\left(\frac{k}{P-Pm+k}\right)\]</span></p>
-<p>Remember: <span class="math inline">\(m~=~1+\frac{r}{12}\)</span> and
-<span class="math inline">\(k=\)</span> monthly payment and <span class="math inline">\(P=\)</span> Principal.</p>
-<p>I guess I actually want to know <span class="math inline">\(k\)</span>…</p>
-<p><span class="math display">\[m^n~=~\frac{k}{P-Pm+k}\]</span></p>
-<p><span class="math display">\[m^nP-m^{n+1}P+m^nk~=~k\]</span></p>
-<p><span class="math display">\[m^nP-m^{n+1}P~=~k-m^nk\]</span></p>
-<p><span class="math display">\[\frac{m^nP-m^{n+1}P}{1-m^n}~=~k\]</span></p>
-<p>CAS</p>
-<p><span class="math display">\[k=\frac{Pm^n(m-1)}{m^n-1}\]</span></p>
+<div id="question" class="section level1">
+<h1>Question</h1>
+<p>A mortgage is a loan. Every month interest accrues, but then a
+payment covers the interest plus a bit of the principal. The bank
+calculates how much you need to pay each month to pay off the loan in a
+specific amount of time.</p>
+<p>Imagine a loan with a <a href="https://en.wikipedia.org/wiki/Debt#Principal">principal</a> of
+$1990000 and an <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate">interest
+rate</a> of 7.77%. Based your chosen timeline, the bank determines you
+should pay $18755 per month. Find how much debt remains after 129
+months.</p>
+</div>
+<div id="solution" class="section level1">
+<h1>Solution</h1>
+<p>Use <a href="https://www.desmos.com/calculator">Desmos</a> to iterate
+the recursive definition.</p>
+<p>We can simulate the loan (in <a href="https://www.desmos.com/calculator">Desmos</a>) using a recursively
+defined function.</p>
+<p><span class="math display">\[f(x)~~=~~\left(1+\frac{0.0777}{12}\right)\cdot
+f(x-1)~-~18755\]</span></p>
+<p><span class="math display">\[f(0)~=~1.99\cdot 10^{6}\]</span></p>
+<p>where <span class="math inline">\(f(x)\)</span> represents the
+remaining debt after <span class="math inline">\(x\)</span> months of
+payments.</p>
+<p><span class="math display">\[f(129)~=~?\]</span></p>
+<p>You might be interested to extend the simulation to <span class="math inline">\(x=180\)</span> to check that the mortgage is
+indeed paid off in 15 years.</p>
+</div>
+<div id="meta-information" class="section level1">
+<h1>Meta-information</h1>
+<p>extype: num exsolution: 812198.454044 extol: 1 exname: mortgage</p>
+</div>
 
 
 

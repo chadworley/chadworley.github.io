@@ -4,13 +4,8 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "u17_"
-files = ["16_logistic_map.Rmd",
-"17_gen_fib_seqs.Rmd",
-"18_sum_geometric.Rmd",
-"19_geometric_sum.Rmd",
-"20_fractal_lines.Rmd",
-"21_fractal_area.Rmd"]
+front = "s17_"
+files = ["22_mortgage.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

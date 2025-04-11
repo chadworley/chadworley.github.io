@@ -1,0 +1,52 @@
+```{r,echo=FALSE}
+options(scipen=99)
+principal = signif(2*10^runif(1,2,3)*1000,3)
+P = principal
+apr = signif(runif(1,0.01,0.09),3)
+r = apr
+m = 1+r/12
+n = sample(c(10,15,20,30),1)*12
+k = ceiling(P*m^n*(m-1)/(m^n-1))
+
+i = sample(20:(n-20),1)
+
+pexp = floor(log(P,10))
+pman = P/10^pexp
+
+fi = m^i*P-k*(1-m^i)/(1-m)
+
+```
+
+Question
+========
+
+A mortgage is a loan. Every month interest accrues, but then a payment covers the interest plus a bit of the principal. The bank calculates how much you need to pay each month to pay off the loan in a specific amount of time.
+
+Imagine a loan with a [principal](https://en.wikipedia.org/wiki/Debt#Principal) of $`r P` and an [interest rate](https://en.wikipedia.org/wiki/Annual_percentage_rate) of `r r*100`%. Based your chosen timeline, the bank determines you should pay $`r k` per month. Find how much debt remains after `r i` months.
+
+
+
+Solution
+========
+
+Use [Desmos](https://www.desmos.com/calculator) to iterate the recursive definition. 
+
+We can simulate the loan (in [Desmos](https://www.desmos.com/calculator)) using a recursively defined function.
+
+$$f(x)~~=~~\left(1+\frac{`r r`}{12}\right)\cdot f(x-1)~-~`r k`$$
+
+$$f(0)~=~`r round(pman,2)`\cdot 10^{`r pexp`}$$
+
+where $f(x)$ represents the remaining debt after $x$ months of payments.
+
+$$f(`r i`)~=~?$$
+
+You might be interested to extend the simulation to $x=`r n`$ to check that the mortgage is indeed paid off in `r round(n/12)` years.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r fi`
+extol: 1
+exname: mortgage

@@ -4,46 +4,47 @@ author: "MrW"
 output: html_document
 ---
 
-$$f(n)~~=~~ \left(1+\frac{r}{12}\right)\cdot f(n-1)~-~ k$$
+A mortgage has principal $P$, interest rate $r$. Let functon $f$ represent the amount of debt remaining after $x$ months. We can define the function recursively.
+
+$$f(x)~~=~~ \left(1+\frac{r}{12}\right)\cdot f(x-1)~-~ k$$
 
 $$f(0)~=~ P$$
 
-$$f(1)~=~P+rP-k$$
-$$f(2)~=~(P(1+r)-k)(1+r)-k~=~ (P+Pr-k)(1+r)-k$$
-
-$$f(3)~=~((P(1+r)-k)(1+r)-k)(1+r)-k$$
-
-
-AAGHHH
+It'll be helpful to define the monthly scale factor $m$.
 
 $$m~=~\left(1+\frac{r}{12}\right)$$
 
 
-$$f(n)~~=~~ m\cdot f(n-1)~-~ k$$
+We can restate the recursive definition.
+
+$$f(x)~~=~~ m\cdot f(x-1)~-~ k$$
 
 $$f(0)~=~ P$$
+
+Express the first few iterations to look for patterns. After some trail-and-error, I decided it would be helpful to expand all the expressions (getting rid of parentheses).
 
 $$f(1)~=~mP-k$$
 $$f(2)~=~m(mP-k)-k~=~m^2P-mk-k$$
 
 $$f(3)~=~m(m^2P-mk-k)-k~=~m^3P-m^2k-mk-k$$
 
-
 $$f(4)~=~m(m^3P-m^2k-mk-k)-k~=~m^4P-m^3k-m^2k-mk-k$$
+
+Notice the geometric series. We can apply the [partial geometric series formula](https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html).
 
 $$f(4)~=~ m^4P -k(1+m+m^2+m^3) ~=~ m^4P-k\frac{1-m^4}{1-m}$$
 
+We can hope (and later verify) the pattern continues as we expect. We can now define the function explicitly.
 
-$$f(5)~=~ m^5P -k(1+m+m^2+m^3+m^4) ~=~ m^5P-k\frac{1-m^5}{1-m}$$
+$$f(x) ~=~ m^xP-\frac{k(1-m^x)}{1-m}$$
 
-
-$$f(n) ~=~ m^nP-k\frac{1-m^n}{1-m}$$
+We might be interested in considering when the debt is reduced to 0. We can use $n$ to represent the number of months needed to pay off the loan.
 
 Solve $f(n)=0$.
 
 $$0 ~=~ m^nP-k\frac{1-m^n}{1-m}$$
 
-$$k\frac{1-m^n}{1-m} ~=~ m^nP$$
+$$\frac{k(1-m^n)}{1-m} ~=~ m^nP$$
 
 $$\frac{k}{1-m} -\frac{km^n}{1-m} ~=~ m^nP$$
 
@@ -66,7 +67,6 @@ $$\log\left(\frac{k}{P-Pm+k}\right) ~=~ n\log(m)$$
 $$n~=~\log_m\left(\frac{k}{P-Pm+k}\right)$$
 
 Remember: $m~=~1+\frac{r}{12}$ and $k=$ monthly payment and $P=$ Principal.
-
 
 
 I guess I actually want to know $k$...
