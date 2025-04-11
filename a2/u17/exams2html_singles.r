@@ -1,11 +1,6 @@
 library("exams")
 
-pppsss = c("16_logistic_map.Rmd",
-           "17_gen_fib_seqs.Rmd",
-           "18_sum_geometric.Rmd",
-           "19_geometric_sum.Rmd",
-           "20_fractal_lines.Rmd",
-           "21_fractal_area.Rmd")
+pppsss = c("22_mortgage.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

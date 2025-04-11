@@ -1,46 +1,39 @@
 library("exams")
 n = 30
 outdir = "outcanvas"
-genname = "u17_"
+genname = "s17_Apr11_"
 
-probs = c("16_logistic_map.Rmd",
-          "17_gen_fib_seqs.Rmd",
-          "18_sum_geometric.Rmd",
-          "19_geometric_sum.Rmd",
-          "20_fractal_lines.Rmd",
-          "21_fractal_area.Rmd")
-
-pnts = rep(2,length(probs))
-
-stems = tools::file_path_sans_ext(sub(".*/", "", probs))
-names = paste0(genname,stems)
-for(i in 1:length(probs)){
-  exams2canvas(probs[i],
-               n=n,
-               dir=outdir,
-               points=pnts[i],
-               maxattempts = 10,
-               name=names[i],
-               template = "canvas_qti12.xml",
-               cloze = list(enumerate = FALSE))
-}
-
-
+# probs = c("22_mortgage.Rmd")
 # 
-# pm = list(
-#     "01_circle_to_wave.Rmd",
-#     "13_mass_spring_period.Rmd",
-#     "18_pick_wave_pams4.Rmd",
-#     "15_pick_wave_pams2.Rmd",
-#     "20_spatiotemporal_wave.Rmd",
-#     "21_bobbing_duck.Rmd"
-# )
+# pnts = rep(2,length(probs))
 # 
-# exams2canvas(pm,
-#              n=n,
-#              dir=outdir,
-#              points=rep(2,length(pm)),
-#              maxattempts = 6,
-#              name=paste0(genname,"_mastery"),
-#              template = "canvas_qti12.xml",
-#              cloze = list(enumerate = FALSE))
+# stems = tools::file_path_sans_ext(sub(".*/", "", probs))
+# names = paste0(genname,stems)
+# for(i in 1:length(probs)){
+#   exams2canvas(probs[i],
+#                n=n,
+#                dir=outdir,
+#                points=pnts[i],
+#                maxattempts = 10,
+#                name=names[i],
+#                template = "canvas_qti12.xml",
+#                cloze = list(enumerate = FALSE))
+# }
+
+
+
+pm = list(
+    "22_mortgage.Rmd",
+    "22_mortgage.Rmd",
+    "22_mortgage.Rmd",
+    "22_mortgage.Rmd"
+)
+
+exams2canvas(pm,
+             n=n,
+             dir=outdir,
+             points=rep(1,length(pm)),
+             maxattempts = 6,
+             name=paste0(genname,"_mastery"),
+             template = "canvas_qti12.xml",
+             cloze = list(enumerate = FALSE))

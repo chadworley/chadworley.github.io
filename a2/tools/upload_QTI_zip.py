@@ -7,13 +7,8 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/u17_16_logistic_map.zip",
-"outcanvas/u17_17_gen_fib_seqs.zip",
-"outcanvas/u17_18_sum_geometric.zip",
-"outcanvas/u17_19_geometric_sum.zip",
-"outcanvas/u17_20_fractal_lines.zip",
-"outcanvas/u17_21_fractal_area.zip",
-"quiz_geometric_sum/outcanvas/u17_Apr10_geo_sum_mastery.zip"]
+file_path_list = ["outcanvas/s17_22_mortgage.zip",
+"outcanvas/s17_Apr11__mastery.zip"]
 
 # FOR UPLOADING ETS
 # fpl = []

@@ -3,16 +3,11 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["16_logistic_map.Rmd",
-"17_gen_fib_seqs.Rmd",
-"18_sum_geometric.Rmd",
-"19_geometric_sum.Rmd",
-"20_fractal_lines.Rmd",
-"21_fractal_area.Rmd"]
+files = ["22_mortgage.Rmd"]
 
-avt = ["2025-04-10 7:00:00"]*len(files)
-dut = ["2025-04-10 22:59:00"]*len(files)
-front = "u17_"
+avt = ["2025-04-11 7:00:00"]*len(files)
+dut = ["2025-04-11 22:59:00"]*len(files)
+front = "s17_"
 
 
 practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"

@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>22_mortgage</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">22_mortgage</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mortgage is a loan. Every month interest accrues, but then a payment covers the interest plus a bit of the principal. The bank calculates how much you need to pay each month to pay off the loan in a specific amount of time.</p>
+<p>Imagine a loan with a <a href="https://en.wikipedia.org/wiki/Debt#Principal">principal</a> of $489000 and an <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate">interest rate</a> of 7.44%. Based your chosen timeline, the bank determines you should pay $3400 per month. We can simulate the loan (in <a href="https://www.desmos.com/calculator">Desmos</a>) using a recursively defined function.</p>
+<p><span class="math display">\[f(x)~~=~~\left(1+\frac{0.0744}{12}\right)\cdot f(x-1)~-~3400\]</span></p>
+<p><span class="math display">\[f(0)~=~4.89\cdot 10^{5}\]</span></p>
+<p>where <span class="math inline">\(f(x)\)</span> represents the remaining debt after <span class="math inline">\(x\)</span> months of payments.</p>
+<p>Find how much debt remains after 53 months.</p>
+<p><span class="math display">\[f(53)~=~?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use <a href="https://www.desmos.com/calculator">Desmos</a> to iterate the recursive definition.</p>
+<p>You might be interested to extend the simulation to <span class="math inline">\(x=360\)</span> to check that the mortgage is indeed paid off in 30 years.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mortgage is a loan. Every month interest accrues, but then a payment covers the interest plus a bit of the principal. The bank calculates how much you need to pay each month to pay off the loan in a specific amount of time.</p>
+<p>Imagine a loan with a <a href="https://en.wikipedia.org/wiki/Debt#Principal">principal</a> of $286000 and an <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate">interest rate</a> of 8.64%. Based your chosen timeline, the bank determines you should pay $2840 per month. We can simulate the loan (in <a href="https://www.desmos.com/calculator">Desmos</a>) using a recursively defined function.</p>
+<p><span class="math display">\[f(x)~~=~~\left(1+\frac{0.0864}{12}\right)\cdot f(x-1)~-~2840\]</span></p>
+<p><span class="math display">\[f(0)~=~2.86\cdot 10^{5}\]</span></p>
+<p>where <span class="math inline">\(f(x)\)</span> represents the remaining debt after <span class="math inline">\(x\)</span> months of payments.</p>
+<p>Find how much debt remains after 62 months.</p>
+<p><span class="math display">\[f(62)~=~?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use <a href="https://www.desmos.com/calculator">Desmos</a> to iterate the recursive definition.</p>
+<p>You might be interested to extend the simulation to <span class="math inline">\(x=180\)</span> to check that the mortgage is indeed paid off in 15 years.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mortgage is a loan. Every month interest accrues, but then a payment covers the interest plus a bit of the principal. The bank calculates how much you need to pay each month to pay off the loan in a specific amount of time.</p>
+<p>Imagine a loan with a <a href="https://en.wikipedia.org/wiki/Debt#Principal">principal</a> of $505000 and an <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate">interest rate</a> of 7.88%. Based your chosen timeline, the bank determines you should pay $4792 per month. We can simulate the loan (in <a href="https://www.desmos.com/calculator">Desmos</a>) using a recursively defined function.</p>
+<p><span class="math display">\[f(x)~~=~~\left(1+\frac{0.0788}{12}\right)\cdot f(x-1)~-~4792\]</span></p>
+<p><span class="math display">\[f(0)~=~5.05\cdot 10^{5}\]</span></p>
+<p>where <span class="math inline">\(f(x)\)</span> represents the remaining debt after <span class="math inline">\(x\)</span> months of payments.</p>
+<p>Find how much debt remains after 31 months.</p>
+<p><span class="math display">\[f(31)~=~?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use <a href="https://www.desmos.com/calculator">Desmos</a> to iterate the recursive definition.</p>
+<p>You might be interested to extend the simulation to <span class="math inline">\(x=180\)</span> to check that the mortgage is indeed paid off in 15 years.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mortgage is a loan. Every month interest accrues, but then a payment covers the interest plus a bit of the principal. The bank calculates how much you need to pay each month to pay off the loan in a specific amount of time.</p>
+<p>Imagine a loan with a <a href="https://en.wikipedia.org/wiki/Debt#Principal">principal</a> of $214000 and an <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate">interest rate</a> of 2.52%. Based your chosen timeline, the bank determines you should pay $848 per month. We can simulate the loan (in <a href="https://www.desmos.com/calculator">Desmos</a>) using a recursively defined function.</p>
+<p><span class="math display">\[f(x)~~=~~\left(1+\frac{0.0252}{12}\right)\cdot f(x-1)~-~848\]</span></p>
+<p><span class="math display">\[f(0)~=~2.14\cdot 10^{5}\]</span></p>
+<p>where <span class="math inline">\(f(x)\)</span> represents the remaining debt after <span class="math inline">\(x\)</span> months of payments.</p>
+<p>Find how much debt remains after 47 months.</p>
+<p><span class="math display">\[f(47)~=~?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use <a href="https://www.desmos.com/calculator">Desmos</a> to iterate the recursive definition.</p>
+<p>You might be interested to extend the simulation to <span class="math inline">\(x=360\)</span> to check that the mortgage is indeed paid off in 30 years.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mortgage is a loan. Every month interest accrues, but then a payment covers the interest plus a bit of the principal. The bank calculates how much you need to pay each month to pay off the loan in a specific amount of time.</p>
+<p>Imagine a loan with a <a href="https://en.wikipedia.org/wiki/Debt#Principal">principal</a> of $228000 and an <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate">interest rate</a> of 2.59%. Based your chosen timeline, the bank determines you should pay $1530 per month. We can simulate the loan (in <a href="https://www.desmos.com/calculator">Desmos</a>) using a recursively defined function.</p>
+<p><span class="math display">\[f(x)~~=~~\left(1+\frac{0.0259}{12}\right)\cdot f(x-1)~-~1530\]</span></p>
+<p><span class="math display">\[f(0)~=~2.28\cdot 10^{5}\]</span></p>
+<p>where <span class="math inline">\(f(x)\)</span> represents the remaining debt after <span class="math inline">\(x\)</span> months of payments.</p>
+<p>Find how much debt remains after 151 months.</p>
+<p><span class="math display">\[f(151)~=~?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use <a href="https://www.desmos.com/calculator">Desmos</a> to iterate the recursive definition.</p>
+<p>You might be interested to extend the simulation to <span class="math inline">\(x=180\)</span> to check that the mortgage is indeed paid off in 15 years.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mortgage is a loan. Every month interest accrues, but then a payment covers the interest plus a bit of the principal. The bank calculates how much you need to pay each month to pay off the loan in a specific amount of time.</p>
+<p>Imagine a loan with a <a href="https://en.wikipedia.org/wiki/Debt#Principal">principal</a> of $1000000 and an <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate">interest rate</a> of 6.14%. Based your chosen timeline, the bank determines you should pay $11173 per month. We can simulate the loan (in <a href="https://www.desmos.com/calculator">Desmos</a>) using a recursively defined function.</p>
+<p><span class="math display">\[f(x)~~=~~\left(1+\frac{0.0614}{12}\right)\cdot f(x-1)~-~11173\]</span></p>
+<p><span class="math display">\[f(0)~=~1\cdot 10^{6}\]</span></p>
+<p>where <span class="math inline">\(f(x)\)</span> represents the remaining debt after <span class="math inline">\(x\)</span> months of payments.</p>
+<p>Find how much debt remains after 74 months.</p>
+<p><span class="math display">\[f(74)~=~?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use <a href="https://www.desmos.com/calculator">Desmos</a> to iterate the recursive definition.</p>
+<p>You might be interested to extend the simulation to <span class="math inline">\(x=120\)</span> to check that the mortgage is indeed paid off in 10 years.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mortgage is a loan. Every month interest accrues, but then a payment covers the interest plus a bit of the principal. The bank calculates how much you need to pay each month to pay off the loan in a specific amount of time.</p>
+<p>Imagine a loan with a <a href="https://en.wikipedia.org/wiki/Debt#Principal">principal</a> of $621000 and an <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate">interest rate</a> of 6.29%. Based your chosen timeline, the bank determines you should pay $4554 per month. We can simulate the loan (in <a href="https://www.desmos.com/calculator">Desmos</a>) using a recursively defined function.</p>
+<p><span class="math display">\[f(x)~~=~~\left(1+\frac{0.0629}{12}\right)\cdot f(x-1)~-~4554\]</span></p>
+<p><span class="math display">\[f(0)~=~6.21\cdot 10^{5}\]</span></p>
+<p>where <span class="math inline">\(f(x)\)</span> represents the remaining debt after <span class="math inline">\(x\)</span> months of payments.</p>
+<p>Find how much debt remains after 32 months.</p>
+<p><span class="math display">\[f(32)~=~?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use <a href="https://www.desmos.com/calculator">Desmos</a> to iterate the recursive definition.</p>
+<p>You might be interested to extend the simulation to <span class="math inline">\(x=240\)</span> to check that the mortgage is indeed paid off in 20 years.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A mortgage is a loan. Every month interest accrues, but then a payment covers the interest plus a bit of the principal. The bank calculates how much you need to pay each month to pay off the loan in a specific amount of time.</p>
+<p>Imagine a loan with a <a href="https://en.wikipedia.org/wiki/Debt#Principal">principal</a> of $1980000 and an <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate">interest rate</a> of 5.64%. Based your chosen timeline, the bank determines you should pay $16326 per month. We can simulate the loan (in <a href="https://www.desmos.com/calculator">Desmos</a>) using a recursively defined function.</p>
+<p><span class="math display">\[f(x)~~=~~\left(1+\frac{0.0564}{12}\right)\cdot f(x-1)~-~16326\]</span></p>
+<p><span class="math display">\[f(0)~=~1.98\cdot 10^{6}\]</span></p>
+<p>where <span class="math inline">\(f(x)\)</span> represents the remaining debt after <span class="math inline">\(x\)</span> months of payments.</p>
+<p>Find how much debt remains after 72 months.</p>
+<p><span class="math display">\[f(72)~=~?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use <a href="https://www.desmos.com/calculator">Desmos</a> to iterate the recursive definition.</p>
+<p>You might be interested to extend the simulation to <span class="math inline">\(x=180\)</span> to check that the mortgage is indeed paid off in 15 years.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
