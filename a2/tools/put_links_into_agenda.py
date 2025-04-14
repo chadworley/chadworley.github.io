@@ -5,7 +5,7 @@ import os
 
 
 front = "s17_"
-files = ["22_mortgage.Rmd"]
+files = ["23_life_annuity.Rmd","24_geo_subtract_equations.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

@@ -3,10 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["22_mortgage.Rmd"]
+files = ["23_life_annuity.Rmd","24_geo_subtract_equations.Rmd"]
 
-avt = ["2025-04-11 7:00:00"]*len(files)
-dut = ["2025-04-11 22:59:00"]*len(files)
+avt = ["2025-04-14 7:00:00"]*len(files)
+dut = ["2025-04-14 22:59:00"]*len(files)
 front = "s17_"
 
 
