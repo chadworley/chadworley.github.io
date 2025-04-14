@@ -37,7 +37,7 @@ for(i in 1:1000){
         qstr = paste0(qs1,g,"% ",wrd,"'?")
         ans = 1+g/100
     }
-    q = paste0(i,",",qstr,",",ans,",,,,12,,,typing",collapse="")
+    q = paste0(i,",",qstr,",",signif(ans,5),",,,,12,,,typing",collapse="")
     write(q,file=fn,append=TRUE)
 }
 

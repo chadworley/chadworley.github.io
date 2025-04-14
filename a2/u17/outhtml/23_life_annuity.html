@@ -1,0 +1,666 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>23_life_annuity</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">23_life_annuity</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>For various reasons, a dollar today is worth more than a dollar tomorrow. (See <a href="https://en.wikipedia.org/wiki/Inflation">inflation</a> and <a href="https://en.wikipedia.org/wiki/Time_value_of_money">time value of money</a>.)</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Present_value#Present_value_of_a_lump_sum">present value</a> of money is often modeled as exponentially dependent on the amount of time between now and when the money is received.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Life_annuity">life annuity</a> is a series of payments made at equal intervals until the death of the recipient. We can calculate the present value of an annuity by adding together the present value of every payment.</p>
+<p>A human is considering an annuity that pays $1400 every year (as a single payment at the end of the year). The recipient will live another 26 years. This human’s present values of those payments follow a <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric progression</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">present value</th>
+<th align="center"></th>
+<th align="center">future payment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">$1297.80 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1400 in 1 year</td>
+</tr>
+<tr class="even">
+<td align="center">$1203.06 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1400 in 2 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$1115.24 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1400 in 3 years</td>
+</tr>
+<tr class="even">
+<td align="center">$1033.82 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1400 in 4 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$958.36 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1400 in 5 years</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">$195.07 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1400 in 26 years</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate how much this annuity is worth to this human, please calculate the <strong>sum of the present values</strong>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember, the sum (<span class="math inline">\(S\)</span>) of a <a href="https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series">partial geometric series</a> is determined by its initial value (<span class="math inline">\(a\)</span>), its common ratio (<span class="math inline">\(r\)</span>), and the number of terms (<span class="math inline">\(n\)</span>).</p>
+<p><span class="math display">\[S~=~a+ar+ar^2+\cdots+ar^{n-3}+ar^{n-2}+ar^{n-1}\]</span></p>
+<p>In the given problem, it is easy to determine <span class="math inline">\(a=1297.8\)</span> and <span class="math inline">\(n=26\)</span>. However, we need to calculate the common ratio.</p>
+<p><span class="math display">\[\frac{1203.06}{1297.8}~=~0.9269995\]</span>
+<span class="math display">\[\frac{1115.24}{1203.06}~=~0.9270028\]</span>
+<span class="math display">\[\frac{1033.82}{1115.24}~=~0.9269933\]</span>
+<span class="math display">\[\frac{958.36}{1033.82}~=~0.9270086\]</span></p>
+<p>It appears the common ratio is approximately <span class="math inline">\(r=0.927\)</span>. We now have all the parameters that determine the sum. We’ve learned two methods to calculate the sum:</p>
+<ol style="list-style-type: decimal">
+<li>Use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html">partial geometric series formula</a>.
+<span class="math display">\[S~=~\frac{a-ar^n}{1-r}~=~\frac{1297.8-1297.8(0.927)^{26}}{1-0.927}\]</span></li>
+<li>Use the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">summation operator</a> to ask Desmos to calculate the sum of the series.</li>
+</ol>
+<p><span class="math display">\[S~=~\sum_{i=0}^{n-1}ar^{i}~=~\sum_{i=0}^{26-1}1297.8(0.927)^{i}\]</span></p>
+<p>Either way, you should get that the present value of the life annuity is $15300.9.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>For various reasons, a dollar today is worth more than a dollar tomorrow. (See <a href="https://en.wikipedia.org/wiki/Inflation">inflation</a> and <a href="https://en.wikipedia.org/wiki/Time_value_of_money">time value of money</a>.)</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Present_value#Present_value_of_a_lump_sum">present value</a> of money is often modeled as exponentially dependent on the amount of time between now and when the money is received.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Life_annuity">life annuity</a> is a series of payments made at equal intervals until the death of the recipient. We can calculate the present value of an annuity by adding together the present value of every payment.</p>
+<p>A human is considering an annuity that pays $5000 every year (as a single payment at the end of the year). The recipient will live another 27 years. This human’s present values of those payments follow a <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric progression</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">present value</th>
+<th align="center"></th>
+<th align="center">future payment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">$4590.00 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5000 in 1 year</td>
+</tr>
+<tr class="even">
+<td align="center">$4213.62 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5000 in 2 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$3868.10 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5000 in 3 years</td>
+</tr>
+<tr class="even">
+<td align="center">$3550.92 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5000 in 4 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$3259.74 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5000 in 5 years</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">$496.27 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5000 in 27 years</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate how much this annuity is worth to this human, please calculate the <strong>sum of the present values</strong>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember, the sum (<span class="math inline">\(S\)</span>) of a <a href="https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series">partial geometric series</a> is determined by its initial value (<span class="math inline">\(a\)</span>), its common ratio (<span class="math inline">\(r\)</span>), and the number of terms (<span class="math inline">\(n\)</span>).</p>
+<p><span class="math display">\[S~=~a+ar+ar^2+\cdots+ar^{n-3}+ar^{n-2}+ar^{n-1}\]</span></p>
+<p>In the given problem, it is easy to determine <span class="math inline">\(a=4590\)</span> and <span class="math inline">\(n=27\)</span>. However, we need to calculate the common ratio.</p>
+<p><span class="math display">\[\frac{4213.62}{4590}~=~0.918\]</span>
+<span class="math display">\[\frac{3868.1}{4213.62}~=~0.9179993\]</span>
+<span class="math display">\[\frac{3550.92}{3868.1}~=~0.9180011\]</span>
+<span class="math display">\[\frac{3259.74}{3550.92}~=~0.9179987\]</span></p>
+<p>It appears the common ratio is approximately <span class="math inline">\(r=0.918\)</span>. We now have all the parameters that determine the sum. We’ve learned two methods to calculate the sum:</p>
+<ol style="list-style-type: decimal">
+<li>Use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html">partial geometric series formula</a>.
+<span class="math display">\[S~=~\frac{a-ar^n}{1-r}~=~\frac{4590-4590(0.918)^{27}}{1-0.918}\]</span></li>
+<li>Use the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">summation operator</a> to ask Desmos to calculate the sum of the series.</li>
+</ol>
+<p><span class="math display">\[S~=~\sum_{i=0}^{n-1}ar^{i}~=~\sum_{i=0}^{27-1}4590(0.918)^{i}\]</span></p>
+<p>Either way, you should get that the present value of the life annuity is $50419.75.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>For various reasons, a dollar today is worth more than a dollar tomorrow. (See <a href="https://en.wikipedia.org/wiki/Inflation">inflation</a> and <a href="https://en.wikipedia.org/wiki/Time_value_of_money">time value of money</a>.)</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Present_value#Present_value_of_a_lump_sum">present value</a> of money is often modeled as exponentially dependent on the amount of time between now and when the money is received.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Life_annuity">life annuity</a> is a series of payments made at equal intervals until the death of the recipient. We can calculate the present value of an annuity by adding together the present value of every payment.</p>
+<p>A human is considering an annuity that pays $3000 every year (as a single payment at the end of the year). The recipient will live another 27 years. This human’s present values of those payments follow a <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric progression</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">present value</th>
+<th align="center"></th>
+<th align="center">future payment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">$2835.00 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 1 year</td>
+</tr>
+<tr class="even">
+<td align="center">$2679.07 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 2 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$2531.73 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 3 years</td>
+</tr>
+<tr class="even">
+<td align="center">$2392.48 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 4 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$2260.89 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 5 years</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">$651.30 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 27 years</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate how much this annuity is worth to this human, please calculate the <strong>sum of the present values</strong>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember, the sum (<span class="math inline">\(S\)</span>) of a <a href="https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series">partial geometric series</a> is determined by its initial value (<span class="math inline">\(a\)</span>), its common ratio (<span class="math inline">\(r\)</span>), and the number of terms (<span class="math inline">\(n\)</span>).</p>
+<p><span class="math display">\[S~=~a+ar+ar^2+\cdots+ar^{n-3}+ar^{n-2}+ar^{n-1}\]</span></p>
+<p>In the given problem, it is easy to determine <span class="math inline">\(a=2835\)</span> and <span class="math inline">\(n=27\)</span>. However, we need to calculate the common ratio.</p>
+<p><span class="math display">\[\frac{2679.07}{2835}~=~0.9449982\]</span>
+<span class="math display">\[\frac{2531.73}{2679.07}~=~0.9450033\]</span>
+<span class="math display">\[\frac{2392.48}{2531.73}~=~0.9449981\]</span>
+<span class="math display">\[\frac{2260.89}{2392.48}~=~0.9449985\]</span></p>
+<p>It appears the common ratio is approximately <span class="math inline">\(r=0.945\)</span>. We now have all the parameters that determine the sum. We’ve learned two methods to calculate the sum:</p>
+<ol style="list-style-type: decimal">
+<li>Use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html">partial geometric series formula</a>.
+<span class="math display">\[S~=~\frac{a-ar^n}{1-r}~=~\frac{2835-2835(0.945)^{27}}{1-0.945}\]</span></li>
+<li>Use the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">summation operator</a> to ask Desmos to calculate the sum of the series.</li>
+</ol>
+<p><span class="math display">\[S~=~\sum_{i=0}^{n-1}ar^{i}~=~\sum_{i=0}^{27-1}2835(0.945)^{i}\]</span></p>
+<p>Either way, you should get that the present value of the life annuity is $40354.96.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>For various reasons, a dollar today is worth more than a dollar tomorrow. (See <a href="https://en.wikipedia.org/wiki/Inflation">inflation</a> and <a href="https://en.wikipedia.org/wiki/Time_value_of_money">time value of money</a>.)</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Present_value#Present_value_of_a_lump_sum">present value</a> of money is often modeled as exponentially dependent on the amount of time between now and when the money is received.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Life_annuity">life annuity</a> is a series of payments made at equal intervals until the death of the recipient. We can calculate the present value of an annuity by adding together the present value of every payment.</p>
+<p>A human is considering an annuity that pays $3000 every year (as a single payment at the end of the year). The recipient will live another 33 years. This human’s present values of those payments follow a <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric progression</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">present value</th>
+<th align="center"></th>
+<th align="center">future payment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">$2673.00 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 1 year</td>
+</tr>
+<tr class="even">
+<td align="center">$2381.64 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 2 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$2122.04 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 3 years</td>
+</tr>
+<tr class="even">
+<td align="center">$1890.74 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 4 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$1684.65 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 5 years</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">$66.54 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3000 in 33 years</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate how much this annuity is worth to this human, please calculate the <strong>sum of the present values</strong>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember, the sum (<span class="math inline">\(S\)</span>) of a <a href="https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series">partial geometric series</a> is determined by its initial value (<span class="math inline">\(a\)</span>), its common ratio (<span class="math inline">\(r\)</span>), and the number of terms (<span class="math inline">\(n\)</span>).</p>
+<p><span class="math display">\[S~=~a+ar+ar^2+\cdots+ar^{n-3}+ar^{n-2}+ar^{n-1}\]</span></p>
+<p>In the given problem, it is easy to determine <span class="math inline">\(a=2673\)</span> and <span class="math inline">\(n=33\)</span>. However, we need to calculate the common ratio.</p>
+<p><span class="math display">\[\frac{2381.64}{2673}~=~0.8909989\]</span>
+<span class="math display">\[\frac{2122.04}{2381.64}~=~0.8909995\]</span>
+<span class="math display">\[\frac{1890.74}{2122.04}~=~0.8910011\]</span>
+<span class="math display">\[\frac{1684.65}{1890.74}~=~0.8910003\]</span></p>
+<p>It appears the common ratio is approximately <span class="math inline">\(r=0.891\)</span>. We now have all the parameters that determine the sum. We’ve learned two methods to calculate the sum:</p>
+<ol style="list-style-type: decimal">
+<li>Use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html">partial geometric series formula</a>.
+<span class="math display">\[S~=~\frac{a-ar^n}{1-r}~=~\frac{2673-2673(0.891)^{33}}{1-0.891}\]</span></li>
+<li>Use the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">summation operator</a> to ask Desmos to calculate the sum of the series.</li>
+</ol>
+<p><span class="math display">\[S~=~\sum_{i=0}^{n-1}ar^{i}~=~\sum_{i=0}^{33-1}2673(0.891)^{i}\]</span></p>
+<p>Either way, you should get that the present value of the life annuity is $23979.01.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>For various reasons, a dollar today is worth more than a dollar tomorrow. (See <a href="https://en.wikipedia.org/wiki/Inflation">inflation</a> and <a href="https://en.wikipedia.org/wiki/Time_value_of_money">time value of money</a>.)</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Present_value#Present_value_of_a_lump_sum">present value</a> of money is often modeled as exponentially dependent on the amount of time between now and when the money is received.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Life_annuity">life annuity</a> is a series of payments made at equal intervals until the death of the recipient. We can calculate the present value of an annuity by adding together the present value of every payment.</p>
+<p>A human is considering an annuity that pays $3200 every year (as a single payment at the end of the year). The recipient will live another 22 years. This human’s present values of those payments follow a <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric progression</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">present value</th>
+<th align="center"></th>
+<th align="center">future payment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">$2816.00 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3200 in 1 year</td>
+</tr>
+<tr class="even">
+<td align="center">$2478.08 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3200 in 2 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$2180.71 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3200 in 3 years</td>
+</tr>
+<tr class="even">
+<td align="center">$1919.03 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3200 in 4 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$1688.74 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3200 in 5 years</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">$192.21 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$3200 in 22 years</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate how much this annuity is worth to this human, please calculate the <strong>sum of the present values</strong>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember, the sum (<span class="math inline">\(S\)</span>) of a <a href="https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series">partial geometric series</a> is determined by its initial value (<span class="math inline">\(a\)</span>), its common ratio (<span class="math inline">\(r\)</span>), and the number of terms (<span class="math inline">\(n\)</span>).</p>
+<p><span class="math display">\[S~=~a+ar+ar^2+\cdots+ar^{n-3}+ar^{n-2}+ar^{n-1}\]</span></p>
+<p>In the given problem, it is easy to determine <span class="math inline">\(a=2816\)</span> and <span class="math inline">\(n=22\)</span>. However, we need to calculate the common ratio.</p>
+<p><span class="math display">\[\frac{2478.08}{2816}~=~0.88\]</span>
+<span class="math display">\[\frac{2180.71}{2478.08}~=~0.8799998\]</span>
+<span class="math display">\[\frac{1919.03}{2180.71}~=~0.8800024\]</span>
+<span class="math display">\[\frac{1688.74}{1919.03}~=~0.8799967\]</span></p>
+<p>It appears the common ratio is approximately <span class="math inline">\(r=0.88\)</span>. We now have all the parameters that determine the sum. We’ve learned two methods to calculate the sum:</p>
+<ol style="list-style-type: decimal">
+<li>Use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html">partial geometric series formula</a>.
+<span class="math display">\[S~=~\frac{a-ar^n}{1-r}~=~\frac{2816-2816(0.88)^{22}}{1-0.88}\]</span></li>
+<li>Use the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">summation operator</a> to ask Desmos to calculate the sum of the series.</li>
+</ol>
+<p><span class="math display">\[S~=~\sum_{i=0}^{n-1}ar^{i}~=~\sum_{i=0}^{22-1}2816(0.88)^{i}\]</span></p>
+<p>Either way, you should get that the present value of the life annuity is $22057.15.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>For various reasons, a dollar today is worth more than a dollar tomorrow. (See <a href="https://en.wikipedia.org/wiki/Inflation">inflation</a> and <a href="https://en.wikipedia.org/wiki/Time_value_of_money">time value of money</a>.)</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Present_value#Present_value_of_a_lump_sum">present value</a> of money is often modeled as exponentially dependent on the amount of time between now and when the money is received.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Life_annuity">life annuity</a> is a series of payments made at equal intervals until the death of the recipient. We can calculate the present value of an annuity by adding together the present value of every payment.</p>
+<p>A human is considering an annuity that pays $1200 every year (as a single payment at the end of the year). The recipient will live another 21 years. This human’s present values of those payments follow a <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric progression</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">present value</th>
+<th align="center"></th>
+<th align="center">future payment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">$1082.40 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1200 in 1 year</td>
+</tr>
+<tr class="even">
+<td align="center">$976.32 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1200 in 2 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$880.64 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1200 in 3 years</td>
+</tr>
+<tr class="even">
+<td align="center">$794.34 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1200 in 4 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$716.50 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1200 in 5 years</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">$137.57 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$1200 in 21 years</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate how much this annuity is worth to this human, please calculate the <strong>sum of the present values</strong>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember, the sum (<span class="math inline">\(S\)</span>) of a <a href="https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series">partial geometric series</a> is determined by its initial value (<span class="math inline">\(a\)</span>), its common ratio (<span class="math inline">\(r\)</span>), and the number of terms (<span class="math inline">\(n\)</span>).</p>
+<p><span class="math display">\[S~=~a+ar+ar^2+\cdots+ar^{n-3}+ar^{n-2}+ar^{n-1}\]</span></p>
+<p>In the given problem, it is easy to determine <span class="math inline">\(a=1082.4\)</span> and <span class="math inline">\(n=21\)</span>. However, we need to calculate the common ratio.</p>
+<p><span class="math display">\[\frac{976.32}{1082.4}~=~0.9019956\]</span>
+<span class="math display">\[\frac{880.64}{976.32}~=~0.9019993\]</span>
+<span class="math display">\[\frac{794.34}{880.64}~=~0.9020031\]</span>
+<span class="math display">\[\frac{716.5}{794.34}~=~0.9020067\]</span></p>
+<p>It appears the common ratio is approximately <span class="math inline">\(r=0.902\)</span>. We now have all the parameters that determine the sum. We’ve learned two methods to calculate the sum:</p>
+<ol style="list-style-type: decimal">
+<li>Use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html">partial geometric series formula</a>.
+<span class="math display">\[S~=~\frac{a-ar^n}{1-r}~=~\frac{1082.4-1082.4(0.902)^{21}}{1-0.902}\]</span></li>
+<li>Use the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">summation operator</a> to ask Desmos to calculate the sum of the series.</li>
+</ol>
+<p><span class="math display">\[S~=~\sum_{i=0}^{n-1}ar^{i}~=~\sum_{i=0}^{21-1}1082.4(0.902)^{i}\]</span></p>
+<p>Either way, you should get that the present value of the life annuity is $9778.71.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>For various reasons, a dollar today is worth more than a dollar tomorrow. (See <a href="https://en.wikipedia.org/wiki/Inflation">inflation</a> and <a href="https://en.wikipedia.org/wiki/Time_value_of_money">time value of money</a>.)</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Present_value#Present_value_of_a_lump_sum">present value</a> of money is often modeled as exponentially dependent on the amount of time between now and when the money is received.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Life_annuity">life annuity</a> is a series of payments made at equal intervals until the death of the recipient. We can calculate the present value of an annuity by adding together the present value of every payment.</p>
+<p>A human is considering an annuity that pays $5900 every year (as a single payment at the end of the year). The recipient will live another 24 years. This human’s present values of those payments follow a <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric progression</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">present value</th>
+<th align="center"></th>
+<th align="center">future payment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">$5593.20 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5900 in 1 year</td>
+</tr>
+<tr class="even">
+<td align="center">$5302.35 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5900 in 2 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$5026.63 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5900 in 3 years</td>
+</tr>
+<tr class="even">
+<td align="center">$4765.25 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5900 in 4 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$4517.45 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5900 in 5 years</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">$1637.77 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$5900 in 24 years</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate how much this annuity is worth to this human, please calculate the <strong>sum of the present values</strong>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember, the sum (<span class="math inline">\(S\)</span>) of a <a href="https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series">partial geometric series</a> is determined by its initial value (<span class="math inline">\(a\)</span>), its common ratio (<span class="math inline">\(r\)</span>), and the number of terms (<span class="math inline">\(n\)</span>).</p>
+<p><span class="math display">\[S~=~a+ar+ar^2+\cdots+ar^{n-3}+ar^{n-2}+ar^{n-1}\]</span></p>
+<p>In the given problem, it is easy to determine <span class="math inline">\(a=5593.2\)</span> and <span class="math inline">\(n=24\)</span>. However, we need to calculate the common ratio.</p>
+<p><span class="math display">\[\frac{5302.35}{5593.2}~=~0.9479994\]</span>
+<span class="math display">\[\frac{5026.63}{5302.35}~=~0.9480004\]</span>
+<span class="math display">\[\frac{4765.25}{5026.63}~=~0.9480009\]</span>
+<span class="math display">\[\frac{4517.45}{4765.25}~=~0.9479985\]</span></p>
+<p>It appears the common ratio is approximately <span class="math inline">\(r=0.948\)</span>. We now have all the parameters that determine the sum. We’ve learned two methods to calculate the sum:</p>
+<ol style="list-style-type: decimal">
+<li>Use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html">partial geometric series formula</a>.
+<span class="math display">\[S~=~\frac{a-ar^n}{1-r}~=~\frac{5593.2-5593.2(0.948)^{24}}{1-0.948}\]</span></li>
+<li>Use the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">summation operator</a> to ask Desmos to calculate the sum of the series.</li>
+</ol>
+<p><span class="math display">\[S~=~\sum_{i=0}^{n-1}ar^{i}~=~\sum_{i=0}^{24-1}5593.2(0.948)^{i}\]</span></p>
+<p>Either way, you should get that the present value of the life annuity is $77703.79.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>For various reasons, a dollar today is worth more than a dollar tomorrow. (See <a href="https://en.wikipedia.org/wiki/Inflation">inflation</a> and <a href="https://en.wikipedia.org/wiki/Time_value_of_money">time value of money</a>.)</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Present_value#Present_value_of_a_lump_sum">present value</a> of money is often modeled as exponentially dependent on the amount of time between now and when the money is received.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Life_annuity">life annuity</a> is a series of payments made at equal intervals until the death of the recipient. We can calculate the present value of an annuity by adding together the present value of every payment.</p>
+<p>A human is considering an annuity that pays $2500 every year (as a single payment at the end of the year). The recipient will live another 23 years. This human’s present values of those payments follow a <a href="https://en.wikipedia.org/wiki/Geometric_progression">geometric progression</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">present value</th>
+<th align="center"></th>
+<th align="center">future payment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">$2372.50 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$2500 in 1 year</td>
+</tr>
+<tr class="even">
+<td align="center">$2251.50 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$2500 in 2 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$2136.68 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$2500 in 3 years</td>
+</tr>
+<tr class="even">
+<td align="center">$2027.71 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$2500 in 4 years</td>
+</tr>
+<tr class="odd">
+<td align="center">$1924.29 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$2500 in 5 years</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">$750.00 now</td>
+<td align="center">is equally enjoyable as</td>
+<td align="center">$2500 in 23 years</td>
+</tr>
+</tbody>
+</table>
+<p>To calculate how much this annuity is worth to this human, please calculate the <strong>sum of the present values</strong>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Remember, the sum (<span class="math inline">\(S\)</span>) of a <a href="https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series">partial geometric series</a> is determined by its initial value (<span class="math inline">\(a\)</span>), its common ratio (<span class="math inline">\(r\)</span>), and the number of terms (<span class="math inline">\(n\)</span>).</p>
+<p><span class="math display">\[S~=~a+ar+ar^2+\cdots+ar^{n-3}+ar^{n-2}+ar^{n-1}\]</span></p>
+<p>In the given problem, it is easy to determine <span class="math inline">\(a=2372.5\)</span> and <span class="math inline">\(n=23\)</span>. However, we need to calculate the common ratio.</p>
+<p><span class="math display">\[\frac{2251.5}{2372.5}~=~0.9489989\]</span>
+<span class="math display">\[\frac{2136.68}{2251.5}~=~0.9490029\]</span>
+<span class="math display">\[\frac{2027.71}{2136.68}~=~0.9490003\]</span>
+<span class="math display">\[\frac{1924.29}{2027.71}~=~0.9489967\]</span></p>
+<p>It appears the common ratio is approximately <span class="math inline">\(r=0.949\)</span>. We now have all the parameters that determine the sum. We’ve learned two methods to calculate the sum:</p>
+<ol style="list-style-type: decimal">
+<li>Use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html">partial geometric series formula</a>.
+<span class="math display">\[S~=~\frac{a-ar^n}{1-r}~=~\frac{2372.5-2372.5(0.949)^{23}}{1-0.949}\]</span></li>
+<li>Use the <a href="https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation">summation operator</a> to ask Desmos to calculate the sum of the series.</li>
+</ol>
+<p><span class="math display">\[S~=~\sum_{i=0}^{n-1}ar^{i}~=~\sum_{i=0}^{23-1}2372.5(0.949)^{i}\]</span></p>
+<p>Either way, you should get that the present value of the life annuity is $32563.67.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

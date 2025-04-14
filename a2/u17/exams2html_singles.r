@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("22_mortgage.Rmd")
+pppsss = c("24_geo_subtract_equations.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

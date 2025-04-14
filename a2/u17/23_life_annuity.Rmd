@@ -1,0 +1,70 @@
+```{r,echo=FALSE}
+options(scipen=99)
+n = sample(20:40,1)
+i = round(runif(1,0.04,0.14),3)
+a = signif(runif(1,1000,8000),2)
+k = 1-i
+aa = round(a*k^(1:n),2)
+
+S = (aa[1]-aa[1]*k^n)/(1-k)
+
+```
+
+Question
+========
+
+For various reasons, a dollar today is worth more than a dollar tomorrow. (See [inflation](https://en.wikipedia.org/wiki/Inflation) and [time value of money](https://en.wikipedia.org/wiki/Time_value_of_money).)
+
+The [present value](https://en.wikipedia.org/wiki/Present_value#Present_value_of_a_lump_sum) of money is often modeled as exponentially dependent on the amount of time between now and when the money is received.
+
+A [life annuity](https://en.wikipedia.org/wiki/Life_annuity) is a series of payments made at equal intervals until the death of the recipient. We can calculate the present value of an annuity by adding together the present value of every payment.
+
+A human is considering an annuity that pays $`r a` every year (as a single payment at the end of the year). The recipient will live another `r n` years. This human's present values of those payments follow a [geometric progression](https://en.wikipedia.org/wiki/Geometric_progression).
+
+| present value | | future payment |
+|:---:|:---:|:---:|
+| $`r sprintf("%.02f",aa[1])` now | is equally enjoyable as | $`r a` in 1 year |
+| $`r sprintf("%.02f",aa[2])` now | is equally enjoyable as | $`r a` in 2 years |
+| $`r sprintf("%.02f",aa[3])` now | is equally enjoyable as | $`r a` in 3 years |
+| $`r sprintf("%.02f",aa[4])` now | is equally enjoyable as | $`r a` in 4 years |
+| $`r sprintf("%.02f",aa[5])` now | is equally enjoyable as | $`r a` in 5 years |
+| $\vdots$ | $\vdots$ | $\vdots$ |
+| $`r sprintf("%.02f",aa[n])` now | is equally enjoyable as | $`r a` in `r n` years |
+
+
+To calculate how much this annuity is worth to this human, please calculate the **sum of the present values**.
+
+
+
+Solution
+========
+
+Remember, the sum ($S$) of a [partial geometric series](https://en.wikipedia.org/wiki/Geometric_progression#Geometric_series) is determined by its initial value ($a$), its common ratio ($r$), and the number of terms ($n$).
+
+$$S~=~a+ar+ar^2+\cdots+ar^{n-3}+ar^{n-2}+ar^{n-1}$$
+
+In the given problem, it is easy to determine $a=`r aa[1]`$ and $n=`r n`$. However, we need to calculate the common ratio.
+
+
+$$\frac{`r aa[2]`}{`r aa[1]`}~=~`r aa[2]/aa[1]`$$
+$$\frac{`r aa[3]`}{`r aa[2]`}~=~`r aa[3]/aa[2]`$$
+$$\frac{`r aa[4]`}{`r aa[3]`}~=~`r aa[4]/aa[3]`$$
+$$\frac{`r aa[5]`}{`r aa[4]`}~=~`r aa[5]/aa[4]`$$
+
+It appears the common ratio is approximately $r=`r signif(k,3)`$. We now have all the parameters that determine the sum. We've learned two methods to calculate the sum:
+
+1. Use the [partial geometric series formula](https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.html).
+$$S~=~\frac{a-ar^n}{1-r}~=~\frac{`r aa[1]`-`r aa[1]`(`r k`)^{`r n`}}{1-`r k`}$$
+2. Use the [summation operator](https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation) to ask Desmos to calculate the sum of the series. 
+
+$$S~=~\sum_{i=0}^{n-1}ar^{i}~=~\sum_{i=0}^{`r n`-1}`r aa[1]`(`r k`)^{i}$$
+
+Either way, you should get that the present value of the life annuity is $`r round(S,2)`.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r round(S,2)`
+extol: 1
+exname: life_annuity

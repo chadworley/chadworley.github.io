@@ -1,0 +1,57 @@
+```{r,echo=FALSE}
+options(scipen=99)
+n = sample(4:6,1)
+i = round(runif(1,0.1,0.3),3)
+a = signif(runif(1,1000,8000),2)
+k = 1-i
+aa = round(a*k^(1:n),2)
+a2 = round(a*k^(2:(n+1)),2)
+S = (aa[1]-aa[1]*k^n)/(1-k)
+
+```
+
+Question
+========
+
+Imagine you hope to determine the sum, $S$, of the geometric series shown below. 
+
+$$S~=~`r paste0(sprintf("%.02f",aa),collapse="+")`$$
+
+
+But, since it is a geometric series, and you remember the [proof of the partial geometric series formula](https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf), you take an interesting approach. You multiply the equation by the common ratio, which is $r=`r k`$.
+
+
+$$rS~=~`r paste0(sprintf("%.02f",a2),collapse="+")`$$
+
+Your next step is two subtract the second equation from the first equation. What is the value of $S-rS$?
+
+$$S-rS ~=~ ?$$
+
+
+Solution
+========
+
+To find the value of $S-rS$, you should recognize that most terms show up in both equations. Because we are subtracting equations, many terms cancel out.
+
+
+\begin{array}
+~ & S & = & `r paste0(sprintf("%.02f",aa),collapse=" & + & ")` \\ \ominus & rS & = & & & `r paste0(sprintf("%.02f",a2),collapse=" & + & ")`\\ \hline 
+& S-rS & = & `r aa[1]` & + & `r paste0(rep(0,n-1),collapse=" & + & ")` & - & `r a2[n]`
+\end{array}
+
+
+Leave out the zeros.
+
+$$S-rS ~=~ `r aa[1]`-`r a2[n]`$$
+
+Calculate the difference.
+
+$$S-rS ~=~ `r aa[1]-a2[n]`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r aa[1]-a2[n]`
+extol: 0.01
+exname: geo_subtract_equations

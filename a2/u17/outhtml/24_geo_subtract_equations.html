@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>24_geo_subtract_equations</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">24_geo_subtract_equations</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Imagine you hope to determine the sum, <span class="math inline">\(S\)</span>, of the geometric series shown below.</p>
+<p><span class="math display">\[S~=~4243.20+3530.34+2937.24+2443.79\]</span></p>
+<p>But, since it is a geometric series, and you remember the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">proof of the partial geometric series formula</a>, you take an interesting approach. You multiply the equation by the common ratio, which is <span class="math inline">\(r=0.832\)</span>.</p>
+<p><span class="math display">\[rS~=~3530.34+2937.24+2443.79+2033.23\]</span></p>
+<p>Your next step is two subtract the second equation from the first equation. What is the value of <span class="math inline">\(S-rS\)</span>?</p>
+<p><span class="math display">\[S-rS ~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>To find the value of <span class="math inline">\(S-rS\)</span>, you should recognize that most terms show up in both equations. Because we are subtracting equations, many terms cancel out.</p>
+<span class="math display">\[\begin{array}
+~ &amp; S &amp; = &amp; 4243.20 &amp; + &amp; 3530.34 &amp; + &amp; 2937.24 &amp; + &amp; 2443.79 \\ \ominus &amp; rS &amp; = &amp; &amp; &amp; 3530.34 &amp; + &amp; 2937.24 &amp; + &amp; 2443.79 &amp; + &amp; 2033.23\\ \hline 
+&amp; S-rS &amp; = &amp; 4243.2 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; - &amp; 2033.23
+\end{array}\]</span>
+<p>Leave out the zeros.</p>
+<p><span class="math display">\[S-rS ~=~ 4243.2-2033.23\]</span></p>
+<p>Calculate the difference.</p>
+<p><span class="math display">\[S-rS ~=~ 2209.97\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Imagine you hope to determine the sum, <span class="math inline">\(S\)</span>, of the geometric series shown below.</p>
+<p><span class="math display">\[S~=~2643.00+2328.48+2051.39+1807.28\]</span></p>
+<p>But, since it is a geometric series, and you remember the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">proof of the partial geometric series formula</a>, you take an interesting approach. You multiply the equation by the common ratio, which is <span class="math inline">\(r=0.881\)</span>.</p>
+<p><span class="math display">\[rS~=~2328.48+2051.39+1807.28+1592.21\]</span></p>
+<p>Your next step is two subtract the second equation from the first equation. What is the value of <span class="math inline">\(S-rS\)</span>?</p>
+<p><span class="math display">\[S-rS ~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>To find the value of <span class="math inline">\(S-rS\)</span>, you should recognize that most terms show up in both equations. Because we are subtracting equations, many terms cancel out.</p>
+<span class="math display">\[\begin{array}
+~ &amp; S &amp; = &amp; 2643.00 &amp; + &amp; 2328.48 &amp; + &amp; 2051.39 &amp; + &amp; 1807.28 \\ \ominus &amp; rS &amp; = &amp; &amp; &amp; 2328.48 &amp; + &amp; 2051.39 &amp; + &amp; 1807.28 &amp; + &amp; 1592.21\\ \hline 
+&amp; S-rS &amp; = &amp; 2643 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; - &amp; 1592.21
+\end{array}\]</span>
+<p>Leave out the zeros.</p>
+<p><span class="math display">\[S-rS ~=~ 2643-1592.21\]</span></p>
+<p>Calculate the difference.</p>
+<p><span class="math display">\[S-rS ~=~ 1050.79\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Imagine you hope to determine the sum, <span class="math inline">\(S\)</span>, of the geometric series shown below.</p>
+<p><span class="math display">\[S~=~5293.00+4181.47+3303.36+2609.66+2061.63\]</span></p>
+<p>But, since it is a geometric series, and you remember the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">proof of the partial geometric series formula</a>, you take an interesting approach. You multiply the equation by the common ratio, which is <span class="math inline">\(r=0.79\)</span>.</p>
+<p><span class="math display">\[rS~=~4181.47+3303.36+2609.66+2061.63+1628.69\]</span></p>
+<p>Your next step is two subtract the second equation from the first equation. What is the value of <span class="math inline">\(S-rS\)</span>?</p>
+<p><span class="math display">\[S-rS ~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>To find the value of <span class="math inline">\(S-rS\)</span>, you should recognize that most terms show up in both equations. Because we are subtracting equations, many terms cancel out.</p>
+<span class="math display">\[\begin{array}
+~ &amp; S &amp; = &amp; 5293.00 &amp; + &amp; 4181.47 &amp; + &amp; 3303.36 &amp; + &amp; 2609.66 &amp; + &amp; 2061.63 \\ \ominus &amp; rS &amp; = &amp; &amp; &amp; 4181.47 &amp; + &amp; 3303.36 &amp; + &amp; 2609.66 &amp; + &amp; 2061.63 &amp; + &amp; 1628.69\\ \hline 
+&amp; S-rS &amp; = &amp; 5293 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; - &amp; 1628.69
+\end{array}\]</span>
+<p>Leave out the zeros.</p>
+<p><span class="math display">\[S-rS ~=~ 5293-1628.69\]</span></p>
+<p>Calculate the difference.</p>
+<p><span class="math display">\[S-rS ~=~ 3664.31\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Imagine you hope to determine the sum, <span class="math inline">\(S\)</span>, of the geometric series shown below.</p>
+<p><span class="math display">\[S~=~4460.20+3429.89+2637.59+2028.31\]</span></p>
+<p>But, since it is a geometric series, and you remember the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">proof of the partial geometric series formula</a>, you take an interesting approach. You multiply the equation by the common ratio, which is <span class="math inline">\(r=0.769\)</span>.</p>
+<p><span class="math display">\[rS~=~3429.89+2637.59+2028.31+1559.77\]</span></p>
+<p>Your next step is two subtract the second equation from the first equation. What is the value of <span class="math inline">\(S-rS\)</span>?</p>
+<p><span class="math display">\[S-rS ~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>To find the value of <span class="math inline">\(S-rS\)</span>, you should recognize that most terms show up in both equations. Because we are subtracting equations, many terms cancel out.</p>
+<span class="math display">\[\begin{array}
+~ &amp; S &amp; = &amp; 4460.20 &amp; + &amp; 3429.89 &amp; + &amp; 2637.59 &amp; + &amp; 2028.31 \\ \ominus &amp; rS &amp; = &amp; &amp; &amp; 3429.89 &amp; + &amp; 2637.59 &amp; + &amp; 2028.31 &amp; + &amp; 1559.77\\ \hline 
+&amp; S-rS &amp; = &amp; 4460.2 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; - &amp; 1559.77
+\end{array}\]</span>
+<p>Leave out the zeros.</p>
+<p><span class="math display">\[S-rS ~=~ 4460.2-1559.77\]</span></p>
+<p>Calculate the difference.</p>
+<p><span class="math display">\[S-rS ~=~ 2900.43\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Imagine you hope to determine the sum, <span class="math inline">\(S\)</span>, of the geometric series shown below.</p>
+<p><span class="math display">\[S~=~2030.90+1793.28+1583.47+1398.20\]</span></p>
+<p>But, since it is a geometric series, and you remember the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">proof of the partial geometric series formula</a>, you take an interesting approach. You multiply the equation by the common ratio, which is <span class="math inline">\(r=0.883\)</span>.</p>
+<p><span class="math display">\[rS~=~1793.28+1583.47+1398.20+1234.61\]</span></p>
+<p>Your next step is two subtract the second equation from the first equation. What is the value of <span class="math inline">\(S-rS\)</span>?</p>
+<p><span class="math display">\[S-rS ~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>To find the value of <span class="math inline">\(S-rS\)</span>, you should recognize that most terms show up in both equations. Because we are subtracting equations, many terms cancel out.</p>
+<span class="math display">\[\begin{array}
+~ &amp; S &amp; = &amp; 2030.90 &amp; + &amp; 1793.28 &amp; + &amp; 1583.47 &amp; + &amp; 1398.20 \\ \ominus &amp; rS &amp; = &amp; &amp; &amp; 1793.28 &amp; + &amp; 1583.47 &amp; + &amp; 1398.20 &amp; + &amp; 1234.61\\ \hline 
+&amp; S-rS &amp; = &amp; 2030.9 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; - &amp; 1234.61
+\end{array}\]</span>
+<p>Leave out the zeros.</p>
+<p><span class="math display">\[S-rS ~=~ 2030.9-1234.61\]</span></p>
+<p>Calculate the difference.</p>
+<p><span class="math display">\[S-rS ~=~ 796.29\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Imagine you hope to determine the sum, <span class="math inline">\(S\)</span>, of the geometric series shown below.</p>
+<p><span class="math display">\[S~=~3416.40+2992.77+2621.66+2296.58+2011.80+1762.34\]</span></p>
+<p>But, since it is a geometric series, and you remember the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">proof of the partial geometric series formula</a>, you take an interesting approach. You multiply the equation by the common ratio, which is <span class="math inline">\(r=0.876\)</span>.</p>
+<p><span class="math display">\[rS~=~2992.77+2621.66+2296.58+2011.80+1762.34+1543.81\]</span></p>
+<p>Your next step is two subtract the second equation from the first equation. What is the value of <span class="math inline">\(S-rS\)</span>?</p>
+<p><span class="math display">\[S-rS ~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>To find the value of <span class="math inline">\(S-rS\)</span>, you should recognize that most terms show up in both equations. Because we are subtracting equations, many terms cancel out.</p>
+<span class="math display">\[\begin{array}
+~ &amp; S &amp; = &amp; 3416.40 &amp; + &amp; 2992.77 &amp; + &amp; 2621.66 &amp; + &amp; 2296.58 &amp; + &amp; 2011.80 &amp; + &amp; 1762.34 \\ \ominus &amp; rS &amp; = &amp; &amp; &amp; 2992.77 &amp; + &amp; 2621.66 &amp; + &amp; 2296.58 &amp; + &amp; 2011.80 &amp; + &amp; 1762.34 &amp; + &amp; 1543.81\\ \hline 
+&amp; S-rS &amp; = &amp; 3416.4 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; - &amp; 1543.81
+\end{array}\]</span>
+<p>Leave out the zeros.</p>
+<p><span class="math display">\[S-rS ~=~ 3416.4-1543.81\]</span></p>
+<p>Calculate the difference.</p>
+<p><span class="math display">\[S-rS ~=~ 1872.59\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Imagine you hope to determine the sum, <span class="math inline">\(S\)</span>, of the geometric series shown below.</p>
+<p><span class="math display">\[S~=~6718.40+5939.07+5250.13+4641.12+4102.75\]</span></p>
+<p>But, since it is a geometric series, and you remember the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">proof of the partial geometric series formula</a>, you take an interesting approach. You multiply the equation by the common ratio, which is <span class="math inline">\(r=0.884\)</span>.</p>
+<p><span class="math display">\[rS~=~5939.07+5250.13+4641.12+4102.75+3626.83\]</span></p>
+<p>Your next step is two subtract the second equation from the first equation. What is the value of <span class="math inline">\(S-rS\)</span>?</p>
+<p><span class="math display">\[S-rS ~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>To find the value of <span class="math inline">\(S-rS\)</span>, you should recognize that most terms show up in both equations. Because we are subtracting equations, many terms cancel out.</p>
+<span class="math display">\[\begin{array}
+~ &amp; S &amp; = &amp; 6718.40 &amp; + &amp; 5939.07 &amp; + &amp; 5250.13 &amp; + &amp; 4641.12 &amp; + &amp; 4102.75 \\ \ominus &amp; rS &amp; = &amp; &amp; &amp; 5939.07 &amp; + &amp; 5250.13 &amp; + &amp; 4641.12 &amp; + &amp; 4102.75 &amp; + &amp; 3626.83\\ \hline 
+&amp; S-rS &amp; = &amp; 6718.4 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; - &amp; 3626.83
+\end{array}\]</span>
+<p>Leave out the zeros.</p>
+<p><span class="math display">\[S-rS ~=~ 6718.4-3626.83\]</span></p>
+<p>Calculate the difference.</p>
+<p><span class="math display">\[S-rS ~=~ 3091.57\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Imagine you hope to determine the sum, <span class="math inline">\(S\)</span>, of the geometric series shown below.</p>
+<p><span class="math display">\[S~=~764.00+583.70+445.94+340.70\]</span></p>
+<p>But, since it is a geometric series, and you remember the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">proof of the partial geometric series formula</a>, you take an interesting approach. You multiply the equation by the common ratio, which is <span class="math inline">\(r=0.764\)</span>.</p>
+<p><span class="math display">\[rS~=~583.70+445.94+340.70+260.30\]</span></p>
+<p>Your next step is two subtract the second equation from the first equation. What is the value of <span class="math inline">\(S-rS\)</span>?</p>
+<p><span class="math display">\[S-rS ~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>To find the value of <span class="math inline">\(S-rS\)</span>, you should recognize that most terms show up in both equations. Because we are subtracting equations, many terms cancel out.</p>
+<span class="math display">\[\begin{array}
+~ &amp; S &amp; = &amp; 764.00 &amp; + &amp; 583.70 &amp; + &amp; 445.94 &amp; + &amp; 340.70 \\ \ominus &amp; rS &amp; = &amp; &amp; &amp; 583.70 &amp; + &amp; 445.94 &amp; + &amp; 340.70 &amp; + &amp; 260.30\\ \hline 
+&amp; S-rS &amp; = &amp; 764 &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; - &amp; 260.3
+\end{array}\]</span>
+<p>Leave out the zeros.</p>
+<p><span class="math display">\[S-rS ~=~ 764-260.3\]</span></p>
+<p>Calculate the difference.</p>
+<p><span class="math display">\[S-rS ~=~ 503.7\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

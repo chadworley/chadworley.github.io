@@ -11,7 +11,7 @@
 
 
 
-<title>22_mortgage.knit</title>
+<title>24_geo_subtract_equations.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -354,34 +354,40 @@ display: none;
 
 <div id="question" class="section level1">
 <h1>Question</h1>
-<p>A mortgage is a loan. Every month interest accrues, but then a
-payment covers the interest plus a bit of the principal. The bank
-calculates how much you need to pay each month to pay off the loan in a
-specific amount of time.</p>
-<p>Imagine a loan with a <a href="https://en.wikipedia.org/wiki/Debt#Principal">principal</a> of
-$455000 and an <a href="https://en.wikipedia.org/wiki/Annual_percentage_rate">interest
-rate</a> of 7.43%. Based your chosen timeline, the bank determines you
-should pay $3160 per month. We can simulate the loan (in <a href="https://www.desmos.com/calculator">Desmos</a>) using a recursively
-defined function.</p>
-<p><span class="math display">\[f(x)~~=~~\left(1+\frac{0.0743}{12}\right)\cdot
-f(x-1)~-~3160\]</span></p>
-<p><span class="math display">\[f(0)~=~4.55\cdot 10^{5}\]</span></p>
-<p>where <span class="math inline">\(f(x)\)</span> represents the
-remaining debt after <span class="math inline">\(x\)</span> months of
-payments.</p>
-<p>Find how much debt remains after 164 months.</p>
-<p><span class="math display">\[f(164)~=~?\]</span></p>
+<p>Imagine you hope to determine the sum, <span class="math inline">\(S\)</span>, of the geometric series shown
+below.</p>
+<p><span class="math display">\[S~=~5380.20+4745.34+4185.39+3691.51+3255.91+2871.72\]</span></p>
+<p>But, since it is a geometric series, and you remember the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">proof
+of the partial geometric series formula</a>, you take an interesting
+approach. You multiply the equation by the common ratio, which is <span class="math inline">\(r=0.882\)</span>.</p>
+<p><span class="math display">\[rS~=~4745.34+4185.39+3691.51+3255.91+2871.72+2532.85\]</span></p>
+<p>Your next step is two subtract the second equation from the first
+equation. What is the value of <span class="math inline">\(S-rS\)</span>?</p>
+<p><span class="math display">\[S-rS ~=~ ?\]</span></p>
 </div>
 <div id="solution" class="section level1">
 <h1>Solution</h1>
-<p>Use <a href="https://www.desmos.com/calculator">Desmos</a> to iterate
-the recursive definition.</p>
-<p>You might be interested to extend the simulation to <span class="math inline">\(x=360\)</span> to check that the mortgage is
-indeed paid off in 30 years.</p>
+<p>To find the value of <span class="math inline">\(S-rS\)</span>, you
+should recognize that most terms show up in both equations. Because we
+are subtracting equations, many terms cancel out.</p>
+<span class="math display">\[\begin{array}
+~ &amp; S &amp; = &amp; 5380.20 &amp; + &amp; 4745.34 &amp; + &amp;
+4185.39 &amp; + &amp; 3691.51 &amp; + &amp; 3255.91 &amp; + &amp;
+2871.72 \\ \ominus &amp; rS &amp; = &amp; &amp; &amp; 4745.34 &amp; +
+&amp; 4185.39 &amp; + &amp; 3691.51 &amp; + &amp; 3255.91 &amp; + &amp;
+2871.72 &amp; + &amp; 2532.85\\ \hline
+&amp; S-rS &amp; = &amp; 5380.2 &amp; + &amp; 0 &amp; + &amp; 0 &amp; +
+&amp; 0 &amp; + &amp; 0 &amp; + &amp; 0 &amp; - &amp; 2532.85
+\end{array}\]</span>
+<p>Leave out the zeros.</p>
+<p><span class="math display">\[S-rS ~=~ 5380.2-2532.85\]</span></p>
+<p>Calculate the difference.</p>
+<p><span class="math display">\[S-rS ~=~ 2847.35\]</span></p>
 </div>
 <div id="meta-information" class="section level1">
 <h1>Meta-information</h1>
-<p>extype: num exsolution: 358007.189879 extol: 1 exname: mortgage</p>
+<p>extype: num exsolution: 2847.35 extol: 0.01 exname:
+geo_subtract_equations</p>
 </div>
 
 
