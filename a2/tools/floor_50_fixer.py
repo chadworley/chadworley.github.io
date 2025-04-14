@@ -35,17 +35,17 @@ while r.links['current']['url'] != r.links['last']['url']:
     for question in raw:
         data_set.append(question)
 
-## 2212 = effort
-## 2213 = mastery
+## 2290 = effort
+## 2291 = mastery
 
 ept = 0
 mpt = 0
 
 for i in data_set:
     if not i["points_possible"] is None:
-        if i["assignment_group_id"] == 2212:
+        if i["assignment_group_id"] == 2290:
             ept = ept + i["points_possible"]
-        if i["assignment_group_id"] == 2213:
+        if i["assignment_group_id"] == 2291:
             mpt = mpt + i["points_possible"]
 
 print(ept)
