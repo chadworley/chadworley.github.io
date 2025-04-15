@@ -22,7 +22,7 @@ for line in lines:
     ques.append(line.strip())
 file.close()
 
-for i in range(999):
+for i in range(400,999):
     ifn = "p{:03d}.png".format(i+1)
     ans = sols[i]
     # ca = ans[0]
