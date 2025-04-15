@@ -3,10 +3,7 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["25_size_small_m-ary_tree.Rmd",
-"26_size_large_m-ary_tree.Rmd",
-"27_geom_dist.Rmd",
-"28_geom_dist_cumulative.Rmd"]
+files = ["25_size_small_m-ary_tree.Rmd"]
 
 avt = ["2025-04-15 7:00:00"]*len(files)
 dut = ["2025-04-15 22:59:00"]*len(files)
