@@ -3,9 +3,7 @@ n = 30
 outdir = "outcanvas"
 genname = "s17_"
 
-probs = c("25_size_small_m-ary_tree.Rmd",
-          "26_size_large_m-ary_tree.Rmd",
-          "27_geom_dist.Rmd",
+probs = c("27_geom_dist.Rmd",
           "28_geom_dist_cumulative.Rmd")
 
 pnts = rep(3,length(probs))
