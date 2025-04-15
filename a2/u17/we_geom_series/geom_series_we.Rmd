@@ -1,0 +1,125 @@
+---
+header-includes:
+   - \usepackage{array}
+   - \usepackage{color}
+   - \usepackage{tabularx}
+output: pdf_document
+params:
+    rseed: 1
+    showsol: true
+    titex: "Practice"
+urlcolor: blue
+---
+
+
+```{r,echo=F}
+set.seed(params$rseed)
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## s17 Geometric Series Exam (`r params$titex` v`r params$rseed`)
+
+### Question 1
+
+```{r,echo=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+while(T){
+    ab = sample(100:999,2)
+    n = 10
+    a = max(ab)
+    b = min(ab)
+    r = (b/a)^(1/n)
+    aaa = round(a/gcd(a,b))
+    bbb = round(b/gcd(a,b))
+    if(abs(a-b)>100 && aaa<100 && bbb<100){break}
+}
+A = a*r^(0:(n-1))
+B = a*r^(1:n)
+aa = A
+a2 = B
+
+```
+
+Consider the partial geometric series represented below with first term $a=`r a`$, common ratio $r=\left(\frac{`r bbb`}{`r aaa`}\right)^{1/`r n`}$, and $n=`r n`$ terms.
+
+$$S ~=~ `r paste0(round(A,2),collapse="+")`$$
+
+We can multiply both sides by $r$.
+
+$$rS~=~`r paste0(round(B,2),collapse="+")`$$
+
+What is the value of $S-rS$?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results='asis'}
+cat("\\color{red}\n Most terms cancel.\n")
+cat(paste0("$$",a,"-",b,"=",a-b,"$$"))
+cat("\n \\color{black}\n\n")
+```
+
+\vfill
+
+
+### Question 2
+
+```{r,echo=F}
+### HOW MANY TERMS?
+ar = sample(2:8,2)
+a = ar[1]
+b = ar[2]
+n = sample(50:98,1)
+```
+
+Consider the geometric series shown below, using ellipsis notation to indicate a continuation of the pattern without writing every term.
+
+$$S~~=~~ `r a`~+~`r a`(`r b`)~+~`r a`(`r b`)^2~+~`r a`(`r b`)^3~+~\cdots ~+~`r a`(`r b`)^{`r n-4`}~+~`r a`(`r b`)^{`r n-3`}~+~`r a`(`r b`)^{`r n-2`}~+~`r a`(`r b`)^{`r n-1`}$$
+
+Identify the initial term, the common ratio, and the number of terms.
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results='asis'}
+cat("\\color{red}")
+cat(paste0("$$\\text{first term}=a=",a,"$$\n"))
+cat(paste0("$$\\text{common ratio}=r=",b,"$$\n"))
+cat(paste0("$$\\text{number of terms}=n=",n,"$$"))
+cat("\n \\color{black}\n\n")
+```
+
+
+\vfill
+
+\newpage
+
+### Question 3
+
+Write a proof for the partial geometric series formula.
+
+a. Define the variables.
+b. Write the sum using variables and ellipsis notation. You can implicitly assume the number of terms is more than the number of terms you choose to write.
+c. Using annotated algebraic manipulation, produce the partial geometric series formula.
+
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results='asis'}
+cat("\\color{red}\n ### Definitions\n\n")
+cat("$$\\begin{aligned}a&=\\text{first term}\\\\r&=\\text{common ratio}\\\\n&=\\text{number of terms}\\\\S&=\\text{sum of partial geometric series}\\end{aligned}$$\n\n")
+cat("The partial geometric series is expressed using ellipsis notation.\n\n$$S~=~a+ar+ar^2+ar^3+\\cdots+ar^{n-4}+ar^{n-3}+ar^{n-2}+ar^{n-1}$$\n\n")
+cat("Multiply both sides by $r$.\n\n")
+cat("$$rS~=~ar+ar^2+ar^3+ar^4+\\cdots+ar^{n-3}+ar^{n-2}+ar^{n-1}+ar^{n}$$\n\n")
+cat("Subtract the second equation from the first equation.\n\n")
+cat("$$S-rS~=~a-ar^{n}$$\n\n")
+cat("Factor out $S$ from left side.\n\n")
+cat("$$S(1-r)~=~a-ar^{n}$$\n\n")
+cat("Divide both sides by $(1-r)$. We technically need to enforce $r\\ne 1$ as a condition of the formula because otherwise we'd be dividing by 0 in this step, and division by 0 is not defined.\n\n")
+cat("$$S~=~\\frac{a-ar^{n}}{1-r}$$\n\n")
+cat("\n\n\\color{black}")
+```
+
+\vfill
