@@ -3,10 +3,13 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["23_life_annuity.Rmd","24_geo_subtract_equations.Rmd"]
+files = ["25_size_small_m-ary_tree.Rmd",
+"26_size_large_m-ary_tree.Rmd",
+"27_geom_dist.Rmd",
+"28_geom_dist_cumulative.Rmd"]
 
-avt = ["2025-04-14 7:00:00"]*len(files)
-dut = ["2025-04-14 22:59:00"]*len(files)
+avt = ["2025-04-15 7:00:00"]*len(files)
+dut = ["2025-04-15 22:59:00"]*len(files)
 front = "s17_"
 
 

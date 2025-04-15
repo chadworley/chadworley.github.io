@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>28_geom_dist_cumulative</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">28_geom_dist_cumulative</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric distribution</a> describes the probability of getting a certain number of failures in a row before succeeding when repeatedly attempting a trial with fixed chance of success.</p>
+<p>Imagine a trial that has, for each attempt, a <span class="math inline">\(22\%\)</span> chance of success and a <span class="math inline">\(78\%\)</span> chance of failure. (On each trial you either succeed or fail.) You will repeatedly attempt until you succeed.</p>
+<p>What is the probability of your first success occurring <strong>before</strong> your sixth attempt?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We (hopefully) already learned how to calculate the <a href="https://en.wikipedia.org/wiki/Probability_mass_function">probability mass function</a> of the geometric distribution. We can use <span class="math inline">\(p=0.22\)</span> and <span class="math inline">\(q=0.78\)</span> to represent the simple probabilities of each attempt.</p>
+<p><span class="math display">\[P(\text{first success on first attempt})~=~pq^0~=~0.22(0.78)^{0}~=~0.22\]</span>
+<span class="math display">\[P(\text{first success on second attempt})~=~pq^1~=~0.22(0.78)^{1}~=~0.1716\]</span>
+<span class="math display">\[P(\text{first success on third attempt})~=~pq^2~=~0.22(0.78)^{2}~=~0.133848\]</span>
+<span class="math display">\[P(\text{first success on fourth attempt})~=~pq^3~=~0.22(0.78)^{3}~=~0.10440144\]</span>
+<span class="math display">\[P(\text{first success on fifth attempt})~=~pq^4~=~0.22(0.78)^{4}~=~0.0814331232\]</span></p>
+<p>Each of the probabilities shown above corresponds to a <a href="https://en.wikipedia.org/wiki/Mutual_exclusivity">mutually exclusive</a> event. For example, if the first success was on the third attempt, then the first success was <strong>not</strong> on the fourth attempt.</p>
+<p>We need to find the <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative probability</a>. Because of mutual exclusivity, we can simply add the probabilities shown above.</p>
+<p><span class="math display">\[P(\text{first success in fewer than 6 attempts})~=~0.22(0.78)^{0}+0.22(0.78)^{1}+0.22(0.78)^{2}+0.22(0.78)^{3}+0.22(0.78)^{4}\]</span></p>
+<p>Notice this is a geometric series. The first term is <span class="math inline">\(a=0.22\)</span>. The common ratio is <span class="math inline">\(r=0.78\)</span>. The number of terms is <span class="math inline">\(n=5\)</span>. We wish to find the sum (<span class="math inline">\(s\)</span>) of the series. The following steps are meant to remind you of the steps in the proof of the partial geometric series formula, but shown with specific numbers.</p>
+<p><span class="math display">\[s~=~0.22(0.78)^{0}+0.22(0.78)^{1}+0.22(0.78)^{2}+0.22(0.78)^{3}+0.22(0.78)^{4}\]</span></p>
+<p>Multiply both sides by the common ratio.</p>
+<p><span class="math display">\[0.78s~=~0.22(0.78)^{1}+0.22(0.78)^{2}+0.22(0.78)^{3}+0.22(0.78)^{4}+0.22(0.78)^{5}\]</span></p>
+<p>Subtract the equations.</p>
+<p><span class="math display">\[s-0.78s~=~0.22-0.22(0.78)^{5}\]</span></p>
+<p>Solve for the sum by factoring and dividing.</p>
+<p><span class="math display">\[s~=~\frac{0.22-0.22(0.78)^{5}}{1-0.78}\]</span>
+<span class="math display">\[s~=~0.7112826\]</span></p>
+<p>You could generalize your results to give a formula for the cumulative geometric distribution.</p>
+<p><span class="math display">\[P(\text{first success before }n+1\text{ attempts})~=~\sum_{i=0}^{n-1}pq^i ~=~ \frac{p-pq^n}{1-q}\]</span></p>
+<p>I should note that you could greatly simplify the formula because we know that <span class="math inline">\(p+q=1\)</span>, but my primary goal is to make a connection to the partial geometric series formula.</p>
+<p><span class="math display">\[s~=~\frac{a-ar^n}{1-r}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric distribution</a> describes the probability of getting a certain number of failures in a row before succeeding when repeatedly attempting a trial with fixed chance of success.</p>
+<p>Imagine a trial that has, for each attempt, a <span class="math inline">\(28\%\)</span> chance of success and a <span class="math inline">\(72\%\)</span> chance of failure. (On each trial you either succeed or fail.) You will repeatedly attempt until you succeed.</p>
+<p>What is the probability of your first success occurring <strong>before</strong> your sixth attempt?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We (hopefully) already learned how to calculate the <a href="https://en.wikipedia.org/wiki/Probability_mass_function">probability mass function</a> of the geometric distribution. We can use <span class="math inline">\(p=0.28\)</span> and <span class="math inline">\(q=0.72\)</span> to represent the simple probabilities of each attempt.</p>
+<p><span class="math display">\[P(\text{first success on first attempt})~=~pq^0~=~0.28(0.72)^{0}~=~0.28\]</span>
+<span class="math display">\[P(\text{first success on second attempt})~=~pq^1~=~0.28(0.72)^{1}~=~0.2016\]</span>
+<span class="math display">\[P(\text{first success on third attempt})~=~pq^2~=~0.28(0.72)^{2}~=~0.145152\]</span>
+<span class="math display">\[P(\text{first success on fourth attempt})~=~pq^3~=~0.28(0.72)^{3}~=~0.10450944\]</span>
+<span class="math display">\[P(\text{first success on fifth attempt})~=~pq^4~=~0.28(0.72)^{4}~=~0.0752467968\]</span></p>
+<p>Each of the probabilities shown above corresponds to a <a href="https://en.wikipedia.org/wiki/Mutual_exclusivity">mutually exclusive</a> event. For example, if the first success was on the third attempt, then the first success was <strong>not</strong> on the fourth attempt.</p>
+<p>We need to find the <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative probability</a>. Because of mutual exclusivity, we can simply add the probabilities shown above.</p>
+<p><span class="math display">\[P(\text{first success in fewer than 6 attempts})~=~0.28(0.72)^{0}+0.28(0.72)^{1}+0.28(0.72)^{2}+0.28(0.72)^{3}+0.28(0.72)^{4}\]</span></p>
+<p>Notice this is a geometric series. The first term is <span class="math inline">\(a=0.28\)</span>. The common ratio is <span class="math inline">\(r=0.72\)</span>. The number of terms is <span class="math inline">\(n=5\)</span>. We wish to find the sum (<span class="math inline">\(s\)</span>) of the series. The following steps are meant to remind you of the steps in the proof of the partial geometric series formula, but shown with specific numbers.</p>
+<p><span class="math display">\[s~=~0.28(0.72)^{0}+0.28(0.72)^{1}+0.28(0.72)^{2}+0.28(0.72)^{3}+0.28(0.72)^{4}\]</span></p>
+<p>Multiply both sides by the common ratio.</p>
+<p><span class="math display">\[0.72s~=~0.28(0.72)^{1}+0.28(0.72)^{2}+0.28(0.72)^{3}+0.28(0.72)^{4}+0.28(0.72)^{5}\]</span></p>
+<p>Subtract the equations.</p>
+<p><span class="math display">\[s-0.72s~=~0.28-0.28(0.72)^{5}\]</span></p>
+<p>Solve for the sum by factoring and dividing.</p>
+<p><span class="math display">\[s~=~\frac{0.28-0.28(0.72)^{5}}{1-0.72}\]</span>
+<span class="math display">\[s~=~0.8065082\]</span></p>
+<p>You could generalize your results to give a formula for the cumulative geometric distribution.</p>
+<p><span class="math display">\[P(\text{first success before }n+1\text{ attempts})~=~\sum_{i=0}^{n-1}pq^i ~=~ \frac{p-pq^n}{1-q}\]</span></p>
+<p>I should note that you could greatly simplify the formula because we know that <span class="math inline">\(p+q=1\)</span>, but my primary goal is to make a connection to the partial geometric series formula.</p>
+<p><span class="math display">\[s~=~\frac{a-ar^n}{1-r}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric distribution</a> describes the probability of getting a certain number of failures in a row before succeeding when repeatedly attempting a trial with fixed chance of success.</p>
+<p>Imagine a trial that has, for each attempt, a <span class="math inline">\(17\%\)</span> chance of success and a <span class="math inline">\(83\%\)</span> chance of failure. (On each trial you either succeed or fail.) You will repeatedly attempt until you succeed.</p>
+<p>What is the probability of your first success occurring <strong>before</strong> your eighth attempt?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We (hopefully) already learned how to calculate the <a href="https://en.wikipedia.org/wiki/Probability_mass_function">probability mass function</a> of the geometric distribution. We can use <span class="math inline">\(p=0.17\)</span> and <span class="math inline">\(q=0.83\)</span> to represent the simple probabilities of each attempt.</p>
+<p><span class="math display">\[P(\text{first success on first attempt})~=~pq^0~=~0.17(0.83)^{0}~=~0.17\]</span>
+<span class="math display">\[P(\text{first success on second attempt})~=~pq^1~=~0.17(0.83)^{1}~=~0.1411\]</span>
+<span class="math display">\[P(\text{first success on third attempt})~=~pq^2~=~0.17(0.83)^{2}~=~0.117113\]</span>
+<span class="math display">\[P(\text{first success on fourth attempt})~=~pq^3~=~0.17(0.83)^{3}~=~0.09720379\]</span>
+<span class="math display">\[P(\text{first success on fifth attempt})~=~pq^4~=~0.17(0.83)^{4}~=~0.0806791457\]</span>
+<span class="math display">\[P(\text{first success on sixth attempt})~=~pq^5~=~0.17(0.83)^{5}~=~0.066963690931\]</span>
+<span class="math display">\[P(\text{first success on seventh attempt})~=~pq^6~=~0.17(0.83)^{6}~=~0.05557986347273\]</span></p>
+<p>Each of the probabilities shown above corresponds to a <a href="https://en.wikipedia.org/wiki/Mutual_exclusivity">mutually exclusive</a> event. For example, if the first success was on the third attempt, then the first success was <strong>not</strong> on the fourth attempt.</p>
+<p>We need to find the <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative probability</a>. Because of mutual exclusivity, we can simply add the probabilities shown above.</p>
+<p><span class="math display">\[P(\text{first success in fewer than 8 attempts})~=~0.17(0.83)^{0}+0.17(0.83)^{1}+0.17(0.83)^{2}+0.17(0.83)^{3}+0.17(0.83)^{4}+0.17(0.83)^{5}+0.17(0.83)^{6}\]</span></p>
+<p>Notice this is a geometric series. The first term is <span class="math inline">\(a=0.17\)</span>. The common ratio is <span class="math inline">\(r=0.83\)</span>. The number of terms is <span class="math inline">\(n=7\)</span>. We wish to find the sum (<span class="math inline">\(s\)</span>) of the series. The following steps are meant to remind you of the steps in the proof of the partial geometric series formula, but shown with specific numbers.</p>
+<p><span class="math display">\[s~=~0.17(0.83)^{0}+0.17(0.83)^{1}+0.17(0.83)^{2}+0.17(0.83)^{3}+0.17(0.83)^{4}+0.17(0.83)^{5}+0.17(0.83)^{6}\]</span></p>
+<p>Multiply both sides by the common ratio.</p>
+<p><span class="math display">\[0.83s~=~0.17(0.83)^{1}+0.17(0.83)^{2}+0.17(0.83)^{3}+0.17(0.83)^{4}+0.17(0.83)^{5}+0.17(0.83)^{6}+0.17(0.83)^{7}\]</span></p>
+<p>Subtract the equations.</p>
+<p><span class="math display">\[s-0.83s~=~0.17-0.17(0.83)^{7}\]</span></p>
+<p>Solve for the sum by factoring and dividing.</p>
+<p><span class="math display">\[s~=~\frac{0.17-0.17(0.83)^{7}}{1-0.83}\]</span>
+<span class="math display">\[s~=~0.7286395\]</span></p>
+<p>You could generalize your results to give a formula for the cumulative geometric distribution.</p>
+<p><span class="math display">\[P(\text{first success before }n+1\text{ attempts})~=~\sum_{i=0}^{n-1}pq^i ~=~ \frac{p-pq^n}{1-q}\]</span></p>
+<p>I should note that you could greatly simplify the formula because we know that <span class="math inline">\(p+q=1\)</span>, but my primary goal is to make a connection to the partial geometric series formula.</p>
+<p><span class="math display">\[s~=~\frac{a-ar^n}{1-r}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric distribution</a> describes the probability of getting a certain number of failures in a row before succeeding when repeatedly attempting a trial with fixed chance of success.</p>
+<p>Imagine a trial that has, for each attempt, a <span class="math inline">\(26\%\)</span> chance of success and a <span class="math inline">\(74\%\)</span> chance of failure. (On each trial you either succeed or fail.) You will repeatedly attempt until you succeed.</p>
+<p>What is the probability of your first success occurring <strong>before</strong> your sixth attempt?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We (hopefully) already learned how to calculate the <a href="https://en.wikipedia.org/wiki/Probability_mass_function">probability mass function</a> of the geometric distribution. We can use <span class="math inline">\(p=0.26\)</span> and <span class="math inline">\(q=0.74\)</span> to represent the simple probabilities of each attempt.</p>
+<p><span class="math display">\[P(\text{first success on first attempt})~=~pq^0~=~0.26(0.74)^{0}~=~0.26\]</span>
+<span class="math display">\[P(\text{first success on second attempt})~=~pq^1~=~0.26(0.74)^{1}~=~0.1924\]</span>
+<span class="math display">\[P(\text{first success on third attempt})~=~pq^2~=~0.26(0.74)^{2}~=~0.142376\]</span>
+<span class="math display">\[P(\text{first success on fourth attempt})~=~pq^3~=~0.26(0.74)^{3}~=~0.10535824\]</span>
+<span class="math display">\[P(\text{first success on fifth attempt})~=~pq^4~=~0.26(0.74)^{4}~=~0.0779650976\]</span></p>
+<p>Each of the probabilities shown above corresponds to a <a href="https://en.wikipedia.org/wiki/Mutual_exclusivity">mutually exclusive</a> event. For example, if the first success was on the third attempt, then the first success was <strong>not</strong> on the fourth attempt.</p>
+<p>We need to find the <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative probability</a>. Because of mutual exclusivity, we can simply add the probabilities shown above.</p>
+<p><span class="math display">\[P(\text{first success in fewer than 6 attempts})~=~0.26(0.74)^{0}+0.26(0.74)^{1}+0.26(0.74)^{2}+0.26(0.74)^{3}+0.26(0.74)^{4}\]</span></p>
+<p>Notice this is a geometric series. The first term is <span class="math inline">\(a=0.26\)</span>. The common ratio is <span class="math inline">\(r=0.74\)</span>. The number of terms is <span class="math inline">\(n=5\)</span>. We wish to find the sum (<span class="math inline">\(s\)</span>) of the series. The following steps are meant to remind you of the steps in the proof of the partial geometric series formula, but shown with specific numbers.</p>
+<p><span class="math display">\[s~=~0.26(0.74)^{0}+0.26(0.74)^{1}+0.26(0.74)^{2}+0.26(0.74)^{3}+0.26(0.74)^{4}\]</span></p>
+<p>Multiply both sides by the common ratio.</p>
+<p><span class="math display">\[0.74s~=~0.26(0.74)^{1}+0.26(0.74)^{2}+0.26(0.74)^{3}+0.26(0.74)^{4}+0.26(0.74)^{5}\]</span></p>
+<p>Subtract the equations.</p>
+<p><span class="math display">\[s-0.74s~=~0.26-0.26(0.74)^{5}\]</span></p>
+<p>Solve for the sum by factoring and dividing.</p>
+<p><span class="math display">\[s~=~\frac{0.26-0.26(0.74)^{5}}{1-0.74}\]</span>
+<span class="math display">\[s~=~0.7780993\]</span></p>
+<p>You could generalize your results to give a formula for the cumulative geometric distribution.</p>
+<p><span class="math display">\[P(\text{first success before }n+1\text{ attempts})~=~\sum_{i=0}^{n-1}pq^i ~=~ \frac{p-pq^n}{1-q}\]</span></p>
+<p>I should note that you could greatly simplify the formula because we know that <span class="math inline">\(p+q=1\)</span>, but my primary goal is to make a connection to the partial geometric series formula.</p>
+<p><span class="math display">\[s~=~\frac{a-ar^n}{1-r}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric distribution</a> describes the probability of getting a certain number of failures in a row before succeeding when repeatedly attempting a trial with fixed chance of success.</p>
+<p>Imagine a trial that has, for each attempt, a <span class="math inline">\(24\%\)</span> chance of success and a <span class="math inline">\(76\%\)</span> chance of failure. (On each trial you either succeed or fail.) You will repeatedly attempt until you succeed.</p>
+<p>What is the probability of your first success occurring <strong>before</strong> your seventh attempt?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We (hopefully) already learned how to calculate the <a href="https://en.wikipedia.org/wiki/Probability_mass_function">probability mass function</a> of the geometric distribution. We can use <span class="math inline">\(p=0.24\)</span> and <span class="math inline">\(q=0.76\)</span> to represent the simple probabilities of each attempt.</p>
+<p><span class="math display">\[P(\text{first success on first attempt})~=~pq^0~=~0.24(0.76)^{0}~=~0.24\]</span>
+<span class="math display">\[P(\text{first success on second attempt})~=~pq^1~=~0.24(0.76)^{1}~=~0.1824\]</span>
+<span class="math display">\[P(\text{first success on third attempt})~=~pq^2~=~0.24(0.76)^{2}~=~0.138624\]</span>
+<span class="math display">\[P(\text{first success on fourth attempt})~=~pq^3~=~0.24(0.76)^{3}~=~0.10535424\]</span>
+<span class="math display">\[P(\text{first success on fifth attempt})~=~pq^4~=~0.24(0.76)^{4}~=~0.0800692224\]</span>
+<span class="math display">\[P(\text{first success on sixth attempt})~=~pq^5~=~0.24(0.76)^{5}~=~0.060852609024\]</span></p>
+<p>Each of the probabilities shown above corresponds to a <a href="https://en.wikipedia.org/wiki/Mutual_exclusivity">mutually exclusive</a> event. For example, if the first success was on the third attempt, then the first success was <strong>not</strong> on the fourth attempt.</p>
+<p>We need to find the <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative probability</a>. Because of mutual exclusivity, we can simply add the probabilities shown above.</p>
+<p><span class="math display">\[P(\text{first success in fewer than 7 attempts})~=~0.24(0.76)^{0}+0.24(0.76)^{1}+0.24(0.76)^{2}+0.24(0.76)^{3}+0.24(0.76)^{4}+0.24(0.76)^{5}\]</span></p>
+<p>Notice this is a geometric series. The first term is <span class="math inline">\(a=0.24\)</span>. The common ratio is <span class="math inline">\(r=0.76\)</span>. The number of terms is <span class="math inline">\(n=6\)</span>. We wish to find the sum (<span class="math inline">\(s\)</span>) of the series. The following steps are meant to remind you of the steps in the proof of the partial geometric series formula, but shown with specific numbers.</p>
+<p><span class="math display">\[s~=~0.24(0.76)^{0}+0.24(0.76)^{1}+0.24(0.76)^{2}+0.24(0.76)^{3}+0.24(0.76)^{4}+0.24(0.76)^{5}\]</span></p>
+<p>Multiply both sides by the common ratio.</p>
+<p><span class="math display">\[0.76s~=~0.24(0.76)^{1}+0.24(0.76)^{2}+0.24(0.76)^{3}+0.24(0.76)^{4}+0.24(0.76)^{5}+0.24(0.76)^{6}\]</span></p>
+<p>Subtract the equations.</p>
+<p><span class="math display">\[s-0.76s~=~0.24-0.24(0.76)^{6}\]</span></p>
+<p>Solve for the sum by factoring and dividing.</p>
+<p><span class="math display">\[s~=~\frac{0.24-0.24(0.76)^{6}}{1-0.76}\]</span>
+<span class="math display">\[s~=~0.8073001\]</span></p>
+<p>You could generalize your results to give a formula for the cumulative geometric distribution.</p>
+<p><span class="math display">\[P(\text{first success before }n+1\text{ attempts})~=~\sum_{i=0}^{n-1}pq^i ~=~ \frac{p-pq^n}{1-q}\]</span></p>
+<p>I should note that you could greatly simplify the formula because we know that <span class="math inline">\(p+q=1\)</span>, but my primary goal is to make a connection to the partial geometric series formula.</p>
+<p><span class="math display">\[s~=~\frac{a-ar^n}{1-r}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric distribution</a> describes the probability of getting a certain number of failures in a row before succeeding when repeatedly attempting a trial with fixed chance of success.</p>
+<p>Imagine a trial that has, for each attempt, a <span class="math inline">\(9\%\)</span> chance of success and a <span class="math inline">\(91\%\)</span> chance of failure. (On each trial you either succeed or fail.) You will repeatedly attempt until you succeed.</p>
+<p>What is the probability of your first success occurring <strong>before</strong> your tenth attempt?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We (hopefully) already learned how to calculate the <a href="https://en.wikipedia.org/wiki/Probability_mass_function">probability mass function</a> of the geometric distribution. We can use <span class="math inline">\(p=0.09\)</span> and <span class="math inline">\(q=0.91\)</span> to represent the simple probabilities of each attempt.</p>
+<p><span class="math display">\[P(\text{first success on first attempt})~=~pq^0~=~0.09(0.91)^{0}~=~0.09\]</span>
+<span class="math display">\[P(\text{first success on second attempt})~=~pq^1~=~0.09(0.91)^{1}~=~0.0819\]</span>
+<span class="math display">\[P(\text{first success on third attempt})~=~pq^2~=~0.09(0.91)^{2}~=~0.074529\]</span>
+<span class="math display">\[P(\text{first success on fourth attempt})~=~pq^3~=~0.09(0.91)^{3}~=~0.06782139\]</span>
+<span class="math display">\[P(\text{first success on fifth attempt})~=~pq^4~=~0.09(0.91)^{4}~=~0.0617174649\]</span>
+<span class="math display">\[P(\text{first success on sixth attempt})~=~pq^5~=~0.09(0.91)^{5}~=~0.056162893059\]</span>
+<span class="math display">\[P(\text{first success on seventh attempt})~=~pq^6~=~0.09(0.91)^{6}~=~0.05110823268369\]</span>
+<span class="math display">\[P(\text{first success on eighth attempt})~=~pq^7~=~0.09(0.91)^{7}~=~0.0465084917421579\]</span>
+<span class="math display">\[P(\text{first success on ninth attempt})~=~pq^8~=~0.09(0.91)^{8}~=~0.0423227274853637\]</span></p>
+<p>Each of the probabilities shown above corresponds to a <a href="https://en.wikipedia.org/wiki/Mutual_exclusivity">mutually exclusive</a> event. For example, if the first success was on the third attempt, then the first success was <strong>not</strong> on the fourth attempt.</p>
+<p>We need to find the <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative probability</a>. Because of mutual exclusivity, we can simply add the probabilities shown above.</p>
+<p><span class="math display">\[P(\text{first success in fewer than 10 attempts})~=~0.09(0.91)^{0}+0.09(0.91)^{1}+0.09(0.91)^{2}+0.09(0.91)^{3}+0.09(0.91)^{4}+0.09(0.91)^{5}+0.09(0.91)^{6}+0.09(0.91)^{7}+0.09(0.91)^{8}\]</span></p>
+<p>Notice this is a geometric series. The first term is <span class="math inline">\(a=0.09\)</span>. The common ratio is <span class="math inline">\(r=0.91\)</span>. The number of terms is <span class="math inline">\(n=9\)</span>. We wish to find the sum (<span class="math inline">\(s\)</span>) of the series. The following steps are meant to remind you of the steps in the proof of the partial geometric series formula, but shown with specific numbers.</p>
+<p><span class="math display">\[s~=~0.09(0.91)^{0}+0.09(0.91)^{1}+0.09(0.91)^{2}+0.09(0.91)^{3}+0.09(0.91)^{4}+0.09(0.91)^{5}+0.09(0.91)^{6}+0.09(0.91)^{7}+0.09(0.91)^{8}\]</span></p>
+<p>Multiply both sides by the common ratio.</p>
+<p><span class="math display">\[0.91s~=~0.09(0.91)^{1}+0.09(0.91)^{2}+0.09(0.91)^{3}+0.09(0.91)^{4}+0.09(0.91)^{5}+0.09(0.91)^{6}+0.09(0.91)^{7}+0.09(0.91)^{8}+0.09(0.91)^{9}\]</span></p>
+<p>Subtract the equations.</p>
+<p><span class="math display">\[s-0.91s~=~0.09-0.09(0.91)^{9}\]</span></p>
+<p>Solve for the sum by factoring and dividing.</p>
+<p><span class="math display">\[s~=~\frac{0.09-0.09(0.91)^{9}}{1-0.91}\]</span>
+<span class="math display">\[s~=~0.5720702\]</span></p>
+<p>You could generalize your results to give a formula for the cumulative geometric distribution.</p>
+<p><span class="math display">\[P(\text{first success before }n+1\text{ attempts})~=~\sum_{i=0}^{n-1}pq^i ~=~ \frac{p-pq^n}{1-q}\]</span></p>
+<p>I should note that you could greatly simplify the formula because we know that <span class="math inline">\(p+q=1\)</span>, but my primary goal is to make a connection to the partial geometric series formula.</p>
+<p><span class="math display">\[s~=~\frac{a-ar^n}{1-r}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric distribution</a> describes the probability of getting a certain number of failures in a row before succeeding when repeatedly attempting a trial with fixed chance of success.</p>
+<p>Imagine a trial that has, for each attempt, a <span class="math inline">\(35\%\)</span> chance of success and a <span class="math inline">\(65\%\)</span> chance of failure. (On each trial you either succeed or fail.) You will repeatedly attempt until you succeed.</p>
+<p>What is the probability of your first success occurring <strong>before</strong> your seventh attempt?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We (hopefully) already learned how to calculate the <a href="https://en.wikipedia.org/wiki/Probability_mass_function">probability mass function</a> of the geometric distribution. We can use <span class="math inline">\(p=0.35\)</span> and <span class="math inline">\(q=0.65\)</span> to represent the simple probabilities of each attempt.</p>
+<p><span class="math display">\[P(\text{first success on first attempt})~=~pq^0~=~0.35(0.65)^{0}~=~0.35\]</span>
+<span class="math display">\[P(\text{first success on second attempt})~=~pq^1~=~0.35(0.65)^{1}~=~0.2275\]</span>
+<span class="math display">\[P(\text{first success on third attempt})~=~pq^2~=~0.35(0.65)^{2}~=~0.147875\]</span>
+<span class="math display">\[P(\text{first success on fourth attempt})~=~pq^3~=~0.35(0.65)^{3}~=~0.09611875\]</span>
+<span class="math display">\[P(\text{first success on fifth attempt})~=~pq^4~=~0.35(0.65)^{4}~=~0.0624771875\]</span>
+<span class="math display">\[P(\text{first success on sixth attempt})~=~pq^5~=~0.35(0.65)^{5}~=~0.040610171875\]</span></p>
+<p>Each of the probabilities shown above corresponds to a <a href="https://en.wikipedia.org/wiki/Mutual_exclusivity">mutually exclusive</a> event. For example, if the first success was on the third attempt, then the first success was <strong>not</strong> on the fourth attempt.</p>
+<p>We need to find the <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative probability</a>. Because of mutual exclusivity, we can simply add the probabilities shown above.</p>
+<p><span class="math display">\[P(\text{first success in fewer than 7 attempts})~=~0.35(0.65)^{0}+0.35(0.65)^{1}+0.35(0.65)^{2}+0.35(0.65)^{3}+0.35(0.65)^{4}+0.35(0.65)^{5}\]</span></p>
+<p>Notice this is a geometric series. The first term is <span class="math inline">\(a=0.35\)</span>. The common ratio is <span class="math inline">\(r=0.65\)</span>. The number of terms is <span class="math inline">\(n=6\)</span>. We wish to find the sum (<span class="math inline">\(s\)</span>) of the series. The following steps are meant to remind you of the steps in the proof of the partial geometric series formula, but shown with specific numbers.</p>
+<p><span class="math display">\[s~=~0.35(0.65)^{0}+0.35(0.65)^{1}+0.35(0.65)^{2}+0.35(0.65)^{3}+0.35(0.65)^{4}+0.35(0.65)^{5}\]</span></p>
+<p>Multiply both sides by the common ratio.</p>
+<p><span class="math display">\[0.65s~=~0.35(0.65)^{1}+0.35(0.65)^{2}+0.35(0.65)^{3}+0.35(0.65)^{4}+0.35(0.65)^{5}+0.35(0.65)^{6}\]</span></p>
+<p>Subtract the equations.</p>
+<p><span class="math display">\[s-0.65s~=~0.35-0.35(0.65)^{6}\]</span></p>
+<p>Solve for the sum by factoring and dividing.</p>
+<p><span class="math display">\[s~=~\frac{0.35-0.35(0.65)^{6}}{1-0.65}\]</span>
+<span class="math display">\[s~=~0.9245811\]</span></p>
+<p>You could generalize your results to give a formula for the cumulative geometric distribution.</p>
+<p><span class="math display">\[P(\text{first success before }n+1\text{ attempts})~=~\sum_{i=0}^{n-1}pq^i ~=~ \frac{p-pq^n}{1-q}\]</span></p>
+<p>I should note that you could greatly simplify the formula because we know that <span class="math inline">\(p+q=1\)</span>, but my primary goal is to make a connection to the partial geometric series formula.</p>
+<p><span class="math display">\[s~=~\frac{a-ar^n}{1-r}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/Geometric_distribution">geometric distribution</a> describes the probability of getting a certain number of failures in a row before succeeding when repeatedly attempting a trial with fixed chance of success.</p>
+<p>Imagine a trial that has, for each attempt, a <span class="math inline">\(20\%\)</span> chance of success and a <span class="math inline">\(80\%\)</span> chance of failure. (On each trial you either succeed or fail.) You will repeatedly attempt until you succeed.</p>
+<p>What is the probability of your first success occurring <strong>before</strong> your seventh attempt?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We (hopefully) already learned how to calculate the <a href="https://en.wikipedia.org/wiki/Probability_mass_function">probability mass function</a> of the geometric distribution. We can use <span class="math inline">\(p=0.2\)</span> and <span class="math inline">\(q=0.8\)</span> to represent the simple probabilities of each attempt.</p>
+<p><span class="math display">\[P(\text{first success on first attempt})~=~pq^0~=~0.2(0.8)^{0}~=~0.2\]</span>
+<span class="math display">\[P(\text{first success on second attempt})~=~pq^1~=~0.2(0.8)^{1}~=~0.16\]</span>
+<span class="math display">\[P(\text{first success on third attempt})~=~pq^2~=~0.2(0.8)^{2}~=~0.128\]</span>
+<span class="math display">\[P(\text{first success on fourth attempt})~=~pq^3~=~0.2(0.8)^{3}~=~0.1024\]</span>
+<span class="math display">\[P(\text{first success on fifth attempt})~=~pq^4~=~0.2(0.8)^{4}~=~0.08192\]</span>
+<span class="math display">\[P(\text{first success on sixth attempt})~=~pq^5~=~0.2(0.8)^{5}~=~0.065536\]</span></p>
+<p>Each of the probabilities shown above corresponds to a <a href="https://en.wikipedia.org/wiki/Mutual_exclusivity">mutually exclusive</a> event. For example, if the first success was on the third attempt, then the first success was <strong>not</strong> on the fourth attempt.</p>
+<p>We need to find the <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">cumulative probability</a>. Because of mutual exclusivity, we can simply add the probabilities shown above.</p>
+<p><span class="math display">\[P(\text{first success in fewer than 7 attempts})~=~0.2(0.8)^{0}+0.2(0.8)^{1}+0.2(0.8)^{2}+0.2(0.8)^{3}+0.2(0.8)^{4}+0.2(0.8)^{5}\]</span></p>
+<p>Notice this is a geometric series. The first term is <span class="math inline">\(a=0.2\)</span>. The common ratio is <span class="math inline">\(r=0.8\)</span>. The number of terms is <span class="math inline">\(n=6\)</span>. We wish to find the sum (<span class="math inline">\(s\)</span>) of the series. The following steps are meant to remind you of the steps in the proof of the partial geometric series formula, but shown with specific numbers.</p>
+<p><span class="math display">\[s~=~0.2(0.8)^{0}+0.2(0.8)^{1}+0.2(0.8)^{2}+0.2(0.8)^{3}+0.2(0.8)^{4}+0.2(0.8)^{5}\]</span></p>
+<p>Multiply both sides by the common ratio.</p>
+<p><span class="math display">\[0.8s~=~0.2(0.8)^{1}+0.2(0.8)^{2}+0.2(0.8)^{3}+0.2(0.8)^{4}+0.2(0.8)^{5}+0.2(0.8)^{6}\]</span></p>
+<p>Subtract the equations.</p>
+<p><span class="math display">\[s-0.8s~=~0.2-0.2(0.8)^{6}\]</span></p>
+<p>Solve for the sum by factoring and dividing.</p>
+<p><span class="math display">\[s~=~\frac{0.2-0.2(0.8)^{6}}{1-0.8}\]</span>
+<span class="math display">\[s~=~0.737856\]</span></p>
+<p>You could generalize your results to give a formula for the cumulative geometric distribution.</p>
+<p><span class="math display">\[P(\text{first success before }n+1\text{ attempts})~=~\sum_{i=0}^{n-1}pq^i ~=~ \frac{p-pq^n}{1-q}\]</span></p>
+<p>I should note that you could greatly simplify the formula because we know that <span class="math inline">\(p+q=1\)</span>, but my primary goal is to make a connection to the partial geometric series formula.</p>
+<p><span class="math display">\[s~=~\frac{a-ar^n}{1-r}\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

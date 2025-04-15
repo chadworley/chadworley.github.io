@@ -1,0 +1,68 @@
+```{r,echo=FALSE}
+options(scipen=99)
+while(T){
+    p = round(runif(1,0.05,0.95),2)
+    n = sample(5:10,1)
+    library(english)
+    q = round(1-p,2)
+    Ps = q^(0:(n-1))*p
+    if(sum(Ps)>0.01 && sum(Ps)<0.98){break}
+}
+
+```
+
+Question
+========
+
+A [geometric distribution](https://en.wikipedia.org/wiki/Geometric_distribution) describes the probability of getting a certain number of failures in a row before succeeding when repeatedly attempting a trial with fixed chance of success.
+
+Imagine a trial that has, for each attempt, a $`r p*100`\%$ chance of success and a $`r (1-p)*100`\%$ chance of failure. (On each trial you either succeed or fail.) You will repeatedly attempt until you succeed.
+
+What is the probability of your first success occurring **before** your `r ordinal(n+1)` attempt?
+
+Solution
+========
+
+We (hopefully) already learned how to calculate the [probability mass function](https://en.wikipedia.org/wiki/Probability_mass_function) of the geometric distribution. We can use $p=`r p`$ and $q=`r q`$ to represent the simple probabilities of each attempt.
+
+`r paste0("$$P(\\text{first success on ",ordinal(1:n)," attempt})~=~pq^",(0:(n-1)),"~=~",p,"(",q,")^{",(0:(n-1)),"}~=~",Ps,"$$",collapse="\n")`
+
+Each of the probabilities shown above corresponds to a [mutually exclusive](https://en.wikipedia.org/wiki/Mutual_exclusivity) event. For example, if the first success was on the third attempt, then the first success was **not** on the fourth attempt.
+
+We need to find the [cumulative probability](https://en.wikipedia.org/wiki/Cumulative_distribution_function). Because of mutual exclusivity, we can simply add the probabilities shown above.
+
+$$P(\text{first success in fewer than `r n+1` attempts})~=~`r paste0(p,"(",q,")^{",0:(n-1),"}",collapse="+")`$$
+
+Notice this is a geometric series. The first term is $a=`r p`$. The common ratio is $r=`r q`$. The number of terms is $n=`r n`$. We wish to find the sum ($s$) of the series. The following steps are meant to remind you of the steps in the proof of the partial geometric series formula, but shown with specific numbers.
+
+$$s~=~`r paste0(p,"(",q,")^{",0:(n-1),"}",collapse="+")`$$
+
+Multiply both sides by the common ratio.
+
+$$`r q`s~=~`r paste0(p,"(",q,")^{",1:n,"}",collapse="+")`$$
+
+Subtract the equations.
+
+$$s-`r q`s~=~`r p`-`r p`(`r q`)^{`r n`}$$
+
+Solve for the sum by factoring and dividing.
+
+$$s~=~\frac{`r p`-`r p`(`r q`)^{`r n`}}{1-`r q`}$$
+$$s~=~`r (p-p*q^n)/(1-q)`$$
+
+You could generalize your results to give a formula for the cumulative geometric distribution.
+
+$$P(\text{first success before }n+1\text{ attempts})~=~\sum_{i=0}^{n-1}pq^i ~=~ \frac{p-pq^n}{1-q}$$
+
+I should note that you could greatly simplify the formula because we know that $p+q=1$, but my primary goal is to make a connection to the partial geometric series formula.
+
+$$s~=~\frac{a-ar^n}{1-r}$$
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r sum(Ps)`
+exname: geom_dist_cumulative

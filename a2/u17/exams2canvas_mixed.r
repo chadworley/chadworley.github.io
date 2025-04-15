@@ -3,9 +3,12 @@ n = 30
 outdir = "outcanvas"
 genname = "s17_"
 
-probs = c("24_geo_subtract_equations.Rmd")
+probs = c("25_size_small_m-ary_tree.Rmd",
+          "26_size_large_m-ary_tree.Rmd",
+          "27_geom_dist.Rmd",
+          "28_geom_dist_cumulative.Rmd")
 
-pnts = rep(2,length(probs))
+pnts = rep(3,length(probs))
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
@@ -20,19 +23,18 @@ for(i in 1:length(probs)){
                cloze = list(enumerate = FALSE))
 }
 
-
+##############################################################
+# genname = "s17_annuity_"
 # 
 # pm = list(
-#     "22_mortgage.Rmd",
-#     "22_mortgage.Rmd",
-#     "22_mortgage.Rmd",
-#     "22_mortgage.Rmd"
+#     "23_life_annuity.Rmd",
+#     "23_life_annuity.Rmd"
 # )
 # 
 # exams2canvas(pm,
 #              n=n,
 #              dir=outdir,
-#              points=rep(1,length(pm)),
+#              points=rep(2,length(pm)),
 #              maxattempts = 6,
 #              name=paste0(genname,"_mastery"),
 #              template = "canvas_qti12.xml",

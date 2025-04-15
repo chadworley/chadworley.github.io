@@ -1,0 +1,48 @@
+```{r,echo=FALSE}
+options(scipen=99)
+while(T){
+    p = round(runif(1,0.05,0.4),2)
+    n = sample(5:10,1)
+    library(english)
+    q = round(1-p,2)
+    P = q^(n-1)*p
+    if(P>0.01){break}
+}
+
+```
+
+Question
+========
+
+A [geometric distribution](https://en.wikipedia.org/wiki/Geometric_distribution) describes the probability of getting a certain number of failures in a row before succeeding when repeatedly attempting a trial with fixed chance of success.
+
+Imagine a trial that has, for each attempt, a $`r p*100`\%$ chance of success and a $`r (1-p)*100`\%$ chance of failure. (On each trial you either succeed or fail.) You will repeatedly attempt until you succeed.
+
+What is the probability of your first success occurring on your `r ordinal(n)` attempt?
+
+
+Solution
+========
+
+
+In order for your first success to come on the `r ordinal(n)` attempt, you need to fail `r n-1` times and then succeed.
+
+So, you need to `r paste0("fail on the ",ordinal(1:(n-1))," attempt, ",collapse="")` and then **succeed** on the `r ordinal(n)` attempt.
+
+Each attempt is [independent](https://en.wikipedia.org/wiki/Independence_(probability_theory)). This means the compound event's probability is the [product](https://en.wikipedia.org/wiki/Product_(mathematics)) of the basic events' probabilities.
+
+`r paste0("$$P(\\text{fail ",ordinal(1:(n-1))," trial})~=~",q,"$$",collapse="\n")`
+$$P(\text{succeed `r ordinal(n)` attempt})~=~`r p`$$
+
+$$P(\text{fail on first `r n-1` attempts and succeed on `r ordinal(n)` attempt})~=~(`r q`)^{`r n-1`}(`r p`)^1$$
+
+$$P(\text{fail on first `r n-1` attempts and succeed on `r ordinal(n)` attempt})~=~`r P`$$
+
+So the probability of having the first success be on the `r ordinal(n)` attempt is `r P*100`%, which is `r P` as a decimal probability.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r P`
+exname: geom_dist

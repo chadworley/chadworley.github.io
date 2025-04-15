@@ -1,0 +1,45 @@
+```{r,echo=FALSE}
+options(scipen=99)
+poss = list()
+while(T){
+    a = sample(2:5,1)
+    b = round(2^runif(1,1,5))
+    n = sample(5:10,1)
+    S = a*(1-b^n)/(1-b)
+    if(S>1000 && S<10^10 && length(unique(c(a,b,n,n-1)))==4){break}
+}
+
+A = a*b^(0:(n-1))
+S2 = sum(A)
+```
+
+Question
+========
+
+In a [forest diagram](https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology), there are `r a` [complete m-ary](https://en.wikipedia.org/wiki/M-ary_tree) trees. Each tree has a [branching factor](https://en.wikipedia.org/wiki/Branching_factor) of `r b` and a maximum [depth](https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology) of `r n-1`.
+
+How many nodes are in the forest diagram? In other words, what is the [size](https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology) of the forest?
+
+
+Solution
+========
+
+We can recognize that the number of nodes can be represented with a [geometric series](https://en.wikipedia.org/wiki/Geometric_series).
+
+$$S~=~`r paste0(a,"(",b,")^",0:(n-1),collapse="+")`$$
+
+The first term is $a=`r a`$. The common ratio is $r=`r b`$. The number of terms is $n=`r n`$. We can use the [partial geometric series formula](https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf).
+
+$$S~=~\frac{a(1-r^n)}{1-r}$$
+
+
+$$S~=~\frac{`r a`\left(1-`r b`^{`r n`}\right)}{1-`r b`}$$
+
+$$S~=~`r S`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r S`
+exname: size_large_m-ary_tree

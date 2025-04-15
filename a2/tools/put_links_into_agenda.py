@@ -5,7 +5,10 @@ import os
 
 
 front = "s17_"
-files = ["23_life_annuity.Rmd","24_geo_subtract_equations.Rmd"]
+files = ["25_size_small_m-ary_tree.Rmd",
+"26_size_large_m-ary_tree.Rmd",
+"27_geom_dist.Rmd",
+"28_geom_dist_cumulative.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

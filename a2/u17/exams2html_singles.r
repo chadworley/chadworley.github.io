@@ -1,6 +1,9 @@
 library("exams")
 
-pppsss = c("24_geo_subtract_equations.Rmd")
+pppsss = c("25_size_small_m-ary_tree.Rmd",
+           "26_size_large_m-ary_tree.Rmd",
+           "27_geom_dist.Rmd",
+           "28_geom_dist_cumulative.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

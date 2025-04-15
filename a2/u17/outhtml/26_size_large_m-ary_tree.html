@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>26_size_large_m-ary_tree</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">26_size_large_m-ary_tree</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">forest diagram</a>, there are 4 <a href="https://en.wikipedia.org/wiki/M-ary_tree">complete m-ary</a> trees. Each tree has a <a href="https://en.wikipedia.org/wiki/Branching_factor">branching factor</a> of 11 and a maximum <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">depth</a> of 8.</p>
+<p>How many nodes are in the forest diagram? In other words, what is the <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">size</a> of the forest?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can recognize that the number of nodes can be represented with a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</p>
+<p><span class="math display">\[S~=~4(11)^0+4(11)^1+4(11)^2+4(11)^3+4(11)^4+4(11)^5+4(11)^6+4(11)^7+4(11)^8\]</span></p>
+<p>The first term is <span class="math inline">\(a=4\)</span>. The common ratio is <span class="math inline">\(r=11\)</span>. The number of terms is <span class="math inline">\(n=9\)</span>. We can use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">partial geometric series formula</a>.</p>
+<p><span class="math display">\[S~=~\frac{a(1-r^n)}{1-r}\]</span></p>
+<p><span class="math display">\[S~=~\frac{4\left(1-11^{9}\right)}{1-11}\]</span></p>
+<p><span class="math display">\[S~=~943179076\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">forest diagram</a>, there are 2 <a href="https://en.wikipedia.org/wiki/M-ary_tree">complete m-ary</a> trees. Each tree has a <a href="https://en.wikipedia.org/wiki/Branching_factor">branching factor</a> of 9 and a maximum <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">depth</a> of 5.</p>
+<p>How many nodes are in the forest diagram? In other words, what is the <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">size</a> of the forest?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can recognize that the number of nodes can be represented with a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</p>
+<p><span class="math display">\[S~=~2(9)^0+2(9)^1+2(9)^2+2(9)^3+2(9)^4+2(9)^5\]</span></p>
+<p>The first term is <span class="math inline">\(a=2\)</span>. The common ratio is <span class="math inline">\(r=9\)</span>. The number of terms is <span class="math inline">\(n=6\)</span>. We can use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">partial geometric series formula</a>.</p>
+<p><span class="math display">\[S~=~\frac{a(1-r^n)}{1-r}\]</span></p>
+<p><span class="math display">\[S~=~\frac{2\left(1-9^{6}\right)}{1-9}\]</span></p>
+<p><span class="math display">\[S~=~132860\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">forest diagram</a>, there are 3 <a href="https://en.wikipedia.org/wiki/M-ary_tree">complete m-ary</a> trees. Each tree has a <a href="https://en.wikipedia.org/wiki/Branching_factor">branching factor</a> of 9 and a maximum <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">depth</a> of 6.</p>
+<p>How many nodes are in the forest diagram? In other words, what is the <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">size</a> of the forest?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can recognize that the number of nodes can be represented with a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</p>
+<p><span class="math display">\[S~=~3(9)^0+3(9)^1+3(9)^2+3(9)^3+3(9)^4+3(9)^5+3(9)^6\]</span></p>
+<p>The first term is <span class="math inline">\(a=3\)</span>. The common ratio is <span class="math inline">\(r=9\)</span>. The number of terms is <span class="math inline">\(n=7\)</span>. We can use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">partial geometric series formula</a>.</p>
+<p><span class="math display">\[S~=~\frac{a(1-r^n)}{1-r}\]</span></p>
+<p><span class="math display">\[S~=~\frac{3\left(1-9^{7}\right)}{1-9}\]</span></p>
+<p><span class="math display">\[S~=~1793613\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">forest diagram</a>, there are 4 <a href="https://en.wikipedia.org/wiki/M-ary_tree">complete m-ary</a> trees. Each tree has a <a href="https://en.wikipedia.org/wiki/Branching_factor">branching factor</a> of 3 and a maximum <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">depth</a> of 9.</p>
+<p>How many nodes are in the forest diagram? In other words, what is the <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">size</a> of the forest?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can recognize that the number of nodes can be represented with a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</p>
+<p><span class="math display">\[S~=~4(3)^0+4(3)^1+4(3)^2+4(3)^3+4(3)^4+4(3)^5+4(3)^6+4(3)^7+4(3)^8+4(3)^9\]</span></p>
+<p>The first term is <span class="math inline">\(a=4\)</span>. The common ratio is <span class="math inline">\(r=3\)</span>. The number of terms is <span class="math inline">\(n=10\)</span>. We can use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">partial geometric series formula</a>.</p>
+<p><span class="math display">\[S~=~\frac{a(1-r^n)}{1-r}\]</span></p>
+<p><span class="math display">\[S~=~\frac{4\left(1-3^{10}\right)}{1-3}\]</span></p>
+<p><span class="math display">\[S~=~118096\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">forest diagram</a>, there are 4 <a href="https://en.wikipedia.org/wiki/M-ary_tree">complete m-ary</a> trees. Each tree has a <a href="https://en.wikipedia.org/wiki/Branching_factor">branching factor</a> of 12 and a maximum <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">depth</a> of 6.</p>
+<p>How many nodes are in the forest diagram? In other words, what is the <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">size</a> of the forest?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can recognize that the number of nodes can be represented with a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</p>
+<p><span class="math display">\[S~=~4(12)^0+4(12)^1+4(12)^2+4(12)^3+4(12)^4+4(12)^5+4(12)^6\]</span></p>
+<p>The first term is <span class="math inline">\(a=4\)</span>. The common ratio is <span class="math inline">\(r=12\)</span>. The number of terms is <span class="math inline">\(n=7\)</span>. We can use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">partial geometric series formula</a>.</p>
+<p><span class="math display">\[S~=~\frac{a(1-r^n)}{1-r}\]</span></p>
+<p><span class="math display">\[S~=~\frac{4\left(1-12^{7}\right)}{1-12}\]</span></p>
+<p><span class="math display">\[S~=~13029748\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">forest diagram</a>, there are 2 <a href="https://en.wikipedia.org/wiki/M-ary_tree">complete m-ary</a> trees. Each tree has a <a href="https://en.wikipedia.org/wiki/Branching_factor">branching factor</a> of 13 and a maximum <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">depth</a> of 4.</p>
+<p>How many nodes are in the forest diagram? In other words, what is the <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">size</a> of the forest?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can recognize that the number of nodes can be represented with a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</p>
+<p><span class="math display">\[S~=~2(13)^0+2(13)^1+2(13)^2+2(13)^3+2(13)^4\]</span></p>
+<p>The first term is <span class="math inline">\(a=2\)</span>. The common ratio is <span class="math inline">\(r=13\)</span>. The number of terms is <span class="math inline">\(n=5\)</span>. We can use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">partial geometric series formula</a>.</p>
+<p><span class="math display">\[S~=~\frac{a(1-r^n)}{1-r}\]</span></p>
+<p><span class="math display">\[S~=~\frac{2\left(1-13^{5}\right)}{1-13}\]</span></p>
+<p><span class="math display">\[S~=~61882\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">forest diagram</a>, there are 4 <a href="https://en.wikipedia.org/wiki/M-ary_tree">complete m-ary</a> trees. Each tree has a <a href="https://en.wikipedia.org/wiki/Branching_factor">branching factor</a> of 5 and a maximum <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">depth</a> of 7.</p>
+<p>How many nodes are in the forest diagram? In other words, what is the <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">size</a> of the forest?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can recognize that the number of nodes can be represented with a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</p>
+<p><span class="math display">\[S~=~4(5)^0+4(5)^1+4(5)^2+4(5)^3+4(5)^4+4(5)^5+4(5)^6+4(5)^7\]</span></p>
+<p>The first term is <span class="math inline">\(a=4\)</span>. The common ratio is <span class="math inline">\(r=5\)</span>. The number of terms is <span class="math inline">\(n=8\)</span>. We can use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">partial geometric series formula</a>.</p>
+<p><span class="math display">\[S~=~\frac{a(1-r^n)}{1-r}\]</span></p>
+<p><span class="math display">\[S~=~\frac{4\left(1-5^{8}\right)}{1-5}\]</span></p>
+<p><span class="math display">\[S~=~390624\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In a <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">forest diagram</a>, there are 3 <a href="https://en.wikipedia.org/wiki/M-ary_tree">complete m-ary</a> trees. Each tree has a <a href="https://en.wikipedia.org/wiki/Branching_factor">branching factor</a> of 6 and a maximum <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">depth</a> of 9.</p>
+<p>How many nodes are in the forest diagram? In other words, what is the <a href="https://en.wikipedia.org/wiki/Tree_(abstract_data_type)#Terminology">size</a> of the forest?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We can recognize that the number of nodes can be represented with a <a href="https://en.wikipedia.org/wiki/Geometric_series">geometric series</a>.</p>
+<p><span class="math display">\[S~=~3(6)^0+3(6)^1+3(6)^2+3(6)^3+3(6)^4+3(6)^5+3(6)^6+3(6)^7+3(6)^8+3(6)^9\]</span></p>
+<p>The first term is <span class="math inline">\(a=3\)</span>. The common ratio is <span class="math inline">\(r=6\)</span>. The number of terms is <span class="math inline">\(n=10\)</span>. We can use the <a href="https://chadworley.github.io/a2/u17/slides_sum_geometric/sum_geometric.pdf">partial geometric series formula</a>.</p>
+<p><span class="math display">\[S~=~\frac{a(1-r^n)}{1-r}\]</span></p>
+<p><span class="math display">\[S~=~\frac{3\left(1-6^{10}\right)}{1-6}\]</span></p>
+<p><span class="math display">\[S~=~36279705\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
