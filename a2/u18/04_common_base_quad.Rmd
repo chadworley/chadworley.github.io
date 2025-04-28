@@ -1,0 +1,90 @@
+```{r data generation, echo = FALSE, results = "hide"}
+rs = sort(sample(1:11,2)*sample(c(-1,1),2,T))
+a = 1
+b = sum(rs)
+c = prod(rs)
+s = sample(2:9,1)
+if(b>0 && c>0){
+    ex1 = paste0("$",s,"^{x^2}\\cdot",s,"^{",b,"x}\\cdot",s,"^{",c,"}~=~1$")
+}
+if(b<0 && c>0){
+    ex1 = paste0("$\\frac{",s,"^{x^2}\\cdot",s,"^{",c,"}}{",s,"^{",-b,"x}}~=~1$")
+}
+if(b>0 && c<0){
+    ex1 = paste0("$\\frac{",s,"^{x^2}\\cdot",s,"^{",b,"x}}{",s,"^{",-c,"}}~=~1$")
+}
+if(b<0 && c<0){
+    ex1 = paste0("$\\frac{",s,"^{x^2}}{",s,"^{",-b,"x}\\cdot",s,"^{",-c,"}}~=~1$")
+}
+ex1 = gsub("^{1}","",ex1,fixed=T)
+ex1 = gsub("^{1x}","^{x}",ex1,fixed=T)
+ex2 = paste0("$",s,"^{x^2+",b,"x+",c,"}=1$",collapse="")
+ex2 = gsub("+-","-",ex2,fixed=T)
+ex2 = gsub("+1x","+x",ex2,fixed=T)
+ex2 = gsub("-1x","-x",ex2,fixed=T)
+ex3 = paste0("$",s,"^{x^2+",b,"x+",c,"}=",s,"^0$",collapse="")
+ex3 = gsub("+-","-",ex3,fixed=T)
+ex3 = gsub("+1x","+x",ex3,fixed=T)
+ex3 = gsub("-1x","-x",ex3,fixed=T)
+ex4 = paste0("$x^2+",b,"x+",c,"=0$",collapse="")
+ex4 = gsub("+-","-",ex4,fixed=T)
+ex4 = gsub("+1x","+x",ex4,fixed=T)
+ex4 = gsub("-1x","-x",ex4,fixed=T)
+ex5 = paste0("$(x+",rs[1],")(x+",rs[2],")=0$",collapse="")
+ex5 = gsub("+-","-",ex5,fixed=T)
+ex5 = gsub("+1x","+x",ex5,fixed=T)
+ex5 = gsub("-1x","-x",ex5,fixed=T)
+
+poss = -12:12
+al = paste0("* ",poss,collapse="\n")
+sol = paste0(1*(poss %in% -rs),collapse="")
+
+```
+
+Question
+========
+
+Find all solutions to the equation:
+
+$`r ex1`$
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+On the left side of the equation, there are two [useful rules](https://chadworley.github.io/a2/u18/Exponent_rules.html) to get a single base.
+
+$$b^m \cdot b^n ~\equiv~b^{m+n}$$
+$$\frac{b^m}{b^n} ~\equiv~b^{m-n}$$
+
+Use those rules as needed to simplify the left side of the equation.
+
+$`r ex2`$
+
+Now, also, use the rule $b^0\equiv 1$ to get a common base on the right side.
+
+$`r ex3`$
+
+Use the rule that if $b^a = b^c$ then $a=c$ to claim the exponents are equal.
+
+$`r ex4`$
+
+You can use the quadratic formula. However, this quadratic polynomial **factors** easily. Remember, you are looking for two numbers with a sum of `r b` and a product of `r c`. Those two number are `r min(rs)` and `r max(rs)`.
+
+$`r ex5`$
+
+Use the zero-product property to find the solutions.
+
+$$x=`r -rs[1]`~~~~\text{or}~~~~x=`r -rs[2]`$$
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: common_base_quad

@@ -1,0 +1,92 @@
+```{r data generation, echo = FALSE, results = "hide"}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+## (px+s)(qx+t) = pq x^2  +  (pt+qs) x  +  st
+while(T){
+    psqt = sample(2:10,4)
+    p = psqt[1]*sample(c(-1,1),1)
+    s = psqt[2]*sample(c(-1,1),1)
+    q = psqt[3]*sample(c(-1,1),1)
+    t = psqt[4]*sample(c(-1,1),1)
+    switchem = sample(c(-1,1),1)
+    a = p*q
+    b = (p*t+q*s)
+    c = s*t
+    if(abs(gcd2(p,s))==1 && abs(gcd2(q,t))==1 && abs(b)>1 && length(unique(sign(c(a,b,c))))==2){break}
+}
+B = sample(2:9,1)
+cf = c(a,b,c)
+istop = cf>0
+isbot = cf<0
+exps = c(paste0(a,"x^2",collapse=""),paste0(b,"x",collapse=""),paste0(c,collapse=""))
+aexps = c(paste0(abs(a),"x^2",collapse=""),paste0(abs(b),"x",collapse=""),paste0(abs(c),collapse=""))
+
+tops = paste0(B,"^{",exps[istop],"}",collapse="\\cdot ")
+bots = paste0(B,"^{",aexps[isbot],"}",collapse="\\cdot ")
+frac1 = paste0("\\frac{",tops,"}{",bots,"}")
+stan = paste0(exps,collapse="+")
+stan = gsub("+-","-",stan,fixed=T)
+
+i = 0
+alnums = list()
+al = character()
+for(denom in 2:10){
+    for(numer in c(-10:-2,2:10)){
+        if(!(list(c(numer,denom)) %in% alnums) && abs(gcd2(denom,numer))==1){
+            i = i+1
+            alnums[[i]] = c(numer,denom)
+            al = c(al,paste0(numer,"/",denom,collapse=""))
+        }
+    } 
+}
+al = paste0("* ",al,collapse="\n")
+
+```
+
+Question
+========
+
+Find all solutions to the equation:
+$$`r frac1`~=~ 1$$
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+Use the rules of exponents to rewrite the equation.
+
+$$`r B`^{`r stan`}~=~`r B`^{0}$$
+
+Each side has a single exponential expression with a common base, so the exponents are equivalent.
+
+$$`r stan`~=~0$$
+
+```{r,echo=F,results='asis'}
+if(a<0){
+    cat("The leading coefficient is negative. Multiply both sides by $=-1$ to get a positive quadratic coefficient.\n\n")
+    a = -a
+    b = -b
+    c = -c
+    exps = c(paste0(a,"x^2",collapse=""),paste0(b,"x",collapse=""),paste0(c,collapse=""))
+    stan = paste0(exps,collapse="+")
+    stan = gsub("+-","-",stan,fixed=T)
+    cat(paste0("$$",stan,"=0$$"))
+}
+```
+
+
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: 
+exname: common_base_quad

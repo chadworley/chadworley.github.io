@@ -1,0 +1,882 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>04_common_base_quad</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">04_common_base_quad</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:</p>
+<p><span class="math display">\[\frac{2^{x^2}\cdot2^{18}}{2^{11x}}~=~1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>On the left side of the equation, there are two <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">useful rules</a> to get a single base.</p>
+<p><span class="math display">\[b^m \cdot b^n ~\equiv~b^{m+n}\]</span>
+<span class="math display">\[\frac{b^m}{b^n} ~\equiv~b^{m-n}\]</span></p>
+<p>Use those rules as needed to simplify the left side of the equation.</p>
+<p><span class="math display">\[2^{x^2-11x+18}=1\]</span></p>
+<p>Now, also, use the rule <span class="math inline">\(b^0\equiv 1\)</span> to get a common base on the right side.</p>
+<p><span class="math display">\[2^{x^2-11x+18}=2^0\]</span></p>
+<p>Use the rule that if <span class="math inline">\(b^a = b^c\)</span> then <span class="math inline">\(a=c\)</span> to claim the exponents are equal.</p>
+<p><span class="math display">\[x^2-11x+18=0\]</span></p>
+<p>You can use the quadratic formula. However, this quadratic polynomial <strong>factors</strong> easily. Remember, you are looking for two numbers with a sum of -11 and a product of 18. Those two number are -9 and -2.</p>
+<p><span class="math display">\[(x-9)(x-2)=0\]</span></p>
+<p>Use the zero-product property to find the solutions.</p>
+<p><span class="math display">\[x=9~~~~\text{or}~~~~x=2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:</p>
+<p><span class="math display">\[\frac{6^{x^2}\cdot6^{18}}{6^{11x}}~=~1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>On the left side of the equation, there are two <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">useful rules</a> to get a single base.</p>
+<p><span class="math display">\[b^m \cdot b^n ~\equiv~b^{m+n}\]</span>
+<span class="math display">\[\frac{b^m}{b^n} ~\equiv~b^{m-n}\]</span></p>
+<p>Use those rules as needed to simplify the left side of the equation.</p>
+<p><span class="math display">\[6^{x^2-11x+18}=1\]</span></p>
+<p>Now, also, use the rule <span class="math inline">\(b^0\equiv 1\)</span> to get a common base on the right side.</p>
+<p><span class="math display">\[6^{x^2-11x+18}=6^0\]</span></p>
+<p>Use the rule that if <span class="math inline">\(b^a = b^c\)</span> then <span class="math inline">\(a=c\)</span> to claim the exponents are equal.</p>
+<p><span class="math display">\[x^2-11x+18=0\]</span></p>
+<p>You can use the quadratic formula. However, this quadratic polynomial <strong>factors</strong> easily. Remember, you are looking for two numbers with a sum of -11 and a product of 18. Those two number are -9 and -2.</p>
+<p><span class="math display">\[(x-9)(x-2)=0\]</span></p>
+<p>Use the zero-product property to find the solutions.</p>
+<p><span class="math display">\[x=9~~~~\text{or}~~~~x=2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:</p>
+<p><span class="math display">\[\frac{5^{x^2}}{5^{4x}\cdot5^{5}}~=~1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>On the left side of the equation, there are two <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">useful rules</a> to get a single base.</p>
+<p><span class="math display">\[b^m \cdot b^n ~\equiv~b^{m+n}\]</span>
+<span class="math display">\[\frac{b^m}{b^n} ~\equiv~b^{m-n}\]</span></p>
+<p>Use those rules as needed to simplify the left side of the equation.</p>
+<p><span class="math display">\[5^{x^2-4x-5}=1\]</span></p>
+<p>Now, also, use the rule <span class="math inline">\(b^0\equiv 1\)</span> to get a common base on the right side.</p>
+<p><span class="math display">\[5^{x^2-4x-5}=5^0\]</span></p>
+<p>Use the rule that if <span class="math inline">\(b^a = b^c\)</span> then <span class="math inline">\(a=c\)</span> to claim the exponents are equal.</p>
+<p><span class="math display">\[x^2-4x-5=0\]</span></p>
+<p>You can use the quadratic formula. However, this quadratic polynomial <strong>factors</strong> easily. Remember, you are looking for two numbers with a sum of -4 and a product of -5. Those two number are -5 and 1.</p>
+<p><span class="math display">\[(x-5)(x+1)=0\]</span></p>
+<p>Use the zero-product property to find the solutions.</p>
+<p><span class="math display">\[x=5~~~~\text{or}~~~~x=-1\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:</p>
+<p><span class="math display">\[\frac{2^{x^2}\cdot2^{14}}{2^{9x}}~=~1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>On the left side of the equation, there are two <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">useful rules</a> to get a single base.</p>
+<p><span class="math display">\[b^m \cdot b^n ~\equiv~b^{m+n}\]</span>
+<span class="math display">\[\frac{b^m}{b^n} ~\equiv~b^{m-n}\]</span></p>
+<p>Use those rules as needed to simplify the left side of the equation.</p>
+<p><span class="math display">\[2^{x^2-9x+14}=1\]</span></p>
+<p>Now, also, use the rule <span class="math inline">\(b^0\equiv 1\)</span> to get a common base on the right side.</p>
+<p><span class="math display">\[2^{x^2-9x+14}=2^0\]</span></p>
+<p>Use the rule that if <span class="math inline">\(b^a = b^c\)</span> then <span class="math inline">\(a=c\)</span> to claim the exponents are equal.</p>
+<p><span class="math display">\[x^2-9x+14=0\]</span></p>
+<p>You can use the quadratic formula. However, this quadratic polynomial <strong>factors</strong> easily. Remember, you are looking for two numbers with a sum of -9 and a product of 14. Those two number are -7 and -2.</p>
+<p><span class="math display">\[(x-7)(x-2)=0\]</span></p>
+<p>Use the zero-product property to find the solutions.</p>
+<p><span class="math display">\[x=7~~~~\text{or}~~~~x=2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:</p>
+<p><span class="math display">\[\frac{8^{x^2}\cdot8^{60}}{8^{16x}}~=~1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>On the left side of the equation, there are two <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">useful rules</a> to get a single base.</p>
+<p><span class="math display">\[b^m \cdot b^n ~\equiv~b^{m+n}\]</span>
+<span class="math display">\[\frac{b^m}{b^n} ~\equiv~b^{m-n}\]</span></p>
+<p>Use those rules as needed to simplify the left side of the equation.</p>
+<p><span class="math display">\[8^{x^2-16x+60}=1\]</span></p>
+<p>Now, also, use the rule <span class="math inline">\(b^0\equiv 1\)</span> to get a common base on the right side.</p>
+<p><span class="math display">\[8^{x^2-16x+60}=8^0\]</span></p>
+<p>Use the rule that if <span class="math inline">\(b^a = b^c\)</span> then <span class="math inline">\(a=c\)</span> to claim the exponents are equal.</p>
+<p><span class="math display">\[x^2-16x+60=0\]</span></p>
+<p>You can use the quadratic formula. However, this quadratic polynomial <strong>factors</strong> easily. Remember, you are looking for two numbers with a sum of -16 and a product of 60. Those two number are -10 and -6.</p>
+<p><span class="math display">\[(x-10)(x-6)=0\]</span></p>
+<p>Use the zero-product property to find the solutions.</p>
+<p><span class="math display">\[x=10~~~~\text{or}~~~~x=6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:</p>
+<p><span class="math display">\[2^{x^2}\cdot2^{13x}\cdot2^{30}~=~1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>On the left side of the equation, there are two <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">useful rules</a> to get a single base.</p>
+<p><span class="math display">\[b^m \cdot b^n ~\equiv~b^{m+n}\]</span>
+<span class="math display">\[\frac{b^m}{b^n} ~\equiv~b^{m-n}\]</span></p>
+<p>Use those rules as needed to simplify the left side of the equation.</p>
+<p><span class="math display">\[2^{x^2+13x+30}=1\]</span></p>
+<p>Now, also, use the rule <span class="math inline">\(b^0\equiv 1\)</span> to get a common base on the right side.</p>
+<p><span class="math display">\[2^{x^2+13x+30}=2^0\]</span></p>
+<p>Use the rule that if <span class="math inline">\(b^a = b^c\)</span> then <span class="math inline">\(a=c\)</span> to claim the exponents are equal.</p>
+<p><span class="math display">\[x^2+13x+30=0\]</span></p>
+<p>You can use the quadratic formula. However, this quadratic polynomial <strong>factors</strong> easily. Remember, you are looking for two numbers with a sum of 13 and a product of 30. Those two number are 3 and 10.</p>
+<p><span class="math display">\[(x+3)(x+10)=0\]</span></p>
+<p>Use the zero-product property to find the solutions.</p>
+<p><span class="math display">\[x=-3~~~~\text{or}~~~~x=-10\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:</p>
+<p><span class="math display">\[3^{x^2}\cdot3^{12x}\cdot3^{32}~=~1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>On the left side of the equation, there are two <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">useful rules</a> to get a single base.</p>
+<p><span class="math display">\[b^m \cdot b^n ~\equiv~b^{m+n}\]</span>
+<span class="math display">\[\frac{b^m}{b^n} ~\equiv~b^{m-n}\]</span></p>
+<p>Use those rules as needed to simplify the left side of the equation.</p>
+<p><span class="math display">\[3^{x^2+12x+32}=1\]</span></p>
+<p>Now, also, use the rule <span class="math inline">\(b^0\equiv 1\)</span> to get a common base on the right side.</p>
+<p><span class="math display">\[3^{x^2+12x+32}=3^0\]</span></p>
+<p>Use the rule that if <span class="math inline">\(b^a = b^c\)</span> then <span class="math inline">\(a=c\)</span> to claim the exponents are equal.</p>
+<p><span class="math display">\[x^2+12x+32=0\]</span></p>
+<p>You can use the quadratic formula. However, this quadratic polynomial <strong>factors</strong> easily. Remember, you are looking for two numbers with a sum of 12 and a product of 32. Those two number are 4 and 8.</p>
+<p><span class="math display">\[(x+4)(x+8)=0\]</span></p>
+<p>Use the zero-product property to find the solutions.</p>
+<p><span class="math display">\[x=-4~~~~\text{or}~~~~x=-8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:</p>
+<p><span class="math display">\[\frac{8^{x^2}\cdot8^{x}}{8^{56}}~=~1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>On the left side of the equation, there are two <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">useful rules</a> to get a single base.</p>
+<p><span class="math display">\[b^m \cdot b^n ~\equiv~b^{m+n}\]</span>
+<span class="math display">\[\frac{b^m}{b^n} ~\equiv~b^{m-n}\]</span></p>
+<p>Use those rules as needed to simplify the left side of the equation.</p>
+<p><span class="math display">\[8^{x^2+x-56}=1\]</span></p>
+<p>Now, also, use the rule <span class="math inline">\(b^0\equiv 1\)</span> to get a common base on the right side.</p>
+<p><span class="math display">\[8^{x^2+x-56}=8^0\]</span></p>
+<p>Use the rule that if <span class="math inline">\(b^a = b^c\)</span> then <span class="math inline">\(a=c\)</span> to claim the exponents are equal.</p>
+<p><span class="math display">\[x^2+x-56=0\]</span></p>
+<p>You can use the quadratic formula. However, this quadratic polynomial <strong>factors</strong> easily. Remember, you are looking for two numbers with a sum of 1 and a product of -56. Those two number are -7 and 8.</p>
+<p><span class="math display">\[(x-7)(x+8)=0\]</span></p>
+<p>Use the zero-product property to find the solutions.</p>
+<p><span class="math display">\[x=7~~~~\text{or}~~~~x=-8\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

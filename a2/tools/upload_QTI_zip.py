@@ -7,13 +7,16 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s17_27_geom_dist.zip",
-"outcanvas/s17_28_geom_dist_cumulative.zip"]
+file_path_list = ["outcanvas/s18_01_common_base_solv_eq.zip",
+"outcanvas/s18_02_common_base_lin_mult.zip",
+"outcanvas/s18_03_common_base_lin_div.zip",
+"outcanvas/s18_04_common_base_quad.zip"
+]
 
 
 # FOR UPLOADING ETS
 # fpl = []
-# for i in range(130,140):
+# for i in range(140,150):
 #     fpl.append("ET_"+str(i)+".zip")
 # file_path_list = fpl
 

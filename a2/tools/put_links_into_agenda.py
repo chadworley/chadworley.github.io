@@ -4,13 +4,13 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "s17_"
-files = ["25_size_small_m-ary_tree.Rmd",
-"26_size_large_m-ary_tree.Rmd",
-"27_geom_dist.Rmd",
-"28_geom_dist_cumulative.Rmd"]
+front = "s18_"
+files = ["01_common_base_solv_eq.Rmd",
+"02_common_base_lin_mult.Rmd",
+"03_common_base_lin_div.Rmd",
+"04_common_base_quad.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u18/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:

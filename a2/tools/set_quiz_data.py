@@ -3,14 +3,17 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["27_geom_dist.Rmd","28_geom_dist_cumulative.Rmd"]
+files = ["01_common_base_solv_eq.Rmd",
+"02_common_base_lin_mult.Rmd",
+"03_common_base_lin_div.Rmd",
+"04_common_base_quad.Rmd"]
 
-avt = ["2025-04-15 7:00:00"]*len(files)
-dut = ["2025-04-15 22:59:00"]*len(files)
-front = "s17_"
+avt = ["2025-04-28 7:00:00"]*len(files)
+dut = ["2025-04-28 22:59:00"]*len(files)
+front = "s18_"
 
 
-practice_url_front = "https://chadworley.github.io/a2/u17/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u18/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 
