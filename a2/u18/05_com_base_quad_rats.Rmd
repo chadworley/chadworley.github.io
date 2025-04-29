@@ -10,7 +10,6 @@ while(T){
     s = psqt[2]*sample(c(-1,1),1)
     q = psqt[3]*sample(c(-1,1),1)
     t = psqt[4]*sample(c(-1,1),1)
-    switchem = sample(c(-1,1),1)
     a = p*q
     b = (p*t+q*s)
     c = s*t
@@ -31,17 +30,23 @@ stan = gsub("+-","-",stan,fixed=T)
 
 i = 0
 alnums = list()
+fracs = character()
 al = character()
 for(denom in 2:10){
     for(numer in c(-10:-2,2:10)){
         if(!(list(c(numer,denom)) %in% alnums) && abs(gcd2(denom,numer))==1){
             i = i+1
             alnums[[i]] = c(numer,denom)
+            fracs = c(fracs,paste0(numer,"/",denom,collapse=""))
             al = c(al,paste0(numer,"/",denom,collapse=""))
         }
     } 
 }
 al = paste0("* ",al,collapse="\n")
+ans1 = paste0(-s*sign(p),"/",abs(p),collapse="")
+ans2 = paste0(-t*sign(q),"/",abs(q),collapse="")
+ans = c(ans1,ans2)
+sols = paste0(1*(fracs %in% ans),collapse="")
 
 ```
 
@@ -81,12 +86,70 @@ if(a<0){
 }
 ```
 
+You could, with enough guess-and-check, factor this expression. However, since this quadratic has a composite (non-prime) leading coefficient and composite constant, I'd recommend using the [quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula). Start by identifying the parameters.
+
+$$a~=~`r a`$$
+$$b~=~`r b`$$
+$$c~=~`r c`$$
+
+Next, type the quadratic formula into Desmos. I'd recommend doing it with parameters and sliders. Desmos does not have a $\pm$ symbol, so just write it twice. Desmos will also simplify fractions for you (if you click on the fraction button).
+
+$$x~=~\frac{-(`r b`)\pm \sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)}$$
 
 
+$$x~=~\frac{`r -b` \pm \sqrt{`r b^2`-(`r 4*a*c`)}}{`r 2*a`}$$
+
+
+$$x~=~\frac{`r -b` \pm \sqrt{`r b^2-4*a*c`}}{`r 2*a`}$$
+
+
+$$x~=~\frac{`r -b` \pm `r round(sqrt(b^2-4*a*c))`}{`r 2*a`}$$
+
+
+Split the $\pm$ into $-$ and $+$.
+
+$$\begin{aligned}
+x~&=~\frac{`r round(-b-sqrt(b^2-4*a*c))`}{`r 2*a`} & \text{or}&& x~&=~\frac{`r round(-b+sqrt(b^2-4*a*c))`}{`r 2*a`}
+\end{aligned}$$
+
+Simplify the fractions.
+
+```{r,echo=F}
+top1 = round(-b-sqrt(b^2-4*a*c))
+bot1 = 2*a
+top2 = round(-b+sqrt(b^2-4*a*c))
+bot2 = 2*a
+gg1 = gcd2(top1,bot1)
+top1 = round(top1/gg1)
+bot1 = round(bot1/gg1)
+gg2 = gcd2(top2,bot2)
+top2 = round(top2/gg2)
+bot2 = round(bot2/gg2)
+
+factored = paste0("(",bot1,"x+",-top1,")(",bot2,"x+",-top2,")",collapse="")
+factored = gsub("+-","-",factored,fixed=T)
+```
+
+$$\begin{aligned}
+x~&=~\frac{`r top1`}{`r bot1`} & \text{or}&& x~&=~\frac{`r top2`}{`r bot2`}
+\end{aligned}$$
+
+
+I'll point out that if you had guess-and-checked the factored form, you'd get:
+
+$$`r stan`~\equiv~`r factored`$$
+
+Because $(`r bot1`)(`r bot2`)=`r bot1*bot2`$ and $(`r bot1`)(`r -top2`)+(`r bot2`)(`r -top1`)=`r -bot1*top2-bot2*top1`$ and $(`r -top1`)(`r -top2`)=`r top1*top2`$. Notice it is easy to find the solutions from this factored form equation.
+
+$$`r factored`~=~0$$
+
+$$\begin{aligned}
+x~&=~\frac{`r top1`}{`r bot1`} & \text{or}&& x~&=~\frac{`r top2`}{`r bot2`}
+\end{aligned}$$
 
 
 Meta-information
 ============
 extype: mchoice
-exsolution: 
-exname: common_base_quad
+exsolution: `r sols`
+exname: common_base_quad_rats
