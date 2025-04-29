@@ -1,0 +1,143 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+xs = seq(-3,3,0.1)
+ys = numeric()
+for(jj in -3:2){
+    for(ii in 1:9){
+        ys = c(ys,ii*10^jj)
+    }
+}
+# while(T){
+#     B = runif(1,3,30)
+#     x = runif(1,0.5,3)*sample(c(-1,1),1)
+#     y = B^x
+#     xq = signif(x,1)
+#     if(min(abs(x-xs))<0.01 && min(abs(y-ys))/abs(y)<0.1 && xq%%1!=0){break}
+# }
+
+while(T){
+    xp = sample(seq(-2.9,2.9,0.1),1)
+    yp = sample(2:9,1)*10^sample(-3:2,1)
+    B = yp^(1/xp)
+    if(B>2 && B<50 && xp%%1!=0 && abs(xp)>0.4){break}
+}
+x = xp
+y = yp
+
+powy = floor(log(y,10))
+tol = 10^(powy-1)*5
+```
+
+
+
+Question
+========
+
+An exponential growth curve, $y=B^x$ with base $B>1$, is graphed below using a [semi-log plot](https://en.wikipedia.org/wiki/Semi-log_plot).
+
+```{r,echo=F,fig.dim=c(8,8)}
+library(latex2exp)
+plot(0,0,"n",axes=F,xlim=c(-3,3),ylim=c(-3,3),xlab="x",ylab="y")
+# axis(2,at=-3:3,labels=TeX(paste0("$10^{",-3:3,"}$")))
+axis(2,at=-3:3,labels=paste0(10^(-3:3)))
+axis(1,at=-3:3)
+# abline(h=-30:30/10,lty=1,lwd=0.2,col="lightgrey")
+for(ii in 1:9){
+    for(jj in -4:4){
+        abline(h=log(ii*10^jj,10),lwd=0.2,col="lightgrey")
+    }
+}
+abline(v=-30:30/10,lty=1,lwd=0.5,col="lightgrey")
+abline(h=-3:3,lty=1,lwd=0.8,col="grey")
+abline(v=-3:3,lty=1,lwd=0.8,col="grey")
+abline(h=0)
+abline(v=0)
+# abline(0,1,col="blue",lwd=2)
+legend("topleft",TeX("$y=B^x$"),col="blue",lwd=1)
+yp = log10(B^c(-3,3))
+lines(c(-3,3),yp,col="blue",lwd=1)
+```
+\
+
+Estimate $B^{`r signif(x,2)`}$.
+
+
+
+Solution
+========
+
+It might help to see more labels on a small section of the $y$ (logarithmic) axis.
+
+```{r,echo=F,fig.dim=c(1,7)}
+library(latex2exp)
+par(mar=c(0,3,0,0))
+plot(0,0,"n",axes=F,xlim=c(0,1),ylim=c(-1,2),ann=F)
+# axis(2,at=-3:3,labels=TeX(paste0("$10^{",-3:3,"}$")))
+yl = numeric()
+for(jj in -1:1){
+    for(ii in 1:9){
+        yl = c(yl,ii*10^jj)
+    }
+}
+yl = c(yl,100)
+
+axis(2,at=-1:2,labels=paste0(10^(-1:2)))
+# axis(1,at=-3:3)
+# abline(h=-30:30/10,lty=1,lwd=0.2,col="lightgrey")
+for(ii in 1:9){
+    for(jj in -1:2){
+        abline(h=log(ii*10^jj,10),lwd=0.2,col="lightgrey")
+    }
+}
+# abline(v=-30:30/10,lty=1,lwd=0.5,col="lightgrey")
+abline(h=-1:2,lty=1,lwd=0.8,col="grey")
+# abline(v=-3:3,lty=1,lwd=0.8,col="grey")
+abline(h=0)
+# abline(v=0)
+# abline(0,1,col="blue",lwd=2)
+# legend("topleft",TeX("$y=f(x)$"),col="blue",lwd=1)
+# yp = log10(B^c(-3,3))
+# lines(c(-3,3),yp,col="blue",lwd=1)
+text(0.5,log10(yl),paste0(yl),cex=0.5)
+```
+\
+
+
+With that in mind, you just need to locate the correct spot on the graph.
+
+```{r,echo=F,fig.dim=c(8,8)}
+library(latex2exp)
+plot(0,0,"n",axes=F,xlim=c(-3,3),ylim=c(-3,3),xlab="x",ylab="y")
+# axis(2,at=-3:3,labels=TeX(paste0("$10^{",-3:3,"}$")))
+axis(2,at=-3:3,labels=paste0(10^(-3:3)))
+axis(1,at=-3:3)
+# abline(h=-30:30/10,lty=1,lwd=0.2,col="lightgrey")
+for(ii in 1:9){
+    for(jj in -4:4){
+        abline(h=log(ii*10^jj,10),lwd=0.2,col="lightgrey")
+    }
+}
+abline(v=-30:30/10,lty=1,lwd=0.5,col="lightgrey")
+abline(h=-3:3,lty=1,lwd=0.8,col="grey")
+abline(v=-3:3,lty=1,lwd=0.8,col="grey")
+abline(h=0)
+abline(v=0)
+# abline(0,1,col="blue",lwd=2)
+legend("topleft",TeX("$y=f(x)$"),col="blue",lwd=1)
+yp = log10(B^c(-3,3))
+lines(c(-3,3),yp,col="blue",lwd=1)
+points(x,log10(y),pch=19,col="red",cex=0.5)
+text(x,log10(y),paste0("(",signif(x,2),", ",signif(y,2),")"),adj=0.5+0.7*sign(x),col="red",cex=1.5)
+
+```
+\
+
+So, $$B^{`r signif(x,2)`}~=~`r signif(y,1)`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r signif(y,1)`
+exname: log_graph_get_exp
+extol: `r tol`

@@ -1,0 +1,91 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+# y = a*b^(cx)
+# log_b(y/a)/c
+
+
+abc = sample(2:6,3)
+a = abc[1]
+b = abc[2]
+c = abc[3]
+ops = character()
+for(aa in sort(abc)){
+    for(bb in sort(abc)){
+        for(cc in sort(abc)){
+            op = paste0("x=\\frac{\\log_{",aa,"}\\left(\\frac{y}{",bb,"}\\right)}{",cc,"}",collapse="")
+            if(aa!=bb && aa!=cc && bb!=cc){
+                ops = c(op,ops)
+            }
+        }
+    }
+}
+ops = sample(ops)
+
+corr = paste0("x=\\frac{\\log_{",b,"}\\left(\\frac{y}{",a,"}\\right)}{",c,"}",collapse="")
+
+sol = paste0(1*(ops==corr),collapse="")
+
+```
+
+
+Question
+========
+
+Consider the exponential equation below. 
+
+$$y~=~`r a`\cdot `r b`^{`r c`x}$$
+
+Solve for $x$.
+
+Answerlist
+--------
+
+`r paste0("* $",ops,"$",collapse="\n")`
+
+
+
+Solution
+========
+
+Start with the given equation.
+
+$$y~=~`r a`\cdot `r b`^{`r c`x}$$
+
+Divide both sides by `r a`. (Division is the inverse of multiplication.)
+
+
+$$\frac{y}{`r a`}~=~\frac{`r a`\cdot `r b`^{`r c`x}}{`r a`}$$
+
+Simplify the right side.
+
+$$\frac{y}{`r a`}~=~`r b`^{`r c`x}$$
+
+The inverse of exponentiation with base `r b` is logarithm with base `r b`. So, we take the log, base `r b`, of both sides.
+
+
+$$\log_{`r b`}\left(\frac{y}{`r a`}\right)~=~\log_{`r b`}\left(`r b`^{`r c`x}\right)$$
+
+We know, from our [logarithm rules](https://chadworley.github.io/a2/u18/Exponent_rules.html), that $\log_B(B^z)\equiv z$. In our case, $B=`r b`$ and $z=`r c`x$. Simplify the right side. 
+
+$$\log_{`r b`}\left(\frac{y}{`r a`}\right)~=~`r c`x$$
+
+Divide both sides by `r c`.
+
+$$\frac{\log_{`r b`}\left(\frac{y}{`r a`}\right)}{`r c`}~=~\frac{`r c`x}{`r c`}$$
+
+Simplify the right side.
+
+
+$$\frac{\log_{`r b`}\left(\frac{y}{`r a`}\right)}{`r c`}~=~x$$
+
+Swap the sides to bring $x$ to the left.
+
+
+$$x~=~\frac{\log_{`r b`}\left(\frac{y}{`r a`}\right)}{`r c`}$$
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: solve_exponential
