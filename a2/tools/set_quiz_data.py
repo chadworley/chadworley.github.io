@@ -3,13 +3,18 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["01_common_base_solv_eq.Rmd",
-"02_common_base_lin_mult.Rmd",
-"03_common_base_lin_div.Rmd",
-"04_common_base_quad.Rmd"]
+files = ["05_com_base_quad_rats.Rmd",
+"06_eval_expo_base2.Rmd",
+"07_eval_expo_base10.Rmd",
+"08_solve_expo_base2.Rmd",
+"09_solve_expo_base10.Rmd",
+"10_eval_log_base2.Rmd",
+"11_eval_log_base10.Rmd",
+"12_eval_log_base_2_3_10.Rmd",
+"13_solve_exponent.Rmd"]
 
-avt = ["2025-04-28 7:00:00"]*len(files)
-dut = ["2025-04-28 22:59:00"]*len(files)
+avt = ["2025-05-05 7:00:00"]*len(files)
+dut = ["2025-05-05 22:59:00"]*len(files)
 front = "s18_"
 
 

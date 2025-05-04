@@ -5,10 +5,15 @@ import os
 
 
 front = "s18_"
-files = ["01_common_base_solv_eq.Rmd",
-"02_common_base_lin_mult.Rmd",
-"03_common_base_lin_div.Rmd",
-"04_common_base_quad.Rmd"]
+files = ["05_com_base_quad_rats.Rmd",
+"06_eval_expo_base2.Rmd",
+"07_eval_expo_base10.Rmd",
+"08_solve_expo_base2.Rmd",
+"09_solve_expo_base10.Rmd",
+"10_eval_log_base2.Rmd",
+"11_eval_log_base10.Rmd",
+"12_eval_log_base_2_3_10.Rmd",
+"13_solve_exponent.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u18/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

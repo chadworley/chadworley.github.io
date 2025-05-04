@@ -1,0 +1,2520 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>05_com_base_quad_rats</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">05_com_base_quad_rats</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:
+<span class="math display">\[\frac{9^{20x^2}}{9^{64x}\cdot 9^{21}}~=~ 1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-9/2
+</li>
+<li>
+-7/2
+</li>
+<li>
+-5/2
+</li>
+<li>
+-3/2
+</li>
+<li>
+3/2
+</li>
+<li>
+5/2
+</li>
+<li>
+7/2
+</li>
+<li>
+9/2
+</li>
+<li>
+-10/3
+</li>
+<li>
+-8/3
+</li>
+<li>
+-7/3
+</li>
+<li>
+-5/3
+</li>
+<li>
+-4/3
+</li>
+<li>
+-2/3
+</li>
+<li>
+2/3
+</li>
+<li>
+4/3
+</li>
+<li>
+5/3
+</li>
+<li>
+7/3
+</li>
+<li>
+8/3
+</li>
+<li>
+10/3
+</li>
+<li>
+-9/4
+</li>
+<li>
+-7/4
+</li>
+<li>
+-5/4
+</li>
+<li>
+-3/4
+</li>
+<li>
+3/4
+</li>
+<li>
+5/4
+</li>
+<li>
+7/4
+</li>
+<li>
+9/4
+</li>
+<li>
+-9/5
+</li>
+<li>
+-8/5
+</li>
+<li>
+-7/5
+</li>
+<li>
+-6/5
+</li>
+<li>
+-4/5
+</li>
+<li>
+-3/5
+</li>
+<li>
+-2/5
+</li>
+<li>
+2/5
+</li>
+<li>
+3/5
+</li>
+<li>
+4/5
+</li>
+<li>
+6/5
+</li>
+<li>
+7/5
+</li>
+<li>
+8/5
+</li>
+<li>
+9/5
+</li>
+<li>
+-7/6
+</li>
+<li>
+-5/6
+</li>
+<li>
+5/6
+</li>
+<li>
+7/6
+</li>
+<li>
+-10/7
+</li>
+<li>
+-9/7
+</li>
+<li>
+-8/7
+</li>
+<li>
+-6/7
+</li>
+<li>
+-5/7
+</li>
+<li>
+-4/7
+</li>
+<li>
+-3/7
+</li>
+<li>
+-2/7
+</li>
+<li>
+2/7
+</li>
+<li>
+3/7
+</li>
+<li>
+4/7
+</li>
+<li>
+5/7
+</li>
+<li>
+6/7
+</li>
+<li>
+8/7
+</li>
+<li>
+9/7
+</li>
+<li>
+10/7
+</li>
+<li>
+-9/8
+</li>
+<li>
+-7/8
+</li>
+<li>
+-5/8
+</li>
+<li>
+-3/8
+</li>
+<li>
+3/8
+</li>
+<li>
+5/8
+</li>
+<li>
+7/8
+</li>
+<li>
+9/8
+</li>
+<li>
+-10/9
+</li>
+<li>
+-8/9
+</li>
+<li>
+-7/9
+</li>
+<li>
+-5/9
+</li>
+<li>
+-4/9
+</li>
+<li>
+-2/9
+</li>
+<li>
+2/9
+</li>
+<li>
+4/9
+</li>
+<li>
+5/9
+</li>
+<li>
+7/9
+</li>
+<li>
+8/9
+</li>
+<li>
+10/9
+</li>
+<li>
+-9/10
+</li>
+<li>
+-7/10
+</li>
+<li>
+-3/10
+</li>
+<li>
+3/10
+</li>
+<li>
+7/10
+</li>
+<li>
+9/10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the rules of exponents to rewrite the equation.</p>
+<p><span class="math display">\[9^{20x^2-64x-21}~=~9^{0}\]</span></p>
+<p>Each side has a single exponential expression with a common base, so the exponents are equivalent.</p>
+<p><span class="math display">\[20x^2-64x-21~=~0\]</span></p>
+<p>You could, with enough guess-and-check, factor this expression. However, since this quadratic has a composite (non-prime) leading coefficient and composite constant, I’d recommend using the <a href="https://en.wikipedia.org/wiki/Quadratic_formula">quadratic formula</a>. Start by identifying the parameters.</p>
+<p><span class="math display">\[a~=~20\]</span>
+<span class="math display">\[b~=~-64\]</span>
+<span class="math display">\[c~=~-21\]</span></p>
+<p>Next, type the quadratic formula into Desmos. I’d recommend doing it with parameters and sliders. Desmos does not have a <span class="math inline">\(\pm\)</span> symbol, so just write it twice. Desmos will also simplify fractions for you (if you click on the fraction button).</p>
+<p><span class="math display">\[x~=~\frac{-(-64)\pm \sqrt{(-64)^2-4(20)(-21)}}{2(20)}\]</span></p>
+<p><span class="math display">\[x~=~\frac{64 \pm \sqrt{4096-(-1680)}}{40}\]</span></p>
+<p><span class="math display">\[x~=~\frac{64 \pm \sqrt{5776}}{40}\]</span></p>
+<p><span class="math display">\[x~=~\frac{64 \pm 76}{40}\]</span></p>
+<p>Split the <span class="math inline">\(\pm\)</span> into <span class="math inline">\(-\)</span> and <span class="math inline">\(+\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-12}{40} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{140}{40}
+\end{aligned}\]</span></p>
+<p>Simplify the fractions.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-3}{10} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{7}{2}
+\end{aligned}\]</span></p>
+<p>I’ll point out that if you had guess-and-checked the factored form, you’d get:</p>
+<p><span class="math display">\[20x^2-64x-21~\equiv~(10x+3)(2x-7)\]</span></p>
+<p>Because <span class="math inline">\((10)(2)=20\)</span> and <span class="math inline">\((10)(-7)+(2)(3)=-64\)</span> and <span class="math inline">\((3)(-7)=-21\)</span>. Notice it is easy to find the solutions from this factored form equation.</p>
+<p><span class="math display">\[(10x+3)(2x-7)~=~0\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-3}{10} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{7}{2}
+\end{aligned}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:
+<span class="math display">\[\frac{4^{15x^2}\cdot 4^{2x}}{4^{24}}~=~ 1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-9/2
+</li>
+<li>
+-7/2
+</li>
+<li>
+-5/2
+</li>
+<li>
+-3/2
+</li>
+<li>
+3/2
+</li>
+<li>
+5/2
+</li>
+<li>
+7/2
+</li>
+<li>
+9/2
+</li>
+<li>
+-10/3
+</li>
+<li>
+-8/3
+</li>
+<li>
+-7/3
+</li>
+<li>
+-5/3
+</li>
+<li>
+-4/3
+</li>
+<li>
+-2/3
+</li>
+<li>
+2/3
+</li>
+<li>
+4/3
+</li>
+<li>
+5/3
+</li>
+<li>
+7/3
+</li>
+<li>
+8/3
+</li>
+<li>
+10/3
+</li>
+<li>
+-9/4
+</li>
+<li>
+-7/4
+</li>
+<li>
+-5/4
+</li>
+<li>
+-3/4
+</li>
+<li>
+3/4
+</li>
+<li>
+5/4
+</li>
+<li>
+7/4
+</li>
+<li>
+9/4
+</li>
+<li>
+-9/5
+</li>
+<li>
+-8/5
+</li>
+<li>
+-7/5
+</li>
+<li>
+-6/5
+</li>
+<li>
+-4/5
+</li>
+<li>
+-3/5
+</li>
+<li>
+-2/5
+</li>
+<li>
+2/5
+</li>
+<li>
+3/5
+</li>
+<li>
+4/5
+</li>
+<li>
+6/5
+</li>
+<li>
+7/5
+</li>
+<li>
+8/5
+</li>
+<li>
+9/5
+</li>
+<li>
+-7/6
+</li>
+<li>
+-5/6
+</li>
+<li>
+5/6
+</li>
+<li>
+7/6
+</li>
+<li>
+-10/7
+</li>
+<li>
+-9/7
+</li>
+<li>
+-8/7
+</li>
+<li>
+-6/7
+</li>
+<li>
+-5/7
+</li>
+<li>
+-4/7
+</li>
+<li>
+-3/7
+</li>
+<li>
+-2/7
+</li>
+<li>
+2/7
+</li>
+<li>
+3/7
+</li>
+<li>
+4/7
+</li>
+<li>
+5/7
+</li>
+<li>
+6/7
+</li>
+<li>
+8/7
+</li>
+<li>
+9/7
+</li>
+<li>
+10/7
+</li>
+<li>
+-9/8
+</li>
+<li>
+-7/8
+</li>
+<li>
+-5/8
+</li>
+<li>
+-3/8
+</li>
+<li>
+3/8
+</li>
+<li>
+5/8
+</li>
+<li>
+7/8
+</li>
+<li>
+9/8
+</li>
+<li>
+-10/9
+</li>
+<li>
+-8/9
+</li>
+<li>
+-7/9
+</li>
+<li>
+-5/9
+</li>
+<li>
+-4/9
+</li>
+<li>
+-2/9
+</li>
+<li>
+2/9
+</li>
+<li>
+4/9
+</li>
+<li>
+5/9
+</li>
+<li>
+7/9
+</li>
+<li>
+8/9
+</li>
+<li>
+10/9
+</li>
+<li>
+-9/10
+</li>
+<li>
+-7/10
+</li>
+<li>
+-3/10
+</li>
+<li>
+3/10
+</li>
+<li>
+7/10
+</li>
+<li>
+9/10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the rules of exponents to rewrite the equation.</p>
+<p><span class="math display">\[4^{15x^2+2x-24}~=~4^{0}\]</span></p>
+<p>Each side has a single exponential expression with a common base, so the exponents are equivalent.</p>
+<p><span class="math display">\[15x^2+2x-24~=~0\]</span></p>
+<p>You could, with enough guess-and-check, factor this expression. However, since this quadratic has a composite (non-prime) leading coefficient and composite constant, I’d recommend using the <a href="https://en.wikipedia.org/wiki/Quadratic_formula">quadratic formula</a>. Start by identifying the parameters.</p>
+<p><span class="math display">\[a~=~15\]</span>
+<span class="math display">\[b~=~2\]</span>
+<span class="math display">\[c~=~-24\]</span></p>
+<p>Next, type the quadratic formula into Desmos. I’d recommend doing it with parameters and sliders. Desmos does not have a <span class="math inline">\(\pm\)</span> symbol, so just write it twice. Desmos will also simplify fractions for you (if you click on the fraction button).</p>
+<p><span class="math display">\[x~=~\frac{-(2)\pm \sqrt{(2)^2-4(15)(-24)}}{2(15)}\]</span></p>
+<p><span class="math display">\[x~=~\frac{-2 \pm \sqrt{4-(-1440)}}{30}\]</span></p>
+<p><span class="math display">\[x~=~\frac{-2 \pm \sqrt{1444}}{30}\]</span></p>
+<p><span class="math display">\[x~=~\frac{-2 \pm 38}{30}\]</span></p>
+<p>Split the <span class="math inline">\(\pm\)</span> into <span class="math inline">\(-\)</span> and <span class="math inline">\(+\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-40}{30} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{36}{30}
+\end{aligned}\]</span></p>
+<p>Simplify the fractions.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-4}{3} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{6}{5}
+\end{aligned}\]</span></p>
+<p>I’ll point out that if you had guess-and-checked the factored form, you’d get:</p>
+<p><span class="math display">\[15x^2+2x-24~\equiv~(3x+4)(5x-6)\]</span></p>
+<p>Because <span class="math inline">\((3)(5)=15\)</span> and <span class="math inline">\((3)(-6)+(5)(4)=2\)</span> and <span class="math inline">\((4)(-6)=-24\)</span>. Notice it is easy to find the solutions from this factored form equation.</p>
+<p><span class="math display">\[(3x+4)(5x-6)~=~0\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-4}{3} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{6}{5}
+\end{aligned}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:
+<span class="math display">\[\frac{3^{103x}}{3^{56x^2}\cdot 3^{45}}~=~ 1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-9/2
+</li>
+<li>
+-7/2
+</li>
+<li>
+-5/2
+</li>
+<li>
+-3/2
+</li>
+<li>
+3/2
+</li>
+<li>
+5/2
+</li>
+<li>
+7/2
+</li>
+<li>
+9/2
+</li>
+<li>
+-10/3
+</li>
+<li>
+-8/3
+</li>
+<li>
+-7/3
+</li>
+<li>
+-5/3
+</li>
+<li>
+-4/3
+</li>
+<li>
+-2/3
+</li>
+<li>
+2/3
+</li>
+<li>
+4/3
+</li>
+<li>
+5/3
+</li>
+<li>
+7/3
+</li>
+<li>
+8/3
+</li>
+<li>
+10/3
+</li>
+<li>
+-9/4
+</li>
+<li>
+-7/4
+</li>
+<li>
+-5/4
+</li>
+<li>
+-3/4
+</li>
+<li>
+3/4
+</li>
+<li>
+5/4
+</li>
+<li>
+7/4
+</li>
+<li>
+9/4
+</li>
+<li>
+-9/5
+</li>
+<li>
+-8/5
+</li>
+<li>
+-7/5
+</li>
+<li>
+-6/5
+</li>
+<li>
+-4/5
+</li>
+<li>
+-3/5
+</li>
+<li>
+-2/5
+</li>
+<li>
+2/5
+</li>
+<li>
+3/5
+</li>
+<li>
+4/5
+</li>
+<li>
+6/5
+</li>
+<li>
+7/5
+</li>
+<li>
+8/5
+</li>
+<li>
+9/5
+</li>
+<li>
+-7/6
+</li>
+<li>
+-5/6
+</li>
+<li>
+5/6
+</li>
+<li>
+7/6
+</li>
+<li>
+-10/7
+</li>
+<li>
+-9/7
+</li>
+<li>
+-8/7
+</li>
+<li>
+-6/7
+</li>
+<li>
+-5/7
+</li>
+<li>
+-4/7
+</li>
+<li>
+-3/7
+</li>
+<li>
+-2/7
+</li>
+<li>
+2/7
+</li>
+<li>
+3/7
+</li>
+<li>
+4/7
+</li>
+<li>
+5/7
+</li>
+<li>
+6/7
+</li>
+<li>
+8/7
+</li>
+<li>
+9/7
+</li>
+<li>
+10/7
+</li>
+<li>
+-9/8
+</li>
+<li>
+-7/8
+</li>
+<li>
+-5/8
+</li>
+<li>
+-3/8
+</li>
+<li>
+3/8
+</li>
+<li>
+5/8
+</li>
+<li>
+7/8
+</li>
+<li>
+9/8
+</li>
+<li>
+-10/9
+</li>
+<li>
+-8/9
+</li>
+<li>
+-7/9
+</li>
+<li>
+-5/9
+</li>
+<li>
+-4/9
+</li>
+<li>
+-2/9
+</li>
+<li>
+2/9
+</li>
+<li>
+4/9
+</li>
+<li>
+5/9
+</li>
+<li>
+7/9
+</li>
+<li>
+8/9
+</li>
+<li>
+10/9
+</li>
+<li>
+-9/10
+</li>
+<li>
+-7/10
+</li>
+<li>
+-3/10
+</li>
+<li>
+3/10
+</li>
+<li>
+7/10
+</li>
+<li>
+9/10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the rules of exponents to rewrite the equation.</p>
+<p><span class="math display">\[3^{-56x^2+103x-45}~=~3^{0}\]</span></p>
+<p>Each side has a single exponential expression with a common base, so the exponents are equivalent.</p>
+<p><span class="math display">\[-56x^2+103x-45~=~0\]</span></p>
+<p>The leading coefficient is negative. Multiply both sides by <span class="math inline">\(=-1\)</span> to get a positive quadratic coefficient.</p>
+<p><span class="math display">\[56x^2-103x+45=0\]</span></p>
+<p>You could, with enough guess-and-check, factor this expression. However, since this quadratic has a composite (non-prime) leading coefficient and composite constant, I’d recommend using the <a href="https://en.wikipedia.org/wiki/Quadratic_formula">quadratic formula</a>. Start by identifying the parameters.</p>
+<p><span class="math display">\[a~=~56\]</span>
+<span class="math display">\[b~=~-103\]</span>
+<span class="math display">\[c~=~45\]</span></p>
+<p>Next, type the quadratic formula into Desmos. I’d recommend doing it with parameters and sliders. Desmos does not have a <span class="math inline">\(\pm\)</span> symbol, so just write it twice. Desmos will also simplify fractions for you (if you click on the fraction button).</p>
+<p><span class="math display">\[x~=~\frac{-(-103)\pm \sqrt{(-103)^2-4(56)(45)}}{2(56)}\]</span></p>
+<p><span class="math display">\[x~=~\frac{103 \pm \sqrt{10609-(10080)}}{112}\]</span></p>
+<p><span class="math display">\[x~=~\frac{103 \pm \sqrt{529}}{112}\]</span></p>
+<p><span class="math display">\[x~=~\frac{103 \pm 23}{112}\]</span></p>
+<p>Split the <span class="math inline">\(\pm\)</span> into <span class="math inline">\(-\)</span> and <span class="math inline">\(+\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{80}{112} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{126}{112}
+\end{aligned}\]</span></p>
+<p>Simplify the fractions.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{5}{7} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{9}{8}
+\end{aligned}\]</span></p>
+<p>I’ll point out that if you had guess-and-checked the factored form, you’d get:</p>
+<p><span class="math display">\[56x^2-103x+45~\equiv~(7x-5)(8x-9)\]</span></p>
+<p>Because <span class="math inline">\((7)(8)=56\)</span> and <span class="math inline">\((7)(-9)+(8)(-5)=-103\)</span> and <span class="math inline">\((-5)(-9)=45\)</span>. Notice it is easy to find the solutions from this factored form equation.</p>
+<p><span class="math display">\[(7x-5)(8x-9)~=~0\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{5}{7} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{9}{8}
+\end{aligned}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:
+<span class="math display">\[\frac{8^{24x^2}\cdot 8^{50}}{8^{95x}}~=~ 1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-9/2
+</li>
+<li>
+-7/2
+</li>
+<li>
+-5/2
+</li>
+<li>
+-3/2
+</li>
+<li>
+3/2
+</li>
+<li>
+5/2
+</li>
+<li>
+7/2
+</li>
+<li>
+9/2
+</li>
+<li>
+-10/3
+</li>
+<li>
+-8/3
+</li>
+<li>
+-7/3
+</li>
+<li>
+-5/3
+</li>
+<li>
+-4/3
+</li>
+<li>
+-2/3
+</li>
+<li>
+2/3
+</li>
+<li>
+4/3
+</li>
+<li>
+5/3
+</li>
+<li>
+7/3
+</li>
+<li>
+8/3
+</li>
+<li>
+10/3
+</li>
+<li>
+-9/4
+</li>
+<li>
+-7/4
+</li>
+<li>
+-5/4
+</li>
+<li>
+-3/4
+</li>
+<li>
+3/4
+</li>
+<li>
+5/4
+</li>
+<li>
+7/4
+</li>
+<li>
+9/4
+</li>
+<li>
+-9/5
+</li>
+<li>
+-8/5
+</li>
+<li>
+-7/5
+</li>
+<li>
+-6/5
+</li>
+<li>
+-4/5
+</li>
+<li>
+-3/5
+</li>
+<li>
+-2/5
+</li>
+<li>
+2/5
+</li>
+<li>
+3/5
+</li>
+<li>
+4/5
+</li>
+<li>
+6/5
+</li>
+<li>
+7/5
+</li>
+<li>
+8/5
+</li>
+<li>
+9/5
+</li>
+<li>
+-7/6
+</li>
+<li>
+-5/6
+</li>
+<li>
+5/6
+</li>
+<li>
+7/6
+</li>
+<li>
+-10/7
+</li>
+<li>
+-9/7
+</li>
+<li>
+-8/7
+</li>
+<li>
+-6/7
+</li>
+<li>
+-5/7
+</li>
+<li>
+-4/7
+</li>
+<li>
+-3/7
+</li>
+<li>
+-2/7
+</li>
+<li>
+2/7
+</li>
+<li>
+3/7
+</li>
+<li>
+4/7
+</li>
+<li>
+5/7
+</li>
+<li>
+6/7
+</li>
+<li>
+8/7
+</li>
+<li>
+9/7
+</li>
+<li>
+10/7
+</li>
+<li>
+-9/8
+</li>
+<li>
+-7/8
+</li>
+<li>
+-5/8
+</li>
+<li>
+-3/8
+</li>
+<li>
+3/8
+</li>
+<li>
+5/8
+</li>
+<li>
+7/8
+</li>
+<li>
+9/8
+</li>
+<li>
+-10/9
+</li>
+<li>
+-8/9
+</li>
+<li>
+-7/9
+</li>
+<li>
+-5/9
+</li>
+<li>
+-4/9
+</li>
+<li>
+-2/9
+</li>
+<li>
+2/9
+</li>
+<li>
+4/9
+</li>
+<li>
+5/9
+</li>
+<li>
+7/9
+</li>
+<li>
+8/9
+</li>
+<li>
+10/9
+</li>
+<li>
+-9/10
+</li>
+<li>
+-7/10
+</li>
+<li>
+-3/10
+</li>
+<li>
+3/10
+</li>
+<li>
+7/10
+</li>
+<li>
+9/10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the rules of exponents to rewrite the equation.</p>
+<p><span class="math display">\[8^{24x^2-95x+50}~=~8^{0}\]</span></p>
+<p>Each side has a single exponential expression with a common base, so the exponents are equivalent.</p>
+<p><span class="math display">\[24x^2-95x+50~=~0\]</span></p>
+<p>You could, with enough guess-and-check, factor this expression. However, since this quadratic has a composite (non-prime) leading coefficient and composite constant, I’d recommend using the <a href="https://en.wikipedia.org/wiki/Quadratic_formula">quadratic formula</a>. Start by identifying the parameters.</p>
+<p><span class="math display">\[a~=~24\]</span>
+<span class="math display">\[b~=~-95\]</span>
+<span class="math display">\[c~=~50\]</span></p>
+<p>Next, type the quadratic formula into Desmos. I’d recommend doing it with parameters and sliders. Desmos does not have a <span class="math inline">\(\pm\)</span> symbol, so just write it twice. Desmos will also simplify fractions for you (if you click on the fraction button).</p>
+<p><span class="math display">\[x~=~\frac{-(-95)\pm \sqrt{(-95)^2-4(24)(50)}}{2(24)}\]</span></p>
+<p><span class="math display">\[x~=~\frac{95 \pm \sqrt{9025-(4800)}}{48}\]</span></p>
+<p><span class="math display">\[x~=~\frac{95 \pm \sqrt{4225}}{48}\]</span></p>
+<p><span class="math display">\[x~=~\frac{95 \pm 65}{48}\]</span></p>
+<p>Split the <span class="math inline">\(\pm\)</span> into <span class="math inline">\(-\)</span> and <span class="math inline">\(+\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{30}{48} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{160}{48}
+\end{aligned}\]</span></p>
+<p>Simplify the fractions.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{5}{8} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{10}{3}
+\end{aligned}\]</span></p>
+<p>I’ll point out that if you had guess-and-checked the factored form, you’d get:</p>
+<p><span class="math display">\[24x^2-95x+50~\equiv~(8x-5)(3x-10)\]</span></p>
+<p>Because <span class="math inline">\((8)(3)=24\)</span> and <span class="math inline">\((8)(-10)+(3)(-5)=-95\)</span> and <span class="math inline">\((-5)(-10)=50\)</span>. Notice it is easy to find the solutions from this factored form equation.</p>
+<p><span class="math display">\[(8x-5)(3x-10)~=~0\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{5}{8} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{10}{3}
+\end{aligned}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:
+<span class="math display">\[\frac{3^{32x^2}}{3^{44x}\cdot 3^{63}}~=~ 1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-9/2
+</li>
+<li>
+-7/2
+</li>
+<li>
+-5/2
+</li>
+<li>
+-3/2
+</li>
+<li>
+3/2
+</li>
+<li>
+5/2
+</li>
+<li>
+7/2
+</li>
+<li>
+9/2
+</li>
+<li>
+-10/3
+</li>
+<li>
+-8/3
+</li>
+<li>
+-7/3
+</li>
+<li>
+-5/3
+</li>
+<li>
+-4/3
+</li>
+<li>
+-2/3
+</li>
+<li>
+2/3
+</li>
+<li>
+4/3
+</li>
+<li>
+5/3
+</li>
+<li>
+7/3
+</li>
+<li>
+8/3
+</li>
+<li>
+10/3
+</li>
+<li>
+-9/4
+</li>
+<li>
+-7/4
+</li>
+<li>
+-5/4
+</li>
+<li>
+-3/4
+</li>
+<li>
+3/4
+</li>
+<li>
+5/4
+</li>
+<li>
+7/4
+</li>
+<li>
+9/4
+</li>
+<li>
+-9/5
+</li>
+<li>
+-8/5
+</li>
+<li>
+-7/5
+</li>
+<li>
+-6/5
+</li>
+<li>
+-4/5
+</li>
+<li>
+-3/5
+</li>
+<li>
+-2/5
+</li>
+<li>
+2/5
+</li>
+<li>
+3/5
+</li>
+<li>
+4/5
+</li>
+<li>
+6/5
+</li>
+<li>
+7/5
+</li>
+<li>
+8/5
+</li>
+<li>
+9/5
+</li>
+<li>
+-7/6
+</li>
+<li>
+-5/6
+</li>
+<li>
+5/6
+</li>
+<li>
+7/6
+</li>
+<li>
+-10/7
+</li>
+<li>
+-9/7
+</li>
+<li>
+-8/7
+</li>
+<li>
+-6/7
+</li>
+<li>
+-5/7
+</li>
+<li>
+-4/7
+</li>
+<li>
+-3/7
+</li>
+<li>
+-2/7
+</li>
+<li>
+2/7
+</li>
+<li>
+3/7
+</li>
+<li>
+4/7
+</li>
+<li>
+5/7
+</li>
+<li>
+6/7
+</li>
+<li>
+8/7
+</li>
+<li>
+9/7
+</li>
+<li>
+10/7
+</li>
+<li>
+-9/8
+</li>
+<li>
+-7/8
+</li>
+<li>
+-5/8
+</li>
+<li>
+-3/8
+</li>
+<li>
+3/8
+</li>
+<li>
+5/8
+</li>
+<li>
+7/8
+</li>
+<li>
+9/8
+</li>
+<li>
+-10/9
+</li>
+<li>
+-8/9
+</li>
+<li>
+-7/9
+</li>
+<li>
+-5/9
+</li>
+<li>
+-4/9
+</li>
+<li>
+-2/9
+</li>
+<li>
+2/9
+</li>
+<li>
+4/9
+</li>
+<li>
+5/9
+</li>
+<li>
+7/9
+</li>
+<li>
+8/9
+</li>
+<li>
+10/9
+</li>
+<li>
+-9/10
+</li>
+<li>
+-7/10
+</li>
+<li>
+-3/10
+</li>
+<li>
+3/10
+</li>
+<li>
+7/10
+</li>
+<li>
+9/10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the rules of exponents to rewrite the equation.</p>
+<p><span class="math display">\[3^{32x^2-44x-63}~=~3^{0}\]</span></p>
+<p>Each side has a single exponential expression with a common base, so the exponents are equivalent.</p>
+<p><span class="math display">\[32x^2-44x-63~=~0\]</span></p>
+<p>You could, with enough guess-and-check, factor this expression. However, since this quadratic has a composite (non-prime) leading coefficient and composite constant, I’d recommend using the <a href="https://en.wikipedia.org/wiki/Quadratic_formula">quadratic formula</a>. Start by identifying the parameters.</p>
+<p><span class="math display">\[a~=~32\]</span>
+<span class="math display">\[b~=~-44\]</span>
+<span class="math display">\[c~=~-63\]</span></p>
+<p>Next, type the quadratic formula into Desmos. I’d recommend doing it with parameters and sliders. Desmos does not have a <span class="math inline">\(\pm\)</span> symbol, so just write it twice. Desmos will also simplify fractions for you (if you click on the fraction button).</p>
+<p><span class="math display">\[x~=~\frac{-(-44)\pm \sqrt{(-44)^2-4(32)(-63)}}{2(32)}\]</span></p>
+<p><span class="math display">\[x~=~\frac{44 \pm \sqrt{1936-(-8064)}}{64}\]</span></p>
+<p><span class="math display">\[x~=~\frac{44 \pm \sqrt{10000}}{64}\]</span></p>
+<p><span class="math display">\[x~=~\frac{44 \pm 100}{64}\]</span></p>
+<p>Split the <span class="math inline">\(\pm\)</span> into <span class="math inline">\(-\)</span> and <span class="math inline">\(+\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-56}{64} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{144}{64}
+\end{aligned}\]</span></p>
+<p>Simplify the fractions.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-7}{8} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{9}{4}
+\end{aligned}\]</span></p>
+<p>I’ll point out that if you had guess-and-checked the factored form, you’d get:</p>
+<p><span class="math display">\[32x^2-44x-63~\equiv~(8x+7)(4x-9)\]</span></p>
+<p>Because <span class="math inline">\((8)(4)=32\)</span> and <span class="math inline">\((8)(-9)+(4)(7)=-44\)</span> and <span class="math inline">\((7)(-9)=-63\)</span>. Notice it is easy to find the solutions from this factored form equation.</p>
+<p><span class="math display">\[(8x+7)(4x-9)~=~0\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-7}{8} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{9}{4}
+\end{aligned}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:
+<span class="math display">\[\frac{4^{21}}{4^{40x^2}\cdot 4^{41x}}~=~ 1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-9/2
+</li>
+<li>
+-7/2
+</li>
+<li>
+-5/2
+</li>
+<li>
+-3/2
+</li>
+<li>
+3/2
+</li>
+<li>
+5/2
+</li>
+<li>
+7/2
+</li>
+<li>
+9/2
+</li>
+<li>
+-10/3
+</li>
+<li>
+-8/3
+</li>
+<li>
+-7/3
+</li>
+<li>
+-5/3
+</li>
+<li>
+-4/3
+</li>
+<li>
+-2/3
+</li>
+<li>
+2/3
+</li>
+<li>
+4/3
+</li>
+<li>
+5/3
+</li>
+<li>
+7/3
+</li>
+<li>
+8/3
+</li>
+<li>
+10/3
+</li>
+<li>
+-9/4
+</li>
+<li>
+-7/4
+</li>
+<li>
+-5/4
+</li>
+<li>
+-3/4
+</li>
+<li>
+3/4
+</li>
+<li>
+5/4
+</li>
+<li>
+7/4
+</li>
+<li>
+9/4
+</li>
+<li>
+-9/5
+</li>
+<li>
+-8/5
+</li>
+<li>
+-7/5
+</li>
+<li>
+-6/5
+</li>
+<li>
+-4/5
+</li>
+<li>
+-3/5
+</li>
+<li>
+-2/5
+</li>
+<li>
+2/5
+</li>
+<li>
+3/5
+</li>
+<li>
+4/5
+</li>
+<li>
+6/5
+</li>
+<li>
+7/5
+</li>
+<li>
+8/5
+</li>
+<li>
+9/5
+</li>
+<li>
+-7/6
+</li>
+<li>
+-5/6
+</li>
+<li>
+5/6
+</li>
+<li>
+7/6
+</li>
+<li>
+-10/7
+</li>
+<li>
+-9/7
+</li>
+<li>
+-8/7
+</li>
+<li>
+-6/7
+</li>
+<li>
+-5/7
+</li>
+<li>
+-4/7
+</li>
+<li>
+-3/7
+</li>
+<li>
+-2/7
+</li>
+<li>
+2/7
+</li>
+<li>
+3/7
+</li>
+<li>
+4/7
+</li>
+<li>
+5/7
+</li>
+<li>
+6/7
+</li>
+<li>
+8/7
+</li>
+<li>
+9/7
+</li>
+<li>
+10/7
+</li>
+<li>
+-9/8
+</li>
+<li>
+-7/8
+</li>
+<li>
+-5/8
+</li>
+<li>
+-3/8
+</li>
+<li>
+3/8
+</li>
+<li>
+5/8
+</li>
+<li>
+7/8
+</li>
+<li>
+9/8
+</li>
+<li>
+-10/9
+</li>
+<li>
+-8/9
+</li>
+<li>
+-7/9
+</li>
+<li>
+-5/9
+</li>
+<li>
+-4/9
+</li>
+<li>
+-2/9
+</li>
+<li>
+2/9
+</li>
+<li>
+4/9
+</li>
+<li>
+5/9
+</li>
+<li>
+7/9
+</li>
+<li>
+8/9
+</li>
+<li>
+10/9
+</li>
+<li>
+-9/10
+</li>
+<li>
+-7/10
+</li>
+<li>
+-3/10
+</li>
+<li>
+3/10
+</li>
+<li>
+7/10
+</li>
+<li>
+9/10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the rules of exponents to rewrite the equation.</p>
+<p><span class="math display">\[4^{-40x^2-41x+21}~=~4^{0}\]</span></p>
+<p>Each side has a single exponential expression with a common base, so the exponents are equivalent.</p>
+<p><span class="math display">\[-40x^2-41x+21~=~0\]</span></p>
+<p>The leading coefficient is negative. Multiply both sides by <span class="math inline">\(=-1\)</span> to get a positive quadratic coefficient.</p>
+<p><span class="math display">\[40x^2+41x-21=0\]</span></p>
+<p>You could, with enough guess-and-check, factor this expression. However, since this quadratic has a composite (non-prime) leading coefficient and composite constant, I’d recommend using the <a href="https://en.wikipedia.org/wiki/Quadratic_formula">quadratic formula</a>. Start by identifying the parameters.</p>
+<p><span class="math display">\[a~=~40\]</span>
+<span class="math display">\[b~=~41\]</span>
+<span class="math display">\[c~=~-21\]</span></p>
+<p>Next, type the quadratic formula into Desmos. I’d recommend doing it with parameters and sliders. Desmos does not have a <span class="math inline">\(\pm\)</span> symbol, so just write it twice. Desmos will also simplify fractions for you (if you click on the fraction button).</p>
+<p><span class="math display">\[x~=~\frac{-(41)\pm \sqrt{(41)^2-4(40)(-21)}}{2(40)}\]</span></p>
+<p><span class="math display">\[x~=~\frac{-41 \pm \sqrt{1681-(-3360)}}{80}\]</span></p>
+<p><span class="math display">\[x~=~\frac{-41 \pm \sqrt{5041}}{80}\]</span></p>
+<p><span class="math display">\[x~=~\frac{-41 \pm 71}{80}\]</span></p>
+<p>Split the <span class="math inline">\(\pm\)</span> into <span class="math inline">\(-\)</span> and <span class="math inline">\(+\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-112}{80} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{30}{80}
+\end{aligned}\]</span></p>
+<p>Simplify the fractions.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-7}{5} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{3}{8}
+\end{aligned}\]</span></p>
+<p>I’ll point out that if you had guess-and-checked the factored form, you’d get:</p>
+<p><span class="math display">\[40x^2+41x-21~\equiv~(5x+7)(8x-3)\]</span></p>
+<p>Because <span class="math inline">\((5)(8)=40\)</span> and <span class="math inline">\((5)(-3)+(8)(7)=41\)</span> and <span class="math inline">\((7)(-3)=-21\)</span>. Notice it is easy to find the solutions from this factored form equation.</p>
+<p><span class="math display">\[(5x+7)(8x-3)~=~0\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-7}{5} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{3}{8}
+\end{aligned}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:
+<span class="math display">\[\frac{7^{68x}}{7^{32x^2}\cdot 7^{35}}~=~ 1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-9/2
+</li>
+<li>
+-7/2
+</li>
+<li>
+-5/2
+</li>
+<li>
+-3/2
+</li>
+<li>
+3/2
+</li>
+<li>
+5/2
+</li>
+<li>
+7/2
+</li>
+<li>
+9/2
+</li>
+<li>
+-10/3
+</li>
+<li>
+-8/3
+</li>
+<li>
+-7/3
+</li>
+<li>
+-5/3
+</li>
+<li>
+-4/3
+</li>
+<li>
+-2/3
+</li>
+<li>
+2/3
+</li>
+<li>
+4/3
+</li>
+<li>
+5/3
+</li>
+<li>
+7/3
+</li>
+<li>
+8/3
+</li>
+<li>
+10/3
+</li>
+<li>
+-9/4
+</li>
+<li>
+-7/4
+</li>
+<li>
+-5/4
+</li>
+<li>
+-3/4
+</li>
+<li>
+3/4
+</li>
+<li>
+5/4
+</li>
+<li>
+7/4
+</li>
+<li>
+9/4
+</li>
+<li>
+-9/5
+</li>
+<li>
+-8/5
+</li>
+<li>
+-7/5
+</li>
+<li>
+-6/5
+</li>
+<li>
+-4/5
+</li>
+<li>
+-3/5
+</li>
+<li>
+-2/5
+</li>
+<li>
+2/5
+</li>
+<li>
+3/5
+</li>
+<li>
+4/5
+</li>
+<li>
+6/5
+</li>
+<li>
+7/5
+</li>
+<li>
+8/5
+</li>
+<li>
+9/5
+</li>
+<li>
+-7/6
+</li>
+<li>
+-5/6
+</li>
+<li>
+5/6
+</li>
+<li>
+7/6
+</li>
+<li>
+-10/7
+</li>
+<li>
+-9/7
+</li>
+<li>
+-8/7
+</li>
+<li>
+-6/7
+</li>
+<li>
+-5/7
+</li>
+<li>
+-4/7
+</li>
+<li>
+-3/7
+</li>
+<li>
+-2/7
+</li>
+<li>
+2/7
+</li>
+<li>
+3/7
+</li>
+<li>
+4/7
+</li>
+<li>
+5/7
+</li>
+<li>
+6/7
+</li>
+<li>
+8/7
+</li>
+<li>
+9/7
+</li>
+<li>
+10/7
+</li>
+<li>
+-9/8
+</li>
+<li>
+-7/8
+</li>
+<li>
+-5/8
+</li>
+<li>
+-3/8
+</li>
+<li>
+3/8
+</li>
+<li>
+5/8
+</li>
+<li>
+7/8
+</li>
+<li>
+9/8
+</li>
+<li>
+-10/9
+</li>
+<li>
+-8/9
+</li>
+<li>
+-7/9
+</li>
+<li>
+-5/9
+</li>
+<li>
+-4/9
+</li>
+<li>
+-2/9
+</li>
+<li>
+2/9
+</li>
+<li>
+4/9
+</li>
+<li>
+5/9
+</li>
+<li>
+7/9
+</li>
+<li>
+8/9
+</li>
+<li>
+10/9
+</li>
+<li>
+-9/10
+</li>
+<li>
+-7/10
+</li>
+<li>
+-3/10
+</li>
+<li>
+3/10
+</li>
+<li>
+7/10
+</li>
+<li>
+9/10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the rules of exponents to rewrite the equation.</p>
+<p><span class="math display">\[7^{-32x^2+68x-35}~=~7^{0}\]</span></p>
+<p>Each side has a single exponential expression with a common base, so the exponents are equivalent.</p>
+<p><span class="math display">\[-32x^2+68x-35~=~0\]</span></p>
+<p>The leading coefficient is negative. Multiply both sides by <span class="math inline">\(=-1\)</span> to get a positive quadratic coefficient.</p>
+<p><span class="math display">\[32x^2-68x+35=0\]</span></p>
+<p>You could, with enough guess-and-check, factor this expression. However, since this quadratic has a composite (non-prime) leading coefficient and composite constant, I’d recommend using the <a href="https://en.wikipedia.org/wiki/Quadratic_formula">quadratic formula</a>. Start by identifying the parameters.</p>
+<p><span class="math display">\[a~=~32\]</span>
+<span class="math display">\[b~=~-68\]</span>
+<span class="math display">\[c~=~35\]</span></p>
+<p>Next, type the quadratic formula into Desmos. I’d recommend doing it with parameters and sliders. Desmos does not have a <span class="math inline">\(\pm\)</span> symbol, so just write it twice. Desmos will also simplify fractions for you (if you click on the fraction button).</p>
+<p><span class="math display">\[x~=~\frac{-(-68)\pm \sqrt{(-68)^2-4(32)(35)}}{2(32)}\]</span></p>
+<p><span class="math display">\[x~=~\frac{68 \pm \sqrt{4624-(4480)}}{64}\]</span></p>
+<p><span class="math display">\[x~=~\frac{68 \pm \sqrt{144}}{64}\]</span></p>
+<p><span class="math display">\[x~=~\frac{68 \pm 12}{64}\]</span></p>
+<p>Split the <span class="math inline">\(\pm\)</span> into <span class="math inline">\(-\)</span> and <span class="math inline">\(+\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{56}{64} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{80}{64}
+\end{aligned}\]</span></p>
+<p>Simplify the fractions.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{7}{8} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{5}{4}
+\end{aligned}\]</span></p>
+<p>I’ll point out that if you had guess-and-checked the factored form, you’d get:</p>
+<p><span class="math display">\[32x^2-68x+35~\equiv~(8x-7)(4x-5)\]</span></p>
+<p>Because <span class="math inline">\((8)(4)=32\)</span> and <span class="math inline">\((8)(-5)+(4)(-7)=-68\)</span> and <span class="math inline">\((-7)(-5)=35\)</span>. Notice it is easy to find the solutions from this factored form equation.</p>
+<p><span class="math display">\[(8x-7)(4x-5)~=~0\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{7}{8} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{5}{4}
+\end{aligned}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation:
+<span class="math display">\[\frac{8^{32x^2}\cdot 8^{44x}}{8^{21}}~=~ 1\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-9/2
+</li>
+<li>
+-7/2
+</li>
+<li>
+-5/2
+</li>
+<li>
+-3/2
+</li>
+<li>
+3/2
+</li>
+<li>
+5/2
+</li>
+<li>
+7/2
+</li>
+<li>
+9/2
+</li>
+<li>
+-10/3
+</li>
+<li>
+-8/3
+</li>
+<li>
+-7/3
+</li>
+<li>
+-5/3
+</li>
+<li>
+-4/3
+</li>
+<li>
+-2/3
+</li>
+<li>
+2/3
+</li>
+<li>
+4/3
+</li>
+<li>
+5/3
+</li>
+<li>
+7/3
+</li>
+<li>
+8/3
+</li>
+<li>
+10/3
+</li>
+<li>
+-9/4
+</li>
+<li>
+-7/4
+</li>
+<li>
+-5/4
+</li>
+<li>
+-3/4
+</li>
+<li>
+3/4
+</li>
+<li>
+5/4
+</li>
+<li>
+7/4
+</li>
+<li>
+9/4
+</li>
+<li>
+-9/5
+</li>
+<li>
+-8/5
+</li>
+<li>
+-7/5
+</li>
+<li>
+-6/5
+</li>
+<li>
+-4/5
+</li>
+<li>
+-3/5
+</li>
+<li>
+-2/5
+</li>
+<li>
+2/5
+</li>
+<li>
+3/5
+</li>
+<li>
+4/5
+</li>
+<li>
+6/5
+</li>
+<li>
+7/5
+</li>
+<li>
+8/5
+</li>
+<li>
+9/5
+</li>
+<li>
+-7/6
+</li>
+<li>
+-5/6
+</li>
+<li>
+5/6
+</li>
+<li>
+7/6
+</li>
+<li>
+-10/7
+</li>
+<li>
+-9/7
+</li>
+<li>
+-8/7
+</li>
+<li>
+-6/7
+</li>
+<li>
+-5/7
+</li>
+<li>
+-4/7
+</li>
+<li>
+-3/7
+</li>
+<li>
+-2/7
+</li>
+<li>
+2/7
+</li>
+<li>
+3/7
+</li>
+<li>
+4/7
+</li>
+<li>
+5/7
+</li>
+<li>
+6/7
+</li>
+<li>
+8/7
+</li>
+<li>
+9/7
+</li>
+<li>
+10/7
+</li>
+<li>
+-9/8
+</li>
+<li>
+-7/8
+</li>
+<li>
+-5/8
+</li>
+<li>
+-3/8
+</li>
+<li>
+3/8
+</li>
+<li>
+5/8
+</li>
+<li>
+7/8
+</li>
+<li>
+9/8
+</li>
+<li>
+-10/9
+</li>
+<li>
+-8/9
+</li>
+<li>
+-7/9
+</li>
+<li>
+-5/9
+</li>
+<li>
+-4/9
+</li>
+<li>
+-2/9
+</li>
+<li>
+2/9
+</li>
+<li>
+4/9
+</li>
+<li>
+5/9
+</li>
+<li>
+7/9
+</li>
+<li>
+8/9
+</li>
+<li>
+10/9
+</li>
+<li>
+-9/10
+</li>
+<li>
+-7/10
+</li>
+<li>
+-3/10
+</li>
+<li>
+3/10
+</li>
+<li>
+7/10
+</li>
+<li>
+9/10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the rules of exponents to rewrite the equation.</p>
+<p><span class="math display">\[8^{32x^2+44x-21}~=~8^{0}\]</span></p>
+<p>Each side has a single exponential expression with a common base, so the exponents are equivalent.</p>
+<p><span class="math display">\[32x^2+44x-21~=~0\]</span></p>
+<p>You could, with enough guess-and-check, factor this expression. However, since this quadratic has a composite (non-prime) leading coefficient and composite constant, I’d recommend using the <a href="https://en.wikipedia.org/wiki/Quadratic_formula">quadratic formula</a>. Start by identifying the parameters.</p>
+<p><span class="math display">\[a~=~32\]</span>
+<span class="math display">\[b~=~44\]</span>
+<span class="math display">\[c~=~-21\]</span></p>
+<p>Next, type the quadratic formula into Desmos. I’d recommend doing it with parameters and sliders. Desmos does not have a <span class="math inline">\(\pm\)</span> symbol, so just write it twice. Desmos will also simplify fractions for you (if you click on the fraction button).</p>
+<p><span class="math display">\[x~=~\frac{-(44)\pm \sqrt{(44)^2-4(32)(-21)}}{2(32)}\]</span></p>
+<p><span class="math display">\[x~=~\frac{-44 \pm \sqrt{1936-(-2688)}}{64}\]</span></p>
+<p><span class="math display">\[x~=~\frac{-44 \pm \sqrt{4624}}{64}\]</span></p>
+<p><span class="math display">\[x~=~\frac{-44 \pm 68}{64}\]</span></p>
+<p>Split the <span class="math inline">\(\pm\)</span> into <span class="math inline">\(-\)</span> and <span class="math inline">\(+\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-112}{64} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{24}{64}
+\end{aligned}\]</span></p>
+<p>Simplify the fractions.</p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-7}{4} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{3}{8}
+\end{aligned}\]</span></p>
+<p>I’ll point out that if you had guess-and-checked the factored form, you’d get:</p>
+<p><span class="math display">\[32x^2+44x-21~\equiv~(4x+7)(8x-3)\]</span></p>
+<p>Because <span class="math inline">\((4)(8)=32\)</span> and <span class="math inline">\((4)(-3)+(8)(7)=44\)</span> and <span class="math inline">\((7)(-3)=-21\)</span>. Notice it is easy to find the solutions from this factored form equation.</p>
+<p><span class="math display">\[(4x+7)(8x-3)~=~0\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+x~&amp;=~\frac{-7}{4} &amp; \mathrm{or}&amp;&amp; x~&amp;=~\frac{3}{8}
+\end{aligned}\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

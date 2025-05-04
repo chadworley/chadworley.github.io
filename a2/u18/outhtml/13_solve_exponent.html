@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>13_solve_exponent</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">13_solve_exponent</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve:</p>
+<p><span class="math display">\[38 = 8^x \]</span></p>
+<p>Tolerance is <span class="math inline">\(\pm0.01\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Apply a log function to both sides of the equation. Notice I have not specified the base at this step, but it is valid for any base of the logarithmic function.</p>
+<p><span class="math display">\[\log(38) = \log(8^x)\]</span></p>
+<p>Use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">logarithm-of-a-power identity</a>.</p>
+<p><span class="math display">\[\log(38) = x \log(8)\]</span></p>
+<p>Divide both sides by <span class="math inline">\(\log(8)\)</span>.</p>
+<p><span class="math display">\[\frac{\log(38)}{\log(8)} = x\]</span></p>
+<p>Optionally, apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[x = \log_{8}(38)\]</span></p>
+<p>Many people memorize the equivalence between the given equation (in the prompt) and this last equation above. In general,</p>
+<p><span class="math display">\[\begin{aligned}y ~&amp;=~ B^x &amp;\leftrightarrow&amp;&amp; x&amp;=\log_B(y)\end{aligned}\]</span></p>
+<p>Evaluate.</p>
+<p><span class="math display">\[x = 1.7493092\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve:</p>
+<p><span class="math display">\[12 = 3^x \]</span></p>
+<p>Tolerance is <span class="math inline">\(\pm0.01\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Apply a log function to both sides of the equation. Notice I have not specified the base at this step, but it is valid for any base of the logarithmic function.</p>
+<p><span class="math display">\[\log(12) = \log(3^x)\]</span></p>
+<p>Use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">logarithm-of-a-power identity</a>.</p>
+<p><span class="math display">\[\log(12) = x \log(3)\]</span></p>
+<p>Divide both sides by <span class="math inline">\(\log(3)\)</span>.</p>
+<p><span class="math display">\[\frac{\log(12)}{\log(3)} = x\]</span></p>
+<p>Optionally, apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[x = \log_{3}(12)\]</span></p>
+<p>Many people memorize the equivalence between the given equation (in the prompt) and this last equation above. In general,</p>
+<p><span class="math display">\[\begin{aligned}y ~&amp;=~ B^x &amp;\leftrightarrow&amp;&amp; x&amp;=\log_B(y)\end{aligned}\]</span></p>
+<p>Evaluate.</p>
+<p><span class="math display">\[x = 2.2618595\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve:</p>
+<p><span class="math display">\[26 = 6^x \]</span></p>
+<p>Tolerance is <span class="math inline">\(\pm0.01\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Apply a log function to both sides of the equation. Notice I have not specified the base at this step, but it is valid for any base of the logarithmic function.</p>
+<p><span class="math display">\[\log(26) = \log(6^x)\]</span></p>
+<p>Use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">logarithm-of-a-power identity</a>.</p>
+<p><span class="math display">\[\log(26) = x \log(6)\]</span></p>
+<p>Divide both sides by <span class="math inline">\(\log(6)\)</span>.</p>
+<p><span class="math display">\[\frac{\log(26)}{\log(6)} = x\]</span></p>
+<p>Optionally, apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[x = \log_{6}(26)\]</span></p>
+<p>Many people memorize the equivalence between the given equation (in the prompt) and this last equation above. In general,</p>
+<p><span class="math display">\[\begin{aligned}y ~&amp;=~ B^x &amp;\leftrightarrow&amp;&amp; x&amp;=\log_B(y)\end{aligned}\]</span></p>
+<p>Evaluate.</p>
+<p><span class="math display">\[x = 1.8183783\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve:</p>
+<p><span class="math display">\[13 = 6^x \]</span></p>
+<p>Tolerance is <span class="math inline">\(\pm0.01\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Apply a log function to both sides of the equation. Notice I have not specified the base at this step, but it is valid for any base of the logarithmic function.</p>
+<p><span class="math display">\[\log(13) = \log(6^x)\]</span></p>
+<p>Use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">logarithm-of-a-power identity</a>.</p>
+<p><span class="math display">\[\log(13) = x \log(6)\]</span></p>
+<p>Divide both sides by <span class="math inline">\(\log(6)\)</span>.</p>
+<p><span class="math display">\[\frac{\log(13)}{\log(6)} = x\]</span></p>
+<p>Optionally, apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[x = \log_{6}(13)\]</span></p>
+<p>Many people memorize the equivalence between the given equation (in the prompt) and this last equation above. In general,</p>
+<p><span class="math display">\[\begin{aligned}y ~&amp;=~ B^x &amp;\leftrightarrow&amp;&amp; x&amp;=\log_B(y)\end{aligned}\]</span></p>
+<p>Evaluate.</p>
+<p><span class="math display">\[x = 1.4315255\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve:</p>
+<p><span class="math display">\[27 = 8^x \]</span></p>
+<p>Tolerance is <span class="math inline">\(\pm0.01\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Apply a log function to both sides of the equation. Notice I have not specified the base at this step, but it is valid for any base of the logarithmic function.</p>
+<p><span class="math display">\[\log(27) = \log(8^x)\]</span></p>
+<p>Use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">logarithm-of-a-power identity</a>.</p>
+<p><span class="math display">\[\log(27) = x \log(8)\]</span></p>
+<p>Divide both sides by <span class="math inline">\(\log(8)\)</span>.</p>
+<p><span class="math display">\[\frac{\log(27)}{\log(8)} = x\]</span></p>
+<p>Optionally, apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[x = \log_{8}(27)\]</span></p>
+<p>Many people memorize the equivalence between the given equation (in the prompt) and this last equation above. In general,</p>
+<p><span class="math display">\[\begin{aligned}y ~&amp;=~ B^x &amp;\leftrightarrow&amp;&amp; x&amp;=\log_B(y)\end{aligned}\]</span></p>
+<p>Evaluate.</p>
+<p><span class="math display">\[x = 1.5849625\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve:</p>
+<p><span class="math display">\[3 = 9^x \]</span></p>
+<p>Tolerance is <span class="math inline">\(\pm0.01\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Apply a log function to both sides of the equation. Notice I have not specified the base at this step, but it is valid for any base of the logarithmic function.</p>
+<p><span class="math display">\[\log(3) = \log(9^x)\]</span></p>
+<p>Use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">logarithm-of-a-power identity</a>.</p>
+<p><span class="math display">\[\log(3) = x \log(9)\]</span></p>
+<p>Divide both sides by <span class="math inline">\(\log(9)\)</span>.</p>
+<p><span class="math display">\[\frac{\log(3)}{\log(9)} = x\]</span></p>
+<p>Optionally, apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[x = \log_{9}(3)\]</span></p>
+<p>Many people memorize the equivalence between the given equation (in the prompt) and this last equation above. In general,</p>
+<p><span class="math display">\[\begin{aligned}y ~&amp;=~ B^x &amp;\leftrightarrow&amp;&amp; x&amp;=\log_B(y)\end{aligned}\]</span></p>
+<p>Evaluate.</p>
+<p><span class="math display">\[x = 0.5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve:</p>
+<p><span class="math display">\[34 = 3^x \]</span></p>
+<p>Tolerance is <span class="math inline">\(\pm0.01\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Apply a log function to both sides of the equation. Notice I have not specified the base at this step, but it is valid for any base of the logarithmic function.</p>
+<p><span class="math display">\[\log(34) = \log(3^x)\]</span></p>
+<p>Use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">logarithm-of-a-power identity</a>.</p>
+<p><span class="math display">\[\log(34) = x \log(3)\]</span></p>
+<p>Divide both sides by <span class="math inline">\(\log(3)\)</span>.</p>
+<p><span class="math display">\[\frac{\log(34)}{\log(3)} = x\]</span></p>
+<p>Optionally, apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[x = \log_{3}(34)\]</span></p>
+<p>Many people memorize the equivalence between the given equation (in the prompt) and this last equation above. In general,</p>
+<p><span class="math display">\[\begin{aligned}y ~&amp;=~ B^x &amp;\leftrightarrow&amp;&amp; x&amp;=\log_B(y)\end{aligned}\]</span></p>
+<p>Evaluate.</p>
+<p><span class="math display">\[x = 3.2098317\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve:</p>
+<p><span class="math display">\[24 = 5^x \]</span></p>
+<p>Tolerance is <span class="math inline">\(\pm0.01\)</span>.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Apply a log function to both sides of the equation. Notice I have not specified the base at this step, but it is valid for any base of the logarithmic function.</p>
+<p><span class="math display">\[\log(24) = \log(5^x)\]</span></p>
+<p>Use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">logarithm-of-a-power identity</a>.</p>
+<p><span class="math display">\[\log(24) = x \log(5)\]</span></p>
+<p>Divide both sides by <span class="math inline">\(\log(5)\)</span>.</p>
+<p><span class="math display">\[\frac{\log(24)}{\log(5)} = x\]</span></p>
+<p>Optionally, apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[x = \log_{5}(24)\]</span></p>
+<p>Many people memorize the equivalence between the given equation (in the prompt) and this last equation above. In general,</p>
+<p><span class="math display">\[\begin{aligned}y ~&amp;=~ B^x &amp;\leftrightarrow&amp;&amp; x&amp;=\log_B(y)\end{aligned}\]</span></p>
+<p>Evaluate.</p>
+<p><span class="math display">\[x = 1.9746359\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

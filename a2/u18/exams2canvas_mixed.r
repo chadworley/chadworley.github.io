@@ -3,12 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "s18_"
 
-probs = c("01_common_base_solv_eq.Rmd",
-          "02_common_base_lin_mult.Rmd",
-          "03_common_base_lin_div.Rmd",
-          "04_common_base_quad.Rmd")
+probs = c("05_com_base_quad_rats.Rmd")
 
-pnts = c(2,2,2,5) #rep(3,length(probs))
+pnts = c(1) #rep(3,length(probs))
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

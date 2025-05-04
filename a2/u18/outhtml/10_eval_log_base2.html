@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>10_eval_log_base2</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">10_eval_log_base2</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<ul>
+<li><p><span class="math inline">\(\log_{2}(4)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(1024)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(16)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(512)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(32)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li><span class="math inline">\(2^{2}=4\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(4)=2\)</span></li>
+<li><span class="math inline">\(2^{10}=1024\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(1024)=10\)</span></li>
+<li><span class="math inline">\(2^{4}=16\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(16)=4\)</span></li>
+<li><span class="math inline">\(2^{9}=512\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(512)=9\)</span></li>
+<li><span class="math inline">\(2^{5}=32\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(32)=5\)</span></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<ul>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{128}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{256}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(32)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{4}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{512}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li><span class="math inline">\(2^{-7}=\frac{1}{128}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{128}\right)=-7\)</span></li>
+<li><span class="math inline">\(2^{-8}=\frac{1}{256}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{256}\right)=-8\)</span></li>
+<li><span class="math inline">\(2^{5}=32\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(32)=5\)</span></li>
+<li><span class="math inline">\(2^{-2}=\frac{1}{4}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{4}\right)=-2\)</span></li>
+<li><span class="math inline">\(2^{-9}=\frac{1}{512}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{512}\right)=-9\)</span></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<ul>
+<li><p><span class="math inline">\(\log_{2}(128)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{8}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(1024)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{32}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(512)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li><span class="math inline">\(2^{7}=128\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(128)=7\)</span></li>
+<li><span class="math inline">\(2^{-3}=\frac{1}{8}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{8}\right)=-3\)</span></li>
+<li><span class="math inline">\(2^{10}=1024\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(1024)=10\)</span></li>
+<li><span class="math inline">\(2^{-5}=\frac{1}{32}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{32}\right)=-5\)</span></li>
+<li><span class="math inline">\(2^{9}=512\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(512)=9\)</span></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<ul>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{8}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(512)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(4)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(32)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{256}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li><span class="math inline">\(2^{-3}=\frac{1}{8}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{8}\right)=-3\)</span></li>
+<li><span class="math inline">\(2^{9}=512\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(512)=9\)</span></li>
+<li><span class="math inline">\(2^{2}=4\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(4)=2\)</span></li>
+<li><span class="math inline">\(2^{5}=32\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(32)=5\)</span></li>
+<li><span class="math inline">\(2^{-8}=\frac{1}{256}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{256}\right)=-8\)</span></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<ul>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{1024}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(64)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(16)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(128)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(4)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li><span class="math inline">\(2^{-10}=\frac{1}{1024}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{1024}\right)=-10\)</span></li>
+<li><span class="math inline">\(2^{6}=64\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(64)=6\)</span></li>
+<li><span class="math inline">\(2^{4}=16\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(16)=4\)</span></li>
+<li><span class="math inline">\(2^{7}=128\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(128)=7\)</span></li>
+<li><span class="math inline">\(2^{2}=4\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(4)=2\)</span></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<ul>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{512}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{64}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{8}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{256}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(128)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li><span class="math inline">\(2^{-9}=\frac{1}{512}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{512}\right)=-9\)</span></li>
+<li><span class="math inline">\(2^{-6}=\frac{1}{64}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{64}\right)=-6\)</span></li>
+<li><span class="math inline">\(2^{-3}=\frac{1}{8}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{8}\right)=-3\)</span></li>
+<li><span class="math inline">\(2^{-8}=\frac{1}{256}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{256}\right)=-8\)</span></li>
+<li><span class="math inline">\(2^{7}=128\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(128)=7\)</span></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<ul>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{128}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(32)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{256}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(8)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{1024}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li><span class="math inline">\(2^{-7}=\frac{1}{128}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{128}\right)=-7\)</span></li>
+<li><span class="math inline">\(2^{5}=32\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(32)=5\)</span></li>
+<li><span class="math inline">\(2^{-8}=\frac{1}{256}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{256}\right)=-8\)</span></li>
+<li><span class="math inline">\(2^{3}=8\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(8)=3\)</span></li>
+<li><span class="math inline">\(2^{-10}=\frac{1}{1024}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{1024}\right)=-10\)</span></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<ul>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{1024}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(512)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}(16)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{64}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+<li><p><span class="math inline">\(\log_{2}\left(\frac{1}{256}\right)=\)</span> <select><option>--------</option><option> -10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10 </option></select></p></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<ul>
+<li><span class="math inline">\(2^{-10}=\frac{1}{1024}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{1024}\right)=-10\)</span></li>
+<li><span class="math inline">\(2^{9}=512\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(512)=9\)</span></li>
+<li><span class="math inline">\(2^{4}=16\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}(16)=4\)</span></li>
+<li><span class="math inline">\(2^{-6}=\frac{1}{64}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{64}\right)=-6\)</span></li>
+<li><span class="math inline">\(2^{-8}=\frac{1}{256}\)</span> <span style="color:blue;">therefore</span> <span class="math inline">\(\log_{2}\left(\frac{1}{256}\right)=-8\)</span></li>
+</ul>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
