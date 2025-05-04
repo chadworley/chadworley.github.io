@@ -1,0 +1,51 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+x = sample(-4:4,5)
+y = 10^x
+exes = character()
+ach = -5:5
+sols = character()
+for(i in 1:length(x)){
+    xp = x[i]
+    exes = c(exes,paste0("* $\\log_{10}(",10^xp,")=$ ##ANSWER",i,"##\n"))
+    sols = c(sols,paste0(1*(x[i]==ach),collapse=""))
+}
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+
+Question
+========
+
+`r paste0(exes,collapse="\n")`
+
+Answerlist
+--------
+
+`r paste0(rep(al,length(x)),collapse="\n")`
+
+
+Solution
+========
+
+```{r,echo=F,results='asis'}
+ss = character()
+for(i in 1:length(x)){
+    xp = x[i]
+    if(xp<0){
+        ss = c(ss,paste0("* $10^{",xp,"}=\\frac{1}{",10^abs(xp),"}$ <span style='color:blue;'>therefore</span> $\\log_{10}\\left(\\frac{1}{",10^abs(xp),"}\\right)=",xp,"$\n"))
+    } else {
+        ss = c(ss,paste0("* $10^{",xp,"}=",10^abs(xp),"$ <span style='color:blue;'>therefore</span> $\\log_{10}(",10^abs(xp),")=",xp,"$\n"))
+    }
+}
+cat(paste0(ss,collapse=""))
+```
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(x)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: eval_log_base10

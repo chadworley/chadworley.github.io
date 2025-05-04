@@ -1,0 +1,49 @@
+```{r,echo=FALSE}
+options(scipen=99)
+
+pH = round(runif(1,-1,15),1)
+cH = signif(10^(-pH),3)
+cHexp = floor(log10(cH))
+cHman = cH/10^cHexp
+cHman = signif(cHman,3)
+pH = -log10(cH)
+
+```
+
+Question
+========
+
+In chemistry, when making aqueous solutions with [acids](https://en.wikipedia.org/wiki/Acid) and [bases](https://en.wikipedia.org/wiki/Base_(chemistry)), it is common to consider the [pH](https://en.wikipedia.org/wiki/PH). Distilled (pure) water at 25°C has a pH of 7, and it is neutral because the number of $\mathrm{H^+}$ ions equals the number of $\mathrm{OH^-}$ ions. If an acid is added to water, the pH decreases, the number of $\mathrm{H^+}$ ions increases, and the number of $\mathrm{OH^-}$ ions decreases. If a base is added to water, the pH increases, the number of $\mathrm{H^+}$ ions decreases, and the number of $\mathrm{OH^-}$ ions increases.
+
+At room temperature, water undergoes a [reversible reaction](https://en.wikipedia.org/wiki/Reversible_reaction) dictated by [collision theory](https://en.wikipedia.org/wiki/Collision_theory) called [auto-ionization of water](https://en.wikipedia.org/wiki/Self-ionization_of_water). At each moment, every water molecule has some chance to split into a $\mathrm{H^+}$ and a $\mathrm{OH^-}$. Also at each moment, if a $\mathrm{H^+}$ bumps into a $\mathrm{OH^-}$, they can reform a water molecule.
+
+The bajillions of molecules all taking part in this dance produce a stable equilibrium, described by an [equilibrium constant](https://en.wikipedia.org/wiki/Equilibrium_constant).
+
+$$\mathrm{\left[H^+\right]\cdot\left[OH^-\right]}~=~10^{-14}$$
+
+where $\mathrm{\left[H^+\right]}$ is the concentration in moles per liter of $\mathrm{H^+}$ and $\mathrm{\left[OH^-\right]}$ is the concentration in moles per liter of $\mathrm{OH^-}$. The equilibrium constant equation shown above holds true for all aqueous solutions (at room temperature, near 1 [bar](https://en.wikipedia.org/wiki/Bar_(unit)) of atmospheric pressure, and not too concentrated), even after acids or bases are added.
+
+In typical aqueous solutions used in laboratories, the concentration of $\mathrm{H^+}$ varies considerably, over many magnitudes, from about 10 moles per liter down to 0.000000000000001 moles per liter. It is annoying to work with these numbers with lots of place-holder 0s. Using scientific notation can help, but using a logarithmic scale has been a favorite strategy when dealing with numbers that vary over many [orders of magnitude](https://en.wikipedia.org/wiki/Order_of_magnitude). This is what pH is, a logarithmic representation of the concentration of hydrogen ions. In the laboratory, pH will be between -1 and 15.
+
+$$\mathrm{pH~=~-\log_{10}\left(\left[H^+\right]\right)}$$
+
+* If an aqueous solution has known concentration of hydrogen ions, $\mathrm{\left[H^+\right]}=`r sprintf("%.02f",cHman)`\cdot 10^{`r cHexp`}$ moles per liter, what is the pH? *The tolerance is $\pm 0.1$.*
+
+
+Solution
+========
+
+Plug the given number into the equation.
+
+$$\mathrm{pH~=~-\log_{10}\left(`r sprintf("%.02f",cHman)`\cdot 10^{`r cHexp`}\right)}$$
+
+$$\mathrm{pH}~=~`r sprintf("%.01f",pH)`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r pH`
+extol: 0.1
+exname: pH

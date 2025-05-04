@@ -1,0 +1,97 @@
+```{r,echo=FALSE}
+options(scipen=99)
+
+
+pH = round(runif(1,2,13),2)
+cH = signif(10^(-pH),3)
+cHexp = floor(log10(cH))
+cHman = cH/10^cHexp
+cHman = signif(cHman,3)
+pH = -log10(cH)
+cOH = 10^(-14)/cH
+cOHexp = floor(log10(cOH))
+cOHman = cOH/10^cOHexp
+cOHman = signif(cOHman,5)
+pOH = -log10(cOH)
+
+```
+
+Question
+========
+
+In acid-base chemistry, there is a set of 4 equations that are used for conversion between 4 important measurements: $\mathrm{[H^+]}$, $\mathrm{pH}$, $\mathrm{[OH^-]}$, and $\mathrm{pOH}$. The square brackets are used to indicate concentration (usually as [moles per liter](https://en.wikipedia.org/wiki/Molar_concentration)), and pH and pOH are defined by the equations below.
+
+
+```{r,echo=F,fig.dim=c(8,4)}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-2,2),ylim=c(-1,1),axes=F,ann=F)
+pp = 0.7
+dp = 0.15
+text(-pp,pp,TeX("$\\[H^+\\]$"))
+text(pp,pp,TeX("$\\[OH^-\\]$"))
+text(-pp,-pp,TeX("pH"))
+text(pp,-pp,TeX("pOH"))
+arrows(pp,-pp+dp,pp,pp-dp,0.1,code=3)
+arrows(-pp,-pp+dp,-pp,pp-dp,0.1,code=3)
+arrows(-pp+dp,pp,pp-dp,pp,0.1,code=3)
+arrows(-pp+dp,-pp,pp-dp,-pp,0.1,code=3)
+text(0,pp+dp,TeX("$\\[H^+\\]\\cdot\\[OH^-\\]=10^{-14}$"))
+text(0,-pp-dp,TeX("$pH+pOH=14$"))
+text(-pp-dp,0,TeX("$pH=-\\log_{10}(\\[H^+\\])$"),adj=1)
+text(pp+dp,0,TeX("$pOH=-\\log_{10}(\\[OH^-\\])$"),adj=0)
+```
+\
+
+* If an aqueous solution has known concentration of hydrogen ions, $\mathrm{\left[H^+\right]}=`r sprintf("%.02f",cHman)`\cdot 10^{`r cHexp`}$ moles per liter, what is the pOH? *The tolerance is $\pm 0.1$.*
+
+
+Solution
+========
+
+There are two ways to solve this problem (clockwise or counterclockwise on the given diagram). If we go clockwise, we first calculate $\mathrm{[OH^-]}$ and then calculate $\mathrm{pOH}$. If we go counterclockwise, we first calculate $\mathrm{pH}$ and then calculate $\mathrm{pOH}$.
+
+Let's first go clockwise. Plug $\mathrm{\left[H^+\right]}=`r sprintf("%.02f",cHman)`\cdot 10^{`r cHexp`}$ into the equation $\mathrm{[H+]\cdot [OH^-]=10^{-14}}$ and solve for $\mathrm{[OH^-]}$.
+
+$$\left(`r sprintf("%.02f",cHman)` \cdot 10^{`r cHexp`}\right)\cdot \mathrm{[OH^-]}=10^{-14}$$
+
+$$\mathrm{[OH^-]}=\frac{10^{-14}}{`r sprintf("%.02f",cHman)`\cdot 10^{`r cHexp`}}$$
+
+$$\mathrm{[OH^-]}=`r sprintf("%.04f",cOHman)`\cdot 10^{`r cOHexp`}$$
+
+Use the definition of pOH.
+
+$$\mathrm{pOH}~=~-\log_{10}\left(\left[\mathrm{OH}^-\right]\right)$$
+
+
+$$\mathrm{pOH}~=~-\log_{10}\left(`r sprintf("%.04f",cOHman)`\cdot 10^{`r cOHexp`}\right)$$
+
+
+$$\mathrm{pOH}~=~`r pOH`$$
+
+Let's now go counterclockwise. First use the definition of pH with the given concentration of hydrogen ions.
+
+
+$$\mathrm{pH}~=~-\log_{10}\left(\left[\mathrm{H}^+\right]\right)$$
+
+
+$$\mathrm{pH}~=~-\log_{10}\left(`r sprintf("%.02f",cHman)` \cdot 10^{`r cHexp`}\right)$$
+
+
+$$\mathrm{pH}~=~`r pH`$$
+
+Now use the equation $\mathrm{pH+pOH}=14$ to find $\mathrm{pOH}$.
+
+$$`r pH`+\mathrm{pOH}=14$$
+$$\mathrm{pOH}=14-`r pH`$$
+$$\mathrm{pOH}=`r pOH`$$
+
+Either way we get approximately $\mathrm{pOH}=`r sprintf("%.01f",pOH)`$.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r pOH`
+extol: 0.1
+exname: pOH

@@ -1,0 +1,53 @@
+```{r,echo=FALSE}
+options(scipen=99)
+N = sample(5:40,1)
+kn = sample(1:88,2)
+
+f1 = 27.5*2^((kn[1]-1)/12)
+f2 = 27.5*2^((kn[2]-1)/12)
+
+notes = c("A","A^{\\#}","B","C","C^{\\#}","D","D^{\\#}","E","F","F^{\\#}","G","G^{\\#}")
+oct1 = floor((kn[1]+8)/12)
+oct2 = floor((kn[2]+8)/12)
+not1 = (kn[1]-1)%%12+1
+not2 = (kn[2]-1)%%12+1
+
+C = (kn[2]-kn[1])*100
+C2 = 1200*log(f2/f1,2)
+
+
+if(C<0){
+  wrd = sample(c("under","less","below"),1)
+} else {
+  wrd = sample(c("over","more","above"),1)
+}
+```
+
+Question
+========
+
+A musician plays two notes. One note has a fundamental frequency of $f_1=`r f1`$ Hz. The second frequency is `r abs(C)` cents `r wrd`. **What is the second frequency?**
+
+Remember the way to calculate an interval in cents.
+$$I = 1200\cdot \log_2\left(\frac{f_2}{f_1}\right)$$
+
+with $I$ as the ([signed](https://en.wikipedia.org/wiki/Sign_(mathematics))) interval in cents, $f_1$ as the first frequency in hertz, and $f_2$ as the second frequency in hertz. We can solve the formula for $f_2$ because logarithms and exponentials are inverses.
+
+$$f_2 = f_1 \cdot 2^{I/1200}$$
+
+
+Solution
+========
+
+Use the formula. Because $f_2$ is `r abs(C)` cents `r wrd` $f_1$, then $I=`r C`$.
+
+$$f_2 = `r f1` \cdot 2^{`r C`/1200} $$
+
+$$f_2=`r f2`$$
+
+Meta-information
+============
+extype: num
+exsolution: `r f2`
+extol: 1
+exname: f2_from_cents

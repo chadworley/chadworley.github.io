@@ -1,0 +1,127 @@
+```{r,echo=FALSE}
+options(scipen=99)
+
+while(T){
+    pH = round(runif(1,2,13),2)
+    pOH = 14-pH
+    cH = signif(10^(-pH),5)
+    cHexp = floor(log10(cH))
+    cHman = cH/10^cHexp
+    cHman = signif(cHman,5)
+    cOH = 10^(-14)/cH
+    cOHexp = floor(log10(cOH))
+    cOHman = cOH/10^cOHexp
+    cOHman = signif(cOHman,2)
+    if(cOHman>2 && cOHman<9){break}
+}
+
+
+ac = cOHman+(sample(-10:0,1)+0:10)*0.1
+al = paste0("* $\\mathrm{[OH^-]}~=~",sprintf("%.01f",ac),"\\cdot 10^{",cHexp,"}$ moles per liter",collapse="\n")
+sol = paste0(1*(ac==cOHman),collapse="")
+
+```
+
+Question
+========
+
+In acid-base chemistry, there is a set of 4 equations that are used for conversion between 4 important measurements: $\mathrm{[H^+]}$, $\mathrm{pH}$, $\mathrm{[OH^-]}$, and $\mathrm{pOH}$. The square brackets are used to indicate concentration (usually as [moles per liter](https://en.wikipedia.org/wiki/Molar_concentration)), and pH and pOH are defined by the equations below.
+
+
+```{r,echo=F,fig.dim=c(8,4)}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-2,2),ylim=c(-1,1),axes=F,ann=F)
+pp = 0.7
+dp = 0.15
+text(-pp,pp,TeX("$\\[H^+\\]$"))
+text(pp,pp,TeX("$\\[OH^-\\]$"))
+text(-pp,-pp,TeX("pH"))
+text(pp,-pp,TeX("pOH"))
+arrows(pp,-pp+dp,pp,pp-dp,0.1,code=3)
+arrows(-pp,-pp+dp,-pp,pp-dp,0.1,code=3)
+arrows(-pp+dp,pp,pp-dp,pp,0.1,code=3)
+arrows(-pp+dp,-pp,pp-dp,-pp,0.1,code=3)
+text(0,pp+dp,TeX("$\\[H^+\\]\\cdot\\[OH^-\\]=10^{-14}$"))
+text(0,-pp-dp,TeX("$pH+pOH=14$"))
+text(-pp-dp,0,TeX("$pH=-\\log_{10}(\\[H^+\\])$"),adj=1)
+text(pp+dp,0,TeX("$pOH=-\\log_{10}(\\[OH^-\\])$"),adj=0)
+```
+\
+
+* If an aqueous solution has $\mathrm{pH}=`r pH`$, what is the concentration of the $\mathrm{OH}^-$ ion in moles per liter?
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+There are two ways to solve this problem (clockwise or counterclockwise on the given diagram). If we go clockwise, we first calculate $\mathrm{[H^+]}$ and then calculate $\mathrm{[OH^-]}$. If we go counterclockwise, we first calculate $\mathrm{pOH}$ and then calculate $\mathrm{[OH^-]}$.
+
+Let's first go clockwise. From $\mathrm{pH}=`r pH`$ we can find $\mathrm{[H^+]}$.
+
+$$\mathrm{pH}~=~-\log_{10}\left(\left[\mathrm{H^+}\right]\right)$$
+
+$$`r pH`~=~-\log_{10}\left(\left[\mathrm{H^+}\right]\right)$$
+
+
+$$`r -pH`~=~\log_{10}\left(\left[\mathrm{H^+}\right]\right)$$
+
+$$10^{`r -pH`}~=~10^{\log_{10}\left(\left[\mathrm{H^+}\right]\right)}$$
+
+$$10^{`r -pH`}~=~\left[\mathrm{H^+}\right]$$
+
+
+$$\left[\mathrm{H^+}\right]~=~`r cHman`\cdot 10^{`r cHexp`}$$
+
+From $\left[\mathrm{H^+}\right]$ we can calculate $\left[\mathrm{OH^-}\right]$.
+
+$$\left[\mathrm{H^+}\right]\cdot\left[\mathrm{OH^-}\right]=10^{-14}$$
+
+
+$$\left(`r cHman`\cdot 10^{`r cHexp`}\right)\cdot\left[\mathrm{OH^-}\right]=10^{-14}$$
+
+
+$$\left[\mathrm{OH^-}\right]=\frac{10^{-14}}{`r cHman`\cdot 10^{`r cHexp`}}$$
+
+
+$$\left[\mathrm{OH^-}\right]=`r cOHman`\cdot 10^{`r cOHexp`}$$
+
+Going counterclockwise is probably easier. From $\mathrm{pH}$ we can calculate $\mathrm{pOH}$.
+
+$$\mathrm{pH}+\mathrm{pOH}=14$$
+
+$$`r pH`+\mathrm{pOH}=14$$
+
+$$\mathrm{pOH}=14-`r pH`$$
+
+
+$$\mathrm{pOH}=`r 14-pH`$$
+
+From $\mathrm{pOH}$ we can calculate $\mathrm{[OH^-]}$.
+
+$$\mathrm{pOH}~=~-\log_{10}\left(\left[\mathrm{OH^-}\right]\right)$$
+
+$$`r 14-pH`~=~-\log_{10}\left(\left[\mathrm{OH^-}\right]\right)$$
+
+$$`r -14+pH`~=~\log_{10}\left(\left[\mathrm{OH^-}\right]\right)$$
+
+$$10^{`r -14+pH`}~=~10^{\log_{10}\left(\left[\mathrm{OH^-}\right]\right)}$$
+
+
+$$10^{`r -14+pH`}~=~\left[\mathrm{OH^-}\right]$$
+
+
+$$\left[\mathrm{OH^-}\right]~=~`r sprintf("%.01f",cOHman)`\cdot 10^{`r cOHexp`}$$
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: hydroxide_ion_conc

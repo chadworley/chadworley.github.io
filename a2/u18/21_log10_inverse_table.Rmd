@@ -1,0 +1,111 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+xposs = round((-6:6)/2,1)
+yposs = signif(10^xposs,3)
+aposs = sort(unique(c(xposs,yposs)))
+while(T){
+    x = round(sort(sample(-6:6,5))/2,1)
+    f = 10^x
+    if(min(diff(x))>0.6 && sum(x%%1==0)>2){break}
+}
+x = signif(x,3)
+f = signif(f,3)
+al = paste0("* ",aposs,collapse="\n")
+
+answers = c(f,x)
+
+sols = character()
+
+for(answer in answers){
+    sols = c(sols,paste0(1*(aposs==answer),collapse=""))
+}
+
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+I've located 5 points on the curve $y=10^x$.
+
+```{r tab2, results="asis", echo=F}
+mydf2 = data.frame(paste0(x),paste0(f))
+colnames(mydf2) = c("$x$","$y=10^x$")
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+If a parent function is $f(x)=10^x$ then the [inverse function](https://en.wikipedia.org/wiki/Inverse_function) is $f^{-1}(y)=\log_{10}(y)$. Use the 5 points given above to fill out the table below (with corresponding points in increasing order).
+
+```{r tab4, results="asis", echo=F}
+mydf4 = data.frame(paste0("##ANSWER",1:5,"##"),paste0("##ANSWER",6:10,"##"))
+colnames(mydf4) = c("$y$","$x=\\log_{10}(y)$")
+knitr::kable(mydf4,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+The inverse function $f^{-1}(z)=\log_{10}(z)$ is defined by the table below.
+
+```{r tab3, results="asis", echo=F}
+mydf3 = data.frame(paste0(f),paste0(x))
+colnames(mydf3) = c("$y$","$x=\\log_{10}(y)$")
+knitr::kable(mydf3,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+Notice, you just switch the columns of the given $y=10^x$ table.
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",10),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: log10_inverse_table

@@ -1,0 +1,66 @@
+```{r,echo=FALSE}
+options(scipen=99)
+# M = 2/3*\log10(E)-3.2
+# 10^((M+3.2)*3/2)
+
+# M = 2/3*\log10(E)-3.2
+# E = 10^((M+3.2)*3/2)
+# E2/E1 = 10^((M2-M1)*3/2)
+
+mdiff = round(runif(1,1.4,6),1)
+erat = signif(10^(mdiff*3/2),3)
+erexp = floor(log10(erat))
+erman = erat/10^erexp
+erman = signif(erman,3)
+mdiff = log10(erat)*2/3
+
+```
+
+Question
+========
+
+When two separate earthquakes occur, we are often interested in comparing their energies as a ratio (to say how many times more energy the larger one released). [Wikipedia](https://en.wikipedia.org/wiki/Moment_magnitude_scale#Comparative_energy_released_by_two_earthquakes) provided me with the following formula to do this:
+
+$$\frac{E_2}{E_1}~=~10^{1.5(M_2-M_1)}$$
+
+If the second earthquake's energy was $`r sprintf("%.02f",erman)`\cdot 10^{`r erexp`}$ times the first earthquake's energy, then what was the (absolute) difference in magnitudes?
+
+
+Solution
+========
+
+You've been given the ratio of energies. Replace with ratio of energies with the given number.
+
+$$`r sprintf("%.02f",erman)`\cdot 10^{`r erexp`}~=~10^{1.5(M_2-M_1)}$$
+
+The inverse of $f(x)=10^x$ is $f^{-1}(x)=\log_{10}(x)$. So, to undo the "10 to the", we apply "log10 of" to both sides.
+
+
+$$\log_{10}\left(`r sprintf("%.02f",erman)`\cdot 10^{`r erexp`}\right)~=~\log_{10}\left(10^{1.5(M_2-M_1)}\right)$$
+
+We know that $\log_B(B^x)\equiv x$.
+
+
+$$\log_{10}\left(`r sprintf("%.02f",erman)`\cdot 10^{`r erexp`}\right)~=~1.5(M_2-M_1)$$
+
+Divide both sides by 1.5.
+
+
+$$\frac{\log_{10}\left(`r sprintf("%.02f",erman)`\cdot 10^{`r erexp`}\right)}{1.5}~=~M_2-M_1$$
+
+Use a calculator.
+
+$$M_2-M_1~=~`r mdiff`$$
+
+You can round to the tenths place.
+
+$$M_2-M_1~=~`r sprintf("%.01f",mdiff)`$$
+
+So, the difference in magnitudes is approximately `r sprintf("%.01f",mdiff)`.
+
+Meta-information
+============
+extype: num
+exsolution: `r mdiff`
+extol: 0.05
+exname: earthquake_nrg_rat

@@ -1,0 +1,52 @@
+```{r,echo=FALSE}
+options(scipen=99)
+# M = 2/3*\log10(E)-3.2
+# 10^((M+3.2)*3/2)
+
+M = round(runif(1,4,10),1)
+E = signif(10^((M+3.2)*3/2),3)
+
+Eexp = floor(log10(E))
+Eman = E/10^Eexp
+Eman = signif(Eman,3)
+
+M = 2/3*log10(E)-3.2
+
+```
+
+Question
+========
+
+There is extensive and ongoing research into modeling and measuring earthquakes. Earthquakes are complicated to measure because they occur at sporadic times and locations, and they occur over vast regions of land, and the motions travel through terrain with complicated composition of varying density and rigidity.
+
+In 1935 [the Richter magnitude scale](https://en.wikipedia.org/wiki/Richter_scale) was published as a way to classify the strength of earthquakes based on the amplitude of [seismometer](https://en.wikipedia.org/wiki/Wood%E2%80%93Anderson_seismometer) recordings. [Charles Richter](https://en.wikipedia.org/wiki/Charles_Richter) decided to use a logarithmic scale for magnitude because the seismometer readings of the largest earthquakes were billions of times larger than the seismometer readings of the smallest earthquakes measurable. Instead of having numbers at different scales, like 3.42 and 3420000 for example, Richter magnitudes tend to be between 4 and 10 for newsworthy earthquakes.
+
+[Modern approaches](https://en.wikipedia.org/wiki/Moment_magnitude_scale) continue to use magnitudes that approximately align with the Richter scale. However, more sophisticated modeling and tools now allow geologists to approximate the amount of energy released from the earthquake, and this amount of **energy** (instead of seismometer amplitude) is expressed as a magnitude.
+
+The total energy of an earthquake is released as different forms, and each of those forms also transforms over time. Because the goal of discussing earthquakes' magnitudes is to consider their destructive potential, geologists focus on the *radiated seismic energy*, or the energy that radiates as shaking ground. This radiated seismic energy typically accounts for about 10% of the total energy, but can vary substantially depending on the [type of fault](https://en.wikipedia.org/wiki/Fault_(geology)) and composition of the terrain. Seismologists use complicated mathematical simulations to estimate the amount of radiated seismic energy, and report this energy as a magnitude.
+
+
+In 1995, Choy and Boatwright defined the **energy magnitude**. If we use $M$ for magnitude and $E$ for the radiated seismic energy (in [Joules](https://en.wikipedia.org/wiki/Joule)), then the equation that relates the two quantities is logarithmic:
+
+$$M~=~\frac{2}{3}\log_{10}(E)-3.2$$
+
+If an earthquake produces $`r sprintf("%.02f",Eman)`\cdot 10^{`r Eexp`}$ Joules of radiated seismic energy, what is the magnitude?
+
+
+Solution
+========
+
+Put the number into the formula.
+
+$$M~=~\frac{2}{3}\log_{10}\left(`r sprintf("%.02f",Eman)`\cdot 10^{`r Eexp`}\right)-3.2$$
+
+
+$$M~\approx~`r sprintf("%.01f",M)`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r M`
+extol: 0.1
+exname: earthquake_magnitude
