@@ -13,7 +13,7 @@ cents = 1200*log2(R/1.5)
 Question
 ========
 
-When the ratio between two [fundamental frequencies](https://en.wikipedia.org/wiki/Fundamental_frequency) is near 3:2, musicians call the [interval](https://en.wikipedia.org/wiki/Interval_(music)) a "[fifth](https://en.wikipedia.org/wiki/Perfect_fifth)", named from playing the first and fifth notes in a classical [diatonic scale](https://en.wikipedia.org/wiki/Diatonic_scale). Somewhat annoyingly, [equal temperament](https://en.wikipedia.org/wiki/Equal_temperament) does not allow for a ratio of exactly 3:2. Some equal temperaments get closer than others. Let's investigate how close [`r N` EDO](https://en.wikipedia.org/wiki/Equal_temperament#Various_equal_temperaments) can get to an [exact 3:2 ratio of frequencies](https://en.wikipedia.org/wiki/Just_intonation). 
+When the ratio between two [fundamental frequencies](https://en.wikipedia.org/wiki/Fundamental_frequency) is near 3:2, musicians call the [interval](https://en.wikipedia.org/wiki/Interval_(music)) a "[fifth](https://en.wikipedia.org/wiki/Perfect_fifth)", named from playing the first and fifth notes in a classical [diatonic scale](https://en.wikipedia.org/wiki/Diatonic_scale). Somewhat annoyingly, [equal temperament](https://en.wikipedia.org/wiki/Equal_temperament) does not allow for a ratio of exactly 3:2. Some equal temperaments get closer than others. Let's investigate how close [`r N` EDO](https://en.wikipedia.org/wiki/Equal_temperament#Various_equal_temperaments) can get to an [exact 3:2 ratio of frequencies](https://en.wikipedia.org/wiki/Just_intonation). We will report the "distance" in [cents](https://en.wikipedia.org/wiki/Cent_(music)).
 
 ```{r,echo=FALSE,fig.dim=c(5*8/5,1*8/5)}
 par(mar=c(0,0,0,0))
@@ -66,14 +66,14 @@ lines(c(2/3,2/3,1,1),c(-0.085,-0.095,-0.095,-0.085),col="red")
 ```
 \
 
-First, determine the [cents]((https://en.wikipedia.org/wiki/Cent_(music))) of an exact 3:2 ratio.
+First, determine the interval (in [cents](https://en.wikipedia.org/wiki/Cent_(music))) of an exact 3:2 ratio.
 
-$$I_\text{exact} ~=~ 1200\cdot\log_2(1.5) ~=~ `r 1200*log(1.5,2)`$$
+$$I_\text{exact} ~=~ 1200\cdot\log_2\left(\frac{3}{2}\right) ~=~ `r 1200*log(1.5,2)`$$
 
-Determine the best [fret](https://en.wikipedia.org/wiki/Fret) by [rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_to_the_nearest_integer) a logarithmic function.
+Determine the best [fret](https://en.wikipedia.org/wiki/Fret) on the `r N`-EDO guitar to approximate a 3:2 ratio (after playing an open string) by [rounding](https://en.wikipedia.org/wiki/Rounding#Rounding_to_the_nearest_integer) a logarithmic function.
 
-$$x ~=~ \text{round} \left(`r N`\cdot \log_2(1.5) \right)$$
-Then, determine the ratio of frequencies between an open string and the $x$th fret. It should be near 1.5, but a bit off.
+$$x ~=~ \text{round} \left(`r N`\cdot \log_2\left(\frac{3}{2}\right) \right)$$
+Then, determine the ratio of frequencies between an open string and the $x$th fret on the `r N`-EDO guitar. The ratio should be near 1.5, but a bit off.
 
 $$r = 2^{x/`r N`}$$
 
@@ -106,7 +106,7 @@ It should be pointed out that due to [logarithmic identities](https://en.wikiped
 
 $$I_{\text{fret}} ~=~ 1200 \cdot \frac{`r a`}{`r N`} ~=~ `r Ix`$$
 
-A ratio of `r R` is equivalent to `r Ix` cents. We can get the final answer by taking the absolute difference.
+A ratio of `r R` is equivalent to `r Ix` cents. We can get the final answer by taking the absolute difference of the two intervals.
 
 $$\Big|`r Iex` - `r Ix`\Big| = `r abs(cents)`$$
 

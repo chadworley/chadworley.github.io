@@ -7,15 +7,22 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s18_05_com_base_quad_rats.zip",
-"outcanvas/s18_06_eval_expo_base2.zip",
-"outcanvas/s18_07_eval_expo_base10.zip",
-"outcanvas/s18_08_solve_expo_base2.zip",
-"outcanvas/s18_09_solve_expo_base10.zip",
-"outcanvas/s18_10_eval_log_base2.zip",
-"outcanvas/s18_11_eval_log_base10.zip",
-"outcanvas/s18_12_eval_log_base_2_3_10.zip",
-"outcanvas/s18_13_solve_exponent.zip"]
+file_path_list = ["outcanvas/s18_14_two-step_inverse_alg.zip",
+"outcanvas/s18_15_solve_exponential.zip",
+"outcanvas/s18_16_solve_logarithmic.zip",
+"outcanvas/s18_17_equal_temperament_get_freq.zip",
+"outcanvas/s18_18_equal_temperament_get_key.zip",
+"outcanvas/s18_19_cents.zip",
+"outcanvas/s18_20_f2_from_cents.zip",
+"outcanvas/s18_21_equal_temperament_fifth_error.zip",
+"outcanvas/s18_22_earthquake_magnitude.zip",
+"outcanvas/s18_23_earthquake_energy.zip",
+"outcanvas/s18_24_earthquake_nrg_rat.zip",
+"outcanvas/s18_25_earthquake_mag_diff.zip",
+"outcanvas/s18_26_pH.zip",
+"outcanvas/s18_27_hydrogen_ion_conc.zip",
+"outcanvas/s18_28_pOH.zip",
+"outcanvas/s18_29_hydroxide_ion_conc.zip"]
 
 
 # FOR UPLOADING ETS

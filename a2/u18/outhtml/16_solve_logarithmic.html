@@ -1,0 +1,1018 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>16_solve_logarithmic</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">16_solve_logarithmic</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\log_{2}\left(x+4\right)-7=y\]</span></p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=2^{y-7}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-4}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+7}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+4}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/7}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/4}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{7 y}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{4 y}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-7}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-4}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+7}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+4}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/7}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/4}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{7 y}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{4 y}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y-7}}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y-4}}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y+7}}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y+4}}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y/7}}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y/4}}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{7 y}}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{4 y}}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\cdot 2^{y-7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\cdot 2^{y-4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\cdot 2^{y+7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\cdot 2^{y+4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\cdot 2^{y/7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\cdot 2^{y/4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\cdot 2^{7 y}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\cdot 2^{4 y}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given equation.</p>
+<p><span class="math display">\[\log_{2}\left(x+4\right)-7=y\]</span></p>
+<p>As a first step, on both sides of the equation, add 7.</p>
+<p><span class="math display">\[\log_{2}\left(x+4\right) = y+7\]</span></p>
+<p>To undo the <span class="math inline">\(\log_{2}\)</span> function, raise each side of the equation as an exponent with a base of 2.</p>
+<p><span class="math display">\[2^{\log_{2}\left(x+4\right)} = 2^{y+7}\]</span></p>
+<p><span class="math display">\[x+4 = 2^{y+7}\]</span></p>
+<p>As a final step, on both sides of the equation, subtract 4.</p>
+<p><span class="math display">\[x=2^{y+7}-4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[7\log_{2}\left(x-8\right)=y\]</span></p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=2^{y-8}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-7}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+8}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+7}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/8}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/7}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{8 y}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{7 y}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-8}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-7}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+8}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+7}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/8}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/7}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{8 y}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{7 y}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y-8}}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y-7}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y+8}}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y+7}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y/8}}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y/7}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{8 y}}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{7 y}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\cdot 2^{y-8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 2^{y-7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\cdot 2^{y+8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 2^{y+7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\cdot 2^{y/8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 2^{y/7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7\cdot 2^{8 y}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 2^{7 y}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given equation.</p>
+<p><span class="math display">\[7\log_{2}\left(x-8\right)=y\]</span></p>
+<p>As a first step, on both sides of the equation, divide by 7.</p>
+<p><span class="math display">\[\log_{2}\left(x-8\right) = y/7\]</span></p>
+<p>To undo the <span class="math inline">\(\log_{2}\)</span> function, raise each side of the equation as an exponent with a base of 2.</p>
+<p><span class="math display">\[2^{\log_{2}\left(x-8\right)} = 2^{y/7}\]</span></p>
+<p><span class="math display">\[x-8 = 2^{y/7}\]</span></p>
+<p>As a final step, on both sides of the equation, add 8.</p>
+<p><span class="math display">\[x=2^{y/7}+8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[8\log_{3}\left(\frac{x}{5}\right)=y\]</span></p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=3^{y-8}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y-5}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y+8}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y+5}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y/8}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y/5}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{8 y}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{5 y}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y-8}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y-5}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y+8}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y+5}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y/8}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y/5}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{8 y}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{5 y}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y-8}}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y-5}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y+8}}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y+5}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y/8}}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y/5}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{8 y}}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{5 y}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\cdot 3^{y-8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 3^{y-5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\cdot 3^{y+8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 3^{y+5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\cdot 3^{y/8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 3^{y/5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\cdot 3^{8 y}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 3^{5 y}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given equation.</p>
+<p><span class="math display">\[8\log_{3}\left(\frac{x}{5}\right)=y\]</span></p>
+<p>As a first step, on both sides of the equation, divide by 8.</p>
+<p><span class="math display">\[\log_{3}\left(\frac{x}{5}\right) = y/8\]</span></p>
+<p>To undo the <span class="math inline">\(\log_{3}\)</span> function, raise each side of the equation as an exponent with a base of 3.</p>
+<p><span class="math display">\[3^{\log_{3}\left(\frac{x}{5}\right)} = 3^{y/8}\]</span></p>
+<p><span class="math display">\[\frac{x}{5} = 3^{y/8}\]</span></p>
+<p>As a final step, on both sides of the equation, multiply by 5.</p>
+<p><span class="math display">\[x=5\cdot 3^{y/8}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\log_{2}\left(x+3\right)-9=y\]</span></p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=2^{y-9}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-3}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+9}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+3}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/9}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/3}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{9 y}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{3 y}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-9}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-3}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+9}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+3}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/9}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/3}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{9 y}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{3 y}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y-9}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y-3}}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y+9}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y+3}}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y/9}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y/3}}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{9 y}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{3 y}}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 2^{y-9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\cdot 2^{y-3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 2^{y+9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\cdot 2^{y+3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 2^{y/9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\cdot 2^{y/3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 2^{9 y}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=9\cdot 2^{3 y}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given equation.</p>
+<p><span class="math display">\[\log_{2}\left(x+3\right)-9=y\]</span></p>
+<p>As a first step, on both sides of the equation, add 9.</p>
+<p><span class="math display">\[\log_{2}\left(x+3\right) = y+9\]</span></p>
+<p>To undo the <span class="math inline">\(\log_{2}\)</span> function, raise each side of the equation as an exponent with a base of 2.</p>
+<p><span class="math display">\[2^{\log_{2}\left(x+3\right)} = 2^{y+9}\]</span></p>
+<p><span class="math display">\[x+3 = 2^{y+9}\]</span></p>
+<p>As a final step, on both sides of the equation, subtract 3.</p>
+<p><span class="math display">\[x=2^{y+9}-3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\log_{3}\left(2x\right)+6=y\]</span></p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=3^{y-6}-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y-2}-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y+6}-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y+2}-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y/6}-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y/2}-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{6 y}-2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{2 y}-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y-6}+2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y-2}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y+6}+2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y+2}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y/6}+2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{y/2}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{6 y}+2\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3^{2 y}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y-6}}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y-2}}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y+6}}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y+2}}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y/6}}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{y/2}}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{6 y}}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{3^{2 y}}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\cdot 3^{y-6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\cdot 3^{y-2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\cdot 3^{y+6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\cdot 3^{y+2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\cdot 3^{y/6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\cdot 3^{y/2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2\cdot 3^{6 y}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=6\cdot 3^{2 y}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given equation.</p>
+<p><span class="math display">\[\log_{3}\left(2x\right)+6=y\]</span></p>
+<p>As a first step, on both sides of the equation, subtract 6.</p>
+<p><span class="math display">\[\log_{3}\left(2x\right) = y-6\]</span></p>
+<p>To undo the <span class="math inline">\(\log_{3}\)</span> function, raise each side of the equation as an exponent with a base of 3.</p>
+<p><span class="math display">\[3^{\log_{3}\left(2x\right)} = 3^{y-6}\]</span></p>
+<p><span class="math display">\[2x = 3^{y-6}\]</span></p>
+<p>As a final step, on both sides of the equation, divide by 2.</p>
+<p><span class="math display">\[x=\frac{3^{y-6}}{2}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[5\log_{7}\left(x-3\right)=y\]</span></p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=7^{y-5}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y-3}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y+5}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y+3}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y/5}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y/3}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{5 y}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{3 y}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y-5}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y-3}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y+5}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y+3}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y/5}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y/3}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{5 y}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{3 y}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y-5}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y-3}}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y+5}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y+3}}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y/5}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y/3}}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{5 y}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{3 y}}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 7^{y-5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\cdot 7^{y-3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 7^{y+5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\cdot 7^{y+3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 7^{y/5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\cdot 7^{y/3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 7^{5 y}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=5\cdot 7^{3 y}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given equation.</p>
+<p><span class="math display">\[5\log_{7}\left(x-3\right)=y\]</span></p>
+<p>As a first step, on both sides of the equation, divide by 5.</p>
+<p><span class="math display">\[\log_{7}\left(x-3\right) = y/5\]</span></p>
+<p>To undo the <span class="math inline">\(\log_{7}\)</span> function, raise each side of the equation as an exponent with a base of 7.</p>
+<p><span class="math display">\[7^{\log_{7}\left(x-3\right)} = 7^{y/5}\]</span></p>
+<p><span class="math display">\[x-3 = 7^{y/5}\]</span></p>
+<p>As a final step, on both sides of the equation, add 3.</p>
+<p><span class="math display">\[x=7^{y/5}+3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\log_{2}\left(\frac{x}{8}\right)+4=y\]</span></p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=2^{y-8}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-4}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+8}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+4}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/8}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/4}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{8 y}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{4 y}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-8}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y-4}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+8}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y+4}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/8}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{y/4}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{8 y}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x=2^{4 y}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y-8}}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y-4}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y+8}}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y+4}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y/8}}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{y/4}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{8 y}}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{2^{4 y}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\cdot 2^{y-8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 2^{y-4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\cdot 2^{y+8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 2^{y+4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\cdot 2^{y/8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 2^{y/4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=4\cdot 2^{8 y}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 2^{4 y}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given equation.</p>
+<p><span class="math display">\[\log_{2}\left(\frac{x}{8}\right)+4=y\]</span></p>
+<p>As a first step, on both sides of the equation, subtract 4.</p>
+<p><span class="math display">\[\log_{2}\left(\frac{x}{8}\right) = y-4\]</span></p>
+<p>To undo the <span class="math inline">\(\log_{2}\)</span> function, raise each side of the equation as an exponent with a base of 2.</p>
+<p><span class="math display">\[2^{\log_{2}\left(\frac{x}{8}\right)} = 2^{y-4}\]</span></p>
+<p><span class="math display">\[\frac{x}{8} = 2^{y-4}\]</span></p>
+<p>As a final step, on both sides of the equation, multiply by 8.</p>
+<p><span class="math display">\[x=8\cdot 2^{y-4}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[\frac{\log_{7}\left(x-8\right)}{3}=y\]</span></p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=7^{y-8}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y-3}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y+8}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y+3}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y/8}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y/3}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{8 y}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{3 y}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y-8}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y-3}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y+8}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y+3}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y/8}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{y/3}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{8 y}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x=7^{3 y}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y-8}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y-3}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y+8}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y+3}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y/8}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{y/3}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{8 y}}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{7^{3 y}}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 7^{y-8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 7^{y-3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 7^{y+8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 7^{y+3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 7^{y/8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 7^{y/3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=3\cdot 7^{8 y}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=8\cdot 7^{3 y}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given equation.</p>
+<p><span class="math display">\[\frac{\log_{7}\left(x-8\right)}{3}=y\]</span></p>
+<p>As a first step, on both sides of the equation, multiply by 3.</p>
+<p><span class="math display">\[\log_{7}\left(x-8\right) = 3 y\]</span></p>
+<p>To undo the <span class="math inline">\(\log_{7}\)</span> function, raise each side of the equation as an exponent with a base of 7.</p>
+<p><span class="math display">\[7^{\log_{7}\left(x-8\right)} = 7^{3 y}\]</span></p>
+<p><span class="math display">\[x-8 = 7^{3 y}\]</span></p>
+<p>As a final step, on both sides of the equation, add 8.</p>
+<p><span class="math display">\[x=7^{3 y}+8\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

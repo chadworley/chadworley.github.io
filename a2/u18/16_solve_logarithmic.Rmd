@@ -1,0 +1,102 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+# y = log_b(x op1 a) op2 c
+# x = b^(y iop2 c) iop1 a
+
+abc = sample(2:9,3)
+a = abc[1]
+b = abc[2]
+c = abc[3]
+ops = c("A+B","A-B","BA","\\frac{A}{B}")
+iops = c("A-B","A+B","\\frac{A}{B}","B\\cdot A")
+iops2 = c("A-B","A+B","A/B","B A")
+opi = sample(1:4,2)
+op1 = ops[opi[1]]
+op2 = ops[opi[2]]
+iop1 = iops[opi[1]]
+iop2 = iops2[opi[2]]
+steps = c("subtract","add","divide by","multiply by")
+step1 = steps[opi[2]]
+step2 = steps[opi[1]]
+
+arg = gsub("A","x",op1,fixed=T)
+arg = gsub("B",a,arg,fixed=T)
+func = paste0("\\log_{",b,"}\\left(",arg,"\\right)",collapse="")
+exp1 = gsub("A",func,op2,fixed=T)
+exp1 = gsub("B",c,exp1,fixed=T)
+exp1 = paste0(exp1,"=y",collapse="")
+
+sarg = gsub("A","y",iop2,fixed=T)
+sarg = gsub("B",c,sarg,fixed=T)
+sfunc = paste0(b,"^{",sarg,"}",collapse="")
+sexp = gsub("A",sfunc,iop1,fixed=T)
+sexp = gsub("B",a,sexp,fixed=T)
+sexp = paste0("x=",sexp,collapse="")
+
+ach = character()
+klis = list(c(1,2),c(2,1))
+for(i in 1:4){
+    for(j in 1:4){
+        for(k in 1:2){
+            io1 = iops[i]
+            io2 = iops2[j]
+            ac = sort(c(a,c))
+            aa = ac[klis[[k]][1]]
+            cc = ac[klis[[k]][2]]
+            zarg = gsub("A","y",io2,fixed=T)
+            zarg = gsub("B",cc,zarg,fixed=T)
+            zfunc = paste0(b,"^{",zarg,"}",collapse="")
+            zexp = gsub("A",zfunc,io1,fixed=T)
+            zexp = gsub("B",aa,zexp,fixed=T)
+            zexp = paste0("x=",zexp,collapse="")
+            ach = c(ach,zexp)
+        }
+    }
+}
+sol = paste0(1*(ach==sexp),collapse="")
+
+```
+
+
+Question
+========
+
+Solve for $x$.
+
+$$`r exp1`$$
+
+Answerlist
+--------
+
+`r paste0("* $",ach,"$",collapse="\n")`
+
+
+
+Solution
+========
+
+Rewrite the given equation.
+
+$$`r exp1`$$
+
+As a first step, on both sides of the equation, `r step1` `r c`.
+
+$$`r func` = `r sarg`$$
+
+To undo the $\log_{`r b`}$ function, raise each side of the equation as an exponent with a base of `r b`.
+
+$$`r b`^{`r func`} = `r b`^{`r sarg`}$$
+
+$$`r arg` = `r b`^{`r sarg`}$$
+
+As a final step, on both sides of the equation, `r step2` `r a`.
+
+$$`r sexp`$$
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: solve_logarithmic

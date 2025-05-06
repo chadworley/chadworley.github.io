@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>17_equal_temperament_get_freq</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">17_equal_temperament_get_freq</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/41_equal_temperament">41 EDO</a>. That means there are 41 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/41} \approx 1.0170497\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 132, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-132)/41} \]</span></p>
+<p>What is the frequency, in <a href="https://en.wikipedia.org/wiki/Hertz">Hz</a>, of key number <span class="math inline">\(k=\)</span> 189? <em>The tolerance is <span class="math inline">\(\pm 1\)</span> Hz.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f = 440 \cdot 2^{(189-132)/41}\]</span></p>
+<p><span class="math display">\[f = 440 \cdot 2^{57/41}\]</span></p>
+<p><span class="math display">\[f = 1153.3411631\]</span></p>
+<p>1153.3411631 Hz</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/34_equal_temperament">34 EDO</a>. That means there are 34 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/34} \approx 1.0205959\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 159, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-159)/34} \]</span></p>
+<p>What is the frequency, in <a href="https://en.wikipedia.org/wiki/Hertz">Hz</a>, of key number <span class="math inline">\(k=\)</span> 137? <em>The tolerance is <span class="math inline">\(\pm 1\)</span> Hz.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f = 440 \cdot 2^{(137-159)/34}\]</span></p>
+<p><span class="math display">\[f = 440 \cdot 2^{-22/34}\]</span></p>
+<p><span class="math display">\[f = 280.9755705\]</span></p>
+<p>280.9755705 Hz</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17 EDO</a>. That means there are 17 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/17} \approx 1.041616\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 54, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-54)/17} \]</span></p>
+<p>What is the frequency, in <a href="https://en.wikipedia.org/wiki/Hertz">Hz</a>, of key number <span class="math inline">\(k=\)</span> 33? <em>The tolerance is <span class="math inline">\(\pm 1\)</span> Hz.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f = 440 \cdot 2^{(33-54)/17}\]</span></p>
+<p><span class="math display">\[f = 440 \cdot 2^{-21/17}\]</span></p>
+<p><span class="math display">\[f = 186.8925947\]</span></p>
+<p>186.8925947 Hz</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/72_equal_temperament">72 EDO</a>. That means there are 72 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/72} \approx 1.0096735\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 291, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-291)/72} \]</span></p>
+<p>What is the frequency, in <a href="https://en.wikipedia.org/wiki/Hertz">Hz</a>, of key number <span class="math inline">\(k=\)</span> 299? <em>The tolerance is <span class="math inline">\(\pm 1\)</span> Hz.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f = 440 \cdot 2^{(299-291)/72}\]</span></p>
+<p><span class="math display">\[f = 440 \cdot 2^{8/72}\]</span></p>
+<p><span class="math display">\[f = 475.2262851\]</span></p>
+<p>475.2262851 Hz</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/53_equal_temperament">53 EDO</a>. That means there are 53 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/53} \approx 1.0131641\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 208, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-208)/53} \]</span></p>
+<p>What is the frequency, in <a href="https://en.wikipedia.org/wiki/Hertz">Hz</a>, of key number <span class="math inline">\(k=\)</span> 312? <em>The tolerance is <span class="math inline">\(\pm 1\)</span> Hz.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f = 440 \cdot 2^{(312-208)/53}\]</span></p>
+<p><span class="math display">\[f = 440 \cdot 2^{104/53}\]</span></p>
+<p><span class="math display">\[f = 1714.5614123\]</span></p>
+<p>1714.5614123 Hz</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17 EDO</a>. That means there are 17 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/17} \approx 1.041616\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 59, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-59)/17} \]</span></p>
+<p>What is the frequency, in <a href="https://en.wikipedia.org/wiki/Hertz">Hz</a>, of key number <span class="math inline">\(k=\)</span> 91? <em>The tolerance is <span class="math inline">\(\pm 1\)</span> Hz.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f = 440 \cdot 2^{(91-59)/17}\]</span></p>
+<p><span class="math display">\[f = 440 \cdot 2^{32/17}\]</span></p>
+<p><span class="math display">\[f = 1622.1737681\]</span></p>
+<p>1622.1737681 Hz</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/17_equal_temperament">17 EDO</a>. That means there are 17 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/17} \approx 1.041616\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 72, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-72)/17} \]</span></p>
+<p>What is the frequency, in <a href="https://en.wikipedia.org/wiki/Hertz">Hz</a>, of key number <span class="math inline">\(k=\)</span> 101? <em>The tolerance is <span class="math inline">\(\pm 1\)</span> Hz.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f = 440 \cdot 2^{(101-72)/17}\]</span></p>
+<p><span class="math display">\[f = 440 \cdot 2^{29/17}\]</span></p>
+<p><span class="math display">\[f = 1435.4049309\]</span></p>
+<p>1435.4049309 Hz</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/53_equal_temperament">53 EDO</a>. That means there are 53 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/53} \approx 1.0131641\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 227, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-227)/53} \]</span></p>
+<p>What is the frequency, in <a href="https://en.wikipedia.org/wiki/Hertz">Hz</a>, of key number <span class="math inline">\(k=\)</span> 280? <em>The tolerance is <span class="math inline">\(\pm 1\)</span> Hz.</em></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[f = 440 \cdot 2^{(280-227)/53}\]</span></p>
+<p><span class="math display">\[f = 440 \cdot 2^{53/53}\]</span></p>
+<p><span class="math display">\[f = 880\]</span></p>
+<p>880 Hz</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

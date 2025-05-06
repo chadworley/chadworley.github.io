@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>18_equal_temperament_get_key</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">18_equal_temperament_get_key</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">9 EDO</a>. That means there are 9 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/9} \approx 1.0800597\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 33, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-33)/9} \]</span></p>
+<p>The inverse of exponentiation is the <a href="https://en.wikipedia.org/wiki/Logarithm">logarithm</a>. This allows us to create a formula to calculate the key number from the frequency.</p>
+<p><span class="math display">\[k = 9 \log_2\left(\frac{f}{440}\right)+33\]</span></p>
+<p>What key number produces a frequency of <span class="math inline">\(f=237.6131426\)</span> Hz? (Please round to nearest integer.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[k = 9 \log_2\left(\frac{237.6131426}{440}\right)+33\]</span></p>
+<p><span class="math display">\[k=25\]</span></p>
+<p>If your calculator does not allow logs with base 2, you can use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[k = 9 \frac{\log\left(\frac{237.6131426}{440}\right)}{\log(2)}+33= 25\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">5 EDO</a>. That means there are 5 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/5} \approx 1.1486984\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 18, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-18)/5} \]</span></p>
+<p>The inverse of exponentiation is the <a href="https://en.wikipedia.org/wiki/Logarithm">logarithm</a>. This allows us to create a formula to calculate the key number from the frequency.</p>
+<p><span class="math display">\[k = 5 \log_2\left(\frac{f}{440}\right)+18\]</span></p>
+<p>What key number produces a frequency of <span class="math inline">\(f=1161.1669615\)</span> Hz? (Please round to nearest integer.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[k = 5 \log_2\left(\frac{1161.1669615}{440}\right)+18\]</span></p>
+<p><span class="math display">\[k=25\]</span></p>
+<p>If your calculator does not allow logs with base 2, you can use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[k = 5 \frac{\log\left(\frac{1161.1669615}{440}\right)}{\log(2)}+18= 25\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/22_equal_temperament">22 EDO</a>. That means there are 22 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/22} \approx 1.0320083\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 105, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-105)/22} \]</span></p>
+<p>The inverse of exponentiation is the <a href="https://en.wikipedia.org/wiki/Logarithm">logarithm</a>. This allows us to create a formula to calculate the key number from the frequency.</p>
+<p><span class="math display">\[k = 22 \log_2\left(\frac{f}{440}\right)+105\]</span></p>
+<p>What key number produces a frequency of <span class="math inline">\(f=642.1712465\)</span> Hz? (Please round to nearest integer.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[k = 22 \log_2\left(\frac{642.1712465}{440}\right)+105\]</span></p>
+<p><span class="math display">\[k=117\]</span></p>
+<p>If your calculator does not allow logs with base 2, you can use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[k = 22 \frac{\log\left(\frac{642.1712465}{440}\right)}{\log(2)}+105= 117\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/23_equal_temperament">23 EDO</a>. That means there are 23 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/23} \approx 1.0305955\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 93, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-93)/23} \]</span></p>
+<p>The inverse of exponentiation is the <a href="https://en.wikipedia.org/wiki/Logarithm">logarithm</a>. This allows us to create a formula to calculate the key number from the frequency.</p>
+<p><span class="math display">\[k = 23 \log_2\left(\frac{f}{440}\right)+93\]</span></p>
+<p>What key number produces a frequency of <span class="math inline">\(f=906.9240794\)</span> Hz? (Please round to nearest integer.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[k = 23 \log_2\left(\frac{906.9240794}{440}\right)+93\]</span></p>
+<p><span class="math display">\[k=117\]</span></p>
+<p>If your calculator does not allow logs with base 2, you can use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[k = 23 \frac{\log\left(\frac{906.9240794}{440}\right)}{\log(2)}+93= 117\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">9 EDO</a>. That means there are 9 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/9} \approx 1.0800597\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 44, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-44)/9} \]</span></p>
+<p>The inverse of exponentiation is the <a href="https://en.wikipedia.org/wiki/Logarithm">logarithm</a>. This allows us to create a formula to calculate the key number from the frequency.</p>
+<p><span class="math display">\[k = 9 \log_2\left(\frac{f}{440}\right)+44\]</span></p>
+<p>What key number produces a frequency of <span class="math inline">\(f=646.6831766\)</span> Hz? (Please round to nearest integer.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[k = 9 \log_2\left(\frac{646.6831766}{440}\right)+44\]</span></p>
+<p><span class="math display">\[k=49\]</span></p>
+<p>If your calculator does not allow logs with base 2, you can use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[k = 9 \frac{\log\left(\frac{646.6831766}{440}\right)}{\log(2)}+44= 49\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/23_equal_temperament">23 EDO</a>. That means there are 23 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/23} \approx 1.0305955\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 109, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-109)/23} \]</span></p>
+<p>The inverse of exponentiation is the <a href="https://en.wikipedia.org/wiki/Logarithm">logarithm</a>. This allows us to create a formula to calculate the key number from the frequency.</p>
+<p><span class="math display">\[k = 23 \log_2\left(\frac{f}{440}\right)+109\]</span></p>
+<p>What key number produces a frequency of <span class="math inline">\(f=1023.1138777\)</span> Hz? (Please round to nearest integer.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[k = 23 \log_2\left(\frac{1023.1138777}{440}\right)+109\]</span></p>
+<p><span class="math display">\[k=137\]</span></p>
+<p>If your calculator does not allow logs with base 2, you can use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[k = 23 \frac{\log\left(\frac{1023.1138777}{440}\right)}{\log(2)}+109= 137\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology">5 EDO</a>. That means there are 5 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/5} \approx 1.1486984\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 20, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-20)/5} \]</span></p>
+<p>The inverse of exponentiation is the <a href="https://en.wikipedia.org/wiki/Logarithm">logarithm</a>. This allows us to create a formula to calculate the key number from the frequency.</p>
+<p><span class="math display">\[k = 5 \log_2\left(\frac{f}{440}\right)+20\]</span></p>
+<p>What key number produces a frequency of <span class="math inline">\(f=145.1458702\)</span> Hz? (Please round to nearest integer.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[k = 5 \log_2\left(\frac{145.1458702}{440}\right)+20\]</span></p>
+<p><span class="math display">\[k=12\]</span></p>
+<p>If your calculator does not allow logs with base 2, you can use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[k = 5 \frac{\log\left(\frac{145.1458702}{440}\right)}{\log(2)}+20= 12\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In music, an <a href="https://en.wikipedia.org/wiki/Equal_temperament">equal temperament</a> implies the available <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a> follow a geometric progression. Imagine a <a href="https://en.wikipedia.org/wiki/Keyboard_instrument">keyboard instrument</a> for <a href="https://en.wikipedia.org/wiki/34_equal_temperament">34 EDO</a>. That means there are 34 frequencies per octave, and the ratio between neighboring frequencies is <span class="math inline">\(2^{1/34} \approx 1.0205959\)</span>. That instrument acts as a <a href="https://en.wikipedia.org/wiki/Function_(mathematics)">function</a> that maps <a href="https://en.wikipedia.org/wiki/Piano_key_frequencies">key number (<span class="math inline">\(k\)</span>) to frequency (<span class="math inline">\(f\)</span>)</a>. (<em>Notice, I am NOT referring to <a href="https://en.wikipedia.org/wiki/Key_(music)">the key</a> or <a href="https://en.wikipedia.org/wiki/Key_signature">the key signature</a>; I am referring to the “buttons” of a keyboard as keys.</em>)</p>
+<p>Let’s assume a <a href="https://en.wikipedia.org/wiki/Concert_pitch">concert pitch</a> of <a href="https://en.wikipedia.org/wiki/A440_(pitch_standard)">440 Hz</a> is assigned to the key number 104, so we can calculate the frequency from any key number using the following <a href="https://en.wikipedia.org/wiki/Exponential_function">exponential function</a>.</p>
+<p><span class="math display">\[f = 440 \cdot 2^{(k-104)/34} \]</span></p>
+<p>The inverse of exponentiation is the <a href="https://en.wikipedia.org/wiki/Logarithm">logarithm</a>. This allows us to create a formula to calculate the key number from the frequency.</p>
+<p><span class="math display">\[k = 34 \log_2\left(\frac{f}{440}\right)+104\]</span></p>
+<p>What key number produces a frequency of <span class="math inline">\(f=162.0374238\)</span> Hz? (Please round to nearest integer.)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[k = 34 \log_2\left(\frac{162.0374238}{440}\right)+104\]</span></p>
+<p><span class="math display">\[k=55\]</span></p>
+<p>If your calculator does not allow logs with base 2, you can use the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base">change-of-base identity</a>.</p>
+<p><span class="math display">\[k = 34 \frac{\log\left(\frac{162.0374238}{440}\right)}{\log(2)}+104= 55\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

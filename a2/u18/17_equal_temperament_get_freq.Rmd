@@ -1,7 +1,6 @@
 ```{r,echo=FALSE}
 options(scipen=99)
 
-
 webs = c("https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology",
 "https://en.wikipedia.org/wiki/Equal_temperament#7-tone_equal_temperament",
 "https://en.wikipedia.org/wiki/Equal_temperament#Five-,_seven-,_and_nine-tone_temperaments_in_ethnomusicology",
@@ -35,33 +34,29 @@ f = 440*2^(idiff/N)
 Question
 ========
 
-In music, an [equal temperament](https://en.wikipedia.org/wiki/Equal_temperament) implies the available [fundamental frequencies](https://en.wikipedia.org/wiki/Fundamental_frequency) follow a geometric progression. Imagine a [keyboard instrument](https://en.wikipedia.org/wiki/Keyboard_instrument) for [`r N` EDO](`r wb`). That means there are `r N` frequencies per octave, and the ratio between neighboring frequencies is $2^{1/`r N`} \approx `r 2^(1/N)`$. That instrument acts as a [function](https://en.wikipedia.org/wiki/Function_(mathematics)) that maps [key number ($k$) to frequency ($f$)](https://en.wikipedia.org/wiki/Piano_key_frequencies).
+In music, an [equal temperament](https://en.wikipedia.org/wiki/Equal_temperament) implies the available [fundamental frequencies](https://en.wikipedia.org/wiki/Fundamental_frequency) follow a geometric progression. Imagine a [keyboard instrument](https://en.wikipedia.org/wiki/Keyboard_instrument) for [`r N` EDO](`r wb`). That means there are `r N` frequencies per octave, and the ratio between neighboring frequencies is $2^{1/`r N`} \approx `r 2^(1/N)`$. That instrument acts as a [function](https://en.wikipedia.org/wiki/Function_(mathematics)) that maps [key number ($k$) to frequency ($f$)](https://en.wikipedia.org/wiki/Piano_key_frequencies). (*Notice, I am NOT referring to [the key](https://en.wikipedia.org/wiki/Key_(music)) or [the key signature](https://en.wikipedia.org/wiki/Key_signature); I am referring to the "buttons" of a keyboard as keys.*)
 
 Let's assume a [concert pitch](https://en.wikipedia.org/wiki/Concert_pitch) of [440 Hz](https://en.wikipedia.org/wiki/A440_(pitch_standard)) is assigned to the key number `r i440`, so we can calculate the frequency from any key number using the following [exponential function](https://en.wikipedia.org/wiki/Exponential_function).
 
 $$f = 440 \cdot 2^{(k-`r i440`)/`r N`} $$
 
-The inverse of exponentiation is the [logarithm](https://en.wikipedia.org/wiki/Logarithm). This allows us to create a formula to calculate the key number from the frequency.
-
-$$k = `r N` \log_2\left(\frac{f}{440}\right)+`r i440`$$
-
-What key number produces a frequency of $f=`r f`$ Hz? (Please round to nearest integer.)
+What is the frequency,  in [Hz](https://en.wikipedia.org/wiki/Hertz), of key number $k=$ `r i2`? *The tolerance is $\pm 1$ Hz.*
 
 Solution
 ========
 
-$$k = `r N` \log_2\left(\frac{`r f`}{440}\right)+`r i440`$$
+$$f = 440 \cdot 2^{(`r i2`-`r i440`)/`r N`}$$
 
-$$k=`r i2`$$
+$$f = 440 \cdot 2^{`r i2-i440`/`r N`}$$
 
-If your calculator does not allow logs with base 2, you can use the [change-of-base  identity](https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Changing_the_base).
+$$f = `r 440*2^((i2-i440)/N)`$$
 
-$$k = `r N` \frac{\log\left(\frac{`r f`}{440}\right)}{\log(2)}+`r i440`= `r i2`$$
+`r f` Hz
 
 
 Meta-information
 ============
 extype: num
-exsolution: `r i2`
-extol: 0
+exsolution: `r f`
+extol: 1
 exname: equal_temperament_get_freq

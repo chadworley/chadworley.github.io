@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>20_f2_from_cents</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">20_f2_from_cents</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember the way to calculate an interval in <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a>.
+<span class="math display">\[I = 1200\cdot \log_2\left(\frac{f_2}{f_1}\right)\]</span></p>
+<p>with <span class="math inline">\(I\)</span> as the (<a href="https://en.wikipedia.org/wiki/Sign_(mathematics)">signed</a>) interval in cents, <span class="math inline">\(f_1\)</span> as the first frequency in hertz, and <span class="math inline">\(f_2\)</span> as the second frequency in hertz. We can solve the formula for <span class="math inline">\(f_2\)</span> because logarithms and exponentials are inverses.</p>
+<p><span class="math display">\[f_2 = f_1 \cdot 2^{I/1200}\]</span></p>
+<p>A musician plays two notes whose pitches are determined by their <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a>. One note has a fundamental frequency of <span class="math inline">\(f_1=1174.6590717\)</span> Hz. The second fundamental frequency is 6200 cents under. <strong>What is the second fundamental frequency?</strong></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the formula. Because <span class="math inline">\(f_2\)</span> is 6200 cents under <span class="math inline">\(f_1\)</span>, then <span class="math inline">\(I=-6200\)</span>.</p>
+<p><span class="math display">\[f_2 = 1174.6590717 \cdot 2^{-6200/1200} \]</span></p>
+<p><span class="math display">\[f_2=32.7031957\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember the way to calculate an interval in <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a>.
+<span class="math display">\[I = 1200\cdot \log_2\left(\frac{f_2}{f_1}\right)\]</span></p>
+<p>with <span class="math inline">\(I\)</span> as the (<a href="https://en.wikipedia.org/wiki/Sign_(mathematics)">signed</a>) interval in cents, <span class="math inline">\(f_1\)</span> as the first frequency in hertz, and <span class="math inline">\(f_2\)</span> as the second frequency in hertz. We can solve the formula for <span class="math inline">\(f_2\)</span> because logarithms and exponentials are inverses.</p>
+<p><span class="math display">\[f_2 = f_1 \cdot 2^{I/1200}\]</span></p>
+<p>A musician plays two notes whose pitches are determined by their <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a>. One note has a fundamental frequency of <span class="math inline">\(f_1=880\)</span> Hz. The second fundamental frequency is 4000 cents under. <strong>What is the second fundamental frequency?</strong></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the formula. Because <span class="math inline">\(f_2\)</span> is 4000 cents under <span class="math inline">\(f_1\)</span>, then <span class="math inline">\(I=-4000\)</span>.</p>
+<p><span class="math display">\[f_2 = 880 \cdot 2^{-4000/1200} \]</span></p>
+<p><span class="math display">\[f_2=87.3070579\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember the way to calculate an interval in <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a>.
+<span class="math display">\[I = 1200\cdot \log_2\left(\frac{f_2}{f_1}\right)\]</span></p>
+<p>with <span class="math inline">\(I\)</span> as the (<a href="https://en.wikipedia.org/wiki/Sign_(mathematics)">signed</a>) interval in cents, <span class="math inline">\(f_1\)</span> as the first frequency in hertz, and <span class="math inline">\(f_2\)</span> as the second frequency in hertz. We can solve the formula for <span class="math inline">\(f_2\)</span> because logarithms and exponentials are inverses.</p>
+<p><span class="math display">\[f_2 = f_1 \cdot 2^{I/1200}\]</span></p>
+<p>A musician plays two notes whose pitches are determined by their <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a>. One note has a fundamental frequency of <span class="math inline">\(f_1=103.8261744\)</span> Hz. The second fundamental frequency is 5300 cents above. <strong>What is the second fundamental frequency?</strong></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the formula. Because <span class="math inline">\(f_2\)</span> is 5300 cents above <span class="math inline">\(f_1\)</span>, then <span class="math inline">\(I=5300\)</span>.</p>
+<p><span class="math display">\[f_2 = 103.8261744 \cdot 2^{5300/1200} \]</span></p>
+<p><span class="math display">\[f_2=2217.4610478\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember the way to calculate an interval in <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a>.
+<span class="math display">\[I = 1200\cdot \log_2\left(\frac{f_2}{f_1}\right)\]</span></p>
+<p>with <span class="math inline">\(I\)</span> as the (<a href="https://en.wikipedia.org/wiki/Sign_(mathematics)">signed</a>) interval in cents, <span class="math inline">\(f_1\)</span> as the first frequency in hertz, and <span class="math inline">\(f_2\)</span> as the second frequency in hertz. We can solve the formula for <span class="math inline">\(f_2\)</span> because logarithms and exponentials are inverses.</p>
+<p><span class="math display">\[f_2 = f_1 \cdot 2^{I/1200}\]</span></p>
+<p>A musician plays two notes whose pitches are determined by their <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a>. One note has a fundamental frequency of <span class="math inline">\(f_1=2959.9553817\)</span> Hz. The second fundamental frequency is 7100 cents less. <strong>What is the second fundamental frequency?</strong></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the formula. Because <span class="math inline">\(f_2\)</span> is 7100 cents less <span class="math inline">\(f_1\)</span>, then <span class="math inline">\(I=-7100\)</span>.</p>
+<p><span class="math display">\[f_2 = 2959.9553817 \cdot 2^{-7100/1200} \]</span></p>
+<p><span class="math display">\[f_2=48.9994295\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember the way to calculate an interval in <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a>.
+<span class="math display">\[I = 1200\cdot \log_2\left(\frac{f_2}{f_1}\right)\]</span></p>
+<p>with <span class="math inline">\(I\)</span> as the (<a href="https://en.wikipedia.org/wiki/Sign_(mathematics)">signed</a>) interval in cents, <span class="math inline">\(f_1\)</span> as the first frequency in hertz, and <span class="math inline">\(f_2\)</span> as the second frequency in hertz. We can solve the formula for <span class="math inline">\(f_2\)</span> because logarithms and exponentials are inverses.</p>
+<p><span class="math display">\[f_2 = f_1 \cdot 2^{I/1200}\]</span></p>
+<p>A musician plays two notes whose pitches are determined by their <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a>. One note has a fundamental frequency of <span class="math inline">\(f_1=1661.2187903\)</span> Hz. The second fundamental frequency is 3700 cents below. <strong>What is the second fundamental frequency?</strong></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the formula. Because <span class="math inline">\(f_2\)</span> is 3700 cents below <span class="math inline">\(f_1\)</span>, then <span class="math inline">\(I=-3700\)</span>.</p>
+<p><span class="math display">\[f_2 = 1661.2187903 \cdot 2^{-3700/1200} \]</span></p>
+<p><span class="math display">\[f_2=195.997718\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember the way to calculate an interval in <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a>.
+<span class="math display">\[I = 1200\cdot \log_2\left(\frac{f_2}{f_1}\right)\]</span></p>
+<p>with <span class="math inline">\(I\)</span> as the (<a href="https://en.wikipedia.org/wiki/Sign_(mathematics)">signed</a>) interval in cents, <span class="math inline">\(f_1\)</span> as the first frequency in hertz, and <span class="math inline">\(f_2\)</span> as the second frequency in hertz. We can solve the formula for <span class="math inline">\(f_2\)</span> because logarithms and exponentials are inverses.</p>
+<p><span class="math display">\[f_2 = f_1 \cdot 2^{I/1200}\]</span></p>
+<p>A musician plays two notes whose pitches are determined by their <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a>. One note has a fundamental frequency of <span class="math inline">\(f_1=1318.5102277\)</span> Hz. The second fundamental frequency is 2200 cents under. <strong>What is the second fundamental frequency?</strong></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the formula. Because <span class="math inline">\(f_2\)</span> is 2200 cents under <span class="math inline">\(f_1\)</span>, then <span class="math inline">\(I=-2200\)</span>.</p>
+<p><span class="math display">\[f_2 = 1318.5102277 \cdot 2^{-2200/1200} \]</span></p>
+<p><span class="math display">\[f_2=369.9944227\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember the way to calculate an interval in <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a>.
+<span class="math display">\[I = 1200\cdot \log_2\left(\frac{f_2}{f_1}\right)\]</span></p>
+<p>with <span class="math inline">\(I\)</span> as the (<a href="https://en.wikipedia.org/wiki/Sign_(mathematics)">signed</a>) interval in cents, <span class="math inline">\(f_1\)</span> as the first frequency in hertz, and <span class="math inline">\(f_2\)</span> as the second frequency in hertz. We can solve the formula for <span class="math inline">\(f_2\)</span> because logarithms and exponentials are inverses.</p>
+<p><span class="math display">\[f_2 = f_1 \cdot 2^{I/1200}\]</span></p>
+<p>A musician plays two notes whose pitches are determined by their <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a>. One note has a fundamental frequency of <span class="math inline">\(f_1=3729.3100921\)</span> Hz. The second fundamental frequency is 1300 cents under. <strong>What is the second fundamental frequency?</strong></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the formula. Because <span class="math inline">\(f_2\)</span> is 1300 cents under <span class="math inline">\(f_1\)</span>, then <span class="math inline">\(I=-1300\)</span>.</p>
+<p><span class="math display">\[f_2 = 3729.3100921 \cdot 2^{-1300/1200} \]</span></p>
+<p><span class="math display">\[f_2=1760\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Remember the way to calculate an interval in <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a>.
+<span class="math display">\[I = 1200\cdot \log_2\left(\frac{f_2}{f_1}\right)\]</span></p>
+<p>with <span class="math inline">\(I\)</span> as the (<a href="https://en.wikipedia.org/wiki/Sign_(mathematics)">signed</a>) interval in cents, <span class="math inline">\(f_1\)</span> as the first frequency in hertz, and <span class="math inline">\(f_2\)</span> as the second frequency in hertz. We can solve the formula for <span class="math inline">\(f_2\)</span> because logarithms and exponentials are inverses.</p>
+<p><span class="math display">\[f_2 = f_1 \cdot 2^{I/1200}\]</span></p>
+<p>A musician plays two notes whose pitches are determined by their <a href="https://en.wikipedia.org/wiki/Fundamental_frequency">fundamental frequencies</a>. One note has a fundamental frequency of <span class="math inline">\(f_1=65.4063913\)</span> Hz. The second fundamental frequency is 100 cents above. <strong>What is the second fundamental frequency?</strong></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the formula. Because <span class="math inline">\(f_2\)</span> is 100 cents above <span class="math inline">\(f_1\)</span>, then <span class="math inline">\(I=100\)</span>.</p>
+<p><span class="math display">\[f_2 = 65.4063913 \cdot 2^{100/1200} \]</span></p>
+<p><span class="math display">\[f_2=69.2956577\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

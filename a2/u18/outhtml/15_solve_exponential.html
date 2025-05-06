@@ -1,0 +1,458 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>15_solve_exponential</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">15_solve_exponential</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the exponential equation below.</p>
+<p><span class="math display">\[y~=~4\cdot 5^{2x}\]</span></p>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=\frac{\log_{2}\left(\frac{y}{4}\right)}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{2}\right)}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{5}\right)}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{5}\left(\frac{y}{2}\right)}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{2}\left(\frac{y}{5}\right)}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{5}\left(\frac{y}{4}\right)}{2}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given equation.</p>
+<p><span class="math display">\[y~=~4\cdot 5^{2x}\]</span></p>
+<p>Divide both sides by 4. (Division is the inverse of multiplication.)</p>
+<p><span class="math display">\[\frac{y}{4}~=~\frac{4\cdot 5^{2x}}{4}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{y}{4}~=~5^{2x}\]</span></p>
+<p>The inverse of exponentiation with base 5 is logarithm with base 5. So, we take the log, base 5, of both sides.</p>
+<p><span class="math display">\[\log_{5}\left(\frac{y}{4}\right)~=~\log_{5}\left(5^{2x}\right)\]</span></p>
+<p>We know, from our <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">logarithm rules</a>, that <span class="math inline">\(\log_B(B^z)\equiv z\)</span>. In our case, <span class="math inline">\(B=5\)</span> and <span class="math inline">\(z=2x\)</span>. Simplify the right side.</p>
+<p><span class="math display">\[\log_{5}\left(\frac{y}{4}\right)~=~2x\]</span></p>
+<p>Divide both sides by 2.</p>
+<p><span class="math display">\[\frac{\log_{5}\left(\frac{y}{4}\right)}{2}~=~\frac{2x}{2}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{\log_{5}\left(\frac{y}{4}\right)}{2}~=~x\]</span></p>
+<p>Swap the sides to bring <span class="math inline">\(x\)</span> to the left.</p>
+<p><span class="math display">\[x~=~\frac{\log_{5}\left(\frac{y}{4}\right)}{2}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the exponential equation below.</p>
+<p><span class="math display">\[y~=~5\cdot 4^{2x}\]</span></p>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=\frac{\log_{5}\left(\frac{y}{4}\right)}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{2}\left(\frac{y}{4}\right)}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{5}\left(\frac{y}{2}\right)}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{5}\right)}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{2}\right)}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{2}\left(\frac{y}{5}\right)}{4}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given equation.</p>
+<p><span class="math display">\[y~=~5\cdot 4^{2x}\]</span></p>
+<p>Divide both sides by 5. (Division is the inverse of multiplication.)</p>
+<p><span class="math display">\[\frac{y}{5}~=~\frac{5\cdot 4^{2x}}{5}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{y}{5}~=~4^{2x}\]</span></p>
+<p>The inverse of exponentiation with base 4 is logarithm with base 4. So, we take the log, base 4, of both sides.</p>
+<p><span class="math display">\[\log_{4}\left(\frac{y}{5}\right)~=~\log_{4}\left(4^{2x}\right)\]</span></p>
+<p>We know, from our <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">logarithm rules</a>, that <span class="math inline">\(\log_B(B^z)\equiv z\)</span>. In our case, <span class="math inline">\(B=4\)</span> and <span class="math inline">\(z=2x\)</span>. Simplify the right side.</p>
+<p><span class="math display">\[\log_{4}\left(\frac{y}{5}\right)~=~2x\]</span></p>
+<p>Divide both sides by 2.</p>
+<p><span class="math display">\[\frac{\log_{4}\left(\frac{y}{5}\right)}{2}~=~\frac{2x}{2}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{\log_{4}\left(\frac{y}{5}\right)}{2}~=~x\]</span></p>
+<p>Swap the sides to bring <span class="math inline">\(x\)</span> to the left.</p>
+<p><span class="math display">\[x~=~\frac{\log_{4}\left(\frac{y}{5}\right)}{2}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the exponential equation below.</p>
+<p><span class="math display">\[y~=~2\cdot 5^{4x}\]</span></p>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=\frac{\log_{2}\left(\frac{y}{4}\right)}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{5}\left(\frac{y}{4}\right)}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{2}\right)}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{5}\right)}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{2}\left(\frac{y}{5}\right)}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{5}\left(\frac{y}{2}\right)}{4}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given equation.</p>
+<p><span class="math display">\[y~=~2\cdot 5^{4x}\]</span></p>
+<p>Divide both sides by 2. (Division is the inverse of multiplication.)</p>
+<p><span class="math display">\[\frac{y}{2}~=~\frac{2\cdot 5^{4x}}{2}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{y}{2}~=~5^{4x}\]</span></p>
+<p>The inverse of exponentiation with base 5 is logarithm with base 5. So, we take the log, base 5, of both sides.</p>
+<p><span class="math display">\[\log_{5}\left(\frac{y}{2}\right)~=~\log_{5}\left(5^{4x}\right)\]</span></p>
+<p>We know, from our <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">logarithm rules</a>, that <span class="math inline">\(\log_B(B^z)\equiv z\)</span>. In our case, <span class="math inline">\(B=5\)</span> and <span class="math inline">\(z=4x\)</span>. Simplify the right side.</p>
+<p><span class="math display">\[\log_{5}\left(\frac{y}{2}\right)~=~4x\]</span></p>
+<p>Divide both sides by 4.</p>
+<p><span class="math display">\[\frac{\log_{5}\left(\frac{y}{2}\right)}{4}~=~\frac{4x}{4}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{\log_{5}\left(\frac{y}{2}\right)}{4}~=~x\]</span></p>
+<p>Swap the sides to bring <span class="math inline">\(x\)</span> to the left.</p>
+<p><span class="math display">\[x~=~\frac{\log_{5}\left(\frac{y}{2}\right)}{4}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the exponential equation below.</p>
+<p><span class="math display">\[y~=~2\cdot 4^{6x}\]</span></p>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{6}\right)}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{6}\left(\frac{y}{4}\right)}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{6}\left(\frac{y}{2}\right)}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{2}\left(\frac{y}{6}\right)}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{2}\left(\frac{y}{4}\right)}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{2}\right)}{6}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given equation.</p>
+<p><span class="math display">\[y~=~2\cdot 4^{6x}\]</span></p>
+<p>Divide both sides by 2. (Division is the inverse of multiplication.)</p>
+<p><span class="math display">\[\frac{y}{2}~=~\frac{2\cdot 4^{6x}}{2}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{y}{2}~=~4^{6x}\]</span></p>
+<p>The inverse of exponentiation with base 4 is logarithm with base 4. So, we take the log, base 4, of both sides.</p>
+<p><span class="math display">\[\log_{4}\left(\frac{y}{2}\right)~=~\log_{4}\left(4^{6x}\right)\]</span></p>
+<p>We know, from our <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">logarithm rules</a>, that <span class="math inline">\(\log_B(B^z)\equiv z\)</span>. In our case, <span class="math inline">\(B=4\)</span> and <span class="math inline">\(z=6x\)</span>. Simplify the right side.</p>
+<p><span class="math display">\[\log_{4}\left(\frac{y}{2}\right)~=~6x\]</span></p>
+<p>Divide both sides by 6.</p>
+<p><span class="math display">\[\frac{\log_{4}\left(\frac{y}{2}\right)}{6}~=~\frac{6x}{6}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{\log_{4}\left(\frac{y}{2}\right)}{6}~=~x\]</span></p>
+<p>Swap the sides to bring <span class="math inline">\(x\)</span> to the left.</p>
+<p><span class="math display">\[x~=~\frac{\log_{4}\left(\frac{y}{2}\right)}{6}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the exponential equation below.</p>
+<p><span class="math display">\[y~=~4\cdot 3^{6x}\]</span></p>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=\frac{\log_{3}\left(\frac{y}{6}\right)}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{3}\left(\frac{y}{4}\right)}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{6}\left(\frac{y}{3}\right)}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{3}\right)}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{6}\right)}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{6}\left(\frac{y}{4}\right)}{3}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given equation.</p>
+<p><span class="math display">\[y~=~4\cdot 3^{6x}\]</span></p>
+<p>Divide both sides by 4. (Division is the inverse of multiplication.)</p>
+<p><span class="math display">\[\frac{y}{4}~=~\frac{4\cdot 3^{6x}}{4}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{y}{4}~=~3^{6x}\]</span></p>
+<p>The inverse of exponentiation with base 3 is logarithm with base 3. So, we take the log, base 3, of both sides.</p>
+<p><span class="math display">\[\log_{3}\left(\frac{y}{4}\right)~=~\log_{3}\left(3^{6x}\right)\]</span></p>
+<p>We know, from our <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">logarithm rules</a>, that <span class="math inline">\(\log_B(B^z)\equiv z\)</span>. In our case, <span class="math inline">\(B=3\)</span> and <span class="math inline">\(z=6x\)</span>. Simplify the right side.</p>
+<p><span class="math display">\[\log_{3}\left(\frac{y}{4}\right)~=~6x\]</span></p>
+<p>Divide both sides by 6.</p>
+<p><span class="math display">\[\frac{\log_{3}\left(\frac{y}{4}\right)}{6}~=~\frac{6x}{6}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{\log_{3}\left(\frac{y}{4}\right)}{6}~=~x\]</span></p>
+<p>Swap the sides to bring <span class="math inline">\(x\)</span> to the left.</p>
+<p><span class="math display">\[x~=~\frac{\log_{3}\left(\frac{y}{4}\right)}{6}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the exponential equation below.</p>
+<p><span class="math display">\[y~=~6\cdot 5^{3x}\]</span></p>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=\frac{\log_{5}\left(\frac{y}{6}\right)}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{5}\left(\frac{y}{3}\right)}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{6}\left(\frac{y}{5}\right)}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{6}\left(\frac{y}{3}\right)}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{3}\left(\frac{y}{6}\right)}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{3}\left(\frac{y}{5}\right)}{6}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given equation.</p>
+<p><span class="math display">\[y~=~6\cdot 5^{3x}\]</span></p>
+<p>Divide both sides by 6. (Division is the inverse of multiplication.)</p>
+<p><span class="math display">\[\frac{y}{6}~=~\frac{6\cdot 5^{3x}}{6}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{y}{6}~=~5^{3x}\]</span></p>
+<p>The inverse of exponentiation with base 5 is logarithm with base 5. So, we take the log, base 5, of both sides.</p>
+<p><span class="math display">\[\log_{5}\left(\frac{y}{6}\right)~=~\log_{5}\left(5^{3x}\right)\]</span></p>
+<p>We know, from our <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">logarithm rules</a>, that <span class="math inline">\(\log_B(B^z)\equiv z\)</span>. In our case, <span class="math inline">\(B=5\)</span> and <span class="math inline">\(z=3x\)</span>. Simplify the right side.</p>
+<p><span class="math display">\[\log_{5}\left(\frac{y}{6}\right)~=~3x\]</span></p>
+<p>Divide both sides by 3.</p>
+<p><span class="math display">\[\frac{\log_{5}\left(\frac{y}{6}\right)}{3}~=~\frac{3x}{3}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{\log_{5}\left(\frac{y}{6}\right)}{3}~=~x\]</span></p>
+<p>Swap the sides to bring <span class="math inline">\(x\)</span> to the left.</p>
+<p><span class="math display">\[x~=~\frac{\log_{5}\left(\frac{y}{6}\right)}{3}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the exponential equation below.</p>
+<p><span class="math display">\[y~=~4\cdot 6^{3x}\]</span></p>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{3}\right)}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{4}\left(\frac{y}{6}\right)}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{6}\left(\frac{y}{4}\right)}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{6}\left(\frac{y}{3}\right)}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{3}\left(\frac{y}{4}\right)}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{3}\left(\frac{y}{6}\right)}{4}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given equation.</p>
+<p><span class="math display">\[y~=~4\cdot 6^{3x}\]</span></p>
+<p>Divide both sides by 4. (Division is the inverse of multiplication.)</p>
+<p><span class="math display">\[\frac{y}{4}~=~\frac{4\cdot 6^{3x}}{4}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{y}{4}~=~6^{3x}\]</span></p>
+<p>The inverse of exponentiation with base 6 is logarithm with base 6. So, we take the log, base 6, of both sides.</p>
+<p><span class="math display">\[\log_{6}\left(\frac{y}{4}\right)~=~\log_{6}\left(6^{3x}\right)\]</span></p>
+<p>We know, from our <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">logarithm rules</a>, that <span class="math inline">\(\log_B(B^z)\equiv z\)</span>. In our case, <span class="math inline">\(B=6\)</span> and <span class="math inline">\(z=3x\)</span>. Simplify the right side.</p>
+<p><span class="math display">\[\log_{6}\left(\frac{y}{4}\right)~=~3x\]</span></p>
+<p>Divide both sides by 3.</p>
+<p><span class="math display">\[\frac{\log_{6}\left(\frac{y}{4}\right)}{3}~=~\frac{3x}{3}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{\log_{6}\left(\frac{y}{4}\right)}{3}~=~x\]</span></p>
+<p>Swap the sides to bring <span class="math inline">\(x\)</span> to the left.</p>
+<p><span class="math display">\[x~=~\frac{\log_{6}\left(\frac{y}{4}\right)}{3}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the exponential equation below.</p>
+<p><span class="math display">\[y~=~5\cdot 2^{3x}\]</span></p>
+<p>Solve for <span class="math inline">\(x\)</span>.</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x=\frac{\log_{3}\left(\frac{y}{2}\right)}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{3}\left(\frac{y}{5}\right)}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{2}\left(\frac{y}{5}\right)}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{2}\left(\frac{y}{3}\right)}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{5}\left(\frac{y}{3}\right)}{2}\)</span>
+</li>
+<li>
+<span class="math inline">\(x=\frac{\log_{5}\left(\frac{y}{2}\right)}{3}\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Start with the given equation.</p>
+<p><span class="math display">\[y~=~5\cdot 2^{3x}\]</span></p>
+<p>Divide both sides by 5. (Division is the inverse of multiplication.)</p>
+<p><span class="math display">\[\frac{y}{5}~=~\frac{5\cdot 2^{3x}}{5}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{y}{5}~=~2^{3x}\]</span></p>
+<p>The inverse of exponentiation with base 2 is logarithm with base 2. So, we take the log, base 2, of both sides.</p>
+<p><span class="math display">\[\log_{2}\left(\frac{y}{5}\right)~=~\log_{2}\left(2^{3x}\right)\]</span></p>
+<p>We know, from our <a href="https://chadworley.github.io/a2/u18/Exponent_rules.html">logarithm rules</a>, that <span class="math inline">\(\log_B(B^z)\equiv z\)</span>. In our case, <span class="math inline">\(B=2\)</span> and <span class="math inline">\(z=3x\)</span>. Simplify the right side.</p>
+<p><span class="math display">\[\log_{2}\left(\frac{y}{5}\right)~=~3x\]</span></p>
+<p>Divide both sides by 3.</p>
+<p><span class="math display">\[\frac{\log_{2}\left(\frac{y}{5}\right)}{3}~=~\frac{3x}{3}\]</span></p>
+<p>Simplify the right side.</p>
+<p><span class="math display">\[\frac{\log_{2}\left(\frac{y}{5}\right)}{3}~=~x\]</span></p>
+<p>Swap the sides to bring <span class="math inline">\(x\)</span> to the left.</p>
+<p><span class="math display">\[x~=~\frac{\log_{2}\left(\frac{y}{5}\right)}{3}\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>26_pH</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">26_pH</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In chemistry, when making aqueous solutions with <a href="https://en.wikipedia.org/wiki/Acid">acids</a> and <a href="https://en.wikipedia.org/wiki/Base_(chemistry)">bases</a>, it is common to consider the <a href="https://en.wikipedia.org/wiki/PH">pH</a>. Distilled (pure) water at 25°C has a pH of 7, and it is neutral because the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions equals the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions. If an acid is added to water, the pH decreases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions increases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions decreases. If a base is added to water, the pH increases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions decreases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions increases.</p>
+<p>At room temperature, water undergoes a <a href="https://en.wikipedia.org/wiki/Reversible_reaction">reversible reaction</a> dictated by <a href="https://en.wikipedia.org/wiki/Collision_theory">collision theory</a> called <a href="https://en.wikipedia.org/wiki/Self-ionization_of_water">auto-ionization of water</a>. At each moment, every water molecule has some chance to split into a <span class="math inline">\(\mathrm{H^+}\)</span> and a <span class="math inline">\(\mathrm{OH^-}\)</span>. Also at each moment, if a <span class="math inline">\(\mathrm{H^+}\)</span> bumps into a <span class="math inline">\(\mathrm{OH^-}\)</span>, they can reform a water molecule.</p>
+<p>The bajillions of molecules all taking part in this dance produce a stable equilibrium, described by an <a href="https://en.wikipedia.org/wiki/Equilibrium_constant">equilibrium constant</a>.</p>
+<p><span class="math display">\[\mathrm{\left[H^+\right]\cdot\left[OH^-\right]}~=~10^{-14}\]</span></p>
+<p>where <span class="math inline">\(\mathrm{\left[H^+\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{H^+}\)</span> and <span class="math inline">\(\mathrm{\left[OH^-\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{OH^-}\)</span>. The equilibrium constant equation shown above holds true for all aqueous solutions (at room temperature, near 1 <a href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a> of atmospheric pressure, and not too concentrated), even after acids or bases are added.</p>
+<p>In typical aqueous solutions used in laboratories, the concentration of <span class="math inline">\(\mathrm{H^+}\)</span> varies considerably, over many magnitudes, from about 10 moles per liter down to 0.000000000000001 moles per liter. It is annoying to work with these numbers with lots of place-holder 0s. Using scientific notation can help, but using a logarithmic scale has been a favorite strategy when dealing with numbers that vary over many <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">orders of magnitude</a>. This is what pH is, a logarithmic representation of the concentration of hydrogen ions. In the laboratory, pH will be between -1 and 15.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(\left[H^+\right]\right)}\]</span></p>
+<ul>
+<li>If an aqueous solution has known concentration of hydrogen ions, <span class="math inline">\(\mathrm{\left[H^+\right]}=2.51\cdot 10^{-2}\)</span> moles per liter, what is the pH? <em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the given number into the equation.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(2.51\cdot 10^{-2}\right)}\]</span></p>
+<p><span class="math display">\[\mathrm{pH}~=~1.6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In chemistry, when making aqueous solutions with <a href="https://en.wikipedia.org/wiki/Acid">acids</a> and <a href="https://en.wikipedia.org/wiki/Base_(chemistry)">bases</a>, it is common to consider the <a href="https://en.wikipedia.org/wiki/PH">pH</a>. Distilled (pure) water at 25°C has a pH of 7, and it is neutral because the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions equals the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions. If an acid is added to water, the pH decreases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions increases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions decreases. If a base is added to water, the pH increases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions decreases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions increases.</p>
+<p>At room temperature, water undergoes a <a href="https://en.wikipedia.org/wiki/Reversible_reaction">reversible reaction</a> dictated by <a href="https://en.wikipedia.org/wiki/Collision_theory">collision theory</a> called <a href="https://en.wikipedia.org/wiki/Self-ionization_of_water">auto-ionization of water</a>. At each moment, every water molecule has some chance to split into a <span class="math inline">\(\mathrm{H^+}\)</span> and a <span class="math inline">\(\mathrm{OH^-}\)</span>. Also at each moment, if a <span class="math inline">\(\mathrm{H^+}\)</span> bumps into a <span class="math inline">\(\mathrm{OH^-}\)</span>, they can reform a water molecule.</p>
+<p>The bajillions of molecules all taking part in this dance produce a stable equilibrium, described by an <a href="https://en.wikipedia.org/wiki/Equilibrium_constant">equilibrium constant</a>.</p>
+<p><span class="math display">\[\mathrm{\left[H^+\right]\cdot\left[OH^-\right]}~=~10^{-14}\]</span></p>
+<p>where <span class="math inline">\(\mathrm{\left[H^+\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{H^+}\)</span> and <span class="math inline">\(\mathrm{\left[OH^-\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{OH^-}\)</span>. The equilibrium constant equation shown above holds true for all aqueous solutions (at room temperature, near 1 <a href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a> of atmospheric pressure, and not too concentrated), even after acids or bases are added.</p>
+<p>In typical aqueous solutions used in laboratories, the concentration of <span class="math inline">\(\mathrm{H^+}\)</span> varies considerably, over many magnitudes, from about 10 moles per liter down to 0.000000000000001 moles per liter. It is annoying to work with these numbers with lots of place-holder 0s. Using scientific notation can help, but using a logarithmic scale has been a favorite strategy when dealing with numbers that vary over many <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">orders of magnitude</a>. This is what pH is, a logarithmic representation of the concentration of hydrogen ions. In the laboratory, pH will be between -1 and 15.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(\left[H^+\right]\right)}\]</span></p>
+<ul>
+<li>If an aqueous solution has known concentration of hydrogen ions, <span class="math inline">\(\mathrm{\left[H^+\right]}=6.31\cdot 10^{-13}\)</span> moles per liter, what is the pH? <em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the given number into the equation.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(6.31\cdot 10^{-13}\right)}\]</span></p>
+<p><span class="math display">\[\mathrm{pH}~=~12.2\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In chemistry, when making aqueous solutions with <a href="https://en.wikipedia.org/wiki/Acid">acids</a> and <a href="https://en.wikipedia.org/wiki/Base_(chemistry)">bases</a>, it is common to consider the <a href="https://en.wikipedia.org/wiki/PH">pH</a>. Distilled (pure) water at 25°C has a pH of 7, and it is neutral because the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions equals the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions. If an acid is added to water, the pH decreases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions increases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions decreases. If a base is added to water, the pH increases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions decreases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions increases.</p>
+<p>At room temperature, water undergoes a <a href="https://en.wikipedia.org/wiki/Reversible_reaction">reversible reaction</a> dictated by <a href="https://en.wikipedia.org/wiki/Collision_theory">collision theory</a> called <a href="https://en.wikipedia.org/wiki/Self-ionization_of_water">auto-ionization of water</a>. At each moment, every water molecule has some chance to split into a <span class="math inline">\(\mathrm{H^+}\)</span> and a <span class="math inline">\(\mathrm{OH^-}\)</span>. Also at each moment, if a <span class="math inline">\(\mathrm{H^+}\)</span> bumps into a <span class="math inline">\(\mathrm{OH^-}\)</span>, they can reform a water molecule.</p>
+<p>The bajillions of molecules all taking part in this dance produce a stable equilibrium, described by an <a href="https://en.wikipedia.org/wiki/Equilibrium_constant">equilibrium constant</a>.</p>
+<p><span class="math display">\[\mathrm{\left[H^+\right]\cdot\left[OH^-\right]}~=~10^{-14}\]</span></p>
+<p>where <span class="math inline">\(\mathrm{\left[H^+\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{H^+}\)</span> and <span class="math inline">\(\mathrm{\left[OH^-\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{OH^-}\)</span>. The equilibrium constant equation shown above holds true for all aqueous solutions (at room temperature, near 1 <a href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a> of atmospheric pressure, and not too concentrated), even after acids or bases are added.</p>
+<p>In typical aqueous solutions used in laboratories, the concentration of <span class="math inline">\(\mathrm{H^+}\)</span> varies considerably, over many magnitudes, from about 10 moles per liter down to 0.000000000000001 moles per liter. It is annoying to work with these numbers with lots of place-holder 0s. Using scientific notation can help, but using a logarithmic scale has been a favorite strategy when dealing with numbers that vary over many <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">orders of magnitude</a>. This is what pH is, a logarithmic representation of the concentration of hydrogen ions. In the laboratory, pH will be between -1 and 15.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(\left[H^+\right]\right)}\]</span></p>
+<ul>
+<li>If an aqueous solution has known concentration of hydrogen ions, <span class="math inline">\(\mathrm{\left[H^+\right]}=7.94\cdot 10^{-9}\)</span> moles per liter, what is the pH? <em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the given number into the equation.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(7.94\cdot 10^{-9}\right)}\]</span></p>
+<p><span class="math display">\[\mathrm{pH}~=~8.1\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In chemistry, when making aqueous solutions with <a href="https://en.wikipedia.org/wiki/Acid">acids</a> and <a href="https://en.wikipedia.org/wiki/Base_(chemistry)">bases</a>, it is common to consider the <a href="https://en.wikipedia.org/wiki/PH">pH</a>. Distilled (pure) water at 25°C has a pH of 7, and it is neutral because the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions equals the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions. If an acid is added to water, the pH decreases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions increases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions decreases. If a base is added to water, the pH increases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions decreases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions increases.</p>
+<p>At room temperature, water undergoes a <a href="https://en.wikipedia.org/wiki/Reversible_reaction">reversible reaction</a> dictated by <a href="https://en.wikipedia.org/wiki/Collision_theory">collision theory</a> called <a href="https://en.wikipedia.org/wiki/Self-ionization_of_water">auto-ionization of water</a>. At each moment, every water molecule has some chance to split into a <span class="math inline">\(\mathrm{H^+}\)</span> and a <span class="math inline">\(\mathrm{OH^-}\)</span>. Also at each moment, if a <span class="math inline">\(\mathrm{H^+}\)</span> bumps into a <span class="math inline">\(\mathrm{OH^-}\)</span>, they can reform a water molecule.</p>
+<p>The bajillions of molecules all taking part in this dance produce a stable equilibrium, described by an <a href="https://en.wikipedia.org/wiki/Equilibrium_constant">equilibrium constant</a>.</p>
+<p><span class="math display">\[\mathrm{\left[H^+\right]\cdot\left[OH^-\right]}~=~10^{-14}\]</span></p>
+<p>where <span class="math inline">\(\mathrm{\left[H^+\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{H^+}\)</span> and <span class="math inline">\(\mathrm{\left[OH^-\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{OH^-}\)</span>. The equilibrium constant equation shown above holds true for all aqueous solutions (at room temperature, near 1 <a href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a> of atmospheric pressure, and not too concentrated), even after acids or bases are added.</p>
+<p>In typical aqueous solutions used in laboratories, the concentration of <span class="math inline">\(\mathrm{H^+}\)</span> varies considerably, over many magnitudes, from about 10 moles per liter down to 0.000000000000001 moles per liter. It is annoying to work with these numbers with lots of place-holder 0s. Using scientific notation can help, but using a logarithmic scale has been a favorite strategy when dealing with numbers that vary over many <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">orders of magnitude</a>. This is what pH is, a logarithmic representation of the concentration of hydrogen ions. In the laboratory, pH will be between -1 and 15.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(\left[H^+\right]\right)}\]</span></p>
+<ul>
+<li>If an aqueous solution has known concentration of hydrogen ions, <span class="math inline">\(\mathrm{\left[H^+\right]}=3.16\cdot 10^{-5}\)</span> moles per liter, what is the pH? <em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the given number into the equation.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(3.16\cdot 10^{-5}\right)}\]</span></p>
+<p><span class="math display">\[\mathrm{pH}~=~4.5\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In chemistry, when making aqueous solutions with <a href="https://en.wikipedia.org/wiki/Acid">acids</a> and <a href="https://en.wikipedia.org/wiki/Base_(chemistry)">bases</a>, it is common to consider the <a href="https://en.wikipedia.org/wiki/PH">pH</a>. Distilled (pure) water at 25°C has a pH of 7, and it is neutral because the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions equals the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions. If an acid is added to water, the pH decreases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions increases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions decreases. If a base is added to water, the pH increases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions decreases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions increases.</p>
+<p>At room temperature, water undergoes a <a href="https://en.wikipedia.org/wiki/Reversible_reaction">reversible reaction</a> dictated by <a href="https://en.wikipedia.org/wiki/Collision_theory">collision theory</a> called <a href="https://en.wikipedia.org/wiki/Self-ionization_of_water">auto-ionization of water</a>. At each moment, every water molecule has some chance to split into a <span class="math inline">\(\mathrm{H^+}\)</span> and a <span class="math inline">\(\mathrm{OH^-}\)</span>. Also at each moment, if a <span class="math inline">\(\mathrm{H^+}\)</span> bumps into a <span class="math inline">\(\mathrm{OH^-}\)</span>, they can reform a water molecule.</p>
+<p>The bajillions of molecules all taking part in this dance produce a stable equilibrium, described by an <a href="https://en.wikipedia.org/wiki/Equilibrium_constant">equilibrium constant</a>.</p>
+<p><span class="math display">\[\mathrm{\left[H^+\right]\cdot\left[OH^-\right]}~=~10^{-14}\]</span></p>
+<p>where <span class="math inline">\(\mathrm{\left[H^+\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{H^+}\)</span> and <span class="math inline">\(\mathrm{\left[OH^-\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{OH^-}\)</span>. The equilibrium constant equation shown above holds true for all aqueous solutions (at room temperature, near 1 <a href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a> of atmospheric pressure, and not too concentrated), even after acids or bases are added.</p>
+<p>In typical aqueous solutions used in laboratories, the concentration of <span class="math inline">\(\mathrm{H^+}\)</span> varies considerably, over many magnitudes, from about 10 moles per liter down to 0.000000000000001 moles per liter. It is annoying to work with these numbers with lots of place-holder 0s. Using scientific notation can help, but using a logarithmic scale has been a favorite strategy when dealing with numbers that vary over many <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">orders of magnitude</a>. This is what pH is, a logarithmic representation of the concentration of hydrogen ions. In the laboratory, pH will be between -1 and 15.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(\left[H^+\right]\right)}\]</span></p>
+<ul>
+<li>If an aqueous solution has known concentration of hydrogen ions, <span class="math inline">\(\mathrm{\left[H^+\right]}=1.26\cdot 10^{-6}\)</span> moles per liter, what is the pH? <em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the given number into the equation.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(1.26\cdot 10^{-6}\right)}\]</span></p>
+<p><span class="math display">\[\mathrm{pH}~=~5.9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In chemistry, when making aqueous solutions with <a href="https://en.wikipedia.org/wiki/Acid">acids</a> and <a href="https://en.wikipedia.org/wiki/Base_(chemistry)">bases</a>, it is common to consider the <a href="https://en.wikipedia.org/wiki/PH">pH</a>. Distilled (pure) water at 25°C has a pH of 7, and it is neutral because the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions equals the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions. If an acid is added to water, the pH decreases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions increases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions decreases. If a base is added to water, the pH increases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions decreases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions increases.</p>
+<p>At room temperature, water undergoes a <a href="https://en.wikipedia.org/wiki/Reversible_reaction">reversible reaction</a> dictated by <a href="https://en.wikipedia.org/wiki/Collision_theory">collision theory</a> called <a href="https://en.wikipedia.org/wiki/Self-ionization_of_water">auto-ionization of water</a>. At each moment, every water molecule has some chance to split into a <span class="math inline">\(\mathrm{H^+}\)</span> and a <span class="math inline">\(\mathrm{OH^-}\)</span>. Also at each moment, if a <span class="math inline">\(\mathrm{H^+}\)</span> bumps into a <span class="math inline">\(\mathrm{OH^-}\)</span>, they can reform a water molecule.</p>
+<p>The bajillions of molecules all taking part in this dance produce a stable equilibrium, described by an <a href="https://en.wikipedia.org/wiki/Equilibrium_constant">equilibrium constant</a>.</p>
+<p><span class="math display">\[\mathrm{\left[H^+\right]\cdot\left[OH^-\right]}~=~10^{-14}\]</span></p>
+<p>where <span class="math inline">\(\mathrm{\left[H^+\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{H^+}\)</span> and <span class="math inline">\(\mathrm{\left[OH^-\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{OH^-}\)</span>. The equilibrium constant equation shown above holds true for all aqueous solutions (at room temperature, near 1 <a href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a> of atmospheric pressure, and not too concentrated), even after acids or bases are added.</p>
+<p>In typical aqueous solutions used in laboratories, the concentration of <span class="math inline">\(\mathrm{H^+}\)</span> varies considerably, over many magnitudes, from about 10 moles per liter down to 0.000000000000001 moles per liter. It is annoying to work with these numbers with lots of place-holder 0s. Using scientific notation can help, but using a logarithmic scale has been a favorite strategy when dealing with numbers that vary over many <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">orders of magnitude</a>. This is what pH is, a logarithmic representation of the concentration of hydrogen ions. In the laboratory, pH will be between -1 and 15.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(\left[H^+\right]\right)}\]</span></p>
+<ul>
+<li>If an aqueous solution has known concentration of hydrogen ions, <span class="math inline">\(\mathrm{\left[H^+\right]}=2.00\cdot 10^{-10}\)</span> moles per liter, what is the pH? <em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the given number into the equation.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(2.00\cdot 10^{-10}\right)}\]</span></p>
+<p><span class="math display">\[\mathrm{pH}~=~9.7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In chemistry, when making aqueous solutions with <a href="https://en.wikipedia.org/wiki/Acid">acids</a> and <a href="https://en.wikipedia.org/wiki/Base_(chemistry)">bases</a>, it is common to consider the <a href="https://en.wikipedia.org/wiki/PH">pH</a>. Distilled (pure) water at 25°C has a pH of 7, and it is neutral because the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions equals the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions. If an acid is added to water, the pH decreases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions increases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions decreases. If a base is added to water, the pH increases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions decreases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions increases.</p>
+<p>At room temperature, water undergoes a <a href="https://en.wikipedia.org/wiki/Reversible_reaction">reversible reaction</a> dictated by <a href="https://en.wikipedia.org/wiki/Collision_theory">collision theory</a> called <a href="https://en.wikipedia.org/wiki/Self-ionization_of_water">auto-ionization of water</a>. At each moment, every water molecule has some chance to split into a <span class="math inline">\(\mathrm{H^+}\)</span> and a <span class="math inline">\(\mathrm{OH^-}\)</span>. Also at each moment, if a <span class="math inline">\(\mathrm{H^+}\)</span> bumps into a <span class="math inline">\(\mathrm{OH^-}\)</span>, they can reform a water molecule.</p>
+<p>The bajillions of molecules all taking part in this dance produce a stable equilibrium, described by an <a href="https://en.wikipedia.org/wiki/Equilibrium_constant">equilibrium constant</a>.</p>
+<p><span class="math display">\[\mathrm{\left[H^+\right]\cdot\left[OH^-\right]}~=~10^{-14}\]</span></p>
+<p>where <span class="math inline">\(\mathrm{\left[H^+\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{H^+}\)</span> and <span class="math inline">\(\mathrm{\left[OH^-\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{OH^-}\)</span>. The equilibrium constant equation shown above holds true for all aqueous solutions (at room temperature, near 1 <a href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a> of atmospheric pressure, and not too concentrated), even after acids or bases are added.</p>
+<p>In typical aqueous solutions used in laboratories, the concentration of <span class="math inline">\(\mathrm{H^+}\)</span> varies considerably, over many magnitudes, from about 10 moles per liter down to 0.000000000000001 moles per liter. It is annoying to work with these numbers with lots of place-holder 0s. Using scientific notation can help, but using a logarithmic scale has been a favorite strategy when dealing with numbers that vary over many <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">orders of magnitude</a>. This is what pH is, a logarithmic representation of the concentration of hydrogen ions. In the laboratory, pH will be between -1 and 15.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(\left[H^+\right]\right)}\]</span></p>
+<ul>
+<li>If an aqueous solution has known concentration of hydrogen ions, <span class="math inline">\(\mathrm{\left[H^+\right]}=3.98\cdot 10^{-7}\)</span> moles per liter, what is the pH? <em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the given number into the equation.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(3.98\cdot 10^{-7}\right)}\]</span></p>
+<p><span class="math display">\[\mathrm{pH}~=~6.4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>In chemistry, when making aqueous solutions with <a href="https://en.wikipedia.org/wiki/Acid">acids</a> and <a href="https://en.wikipedia.org/wiki/Base_(chemistry)">bases</a>, it is common to consider the <a href="https://en.wikipedia.org/wiki/PH">pH</a>. Distilled (pure) water at 25°C has a pH of 7, and it is neutral because the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions equals the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions. If an acid is added to water, the pH decreases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions increases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions decreases. If a base is added to water, the pH increases, the number of <span class="math inline">\(\mathrm{H^+}\)</span> ions decreases, and the number of <span class="math inline">\(\mathrm{OH^-}\)</span> ions increases.</p>
+<p>At room temperature, water undergoes a <a href="https://en.wikipedia.org/wiki/Reversible_reaction">reversible reaction</a> dictated by <a href="https://en.wikipedia.org/wiki/Collision_theory">collision theory</a> called <a href="https://en.wikipedia.org/wiki/Self-ionization_of_water">auto-ionization of water</a>. At each moment, every water molecule has some chance to split into a <span class="math inline">\(\mathrm{H^+}\)</span> and a <span class="math inline">\(\mathrm{OH^-}\)</span>. Also at each moment, if a <span class="math inline">\(\mathrm{H^+}\)</span> bumps into a <span class="math inline">\(\mathrm{OH^-}\)</span>, they can reform a water molecule.</p>
+<p>The bajillions of molecules all taking part in this dance produce a stable equilibrium, described by an <a href="https://en.wikipedia.org/wiki/Equilibrium_constant">equilibrium constant</a>.</p>
+<p><span class="math display">\[\mathrm{\left[H^+\right]\cdot\left[OH^-\right]}~=~10^{-14}\]</span></p>
+<p>where <span class="math inline">\(\mathrm{\left[H^+\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{H^+}\)</span> and <span class="math inline">\(\mathrm{\left[OH^-\right]}\)</span> is the concentration in moles per liter of <span class="math inline">\(\mathrm{OH^-}\)</span>. The equilibrium constant equation shown above holds true for all aqueous solutions (at room temperature, near 1 <a href="https://en.wikipedia.org/wiki/Bar_(unit)">bar</a> of atmospheric pressure, and not too concentrated), even after acids or bases are added.</p>
+<p>In typical aqueous solutions used in laboratories, the concentration of <span class="math inline">\(\mathrm{H^+}\)</span> varies considerably, over many magnitudes, from about 10 moles per liter down to 0.000000000000001 moles per liter. It is annoying to work with these numbers with lots of place-holder 0s. Using scientific notation can help, but using a logarithmic scale has been a favorite strategy when dealing with numbers that vary over many <a href="https://en.wikipedia.org/wiki/Order_of_magnitude">orders of magnitude</a>. This is what pH is, a logarithmic representation of the concentration of hydrogen ions. In the laboratory, pH will be between -1 and 15.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(\left[H^+\right]\right)}\]</span></p>
+<ul>
+<li>If an aqueous solution has known concentration of hydrogen ions, <span class="math inline">\(\mathrm{\left[H^+\right]}=5.01\cdot 10^{0}\)</span> moles per liter, what is the pH? <em>The tolerance is <span class="math inline">\(\pm 0.1\)</span>.</em></li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug the given number into the equation.</p>
+<p><span class="math display">\[\mathrm{pH~=~-\log_{10}\left(5.01\cdot 10^{0}\right)}\]</span></p>
+<p><span class="math display">\[\mathrm{pH}~=~-0.7\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

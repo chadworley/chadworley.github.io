@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>25_earthquake_mag_diff</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">25_earthquake_mag_diff</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When two separate earthquakes occur, we are often interested in comparing their energies as a ratio (to say how many times more energy the larger one released). <a href="https://en.wikipedia.org/wiki/Moment_magnitude_scale#Comparative_energy_released_by_two_earthquakes">Wikipedia</a> provided me with the following formula to do this:</p>
+<p><span class="math display">\[\frac{E_2}{E_1}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>If the second earthquake’s energy was <span class="math inline">\(5.01\cdot 10^{8}\)</span> times the first earthquake’s energy, then what was the (absolute) difference in magnitudes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You’ve been given the ratio of energies. Replace with ratio of energies with the given number.</p>
+<p><span class="math display">\[5.01\cdot 10^{8}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>The inverse of <span class="math inline">\(f(x)=10^x\)</span> is <span class="math inline">\(f^{-1}(x)=\log_{10}(x)\)</span>. So, to undo the “10 to the”, we apply “log10 of” to both sides.</p>
+<p><span class="math display">\[\log_{10}\left(5.01\cdot 10^{8}\right)~=~\log_{10}\left(10^{1.5(M_2-M_1)}\right)\]</span></p>
+<p>We know that <span class="math inline">\(\log_B(B^x)\equiv x\)</span>. You can see the relevant identity under “Cancelling exponentials” in <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Cancelling_exponentials">wikipedia’s list of logarithmic identities</a>.</p>
+<p><span class="math display">\[\log_{10}\left(5.01\cdot 10^{8}\right)~=~1.5(M_2-M_1)\]</span></p>
+<p>Divide both sides by 1.5.</p>
+<p><span class="math display">\[\frac{\log_{10}\left(5.01\cdot 10^{8}\right)}{1.5}~=~M_2-M_1\]</span></p>
+<p>Use a calculator.</p>
+<p><span class="math display">\[M_2-M_1~=~5.7998918\]</span></p>
+<p>You can round to the tenths place.</p>
+<p><span class="math display">\[M_2-M_1~=~5.8\]</span></p>
+<p>So, the difference in magnitudes is approximately 5.8.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When two separate earthquakes occur, we are often interested in comparing their energies as a ratio (to say how many times more energy the larger one released). <a href="https://en.wikipedia.org/wiki/Moment_magnitude_scale#Comparative_energy_released_by_two_earthquakes">Wikipedia</a> provided me with the following formula to do this:</p>
+<p><span class="math display">\[\frac{E_2}{E_1}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>If the second earthquake’s energy was <span class="math inline">\(7.08\cdot 10^{5}\)</span> times the first earthquake’s energy, then what was the (absolute) difference in magnitudes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You’ve been given the ratio of energies. Replace with ratio of energies with the given number.</p>
+<p><span class="math display">\[7.08\cdot 10^{5}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>The inverse of <span class="math inline">\(f(x)=10^x\)</span> is <span class="math inline">\(f^{-1}(x)=\log_{10}(x)\)</span>. So, to undo the “10 to the”, we apply “log10 of” to both sides.</p>
+<p><span class="math display">\[\log_{10}\left(7.08\cdot 10^{5}\right)~=~\log_{10}\left(10^{1.5(M_2-M_1)}\right)\]</span></p>
+<p>We know that <span class="math inline">\(\log_B(B^x)\equiv x\)</span>. You can see the relevant identity under “Cancelling exponentials” in <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Cancelling_exponentials">wikipedia’s list of logarithmic identities</a>.</p>
+<p><span class="math display">\[\log_{10}\left(7.08\cdot 10^{5}\right)~=~1.5(M_2-M_1)\]</span></p>
+<p>Divide both sides by 1.5.</p>
+<p><span class="math display">\[\frac{\log_{10}\left(7.08\cdot 10^{5}\right)}{1.5}~=~M_2-M_1\]</span></p>
+<p>Use a calculator.</p>
+<p><span class="math display">\[M_2-M_1~=~3.9000222\]</span></p>
+<p>You can round to the tenths place.</p>
+<p><span class="math display">\[M_2-M_1~=~3.9\]</span></p>
+<p>So, the difference in magnitudes is approximately 3.9.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When two separate earthquakes occur, we are often interested in comparing their energies as a ratio (to say how many times more energy the larger one released). <a href="https://en.wikipedia.org/wiki/Moment_magnitude_scale#Comparative_energy_released_by_two_earthquakes">Wikipedia</a> provided me with the following formula to do this:</p>
+<p><span class="math display">\[\frac{E_2}{E_1}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>If the second earthquake’s energy was <span class="math inline">\(7.08\cdot 10^{8}\)</span> times the first earthquake’s energy, then what was the (absolute) difference in magnitudes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You’ve been given the ratio of energies. Replace with ratio of energies with the given number.</p>
+<p><span class="math display">\[7.08\cdot 10^{8}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>The inverse of <span class="math inline">\(f(x)=10^x\)</span> is <span class="math inline">\(f^{-1}(x)=\log_{10}(x)\)</span>. So, to undo the “10 to the”, we apply “log10 of” to both sides.</p>
+<p><span class="math display">\[\log_{10}\left(7.08\cdot 10^{8}\right)~=~\log_{10}\left(10^{1.5(M_2-M_1)}\right)\]</span></p>
+<p>We know that <span class="math inline">\(\log_B(B^x)\equiv x\)</span>. You can see the relevant identity under “Cancelling exponentials” in <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Cancelling_exponentials">wikipedia’s list of logarithmic identities</a>.</p>
+<p><span class="math display">\[\log_{10}\left(7.08\cdot 10^{8}\right)~=~1.5(M_2-M_1)\]</span></p>
+<p>Divide both sides by 1.5.</p>
+<p><span class="math display">\[\frac{\log_{10}\left(7.08\cdot 10^{8}\right)}{1.5}~=~M_2-M_1\]</span></p>
+<p>Use a calculator.</p>
+<p><span class="math display">\[M_2-M_1~=~5.9000222\]</span></p>
+<p>You can round to the tenths place.</p>
+<p><span class="math display">\[M_2-M_1~=~5.9\]</span></p>
+<p>So, the difference in magnitudes is approximately 5.9.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When two separate earthquakes occur, we are often interested in comparing their energies as a ratio (to say how many times more energy the larger one released). <a href="https://en.wikipedia.org/wiki/Moment_magnitude_scale#Comparative_energy_released_by_two_earthquakes">Wikipedia</a> provided me with the following formula to do this:</p>
+<p><span class="math display">\[\frac{E_2}{E_1}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>If the second earthquake’s energy was <span class="math inline">\(1.41\cdot 10^{6}\)</span> times the first earthquake’s energy, then what was the (absolute) difference in magnitudes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You’ve been given the ratio of energies. Replace with ratio of energies with the given number.</p>
+<p><span class="math display">\[1.41\cdot 10^{6}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>The inverse of <span class="math inline">\(f(x)=10^x\)</span> is <span class="math inline">\(f^{-1}(x)=\log_{10}(x)\)</span>. So, to undo the “10 to the”, we apply “log10 of” to both sides.</p>
+<p><span class="math display">\[\log_{10}\left(1.41\cdot 10^{6}\right)~=~\log_{10}\left(10^{1.5(M_2-M_1)}\right)\]</span></p>
+<p>We know that <span class="math inline">\(\log_B(B^x)\equiv x\)</span>. You can see the relevant identity under “Cancelling exponentials” in <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Cancelling_exponentials">wikipedia’s list of logarithmic identities</a>.</p>
+<p><span class="math display">\[\log_{10}\left(1.41\cdot 10^{6}\right)~=~1.5(M_2-M_1)\]</span></p>
+<p>Divide both sides by 1.5.</p>
+<p><span class="math display">\[\frac{\log_{10}\left(1.41\cdot 10^{6}\right)}{1.5}~=~M_2-M_1\]</span></p>
+<p>Use a calculator.</p>
+<p><span class="math display">\[M_2-M_1~=~4.0994794\]</span></p>
+<p>You can round to the tenths place.</p>
+<p><span class="math display">\[M_2-M_1~=~4.1\]</span></p>
+<p>So, the difference in magnitudes is approximately 4.1.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When two separate earthquakes occur, we are often interested in comparing their energies as a ratio (to say how many times more energy the larger one released). <a href="https://en.wikipedia.org/wiki/Moment_magnitude_scale#Comparative_energy_released_by_two_earthquakes">Wikipedia</a> provided me with the following formula to do this:</p>
+<p><span class="math display">\[\frac{E_2}{E_1}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>If the second earthquake’s energy was <span class="math inline">\(1.26\cdot 10^{8}\)</span> times the first earthquake’s energy, then what was the (absolute) difference in magnitudes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You’ve been given the ratio of energies. Replace with ratio of energies with the given number.</p>
+<p><span class="math display">\[1.26\cdot 10^{8}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>The inverse of <span class="math inline">\(f(x)=10^x\)</span> is <span class="math inline">\(f^{-1}(x)=\log_{10}(x)\)</span>. So, to undo the “10 to the”, we apply “log10 of” to both sides.</p>
+<p><span class="math display">\[\log_{10}\left(1.26\cdot 10^{8}\right)~=~\log_{10}\left(10^{1.5(M_2-M_1)}\right)\]</span></p>
+<p>We know that <span class="math inline">\(\log_B(B^x)\equiv x\)</span>. You can see the relevant identity under “Cancelling exponentials” in <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Cancelling_exponentials">wikipedia’s list of logarithmic identities</a>.</p>
+<p><span class="math display">\[\log_{10}\left(1.26\cdot 10^{8}\right)~=~1.5(M_2-M_1)\]</span></p>
+<p>Divide both sides by 1.5.</p>
+<p><span class="math display">\[\frac{\log_{10}\left(1.26\cdot 10^{8}\right)}{1.5}~=~M_2-M_1\]</span></p>
+<p>Use a calculator.</p>
+<p><span class="math display">\[M_2-M_1~=~5.400247\]</span></p>
+<p>You can round to the tenths place.</p>
+<p><span class="math display">\[M_2-M_1~=~5.4\]</span></p>
+<p>So, the difference in magnitudes is approximately 5.4.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When two separate earthquakes occur, we are often interested in comparing their energies as a ratio (to say how many times more energy the larger one released). <a href="https://en.wikipedia.org/wiki/Moment_magnitude_scale#Comparative_energy_released_by_two_earthquakes">Wikipedia</a> provided me with the following formula to do this:</p>
+<p><span class="math display">\[\frac{E_2}{E_1}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>If the second earthquake’s energy was <span class="math inline">\(1.41\cdot 10^{6}\)</span> times the first earthquake’s energy, then what was the (absolute) difference in magnitudes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You’ve been given the ratio of energies. Replace with ratio of energies with the given number.</p>
+<p><span class="math display">\[1.41\cdot 10^{6}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>The inverse of <span class="math inline">\(f(x)=10^x\)</span> is <span class="math inline">\(f^{-1}(x)=\log_{10}(x)\)</span>. So, to undo the “10 to the”, we apply “log10 of” to both sides.</p>
+<p><span class="math display">\[\log_{10}\left(1.41\cdot 10^{6}\right)~=~\log_{10}\left(10^{1.5(M_2-M_1)}\right)\]</span></p>
+<p>We know that <span class="math inline">\(\log_B(B^x)\equiv x\)</span>. You can see the relevant identity under “Cancelling exponentials” in <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Cancelling_exponentials">wikipedia’s list of logarithmic identities</a>.</p>
+<p><span class="math display">\[\log_{10}\left(1.41\cdot 10^{6}\right)~=~1.5(M_2-M_1)\]</span></p>
+<p>Divide both sides by 1.5.</p>
+<p><span class="math display">\[\frac{\log_{10}\left(1.41\cdot 10^{6}\right)}{1.5}~=~M_2-M_1\]</span></p>
+<p>Use a calculator.</p>
+<p><span class="math display">\[M_2-M_1~=~4.0994794\]</span></p>
+<p>You can round to the tenths place.</p>
+<p><span class="math display">\[M_2-M_1~=~4.1\]</span></p>
+<p>So, the difference in magnitudes is approximately 4.1.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When two separate earthquakes occur, we are often interested in comparing their energies as a ratio (to say how many times more energy the larger one released). <a href="https://en.wikipedia.org/wiki/Moment_magnitude_scale#Comparative_energy_released_by_two_earthquakes">Wikipedia</a> provided me with the following formula to do this:</p>
+<p><span class="math display">\[\frac{E_2}{E_1}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>If the second earthquake’s energy was <span class="math inline">\(1.58\cdot 10^{7}\)</span> times the first earthquake’s energy, then what was the (absolute) difference in magnitudes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You’ve been given the ratio of energies. Replace with ratio of energies with the given number.</p>
+<p><span class="math display">\[1.58\cdot 10^{7}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>The inverse of <span class="math inline">\(f(x)=10^x\)</span> is <span class="math inline">\(f^{-1}(x)=\log_{10}(x)\)</span>. So, to undo the “10 to the”, we apply “log10 of” to both sides.</p>
+<p><span class="math display">\[\log_{10}\left(1.58\cdot 10^{7}\right)~=~\log_{10}\left(10^{1.5(M_2-M_1)}\right)\]</span></p>
+<p>We know that <span class="math inline">\(\log_B(B^x)\equiv x\)</span>. You can see the relevant identity under “Cancelling exponentials” in <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Cancelling_exponentials">wikipedia’s list of logarithmic identities</a>.</p>
+<p><span class="math display">\[\log_{10}\left(1.58\cdot 10^{7}\right)~=~1.5(M_2-M_1)\]</span></p>
+<p>Divide both sides by 1.5.</p>
+<p><span class="math display">\[\frac{\log_{10}\left(1.58\cdot 10^{7}\right)}{1.5}~=~M_2-M_1\]</span></p>
+<p>Use a calculator.</p>
+<p><span class="math display">\[M_2-M_1~=~4.7991047\]</span></p>
+<p>You can round to the tenths place.</p>
+<p><span class="math display">\[M_2-M_1~=~4.8\]</span></p>
+<p>So, the difference in magnitudes is approximately 4.8.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>When two separate earthquakes occur, we are often interested in comparing their energies as a ratio (to say how many times more energy the larger one released). <a href="https://en.wikipedia.org/wiki/Moment_magnitude_scale#Comparative_energy_released_by_two_earthquakes">Wikipedia</a> provided me with the following formula to do this:</p>
+<p><span class="math display">\[\frac{E_2}{E_1}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>If the second earthquake’s energy was <span class="math inline">\(2.51\cdot 10^{8}\)</span> times the first earthquake’s energy, then what was the (absolute) difference in magnitudes?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You’ve been given the ratio of energies. Replace with ratio of energies with the given number.</p>
+<p><span class="math display">\[2.51\cdot 10^{8}~=~10^{1.5(M_2-M_1)}\]</span></p>
+<p>The inverse of <span class="math inline">\(f(x)=10^x\)</span> is <span class="math inline">\(f^{-1}(x)=\log_{10}(x)\)</span>. So, to undo the “10 to the”, we apply “log10 of” to both sides.</p>
+<p><span class="math display">\[\log_{10}\left(2.51\cdot 10^{8}\right)~=~\log_{10}\left(10^{1.5(M_2-M_1)}\right)\]</span></p>
+<p>We know that <span class="math inline">\(\log_B(B^x)\equiv x\)</span>. You can see the relevant identity under “Cancelling exponentials” in <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Cancelling_exponentials">wikipedia’s list of logarithmic identities</a>.</p>
+<p><span class="math display">\[\log_{10}\left(2.51\cdot 10^{8}\right)~=~1.5(M_2-M_1)\]</span></p>
+<p>Divide both sides by 1.5.</p>
+<p><span class="math display">\[\frac{\log_{10}\left(2.51\cdot 10^{8}\right)}{1.5}~=~M_2-M_1\]</span></p>
+<p>Use a calculator.</p>
+<p><span class="math display">\[M_2-M_1~=~5.5997825\]</span></p>
+<p>You can round to the tenths place.</p>
+<p><span class="math display">\[M_2-M_1~=~5.6\]</span></p>
+<p>So, the difference in magnitudes is approximately 5.6.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
