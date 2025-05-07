@@ -1,0 +1,1730 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>33_log10_inverse_table</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">33_log10_inverse_table</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>I’ve located 5 points on the curve <span class="math inline">\(y=10^x\)</span>.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y=10^x\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+-3
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-2
+</td>
+<td style="text-align:center;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.5
+</td>
+<td style="text-align:center;">
+3.16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<p>If a parent function is <span class="math inline">\(f(x)=10^x\)</span> then the <a href="https://en.wikipedia.org/wiki/Inverse_function">inverse function</a> is <span class="math inline">\(f^{-1}(y)=\log_{10}(y)\)</span>. Use the 5 points given above to fill out the table below (with corresponding points in increasing order).</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The inverse function <span class="math inline">\(f^{-1}(z)=\log_{10}(z)\)</span> is defined by the table below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+-3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.01
+</td>
+<td style="text-align:center;">
+-2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3.16
+</td>
+<td style="text-align:center;">
+0.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notice, you just switch the columns of the given <span class="math inline">\(y=10^x\)</span> table.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>I’ve located 5 points on the curve <span class="math inline">\(y=10^x\)</span>.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y=10^x\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+-2.5
+</td>
+<td style="text-align:center;">
+0.00316
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<p>If a parent function is <span class="math inline">\(f(x)=10^x\)</span> then the <a href="https://en.wikipedia.org/wiki/Inverse_function">inverse function</a> is <span class="math inline">\(f^{-1}(y)=\log_{10}(y)\)</span>. Use the 5 points given above to fill out the table below (with corresponding points in increasing order).</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The inverse function <span class="math inline">\(f^{-1}(z)=\log_{10}(z)\)</span> is defined by the table below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0.00316
+</td>
+<td style="text-align:center;">
+-2.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notice, you just switch the columns of the given <span class="math inline">\(y=10^x\)</span> table.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>I’ve located 5 points on the curve <span class="math inline">\(y=10^x\)</span>.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y=10^x\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+-3
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-2
+</td>
+<td style="text-align:center;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<p>If a parent function is <span class="math inline">\(f(x)=10^x\)</span> then the <a href="https://en.wikipedia.org/wiki/Inverse_function">inverse function</a> is <span class="math inline">\(f^{-1}(y)=\log_{10}(y)\)</span>. Use the 5 points given above to fill out the table below (with corresponding points in increasing order).</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The inverse function <span class="math inline">\(f^{-1}(z)=\log_{10}(z)\)</span> is defined by the table below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+-3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.01
+</td>
+<td style="text-align:center;">
+-2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notice, you just switch the columns of the given <span class="math inline">\(y=10^x\)</span> table.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>I’ve located 5 points on the curve <span class="math inline">\(y=10^x\)</span>.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y=10^x\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+-3
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1.5
+</td>
+<td style="text-align:center;">
+0.0316
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<p>If a parent function is <span class="math inline">\(f(x)=10^x\)</span> then the <a href="https://en.wikipedia.org/wiki/Inverse_function">inverse function</a> is <span class="math inline">\(f^{-1}(y)=\log_{10}(y)\)</span>. Use the 5 points given above to fill out the table below (with corresponding points in increasing order).</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The inverse function <span class="math inline">\(f^{-1}(z)=\log_{10}(z)\)</span> is defined by the table below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+-3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.0316
+</td>
+<td style="text-align:center;">
+-1.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notice, you just switch the columns of the given <span class="math inline">\(y=10^x\)</span> table.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>I’ve located 5 points on the curve <span class="math inline">\(y=10^x\)</span>.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y=10^x\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+-3
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1.5
+</td>
+<td style="text-align:center;">
+0.0316
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<p>If a parent function is <span class="math inline">\(f(x)=10^x\)</span> then the <a href="https://en.wikipedia.org/wiki/Inverse_function">inverse function</a> is <span class="math inline">\(f^{-1}(y)=\log_{10}(y)\)</span>. Use the 5 points given above to fill out the table below (with corresponding points in increasing order).</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The inverse function <span class="math inline">\(f^{-1}(z)=\log_{10}(z)\)</span> is defined by the table below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+-3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.0316
+</td>
+<td style="text-align:center;">
+-1.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notice, you just switch the columns of the given <span class="math inline">\(y=10^x\)</span> table.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>I’ve located 5 points on the curve <span class="math inline">\(y=10^x\)</span>.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y=10^x\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+-3
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+0.1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1.5
+</td>
+<td style="text-align:center;">
+31.6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<p>If a parent function is <span class="math inline">\(f(x)=10^x\)</span> then the <a href="https://en.wikipedia.org/wiki/Inverse_function">inverse function</a> is <span class="math inline">\(f^{-1}(y)=\log_{10}(y)\)</span>. Use the 5 points given above to fill out the table below (with corresponding points in increasing order).</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The inverse function <span class="math inline">\(f^{-1}(z)=\log_{10}(z)\)</span> is defined by the table below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+-3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+31.6
+</td>
+<td style="text-align:center;">
+1.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notice, you just switch the columns of the given <span class="math inline">\(y=10^x\)</span> table.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>I’ve located 5 points on the curve <span class="math inline">\(y=10^x\)</span>.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y=10^x\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+-3
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1.5
+</td>
+<td style="text-align:center;">
+0.0316
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1.5
+</td>
+<td style="text-align:center;">
+31.6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<p>If a parent function is <span class="math inline">\(f(x)=10^x\)</span> then the <a href="https://en.wikipedia.org/wiki/Inverse_function">inverse function</a> is <span class="math inline">\(f^{-1}(y)=\log_{10}(y)\)</span>. Use the 5 points given above to fill out the table below (with corresponding points in increasing order).</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The inverse function <span class="math inline">\(f^{-1}(z)=\log_{10}(z)\)</span> is defined by the table below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+-3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.0316
+</td>
+<td style="text-align:center;">
+-1.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+31.6
+</td>
+<td style="text-align:center;">
+1.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notice, you just switch the columns of the given <span class="math inline">\(y=10^x\)</span> table.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>I’ve located 5 points on the curve <span class="math inline">\(y=10^x\)</span>.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(y=10^x\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+-3
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-2
+</td>
+<td style="text-align:center;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-0.5
+</td>
+<td style="text-align:center;">
+0.316
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1.5
+</td>
+<td style="text-align:center;">
+31.6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1000
+</td>
+</tr>
+</tbody>
+</table>
+<p>If a parent function is <span class="math inline">\(f(x)=10^x\)</span> then the <a href="https://en.wikipedia.org/wiki/Inverse_function">inverse function</a> is <span class="math inline">\(f^{-1}(y)=\log_{10}(y)\)</span>. Use the 5 points given above to fill out the table below (with corresponding points in increasing order).</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+<td style="text-align:center;">
+<select><option>--------</option><option> -3</option><option>-2.5</option><option>-2</option><option>-1.5</option><option>-1</option><option>-0.5</option><option>0</option><option>0.001</option><option>0.00316</option><option>0.01</option><option>0.0316</option><option>0.1</option><option>0.316</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.16</option><option>10</option><option>31.6</option><option>100</option><option>316</option><option>1000 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+<p>The inverse function <span class="math inline">\(f^{-1}(z)=\log_{10}(z)\)</span> is defined by the table below.</p>
+<table class="bordered-table">
+<thead>
+<tr>
+<th style="text-align:center;">
+<span class="math inline">\(y\)</span>
+</th>
+<th style="text-align:center;">
+<span class="math inline">\(x=\log_{10}(y)\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0.001
+</td>
+<td style="text-align:center;">
+-3
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.01
+</td>
+<td style="text-align:center;">
+-2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.316
+</td>
+<td style="text-align:center;">
+-0.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+31.6
+</td>
+<td style="text-align:center;">
+1.5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1000
+</td>
+<td style="text-align:center;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notice, you just switch the columns of the given <span class="math inline">\(y=10^x\)</span> table.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

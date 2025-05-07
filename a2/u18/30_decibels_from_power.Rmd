@@ -1,0 +1,46 @@
+```{r,echo=FALSE}
+# L = 10*log(P/10^-12)
+# P = 10^(L/10)*10^(-12)
+
+L = runif(1,20,130)
+P = signif(10^(L/10)*10^(-12),3)
+L = 10*log10(P/10^-12)
+Pexp = floor(log10(P))
+Pman = signif(P/10^Pexp,3)
+
+```
+
+
+Question
+========
+
+I find it interesting that it seems our brains [subconsciously use logarithmic mapping](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law) to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of [sound power](https://en.wikipedia.org/wiki/Sound_power) is felt as an even step in volume.
+
+We already saw that it is common to use [cents](https://en.wikipedia.org/wiki/Cent_(music)) when discussing pitch intervals. When discussing volume, we often use [decibels](https://en.wikipedia.org/wiki/Decibel).
+
+A common reference value of $10^{-12}$ watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the "loudness" ($L$) in decibels of a sound with a known power, $P$, in watts.
+
+$$L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)$$
+
+If the power is $P=`r Pman`\cdot 10^{`r Pexp`}$ watts, what is the loudness, as defined above, in decibels?
+
+
+Solution
+========
+
+Just put the number into the formula.
+
+
+$$L ~=~ 10 \cdot \log_{10}\left(\frac{`r Pman`\cdot 10^{`r Pexp`}}{10^{-12}}\right)$$
+
+
+$$L ~\approx ~ `r L`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r L`
+exname: decibels
+extol: 0.5

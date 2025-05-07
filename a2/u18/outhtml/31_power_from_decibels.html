@@ -1,0 +1,666 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>31_power_from_decibels</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">31_power_from_decibels</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the loudness, as defined above, is <span class="math inline">\(L=56.7\)</span> decibels, what is the power of the sound source in watts?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(4.68\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.68\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.68\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.68\cdot 10^{-5}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.70\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.70\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.70\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.70\cdot 10^{-5}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.72\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.72\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.72\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.72\cdot 10^{-5}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.74\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.74\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.74\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.74\cdot 10^{-5}\)</span> watts
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[56.7 ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Divide by 10. Notice, the decibels divided by 10 is the bels.</p>
+<p><span class="math display">\[5.67 ~=~ \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Use exponentiation to undo the logarithmic function.</p>
+<p><span class="math display">\[10^{5.67} ~=~ \frac{P}{10^{-12}}\]</span></p>
+<p>Multiply by <span class="math inline">\(10^{-12}\)</span>.</p>
+<p><span class="math display">\[10^{5.67}\cdot 10^{-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{5.67-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{-6.33} ~=~ P\]</span></p>
+<p><span class="math display">\[P~=~4.68\cdot 10^{-7}~\mathrm{watts}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the loudness, as defined above, is <span class="math inline">\(L=84.2\)</span> decibels, what is the power of the sound source in watts?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(2.57\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.57\cdot 10^{-5}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.57\cdot 10^{-4}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.57\cdot 10^{-3}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.59\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.59\cdot 10^{-5}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.59\cdot 10^{-4}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.59\cdot 10^{-3}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.61\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.61\cdot 10^{-5}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.61\cdot 10^{-4}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.61\cdot 10^{-3}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.63\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.63\cdot 10^{-5}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.63\cdot 10^{-4}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(2.63\cdot 10^{-3}\)</span> watts
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[84.2 ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Divide by 10. Notice, the decibels divided by 10 is the bels.</p>
+<p><span class="math display">\[8.42 ~=~ \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Use exponentiation to undo the logarithmic function.</p>
+<p><span class="math display">\[10^{8.42} ~=~ \frac{P}{10^{-12}}\]</span></p>
+<p>Multiply by <span class="math inline">\(10^{-12}\)</span>.</p>
+<p><span class="math display">\[10^{8.42}\cdot 10^{-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{8.42-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{-3.58} ~=~ P\]</span></p>
+<p><span class="math display">\[P~=~2.63\cdot 10^{-4}~\mathrm{watts}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the loudness, as defined above, is <span class="math inline">\(L=127\)</span> decibels, what is the power of the sound source in watts?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(4.95\cdot 10^{-3}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.95\cdot 10^{-2}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.95\cdot 10^{-1}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.95\cdot 10^{0}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.97\cdot 10^{-3}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.97\cdot 10^{-2}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.97\cdot 10^{-1}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.97\cdot 10^{0}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.99\cdot 10^{-3}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.99\cdot 10^{-2}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.99\cdot 10^{-1}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.99\cdot 10^{0}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(5.01\cdot 10^{-3}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(5.01\cdot 10^{-2}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(5.01\cdot 10^{-1}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(5.01\cdot 10^{0}\)</span> watts
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[127 ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Divide by 10. Notice, the decibels divided by 10 is the bels.</p>
+<p><span class="math display">\[12.7 ~=~ \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Use exponentiation to undo the logarithmic function.</p>
+<p><span class="math display">\[10^{12.7} ~=~ \frac{P}{10^{-12}}\]</span></p>
+<p>Multiply by <span class="math inline">\(10^{-12}\)</span>.</p>
+<p><span class="math display">\[10^{12.7}\cdot 10^{-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{12.7-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{0.7} ~=~ P\]</span></p>
+<p><span class="math display">\[P~=~5.01\cdot 10^{0}~\mathrm{watts}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the loudness, as defined above, is <span class="math inline">\(L=35.3\)</span> decibels, what is the power of the sound source in watts?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(3.33\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.33\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.33\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.33\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.35\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.35\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.35\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.35\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.37\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.37\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.37\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.37\cdot 10^{-6}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.39\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.39\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.39\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.39\cdot 10^{-6}\)</span> watts
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[35.3 ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Divide by 10. Notice, the decibels divided by 10 is the bels.</p>
+<p><span class="math display">\[3.53 ~=~ \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Use exponentiation to undo the logarithmic function.</p>
+<p><span class="math display">\[10^{3.53} ~=~ \frac{P}{10^{-12}}\]</span></p>
+<p>Multiply by <span class="math inline">\(10^{-12}\)</span>.</p>
+<p><span class="math display">\[10^{3.53}\cdot 10^{-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{3.53-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{-8.47} ~=~ P\]</span></p>
+<p><span class="math display">\[P~=~3.39\cdot 10^{-9}~\mathrm{watts}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the loudness, as defined above, is <span class="math inline">\(L=25.9\)</span> decibels, what is the power of the sound source in watts?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(3.85\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.85\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.85\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.85\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.87\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.87\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.87\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.87\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.89\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.89\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.89\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.89\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.91\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.91\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.91\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(3.91\cdot 10^{-8}\)</span> watts
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[25.9 ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Divide by 10. Notice, the decibels divided by 10 is the bels.</p>
+<p><span class="math display">\[2.59 ~=~ \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Use exponentiation to undo the logarithmic function.</p>
+<p><span class="math display">\[10^{2.59} ~=~ \frac{P}{10^{-12}}\]</span></p>
+<p>Multiply by <span class="math inline">\(10^{-12}\)</span>.</p>
+<p><span class="math display">\[10^{2.59}\cdot 10^{-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{2.59-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{-9.41} ~=~ P\]</span></p>
+<p><span class="math display">\[P~=~3.89\cdot 10^{-10}~\mathrm{watts}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the loudness, as defined above, is <span class="math inline">\(L=31.4\)</span> decibels, what is the power of the sound source in watts?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(1.36\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.36\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.36\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.36\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.38\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.38\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.38\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.38\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.40\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.40\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.40\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.40\cdot 10^{-7}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.42\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.42\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.42\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(1.42\cdot 10^{-7}\)</span> watts
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[31.4 ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Divide by 10. Notice, the decibels divided by 10 is the bels.</p>
+<p><span class="math display">\[3.14 ~=~ \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Use exponentiation to undo the logarithmic function.</p>
+<p><span class="math display">\[10^{3.14} ~=~ \frac{P}{10^{-12}}\]</span></p>
+<p>Multiply by <span class="math inline">\(10^{-12}\)</span>.</p>
+<p><span class="math display">\[10^{3.14}\cdot 10^{-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{3.14-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{-8.86} ~=~ P\]</span></p>
+<p><span class="math display">\[P~=~1.38\cdot 10^{-9}~\mathrm{watts}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the loudness, as defined above, is <span class="math inline">\(L=36.5\)</span> decibels, what is the power of the sound source in watts?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(4.41\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.41\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.41\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.41\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.43\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.43\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.43\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.43\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.45\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.45\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.45\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.45\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.47\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.47\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.47\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(4.47\cdot 10^{-8}\)</span> watts
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[36.5 ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Divide by 10. Notice, the decibels divided by 10 is the bels.</p>
+<p><span class="math display">\[3.65 ~=~ \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Use exponentiation to undo the logarithmic function.</p>
+<p><span class="math display">\[10^{3.65} ~=~ \frac{P}{10^{-12}}\]</span></p>
+<p>Multiply by <span class="math inline">\(10^{-12}\)</span>.</p>
+<p><span class="math display">\[10^{3.65}\cdot 10^{-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{3.65-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{-8.35} ~=~ P\]</span></p>
+<p><span class="math display">\[P~=~4.47\cdot 10^{-9}~\mathrm{watts}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the loudness, as defined above, is <span class="math inline">\(L=28\)</span> decibels, what is the power of the sound source in watts?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(6.25\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.25\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.25\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.25\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.27\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.27\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.27\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.27\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.29\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.29\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.29\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.29\cdot 10^{-8}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.31\cdot 10^{-11}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.31\cdot 10^{-10}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.31\cdot 10^{-9}\)</span> watts
+</li>
+<li>
+<span class="math inline">\(6.31\cdot 10^{-8}\)</span> watts
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[28 ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Divide by 10. Notice, the decibels divided by 10 is the bels.</p>
+<p><span class="math display">\[2.8 ~=~ \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>Use exponentiation to undo the logarithmic function.</p>
+<p><span class="math display">\[10^{2.8} ~=~ \frac{P}{10^{-12}}\]</span></p>
+<p>Multiply by <span class="math inline">\(10^{-12}\)</span>.</p>
+<p><span class="math display">\[10^{2.8}\cdot 10^{-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{2.8-12} ~=~ P\]</span></p>
+<p><span class="math display">\[10^{-9.2} ~=~ P\]</span></p>
+<p><span class="math display">\[P~=~6.31\cdot 10^{-10}~\mathrm{watts}\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

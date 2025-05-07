@@ -3,25 +3,20 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["14_two-step_inverse_alg.Rmd",
-"15_solve_exponential.Rmd",
-"16_solve_logarithmic.Rmd",
-"17_equal_temperament_get_freq.Rmd",
-"18_equal_temperament_get_key.Rmd",
-"19_cents.Rmd",
-"20_f2_from_cents.Rmd",
-"21_equal_temperament_fifth_error.Rmd",
-"22_earthquake_magnitude.Rmd",
-"23_earthquake_energy.Rmd",
-"24_earthquake_nrg_rat.Rmd",
-"25_earthquake_mag_diff.Rmd",
-"26_pH.Rmd",
-"27_hydrogen_ion_conc.Rmd",
-"28_pOH.Rmd",
-"29_hydroxide_ion_conc.Rmd"]
+files = ["30_decibels_from_power.Rmd",
+"31_power_from_decibels.Rmd",
+"32_inverse_table.Rmd",
+"33_log10_inverse_table.Rmd",
+"34_log2_inverse_table.Rmd",
+"35_graph_inverse.Rmd",
+"36_inv_func_from_graph.Rmd",
+"37_semi-log_get_exp.Rmd",
+"38_semi-log_get_log.Rmd",
+"39_semi-log_get_base.Rmd",
+"40_slide_rule.Rmd"]
 
-avt = ["2025-05-06 7:00:00"]*len(files)
-dut = ["2025-05-06 22:59:00"]*len(files)
+avt = ["2025-05-07 7:00:00"]*len(files)
+dut = ["2025-05-08 22:59:00"]*len(files)
 front = "s18_"
 
 

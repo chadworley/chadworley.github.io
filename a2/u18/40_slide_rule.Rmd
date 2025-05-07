@@ -1,0 +1,137 @@
+```{r,echo=FALSE}
+exab = sample(2:9,2)
+while(T){
+    ab = sample(8:49,2)*2/10
+    a = ab[1]
+    b = ab[2]
+    if(!(a%%1==0) && !(b%%1==0) && abs(b-a)>1){break}
+}
+
+achoice = signif(a+0.2*(sample(-5:0,1)+0:5),2)
+bchoice = signif(b+0.2*(sample(-5:0,1)+0:5),2)
+p = signif(a*b,2)
+pchoice = signif(p+0.2*(sample(-5:0,1)+0:5)*10^floor(log10(p)),2)
+
+sol1 = paste0(1*(achoice==a),collapse="")
+sol2 = paste0(1*(bchoice==b),collapse="")
+sol3 = paste0(1*(pchoice==p),collapse="")
+
+```
+
+
+Question
+========
+
+Historically, logarithmic transformations were used to help people multiply many-digit numbers. In fact, when [John Napier](https://en.wikipedia.org/wiki/John_Napier) published books filled with logarithmic mappings, he did not even know that logarithmic functions are inverses of exponential functions. His sole purpose, when publishing his discovery of logarithmic mapping, was to aid in multiplication.
+
+The relevant [logarithmic identity](https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_product) is that the log of a product is equivalent to a sum of logs:
+
+$$\log_{b}(x\cdot y)~\equiv~\log_{b}(x)+\log_b(y)$$
+
+So, instead of directly calculating $x\cdot y$, a ship's navigator could look up $\log(x)$ and $\log(y)$, add those two numbers, and reverse look up from the resulting $\log(xy)$ to find $xy$. For example, imagine a navigator wanted to multiply $2.34$ and $7.65$. In that table, they could find $\log(2.34)\approx `r round(log2(2.34),4)`$ and $\log(7.65)\approx `r round(log2(7.65),4)`$. Now, it is relatively easy to add those two results: $`r round(log2(2.34),4)`+`r round(log2(7.65),4)`=`r sprintf("%.04f",round(log2(2.34)+log2(7.65),4))`$. Lastly, the navigator could find the row in the book that says $\log(`r round(2.34*7.65,2)`)\approx `r sprintf("%.04f",round(log2(2.34)+log2(7.65),4))`$. So, then the navigator could conclude that $2.34\times 7.65 \approx `r round(2.34*7.65,2)`$. This process was actually useful.
+
+In more recent history, before cheap hand-held calculators, students learned to use [slide rules](https://en.wikipedia.org/wiki/Slide_rule) to multiply numbers. These slide rules were based off the same property shown above. As a simple example, we can see the slide rule below can be used to show that `r sprintf("%.02f",exab[1])` times `r sprintf("%.02f",exab[2])` equals `r sprintf("%.02f",prod(exab))`.
+
+```{r,echo=F,fig.dim=c(3,10)}
+par(mar=c(0,0,0,0))
+bmp = 0.1
+plot(0,0,"n",xlim=c(0,1),ylim=c(0-bmp,2+bmp),axes=F,ann=F)
+for(i in seq(1.2,9.8,0.2)){
+    for(j in 0:1){
+        num = i*10^j
+        y = log10(num)
+        lines(c(0.3,0.5),c(y,y),col="grey")
+    }
+}
+for(i in seq(1.2,9.8,0.2)){
+    num = i
+    y2 = log10(num*exab[1])
+    lines(c(0.5,0.7),c(y2,y2),col="grey")
+}
+nums = c(1:9,(1:9)*10,100)
+for(num in nums){
+    y = log10(num)
+    lines(c(0.2,0.5),c(y,y))
+    text(0.1,y,num)
+}
+for(num in 1:10){
+    y2 = log10(num*exab[1])
+    lines(c(0.5,0.8),c(y2,y2))
+    text(0.9,y2,num)
+}
+
+polygon(c(0,0.5,0.5,0),c(0-bmp,0-bmp,2+bmp,2+bmp))
+polygon(c(1,0.5,0.5,1),c(0-bmp,0-bmp,1+bmp,1+bmp)+log10(exab[1]))
+
+lines(c(0.15,0.85),rep(log10(prod(exab)),2),col="red")
+lines(c(0.4,0.6),rep(log10(exab[1]),2),col="blue")
+
+```
+\
+
+Below is another slide rule, which I want you to read.
+
+```{r,echo=F,fig.dim=c(3,10)}
+par(mar=c(0,0,0,0))
+bmp = 0.1
+plot(0,0,"n",xlim=c(0,1),ylim=c(0-bmp,2+bmp),axes=F,ann=F)
+for(i in seq(1.2,9.8,0.2)){
+    for(j in 0:1){
+        num = i*10^j
+        y = log10(num)
+        lines(c(0.3,0.5),c(y,y),col="grey")
+    }
+}
+for(i in seq(1.2,9.8,0.2)){
+    num = i
+    y2 = log10(num*a)
+    lines(c(0.5,0.7),c(y2,y2),col="grey")
+}
+nums = c(1:9,(1:9)*10,100)
+for(num in nums){
+    y = log10(num)
+    lines(c(0.2,0.5),c(y,y))
+    text(0.1,y,num)
+}
+for(num in 1:10){
+    y2 = log10(num*a)
+    lines(c(0.5,0.8),c(y2,y2))
+    text(0.9,y2,num)
+}
+
+polygon(c(0,0.5,0.5,0),c(0-bmp,0-bmp,2+bmp,2+bmp))
+polygon(c(1,0.5,0.5,1),c(0-bmp,0-bmp,1+bmp,1+bmp)+log10(a))
+
+lines(c(0.15,0.85),rep(log10(a*b),2),col="red",lwd=0.7)
+lines(c(0.4,0.6),rep(log10(a),2),col="blue")
+```
+\
+
+The current position of the slide rule (and the red cursor) indicates a specific product. If that product is $a \cdot b = p$, find those three quantities.
+
+* $a =$ ##ANSWER1##
+* $b =$ ##ANSWER2##
+* $p \approx$ ##ANSWER3##
+
+
+Answerlist
+--------
+
+`r paste0("* ",sprintf("%.01f",achoice),collapse="\n")`
+`r paste0("* ",sprintf("%.01f",bchoice),collapse="\n")`
+`r paste0("* ",pchoice,collapse="\n")`
+
+
+Solution
+========
+
+$$`r a` \cdot `r b` \approx `r p`$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: slide_rule

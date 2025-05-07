@@ -1,0 +1,79 @@
+```{r,echo=FALSE}
+# L = 10*log(P/10^-12)
+# P = 10^(L/10)*10^(-12)
+
+while(T){
+    L = round(runif(1,20,130),1)
+    P = signif(10^(L/10)*10^(-12),3)
+    Pexp = floor(log10(P))
+    Pman = signif(P/10^Pexp,3)
+    if(Pman>1.1 && Pman<9.9){break}
+}
+
+ach = character()
+mans = Pman+0.02*(sample(-3:0,1)+0:3)
+expos = Pexp+sample(-3:0,1)+0:3
+for(man in mans){
+    for(expo in expos){
+        ach = c(ach,paste0(sprintf("%.02f",man),"\\cdot 10^{",expo,"}"))
+    }
+}
+
+ans = paste0(sprintf("%.02f",Pman),"\\cdot 10^{",Pexp,"}")
+sol = paste0(1*(ach==ans),collapse="")
+
+```
+
+
+Question
+========
+
+I find it interesting that it seems our brains [subconsciously use logarithmic mapping](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law) to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of [sound power](https://en.wikipedia.org/wiki/Sound_power) is felt as an even step in volume.
+
+We already saw that it is common to use [cents](https://en.wikipedia.org/wiki/Cent_(music)) when discussing pitch intervals. When discussing volume, we often use [decibels](https://en.wikipedia.org/wiki/Decibel).
+
+A common reference value of $10^{-12}$ watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the "loudness" ($L$) in decibels of a sound with a known power, $P$, in watts.
+
+$$L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)$$
+
+If the loudness, as defined above, is $L=`r L`$ decibels, what is the power of the sound source in watts?
+
+Answerlist
+--------
+
+`r paste0("* $",ach,"$ watts",collapse="\n")`
+
+
+Solution
+========
+
+$$`r L` ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)$$
+
+Divide by 10. Notice, the decibels divided by 10 is the bels.
+
+$$`r L/10` ~=~ \log_{10}\left(\frac{P}{10^{-12}}\right)$$
+
+Use exponentiation to undo the logarithmic function.
+
+$$10^{`r L/10`} ~=~ \frac{P}{10^{-12}}$$
+
+Multiply by $10^{-12}$.
+
+
+$$10^{`r L/10`}\cdot 10^{-12} ~=~ P$$
+
+
+$$10^{`r L/10`-12} ~=~ P$$
+
+$$10^{`r L/10-12`} ~=~ P$$
+
+$$P~=~`r ans`~\mathrm{watts}$$
+
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: power_from_decibels

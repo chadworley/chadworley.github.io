@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>30_decibels_from_power</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">30_decibels_from_power</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the power is <span class="math inline">\(P=2.53\cdot 10^{-5}\)</span> watts, what is the loudness, as defined above, in decibels?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Just put the number into the formula.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{2.53\cdot 10^{-5}}{10^{-12}}\right)\]</span></p>
+<p><span class="math display">\[L ~\approx ~ 74.0312052\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the power is <span class="math inline">\(P=2.25\cdot 10^{-7}\)</span> watts, what is the loudness, as defined above, in decibels?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Just put the number into the formula.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{2.25\cdot 10^{-7}}{10^{-12}}\right)\]</span></p>
+<p><span class="math display">\[L ~\approx ~ 53.5218252\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the power is <span class="math inline">\(P=1.61\cdot 10^{-8}\)</span> watts, what is the loudness, as defined above, in decibels?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Just put the number into the formula.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{1.61\cdot 10^{-8}}{10^{-12}}\right)\]</span></p>
+<p><span class="math display">\[L ~\approx ~ 42.0682588\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the power is <span class="math inline">\(P=2.77\cdot 10^{-9}\)</span> watts, what is the loudness, as defined above, in decibels?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Just put the number into the formula.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{2.77\cdot 10^{-9}}{10^{-12}}\right)\]</span></p>
+<p><span class="math display">\[L ~\approx ~ 34.4247977\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the power is <span class="math inline">\(P=1.57\cdot 10^{-7}\)</span> watts, what is the loudness, as defined above, in decibels?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Just put the number into the formula.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{1.57\cdot 10^{-7}}{10^{-12}}\right)\]</span></p>
+<p><span class="math display">\[L ~\approx ~ 51.9589965\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the power is <span class="math inline">\(P=9.68\cdot 10^{-7}\)</span> watts, what is the loudness, as defined above, in decibels?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Just put the number into the formula.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{9.68\cdot 10^{-7}}{10^{-12}}\right)\]</span></p>
+<p><span class="math display">\[L ~\approx ~ 59.8587536\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the power is <span class="math inline">\(P=1.49\cdot 10^{-9}\)</span> watts, what is the loudness, as defined above, in decibels?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Just put the number into the formula.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{1.49\cdot 10^{-9}}{10^{-12}}\right)\]</span></p>
+<p><span class="math display">\[L ~\approx ~ 31.7318627\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>I find it interesting that it seems our brains <a href="https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law">subconsciously use logarithmic mapping</a> to form our perceptions of many stimuli. Just like in pitch, where every doubling of frequency is felt as an equivalent increase of pitch (an octave), every doubling of <a href="https://en.wikipedia.org/wiki/Sound_power">sound power</a> is felt as an even step in volume.</p>
+<p>We already saw that it is common to use <a href="https://en.wikipedia.org/wiki/Cent_(music)">cents</a> when discussing pitch intervals. When discussing volume, we often use <a href="https://en.wikipedia.org/wiki/Decibel">decibels</a>.</p>
+<p>A common reference value of <span class="math inline">\(10^{-12}\)</span> watts is considered a very low-powered sound, barely audible, less than the quietest breathing of a human. By setting a reference value, we can use the following logarithmic formula to find the “loudness” (<span class="math inline">\(L\)</span>) in decibels of a sound with a known power, <span class="math inline">\(P\)</span>, in watts.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{P}{10^{-12}}\right)\]</span></p>
+<p>If the power is <span class="math inline">\(P=7.53\cdot 10^{-5}\)</span> watts, what is the loudness, as defined above, in decibels?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Just put the number into the formula.</p>
+<p><span class="math display">\[L ~=~ 10 \cdot \log_{10}\left(\frac{7.53\cdot 10^{-5}}{10^{-12}}\right)\]</span></p>
+<p><span class="math display">\[L ~\approx ~ 78.7679498\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
