@@ -3,7 +3,11 @@ n = 30
 outdir = "outcanvas"
 genname = "s18_"
 
-probs = c("40_slide_rule.Rmd")
+probs = c("41_solve_e_to_x.Rmd",
+          "42_solve_ln_x.Rmd",
+          "43_cooling_solve_time.Rmd",
+          "44_doubling_time_from_eq.Rmd",
+          "45_half-life_from_eq.Rmd")
 
 pnts = rep(2,length(probs))
 

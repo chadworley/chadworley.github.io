@@ -1,0 +1,54 @@
+```{r,echo=FALSE}
+dubtim = round(runif(1,2,8),1)
+k = round(log(2)/dubtim,2)
+A0 = round(runif(1,4,19),1)
+dbtm = log(2)/k
+```
+
+
+Question
+========
+
+At $t=0$ a population is $`r A0`$ million. The population decays exponentially, following the exponential decay equation below where $t$ has units of years, $y$ has units of millions, and $k=`r k`$ has units of years$^{-1}$.
+
+$$y = `r A0`e^{-`r k`t}$$
+
+What is the half life (in years)? (The tolerance is $\pm 0.2$ years.)
+
+
+Solution
+========
+
+You can graph the function. Find where the graph reaches half the initial value.
+
+```{r,echo=F}
+t = seq(-1,10,0.01)
+y = A0*exp(-k*t)
+plot(t,y,type="l",ylim=c(0,ceiling(A0*1.05)),xlim=c(0,10),col="blue")
+abline(h=A0/2,col="red")
+abline(h=A0,col="red")
+text(9,A0*0.55,paste0("y = ",round(A0/2,4),collapse=""),col="red")
+text(9,A0*1.05,paste0("y = ",A0,collapse=""),col="red")
+abline(h=0)
+abline(v=0)
+abline(v=dbtm,col="darkgreen")
+text(dbtm+0.7,A0*0.2,paste0("x = ",round(dbtm,2)),col="darkgreen")
+```
+\
+
+The half life is `r dbtm` years.
+
+You could also use algebra to find $t$ when the population reaches half the original amount.
+
+$$\frac{`r A0`}{2}=`r A0`e^{-`r k`t}$$
+
+To both sides of the equation you'd divide by `r A0`, take natural log, and divide by `r -k`.
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r dbtm`
+exname: half-life_from_eq
+extol: 0.2

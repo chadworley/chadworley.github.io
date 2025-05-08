@@ -1,0 +1,362 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>43_cooling_solve_time</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">43_cooling_solve_time</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s say a warm block initially at 89.1°C is placed outside on a moderately windy day. The outdoor temperature is 27°C. Moment by moment, the instantaneous rate of cooling is proportional to the difference of temperatures. The exact rate depends of many components:</p>
+<ul>
+<li>Mass of the block</li>
+<li>Material of the block</li>
+<li>Shape is the block</li>
+<li>Speed of the wind</li>
+<li>Etc…</li>
+</ul>
+<p>For this block, all the effects combine into a single proportionality constant: 0.49 <span class="math inline">\(\text{min}^{-1}\)</span>. So, at any moment, the rate of change equals <span class="math inline">\(-0.49(T-27)\)</span> <span class="math inline">\(\frac{^\circ\text{C}}{\text{min}}\)</span>. This implies that every 1.415 minutes, the <a href="https://en.wikipedia.org/wiki/Half-life">temperature difference halves</a>.</p>
+<p>By reviewing <a href="https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling">Newton’s law of cooling</a>, we see this block’s temperature follows an offset-exponential function of time.</p>
+<p><span class="math display">\[T(t) ~=~ 62.1e^{-0.49 t}+27\]</span></p>
+<p>where <span class="math inline">\(T\)</span> is in degrees Celsius and <span class="math inline">\(t\)</span> is in minutes. <strong>How many minutes does it take for the block’s temperature to reach 35.7 degrees Celsius?</strong></p>
+<p>The tolerance is <span class="math inline">\(\pm0.01\)</span> min.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in the temperature.</p>
+<p><span class="math display">\[35.7 ~=~ 62.1e^{-0.49 t}+27\]</span></p>
+<p>Subtract 27 from both sides.</p>
+<p><span class="math display">\[8.7 ~=~ 62.1e^{-0.49 t}\]</span></p>
+<p>Divide both sides by 62.1.</p>
+<p><span class="math display">\[\frac{8.7}{62.1} ~=~ e^{-0.49 t}\]</span></p>
+<p>Take the natural logarithm of both sides.</p>
+<p><span class="math display">\[\ln \left(\frac{8.7}{62.1}\right) ~=~ \ln\left(e^{-0.49 t}\right)\]</span></p>
+<p>Apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">log-of-a-power identity</a>.</p>
+<p><span class="math display">\[\ln \left(\frac{8.7}{62.1}\right) ~=~ -0.49t\ln\left(e\right)\]</span></p>
+<p>The natural logarithm is base <span class="math inline">\(e\)</span>, so <span class="math inline">\(\ln(e)=1\)</span>.</p>
+<p><span class="math display">\[\ln \left(\frac{8.7}{62.1}\right) ~=~ -0.49t\]</span></p>
+<p>Divide both sides by <span class="math inline">\(-0.49\)</span>.</p>
+<p><span class="math display">\[t = 4.0110673\]</span></p>
+<p>So it takes 4.0110673 minutes to reach 35.7 degrees Celsius.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s say a warm block initially at 85.4°C is placed outside on a moderately windy day. The outdoor temperature is 15.7°C. Moment by moment, the instantaneous rate of cooling is proportional to the difference of temperatures. The exact rate depends of many components:</p>
+<ul>
+<li>Mass of the block</li>
+<li>Material of the block</li>
+<li>Shape is the block</li>
+<li>Speed of the wind</li>
+<li>Etc…</li>
+</ul>
+<p>For this block, all the effects combine into a single proportionality constant: 0.18 <span class="math inline">\(\text{min}^{-1}\)</span>. So, at any moment, the rate of change equals <span class="math inline">\(-0.18(T-15.7)\)</span> <span class="math inline">\(\frac{^\circ\text{C}}{\text{min}}\)</span>. This implies that every 3.851 minutes, the <a href="https://en.wikipedia.org/wiki/Half-life">temperature difference halves</a>.</p>
+<p>By reviewing <a href="https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling">Newton’s law of cooling</a>, we see this block’s temperature follows an offset-exponential function of time.</p>
+<p><span class="math display">\[T(t) ~=~ 69.7e^{-0.18 t}+15.7\]</span></p>
+<p>where <span class="math inline">\(T\)</span> is in degrees Celsius and <span class="math inline">\(t\)</span> is in minutes. <strong>How many minutes does it take for the block’s temperature to reach 35.1 degrees Celsius?</strong></p>
+<p>The tolerance is <span class="math inline">\(\pm0.01\)</span> min.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in the temperature.</p>
+<p><span class="math display">\[35.1 ~=~ 69.7e^{-0.18 t}+15.7\]</span></p>
+<p>Subtract 15.7 from both sides.</p>
+<p><span class="math display">\[19.4 ~=~ 69.7e^{-0.18 t}\]</span></p>
+<p>Divide both sides by 69.7.</p>
+<p><span class="math display">\[\frac{19.4}{69.7} ~=~ e^{-0.18 t}\]</span></p>
+<p>Take the natural logarithm of both sides.</p>
+<p><span class="math display">\[\ln \left(\frac{19.4}{69.7}\right) ~=~ \ln\left(e^{-0.18 t}\right)\]</span></p>
+<p>Apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">log-of-a-power identity</a>.</p>
+<p><span class="math display">\[\ln \left(\frac{19.4}{69.7}\right) ~=~ -0.18t\ln\left(e\right)\]</span></p>
+<p>The natural logarithm is base <span class="math inline">\(e\)</span>, so <span class="math inline">\(\ln(e)=1\)</span>.</p>
+<p><span class="math display">\[\ln \left(\frac{19.4}{69.7}\right) ~=~ -0.18t\]</span></p>
+<p>Divide both sides by <span class="math inline">\(-0.18\)</span>.</p>
+<p><span class="math display">\[t = 7.1051514\]</span></p>
+<p>So it takes 7.1051514 minutes to reach 35.1 degrees Celsius.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s say a warm block initially at 48.2°C is placed outside on a moderately windy day. The outdoor temperature is 16.2°C. Moment by moment, the instantaneous rate of cooling is proportional to the difference of temperatures. The exact rate depends of many components:</p>
+<ul>
+<li>Mass of the block</li>
+<li>Material of the block</li>
+<li>Shape is the block</li>
+<li>Speed of the wind</li>
+<li>Etc…</li>
+</ul>
+<p>For this block, all the effects combine into a single proportionality constant: 0.33 <span class="math inline">\(\text{min}^{-1}\)</span>. So, at any moment, the rate of change equals <span class="math inline">\(-0.33(T-16.2)\)</span> <span class="math inline">\(\frac{^\circ\text{C}}{\text{min}}\)</span>. This implies that every 2.1 minutes, the <a href="https://en.wikipedia.org/wiki/Half-life">temperature difference halves</a>.</p>
+<p>By reviewing <a href="https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling">Newton’s law of cooling</a>, we see this block’s temperature follows an offset-exponential function of time.</p>
+<p><span class="math display">\[T(t) ~=~ 32e^{-0.33 t}+16.2\]</span></p>
+<p>where <span class="math inline">\(T\)</span> is in degrees Celsius and <span class="math inline">\(t\)</span> is in minutes. <strong>How many minutes does it take for the block’s temperature to reach 26.7 degrees Celsius?</strong></p>
+<p>The tolerance is <span class="math inline">\(\pm0.01\)</span> min.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in the temperature.</p>
+<p><span class="math display">\[26.7 ~=~ 32e^{-0.33 t}+16.2\]</span></p>
+<p>Subtract 16.2 from both sides.</p>
+<p><span class="math display">\[10.5 ~=~ 32e^{-0.33 t}\]</span></p>
+<p>Divide both sides by 32.</p>
+<p><span class="math display">\[\frac{10.5}{32} ~=~ e^{-0.33 t}\]</span></p>
+<p>Take the natural logarithm of both sides.</p>
+<p><span class="math display">\[\ln \left(\frac{10.5}{32}\right) ~=~ \ln\left(e^{-0.33 t}\right)\]</span></p>
+<p>Apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">log-of-a-power identity</a>.</p>
+<p><span class="math display">\[\ln \left(\frac{10.5}{32}\right) ~=~ -0.33t\ln\left(e\right)\]</span></p>
+<p>The natural logarithm is base <span class="math inline">\(e\)</span>, so <span class="math inline">\(\ln(e)=1\)</span>.</p>
+<p><span class="math display">\[\ln \left(\frac{10.5}{32}\right) ~=~ -0.33t\]</span></p>
+<p>Divide both sides by <span class="math inline">\(-0.33\)</span>.</p>
+<p><span class="math display">\[t = 3.3768504\]</span></p>
+<p>So it takes 3.3768504 minutes to reach 26.7 degrees Celsius.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s say a warm block initially at 60.3°C is placed outside on a moderately windy day. The outdoor temperature is 2.3°C. Moment by moment, the instantaneous rate of cooling is proportional to the difference of temperatures. The exact rate depends of many components:</p>
+<ul>
+<li>Mass of the block</li>
+<li>Material of the block</li>
+<li>Shape is the block</li>
+<li>Speed of the wind</li>
+<li>Etc…</li>
+</ul>
+<p>For this block, all the effects combine into a single proportionality constant: 0.11 <span class="math inline">\(\text{min}^{-1}\)</span>. So, at any moment, the rate of change equals <span class="math inline">\(-0.11(T-2.3)\)</span> <span class="math inline">\(\frac{^\circ\text{C}}{\text{min}}\)</span>. This implies that every 6.301 minutes, the <a href="https://en.wikipedia.org/wiki/Half-life">temperature difference halves</a>.</p>
+<p>By reviewing <a href="https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling">Newton’s law of cooling</a>, we see this block’s temperature follows an offset-exponential function of time.</p>
+<p><span class="math display">\[T(t) ~=~ 58e^{-0.11 t}+2.3\]</span></p>
+<p>where <span class="math inline">\(T\)</span> is in degrees Celsius and <span class="math inline">\(t\)</span> is in minutes. <strong>How many minutes does it take for the block’s temperature to reach 9.8 degrees Celsius?</strong></p>
+<p>The tolerance is <span class="math inline">\(\pm0.01\)</span> min.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in the temperature.</p>
+<p><span class="math display">\[9.8 ~=~ 58e^{-0.11 t}+2.3\]</span></p>
+<p>Subtract 2.3 from both sides.</p>
+<p><span class="math display">\[7.5 ~=~ 58e^{-0.11 t}\]</span></p>
+<p>Divide both sides by 58.</p>
+<p><span class="math display">\[\frac{7.5}{58} ~=~ e^{-0.11 t}\]</span></p>
+<p>Take the natural logarithm of both sides.</p>
+<p><span class="math display">\[\ln \left(\frac{7.5}{58}\right) ~=~ \ln\left(e^{-0.11 t}\right)\]</span></p>
+<p>Apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">log-of-a-power identity</a>.</p>
+<p><span class="math display">\[\ln \left(\frac{7.5}{58}\right) ~=~ -0.11t\ln\left(e\right)\]</span></p>
+<p>The natural logarithm is base <span class="math inline">\(e\)</span>, so <span class="math inline">\(\ln(e)=1\)</span>.</p>
+<p><span class="math display">\[\ln \left(\frac{7.5}{58}\right) ~=~ -0.11t\]</span></p>
+<p>Divide both sides by <span class="math inline">\(-0.11\)</span>.</p>
+<p><span class="math display">\[t = 18.5958181\]</span></p>
+<p>So it takes 18.5958181 minutes to reach 9.8 degrees Celsius.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s say a warm block initially at 58.9°C is placed outside on a moderately windy day. The outdoor temperature is 16.2°C. Moment by moment, the instantaneous rate of cooling is proportional to the difference of temperatures. The exact rate depends of many components:</p>
+<ul>
+<li>Mass of the block</li>
+<li>Material of the block</li>
+<li>Shape is the block</li>
+<li>Speed of the wind</li>
+<li>Etc…</li>
+</ul>
+<p>For this block, all the effects combine into a single proportionality constant: 0.38 <span class="math inline">\(\text{min}^{-1}\)</span>. So, at any moment, the rate of change equals <span class="math inline">\(-0.38(T-16.2)\)</span> <span class="math inline">\(\frac{^\circ\text{C}}{\text{min}}\)</span>. This implies that every 1.824 minutes, the <a href="https://en.wikipedia.org/wiki/Half-life">temperature difference halves</a>.</p>
+<p>By reviewing <a href="https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling">Newton’s law of cooling</a>, we see this block’s temperature follows an offset-exponential function of time.</p>
+<p><span class="math display">\[T(t) ~=~ 42.7e^{-0.38 t}+16.2\]</span></p>
+<p>where <span class="math inline">\(T\)</span> is in degrees Celsius and <span class="math inline">\(t\)</span> is in minutes. <strong>How many minutes does it take for the block’s temperature to reach 22.1 degrees Celsius?</strong></p>
+<p>The tolerance is <span class="math inline">\(\pm0.01\)</span> min.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in the temperature.</p>
+<p><span class="math display">\[22.1 ~=~ 42.7e^{-0.38 t}+16.2\]</span></p>
+<p>Subtract 16.2 from both sides.</p>
+<p><span class="math display">\[5.9 ~=~ 42.7e^{-0.38 t}\]</span></p>
+<p>Divide both sides by 42.7.</p>
+<p><span class="math display">\[\frac{5.9}{42.7} ~=~ e^{-0.38 t}\]</span></p>
+<p>Take the natural logarithm of both sides.</p>
+<p><span class="math display">\[\ln \left(\frac{5.9}{42.7}\right) ~=~ \ln\left(e^{-0.38 t}\right)\]</span></p>
+<p>Apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">log-of-a-power identity</a>.</p>
+<p><span class="math display">\[\ln \left(\frac{5.9}{42.7}\right) ~=~ -0.38t\ln\left(e\right)\]</span></p>
+<p>The natural logarithm is base <span class="math inline">\(e\)</span>, so <span class="math inline">\(\ln(e)=1\)</span>.</p>
+<p><span class="math display">\[\ln \left(\frac{5.9}{42.7}\right) ~=~ -0.38t\]</span></p>
+<p>Divide both sides by <span class="math inline">\(-0.38\)</span>.</p>
+<p><span class="math display">\[t = 5.2085436\]</span></p>
+<p>So it takes 5.2085436 minutes to reach 22.1 degrees Celsius.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s say a warm block initially at 96.5°C is placed outside on a moderately windy day. The outdoor temperature is 7.9°C. Moment by moment, the instantaneous rate of cooling is proportional to the difference of temperatures. The exact rate depends of many components:</p>
+<ul>
+<li>Mass of the block</li>
+<li>Material of the block</li>
+<li>Shape is the block</li>
+<li>Speed of the wind</li>
+<li>Etc…</li>
+</ul>
+<p>For this block, all the effects combine into a single proportionality constant: 0.02 <span class="math inline">\(\text{min}^{-1}\)</span>. So, at any moment, the rate of change equals <span class="math inline">\(-0.02(T-7.9)\)</span> <span class="math inline">\(\frac{^\circ\text{C}}{\text{min}}\)</span>. This implies that every 34.657 minutes, the <a href="https://en.wikipedia.org/wiki/Half-life">temperature difference halves</a>.</p>
+<p>By reviewing <a href="https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling">Newton’s law of cooling</a>, we see this block’s temperature follows an offset-exponential function of time.</p>
+<p><span class="math display">\[T(t) ~=~ 88.6e^{-0.02 t}+7.9\]</span></p>
+<p>where <span class="math inline">\(T\)</span> is in degrees Celsius and <span class="math inline">\(t\)</span> is in minutes. <strong>How many minutes does it take for the block’s temperature to reach 27.6 degrees Celsius?</strong></p>
+<p>The tolerance is <span class="math inline">\(\pm0.01\)</span> min.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in the temperature.</p>
+<p><span class="math display">\[27.6 ~=~ 88.6e^{-0.02 t}+7.9\]</span></p>
+<p>Subtract 7.9 from both sides.</p>
+<p><span class="math display">\[19.7 ~=~ 88.6e^{-0.02 t}\]</span></p>
+<p>Divide both sides by 88.6.</p>
+<p><span class="math display">\[\frac{19.7}{88.6} ~=~ e^{-0.02 t}\]</span></p>
+<p>Take the natural logarithm of both sides.</p>
+<p><span class="math display">\[\ln \left(\frac{19.7}{88.6}\right) ~=~ \ln\left(e^{-0.02 t}\right)\]</span></p>
+<p>Apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">log-of-a-power identity</a>.</p>
+<p><span class="math display">\[\ln \left(\frac{19.7}{88.6}\right) ~=~ -0.02t\ln\left(e\right)\]</span></p>
+<p>The natural logarithm is base <span class="math inline">\(e\)</span>, so <span class="math inline">\(\ln(e)=1\)</span>.</p>
+<p><span class="math display">\[\ln \left(\frac{19.7}{88.6}\right) ~=~ -0.02t\]</span></p>
+<p>Divide both sides by <span class="math inline">\(-0.02\)</span>.</p>
+<p><span class="math display">\[t = 75.1756611\]</span></p>
+<p>So it takes 75.1756611 minutes to reach 27.6 degrees Celsius.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s say a warm block initially at 45.9°C is placed outside on a moderately windy day. The outdoor temperature is 14.6°C. Moment by moment, the instantaneous rate of cooling is proportional to the difference of temperatures. The exact rate depends of many components:</p>
+<ul>
+<li>Mass of the block</li>
+<li>Material of the block</li>
+<li>Shape is the block</li>
+<li>Speed of the wind</li>
+<li>Etc…</li>
+</ul>
+<p>For this block, all the effects combine into a single proportionality constant: 0.16 <span class="math inline">\(\text{min}^{-1}\)</span>. So, at any moment, the rate of change equals <span class="math inline">\(-0.16(T-14.6)\)</span> <span class="math inline">\(\frac{^\circ\text{C}}{\text{min}}\)</span>. This implies that every 4.332 minutes, the <a href="https://en.wikipedia.org/wiki/Half-life">temperature difference halves</a>.</p>
+<p>By reviewing <a href="https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling">Newton’s law of cooling</a>, we see this block’s temperature follows an offset-exponential function of time.</p>
+<p><span class="math display">\[T(t) ~=~ 31.3e^{-0.16 t}+14.6\]</span></p>
+<p>where <span class="math inline">\(T\)</span> is in degrees Celsius and <span class="math inline">\(t\)</span> is in minutes. <strong>How many minutes does it take for the block’s temperature to reach 23.4 degrees Celsius?</strong></p>
+<p>The tolerance is <span class="math inline">\(\pm0.01\)</span> min.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in the temperature.</p>
+<p><span class="math display">\[23.4 ~=~ 31.3e^{-0.16 t}+14.6\]</span></p>
+<p>Subtract 14.6 from both sides.</p>
+<p><span class="math display">\[8.8 ~=~ 31.3e^{-0.16 t}\]</span></p>
+<p>Divide both sides by 31.3.</p>
+<p><span class="math display">\[\frac{8.8}{31.3} ~=~ e^{-0.16 t}\]</span></p>
+<p>Take the natural logarithm of both sides.</p>
+<p><span class="math display">\[\ln \left(\frac{8.8}{31.3}\right) ~=~ \ln\left(e^{-0.16 t}\right)\]</span></p>
+<p>Apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">log-of-a-power identity</a>.</p>
+<p><span class="math display">\[\ln \left(\frac{8.8}{31.3}\right) ~=~ -0.16t\ln\left(e\right)\]</span></p>
+<p>The natural logarithm is base <span class="math inline">\(e\)</span>, so <span class="math inline">\(\ln(e)=1\)</span>.</p>
+<p><span class="math display">\[\ln \left(\frac{8.8}{31.3}\right) ~=~ -0.16t\]</span></p>
+<p>Divide both sides by <span class="math inline">\(-0.16\)</span>.</p>
+<p><span class="math display">\[t = 7.9304149\]</span></p>
+<p>So it takes 7.9304149 minutes to reach 23.4 degrees Celsius.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let’s say a warm block initially at 115.7°C is placed outside on a moderately windy day. The outdoor temperature is 29.4°C. Moment by moment, the instantaneous rate of cooling is proportional to the difference of temperatures. The exact rate depends of many components:</p>
+<ul>
+<li>Mass of the block</li>
+<li>Material of the block</li>
+<li>Shape is the block</li>
+<li>Speed of the wind</li>
+<li>Etc…</li>
+</ul>
+<p>For this block, all the effects combine into a single proportionality constant: 0.29 <span class="math inline">\(\text{min}^{-1}\)</span>. So, at any moment, the rate of change equals <span class="math inline">\(-0.29(T-29.4)\)</span> <span class="math inline">\(\frac{^\circ\text{C}}{\text{min}}\)</span>. This implies that every 2.39 minutes, the <a href="https://en.wikipedia.org/wiki/Half-life">temperature difference halves</a>.</p>
+<p>By reviewing <a href="https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling">Newton’s law of cooling</a>, we see this block’s temperature follows an offset-exponential function of time.</p>
+<p><span class="math display">\[T(t) ~=~ 86.3e^{-0.29 t}+29.4\]</span></p>
+<p>where <span class="math inline">\(T\)</span> is in degrees Celsius and <span class="math inline">\(t\)</span> is in minutes. <strong>How many minutes does it take for the block’s temperature to reach 60.2 degrees Celsius?</strong></p>
+<p>The tolerance is <span class="math inline">\(\pm0.01\)</span> min.</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Plug in the temperature.</p>
+<p><span class="math display">\[60.2 ~=~ 86.3e^{-0.29 t}+29.4\]</span></p>
+<p>Subtract 29.4 from both sides.</p>
+<p><span class="math display">\[30.8 ~=~ 86.3e^{-0.29 t}\]</span></p>
+<p>Divide both sides by 86.3.</p>
+<p><span class="math display">\[\frac{30.8}{86.3} ~=~ e^{-0.29 t}\]</span></p>
+<p>Take the natural logarithm of both sides.</p>
+<p><span class="math display">\[\ln \left(\frac{30.8}{86.3}\right) ~=~ \ln\left(e^{-0.29 t}\right)\]</span></p>
+<p>Apply the <a href="https://en.wikipedia.org/wiki/List_of_logarithmic_identities#Logarithm_of_a_power">log-of-a-power identity</a>.</p>
+<p><span class="math display">\[\ln \left(\frac{30.8}{86.3}\right) ~=~ -0.29t\ln\left(e\right)\]</span></p>
+<p>The natural logarithm is base <span class="math inline">\(e\)</span>, so <span class="math inline">\(\ln(e)=1\)</span>.</p>
+<p><span class="math display">\[\ln \left(\frac{30.8}{86.3}\right) ~=~ -0.29t\]</span></p>
+<p>Divide both sides by <span class="math inline">\(-0.29\)</span>.</p>
+<p><span class="math display">\[t = 3.55281\]</span></p>
+<p>So it takes 3.55281 minutes to reach 60.2 degrees Celsius.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

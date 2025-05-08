@@ -3,20 +3,14 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["30_decibels_from_power.Rmd",
-"31_power_from_decibels.Rmd",
-"32_inverse_table.Rmd",
-"33_log10_inverse_table.Rmd",
-"34_log2_inverse_table.Rmd",
-"35_graph_inverse.Rmd",
-"36_inv_func_from_graph.Rmd",
-"37_semi-log_get_exp.Rmd",
-"38_semi-log_get_log.Rmd",
-"39_semi-log_get_base.Rmd",
-"40_slide_rule.Rmd"]
+files = ["41_solve_e_to_x.Rmd",
+"42_solve_ln_x.Rmd",
+"43_cooling_solve_time.Rmd",
+"44_doubling_time_from_eq.Rmd",
+"45_half-life_from_eq.Rmd"]
 
-avt = ["2025-05-07 7:00:00"]*len(files)
-dut = ["2025-05-08 22:59:00"]*len(files)
+avt = ["2025-05-08 7:00:00"]*len(files)
+dut = ["2025-05-09 22:59:00"]*len(files)
 front = "s18_"
 
 

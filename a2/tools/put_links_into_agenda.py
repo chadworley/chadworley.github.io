@@ -5,17 +5,11 @@ import os
 
 
 front = "s18_"
-files = ["30_decibels_from_power.Rmd",
-"31_power_from_decibels.Rmd",
-"32_inverse_table.Rmd",
-"33_log10_inverse_table.Rmd",
-"34_log2_inverse_table.Rmd",
-"35_graph_inverse.Rmd",
-"36_inv_func_from_graph.Rmd",
-"37_semi-log_get_exp.Rmd",
-"38_semi-log_get_log.Rmd",
-"39_semi-log_get_base.Rmd",
-"40_slide_rule.Rmd"]
+files = ["41_solve_e_to_x.Rmd",
+"42_solve_ln_x.Rmd",
+"43_cooling_solve_time.Rmd",
+"44_doubling_time_from_eq.Rmd",
+"45_half-life_from_eq.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u18/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
