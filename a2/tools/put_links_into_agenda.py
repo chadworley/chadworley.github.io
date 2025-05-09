@@ -5,11 +5,9 @@ import os
 
 
 front = "s18_"
-files = ["41_solve_e_to_x.Rmd",
-"42_solve_ln_x.Rmd",
-"43_cooling_solve_time.Rmd",
-"44_doubling_time_from_eq.Rmd",
-"45_half-life_from_eq.Rmd"]
+files = ["46_shifted_exp_log.Rmd",
+"47_exp_shift_stretch_equiv.Rmd",
+"48_exp_base_and_stretch_eq.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u18/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

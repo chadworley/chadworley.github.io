@@ -1,10 +1,8 @@
 library("exams")
 
-pppsss = c("41_solve_e_to_x.Rmd",
-           "42_solve_ln_x.Rmd",
-           "43_cooling_solve_time.Rmd",
-           "44_doubling_time_from_eq.Rmd",
-           "45_half-life_from_eq.Rmd")
+pppsss = c("46_shifted_exp_log.Rmd",
+           "47_exp_shift_stretch_equiv.Rmd",
+           "48_exp_base_and_stretch_eq.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

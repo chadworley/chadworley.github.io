@@ -7,11 +7,9 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s18_41_solve_e_to_x.zip",
-"outcanvas/s18_42_solve_ln_x.zip",
-"outcanvas/s18_43_cooling_solve_time.zip",
-"outcanvas/s18_44_doubling_time_from_eq.zip",
-"outcanvas/s18_45_half-life_from_eq.zip"]
+file_path_list = ["outcanvas/s18_46_shifted_exp_log.zip",
+"outcanvas/s18_47_exp_shift_stretch_equiv.zip",
+"outcanvas/s18_48_exp_base_and_stretch_eq.zip"]
 
 
 # FOR UPLOADING ETS

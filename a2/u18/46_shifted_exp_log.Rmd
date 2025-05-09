@@ -1,0 +1,124 @@
+```{r,echo=FALSE}
+
+x1 = seq(-10,10,0.01)
+ya = exp(x1)
+yb = exp(x1+2)
+yc = exp(x1)+2
+yd = exp(x1-2)
+ye = exp(x1)-2
+y2 = seq(-10,10,0.01)
+xf = exp(y2)  # y = ln(x)
+xg = exp(y2+2) # y = ln(x)-2
+xh = exp(y2)+2 # y = ln(x-2)
+xi = exp(y2-2) # y = ln(x)+2
+xj = exp(y2)-2 # y = ln(x+2)
+asympts = list(list(c(-7,7),c(0,0)),
+               list(c(-7,7),c(0,0)),
+               list(c(-7,7),c(2,2)),
+               list(c(-7,7),c(0,0)),
+               list(c(-7,7),c(-2,-2)),
+               list(c(0,0),c(-7,7)),
+               list(c(0,0),c(-7,7)),
+               list(c(2,2),c(-7,7)),
+               list(c(0,0),c(-7,7)),
+               list(c(-2,-2),c(-7,7)),
+               list(c(0,0),c(-7,7)))
+graphs = list(list(x1,ya),
+              list(x1,yb),
+              list(x1,yc),
+              list(x1,yd),
+              list(x1,ye),
+              list(xf,y2),
+              list(xg,y2),
+              list(xh,y2),
+              list(xi,y2),
+              list(xj,y2))
+eqs = c("y=e^{x}",
+        "y=e^{x+2}",
+        "y=e^{x}+2",
+        "y=e^{x-2}",
+        "y=e^{x}-2",
+        "y=\\ln(x)",
+        "y=\\ln(x)-2",
+        "y=\\ln(x-2)",
+        "y=\\ln(x)+2",
+        "y=\\ln(x+2)")
+ordgraphs = sample(1:10) 
+ordeqs = sample(1:10)
+
+ach = LETTERS[1:10]
+
+sols = character()
+for(i in ordeqs){
+    sol = paste0(1*(ordgraphs==i),collapse="")
+    sols = c(sols,sol)
+}
+
+
+```
+
+
+Question
+========
+
+Match the following graphs to their equations. I've shown the asymptotes as dotted red lines.
+
+```{r,echo=F,fig.dim=c(6,15)}
+par(mfrow=c(5,2))
+for(i in 1:10){
+    x = graphs[[ordgraphs[i]]][[1]]
+    y = graphs[[ordgraphs[i]]][[2]]
+    plot(x,y,"l",xlim=c(-5,5),ylim=c(-5,5),main=LETTERS[i],asp=1)
+    abline(h=0,col="grey")
+    abline(v=0,col="grey")
+    asx = asympts[[ordgraphs[i]]][[1]]
+    asy = asympts[[ordgraphs[i]]][[2]]
+    lines(asx,asy,col="red",lty=2)
+    lines(x,y,col="blue",lwd=2)
+}
+
+```
+
+1. $`r eqs[ordeqs[1]]`$ ##ANSWER1##
+2. $`r eqs[ordeqs[2]]`$ ##ANSWER2##
+3. $`r eqs[ordeqs[3]]`$ ##ANSWER3##
+4. $`r eqs[ordeqs[4]]`$ ##ANSWER4##
+5. $`r eqs[ordeqs[5]]`$ ##ANSWER5##
+6. $`r eqs[ordeqs[6]]`$ ##ANSWER6##
+7. $`r eqs[ordeqs[7]]`$ ##ANSWER7##
+8. $`r eqs[ordeqs[8]]`$ ##ANSWER8##
+9. $`r eqs[ordeqs[9]]`$ ##ANSWER9##
+10. $`r eqs[ordeqs[10]]`$ ##ANSWER10##
+
+
+Answerlist
+--------
+
+`r paste0("* ",rep(ach,10),collapse="\n")`
+
+
+Solution
+========
+
+1. $`r eqs[ordeqs[1]]`$ is graph `r LETTERS[which(ordgraphs==ordeqs[1])]`
+2. $`r eqs[ordeqs[2]]`$ is graph `r LETTERS[which(ordgraphs==ordeqs[2])]`
+3. $`r eqs[ordeqs[3]]`$ is graph `r LETTERS[which(ordgraphs==ordeqs[3])]`
+4. $`r eqs[ordeqs[4]]`$ is graph `r LETTERS[which(ordgraphs==ordeqs[4])]`
+5. $`r eqs[ordeqs[5]]`$ is graph `r LETTERS[which(ordgraphs==ordeqs[5])]`
+6. $`r eqs[ordeqs[6]]`$ is graph `r LETTERS[which(ordgraphs==ordeqs[6])]`
+7. $`r eqs[ordeqs[7]]`$ is graph `r LETTERS[which(ordgraphs==ordeqs[7])]`
+8. $`r eqs[ordeqs[8]]`$ is graph `r LETTERS[which(ordgraphs==ordeqs[8])]`
+9. $`r eqs[ordeqs[9]]`$ is graph `r LETTERS[which(ordgraphs==ordeqs[9])]`
+10. $`r eqs[ordeqs[10]]`$ is graph `r LETTERS[which(ordgraphs==ordeqs[10])]`
+
+
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",10),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: shifted_exp_log

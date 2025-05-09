@@ -3,13 +3,11 @@ n = 30
 outdir = "outcanvas"
 genname = "s18_"
 
-probs = c("41_solve_e_to_x.Rmd",
-          "42_solve_ln_x.Rmd",
-          "43_cooling_solve_time.Rmd",
-          "44_doubling_time_from_eq.Rmd",
-          "45_half-life_from_eq.Rmd")
+probs = c("46_shifted_exp_log.Rmd",
+          "47_exp_shift_stretch_equiv.Rmd",
+          "48_exp_base_and_stretch_eq.Rmd")
 
-pnts = rep(2,length(probs))
+pnts = rep(3,length(probs))
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)
