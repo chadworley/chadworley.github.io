@@ -3,9 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "s18_"
 
-probs = c("46_shifted_exp_log.Rmd",
-          "47_exp_shift_stretch_equiv.Rmd",
-          "48_exp_base_and_stretch_eq.Rmd")
+probs = c("49_ave_ROI.Rmd",
+          "50_newtons_cooling_fit.Rmd",
+          "51_exp_get_3rd_y.Rmd")
 
 pnts = rep(3,length(probs))
 

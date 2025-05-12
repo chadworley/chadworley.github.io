@@ -7,7 +7,6 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
   access_token = f.read()
 
 
-
 # Variables
 course_id = '1314'  # Replace with your course ID
 canvas_url = 'https://bart.instructure.com'

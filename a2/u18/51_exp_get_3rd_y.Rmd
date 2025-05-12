@@ -1,0 +1,89 @@
+```{r,echo=FALSE}
+options(scipen=99)
+
+while(T){
+    a = round(10^runif(1,-0.5,0.5),2)
+    b = round(10^runif(1,-0.5,0.5),2)
+    x = sort(sample(1:59,3)/10)
+    y = signif(a*b^x,3)
+    if(abs(a-1)>0.1 && abs(b-1)>0.1 && x[2]-x[1]>0.4 && max(y)<1000 && min(y)>0.01 && min(diff(sort(y)))>0.02){break}
+}
+
+x1 = x[1]
+x2 = x[2]
+x3 = x[3]
+y1 = y[1]
+y2 = y[2]
+
+b = (y2/y1)^(1/(x2-x1))
+a = y1/b^(x1)
+
+y3 = a*b^x3
+v = y3
+
+```
+
+
+Question
+========
+
+An exponential curve, $y=ab^x$, goes through points $(`r sprintf("%.02f",x[1])`,`r y[1]`)$ and $(`r sprintf("%.02f",x[2])`,`r y[2]`)$. The same curve goes through $(`r sprintf("%.02f",x[3])`,v)$. What is the value of $v$?
+
+*The tolerance is $\pm 0.01$*.
+
+
+Solution
+========
+
+We know the following:
+
+$$`r y1`=ab^{`r x1`}$$
+$$`r y2`=ab^{`r x2`}$$
+
+From this system of two equations, we can determine $a$ and $b$. It is easiest to divide the two equations to eliminate $a$.
+
+$$\frac{`r y2`}{`r y1`}=\frac{b^{`r x2`}}{b^{`r x1`}}$$
+
+The quotient of two exponentials with common bases is equivalent to that base raised to the difference of powers.
+
+
+$$\frac{`r y2`}{`r y1`}=b^{`r x2`-`r x1`}$$
+$$\frac{`r y2`}{`r y1`}=b^{`r x2-x1`}$$
+
+Raise both sides to the power of $1/`r x2-x1`$.
+
+
+$$\left(\frac{`r y2`}{`r y1`}\right)^{1/`r x2-x1`}=b$$
+
+Now, use either of the initial equations to get $a$.
+
+
+$$`r y1`=a\left(\left(\frac{`r y2`}{`r y1`}\right)^{1/`r x2-x1`}\right)^{`r x1`}$$
+
+
+$$`r y1`=a\left(\frac{`r y2`}{`r y1`}\right)^{`r x1`/`r x2-x1`}$$
+
+
+$$\frac{`r y1`}{\left(\frac{`r y2`}{`r y1`}\right)^{`r x1`/`r x2-x1`}}=a$$
+
+
+Approximate decimal representations will be fine.
+
+$$a\approx `r a`$$
+$$b\approx `r b`$$
+
+So, now use $x=`r x3`$ to get $v$.
+
+$$v = (`r a`)(`r b`)^{`r x3`}$$
+
+
+$$v \approx `r y3`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r y3`
+exname: exp_get_3rd_y
+extol: 0.01

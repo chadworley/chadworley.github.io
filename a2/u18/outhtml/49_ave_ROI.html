@@ -1,0 +1,626 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>49_ave_ROI</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">49_ave_ROI</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investor puts $670 into an <a href="https://en.wikipedia.org/wiki/Index_fund">index fund</a>. Over 10 years, the value of the index fund has changed as shown in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Years after initial investment (<span class="math inline">\(x\)</span>)</th>
+<th align="center">Value of the investment (<span class="math inline">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">670.00</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">729.27</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">755.43</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">824.51</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">853.88</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">882.61</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">942.53</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">1069.09</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">1088.88</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">1160.40</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">1287.12</td>
+</tr>
+</tbody>
+</table>
+<p>The investor wants to fit these data to an exponential growth curve to estimate the expected yearly <a href="https://en.wikipedia.org/wiki/Return_on_investment">ROI</a> of the index fund. Use Desmos to fit an exponential model using default settings (<span class="math inline">\(y_1\sim a\cdot b^{x_1}\)</span>, <strong>NOT</strong> in <code>Log Mode</code>).</p>
+<p>Based on the equation of best fit, what percent increase should we expect per year? (<em>For an answer of 54.3% increase per year, please answer with <code>54.3</code>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Copy/paste data into Desmos.</p>
+<p>Fit the data with an exponential regression.</p>
+<p>The default settings should give <span class="math inline">\(y=666.132\cdot1.06541^x\)</span>. Notice the first parameter is near the initial amount of money invested. The second parameter, <span class="math inline">\(b\)</span>, is important for answering our question. Right now, <span class="math inline">\(b=1.06541\)</span> is the yearly scale factor, or multiplier. To get percent increase, subtract 1 and then multiply by 100.</p>
+<p><span class="math display">\[\mathrm{expected ~ annual ~ ROI}=6.54\%\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investor puts $4700 into an <a href="https://en.wikipedia.org/wiki/Index_fund">index fund</a>. Over 10 years, the value of the index fund has changed as shown in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Years after initial investment (<span class="math inline">\(x\)</span>)</th>
+<th align="center">Value of the investment (<span class="math inline">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">4700.00</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">4958.60</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">5622.47</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">6463.43</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">7911.68</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">8866.42</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">10438.74</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">12573.57</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">14326.90</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">17206.56</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">18557.34</td>
+</tr>
+</tbody>
+</table>
+<p>The investor wants to fit these data to an exponential growth curve to estimate the expected yearly <a href="https://en.wikipedia.org/wiki/Return_on_investment">ROI</a> of the index fund. Use Desmos to fit an exponential model using default settings (<span class="math inline">\(y_1\sim a\cdot b^{x_1}\)</span>, <strong>NOT</strong> in <code>Log Mode</code>).</p>
+<p>Based on the equation of best fit, what percent increase should we expect per year? (<em>For an answer of 54.3% increase per year, please answer with <code>54.3</code>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Copy/paste data into Desmos.</p>
+<p>Fit the data with an exponential regression.</p>
+<p>The default settings should give <span class="math inline">\(y=4334.03\cdot1.16021^x\)</span>. Notice the first parameter is near the initial amount of money invested. The second parameter, <span class="math inline">\(b\)</span>, is important for answering our question. Right now, <span class="math inline">\(b=1.16021\)</span> is the yearly scale factor, or multiplier. To get percent increase, subtract 1 and then multiply by 100.</p>
+<p><span class="math display">\[\mathrm{expected ~ annual ~ ROI}=16.02\%\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investor puts $7200 into an <a href="https://en.wikipedia.org/wiki/Index_fund">index fund</a>. Over 10 years, the value of the index fund has changed as shown in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Years after initial investment (<span class="math inline">\(x\)</span>)</th>
+<th align="center">Value of the investment (<span class="math inline">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">7200.00</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">7610.16</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">8684.66</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">8389.91</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">9796.68</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">9832.62</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">11295.27</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">12700.21</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">14223.43</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">15190.49</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">18378.20</td>
+</tr>
+</tbody>
+</table>
+<p>The investor wants to fit these data to an exponential growth curve to estimate the expected yearly <a href="https://en.wikipedia.org/wiki/Return_on_investment">ROI</a> of the index fund. Use Desmos to fit an exponential model using default settings (<span class="math inline">\(y_1\sim a\cdot b^{x_1}\)</span>, <strong>NOT</strong> in <code>Log Mode</code>).</p>
+<p>Based on the equation of best fit, what percent increase should we expect per year? (<em>For an answer of 54.3% increase per year, please answer with <code>54.3</code>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Copy/paste data into Desmos.</p>
+<p>Fit the data with an exponential regression.</p>
+<p>The default settings should give <span class="math inline">\(y=6584.21\cdot1.10165^x\)</span>. Notice the first parameter is near the initial amount of money invested. The second parameter, <span class="math inline">\(b\)</span>, is important for answering our question. Right now, <span class="math inline">\(b=1.10165\)</span> is the yearly scale factor, or multiplier. To get percent increase, subtract 1 and then multiply by 100.</p>
+<p><span class="math display">\[\mathrm{expected ~ annual ~ ROI}=10.17\%\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investor puts $2000 into an <a href="https://en.wikipedia.org/wiki/Index_fund">index fund</a>. Over 10 years, the value of the index fund has changed as shown in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Years after initial investment (<span class="math inline">\(x\)</span>)</th>
+<th align="center">Value of the investment (<span class="math inline">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">2000.00</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">2197.37</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">2354.22</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">2656.39</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">3013.74</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">3414.16</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">3918.42</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">4411.20</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">4691.87</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">4986.65</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">5512.74</td>
+</tr>
+</tbody>
+</table>
+<p>The investor wants to fit these data to an exponential growth curve to estimate the expected yearly <a href="https://en.wikipedia.org/wiki/Return_on_investment">ROI</a> of the index fund. Use Desmos to fit an exponential model using default settings (<span class="math inline">\(y_1\sim a\cdot b^{x_1}\)</span>, <strong>NOT</strong> in <code>Log Mode</code>).</p>
+<p>Based on the equation of best fit, what percent increase should we expect per year? (<em>For an answer of 54.3% increase per year, please answer with <code>54.3</code>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Copy/paste data into Desmos.</p>
+<p>Fit the data with an exponential regression.</p>
+<p>The default settings should give <span class="math inline">\(y=2023.41\cdot1.1082^x\)</span>. Notice the first parameter is near the initial amount of money invested. The second parameter, <span class="math inline">\(b\)</span>, is important for answering our question. Right now, <span class="math inline">\(b=1.1082\)</span> is the yearly scale factor, or multiplier. To get percent increase, subtract 1 and then multiply by 100.</p>
+<p><span class="math display">\[\mathrm{expected ~ annual ~ ROI}=10.82\%\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investor puts $3000 into an <a href="https://en.wikipedia.org/wiki/Index_fund">index fund</a>. Over 10 years, the value of the index fund has changed as shown in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Years after initial investment (<span class="math inline">\(x\)</span>)</th>
+<th align="center">Value of the investment (<span class="math inline">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">3000.00</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">3356.39</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">3819.33</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">4260.44</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">4718.13</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">4922.76</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">5211.71</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">5731.04</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">6429.78</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">7252.19</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">7711.10</td>
+</tr>
+</tbody>
+</table>
+<p>The investor wants to fit these data to an exponential growth curve to estimate the expected yearly <a href="https://en.wikipedia.org/wiki/Return_on_investment">ROI</a> of the index fund. Use Desmos to fit an exponential model using default settings (<span class="math inline">\(y_1\sim a\cdot b^{x_1}\)</span>, <strong>NOT</strong> in <code>Log Mode</code>).</p>
+<p>Based on the equation of best fit, what percent increase should we expect per year? (<em>For an answer of 54.3% increase per year, please answer with <code>54.3</code>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Copy/paste data into Desmos.</p>
+<p>Fit the data with an exponential regression.</p>
+<p>The default settings should give <span class="math inline">\(y=3130.04\cdot1.09485^x\)</span>. Notice the first parameter is near the initial amount of money invested. The second parameter, <span class="math inline">\(b\)</span>, is important for answering our question. Right now, <span class="math inline">\(b=1.09485\)</span> is the yearly scale factor, or multiplier. To get percent increase, subtract 1 and then multiply by 100.</p>
+<p><span class="math display">\[\mathrm{expected ~ annual ~ ROI}=9.49\%\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investor puts $27000 into an <a href="https://en.wikipedia.org/wiki/Index_fund">index fund</a>. Over 10 years, the value of the index fund has changed as shown in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Years after initial investment (<span class="math inline">\(x\)</span>)</th>
+<th align="center">Value of the investment (<span class="math inline">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">27000.00</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">29408.58</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">32312.48</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">35189.07</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">35517.11</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">41133.93</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">48640.86</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">47086.81</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">52611.04</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">61651.62</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">65651.74</td>
+</tr>
+</tbody>
+</table>
+<p>The investor wants to fit these data to an exponential growth curve to estimate the expected yearly <a href="https://en.wikipedia.org/wiki/Return_on_investment">ROI</a> of the index fund. Use Desmos to fit an exponential model using default settings (<span class="math inline">\(y_1\sim a\cdot b^{x_1}\)</span>, <strong>NOT</strong> in <code>Log Mode</code>).</p>
+<p>Based on the equation of best fit, what percent increase should we expect per year? (<em>For an answer of 54.3% increase per year, please answer with <code>54.3</code>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Copy/paste data into Desmos.</p>
+<p>Fit the data with an exponential regression.</p>
+<p>The default settings should give <span class="math inline">\(y=26426.6\cdot1.09474^x\)</span>. Notice the first parameter is near the initial amount of money invested. The second parameter, <span class="math inline">\(b\)</span>, is important for answering our question. Right now, <span class="math inline">\(b=1.09474\)</span> is the yearly scale factor, or multiplier. To get percent increase, subtract 1 and then multiply by 100.</p>
+<p><span class="math display">\[\mathrm{expected ~ annual ~ ROI}=9.47\%\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investor puts $21000 into an <a href="https://en.wikipedia.org/wiki/Index_fund">index fund</a>. Over 10 years, the value of the index fund has changed as shown in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Years after initial investment (<span class="math inline">\(x\)</span>)</th>
+<th align="center">Value of the investment (<span class="math inline">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">21000.00</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">22157.12</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">22754.07</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">25315.51</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">26392.26</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">29307.80</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">28660.31</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">32570.29</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">33614.35</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">41459.59</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">46609.75</td>
+</tr>
+</tbody>
+</table>
+<p>The investor wants to fit these data to an exponential growth curve to estimate the expected yearly <a href="https://en.wikipedia.org/wiki/Return_on_investment">ROI</a> of the index fund. Use Desmos to fit an exponential model using default settings (<span class="math inline">\(y_1\sim a\cdot b^{x_1}\)</span>, <strong>NOT</strong> in <code>Log Mode</code>).</p>
+<p>Based on the equation of best fit, what percent increase should we expect per year? (<em>For an answer of 54.3% increase per year, please answer with <code>54.3</code>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Copy/paste data into Desmos.</p>
+<p>Fit the data with an exponential regression.</p>
+<p>The default settings should give <span class="math inline">\(y=19264.8\cdot1.08503^x\)</span>. Notice the first parameter is near the initial amount of money invested. The second parameter, <span class="math inline">\(b\)</span>, is important for answering our question. Right now, <span class="math inline">\(b=1.08503\)</span> is the yearly scale factor, or multiplier. To get percent increase, subtract 1 and then multiply by 100.</p>
+<p><span class="math display">\[\mathrm{expected ~ annual ~ ROI}=8.50\%\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>An investor puts $900 into an <a href="https://en.wikipedia.org/wiki/Index_fund">index fund</a>. Over 10 years, the value of the index fund has changed as shown in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Years after initial investment (<span class="math inline">\(x\)</span>)</th>
+<th align="center">Value of the investment (<span class="math inline">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">900.00</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">981.60</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">1010.71</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">1076.89</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">1137.62</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">1222.16</td>
+</tr>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">1300.38</td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center">1384.96</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">1339.05</td>
+</tr>
+<tr class="even">
+<td align="center">9</td>
+<td align="center">1399.28</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">1493.45</td>
+</tr>
+</tbody>
+</table>
+<p>The investor wants to fit these data to an exponential growth curve to estimate the expected yearly <a href="https://en.wikipedia.org/wiki/Return_on_investment">ROI</a> of the index fund. Use Desmos to fit an exponential model using default settings (<span class="math inline">\(y_1\sim a\cdot b^{x_1}\)</span>, <strong>NOT</strong> in <code>Log Mode</code>).</p>
+<p>Based on the equation of best fit, what percent increase should we expect per year? (<em>For an answer of 54.3% increase per year, please answer with <code>54.3</code>.</em>)</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Copy/paste data into Desmos.</p>
+<p>Fit the data with an exponential regression.</p>
+<p>The default settings should give <span class="math inline">\(y=938.099\cdot1.04887^x\)</span>. Notice the first parameter is near the initial amount of money invested. The second parameter, <span class="math inline">\(b\)</span>, is important for answering our question. Right now, <span class="math inline">\(b=1.04887\)</span> is the yearly scale factor, or multiplier. To get percent increase, subtract 1 and then multiply by 100.</p>
+<p><span class="math display">\[\mathrm{expected ~ annual ~ ROI}=4.89\%\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

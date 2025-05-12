@@ -1,0 +1,54 @@
+```{r,echo=FALSE}
+options(scipen=99)
+expected_roi = runif(1,0.05,0.15)
+roisd = runif(1,0.02,0.1)
+n = 10
+rois = rnorm(n,expected_roi,roisd)
+Pman = sample(11:99,1)/10
+Pexp = sample(2:4,1)
+P = Pman*10^Pexp
+mults = c(1,rois+1)
+y = round(cumprod(mults)*P,2)
+t = 0:10
+
+data = data.frame(t,y)
+mod <- y ~ a1*b1^t
+start_vals <- list(a1=P, b1=expected_roi)
+fit <- nls(mod, data = data, start = start_vals)
+cf = summary(fit)$coefficients
+
+```
+
+
+Question
+========
+
+An investor puts $`r P` into an [index fund](https://en.wikipedia.org/wiki/Index_fund). Over 10 years, the value of the index fund has changed as shown in the table below:
+
+| Years after initial investment ($x$) | Value of the investment ($y$) |
+|:---:|:---:|
+`r paste0("| ",0:10," | ",sprintf("%.02f",y)," |",collapse="\n")`
+
+The investor wants to fit these data to an exponential growth curve to estimate the expected yearly [ROI](https://en.wikipedia.org/wiki/Return_on_investment) of the index fund. Use Desmos to fit an exponential model using default settings ($y_1\sim a\cdot b^{x_1}$, **NOT** in `Log Mode`).
+
+Based on the equation of best fit, what percent increase should we expect per year? (*For an answer of 54.3% increase per year, please answer with `54.3`.*)
+
+
+Solution
+========
+
+Copy/paste data into Desmos.
+
+Fit the data with an exponential regression.
+
+The default settings should give $y=`r signif(cf[1],6)`\cdot`r signif(cf[2],6)`^x$. Notice the first parameter is near the initial amount of money invested. The second parameter, $b$, is important for answering our question. Right now, $b=`r signif(cf[2],6)`$ is the yearly scale factor, or multiplier. To get percent increase, subtract 1 and then multiply by 100.
+
+$$\mathrm{expected ~ annual ~ ROI}=`r sprintf("%.02f",100*(cf[2]-1))`\%$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r 100*(cf[2]-1)`
+exname: ave_ROI
+extol: 0.1

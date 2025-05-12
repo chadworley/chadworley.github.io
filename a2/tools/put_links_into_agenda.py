@@ -5,9 +5,9 @@ import os
 
 
 front = "s18_"
-files = ["46_shifted_exp_log.Rmd",
-"47_exp_shift_stretch_equiv.Rmd",
-"48_exp_base_and_stretch_eq.Rmd"]
+files = ["49_ave_ROI.Rmd",
+"50_newtons_cooling_fit.Rmd",
+"51_exp_get_3rd_y.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u18/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

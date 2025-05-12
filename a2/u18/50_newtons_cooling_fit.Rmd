@@ -1,0 +1,88 @@
+```{r,echo=FALSE}
+## Hmm... some fits are taking more than 50 iterations. Maybe there is too much noise.
+options(scipen=99)
+n = 8
+while(T){
+    T0 = runif(1,80,120)
+    Tf = runif(1,0,40)
+    thalf = runif(1,0.5,5)
+    ts = sort(runif(n,thalf*0.1,thalf*3))
+    ys = Tf+(T0-Tf)*(1/2)^(ts/thalf)+rnorm(n,0,2)
+    
+    t = round(ts,1)
+    y = round(ys,0)
+    
+    data = data.frame(t,y)
+    mod <- y ~ a1*exp(-b1*t)+c1
+    start_vals <- list(a1=(T0-Tf), b1=log(2)/thalf, c1=Tf)
+    fit <- nls(mod, data = data, start = start_vals)
+    cf = summary(fit)$coefficients
+    
+    a = cf[1]
+    b = cf[2]
+    c = cf[3]
+    Tf = c
+    T0 = a+c
+    r = b
+
+    if(min(diff(sort(ts)))>thalf/8 && Tf>5){break}
+}
+
+# e^(-rt) = (1/2)^(t/thalf)
+# -rt = t/thalf * ln(1/2)
+# r = ln(2)/thalf
+
+
+
+```
+
+
+Question
+========
+
+A metal object is heated and then placed in front of a fan to cool. A few internal temperature readings were taken over the following minutes.
+
+| Time ($t$ in minutes) | Temperature ($T$ in °C) |
+|:---:|:---:|
+`r paste0("|",t," | ",y," |",collapse="\n")`
+
+We can assume that the temperature **roughly** follows [Newton's law of cooling](https://en.wikipedia.org/wiki/Newton%27s_law_of_cooling).
+
+$$T(t) ~\approx~ \left(T_0-T_{\mathrm{env}}\right)e^{-rt}+T_{\mathrm{env}}$$
+
+where $T_0$ is the initial temperature of the object (at $t=0$); $T_\mathrm{env}$ is the temperature of the air; $T(t)$ is the temperature of the object as a function of time; $t$ is the time; and $r$ is a rate constant which depends on the size/material of the object and strength of the fan.
+
+Using Desmos, make a custom regression by first pasting the data and then typing the following formula:
+
+$$y_1 \sim (T_0-T_{\mathrm{env}})e^{-r x_1}+T_{\mathrm{env}}$$
+
+Based on the regression, you should see the temperature [asymptotically](https://en.wikipedia.org/wiki/Asymptote) approaches a specific temperature as time approaches infinity. What is this asymptotic temperature suggested by the regression?
+
+
+Solution
+========
+
+Your least-square regression should give a best-fit curve with the following parameters:
+
+$$T_0 ~=~ `r T0`$$
+$$T_\mathrm{env} ~=~ `r Tf`$$
+$$r~=~`r r`$$
+
+```{r,echo=F,fig.dim=c(6,4)}
+xx = seq(0,thalf*8,thalf/50)
+yy = (T0-Tf)*exp(-r*xx)+Tf
+plot(xx,yy,"l",col="blue",lwd=2,ylim=c(0,T0),xlab="t",ylab="T")
+abline(h=Tf,col="red",lty=2)
+```
+\
+
+You should see that in the long run, as $t\to \infty$, if the model is accurate, the temperature will approach `r round(Tf,1)`°C (approximately).
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r round(Tf,1)`
+exname: newtons_cooling_fit
+extol: 0.1
