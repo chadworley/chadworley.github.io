@@ -3,11 +3,10 @@ n = 30
 outdir = "outcanvas"
 genname = "s18_"
 
-probs = c("49_ave_ROI.Rmd",
-          "50_newtons_cooling_fit.Rmd",
-          "51_exp_get_3rd_y.Rmd")
+probs = c("52_exponential_asymptote.Rmd",
+          "53_logarithmic_asymptote.Rmd")
 
-pnts = rep(3,length(probs))
+pnts = rep(2,length(probs))
 
 stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 names = paste0(genname,stems)

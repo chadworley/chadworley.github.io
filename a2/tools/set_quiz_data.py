@@ -3,12 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["49_ave_ROI.Rmd",
-"50_newtons_cooling_fit.Rmd",
-"51_exp_get_3rd_y.Rmd"]
+files = ["52_exponential_asymptote.Rmd","53_logarithmic_asymptote.Rmd"]
 
-avt = ["2025-05-12 7:00:00"]*len(files)
-dut = ["2025-05-13 22:59:00"]*len(files)
+avt = ["2025-05-13 7:00:00"]*len(files)
+dut = ["2025-05-14 22:59:00"]*len(files)
 front = "s18_"
 
 
