@@ -3,10 +3,12 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["52_exponential_asymptote.Rmd","53_logarithmic_asymptote.Rmd"]
+files = ["54_crdnt_tbl_shftd_exp2.Rmd",
+"55_crdnt_tbl_shftd_log2.Rmd",
+"56_exp_yint.Rmd"]
 
-avt = ["2025-05-13 7:00:00"]*len(files)
-dut = ["2025-05-14 22:59:00"]*len(files)
+avt = ["2025-05-14 7:00:00"]*len(files)
+dut = ["2025-05-15 22:59:00"]*len(files)
 front = "s18_"
 
 

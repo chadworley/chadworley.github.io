@@ -1,7 +1,8 @@
 library("exams")
 
-pppsss = c("52_exponential_asymptote.Rmd",
-           "53_logarithmic_asymptote.Rmd")
+pppsss = c("54_crdnt_tbl_shftd_exp2.Rmd",
+           "55_crdnt_tbl_shftd_log2.Rmd",
+           "56_exp_yint.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

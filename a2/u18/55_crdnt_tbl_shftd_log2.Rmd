@@ -1,0 +1,90 @@
+```{r,echo=FALSE}
+options(scipen=99)
+hk = sample(3:9,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+ex1 = paste0("\\log_{2}(x+",-h,")+",k)
+ex1 = gsub("+-","-",ex1,fixed=T)
+
+anb = c(-1,0,1,2,3,4,7,8,9,15,16,17)
+ach1 = sort(unique(c(anb,anb+h,anb-h,anb+k,anb-k)))
+yb = c(0:4)
+xb = 2^yb
+ans1 = c(xb+h,yb+k)
+sols = c()
+for(i in 1:(2*length(xb))){
+    sols = c(sols,paste0(1*(ach1==ans1[i]),collapse=""))
+}
+
+ach2 = c("horizontal asymptote","vertical asymptote")
+sol2 = "01"
+
+ach3 = c(paste0("x=",-9:9),paste0("y=",-9:9))
+ans3 = paste0("x=",h,collapse="")
+sol3 = paste0(1*(ans3==ach3),collapse="")
+
+```
+
+
+Question
+========
+
+Consider the following points on $f(x)=\log_2(x)$:
+
+| $x$ | $y=f(x)$ |
+|:---:|:---:|
+| 1 | 0 |
+| 2 | 1 |
+| 4 | 2 |
+| 8 | 3 |
+| 16 | 4 |
+
+Another function, $g$, is created by shifting function $f$ horizontally and vertically.
+
+$$g(x)~=~`r ex1`$$
+
+Fill out the corresponding points on the $y=g(x)$ curve.
+
+| $x$ | $y=g(x)$ |
+|:---:|:---:|
+| ##ANSWER1## | ##ANSWER6## |
+| ##ANSWER2## | ##ANSWER7## |
+| ##ANSWER3## | ##ANSWER8## |
+| ##ANSWER4## | ##ANSWER9## |
+| ##ANSWER5## | ##ANSWER10## |
+
+Also, $g(x)$ has a ##ANSWER11## at ##ANSWER12##.
+
+Answerlist
+--------
+
+`r paste0("* ",rep(ach1,10),collapse="\n")`
+`r paste0("* ",ach2,collapse="\n")`
+`r paste0("* ",ach3,collapse="\n")`
+
+
+
+Solution
+========
+
+We have shifted horizontally by $`r h`$ and vertically by $`r k`$.
+
+
+| $x$ | $y=g(x)$ |
+|:---:|:---:|
+| `r 1+h` | `r 0+k` |
+| `r 2+h` | `r 1+k` |
+| `r 4+h` | `r 2+k` |
+| `r 8+h` | `r 3+k` |
+| `r 16+h` | `r 4+k` |
+
+Also, $g(x)$ has a vertical asymptote at $y=`r h`$.
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",12),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`|`r sol2`|`r sol3`
+exname: crdnt_tbl_shftd_log2

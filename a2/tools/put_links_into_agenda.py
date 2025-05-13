@@ -5,7 +5,9 @@ import os
 
 
 front = "s18_"
-files = ["52_exponential_asymptote.Rmd","53_logarithmic_asymptote.Rmd"]
+files = ["54_crdnt_tbl_shftd_exp2.Rmd",
+"55_crdnt_tbl_shftd_log2.Rmd",
+"56_exp_yint.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u18/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
