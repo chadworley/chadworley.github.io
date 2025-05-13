@@ -1,0 +1,66 @@
+```{r,echo=FALSE}
+options(scipen=99)
+## B^(x-h)+k
+## log_B(x-h)+k
+B = signif(2^(runif(1,1.1,3)*sample(c(-1,1),1)),3)
+hk = sample(2:8,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+ex1 = paste0("\\log_{",B,"}\\left(x+",-h,"\\right)+",k)
+ex1 = gsub("+-","-",ex1,fixed=T)
+
+ach1 = c("horizontal asymptote","vertical asymptote")
+ach2 = c(paste0("x=",-9:9),paste0("y=",-9:9))
+
+sol1 = "01"
+ans2 = paste0("x=",h,collapse="")
+sol2 = paste0(1*(ans2==ach2),collapse="")
+
+if(B<1){
+    sym1 = ""
+} else {
+    sym1 = "-"
+}
+
+```
+
+
+Question
+========
+
+Consider the exponential function:
+
+$$f(x)~=~`r ex1`$$
+
+Describe the function's [asymptote](https://en.wikipedia.org/wiki/Asymptote). The function $f$ has a ##ANSWER1## at ##ANSWER2##.
+
+Answerlist
+--------
+
+`r paste0("* ",ach1,collapse="\n")`
+`r paste0("* ",ach2,collapse="\n")`
+
+
+Solution
+========
+
+Graph the function as $y=f(x)$. Notice that as $y\to`r sym1`\infty$, we see $x\to `r h`$. Thus, there is a vertical asymptote at $x=`r h`$. Notice this means the [domain](https://en.wikipedia.org/wiki/Domain_of_a_function) is $(`r h`,\infty)$, so the possible inputs include all real numbers greater than `r h`.
+
+```{r,echo=F,fig.dim=c(5,5)}
+xs = seq(-10,10,0.1)
+ys = B^(xs-k)+h
+plot(ys,xs,"l",col="blue",xlab="x",ylab="y",xlim=c(-10,10),ylim=c(-10,10))
+abline(v=h,col="red",lty=2)
+
+```
+\
+
+You might think it looks like there is also a horizontal asymptote, but you'd be wrong. The curve has a [range](https://en.wikipedia.org/wiki/Range_of_a_function) of $(-\infty,\infty)$.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: logarithmic_asymptote

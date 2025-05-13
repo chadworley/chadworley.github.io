@@ -1,0 +1,275 @@
+---
+header-includes:
+   - \usepackage{array}
+   - \usepackage{color}
+   - \usepackage{tabularx}
+output: pdf_document
+params:
+    rseed: 1
+    showsol: true
+    titex: "Practice"
+urlcolor: blue
+---
+
+\pagenumbering{gobble}
+
+```{r,echo=F}
+set.seed(params$rseed)
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## \sc s18quiz: EXP LOG (`r params$titex` v`r params$rseed`)
+
+<!-- 1 and 2 -->
+
+```{r,echo=F}
+# y = 2^(x-h)+k
+hk1 = sample(3:6,2)*sample(c(-1,1),2,T)
+hk2 = sample(3:6,2)*sample(c(-1,1),2,T)
+ex1 = paste0("y=2^{x+",-hk1[1],"}+",hk1[2])
+ex2 = paste0("y=\\log_2(x+",-hk2[1],")+",hk2[2])
+ex1 = gsub("+-","-",ex1,fixed=T)
+ex2 = gsub("+-","-",ex2,fixed=T)
+inds = seq(-10,10,0.01)
+deps = list(2^(inds-hk1[1])+hk1[2],2^(inds-hk2[2])+hk2[1])
+
+hks = list(hk1,hk2)
+exs = c(ex1,ex2)
+ord = sample(1:2)
+xs = list(inds,deps[[2]])
+ys = list(deps[[1]],inds)
+axs = list(c(-10,10),c(hk2[1],hk2[1]))
+ays = list(c(hk1[2],hk1[2]),c(-10,10))
+
+```
+
+1. Graph $`r exs[ord[1]]`$ and $`r exs[ord[2]]`$ on the grids below. Also, draw any asymptotes with dotted lines.
+
+```{r,echo=F,fig.dim=c(7.5,3.75)}
+library(latex2exp)
+par(mar=c(0,1,2,1),mfrow=c(1,2))
+plot(0,0,"n",axes=F,ann=F,xlim=c(-10,10),ylim=c(-10,10),asp=1)
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=1)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=1)
+}
+arrows(-10.5,0,10.5,0,0.05,15,3)
+arrows(0,-10.5,0,10.5,0.05,15,3)
+text(10,-0.4,"10",cex=0.6)
+text(-0.4,10,"10",cex=0.6)
+text(10,0.4,"x",cex=0.6)
+text(0.4,10,"y",cex=0.6)
+mtext(TeX(paste0("$",exs[ord[1]],"$")),3)
+
+if(params$showsol){
+    lines(axs[[ord[1]]],ays[[ord[1]]],col="red",lty=2,lwd=2)
+    lines(xs[[ord[1]]],ys[[ord[1]]],col="blue",lwd=2)
+    for(i in 1:length(xs[[ord[1]]])){
+        xx = xs[[ord[1]]][i]
+        yy = ys[[ord[1]]][i]
+        if(xx%%1==0 && yy%%1==0){
+            points(xx,yy,col="blue",pch=19)
+        }
+    }
+}
+
+par(mar=c(0,1,2,1))
+plot(0,0,"n",axes=F,ann=F,xlim=c(-10,10),ylim=c(-10,10),asp=1)
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=1)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=1)
+}
+arrows(-10.5,0,10.5,0,0.05,15,3)
+arrows(0,-10.5,0,10.5,0.05,15,3)
+text(10,-0.4,"10",cex=0.6)
+text(-0.4,10,"10",cex=0.6)
+text(10,0.4,"x",cex=0.6)
+text(0.4,10,"y",cex=0.6)
+mtext(TeX(paste0("$",exs[ord[2]],"$")),3)
+
+if(params$showsol){
+    lines(axs[[ord[2]]],ays[[ord[2]]],col="red",lty=2,lwd=2)
+    lines(xs[[ord[2]]],ys[[ord[2]]],col="blue",lwd=2)
+    for(i in 1:length(xs[[ord[2]]])){
+        xx = xs[[ord[2]]][i]
+        yy = ys[[ord[2]]][i]
+        if(xx%%1==0 && yy%%1==0){
+            points(xx,yy,col="blue",pch=19)
+        }
+    }
+}
+
+```
+\
+
+
+```{r,echo=F}
+# y = ab^(ct)
+while(T){
+    b = sample(c(2,10),1) #sample(c(2,exp(1),10),1)
+    acnd = sample(c(3,4,5,7))
+    an = acnd[1]*sample(c(-1,1),1)
+    ad = acnd[2]
+    cn = acnd[3]*sample(c(-1,1),1)
+    cd = acnd[4]
+    a = an/ad
+    c = cn/cd
+    t = runif(1,-8,8)
+    y = sample(c(11,13,17,19,23,29),1)*sign(an)
+    y = signif(y,2)
+    eq1 = paste0(y,"=\\left(\\frac{",an,"}{",ad,"}\\right)\\cdot ",b,"^{",cn,"t/",cd,"}")
+    if(abs(y)>0.1 && abs(y)<1000){break}
+}
+
+
+```
+
+\vspace{15pt}
+
+2. Write (but do not evaluate) the solution to the equation below by writing a logarithmic expression.
+
+$$`r eq1`$$
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results='asis'}
+cat("\\color{red}\n\n")
+
+cat(paste0("Divide both sides by $\\frac{",an,"}{",ad,"}$.\n\n"))
+
+step1 = paste0("$$\\frac{",abs(y),"\\cdot ",ad,"}{",abs(an),"}=",b,"^{",cn,"t/",cd,"}$$\n\n")
+cat(step1)
+
+cat(paste0("Take log, base ",b,", of both sides.\n\n"))
+
+
+step2 = paste0("$$\\log_{",b,"}\\left(\\frac{",abs(y),"\\cdot ",ad,"}{",abs(an),"}\\right)=\\frac{",cn,"t}{",cd,"}$$\n\n")
+cat(step2)
+
+cat(paste0("Divide both sides by $\\frac{",cn,"}{",cd,"}$.\n\n"))
+
+
+step3 = paste0("$$\\frac{",cd*sign(cn),"}{",abs(cn),"}\\cdot \\log_{",b,"}\\left(\\frac{",abs(y),"\\cdot ",ad,"}{",abs(an),"}\\right)=t$$")
+cat(step3)
+
+cat(paste0("Switch sides.\n\n"))
+
+step4 = paste0("$$t~=~\\frac{",cd*sign(cn),"}{",abs(cn),"}\\cdot \\log_{",b,"}\\left(\\frac{",abs(y),"\\cdot ",ad,"}{",abs(an),"}\\right)$$")
+cat(step4)
+
+cat("\\color{black}")
+```
+
+\vfill
+
+\newpage
+
+
+
+```{r,echo=F}
+# (x1,y1) and (x2,y2)
+while(T){
+    xs = sample(-3:2,2)+sample(seq(0.1,0.9,0.1),2)
+    yman = sample(2:9,2)
+    ypow = sample(-3:2,2)
+    ys = yman*10^ypow
+    
+    # y1 = a*b^x1
+    # y2 = a*b^x2
+    # y2/y1 = b^(x2-x1)
+    # b = (y2/y1)^(1/(x2-x1))
+    b = (ys[2]/ys[1])^(1/(xs[2]-xs[1]))
+    a = ys[1]/b^xs[1]
+    
+    # e^(rt) = b^t
+    # (e^r) = b
+    # r = ln(b)
+    
+    r = log(b)
+    if(abs(a)>0.01 && abs(b)>0.01 && abs(a)<1000 && abs(b)<1000){break}
+}
+
+
+```
+
+
+3. An exponential function $f(x)~=~`r signif(a,3)`\cdot e^{`r signif(r,3)`x}$ is graphed below on a semi-log plot.
+
+```{r,echo=F,fig.dim=c(7,5)}
+# y = ab^x
+# x = log_b(y/a)
+
+library(latex2exp)
+par(mar=c(4,4,1,1))
+plot(0,0,"n",axes=F,xlim=c(-3,3),ylim=c(-3,3),xlab="x",ylab="y")
+# axis(2,at=-3:3,labels=TeX(paste0("$10^{",-3:3,"}$")))
+axis(2,at=-3:3,labels=paste0(10^(-3:3)))
+axis(1,at=-3:3)
+# abline(h=-30:30/10,lty=1,lwd=0.2,col="lightgrey")
+for(ii in 1:9){
+    for(jj in -4:4){
+        abline(h=log(ii*10^jj,10),lwd=0.2,col="lightgrey")
+    }
+}
+abline(v=-30:30/10,lty=1,lwd=0.5,col="lightgrey")
+abline(h=-3:3,lty=1,lwd=0.8,col="grey")
+abline(v=-3:3,lty=1,lwd=0.8,col="grey")
+abline(h=0)
+abline(v=0)
+# abline(0,1,col="blue",lwd=2)
+# legend("topleft",TeX("$y=B^x$"),col="blue",lwd=1)
+yp = log10(a*b^c(-3,3))
+lines(c(-3,3),yp,col="blue",lwd=1)
+
+if(params$showsol){
+    points(xs,log10(ys),col="red",pch=19,cex=0.7)
+}
+
+```
+\
+
+a. Using the plot above, evaluate $f(`r xs[1]`)$.
+
+```{r,echo=F,eval=params$showsol,results='asis'}
+cat("\\color{red}\n\n")
+
+cat(paste0("$$f(",xs[1],")~=~",ys[1],"$$"))
+
+cat("\\color{black}")
+```
+
+\vfill
+
+b. Express $f^{-1}(x)$, the inverse of $f$.
+
+```{r,echo=F,eval=params$showsol,results='asis'}
+cat("\\color{red}\n\n")
+
+cat(paste0("$$f^{-1}(x)~=~ \\frac{",sign(r),"}{",abs(signif(r,3)),"}\\cdot \\ln\\left(\\frac{x}{",signif(a,3),"}\\right)$$"))
+
+cat("\\color{black}")
+```
+
+\vfill
+
+c. Using the plot above, evaluate $f^{-1}(`r ys[2]`)$.
+
+```{r,echo=F,eval=params$showsol,results='asis'}
+cat("\\color{red}\n\n")
+
+cat(paste0("$$f^{-1}(",ys[2],")~=~",xs[2],"$$"))
+
+cat("\\color{black}")
+```
+
+\vfill
+
