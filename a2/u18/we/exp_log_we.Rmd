@@ -14,7 +14,7 @@ urlcolor: blue
 \pagenumbering{gobble}
 
 ```{r,echo=F}
-set.seed(params$rseed)
+# set.seed(params$rseed)
 ```
 
 Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
@@ -25,8 +25,8 @@ Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
 
 ```{r,echo=F}
 # y = 2^(x-h)+k
-hk1 = sample(3:6,2)*sample(c(-1,1),2,T)
-hk2 = sample(3:6,2)*sample(c(-1,1),2,T)
+hk1 = sample(1:6,2)*sample(c(-1,1),2,T)
+hk2 = sample(1:6,2)*sample(c(-1,1),2,T)
 ex1 = paste0("y=2^{x+",-hk1[1],"}+",hk1[2])
 ex2 = paste0("y=\\log_2(x+",-hk2[1],")+",hk2[2])
 ex1 = gsub("+-","-",ex1,fixed=T)
@@ -195,9 +195,8 @@ while(T){
     # r = ln(b)
     
     r = log(b)
-    if(abs(a)>0.01 && abs(b)>0.01 && abs(a)<1000 && abs(b)<1000 && length(unique(c(xs,ys)))==4){break}
+    if(abs(a)>0.01 && abs(b)>0.01 && abs(a)<1000 && abs(b)<1000 && length(unique(c(xs,ys)))==4 && abs(r)>0.7){break}
 }
-
 
 ```
 
@@ -233,7 +232,6 @@ lines(c(-3,3),yp,col="blue",lwd=1)
 if(params$showsol){
     points(xs,log10(ys),col="red",pch=19,cex=0.7)
 }
-
 ```
 \
 

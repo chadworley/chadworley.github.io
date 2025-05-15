@@ -37,12 +37,12 @@
 #                                     titex = "Solution"))
 # }
 # 
-for(jjj in 200:299){
-    rmarkdown::render(input = "exp_log_we.Rmd",
+for(jjj in 300:399){
+    rmarkdown::render(input = "exp_log_wq_v2.Rmd",
                       output_file = paste0("real/s18we_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
                                                                                                   showsol = F,
                                                                                                   titex = "QUIZ"))
-    rmarkdown::render(input = "exp_log_we.Rmd",
+    rmarkdown::render(input = "exp_log_wq_v2.Rmd",
                       output_file = paste0("real/s18we_sol_v",sprintf("%03d",jjj)), params = list(rseed = jjj,
                                                                                                       showsol = T,
                                                                                                       titex = "SLTN"))
