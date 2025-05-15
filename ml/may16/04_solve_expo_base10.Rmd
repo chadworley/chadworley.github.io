@@ -1,0 +1,44 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+x = sample(-4:4,5)
+y = 10^x
+exes = character()
+ach = -4:4
+sols = character()
+for(i in 1:length(x)){
+    xp = x[i]
+    if(xp<0){
+        exes = c(exes,paste0("### Question ",i,":\n\n$$10^x=\\frac{1}{",10^abs(xp),"}$$\n\nSolve for $x$. \n\n* $x=$ ##ANSWER",i,"##\n\n"))
+    } else {
+        exes = c(exes,paste0("### Question ",i,":\n\n$$10^x=",10^abs(xp),"$$\n\nSolve for $x$. \n\n* $x=$ ##ANSWER",i,"##\n\n"))
+    }
+    sols = c(sols,paste0(1*(x[i]==ach),collapse=""))
+}
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+
+Question
+========
+
+`r paste0(exes,collapse="\n")`
+
+Answerlist
+--------
+
+`r paste0(rep(al,length(x)),collapse="\n")`
+
+
+Solution
+========
+
+You can use guess-and-check to determine the answers. You can also use the $\log_{10}$ function. For example, $\log_{10}(1000)=3$, so that means $10^3=1000$.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(x)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: solve_expo_base10

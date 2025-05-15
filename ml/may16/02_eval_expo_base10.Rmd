@@ -1,0 +1,39 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+x = sample(-4:5,5)
+y = 10^x
+yposs = 10^(-4:5)
+exes = character()
+sols = character()
+for(i in 1:length(x)){
+    xp = x[i]
+    exes = c(exes,paste0("* $10^{",xp,"}=$ ##ANSWER",i,"##\n\n"))
+    sols = c(sols,paste0(1*(y[i]==yposs),collapse=""))
+}
+al = paste0("* ",yposs,collapse="\n")
+```
+
+
+Question
+========
+
+`r paste0(exes,collapse="\n")`
+
+Answerlist
+--------
+
+`r paste0(rep(al,length(x)),collapse="\n")`
+
+
+Solution
+========
+
+Powers of 10 follow an easy pattern. You simply concatenate digits of zero.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(x)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: eval_expo_base10

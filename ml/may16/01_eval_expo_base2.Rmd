@@ -1,0 +1,40 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+x = sample(-3:10,5)
+y = 2^x
+yposs = 2^(-3:10)
+exes = character()
+ach = -10:10
+sols = character()
+for(i in 1:length(x)){
+    xp = x[i]
+    exes = c(exes,paste0("* $2^{",xp,"}=$ ##ANSWER",i,"##\n\n"))
+    sols = c(sols,paste0(1*(y[i]==yposs),collapse=""))
+}
+al = paste0("* ",yposs,collapse="\n")
+```
+
+
+Question
+========
+
+`r paste0(exes,collapse="\n")`
+
+Answerlist
+--------
+
+`r paste0(rep(al,length(x)),collapse="\n")`
+
+
+Solution
+========
+
+Ideally you'd start to memorize the powers of 2 up to $2^{10}=1024$, but you can also use a calculator.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(x)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: solve_expo_base2

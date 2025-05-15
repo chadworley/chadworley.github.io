@@ -1,0 +1,44 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+x = sample(2:10,5)*sample(c(-1,1),5,T)
+y = 2^x
+exes = character()
+ach = -10:10
+sols = character()
+for(i in 1:length(x)){
+    xp = x[i]
+    if(xp<0){
+        exes = c(exes,paste0("### Question ",i,":\n\n$$2^x=\\frac{1}{",2^abs(xp),"}$$\n\nSolve for $x$. \n\n* $x=$ ##ANSWER",i,"##\n\n"))
+    } else {
+        exes = c(exes,paste0("### Question ",i,":\n\n$$2^x=",2^abs(xp),"$$\n\nSolve for $x$. \n\n* $x=$ ##ANSWER",i,"##\n\n"))
+    }
+    sols = c(sols,paste0(1*(x[i]==ach),collapse=""))
+}
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+
+Question
+========
+
+`r paste0(exes,collapse="\n")`
+
+Answerlist
+--------
+
+`r paste0(rep(al,length(x)),collapse="\n")`
+
+
+Solution
+========
+
+You can use guess-and-check to determine the answers. You can also use the $\log_2$ function. For example, $\log_2(8)=3$, so that means $2^3=8$.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(x)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: solve_expo_base2

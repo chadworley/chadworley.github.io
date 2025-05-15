@@ -1,0 +1,77 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+n = 10
+allopts = list()
+iii = 0
+Bposs = c(2,3,10)
+xposs = -5:5
+for(BB in Bposs){
+    for(xx in xposs){
+        iii = iii+1
+        allopts[[iii]] = c(BB,xx)
+    }
+}
+
+while(T){
+    ii = sample(1:length(allopts),n)
+    x = numeric()
+    B = numeric()
+    y = numeric()
+    for(j in 1:n){
+        x = c(x,allopts[[ii[j]]][2])
+        B = c(B,allopts[[ii[j]]][1])
+        y = c(y,B[j]^x[j])
+    }
+    if(T){break}
+}
+exes = character()
+ach = -5:5
+sols = character()
+for(i in 1:length(x)){
+    xp = x[i]
+    if(xp<0){
+        exes = c(exes,paste0("* $\\log_{",B[i],"}\\left(\\frac{1}{",B[i]^abs(xp),"}\\right)=$ ##ANSWER",i,"##\n"))
+    } else {
+        exes = c(exes,paste0("* $\\log_{",B[i],"}(",B[i]^abs(xp),")=$ ##ANSWER",i,"##\n"))
+    }
+    sols = c(sols,paste0(1*(x[i]==ach),collapse=""))
+}
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+
+Question
+========
+
+`r paste0(exes,collapse="\n")`
+
+Answerlist
+--------
+
+`r paste0(rep(al,length(x)),collapse="\n")`
+
+
+Solution
+========
+
+```{r,echo=F,results='asis'}
+ss = character()
+for(i in 1:length(x)){
+    xp = x[i]
+    if(xp<0){
+        ss = c(ss,paste0("* $",B[i],"^{",xp,"}=\\frac{1}{",B[i]^abs(xp),"}$ <span style='color:blue;'>therefore</span> $\\log_{",B[i],"}\\left(\\frac{1}{",B[i]^abs(xp),"}\\right)=",xp,"$\n"))
+    } else {
+        ss = c(ss,paste0("* $",B[i],"^{",xp,"}=",B[i]^abs(xp),"$ <span style='color:blue;'>therefore</span> $\\log_{",B[i],"}(",B[i]^abs(xp),")=",xp,"$\n"))
+    }
+}
+cat(paste0(ss,collapse=""))
+```
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(x)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: eval_log_base_2_3_10

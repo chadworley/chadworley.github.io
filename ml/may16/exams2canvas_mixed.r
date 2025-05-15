@@ -1,13 +1,17 @@
 library("exams")
 n = 30
 outdir = "outcanvas"
-# genname = "s18_"
+genname = "may16_"
+
+# probs = c("01_eval_expo_base2.Rmd",
+#           "02_eval_expo_base10.Rmd",
+#           "03_solve_expo_base2.Rmd",
+#           "04_solve_expo_base10.Rmd",
+#           "05_eval_log_base2.Rmd",
+#           "06_eval_log_base10.Rmd",
+#           "07_eval_log_base_2_3_10.Rmd")
 # 
-# probs = c("54_crdnt_tbl_shftd_exp2.Rmd",
-#           "55_crdnt_tbl_shftd_log2.Rmd",
-#           "56_exp_yint.Rmd")
-# 
-# pnts = rep(3,length(probs))
+# pnts = rep(4,length(probs))
 # 
 # stems = tools::file_path_sans_ext(sub(".*/", "", probs))
 # names = paste0(genname,stems)
@@ -23,19 +27,11 @@ outdir = "outcanvas"
 # }
 
 ##############################################################
-genname = "s18"
+genname = "may16"
 
 pm = list(
-    "04_common_base_quad.Rmd",
-    c("08_solve_expo_base2.Rmd","09_solve_expo_base10.Rmd"),
-    "13_solve_exponent.Rmd",
-    "15_solve_exponential.Rmd",
-    "16_solve_logarithmic.Rmd",
-    c("33_log10_inverse_table.Rmd","34_log2_inverse_table.Rmd"),
-    c("37_semi-log_get_exp.Rmd","38_semi-log_get_log.Rmd"),
-    c("41_solve_e_to_x.Rmd","42_solve_ln_x.Rmd"),
-    "54_crdnt_tbl_shftd_exp2.Rmd",
-    "55_crdnt_tbl_shftd_log2.Rmd"
+    c("03_solve_expo_base2.Rmd","04_solve_expo_base10.Rmd"),
+    "07_eval_log_base_2_3_10.Rmd"
 )
 
 exams2canvas(pm,

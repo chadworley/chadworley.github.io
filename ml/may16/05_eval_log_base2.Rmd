@@ -1,0 +1,55 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=99)
+x = sample(2:10,5)*sample(c(-1,1),5,T)
+y = 2^x
+exes = character()
+ach = -10:10
+sols = character()
+for(i in 1:length(x)){
+    xp = x[i]
+    if(xp<0){
+        exes = c(exes,paste0("* $\\log_{2}\\left(\\frac{1}{",2^abs(xp),"}\\right)=$ ##ANSWER",i,"##\n"))
+    } else {
+        exes = c(exes,paste0("* $\\log_{2}(",2^abs(xp),")=$ ##ANSWER",i,"##\n"))
+    }
+    sols = c(sols,paste0(1*(x[i]==ach),collapse=""))
+}
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+
+Question
+========
+
+`r paste0(exes,collapse="\n")`
+
+Answerlist
+--------
+
+`r paste0(rep(al,length(x)),collapse="\n")`
+
+
+Solution
+========
+
+```{r,echo=F,results='asis'}
+ss = character()
+for(i in 1:length(x)){
+    xp = x[i]
+    if(xp<0){
+        ss = c(ss,paste0("* $2^{",xp,"}=\\frac{1}{",2^abs(xp),"}$ <span style='color:blue;'>therefore</span> $\\log_{2}\\left(\\frac{1}{",2^abs(xp),"}\\right)=",xp,"$\n"))
+    } else {
+        ss = c(ss,paste0("* $2^{",xp,"}=",2^abs(xp),"$ <span style='color:blue;'>therefore</span> $\\log_{2}(",2^abs(xp),")=",xp,"$\n"))
+    }
+}
+cat(paste0(ss,collapse=""))
+```
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(x)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: eval_log_base2
