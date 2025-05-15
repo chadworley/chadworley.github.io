@@ -4,26 +4,22 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "u13_"
-files = ["12_sine_get_opposite.Rmd",
-"13_sine_get_hypotenuse.Rmd",
-"14_sine_get_angle.Rmd",
-"15_cosine_get_adjacent.Rmd",
-"16_cosine_get_hypotenuse.Rmd",
-"17_cosine_get_angle.Rmd",
-"18_tangent_get_opposite.Rmd",
-"19_tangent_get_adjacent.Rmd",
-"20_tangent_get_angle.Rmd",
-"21_trigs_from_uc_point_Q1.Rmd",
-"22_pnt_n_slope_from_ang_Q1.Rmd"]
+front = "may16_"
+files = ["01_eval_expo_base2.Rmd",
+"02_eval_expo_base10.Rmd",
+"03_solve_expo_base2.Rmd",
+"04_solve_expo_base10.Rmd",
+"05_eval_log_base2.Rmd",
+"06_eval_log_base10.Rmd",
+"07_eval_log_base_2_3_10.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u13/outhtml/"
-agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
+practice_url_front = "https://chadworley.github.io/ml/may16/outhtml/"
+# agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
   access_token = f.read()
 headers = {"Authorization": f"Bearer {access_token}"}
-course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
+course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 
 def get_ass_id(name):

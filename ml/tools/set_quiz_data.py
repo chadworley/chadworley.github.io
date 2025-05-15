@@ -3,18 +3,21 @@ import time
 from datetime import datetime, timedelta
 import os
 
-front = "Apr08_"
+front = "may16_"
 
-files = ["04_percent_changes.Rmd",
-"05_certificate_of_deposit.Rmd",
-"06_exponential_population.Rmd",
-"07_mug_cooling.Rmd"]
+files = ["01_eval_expo_base2.Rmd",
+"02_eval_expo_base10.Rmd",
+"03_solve_expo_base2.Rmd",
+"04_solve_expo_base10.Rmd",
+"05_eval_log_base2.Rmd",
+"06_eval_log_base10.Rmd",
+"07_eval_log_base_2_3_10.Rmd"]
 
-avt = ["2025-04-08 7:00:00"]*len(files)
-dut = ["2025-04-08 22:59:00"]*len(files)
+avt = ["2025-04-16 7:00:00"]*len(files)
+dut = ["2025-04-16 22:59:00"]*len(files)
 
 
-practice_url_front = "https://chadworley.github.io/ml/percentage/outhtml/"
+practice_url_front = "https://chadworley.github.io/ml/may16/outhtml/"
 course_id = '1282'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 
