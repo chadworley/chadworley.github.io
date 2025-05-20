@@ -1,8 +1,6 @@
 library("exams")
 
-pppsss = c("54_crdnt_tbl_shftd_exp2.Rmd",
-           "55_crdnt_tbl_shftd_log2.Rmd",
-           "56_exp_yint.Rmd")
+pppsss = c("57_match_parent_functions.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

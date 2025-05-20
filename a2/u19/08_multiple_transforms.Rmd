@@ -1,0 +1,167 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],\n            [",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+while(T){
+  X = matrix(c(0,1,1,0,0,0,1,1),2,byrow=T)
+  transformations = sample(1:5,3)
+  nums = numeric()
+  wrd1 = character()
+  mats = list()
+  for(i in 1:length(transformations)){
+    tr = transformations[i]
+    k1 = sample(13:25,1)/10
+    k2 = sample(3:15,1)/10
+    th = round(runif(1,0.1,2*pi-0.1),2)
+    if(tr==1){
+      k = k1
+      wrd1 = c(wrd1,paste0("horizontal stretch by factor ",k))
+      nums = c(nums,k)
+      mats[[i]] = matrix(c(k,0,0,1),2,byrow=T)
+    }
+    if(tr==2){
+      k = k1
+      wrd1 = c(wrd1,paste0("vertical stretch by factor ",k))
+      nums = c(nums,k)
+      mats[[i]] = matrix(c(1,0,0,k),2,byrow=T)
+    }
+    if(tr==3){
+      wrd1 = c(wrd1,paste0("rotation by angle ",th))
+      nums = c(nums,th)
+      mats[[i]] = matrix(round(c(cos(th),-sin(th),sin(th),cos(th)),3),2,byrow=T)
+    }
+    if(tr==4){
+      k = k2
+      wrd1 = c(wrd1,paste0("horizontal shear by factor ",k))
+      nums = c(nums,k)
+      mats[[i]] = matrix(c(1,k,0,1),2,byrow=T)
+    }
+    if(tr==5){
+      k = k2
+      wrd1 = c(wrd1,paste0("vertical shear by factor ",k))
+      nums = c(nums,k)
+      mats[[i]] = matrix(c(1,0,k,1),2,byrow=T)
+    }
+  }
+  
+  A = mats[[1]]
+  B = mats[[2]]
+  C = mats[[3]]
+  
+  xp1 = C %*% B %*% A %*% X
+  xp2 = matrix(c(0,1,-1,0),2,byrow=T) %*% xp1
+  xp3 = matrix(c(-1,0,0,-1),2,byrow=T) %*% xp1
+  xp4 = matrix(c(0,-1,1,0),2,byrow=T) %*% xp1
+  
+  XP = list(xp1,xp2,xp3,xp4)
+  
+  xpn = A %*% B %*% C %*% X
+  
+  
+  ord = sample(1:4)
+  sol = paste0(1*(1==ord),collapse="")
+  if(sum(3==transformations)==1 && sum(xp1==xpn)<8){break}
+}
+
+```
+
+Question
+========
+
+Some basic [2D-transformation matrices](https://en.wikipedia.org/wiki/Transformation_matrix) are shown:
+
+* Horizontal stretch by factor $k$ (reflection if $k=-1$). $$\begin{bmatrix}k & 0 \\ 0 & 1\end{bmatrix}$$
+* Vertical stretch by factor $k$  (reflection if $k=-1$). $$\begin{bmatrix}1 & 0 \\ 0 & k\end{bmatrix}$$
+* Rotation by angle $\theta$ radians. $$\begin{bmatrix}\cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta)\end{bmatrix}$$
+* Horizontal shearing by factor $k$. $$\begin{bmatrix}1 & k \\ 0 & 1\end{bmatrix}$$
+* Vertical shearing by factor $k$. $$\begin{bmatrix}1 & 0 \\ k & 1\end{bmatrix}$$
+
+When multiple transformations are applied, order matters. If $A$ was the matrix of the first transformation, $B$ was the matrix of the second transformation, $C$ was the matrix of the third transformation, and $X$ was a matrix of column vectors, then the result, $X'$, would be found with the following matrix multiplication:
+$$X' = CBAX$$
+Notice, the order seems backwards; this is standard.
+
+## Problem-specific information
+
+Begin with the points of a unit square.
+
+$$X = \begin{bmatrix}0 & 1 & 1 & 0 \\ 0 & 0 & 1 & 1\end{bmatrix}$$
+```
+X = matrix([[0,1,1,0],[0,0,1,1]])
+polygon(X.transpose(),xmin=-5,xmax=5,ymin=-5,ymax=5,aspect_ratio=1,color="red")
+```
+
+Apply the following transformations in the indicated order:
+
+1. A `r wrd1[1]`.
+2. A `r wrd1[2]`.
+3. A `r wrd1[3]`.
+
+Which graph is generated when polygon $X$ is plotted in red and polygon $X'$ is plotted in blue?
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(mfrow=c(2,2),pty="s")
+for(i in 1:4){
+  plot(0,0,type="n",axes=T,ann=T,main=c("A","B","C","D")[i],
+       xlim=c(-10,10),ylim=c(-10,10),xlab="x",ylab="y")
+  abline(h=0)
+  abline(v=0)
+  polygon(X[1,],X[2,],col=rgb(1,0,0,0.5))
+  polygon(XP[[ord[i]]][1,],XP[[ord[i]]][2,],col=rgb(0,0,1,0.5))
+}
+
+```
+\
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+
+
+Solution
+========
+
+The answer is `r c("A","B","C","D")[ord==1]`.
+
+[SageMath](https://sagecell.sagemath.org/)
+```
+mygraph = Graphics()
+X = matrix([[0,1,1,0],[0,0,1,1]])
+mygraph += polygon(X.transpose(),color="red",alpha=0.5)
+A = matrix(`r matcc(A)`)
+B = matrix(`r matcc(B)`)
+C = matrix(`r matcc(C)`)
+XP = C*B*A*X
+mygraph += polygon(XP.transpose(),color="blue",alpha=0.5)
+show(mygraph,xmin=-10,xmax=10,ymin=-10,ymax=10,aspect_ratio=1)
+```
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: multiple_transforms
