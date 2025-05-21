@@ -3,14 +3,18 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["57_match_parent_functions.Rmd"]
+files = ["01_groceries_get_total.Rmd",
+"02_groceries_get_total_B.Rmd",
+"03_groceries_get_uc.Rmd",
+"04_get_matrix_aij.Rmd",
+"05_get_matrix_aij_B.Rmd"]
 
-avt = ["2025-05-20 7:00:00"]*len(files)
-dut = ["2025-05-20 22:59:00"]*len(files)
-front = "s18_"
+avt = ["2025-05-21 7:00:00"]*len(files)
+dut = ["2025-05-21 22:59:00"]*len(files)
+front = "s19_"
 
 
-practice_url_front = "https://chadworley.github.io/a2/u18/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u19/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 canvas_url = 'https://bart.instructure.com'
 

@@ -4,10 +4,14 @@ from datetime import datetime, timedelta
 import os
 
 
-front = "s18_"
-files = ["57_match_parent_functions.Rmd"]
+front = "s19_"
+files = ["01_groceries_get_total.Rmd",
+"02_groceries_get_total_B.Rmd",
+"03_groceries_get_uc.Rmd",
+"04_get_matrix_aij.Rmd",
+"05_get_matrix_aij_B.Rmd"]
 
-practice_url_front = "https://chadworley.github.io/a2/u18/outhtml/"
+practice_url_front = "https://chadworley.github.io/a2/u19/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
 
 with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.txt") as f:
