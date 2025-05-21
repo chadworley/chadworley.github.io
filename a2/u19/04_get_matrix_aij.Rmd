@@ -1,0 +1,69 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+A = sample(11:99,20)
+A = matrix(A,nrow=4)
+ij = sample(1:4,2)
+i = ij[1]
+j = ij[2]
+
+
+```
+
+Question
+========
+
+A [matrix](https://en.wikipedia.org/wiki/Matrix_(mathematics)) is a rectangular array of numbers. We typically represent matrices by placing numbers (the elements) in a regular rectangular formation inside large square brackets. For example, let matrix $A$ be defined below:
+
+$$A~=~`r matpr(A)`$$
+
+Notice, matrix $A$ has 4 rows and 5 columns. We say $A$ is a 4-by-5 matrix. The matrix is composed of 20 elements. Each element has an "address": its row number and its column number (in that order!). 
+
+There are many notations for expressing the element at row $i$ and column $j$. Some options include $a_{ij}$ or $a_{i,\,j}$ or $A[i,j]$.
+
+What element is in row `r i` and column `r j`?
+
+$$a_{`r i`,`r j`}~=~ ?$$
+
+
+Solution
+========
+
+The element `r A[i,j]` is in row `r i` and column `r j`.
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-1,6),ylim=c(-0.5,6.5),axes=F,ann=F)
+for(ii in 1:4){
+    for(jj in 1:5){
+        text(jj,5-ii,A[ii,jj])
+    }
+}
+lines(c(0.5,0.3,0.3,0.5),c(4.5,4.5,0.5,0.5),lwd=2)
+lines(c(5.3,5.5,5.5,5.3),c(4.5,4.5,0.5,0.5),lwd=2)
+for(ii in 1:4){
+    text(0,5-ii,paste0("row ",ii),adj=1,cex=0.8)
+}
+for(jj in 1:5){
+    text(jj,4.5,paste0("column ",jj),adj=1.1,srt=-90,cex=0.8)
+}
+polygon(c(-1,6,6,-1),5-c(i-0.3,i-0.3,i+0.3,i+0.3),border="darkgreen")
+polygon(c(j-0.3,j-0.3,j+0.3,j+0.3),c(0,6,6,0),border="darkgreen")
+
+```
+\
+
+
+Meta-information
+============
+extype: num
+exsolution: `r A[i,j]`
+exname: get_matrix_aij

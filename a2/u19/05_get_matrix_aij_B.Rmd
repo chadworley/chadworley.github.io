@@ -1,0 +1,44 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+A = sample(11:99,20)
+A = matrix(A,nrow=4)
+ij = sample(1:4,2)
+i = ij[1]
+j = ij[2]
+
+
+```
+
+Question
+========
+
+Let matrix $A$ be defined below:
+
+$$A~=~`r matpr(A)`$$
+
+Find the element indicated below.
+
+$$a_{`r i`,`r j`}~=~ ?$$
+
+
+Solution
+========
+
+The element `r A[i,j]` is in row `r i` and column `r j`.
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r A[i,j]`
+exname: get_matrix_aij

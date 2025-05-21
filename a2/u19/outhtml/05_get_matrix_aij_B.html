@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>05_get_matrix_aij_B</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">05_get_matrix_aij_B</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(A\)</span> be defined below:</p>
+<p><span class="math display">\[A~=~\begin{bmatrix}
+17 &amp; 76 &amp; 90 &amp; 71 &amp; 63\\
+69 &amp; 50 &amp; 72 &amp; 33 &amp; 16\\
+42 &amp; 55 &amp; 77 &amp; 52 &amp; 61\\
+68 &amp; 73 &amp; 53 &amp; 99 &amp; 37
+\end{bmatrix}\]</span></p>
+<p>Find the element indicated below.</p>
+<p><span class="math display">\[a_{3,4}~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The element 52 is in row 3 and column 4.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(A\)</span> be defined below:</p>
+<p><span class="math display">\[A~=~\begin{bmatrix}
+61 &amp; 70 &amp; 68 &amp; 99 &amp; 73\\
+96 &amp; 17 &amp; 40 &amp; 35 &amp; 66\\
+49 &amp; 55 &amp; 18 &amp; 57 &amp; 86\\
+79 &amp; 52 &amp; 25 &amp; 81 &amp; 78
+\end{bmatrix}\]</span></p>
+<p>Find the element indicated below.</p>
+<p><span class="math display">\[a_{1,3}~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The element 68 is in row 1 and column 3.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(A\)</span> be defined below:</p>
+<p><span class="math display">\[A~=~\begin{bmatrix}
+48 &amp; 73 &amp; 98 &amp; 56 &amp; 39\\
+51 &amp; 62 &amp; 70 &amp; 87 &amp; 55\\
+69 &amp; 85 &amp; 38 &amp; 33 &amp; 93\\
+18 &amp; 95 &amp; 78 &amp; 29 &amp; 26
+\end{bmatrix}\]</span></p>
+<p>Find the element indicated below.</p>
+<p><span class="math display">\[a_{1,4}~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The element 56 is in row 1 and column 4.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(A\)</span> be defined below:</p>
+<p><span class="math display">\[A~=~\begin{bmatrix}
+65 &amp; 46 &amp; 11 &amp; 62 &amp; 41\\
+51 &amp; 23 &amp; 28 &amp; 99 &amp; 57\\
+25 &amp; 33 &amp; 16 &amp; 87 &amp; 71\\
+67 &amp; 54 &amp; 38 &amp; 50 &amp; 37
+\end{bmatrix}\]</span></p>
+<p>Find the element indicated below.</p>
+<p><span class="math display">\[a_{1,4}~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The element 62 is in row 1 and column 4.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(A\)</span> be defined below:</p>
+<p><span class="math display">\[A~=~\begin{bmatrix}
+36 &amp; 48 &amp; 23 &amp; 87 &amp; 81\\
+77 &amp; 58 &amp; 38 &amp; 60 &amp; 28\\
+43 &amp; 35 &amp; 24 &amp; 25 &amp; 51\\
+13 &amp; 83 &amp; 93 &amp; 42 &amp; 33
+\end{bmatrix}\]</span></p>
+<p>Find the element indicated below.</p>
+<p><span class="math display">\[a_{3,1}~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The element 43 is in row 3 and column 1.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(A\)</span> be defined below:</p>
+<p><span class="math display">\[A~=~\begin{bmatrix}
+25 &amp; 22 &amp; 88 &amp; 27 &amp; 31\\
+98 &amp; 17 &amp; 35 &amp; 29 &amp; 76\\
+11 &amp; 92 &amp; 42 &amp; 64 &amp; 36\\
+60 &amp; 62 &amp; 46 &amp; 65 &amp; 81
+\end{bmatrix}\]</span></p>
+<p>Find the element indicated below.</p>
+<p><span class="math display">\[a_{4,3}~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The element 46 is in row 4 and column 3.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(A\)</span> be defined below:</p>
+<p><span class="math display">\[A~=~\begin{bmatrix}
+31 &amp; 32 &amp; 28 &amp; 21 &amp; 75\\
+79 &amp; 82 &amp; 56 &amp; 80 &amp; 92\\
+99 &amp; 26 &amp; 23 &amp; 72 &amp; 45\\
+19 &amp; 96 &amp; 12 &amp; 53 &amp; 36
+\end{bmatrix}\]</span></p>
+<p>Find the element indicated below.</p>
+<p><span class="math display">\[a_{1,4}~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The element 21 is in row 1 and column 4.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(A\)</span> be defined below:</p>
+<p><span class="math display">\[A~=~\begin{bmatrix}
+40 &amp; 91 &amp; 81 &amp; 72 &amp; 33\\
+34 &amp; 79 &amp; 20 &amp; 65 &amp; 86\\
+19 &amp; 37 &amp; 59 &amp; 85 &amp; 68\\
+35 &amp; 17 &amp; 73 &amp; 88 &amp; 52
+\end{bmatrix}\]</span></p>
+<p>Find the element indicated below.</p>
+<p><span class="math display">\[a_{4,3}~=~ ?\]</span></p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The element 73 is in row 4 and column 3.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
