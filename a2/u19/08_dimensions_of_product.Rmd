@@ -1,0 +1,64 @@
+```{r,echo=F,warning=F,results='hide'}
+canmult = sample(c(T,F),1)
+dims = sample(2:7,4)
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+dims[3]=dims[2]
+
+a = matrix(sample(-9:9,prod(dims[1:2]),T),nrow = dims[1])
+b = matrix(sample(-9:9,prod(dims[3:4]),T),nrow = dims[3])
+pra = matpr(a)
+prb = matpr(b)
+
+ac = 1:10
+sol1 = paste0(1*(ac==dims[1]),collapse="")
+sol2 = paste0(1*(ac==dims[4]),collapse="")
+al = paste0("* ",ac,collapse="\n")
+```
+
+Question
+========
+
+If the dimensions of matrix $A$ are $m\times n$ and the dimensions of matrix $B$ are $p\times q$, then the [matrix-multiplication](https://en.wikipedia.org/wiki/Matrix_multiplication) $AB$ is only possible if $n=p$. If the multiplication is possible, then the product is defined with dimensions $m\times q$. 
+
+$$A=`r pra`$$
+$$B=`r prb`$$
+
+* What are the dimensions of the product $AB$?
+* ##ANSWER1##$\times$##ANSWER2##
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+* The dimensions of $A$ are $`r dims[1]`\times`r dims[2]`$.
+* The dimensions of $B$ are $`r dims[3]`\times`r dims[4]`$.
+* The number of columns of $A$ is equal to the number of rows of $B$, so we can find the product $AB$.
+* The dimensions of product $AB$ are $`r dims[1]`\times`r dims[4]`$.
+
+
+You might find this [Khan Academy](https://www.khanacademy.org/math/precalculus/x9e81a4f98389efdf:matrices/x9e81a4f98389efdf:properties-of-matrix-multiplication/a/matrix-multiplication-dimensions) article helpful.
+
+NOTICE THIS IMPLIES MATRIX MULTIPLICATION IS **NOT** [COMMUTATIVE](https://en.wikipedia.org/wiki/Commutative_property)! (Because $AB$ is defined by $BA$ is not, since $`r dims[1]`\ne`r dims[4]`$.)
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: dimensions_of_product

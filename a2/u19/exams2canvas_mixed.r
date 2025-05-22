@@ -3,13 +3,15 @@ n = 30
 outdir = "outcanvas"
 genname = "s19_"
 
-probs = c("01_groceries_get_total.Rmd",
-          "02_groceries_get_total_B.Rmd",
-          "03_groceries_get_uc.Rmd",
-          "04_get_matrix_aij.Rmd",
-          "05_get_matrix_aij_B.Rmd")
+probs = c("06_matrix_dimensions.Rmd",
+          "07_can_mats_mult.Rmd",
+          "08_dimensions_of_product.Rmd",
+          "09_mult_mats_diagram.Rmd",
+          "10_mult_mats_dgrm_B.Rmd",
+          "11_mult_mats_no_dgrm.Rmd",
+          "12_mult_mats.Rmd")
 
-pnts = c(4,4,4,3,3)
+pnts = c(2,3,2,3,3,3,5)
 
 # pnts = rep(6,length(probs))
 

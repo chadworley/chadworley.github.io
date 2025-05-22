@@ -7,11 +7,13 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s19_01_groceries_get_total.zip",
-"outcanvas/s19_02_groceries_get_total_B.zip",
-"outcanvas/s19_03_groceries_get_uc.zip",
-"outcanvas/s19_04_get_matrix_aij.zip",
-"outcanvas/s19_05_get_matrix_aij_B.zip"]
+file_path_list = ["outcanvas/s19_06_matrix_dimensions.zip",
+"outcanvas/s19_07_can_mats_mult.zip",
+"outcanvas/s19_08_dimensions_of_product.zip",
+"outcanvas/s19_09_mult_mats_diagram.zip",
+"outcanvas/s19_10_mult_mats_dgrm_B.zip",
+"outcanvas/s19_11_mult_mats_no_dgrm.zip",
+"outcanvas/s19_12_mult_mats.zip"]
 
 
 # FOR UPLOADING ETS

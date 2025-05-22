@@ -3,16 +3,17 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["01_groceries_get_total.Rmd",
-"02_groceries_get_total_B.Rmd",
-"03_groceries_get_uc.Rmd",
-"04_get_matrix_aij.Rmd",
-"05_get_matrix_aij_B.Rmd"]
+files = ["06_matrix_dimensions.Rmd",
+"07_can_mats_mult.Rmd",
+"08_dimensions_of_product.Rmd",
+"09_mult_mats_diagram.Rmd",
+"10_mult_mats_dgrm_B.Rmd",
+"11_mult_mats_no_dgrm.Rmd",
+"12_mult_mats.Rmd"]
 
-avt = ["2025-05-21 7:00:00"]*len(files)
-dut = ["2025-05-21 22:59:00"]*len(files)
+avt = ["2025-05-22 7:00:00"]*len(files)
+dut = ["2025-05-22 22:59:00"]*len(files)
 front = "s19_"
-
 
 practice_url_front = "https://chadworley.github.io/a2/u19/outhtml/"
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'

@@ -1,0 +1,152 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+cord = sample(1:2,1) # C or D
+let = c("c","d")[cord]
+LET = c("C","D")[cord]
+
+while(T){
+    A = matrix(sample(1:9),ncol=3)
+    B = matrix(sample(1:9),nrow=3)
+    C = A %*% B
+    D = B %*% A
+    unkij = sample(1:3,2)
+    unki = unkij[1]
+    unkj = unkij[2]
+    cans = C[unki,unkj]
+    dans = D[unki,unkj]
+    if(length(unique(c(C)))==9 && length(unique(c(D)))==9 && cans!=dans){break}
+}
+
+pans = c(cans,dans)
+ans = pans[cord]
+unk = paste0(let,"_{",unki,",",unkj,"}",collapse="")
+op1 = c("A","B")[cord]
+op2 = c("B","A")[cord]
+
+if(cord==1){
+    mat1 = A
+    mat2 = B
+} else {
+    mat1 = B
+    mat2 = A
+}
+
+
+```
+
+Question
+========
+
+Let matrices $A$ and $B$ be defined below.
+
+$$A = `r matpr(A)`$$
+$$B = `r matpr(B)`$$
+
+Also, let $C=AB$ and $D=BA$.
+
+* Find element $`r unk`$
+
+
+Solution
+========
+
+I'd recommend setting up a diagram on (*gasp*) paper.
+
+When calculating matrix $`r LET`$ with the matrix multiplication $`r LET`=`r op1`\cdot `r op2`$, the fact that matrix $`r op1`$ is before matrix $`r op2`$ matters (because matrix multiplication is **NOT** [commutative](https://en.wikipedia.org/wiki/Commutative_property)). So, in our diagram, matrix $`r op1`$ is in bottom-left position and matrix $`r op2`$ is in top-right position.
+
+```{r,echo=F}
+nc = 6
+nr = 6
+nf = 3
+np = 3
+ns = 3
+```
+
+
+```{r,echo=F,fig.dim=c(4.5,4.5/(nc+1)*(nr+1))}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,nc+1),ylim=c(0,nr+1),asp=1)
+
+clrs = c("red","yellow","maroon","tan")
+clrs = c(rgb(1,0,0,0.2),rgb(1,1,0,0.4),rgb(0.8,0,0.8,0.3),rgb(0.6,0.5,0.2,0.2))
+clrs2 = c(rgb(1,0,0),rgb(1,1,0),rgb(0.8,0,0.8),rgb(0.6,0.5,0.2))
+clrs3 = c(rgb(1,0,0,0.1),rgb(1,1,0,0.2),rgb(0.8,0,0.8,0.15),rgb(0.6,0.5,0.2,0.1))
+for(i in 1:nf){
+    polygon(c(i-0.5,i-0.5,nf+0.5,nf+ns+0.5,nf+ns+0.5,nf+0.5,i+0.5,i+0.5),
+            c(0.5,np+0.5,np+nf-i+1.5,np+nf-i+1.5,np+nf-i+0.5,np+nf-i+0.5,np+0.5,0.5),col=clrs3[i],border = F)
+    xt1 = i-0.3
+    xt2 = nf+0.5
+    yt1 = np+0.5
+    yt2 = np+nf-i+1.3
+    srt = atan2(yt2-yt1,xt2-xt1)/pi*180
+    # text((xt1+xt2)/2,(yt1+yt2)/2,foods[i],srt=srt,cex=0.8)
+}
+
+for(jj in 1:nf){
+    polygon(c(jj-0.5,jj+0.5,jj+0.5,jj-0.5),np+1-c(unki-0.5,unki-0.5,unki+0.5,unki+0.5),col=clrs[jj],border=F)
+    polygon(nf+c(unkj-0.5,unkj-0.5,unkj+0.5,unkj+0.5),np+nf+1-c(jj-0.5,jj+0.5,jj+0.5,jj-0.5),col=clrs[jj],border=F)
+}
+
+polygon(c(-0.5,0.5,0.5,-0.5)+3+unkj,c(-0.5,-0.5,0.5,0.5)+4-unki,col=rgb(0,0,0,0.1))
+
+for(i in 1:np){
+    for(j in 1:nf){
+        text(j,np-i+1,mat1[i,j])
+    }
+}
+
+for(i in 1:nf){
+    for(j in 1:ns){
+        text(j+nf,np+nf-i+1,sprintf("%d",mat2[i,j]))
+    }
+}
+
+
+for(i in 1:np){
+    for(j in 1:ns){
+        if(i != unki || j!= unkj){
+            text(nf+j,np+1-i,TeX(paste0("$",let,"_{",i,",",j,"}$")))
+        } else {
+            # text(nf+j,np+1-i,"?")
+            text(nf+j,np+1-i,TeX(paste0("$",let,"_{",i,",",j,"}$")))
+        }
+    }
+}
+
+for(i in 0:np){
+    lines(c(0.5,nc+0.5),c(i,i)+0.5)
+}
+for(i in 0:ns){
+    lines(nf+c(i,i)+0.5,c(0.5,np+nf+0.5))
+}
+
+lines(c(nf+0.5,nf+0.5),c(nf,0)+0.5,lwd=3)
+lines(c(nf+0.5,nf+ns+0.5),c(np,np)+0.5,lwd=3)
+
+text(0,2,op1)
+text(5,7,op2)
+
+```
+\
+
+Notice we use row `r unki` from $`r op1`$ and column `r unkj` from $`r op2`$.
+
+$$`r unk`~~=~~`r paste0(mat1[unki,1:3],"\\cdot ",mat2[1:3,unkj],collapse="~+~")`$$
+$$`r unk`~~=~~`r ans`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: mult_mats_no_dgrm
