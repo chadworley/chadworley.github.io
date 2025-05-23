@@ -1,0 +1,1810 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>13_groceries_SageMath</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">13_groceries_SageMath</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A few grocery stores’ prices (in USD) for some foods are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">apple</th>
+<th align="right">banana</th>
+<th align="right">cherry</th>
+<th align="right">durian</th>
+<th align="right">eggplant</th>
+<th align="right">fig</th>
+<th align="right">grapefruit</th>
+<th align="right">honeydew</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lovely Lunches</td>
+<td align="right">1.86</td>
+<td align="right">0.69</td>
+<td align="right">7.10</td>
+<td align="right">8.80</td>
+<td align="right">4.29</td>
+<td align="right">4.00</td>
+<td align="right">2.92</td>
+<td align="right">7.17</td>
+</tr>
+<tr class="even">
+<td align="left">More Munchies</td>
+<td align="right">1.28</td>
+<td align="right">1.01</td>
+<td align="right">4.92</td>
+<td align="right">7.73</td>
+<td align="right">4.41</td>
+<td align="right">4.51</td>
+<td align="right">2.44</td>
+<td align="right">6.29</td>
+</tr>
+<tr class="odd">
+<td align="left">Nick’s Necessities</td>
+<td align="right">1.16</td>
+<td align="right">0.76</td>
+<td align="right">6.19</td>
+<td align="right">9.61</td>
+<td align="right">4.12</td>
+<td align="right">3.43</td>
+<td align="right">2.81</td>
+<td align="right">4.74</td>
+</tr>
+<tr class="even">
+<td align="left">Overpriced Options</td>
+<td align="right">1.21</td>
+<td align="right">0.89</td>
+<td align="right">4.52</td>
+<td align="right">7.99</td>
+<td align="right">4.06</td>
+<td align="right">4.63</td>
+<td align="right">3.04</td>
+<td align="right">5.63</td>
+</tr>
+<tr class="odd">
+<td align="left">Price Pincher</td>
+<td align="right">1.35</td>
+<td align="right">0.88</td>
+<td align="right">5.38</td>
+<td align="right">9.68</td>
+<td align="right">4.76</td>
+<td align="right">3.07</td>
+<td align="right">3.45</td>
+<td align="right">6.93</td>
+</tr>
+</tbody>
+</table>
+<p>Each of the people below plans to go shopping for those foods. Their grocery lists are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Quintin</th>
+<th align="right">Rachel</th>
+<th align="right">Sebastian</th>
+<th align="right">Trevor</th>
+<th align="right">Ursula</th>
+<th align="right">Venus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">apple</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">banana</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">cherry</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">durian</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">eggplant</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">fig</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">grapefruit</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">honeydew</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>We can create these matrices in <a href="https://chadworley.github.io/sage.html">SageMath</a> using the following commands:</p>
+<pre><code>P = matrix([[1.86,0.69,7.10,8.80,4.29,4.00,2.92,7.17],
+            [1.28,1.01,4.92,7.73,4.41,4.51,2.44,6.29],
+            [1.16,0.76,6.19,9.61,4.12,3.43,2.81,4.74],
+            [1.21,0.89,4.52,7.99,4.06,4.63,3.04,5.63],
+            [1.35,0.88,5.38,9.68,4.76,3.07,3.45,6.93]])
+
+Q = matrix([[0,3,3,1,4,2],
+            [0,0,1,1,1,4],
+            [4,0,0,2,0,3],
+            [2,4,1,0,3,1],
+            [3,0,2,0,0,1],
+            [0,1,0,1,1,0],
+            [1,1,4,4,0,0],
+            [0,2,0,2,2,1]])</code></pre>
+<p>The product, <span class="math inline">\(A\)</span>, of those two matrices can be calculated in SageMath. Notice, in programming languages the <code>=</code> symbol is the <a href="https://doc.sagemath.org/html/en/tutorial/tour_assignment.html">assignment operator</a>. This means the expression on the right is evaluated and stored into the variable on the left.</p>
+<pre><code>A = P*Q</code></pre>
+<p>The result can be printed using <a href="https://doc.sagemath.org/html/en/reference/repl/sage/repl/rich_output/pretty_print.html"><code>pretty_print</code> function</a>.</p>
+<pre><code>pretty_print(A)</code></pre>
+<p>After you run those commands, you should see a matrix filled with all the possible totals spent by various people at various stores. What is the maximum possible cost of a grocery trip?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The maximum cost is 63.15 USD. When you run the lines of code, you should get the following matrix:</p>
+<p><span class="math display">\[\begin{bmatrix}
+61.79 &amp; 62.04 &amp; 35.33 &amp; 46.77 &amp; 52.87 &amp; 48.04\\
+50.81 &amp; 54.29 &amp; 31.16 &amp; 38.98 &amp; 46.41 &amp; 39.79\\
+59.15 &amp; 57.64 &amp; 33.33 &amp; 38.45 &amp; 47.14 &amp; 42.4\\
+49.28 &amp; 54.52 &amp; 32.79 &amp; 39.19 &amp; 45.59 &amp; 37.22\\
+58.61 &amp; 63.15 &amp; 37.93 &amp; 43.72 &amp; 52.25 &amp; 43.73
+\end{bmatrix}\]</span>
+If there are many trailing 0s, you can use the <a href="https://doc.sagemath.org/html/en/reference/misc/sage/misc/functional.html#sage.misc.functional.n"><code>n</code> function</a> to get numerical approximations.</p>
+<pre><code>P = matrix([[1.86,0.69,7.10,8.80,4.29,4.00,2.92,7.17],
+            [1.28,1.01,4.92,7.73,4.41,4.51,2.44,6.29],
+            [1.16,0.76,6.19,9.61,4.12,3.43,2.81,4.74],
+            [1.21,0.89,4.52,7.99,4.06,4.63,3.04,5.63],
+            [1.35,0.88,5.38,9.68,4.76,3.07,3.45,6.93]])
+Q = matrix([[0,3,3,1,4,2],
+            [0,0,1,1,1,4],
+            [4,0,0,2,0,3],
+            [2,4,1,0,3,1],
+            [3,0,2,0,0,1],
+            [0,1,0,1,1,0],
+            [1,1,4,4,0,0],
+            [0,2,0,2,2,1]])
+A = P*Q
+B = n(A,digits=4)
+pretty_print(B)</code></pre>
+<p>You can manually identify the maximum cost.</p>
+<p><a href="https://ask.sagemath.org/question/10344/maximum-element-of-a-matrix/">Getting sagemath to identify the largest element is annoyingly unintuitive.</a></p>
+<pre><code>print(max(B.list()))</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A few grocery stores’ prices (in USD) for some foods are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">apple</th>
+<th align="right">banana</th>
+<th align="right">cherry</th>
+<th align="right">durian</th>
+<th align="right">eggplant</th>
+<th align="right">fig</th>
+<th align="right">grapefruit</th>
+<th align="right">honeydew</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lovely Lunches</td>
+<td align="right">1.55</td>
+<td align="right">0.78</td>
+<td align="right">5.96</td>
+<td align="right">7.97</td>
+<td align="right">4.31</td>
+<td align="right">4.31</td>
+<td align="right">2.39</td>
+<td align="right">5.22</td>
+</tr>
+<tr class="even">
+<td align="left">More Munchies</td>
+<td align="right">1.81</td>
+<td align="right">0.70</td>
+<td align="right">5.24</td>
+<td align="right">6.32</td>
+<td align="right">4.09</td>
+<td align="right">4.51</td>
+<td align="right">2.91</td>
+<td align="right">5.84</td>
+</tr>
+<tr class="odd">
+<td align="left">Nick’s Necessities</td>
+<td align="right">1.86</td>
+<td align="right">0.74</td>
+<td align="right">4.73</td>
+<td align="right">6.08</td>
+<td align="right">3.20</td>
+<td align="right">3.51</td>
+<td align="right">2.93</td>
+<td align="right">6.97</td>
+</tr>
+<tr class="even">
+<td align="left">Overpriced Options</td>
+<td align="right">1.61</td>
+<td align="right">0.97</td>
+<td align="right">5.60</td>
+<td align="right">9.22</td>
+<td align="right">4.06</td>
+<td align="right">4.63</td>
+<td align="right">3.60</td>
+<td align="right">5.06</td>
+</tr>
+<tr class="odd">
+<td align="left">Price Pincher</td>
+<td align="right">1.74</td>
+<td align="right">1.04</td>
+<td align="right">6.28</td>
+<td align="right">6.25</td>
+<td align="right">3.98</td>
+<td align="right">4.33</td>
+<td align="right">3.61</td>
+<td align="right">4.64</td>
+</tr>
+</tbody>
+</table>
+<p>Each of the people below plans to go shopping for those foods. Their grocery lists are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Quintin</th>
+<th align="right">Rachel</th>
+<th align="right">Sebastian</th>
+<th align="right">Trevor</th>
+<th align="right">Ursula</th>
+<th align="right">Venus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">apple</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">banana</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">cherry</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">durian</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">eggplant</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">fig</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">grapefruit</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">honeydew</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+<p>We can create these matrices in <a href="https://chadworley.github.io/sage.html">SageMath</a> using the following commands:</p>
+<pre><code>P = matrix([[1.55,0.78,5.96,7.97,4.31,4.31,2.39,5.22],
+            [1.81,0.70,5.24,6.32,4.09,4.51,2.91,5.84],
+            [1.86,0.74,4.73,6.08,3.20,3.51,2.93,6.97],
+            [1.61,0.97,5.60,9.22,4.06,4.63,3.60,5.06],
+            [1.74,1.04,6.28,6.25,3.98,4.33,3.61,4.64]])
+
+Q = matrix([[0,3,2,1,2,2],
+            [2,2,4,2,1,1],
+            [2,2,1,0,0,0],
+            [1,0,0,0,3,3],
+            [0,1,3,4,0,0],
+            [1,0,1,0,0,2],
+            [2,1,0,0,4,1],
+            [0,1,0,1,2,4]])</code></pre>
+<p>The product, <span class="math inline">\(A\)</span>, of those two matrices can be calculated in SageMath. Notice, in programming languages the <code>=</code> symbol is the <a href="https://doc.sagemath.org/html/en/tutorial/tour_assignment.html">assignment operator</a>. This means the expression on the right is evaluated and stored into the variable on the left.</p>
+<pre><code>A = P*Q</code></pre>
+<p>The result can be printed using <a href="https://doc.sagemath.org/html/en/reference/repl/sage/repl/rich_output/pretty_print.html"><code>pretty_print</code> function</a>.</p>
+<pre><code>pretty_print(A)</code></pre>
+<p>After you run those commands, you should see a matrix filled with all the possible totals spent by various people at various stores. What is the maximum possible cost of a grocery trip?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The maximum cost is 64.95 USD. When you run the lines of code, you should get the following matrix:</p>
+<p><span class="math display">\[\begin{bmatrix}
+30.54 &amp; 30.05 &amp; 29.42 &amp; 25.57 &amp; 47.79 &amp; 59.68\\
+28.53 &amp; 30.15 &amp; 28.44 &amp; 25.41 &amp; 46.6 &amp; 58.57\\
+26.39 &amp; 29.62 &amp; 24.52 &amp; 23.11 &amp; 48.36 &amp; 60.53\\
+34.19 &amp; 30.69 &amp; 29.51 &amp; 24.85 &amp; 56.37 &amp; 64.95\\
+32.44 &amp; 32.09 &amp; 30.19 &amp; 24.38 &amp; 46.99 &amp; 54.1
+\end{bmatrix}\]</span>
+If there are many trailing 0s, you can use the <a href="https://doc.sagemath.org/html/en/reference/misc/sage/misc/functional.html#sage.misc.functional.n"><code>n</code> function</a> to get numerical approximations.</p>
+<pre><code>P = matrix([[1.55,0.78,5.96,7.97,4.31,4.31,2.39,5.22],
+            [1.81,0.70,5.24,6.32,4.09,4.51,2.91,5.84],
+            [1.86,0.74,4.73,6.08,3.20,3.51,2.93,6.97],
+            [1.61,0.97,5.60,9.22,4.06,4.63,3.60,5.06],
+            [1.74,1.04,6.28,6.25,3.98,4.33,3.61,4.64]])
+Q = matrix([[0,3,2,1,2,2],
+            [2,2,4,2,1,1],
+            [2,2,1,0,0,0],
+            [1,0,0,0,3,3],
+            [0,1,3,4,0,0],
+            [1,0,1,0,0,2],
+            [2,1,0,0,4,1],
+            [0,1,0,1,2,4]])
+A = P*Q
+B = n(A,digits=4)
+pretty_print(B)</code></pre>
+<p>You can manually identify the maximum cost.</p>
+<p><a href="https://ask.sagemath.org/question/10344/maximum-element-of-a-matrix/">Getting sagemath to identify the largest element is annoyingly unintuitive.</a></p>
+<pre><code>print(max(B.list()))</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A few grocery stores’ prices (in USD) for some foods are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">apple</th>
+<th align="right">banana</th>
+<th align="right">cherry</th>
+<th align="right">durian</th>
+<th align="right">eggplant</th>
+<th align="right">fig</th>
+<th align="right">grapefruit</th>
+<th align="right">honeydew</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lovely Lunches</td>
+<td align="right">1.57</td>
+<td align="right">0.87</td>
+<td align="right">4.62</td>
+<td align="right">9.67</td>
+<td align="right">4.58</td>
+<td align="right">3.29</td>
+<td align="right">3.44</td>
+<td align="right">4.95</td>
+</tr>
+<tr class="even">
+<td align="left">More Munchies</td>
+<td align="right">1.40</td>
+<td align="right">1.02</td>
+<td align="right">4.83</td>
+<td align="right">9.12</td>
+<td align="right">3.95</td>
+<td align="right">4.50</td>
+<td align="right">3.50</td>
+<td align="right">5.83</td>
+</tr>
+<tr class="odd">
+<td align="left">Nick’s Necessities</td>
+<td align="right">1.83</td>
+<td align="right">0.96</td>
+<td align="right">6.18</td>
+<td align="right">6.74</td>
+<td align="right">3.67</td>
+<td align="right">4.52</td>
+<td align="right">3.23</td>
+<td align="right">5.18</td>
+</tr>
+<tr class="even">
+<td align="left">Overpriced Options</td>
+<td align="right">1.83</td>
+<td align="right">1.12</td>
+<td align="right">7.09</td>
+<td align="right">6.38</td>
+<td align="right">3.28</td>
+<td align="right">3.94</td>
+<td align="right">2.75</td>
+<td align="right">7.21</td>
+</tr>
+<tr class="odd">
+<td align="left">Price Pincher</td>
+<td align="right">1.26</td>
+<td align="right">0.86</td>
+<td align="right">5.88</td>
+<td align="right">9.31</td>
+<td align="right">4.29</td>
+<td align="right">4.18</td>
+<td align="right">2.31</td>
+<td align="right">5.82</td>
+</tr>
+</tbody>
+</table>
+<p>Each of the people below plans to go shopping for those foods. Their grocery lists are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Quintin</th>
+<th align="right">Rachel</th>
+<th align="right">Sebastian</th>
+<th align="right">Trevor</th>
+<th align="right">Ursula</th>
+<th align="right">Venus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">apple</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">banana</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">cherry</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">durian</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">eggplant</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">fig</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">grapefruit</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">honeydew</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>We can create these matrices in <a href="https://chadworley.github.io/sage.html">SageMath</a> using the following commands:</p>
+<pre><code>P = matrix([[1.57,0.87,4.62,9.67,4.58,3.29,3.44,4.95],
+            [1.40,1.02,4.83,9.12,3.95,4.50,3.50,5.83],
+            [1.83,0.96,6.18,6.74,3.67,4.52,3.23,5.18],
+            [1.83,1.12,7.09,6.38,3.28,3.94,2.75,7.21],
+            [1.26,0.86,5.88,9.31,4.29,4.18,2.31,5.82]])
+
+Q = matrix([[1,3,0,0,2,4],
+            [4,2,1,0,1,3],
+            [0,1,3,4,0,0],
+            [2,1,0,1,4,2],
+            [1,0,2,3,1,2],
+            [2,0,0,2,2,0],
+            [0,2,2,1,0,1],
+            [0,1,1,0,0,1]])</code></pre>
+<p>The product, <span class="math inline">\(A\)</span>, of those two matrices can be calculated in SageMath. Notice, in programming languages the <code>=</code> symbol is the <a href="https://doc.sagemath.org/html/en/tutorial/tour_assignment.html">assignment operator</a>. This means the expression on the right is evaluated and stored into the variable on the left.</p>
+<pre><code>A = P*Q</code></pre>
+<p>The result can be printed using <a href="https://doc.sagemath.org/html/en/reference/repl/sage/repl/rich_output/pretty_print.html"><code>pretty_print</code> function</a>.</p>
+<pre><code>pretty_print(A)</code></pre>
+<p>After you run those commands, you should see a matrix filled with all the possible totals spent by various people at various stores. What is the maximum possible cost of a grocery trip?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The maximum cost is 56.37 USD. When you run the lines of code, you should get the following matrix:</p>
+<p><span class="math display">\[\begin{bmatrix}
+35.55 &amp; 32.57 &amp; 35.72 &amp; 51.91 &amp; 53.85 &amp; 45.78\\
+36.67 &amp; 33.02 &amp; 36.24 &amp; 52.79 &amp; 53.25 &amp; 44.13\\
+31.86 &amp; 31.97 &amp; 38.48 &amp; 54.74 &amp; 44.29 &amp; 39.43\\
+30.23 &amp; 33.91 &amp; 41.66 &amp; 55.21 &amp; 41.46 &amp; 39.96\\
+35.97 &amp; 31.13 &amp; 37.52 &amp; 56.37 &amp; 53.27 &amp; 42.95
+\end{bmatrix}\]</span>
+If there are many trailing 0s, you can use the <a href="https://doc.sagemath.org/html/en/reference/misc/sage/misc/functional.html#sage.misc.functional.n"><code>n</code> function</a> to get numerical approximations.</p>
+<pre><code>P = matrix([[1.57,0.87,4.62,9.67,4.58,3.29,3.44,4.95],
+            [1.40,1.02,4.83,9.12,3.95,4.50,3.50,5.83],
+            [1.83,0.96,6.18,6.74,3.67,4.52,3.23,5.18],
+            [1.83,1.12,7.09,6.38,3.28,3.94,2.75,7.21],
+            [1.26,0.86,5.88,9.31,4.29,4.18,2.31,5.82]])
+Q = matrix([[1,3,0,0,2,4],
+            [4,2,1,0,1,3],
+            [0,1,3,4,0,0],
+            [2,1,0,1,4,2],
+            [1,0,2,3,1,2],
+            [2,0,0,2,2,0],
+            [0,2,2,1,0,1],
+            [0,1,1,0,0,1]])
+A = P*Q
+B = n(A,digits=4)
+pretty_print(B)</code></pre>
+<p>You can manually identify the maximum cost.</p>
+<p><a href="https://ask.sagemath.org/question/10344/maximum-element-of-a-matrix/">Getting sagemath to identify the largest element is annoyingly unintuitive.</a></p>
+<pre><code>print(max(B.list()))</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A few grocery stores’ prices (in USD) for some foods are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">apple</th>
+<th align="right">banana</th>
+<th align="right">cherry</th>
+<th align="right">durian</th>
+<th align="right">eggplant</th>
+<th align="right">fig</th>
+<th align="right">grapefruit</th>
+<th align="right">honeydew</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lovely Lunches</td>
+<td align="right">1.85</td>
+<td align="right">0.75</td>
+<td align="right">5.21</td>
+<td align="right">8.78</td>
+<td align="right">4.02</td>
+<td align="right">4.70</td>
+<td align="right">3.47</td>
+<td align="right">4.68</td>
+</tr>
+<tr class="even">
+<td align="left">More Munchies</td>
+<td align="right">1.46</td>
+<td align="right">1.02</td>
+<td align="right">5.96</td>
+<td align="right">6.45</td>
+<td align="right">4.76</td>
+<td align="right">3.36</td>
+<td align="right">3.17</td>
+<td align="right">6.67</td>
+</tr>
+<tr class="odd">
+<td align="left">Nick’s Necessities</td>
+<td align="right">1.49</td>
+<td align="right">1.01</td>
+<td align="right">5.53</td>
+<td align="right">9.05</td>
+<td align="right">5.00</td>
+<td align="right">4.94</td>
+<td align="right">3.10</td>
+<td align="right">5.78</td>
+</tr>
+<tr class="even">
+<td align="left">Overpriced Options</td>
+<td align="right">1.57</td>
+<td align="right">0.72</td>
+<td align="right">5.54</td>
+<td align="right">9.96</td>
+<td align="right">4.20</td>
+<td align="right">3.93</td>
+<td align="right">3.12</td>
+<td align="right">6.55</td>
+</tr>
+<tr class="odd">
+<td align="left">Price Pincher</td>
+<td align="right">1.72</td>
+<td align="right">0.93</td>
+<td align="right">7.02</td>
+<td align="right">9.85</td>
+<td align="right">3.88</td>
+<td align="right">3.45</td>
+<td align="right">2.27</td>
+<td align="right">6.25</td>
+</tr>
+</tbody>
+</table>
+<p>Each of the people below plans to go shopping for those foods. Their grocery lists are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Quintin</th>
+<th align="right">Rachel</th>
+<th align="right">Sebastian</th>
+<th align="right">Trevor</th>
+<th align="right">Ursula</th>
+<th align="right">Venus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">apple</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">banana</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">cherry</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">durian</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">eggplant</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">fig</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">grapefruit</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">honeydew</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>We can create these matrices in <a href="https://chadworley.github.io/sage.html">SageMath</a> using the following commands:</p>
+<pre><code>P = matrix([[1.85,0.75,5.21,8.78,4.02,4.70,3.47,4.68],
+            [1.46,1.02,5.96,6.45,4.76,3.36,3.17,6.67],
+            [1.49,1.01,5.53,9.05,5.00,4.94,3.10,5.78],
+            [1.57,0.72,5.54,9.96,4.20,3.93,3.12,6.55],
+            [1.72,0.93,7.02,9.85,3.88,3.45,2.27,6.25]])
+
+Q = matrix([[1,4,0,0,1,0],
+            [1,1,0,3,0,4],
+            [2,2,4,2,0,1],
+            [2,2,2,1,2,1],
+            [1,0,2,4,3,3],
+            [2,1,1,0,0,0],
+            [0,0,1,0,4,2],
+            [3,1,0,2,1,1]])</code></pre>
+<p>The product, <span class="math inline">\(A\)</span>, of those two matrices can be calculated in SageMath. Notice, in programming languages the <code>=</code> symbol is the <a href="https://doc.sagemath.org/html/en/tutorial/tour_assignment.html">assignment operator</a>. This means the expression on the right is evaluated and stored into the variable on the left.</p>
+<pre><code>A = P*Q</code></pre>
+<p>The result can be printed using <a href="https://doc.sagemath.org/html/en/reference/repl/sage/repl/rich_output/pretty_print.html"><code>pretty_print</code> function</a>.</p>
+<pre><code>pretty_print(A)</code></pre>
+<p>After you run those commands, you should see a matrix filled with all the possible totals spent by various people at various stores. What is the maximum possible cost of a grocery trip?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The maximum cost is 65.92 USD. When you run the lines of code, you should get the following matrix:</p>
+<p><span class="math display">\[\begin{bmatrix}
+58.04 &amp; 45.51 &amp; 54.61 &amp; 46.89 &amp; 50.03 &amp; 40.67\\
+58.79 &amp; 41.71 &amp; 52.79 &amp; 53.81 &amp; 47.99 &amp; 43.78\\
+63.88 &amp; 46.85 &amp; 58.26 &amp; 54.7 &amp; 52.77 &amp; 45.6\\
+65 &amp; 48.48 &amp; 57.53 &amp; 53.1 &amp; 53.12 &amp; 43.77\\
+65.92 &amp; 51.25 &amp; 61.26 &amp; 54.7 &amp; 48.39 &amp; 43.02
+\end{bmatrix}\]</span>
+If there are many trailing 0s, you can use the <a href="https://doc.sagemath.org/html/en/reference/misc/sage/misc/functional.html#sage.misc.functional.n"><code>n</code> function</a> to get numerical approximations.</p>
+<pre><code>P = matrix([[1.85,0.75,5.21,8.78,4.02,4.70,3.47,4.68],
+            [1.46,1.02,5.96,6.45,4.76,3.36,3.17,6.67],
+            [1.49,1.01,5.53,9.05,5.00,4.94,3.10,5.78],
+            [1.57,0.72,5.54,9.96,4.20,3.93,3.12,6.55],
+            [1.72,0.93,7.02,9.85,3.88,3.45,2.27,6.25]])
+Q = matrix([[1,4,0,0,1,0],
+            [1,1,0,3,0,4],
+            [2,2,4,2,0,1],
+            [2,2,2,1,2,1],
+            [1,0,2,4,3,3],
+            [2,1,1,0,0,0],
+            [0,0,1,0,4,2],
+            [3,1,0,2,1,1]])
+A = P*Q
+B = n(A,digits=4)
+pretty_print(B)</code></pre>
+<p>You can manually identify the maximum cost.</p>
+<p><a href="https://ask.sagemath.org/question/10344/maximum-element-of-a-matrix/">Getting sagemath to identify the largest element is annoyingly unintuitive.</a></p>
+<pre><code>print(max(B.list()))</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A few grocery stores’ prices (in USD) for some foods are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">apple</th>
+<th align="right">banana</th>
+<th align="right">cherry</th>
+<th align="right">durian</th>
+<th align="right">eggplant</th>
+<th align="right">fig</th>
+<th align="right">grapefruit</th>
+<th align="right">honeydew</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lovely Lunches</td>
+<td align="right">1.34</td>
+<td align="right">1.11</td>
+<td align="right">5.70</td>
+<td align="right">7.85</td>
+<td align="right">4.82</td>
+<td align="right">4.23</td>
+<td align="right">2.52</td>
+<td align="right">5.27</td>
+</tr>
+<tr class="even">
+<td align="left">More Munchies</td>
+<td align="right">1.19</td>
+<td align="right">0.87</td>
+<td align="right">6.31</td>
+<td align="right">7.58</td>
+<td align="right">4.58</td>
+<td align="right">4.01</td>
+<td align="right">2.80</td>
+<td align="right">4.62</td>
+</tr>
+<tr class="odd">
+<td align="left">Nick’s Necessities</td>
+<td align="right">1.14</td>
+<td align="right">0.89</td>
+<td align="right">4.59</td>
+<td align="right">8.98</td>
+<td align="right">4.59</td>
+<td align="right">4.66</td>
+<td align="right">3.05</td>
+<td align="right">4.63</td>
+</tr>
+<tr class="even">
+<td align="left">Overpriced Options</td>
+<td align="right">1.17</td>
+<td align="right">0.80</td>
+<td align="right">4.87</td>
+<td align="right">6.95</td>
+<td align="right">3.25</td>
+<td align="right">4.42</td>
+<td align="right">3.35</td>
+<td align="right">4.57</td>
+</tr>
+<tr class="odd">
+<td align="left">Price Pincher</td>
+<td align="right">1.30</td>
+<td align="right">0.87</td>
+<td align="right">5.80</td>
+<td align="right">9.41</td>
+<td align="right">3.89</td>
+<td align="right">4.57</td>
+<td align="right">2.89</td>
+<td align="right">7.10</td>
+</tr>
+</tbody>
+</table>
+<p>Each of the people below plans to go shopping for those foods. Their grocery lists are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Quintin</th>
+<th align="right">Rachel</th>
+<th align="right">Sebastian</th>
+<th align="right">Trevor</th>
+<th align="right">Ursula</th>
+<th align="right">Venus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">apple</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">banana</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">cherry</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">durian</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">eggplant</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">fig</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">grapefruit</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">honeydew</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>We can create these matrices in <a href="https://chadworley.github.io/sage.html">SageMath</a> using the following commands:</p>
+<pre><code>P = matrix([[1.34,1.11,5.70,7.85,4.82,4.23,2.52,5.27],
+            [1.19,0.87,6.31,7.58,4.58,4.01,2.80,4.62],
+            [1.14,0.89,4.59,8.98,4.59,4.66,3.05,4.63],
+            [1.17,0.80,4.87,6.95,3.25,4.42,3.35,4.57],
+            [1.30,0.87,5.80,9.41,3.89,4.57,2.89,7.10]])
+
+Q = matrix([[1,0,2,1,1,0],
+            [0,0,0,4,1,2],
+            [2,1,3,2,2,1],
+            [0,2,2,2,1,4],
+            [1,1,0,1,0,3],
+            [0,0,2,1,2,2],
+            [0,0,1,0,0,0],
+            [1,2,0,2,0,1]])</code></pre>
+<p>The product, <span class="math inline">\(A\)</span>, of those two matrices can be calculated in SageMath. Notice, in programming languages the <code>=</code> symbol is the <a href="https://doc.sagemath.org/html/en/tutorial/tour_assignment.html">assignment operator</a>. This means the expression on the right is evaluated and stored into the variable on the left.</p>
+<pre><code>A = P*Q</code></pre>
+<p>The result can be printed using <a href="https://doc.sagemath.org/html/en/reference/repl/sage/repl/rich_output/pretty_print.html"><code>pretty_print</code> function</a>.</p>
+<pre><code>pretty_print(A)</code></pre>
+<p>After you run those commands, you should see a matrix filled with all the possible totals spent by various people at various stores. What is the maximum possible cost of a grocery trip?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The maximum cost is 73.09 USD. When you run the lines of code, you should get the following matrix:</p>
+<p><span class="math display">\[\begin{bmatrix}
+22.83 &amp; 36.76 &amp; 46.46 &amp; 52.47 &amp; 30.16 &amp; 67.51\\
+23.01 &amp; 35.29 &amp; 47.29 &amp; 50.28 &amp; 30.28 &amp; 64.75\\
+19.54 &amp; 36.4 &amp; 46.38 &amp; 50.35 &amp; 29.51 &amp; 70.01\\
+18.73 &amp; 31.16 &amp; 43.04 &amp; 44.82 &amp; 27.5 &amp; 57.43\\
+23.89 &amp; 42.71 &amp; 50.85 &amp; 57.86 &amp; 32.32 &amp; 73.09
+\end{bmatrix}\]</span>
+If there are many trailing 0s, you can use the <a href="https://doc.sagemath.org/html/en/reference/misc/sage/misc/functional.html#sage.misc.functional.n"><code>n</code> function</a> to get numerical approximations.</p>
+<pre><code>P = matrix([[1.34,1.11,5.70,7.85,4.82,4.23,2.52,5.27],
+            [1.19,0.87,6.31,7.58,4.58,4.01,2.80,4.62],
+            [1.14,0.89,4.59,8.98,4.59,4.66,3.05,4.63],
+            [1.17,0.80,4.87,6.95,3.25,4.42,3.35,4.57],
+            [1.30,0.87,5.80,9.41,3.89,4.57,2.89,7.10]])
+Q = matrix([[1,0,2,1,1,0],
+            [0,0,0,4,1,2],
+            [2,1,3,2,2,1],
+            [0,2,2,2,1,4],
+            [1,1,0,1,0,3],
+            [0,0,2,1,2,2],
+            [0,0,1,0,0,0],
+            [1,2,0,2,0,1]])
+A = P*Q
+B = n(A,digits=4)
+pretty_print(B)</code></pre>
+<p>You can manually identify the maximum cost.</p>
+<p><a href="https://ask.sagemath.org/question/10344/maximum-element-of-a-matrix/">Getting sagemath to identify the largest element is annoyingly unintuitive.</a></p>
+<pre><code>print(max(B.list()))</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A few grocery stores’ prices (in USD) for some foods are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">apple</th>
+<th align="right">banana</th>
+<th align="right">cherry</th>
+<th align="right">durian</th>
+<th align="right">eggplant</th>
+<th align="right">fig</th>
+<th align="right">grapefruit</th>
+<th align="right">honeydew</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lovely Lunches</td>
+<td align="right">1.65</td>
+<td align="right">0.98</td>
+<td align="right">5.64</td>
+<td align="right">8.96</td>
+<td align="right">3.62</td>
+<td align="right">4.60</td>
+<td align="right">2.34</td>
+<td align="right">4.96</td>
+</tr>
+<tr class="even">
+<td align="left">More Munchies</td>
+<td align="right">1.44</td>
+<td align="right">0.78</td>
+<td align="right">5.46</td>
+<td align="right">9.82</td>
+<td align="right">3.33</td>
+<td align="right">3.42</td>
+<td align="right">3.11</td>
+<td align="right">6.13</td>
+</tr>
+<tr class="odd">
+<td align="left">Nick’s Necessities</td>
+<td align="right">1.17</td>
+<td align="right">1.00</td>
+<td align="right">7.42</td>
+<td align="right">7.60</td>
+<td align="right">3.62</td>
+<td align="right">4.62</td>
+<td align="right">2.43</td>
+<td align="right">6.98</td>
+</tr>
+<tr class="even">
+<td align="left">Overpriced Options</td>
+<td align="right">1.71</td>
+<td align="right">1.01</td>
+<td align="right">4.76</td>
+<td align="right">6.80</td>
+<td align="right">3.30</td>
+<td align="right">4.09</td>
+<td align="right">2.29</td>
+<td align="right">4.90</td>
+</tr>
+<tr class="odd">
+<td align="left">Price Pincher</td>
+<td align="right">1.81</td>
+<td align="right">0.76</td>
+<td align="right">5.85</td>
+<td align="right">7.97</td>
+<td align="right">4.56</td>
+<td align="right">4.59</td>
+<td align="right">2.56</td>
+<td align="right">5.88</td>
+</tr>
+</tbody>
+</table>
+<p>Each of the people below plans to go shopping for those foods. Their grocery lists are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Quintin</th>
+<th align="right">Rachel</th>
+<th align="right">Sebastian</th>
+<th align="right">Trevor</th>
+<th align="right">Ursula</th>
+<th align="right">Venus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">apple</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">banana</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">cherry</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">durian</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">eggplant</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">fig</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">grapefruit</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">honeydew</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+<p>We can create these matrices in <a href="https://chadworley.github.io/sage.html">SageMath</a> using the following commands:</p>
+<pre><code>P = matrix([[1.65,0.98,5.64,8.96,3.62,4.60,2.34,4.96],
+            [1.44,0.78,5.46,9.82,3.33,3.42,3.11,6.13],
+            [1.17,1.00,7.42,7.60,3.62,4.62,2.43,6.98],
+            [1.71,1.01,4.76,6.80,3.30,4.09,2.29,4.90],
+            [1.81,0.76,5.85,7.97,4.56,4.59,2.56,5.88]])
+
+Q = matrix([[4,0,3,1,0,0],
+            [0,1,2,2,2,0],
+            [1,0,1,3,0,1],
+            [2,2,0,2,1,1],
+            [0,1,4,0,2,2],
+            [1,2,2,1,2,0],
+            [2,4,0,1,0,2],
+            [0,2,1,0,0,2]])</code></pre>
+<p>The product, <span class="math inline">\(A\)</span>, of those two matrices can be calculated in SageMath. Notice, in programming languages the <code>=</code> symbol is the <a href="https://doc.sagemath.org/html/en/tutorial/tour_assignment.html">assignment operator</a>. This means the expression on the right is evaluated and stored into the variable on the left.</p>
+<pre><code>A = P*Q</code></pre>
+<p>The result can be printed using <a href="https://doc.sagemath.org/html/en/reference/repl/sage/repl/rich_output/pretty_print.html"><code>pretty_print</code> function</a>.</p>
+<pre><code>pretty_print(A)</code></pre>
+<p>After you run those commands, you should see a matrix filled with all the possible totals spent by various people at various stores. What is the maximum possible cost of a grocery trip?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The maximum cost is 55.29 USD. When you run the lines of code, you should get the following matrix:</p>
+<p><span class="math display">\[\begin{bmatrix}
+39.44 &amp; 51 &amp; 41.19 &amp; 45.39 &amp; 27.36 &amp; 36.44\\
+40.5 &amp; 55.29 &amp; 37.63 &amp; 45.55 &amp; 24.88 &amp; 40.42\\
+36.78 &amp; 52.74 &amp; 43.63 &amp; 47.68 &amp; 26.08 &amp; 41.08\\
+33.87 &amp; 45.05 &amp; 38.19 &amp; 37.99 &amp; 23.6 &amp; 32.54\\
+38.74 &amp; 52.44 &amp; 46.1 &amp; 43.97 &amp; 27.79 &amp; 39.82
+\end{bmatrix}\]</span>
+If there are many trailing 0s, you can use the <a href="https://doc.sagemath.org/html/en/reference/misc/sage/misc/functional.html#sage.misc.functional.n"><code>n</code> function</a> to get numerical approximations.</p>
+<pre><code>P = matrix([[1.65,0.98,5.64,8.96,3.62,4.60,2.34,4.96],
+            [1.44,0.78,5.46,9.82,3.33,3.42,3.11,6.13],
+            [1.17,1.00,7.42,7.60,3.62,4.62,2.43,6.98],
+            [1.71,1.01,4.76,6.80,3.30,4.09,2.29,4.90],
+            [1.81,0.76,5.85,7.97,4.56,4.59,2.56,5.88]])
+Q = matrix([[4,0,3,1,0,0],
+            [0,1,2,2,2,0],
+            [1,0,1,3,0,1],
+            [2,2,0,2,1,1],
+            [0,1,4,0,2,2],
+            [1,2,2,1,2,0],
+            [2,4,0,1,0,2],
+            [0,2,1,0,0,2]])
+A = P*Q
+B = n(A,digits=4)
+pretty_print(B)</code></pre>
+<p>You can manually identify the maximum cost.</p>
+<p><a href="https://ask.sagemath.org/question/10344/maximum-element-of-a-matrix/">Getting sagemath to identify the largest element is annoyingly unintuitive.</a></p>
+<pre><code>print(max(B.list()))</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A few grocery stores’ prices (in USD) for some foods are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">apple</th>
+<th align="right">banana</th>
+<th align="right">cherry</th>
+<th align="right">durian</th>
+<th align="right">eggplant</th>
+<th align="right">fig</th>
+<th align="right">grapefruit</th>
+<th align="right">honeydew</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lovely Lunches</td>
+<td align="right">1.23</td>
+<td align="right">0.74</td>
+<td align="right">4.88</td>
+<td align="right">9.99</td>
+<td align="right">4.74</td>
+<td align="right">3.09</td>
+<td align="right">3.12</td>
+<td align="right">6.72</td>
+</tr>
+<tr class="even">
+<td align="left">More Munchies</td>
+<td align="right">1.36</td>
+<td align="right">0.76</td>
+<td align="right">6.71</td>
+<td align="right">7.24</td>
+<td align="right">3.10</td>
+<td align="right">4.89</td>
+<td align="right">2.93</td>
+<td align="right">4.68</td>
+</tr>
+<tr class="odd">
+<td align="left">Nick’s Necessities</td>
+<td align="right">1.83</td>
+<td align="right">1.03</td>
+<td align="right">7.44</td>
+<td align="right">9.38</td>
+<td align="right">4.80</td>
+<td align="right">3.25</td>
+<td align="right">2.50</td>
+<td align="right">4.91</td>
+</tr>
+<tr class="even">
+<td align="left">Overpriced Options</td>
+<td align="right">1.38</td>
+<td align="right">0.68</td>
+<td align="right">6.34</td>
+<td align="right">9.71</td>
+<td align="right">3.46</td>
+<td align="right">3.86</td>
+<td align="right">3.22</td>
+<td align="right">5.93</td>
+</tr>
+<tr class="odd">
+<td align="left">Price Pincher</td>
+<td align="right">1.42</td>
+<td align="right">0.88</td>
+<td align="right">6.63</td>
+<td align="right">7.81</td>
+<td align="right">3.20</td>
+<td align="right">5.00</td>
+<td align="right">3.55</td>
+<td align="right">7.04</td>
+</tr>
+</tbody>
+</table>
+<p>Each of the people below plans to go shopping for those foods. Their grocery lists are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Quintin</th>
+<th align="right">Rachel</th>
+<th align="right">Sebastian</th>
+<th align="right">Trevor</th>
+<th align="right">Ursula</th>
+<th align="right">Venus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">apple</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">banana</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">cherry</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">durian</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">eggplant</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">fig</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">grapefruit</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">honeydew</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+<p>We can create these matrices in <a href="https://chadworley.github.io/sage.html">SageMath</a> using the following commands:</p>
+<pre><code>P = matrix([[1.23,0.74,4.88,9.99,4.74,3.09,3.12,6.72],
+            [1.36,0.76,6.71,7.24,3.10,4.89,2.93,4.68],
+            [1.83,1.03,7.44,9.38,4.80,3.25,2.50,4.91],
+            [1.38,0.68,6.34,9.71,3.46,3.86,3.22,5.93],
+            [1.42,0.88,6.63,7.81,3.20,5.00,3.55,7.04]])
+
+Q = matrix([[4,0,2,0,0,0],
+            [2,2,0,2,1,2],
+            [2,1,2,2,0,0],
+            [1,2,1,2,4,0],
+            [1,0,0,3,1,2],
+            [0,0,2,1,2,2],
+            [0,2,0,1,3,1],
+            [0,0,3,4,2,4]])</code></pre>
+<p>The product, <span class="math inline">\(A\)</span>, of those two matrices can be calculated in SageMath. Notice, in programming languages the <code>=</code> symbol is the <a href="https://doc.sagemath.org/html/en/tutorial/tour_assignment.html">assignment operator</a>. This means the expression on the right is evaluated and stored into the variable on the left.</p>
+<pre><code>A = P*Q</code></pre>
+<p>The result can be printed using <a href="https://doc.sagemath.org/html/en/reference/repl/sage/repl/rich_output/pretty_print.html"><code>pretty_print</code> function</a>.</p>
+<pre><code>pretty_print(A)</code></pre>
+<p>After you run those commands, you should see a matrix filled with all the possible totals spent by various people at various stores. What is the maximum possible cost of a grocery trip?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The maximum cost is 78.53 USD. When you run the lines of code, you should get the following matrix:</p>
+<p><span class="math display">\[\begin{bmatrix}
+30.89 &amp; 32.58 &amp; 48.55 &amp; 78.53 &amp; 74.42 &amp; 47.14\\
+30.72 &amp; 28.57 &amp; 47.2 &amp; 65.26 &amp; 60.75 &amp; 39.15\\
+38.44 &amp; 33.26 &amp; 49.15 &amp; 75.49 &amp; 67.17 &amp; 40.3\\
+32.73 &amp; 33.56 &amp; 50.66 &amp; 74.64 &amp; 72.22 &amp; 42.94\\
+31.71 &amp; 31.11 &amp; 55.03 &amp; 76.95 &amp; 70.05 &amp; 49.87
+\end{bmatrix}\]</span>
+If there are many trailing 0s, you can use the <a href="https://doc.sagemath.org/html/en/reference/misc/sage/misc/functional.html#sage.misc.functional.n"><code>n</code> function</a> to get numerical approximations.</p>
+<pre><code>P = matrix([[1.23,0.74,4.88,9.99,4.74,3.09,3.12,6.72],
+            [1.36,0.76,6.71,7.24,3.10,4.89,2.93,4.68],
+            [1.83,1.03,7.44,9.38,4.80,3.25,2.50,4.91],
+            [1.38,0.68,6.34,9.71,3.46,3.86,3.22,5.93],
+            [1.42,0.88,6.63,7.81,3.20,5.00,3.55,7.04]])
+Q = matrix([[4,0,2,0,0,0],
+            [2,2,0,2,1,2],
+            [2,1,2,2,0,0],
+            [1,2,1,2,4,0],
+            [1,0,0,3,1,2],
+            [0,0,2,1,2,2],
+            [0,2,0,1,3,1],
+            [0,0,3,4,2,4]])
+A = P*Q
+B = n(A,digits=4)
+pretty_print(B)</code></pre>
+<p>You can manually identify the maximum cost.</p>
+<p><a href="https://ask.sagemath.org/question/10344/maximum-element-of-a-matrix/">Getting sagemath to identify the largest element is annoyingly unintuitive.</a></p>
+<pre><code>print(max(B.list()))</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A few grocery stores’ prices (in USD) for some foods are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">apple</th>
+<th align="right">banana</th>
+<th align="right">cherry</th>
+<th align="right">durian</th>
+<th align="right">eggplant</th>
+<th align="right">fig</th>
+<th align="right">grapefruit</th>
+<th align="right">honeydew</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lovely Lunches</td>
+<td align="right">1.55</td>
+<td align="right">0.79</td>
+<td align="right">6.16</td>
+<td align="right">6.90</td>
+<td align="right">3.44</td>
+<td align="right">3.72</td>
+<td align="right">2.42</td>
+<td align="right">7.23</td>
+</tr>
+<tr class="even">
+<td align="left">More Munchies</td>
+<td align="right">1.82</td>
+<td align="right">0.91</td>
+<td align="right">6.92</td>
+<td align="right">8.34</td>
+<td align="right">3.01</td>
+<td align="right">4.86</td>
+<td align="right">2.56</td>
+<td align="right">6.05</td>
+</tr>
+<tr class="odd">
+<td align="left">Nick’s Necessities</td>
+<td align="right">1.87</td>
+<td align="right">0.70</td>
+<td align="right">7.19</td>
+<td align="right">6.22</td>
+<td align="right">3.78</td>
+<td align="right">3.05</td>
+<td align="right">2.92</td>
+<td align="right">5.02</td>
+</tr>
+<tr class="even">
+<td align="left">Overpriced Options</td>
+<td align="right">1.32</td>
+<td align="right">0.70</td>
+<td align="right">6.78</td>
+<td align="right">8.00</td>
+<td align="right">4.46</td>
+<td align="right">4.60</td>
+<td align="right">3.11</td>
+<td align="right">5.81</td>
+</tr>
+<tr class="odd">
+<td align="left">Price Pincher</td>
+<td align="right">1.66</td>
+<td align="right">0.71</td>
+<td align="right">5.84</td>
+<td align="right">6.42</td>
+<td align="right">3.66</td>
+<td align="right">3.50</td>
+<td align="right">2.27</td>
+<td align="right">7.13</td>
+</tr>
+</tbody>
+</table>
+<p>Each of the people below plans to go shopping for those foods. Their grocery lists are shown.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Quintin</th>
+<th align="right">Rachel</th>
+<th align="right">Sebastian</th>
+<th align="right">Trevor</th>
+<th align="right">Ursula</th>
+<th align="right">Venus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">apple</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">banana</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">cherry</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">durian</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">eggplant</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">fig</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">grapefruit</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">honeydew</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p>We can create these matrices in <a href="https://chadworley.github.io/sage.html">SageMath</a> using the following commands:</p>
+<pre><code>P = matrix([[1.55,0.79,6.16,6.90,3.44,3.72,2.42,7.23],
+            [1.82,0.91,6.92,8.34,3.01,4.86,2.56,6.05],
+            [1.87,0.70,7.19,6.22,3.78,3.05,2.92,5.02],
+            [1.32,0.70,6.78,8.00,4.46,4.60,3.11,5.81],
+            [1.66,0.71,5.84,6.42,3.66,3.50,2.27,7.13]])
+
+Q = matrix([[1,1,1,1,1,1],
+            [0,0,0,2,2,0],
+            [1,2,3,2,4,3],
+            [0,0,2,0,0,2],
+            [2,2,4,1,0,2],
+            [0,4,2,0,0,1],
+            [2,2,1,0,1,4],
+            [3,0,0,2,2,0]])</code></pre>
+<p>The product, <span class="math inline">\(A\)</span>, of those two matrices can be calculated in SageMath. Notice, in programming languages the <code>=</code> symbol is the <a href="https://doc.sagemath.org/html/en/tutorial/tour_assignment.html">assignment operator</a>. This means the expression on the right is evaluated and stored into the variable on the left.</p>
+<pre><code>A = P*Q</code></pre>
+<p>The result can be printed using <a href="https://doc.sagemath.org/html/en/reference/repl/sage/repl/rich_output/pretty_print.html"><code>pretty_print</code> function</a>.</p>
+<pre><code>pretty_print(A)</code></pre>
+<p>After you run those commands, you should see a matrix filled with all the possible totals spent by various people at various stores. What is the maximum possible cost of a grocery trip?</p>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The maximum cost is 67.81 USD. When you run the lines of code, you should get the following matrix:</p>
+<p><span class="math display">\[\begin{bmatrix}
+41.12 &amp; 40.47 &amp; 57.45 &amp; 33.35 &amp; 44.65 &amp; 54.11\\
+38.03 &amp; 46.24 &amp; 63.58 &amp; 32.59 &amp; 45.98 &amp; 60.38\\
+37.52 &amp; 41.85 &amp; 60.02 &amp; 31.47 &amp; 44.99 &amp; 58.17\\
+40.67 &amp; 48.42 &amp; 67.81 &amp; 32.36 &amp; 44.57 &amp; 63.62\\
+40.75 &amp; 39.2 &amp; 55.93 &amp; 32.68 &amp; 42.97 &amp; 51.92
+\end{bmatrix}\]</span>
+If there are many trailing 0s, you can use the <a href="https://doc.sagemath.org/html/en/reference/misc/sage/misc/functional.html#sage.misc.functional.n"><code>n</code> function</a> to get numerical approximations.</p>
+<pre><code>P = matrix([[1.55,0.79,6.16,6.90,3.44,3.72,2.42,7.23],
+            [1.82,0.91,6.92,8.34,3.01,4.86,2.56,6.05],
+            [1.87,0.70,7.19,6.22,3.78,3.05,2.92,5.02],
+            [1.32,0.70,6.78,8.00,4.46,4.60,3.11,5.81],
+            [1.66,0.71,5.84,6.42,3.66,3.50,2.27,7.13]])
+Q = matrix([[1,1,1,1,1,1],
+            [0,0,0,2,2,0],
+            [1,2,3,2,4,3],
+            [0,0,2,0,0,2],
+            [2,2,4,1,0,2],
+            [0,4,2,0,0,1],
+            [2,2,1,0,1,4],
+            [3,0,0,2,2,0]])
+A = P*Q
+B = n(A,digits=4)
+pretty_print(B)</code></pre>
+<p>You can manually identify the maximum cost.</p>
+<p><a href="https://ask.sagemath.org/question/10344/maximum-element-of-a-matrix/">Getting sagemath to identify the largest element is annoyingly unintuitive.</a></p>
+<pre><code>print(max(B.list()))</code></pre>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

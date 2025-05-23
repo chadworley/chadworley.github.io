@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>15_2D_rotation_mat_post</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">15_2D_rotation_mat_post</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The <a href="https://en.wikipedia.org/wiki/Rotation_matrix">2D rotation matrix</a> is defined below for a counter-clockwise rotation by an angle <span class="math inline">\(\theta\)</span> when it is the <strong>second operand</strong> in matrix multiplication. (<em>Note: wikipedia’s article shows the more standard left operator. I’m opting for the right-operator definition for various mysterious reasons…</em>)</p>
+<p><span class="math display">\[R = \begin{bmatrix}\cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{bmatrix} \]</span></p>
+<p>Let <span class="math inline">\(\theta=1.40\)</span> radians. Determine <span class="math inline">\(R\)</span> (approximate decimal values).</p>
+<p><span class="math inline">\(R =\)</span></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.17</option><option>0.17</option><option>0.99 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.17</option><option>0.17</option><option>0.99 </option></select></td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.17</option><option>0.17</option><option>0.99 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.17</option><option>0.17</option><option>0.99 </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[R = \begin{bmatrix}
+0.17 &amp; 0.99\\
+-0.99 &amp; 0.17
+\end{bmatrix}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The <a href="https://en.wikipedia.org/wiki/Rotation_matrix">2D rotation matrix</a> is defined below for a counter-clockwise rotation by an angle <span class="math inline">\(\theta\)</span> when it is the <strong>second operand</strong> in matrix multiplication. (<em>Note: wikipedia’s article shows the more standard left operator. I’m opting for the right-operator definition for various mysterious reasons…</em>)</p>
+<p><span class="math display">\[R = \begin{bmatrix}\cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{bmatrix} \]</span></p>
+<p>Let <span class="math inline">\(\theta=1.70\)</span> radians. Determine <span class="math inline">\(R\)</span> (approximate decimal values).</p>
+<p><span class="math inline">\(R =\)</span></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.13</option><option>0.13</option><option>0.99 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.13</option><option>0.13</option><option>0.99 </option></select></td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.13</option><option>0.13</option><option>0.99 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.13</option><option>0.13</option><option>0.99 </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[R = \begin{bmatrix}
+-0.13 &amp; 0.99\\
+-0.99 &amp; -0.13
+\end{bmatrix}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The <a href="https://en.wikipedia.org/wiki/Rotation_matrix">2D rotation matrix</a> is defined below for a counter-clockwise rotation by an angle <span class="math inline">\(\theta\)</span> when it is the <strong>second operand</strong> in matrix multiplication. (<em>Note: wikipedia’s article shows the more standard left operator. I’m opting for the right-operator definition for various mysterious reasons…</em>)</p>
+<p><span class="math display">\[R = \begin{bmatrix}\cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{bmatrix} \]</span></p>
+<p>Let <span class="math inline">\(\theta=0.24\)</span> radians. Determine <span class="math inline">\(R\)</span> (approximate decimal values).</p>
+<p><span class="math inline">\(R =\)</span></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center"><select><option>--------</option><option> -0.97</option><option>-0.24</option><option>0.24</option><option>0.97 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.97</option><option>-0.24</option><option>0.24</option><option>0.97 </option></select></td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> -0.97</option><option>-0.24</option><option>0.24</option><option>0.97 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.97</option><option>-0.24</option><option>0.24</option><option>0.97 </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[R = \begin{bmatrix}
+0.97 &amp; 0.24\\
+-0.24 &amp; 0.97
+\end{bmatrix}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The <a href="https://en.wikipedia.org/wiki/Rotation_matrix">2D rotation matrix</a> is defined below for a counter-clockwise rotation by an angle <span class="math inline">\(\theta\)</span> when it is the <strong>second operand</strong> in matrix multiplication. (<em>Note: wikipedia’s article shows the more standard left operator. I’m opting for the right-operator definition for various mysterious reasons…</em>)</p>
+<p><span class="math display">\[R = \begin{bmatrix}\cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{bmatrix} \]</span></p>
+<p>Let <span class="math inline">\(\theta=0.86\)</span> radians. Determine <span class="math inline">\(R\)</span> (approximate decimal values).</p>
+<p><span class="math inline">\(R =\)</span></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center"><select><option>--------</option><option> -0.76</option><option>-0.65</option><option>0.65</option><option>0.76 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.76</option><option>-0.65</option><option>0.65</option><option>0.76 </option></select></td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> -0.76</option><option>-0.65</option><option>0.65</option><option>0.76 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.76</option><option>-0.65</option><option>0.65</option><option>0.76 </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[R = \begin{bmatrix}
+0.65 &amp; 0.76\\
+-0.76 &amp; 0.65
+\end{bmatrix}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The <a href="https://en.wikipedia.org/wiki/Rotation_matrix">2D rotation matrix</a> is defined below for a counter-clockwise rotation by an angle <span class="math inline">\(\theta\)</span> when it is the <strong>second operand</strong> in matrix multiplication. (<em>Note: wikipedia’s article shows the more standard left operator. I’m opting for the right-operator definition for various mysterious reasons…</em>)</p>
+<p><span class="math display">\[R = \begin{bmatrix}\cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{bmatrix} \]</span></p>
+<p>Let <span class="math inline">\(\theta=2.05\)</span> radians. Determine <span class="math inline">\(R\)</span> (approximate decimal values).</p>
+<p><span class="math inline">\(R =\)</span></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center"><select><option>--------</option><option> -0.89</option><option>-0.46</option><option>0.46</option><option>0.89 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.89</option><option>-0.46</option><option>0.46</option><option>0.89 </option></select></td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> -0.89</option><option>-0.46</option><option>0.46</option><option>0.89 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.89</option><option>-0.46</option><option>0.46</option><option>0.89 </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[R = \begin{bmatrix}
+-0.46 &amp; 0.89\\
+-0.89 &amp; -0.46
+\end{bmatrix}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The <a href="https://en.wikipedia.org/wiki/Rotation_matrix">2D rotation matrix</a> is defined below for a counter-clockwise rotation by an angle <span class="math inline">\(\theta\)</span> when it is the <strong>second operand</strong> in matrix multiplication. (<em>Note: wikipedia’s article shows the more standard left operator. I’m opting for the right-operator definition for various mysterious reasons…</em>)</p>
+<p><span class="math display">\[R = \begin{bmatrix}\cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{bmatrix} \]</span></p>
+<p>Let <span class="math inline">\(\theta=2.54\)</span> radians. Determine <span class="math inline">\(R\)</span> (approximate decimal values).</p>
+<p><span class="math inline">\(R =\)</span></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center"><select><option>--------</option><option> -0.82</option><option>-0.57</option><option>0.57</option><option>0.82 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.82</option><option>-0.57</option><option>0.57</option><option>0.82 </option></select></td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> -0.82</option><option>-0.57</option><option>0.57</option><option>0.82 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.82</option><option>-0.57</option><option>0.57</option><option>0.82 </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[R = \begin{bmatrix}
+-0.82 &amp; 0.57\\
+-0.57 &amp; -0.82
+\end{bmatrix}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The <a href="https://en.wikipedia.org/wiki/Rotation_matrix">2D rotation matrix</a> is defined below for a counter-clockwise rotation by an angle <span class="math inline">\(\theta\)</span> when it is the <strong>second operand</strong> in matrix multiplication. (<em>Note: wikipedia’s article shows the more standard left operator. I’m opting for the right-operator definition for various mysterious reasons…</em>)</p>
+<p><span class="math display">\[R = \begin{bmatrix}\cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{bmatrix} \]</span></p>
+<p>Let <span class="math inline">\(\theta=2.96\)</span> radians. Determine <span class="math inline">\(R\)</span> (approximate decimal values).</p>
+<p><span class="math inline">\(R =\)</span></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center"><select><option>--------</option><option> -0.98</option><option>-0.18</option><option>0.18</option><option>0.98 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.98</option><option>-0.18</option><option>0.18</option><option>0.98 </option></select></td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> -0.98</option><option>-0.18</option><option>0.18</option><option>0.98 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.98</option><option>-0.18</option><option>0.18</option><option>0.98 </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[R = \begin{bmatrix}
+-0.98 &amp; 0.18\\
+-0.18 &amp; -0.98
+\end{bmatrix}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>The <a href="https://en.wikipedia.org/wiki/Rotation_matrix">2D rotation matrix</a> is defined below for a counter-clockwise rotation by an angle <span class="math inline">\(\theta\)</span> when it is the <strong>second operand</strong> in matrix multiplication. (<em>Note: wikipedia’s article shows the more standard left operator. I’m opting for the right-operator definition for various mysterious reasons…</em>)</p>
+<p><span class="math display">\[R = \begin{bmatrix}\cos(\theta) &amp; \sin(\theta) \\ -\sin(\theta) &amp; \cos(\theta) \end{bmatrix} \]</span></p>
+<p>Let <span class="math inline">\(\theta=3.00\)</span> radians. Determine <span class="math inline">\(R\)</span> (approximate decimal values).</p>
+<p><span class="math inline">\(R =\)</span></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.14</option><option>0.14</option><option>0.99 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.14</option><option>0.14</option><option>0.99 </option></select></td>
+</tr>
+<tr class="even">
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.14</option><option>0.14</option><option>0.99 </option></select></td>
+<td align="center"><select><option>--------</option><option> -0.99</option><option>-0.14</option><option>0.14</option><option>0.99 </option></select></td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p><span class="math display">\[R = \begin{bmatrix}
+-0.99 &amp; 0.14\\
+-0.14 &amp; -0.99
+\end{bmatrix}\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

@@ -5,13 +5,10 @@ import os
 
 
 front = "s19_"
-files = ["06_matrix_dimensions.Rmd",
-"07_can_mats_mult.Rmd",
-"08_dimensions_of_product.Rmd",
-"09_mult_mats_diagram.Rmd",
-"10_mult_mats_dgrm_B.Rmd",
-"11_mult_mats_no_dgrm.Rmd",
-"12_mult_mats.Rmd"]
+files = ["13_groceries_SageMath.Rmd",
+"14_transpose_matrix.Rmd",
+"15_2D_rotation_mat_post.Rmd",
+"16_rotate_2D_points.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u19/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

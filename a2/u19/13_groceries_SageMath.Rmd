@@ -53,7 +53,7 @@ smm2 = function(M){
 Question
 ========
 
-In a [15-minute city](https://en.wikipedia.org/wiki/15-minute_city), all the following grocery stores are within a quick walk, and their prices (in USD) for some foods are shown.
+A few grocery stores' prices (in USD) for some foods are shown.
 
 ```{r,echo=F}
 dfP = data.frame(P)
@@ -79,13 +79,19 @@ P = matrix(`r smm2(P)`)
 Q = matrix(`r smm(Q)`)
 ```
 
-We can find the product of these matrices.
+The product, $A$, of those two matrices can be calculated in SageMath. Notice, in programming languages the `=` symbol is the [assignment operator](https://doc.sagemath.org/html/en/tutorial/tour_assignment.html). This means the expression on the right is evaluated and stored into the variable on the left. 
 
 ```
-pretty_print(P*Q)
+A = P*Q
 ```
 
-What is the maximum possible cost of a grocery trip?
+The result can be printed using [`pretty_print` function](https://doc.sagemath.org/html/en/reference/repl/sage/repl/rich_output/pretty_print.html).
+
+```
+pretty_print(A)
+```
+
+After you run those commands, you should see a matrix filled with all the possible totals spent by various people at various stores. What is the maximum possible cost of a grocery trip?
 
 
 Solution
@@ -99,8 +105,9 @@ If there are many trailing 0s, you can use the [`n` function](https://doc.sagema
 ```
 P = matrix(`r smm2(P)`)
 Q = matrix(`r smm(Q)`)
-C = n(P*Q,digits=4)
-pretty_print(C)
+A = P*Q
+B = n(A,digits=4)
+pretty_print(B)
 ```
 
 You can manually identify the maximum cost.
@@ -108,7 +115,7 @@ You can manually identify the maximum cost.
 [Getting sagemath to identify the largest element is annoyingly unintuitive.](https://ask.sagemath.org/question/10344/maximum-element-of-a-matrix/)
 
 ```
-print(max(C.list()))
+print(max(B.list()))
 ```
 
 

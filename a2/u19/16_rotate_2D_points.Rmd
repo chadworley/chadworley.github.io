@@ -1,0 +1,171 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+while(T){
+  n = sample(8:12,1)
+  points = matrix(sample(-7:7,n*2,T),2)
+  ps = character()
+  for(i in 1:n){
+    ps = c(ps,paste0(points[1:2,i]))
+  }
+  theta = round(runif(4,0.1,2*pi-0.1),2)
+  R = matrix(c(cos(theta),-sin(theta),sin(theta),cos(theta)),nrow=2,byrow = T)
+  if(min(diff(sort(theta)))>0.4 && length(unique(ps))==n){break}
+}
+whth = sample(1:4,1)
+th = theta[whth]
+P = points
+
+sol = paste0(1*(1:4==whth),collapse="")
+
+```
+
+Question
+========
+
+## Matrix of original points (preimage)
+
+A list of 2D-cartesian points is stored as the [preimage](https://en.wikipedia.org/wiki/Image_(mathematics)) matrix. Each row represents one point.
+
+$$P = `r matpr(t(points))`$$
+
+Those points can be expressed in [SageMath](https://sagecell.sagemath.org/).
+
+```
+P = matrix(`r matcc(t(points))`)
+```
+
+If you wanted to visualize those points, you could use the [point function](https://doc.sagemath.org/html/en/reference/plotting/sage/plot/point.html).
+
+```
+point(P,xmin=-10,xmax=10,ymin=-10,ymax=10,size=50,aspect_ratio=1)
+```
+
+
+## Rotation matrix
+
+We want to rotate the points by $\theta=`r th`$ radians counterclockwise. We will do this by matrix multiplication with the 2D rotation matrix. (*We are using a right-operand rotation matrix. The standard approach is to use a left-operand rotation matrix, but I think - for complicated reasons - that we'll be better off using right-operand transformations.*)
+
+$$R = \begin{bmatrix}\cos(\theta) & \sin(\theta) \\ -\sin(\theta) & \cos(\theta) \end{bmatrix}$$
+
+## Image
+
+We can apply the rotation to the points by using matrix multiplication. Remember, matrix multiplication is not commutative. Let $F$ represent a matrix holding the **f**inal positions of the image (after the transformation).
+
+$$F = P\cdot R$$
+
+After you calculate $F$, you can plot the points in $F$ with the following code (in SageMath):
+
+```
+point(F,xmin=-10,xmax=10,ymin=-10,ymax=10,size=50)
+```
+
+Which is the graph of the points in $T$? (Please excuse minor stylistic differences due to my graphs being made in R, not SageMath.)
+
+```{r,echo=F,fig.dim=c(8,8)}
+par(mfrow=c(2,2),pty="s")
+for(i in 1:4){
+  tht = theta[i]
+  R = matrix(c(cos(tht),-sin(tht),sin(tht),cos(tht)),2,byrow = T)
+  tm = R%*%P
+  plot(0,0,type="n",axes=T,ann=T,main=c("A","B","C","D")[i],
+       xlim=c(-10,10),ylim=c(-10,10),xlab="x",ylab="y")
+  abline(h=0)
+  abline(v=0)
+  points(tm[1,],tm[2,],pch=20,cex=2,col="blue")
+}
+
+```
+\
+
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+
+
+Solution
+========
+
+
+```
+P = matrix(`r matcc(t(points))`)
+theta = `r th`
+R = matrix([[cos(theta),sin(theta)],
+            [-sin(theta),cos(theta)]])
+F = P*R
+point(F,xmin=-10,xmax=10,ymin=-10,ymax=10,size=50,aspect_ratio=1)
+```
+
+I think you might appreciate seeing points of matrix $P$ alongside points of matrix $F$. You can get that by running the code shown below:
+
+```
+P = matrix(`r matcc(t(points))`)
+theta = `r th`
+R = matrix([[cos(theta),sin(theta)],
+            [-sin(theta),cos(theta)]])
+F = P*R
+G = Graphics()
+G += point(P,hue=0,xmin=-10,xmax=10,ymin=-10,ymax=10,size=50,aspect_ratio=1)
+G += point(F,hue=0.7,size=50)
+show(G)
+```
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(pty="s")
+tht = theta[i]
+R = matrix(c(cos(th),-sin(th),sin(th),cos(th)),2,byrow = T)
+tm = R%*%P
+plot(0,0,type="n",axes=T,ann=T,main="P in red and F in blue",
+   xlim=c(-10,10),ylim=c(-10,10),xlab="x",ylab="y")
+abline(h=0)
+abline(v=0)
+for(i in 1:dim(P)[2]){
+    px = P[1,i]
+    py = P[2,i]
+    ths = seq(0,th,pi/3600)
+    nn = length(ths)
+    hues = seq(0,0.7,length.out=nn)
+    points(px*cos(ths)-py*sin(ths),px*sin(ths)+py*cos(ths),col=hsv(hues,1,1),pch=19,cex=0.05)
+}
+    
+    
+points(P[1,],P[2,],pch=20,cex=2,col="red")
+points(tm[1,],tm[2,],pch=20,cex=2,col="blue")
+
+
+```
+\
+
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: rotate_2D

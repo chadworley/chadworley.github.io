@@ -1,0 +1,111 @@
+---
+title: "Riley's problem"
+output: 
+    html_document:
+        toc: true
+
+---
+
+# Problem statement
+
+Each day a student is given 3 multiple-choice questions with 4 possible choices but only 1 correct choice. Students are given 3 attempts; after each attempt they are told how many questions they got right, but not which questions were correct.
+
+On each attempt, the questions and choices remain constant, and students remember their past guesses and results.
+
+Also, in this class, only the highest score (of the 3 attempts) counts. So, we are not "simply" maximizing the expected points of the third attempt. I'm not sure if this matters yet, but I think it will.
+
+If we assume the students do not read the questions, but use an optimal strategy, then what is the expected number of correct questions?
+
+# Possible strategies
+
+* The first guess might as well be AAA.
+* From there, the # correct will be 0, 1, 2, or 3.
+    * If 0 correct, next guess is BBB.
+    * If 3 correct, done (3 points awarded)
+    * If 1 or 2 correct, can guess AAB, ABB, or BBB... not sure what's best.
+# The # correct will be 0, 1, 2, or 3.
+    * If 0,BBB,0 then CCC
+    * If 0,BBB,1 then BCC (I proved this true in class)
+    * If 0,BBB,2 then ... not sure
+    * If ......3 then done.
+
+... okay... so many...
+
+* First guess: AAA
+
+* First points: 0, 1, 2, 3
+
+* 26 strats:
+    * AAB, ABA, BAA, ABB, BAB, BBA, BBB, AAC, ACA, CAA, ACC, CAC, CCA, CCC, BBC, BCB, CBB, BCC, CBC, CCB, ABC, ACB, BAC, BCA, CAB, CBA
+
+* Second points: 0, 1, 2, 3
+
+* 26 strats:
+    * AAB, ABA, BAA, ABB, BAB, BBA, BBB, AAC, ACA, CAA, ACC, CAC, CCA, CCC, BBC, BCB, CBB, BCC, CBC, CCB, ABC, ACB, BAC, BCA, CAB, CBA
+
+Only `r 4*26*4*26` branches... and then multiply by 4^3... definitely doable!
+
+
+I think these are all the reasonable guess paths.
+
+AAA
+AAB
+ABA BBA ABB BBB AAC ABC BBC
+
+AAA
+ABB
+AAB ABC ACC AAC BAA BAB BAC BBB BBC BCC
+
+AAA
+BBB
+ABB AAB BBC BCC CCC AAC ACC
+
+
+```{r}
+
+q = c("A","A","A")
+r = list(c("A","A","B"),
+         c("A","B","B"),
+         c("B","B","B"))
+s1 = list(c("A","B","A"),
+          c("B","B","A"),
+          c("A","B","B"),
+          c("B","B","B"),
+          c("A","A","C"),
+          c("A","B","C"),
+          c("B","B","C"))
+s2 = list(c("A","A","B"),
+          c("A","B","C"),
+          c("A","C","C"),
+          c("A","A","C"),
+          c("B","A","A"),
+          c("B","A","B"),
+          c("B","A","C"),
+          c("B","B","B"),
+          c("B","B","C"),
+          c("B","C","C"))
+s3 = list(c("A","B","B"),
+          c("A","A","B"),
+          c("B","B","C"),
+          c("B","C","C"),
+          c("C","C","C"),
+          c("A","A","C"),
+          c("A","C","C"))
+s = list(s1,s2,s3)
+
+z = LETTERS[sample(1:4,3,T)]
+n = length(s1)+length(s2)+length(s3)
+pnts = rep(0,n)
+
+p1 = sum(z==q)
+
+
+
+
+```
+
+
+
+
+
+

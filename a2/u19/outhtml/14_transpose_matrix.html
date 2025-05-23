@@ -1,0 +1,522 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>14_transpose_matrix</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">14_transpose_matrix</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(M\)</span> be defined below:</p>
+<p><span class="math display">\[M = \begin{bmatrix}
+6 &amp; 8\\
+1 &amp; 4\\
+2 &amp; 5\\
+3 &amp; 7
+\end{bmatrix}\]</span></p>
+<p>Which matrix equals <span class="math inline">\(M^\mathrm{T}\)</span>, the <a href="https://en.wikipedia.org/wiki/Transpose">transpose</a> of <span class="math inline">\(M\)</span>?</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+6 &amp; 8\\
+1 &amp; 4\\
+2 &amp; 5\\
+3 &amp; 7
+\end{bmatrix}\]</span>
+<span class="math display">\[B = \begin{bmatrix}
+6 &amp; 1 &amp; 2 &amp; 3\\
+8 &amp; 4 &amp; 5 &amp; 7
+\end{bmatrix}\]</span>
+<span class="math display">\[C = \begin{bmatrix}
+6 &amp; 1\\
+2 &amp; 3\\
+8 &amp; 4\\
+5 &amp; 7
+\end{bmatrix}\]</span>
+<span class="math display">\[D = \begin{bmatrix}
+6 &amp; 2 &amp; 8 &amp; 5\\
+1 &amp; 3 &amp; 4 &amp; 7
+\end{bmatrix}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+A
+</li>
+<li>
+B
+</li>
+<li>
+C
+</li>
+<li>
+D
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can use <a href="https://sagecell.sagemath.org/">SageMath</a>.</p>
+<pre><code>M = matrix([[6,8],
+            [1,4],
+            [2,5],
+            [3,7]])
+print(M.transpose())</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(M\)</span> be defined below:</p>
+<p><span class="math display">\[M = \begin{bmatrix}
+3 &amp; 7\\
+2 &amp; 1\\
+5 &amp; 6\\
+4 &amp; 8
+\end{bmatrix}\]</span></p>
+<p>Which matrix equals <span class="math inline">\(M^\mathrm{T}\)</span>, the <a href="https://en.wikipedia.org/wiki/Transpose">transpose</a> of <span class="math inline">\(M\)</span>?</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+3 &amp; 7\\
+2 &amp; 1\\
+5 &amp; 6\\
+4 &amp; 8
+\end{bmatrix}\]</span>
+<span class="math display">\[B = \begin{bmatrix}
+3 &amp; 2 &amp; 5 &amp; 4\\
+7 &amp; 1 &amp; 6 &amp; 8
+\end{bmatrix}\]</span>
+<span class="math display">\[C = \begin{bmatrix}
+3 &amp; 5 &amp; 7 &amp; 6\\
+2 &amp; 4 &amp; 1 &amp; 8
+\end{bmatrix}\]</span>
+<span class="math display">\[D = \begin{bmatrix}
+3 &amp; 2\\
+5 &amp; 4\\
+7 &amp; 1\\
+6 &amp; 8
+\end{bmatrix}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+A
+</li>
+<li>
+B
+</li>
+<li>
+C
+</li>
+<li>
+D
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can use <a href="https://sagecell.sagemath.org/">SageMath</a>.</p>
+<pre><code>M = matrix([[3,7],
+            [2,1],
+            [5,6],
+            [4,8]])
+print(M.transpose())</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(M\)</span> be defined below:</p>
+<p><span class="math display">\[M = \begin{bmatrix}
+4 &amp; 3 &amp; 8 &amp; 5\\
+7 &amp; 2 &amp; 6 &amp; 1
+\end{bmatrix}\]</span></p>
+<p>Which matrix equals <span class="math inline">\(M^\mathrm{T}\)</span>, the <a href="https://en.wikipedia.org/wiki/Transpose">transpose</a> of <span class="math inline">\(M\)</span>?</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+4 &amp; 3 &amp; 8 &amp; 5\\
+7 &amp; 2 &amp; 6 &amp; 1
+\end{bmatrix}\]</span>
+<span class="math display">\[B = \begin{bmatrix}
+4 &amp; 7 &amp; 3 &amp; 2\\
+8 &amp; 6 &amp; 5 &amp; 1
+\end{bmatrix}\]</span>
+<span class="math display">\[C = \begin{bmatrix}
+4 &amp; 7\\
+3 &amp; 2\\
+8 &amp; 6\\
+5 &amp; 1
+\end{bmatrix}\]</span>
+<span class="math display">\[D = \begin{bmatrix}
+4 &amp; 8\\
+7 &amp; 6\\
+3 &amp; 5\\
+2 &amp; 1
+\end{bmatrix}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+A
+</li>
+<li>
+B
+</li>
+<li>
+C
+</li>
+<li>
+D
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can use <a href="https://sagecell.sagemath.org/">SageMath</a>.</p>
+<pre><code>M = matrix([[4,3,8,5],
+            [7,2,6,1]])
+print(M.transpose())</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(M\)</span> be defined below:</p>
+<p><span class="math display">\[M = \begin{bmatrix}
+6 &amp; 7 &amp; 8 &amp; 1\\
+9 &amp; 4 &amp; 3 &amp; 11\\
+5 &amp; 12 &amp; 10 &amp; 2
+\end{bmatrix}\]</span></p>
+<p>Which matrix equals <span class="math inline">\(M^\mathrm{T}\)</span>, the <a href="https://en.wikipedia.org/wiki/Transpose">transpose</a> of <span class="math inline">\(M\)</span>?</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+6 &amp; 9 &amp; 5\\
+7 &amp; 4 &amp; 12\\
+8 &amp; 3 &amp; 10\\
+1 &amp; 11 &amp; 2
+\end{bmatrix}\]</span>
+<span class="math display">\[B = \begin{bmatrix}
+6 &amp; 4 &amp; 10\\
+9 &amp; 12 &amp; 1\\
+5 &amp; 8 &amp; 11\\
+7 &amp; 3 &amp; 2
+\end{bmatrix}\]</span>
+<span class="math display">\[C = \begin{bmatrix}
+6 &amp; 7 &amp; 8 &amp; 1\\
+9 &amp; 4 &amp; 3 &amp; 11\\
+5 &amp; 12 &amp; 10 &amp; 2
+\end{bmatrix}\]</span>
+<span class="math display">\[D = \begin{bmatrix}
+6 &amp; 9 &amp; 5 &amp; 7\\
+4 &amp; 12 &amp; 8 &amp; 3\\
+10 &amp; 1 &amp; 11 &amp; 2
+\end{bmatrix}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+A
+</li>
+<li>
+B
+</li>
+<li>
+C
+</li>
+<li>
+D
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can use <a href="https://sagecell.sagemath.org/">SageMath</a>.</p>
+<pre><code>M = matrix([[6,7,8,1],
+            [9,4,3,11],
+            [5,12,10,2]])
+print(M.transpose())</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(M\)</span> be defined below:</p>
+<p><span class="math display">\[M = \begin{bmatrix}
+2 &amp; 4\\
+1 &amp; 8\\
+5 &amp; 3\\
+7 &amp; 6
+\end{bmatrix}\]</span></p>
+<p>Which matrix equals <span class="math inline">\(M^\mathrm{T}\)</span>, the <a href="https://en.wikipedia.org/wiki/Transpose">transpose</a> of <span class="math inline">\(M\)</span>?</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+2 &amp; 5 &amp; 4 &amp; 3\\
+1 &amp; 7 &amp; 8 &amp; 6
+\end{bmatrix}\]</span>
+<span class="math display">\[B = \begin{bmatrix}
+2 &amp; 1\\
+5 &amp; 7\\
+4 &amp; 8\\
+3 &amp; 6
+\end{bmatrix}\]</span>
+<span class="math display">\[C = \begin{bmatrix}
+2 &amp; 1 &amp; 5 &amp; 7\\
+4 &amp; 8 &amp; 3 &amp; 6
+\end{bmatrix}\]</span>
+<span class="math display">\[D = \begin{bmatrix}
+2 &amp; 4\\
+1 &amp; 8\\
+5 &amp; 3\\
+7 &amp; 6
+\end{bmatrix}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+A
+</li>
+<li>
+B
+</li>
+<li>
+C
+</li>
+<li>
+D
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can use <a href="https://sagecell.sagemath.org/">SageMath</a>.</p>
+<pre><code>M = matrix([[2,4],
+            [1,8],
+            [5,3],
+            [7,6]])
+print(M.transpose())</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(M\)</span> be defined below:</p>
+<p><span class="math display">\[M = \begin{bmatrix}
+12 &amp; 1 &amp; 6\\
+11 &amp; 8 &amp; 4\\
+10 &amp; 9 &amp; 2\\
+5 &amp; 7 &amp; 3
+\end{bmatrix}\]</span></p>
+<p>Which matrix equals <span class="math inline">\(M^\mathrm{T}\)</span>, the <a href="https://en.wikipedia.org/wiki/Transpose">transpose</a> of <span class="math inline">\(M\)</span>?</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+12 &amp; 5 &amp; 9 &amp; 4\\
+11 &amp; 1 &amp; 7 &amp; 2\\
+10 &amp; 8 &amp; 6 &amp; 3
+\end{bmatrix}\]</span>
+<span class="math display">\[B = \begin{bmatrix}
+12 &amp; 1 &amp; 6\\
+11 &amp; 8 &amp; 4\\
+10 &amp; 9 &amp; 2\\
+5 &amp; 7 &amp; 3
+\end{bmatrix}\]</span>
+<span class="math display">\[C = \begin{bmatrix}
+12 &amp; 11 &amp; 10 &amp; 5\\
+1 &amp; 8 &amp; 9 &amp; 7\\
+6 &amp; 4 &amp; 2 &amp; 3
+\end{bmatrix}\]</span>
+<span class="math display">\[D = \begin{bmatrix}
+12 &amp; 11 &amp; 10\\
+5 &amp; 1 &amp; 8\\
+9 &amp; 7 &amp; 6\\
+4 &amp; 2 &amp; 3
+\end{bmatrix}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+A
+</li>
+<li>
+B
+</li>
+<li>
+C
+</li>
+<li>
+D
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can use <a href="https://sagecell.sagemath.org/">SageMath</a>.</p>
+<pre><code>M = matrix([[12,1,6],
+            [11,8,4],
+            [10,9,2],
+            [5,7,3]])
+print(M.transpose())</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(M\)</span> be defined below:</p>
+<p><span class="math display">\[M = \begin{bmatrix}
+2 &amp; 1 &amp; 5\\
+6 &amp; 4 &amp; 3
+\end{bmatrix}\]</span></p>
+<p>Which matrix equals <span class="math inline">\(M^\mathrm{T}\)</span>, the <a href="https://en.wikipedia.org/wiki/Transpose">transpose</a> of <span class="math inline">\(M\)</span>?</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+2 &amp; 6\\
+1 &amp; 4\\
+5 &amp; 3
+\end{bmatrix}\]</span>
+<span class="math display">\[B = \begin{bmatrix}
+2 &amp; 1 &amp; 5\\
+6 &amp; 4 &amp; 3
+\end{bmatrix}\]</span>
+<span class="math display">\[C = \begin{bmatrix}
+2 &amp; 6 &amp; 1\\
+4 &amp; 5 &amp; 3
+\end{bmatrix}\]</span>
+<span class="math display">\[D = \begin{bmatrix}
+2 &amp; 4\\
+6 &amp; 5\\
+1 &amp; 3
+\end{bmatrix}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+A
+</li>
+<li>
+B
+</li>
+<li>
+C
+</li>
+<li>
+D
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can use <a href="https://sagecell.sagemath.org/">SageMath</a>.</p>
+<pre><code>M = matrix([[2,1,5],
+            [6,4,3]])
+print(M.transpose())</code></pre>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let matrix <span class="math inline">\(M\)</span> be defined below:</p>
+<p><span class="math display">\[M = \begin{bmatrix}
+2 &amp; 11 &amp; 3 &amp; 1\\
+7 &amp; 4 &amp; 10 &amp; 8\\
+5 &amp; 9 &amp; 6 &amp; 12
+\end{bmatrix}\]</span></p>
+<p>Which matrix equals <span class="math inline">\(M^\mathrm{T}\)</span>, the <a href="https://en.wikipedia.org/wiki/Transpose">transpose</a> of <span class="math inline">\(M\)</span>?</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+2 &amp; 7 &amp; 5 &amp; 11\\
+4 &amp; 9 &amp; 3 &amp; 10\\
+6 &amp; 1 &amp; 8 &amp; 12
+\end{bmatrix}\]</span>
+<span class="math display">\[B = \begin{bmatrix}
+2 &amp; 4 &amp; 6\\
+7 &amp; 9 &amp; 1\\
+5 &amp; 3 &amp; 8\\
+11 &amp; 10 &amp; 12
+\end{bmatrix}\]</span>
+<span class="math display">\[C = \begin{bmatrix}
+2 &amp; 11 &amp; 3 &amp; 1\\
+7 &amp; 4 &amp; 10 &amp; 8\\
+5 &amp; 9 &amp; 6 &amp; 12
+\end{bmatrix}\]</span>
+<span class="math display">\[D = \begin{bmatrix}
+2 &amp; 7 &amp; 5\\
+11 &amp; 4 &amp; 9\\
+3 &amp; 10 &amp; 6\\
+1 &amp; 8 &amp; 12
+\end{bmatrix}\]</span></p>
+<br/>
+<ol type="a">
+<li>
+A
+</li>
+<li>
+B
+</li>
+<li>
+C
+</li>
+<li>
+D
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>You can use <a href="https://sagecell.sagemath.org/">SageMath</a>.</p>
+<pre><code>M = matrix([[2,11,3,1],
+            [7,4,10,8],
+            [5,9,6,12]])
+print(M.transpose())</code></pre>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
