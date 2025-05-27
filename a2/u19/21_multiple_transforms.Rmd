@@ -89,24 +89,24 @@ Question
 
 Some basic [2D-transformation matrices](https://en.wikipedia.org/wiki/Transformation_matrix) are shown:
 
-* Horizontal stretch by factor $k$ (reflection if $k=-1$). $$\begin{bmatrix}k & 0 \\ 0 & 1\end{bmatrix}$$
-* Vertical stretch by factor $k$  (reflection if $k=-1$). $$\begin{bmatrix}1 & 0 \\ 0 & k\end{bmatrix}$$
+* Horizontal stretch by factor $k$ (with reflection if $k<0$). $$\begin{bmatrix}k & 0 \\ 0 & 1\end{bmatrix}$$
+* Vertical stretch by factor $k$  (with reflection if $k<0$). $$\begin{bmatrix}1 & 0 \\ 0 & k\end{bmatrix}$$
 * Rotation by angle $\theta$ radians. $$\begin{bmatrix}\cos(\theta) & \sin(\theta) \\ -\sin(\theta) & \cos(\theta)\end{bmatrix}$$
 * Horizontal shearing by factor $k$. $$\begin{bmatrix}1 & 0 \\ k & 1\end{bmatrix}$$
 * Vertical shearing by factor $k$. $$\begin{bmatrix}1 & k \\ 0 & 1\end{bmatrix}$$
 
-When multiple transformations are applied, order matters. If $A$ was the matrix of the first transformation, $B$ was the matrix of the second transformation, $C$ was the matrix of the third transformation, and $X$ was a matrix of column vectors, then the result, $X'$, would be found with the following matrix multiplication:
+When multiple transformations are applied, order matters. If $A$ is the first transformation matrix, $B$ is the second, $C$ was the third, and $X$ was a matrix of row vectors, then the result, $X'$, would be found with the following matrix multiplication:
 $$X' = XABC$$
 Notice, we defined our transformation matrices as right-operands, so the order matches. If we used (the more standard) left-operand transformation matrices, the order would be reverse with $X$ at the end.
 
 ## Problem-specific information
 
-Begin with the points of a unit square.
+We will use [SageMath](https://sagecell.sagemath.org/) to apply 3 transformations of a unit square. Begin with the points of a unit square.
 
-$$X = \begin{bmatrix}0 & 1 & 1 & 0 \\ 0 & 0 & 1 & 1\end{bmatrix}$$
+$$X = \begin{bmatrix}0 & 0 \\ 0 & 1 \\ 1 & 1 \\ 1 & 0\end{bmatrix}$$
 ```
-X = matrix([[0,1,1,0],[0,0,1,1]])
-polygon(X.transpose(),xmin=-5,xmax=5,ymin=-5,ymax=5,aspect_ratio=1,color="red")
+X = matrix([[0,0],[0,1],[1,1],[1,0]])
+polygon(X,xmin=-5,xmax=5,ymin=-5,ymax=5,aspect_ratio=1,color="red")
 ```
 
 Apply the following transformations in the indicated order:
@@ -145,16 +145,16 @@ Solution
 
 The answer is `r c("A","B","C","D")[ord==1]`.
 
-[SageMath](https://sagecell.sagemath.org/)
+[SageMath](https://sagecell.sagemath.org/):
 ```
 mygraph = Graphics()
-X = matrix([[0,1,1,0],[0,0,1,1]])
-mygraph += polygon(X.transpose(),color="red",alpha=0.5)
-A = matrix(`r matcc(A)`)
-B = matrix(`r matcc(B)`)
-C = matrix(`r matcc(C)`)
-XP = C*B*A*X
-mygraph += polygon(XP.transpose(),color="blue",alpha=0.5)
+X = matrix([[0,0],[0,1],[1,1],[1,0]])
+mygraph += polygon(X,color="red",alpha=0.5)
+A = matrix(`r matcc(t(A))`)
+B = matrix(`r matcc(t(B))`)
+C = matrix(`r matcc(t(C))`)
+XP = X*A*B*C
+mygraph += polygon(XP,color="blue",alpha=0.5)
 show(mygraph,xmin=-10,xmax=10,ymin=-10,ymax=10,aspect_ratio=1)
 ```
 

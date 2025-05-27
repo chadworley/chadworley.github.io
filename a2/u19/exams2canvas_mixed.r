@@ -3,12 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "s19_"
 
-probs = c("17_rotate_2D.Rmd",
-          "18_shear_2D.Rmd",
-          "19_squeeze_2D.Rmd",
-          "20_projection_3D_to_2D.Rmd")
+probs = c("21_multiple_transforms.Rmd")
 
-pnts = c(3,3,3,3)
+pnts = c(3)
 
 # pnts = rep(6,length(probs))
 
