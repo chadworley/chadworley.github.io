@@ -1,9 +1,9 @@
 library("exams")
 
-pppsss = c("13_groceries_SageMath.Rmd",
-           "14_transpose_matrix.Rmd",
-           "15_2D_rotation_mat_post.Rmd",
-           "16_rotate_2D_points.Rmd")
+pppsss = c("17_rotate_2D.Rmd",
+           "18_shear_2D.Rmd",
+           "19_squeeze_2D.Rmd",
+           "20_projection_3D_to_2D.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

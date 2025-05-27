@@ -1,0 +1,176 @@
+```{r,echo=F,warning=F}
+n = 10
+while(T){
+    rs = sqrt(runif(n,0,1))*9+0.9
+    ths = runif(n,0,2*pi)
+    x1 = round(rs*cos(ths),3)
+    y1 = round(rs*sin(ths),3)
+    mind = 10
+    for(i in 1:(n-1)){
+        for(j in (i+1):n){
+            d = sqrt((x1[j]-x1[i])^2+(y1[j]-y1[i])^2)
+            mind = min(d,mind)
+        }
+    }
+    if(mind>0.5){break}
+}
+th = round(runif(1,pi/8,3*pi/8),3)
+
+s = matrix(c(x1,y1),n)
+R = matrix(c(cos(th),-sin(th),sin(th),cos(th)),2)
+
+x2 = x1*cos(th)-y1*sin(th)
+y2 = x1*sin(th)+y1*cos(th)
+
+f = matrix(c(x2,y2),n)
+f2 = s%*%R
+
+wunk = sample(1:n,1)
+xory = sample(1:2,1)
+
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+hues = runif(n,0,1)
+
+```
+
+Question
+========
+
+A video-game developer is hoping to rotate a set of points around the origin by `r th` radians counterclockwise by using matrix multiplication.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+abline(h=0)
+abline(v=0)
+thth = seq(0,th,pi/1200)
+n2 = length(thth)
+hf = 0.7
+for(i in 1:n){
+    xx = x1[i]*cos(thth)-y1[i]*sin(thth)
+    yy = x1[i]*sin(thth)+y1[i]*cos(thth)
+    for(j in 1:n2){
+        points(xx[j],yy[j],col=hsv(hues[i],0.1+0.8*j/n2,1),cex=0.03)
+    }
+}
+points(x1,y1,pch=19,col=hsv(hues,0.4,1))
+points(x2,y2,pch=19,col=hsv(hues,1,1))
+legend("topleft",c("Starting","Final"),col=c(hsv(0,0.4,1),hsv(0,1,1)),pch=c(19,19))
+```
+\
+
+The starting points are stored as rows in a `r n` $\times$ 2 matrix $S$.
+
+$$S=`r matpr(s)`$$
+
+The 2D-rotation matrix can be found by using $\theta=`r th`$ in the formula below.
+
+$$R~=~\begin{bmatrix}\cos(\theta)&\sin(\theta)\\ -\sin(\theta) & \cos(\theta)\end{bmatrix}$$
+
+The final points (in matrix $F$) are found by multiplying $S\cdot R$.
+
+$$F=S\cdot R$$
+
+That multiplication can be done using the diagram below.
+
+```{r,echo=F}
+nc = 4
+nr = n+2
+```
+
+```{r,echo=F,fig.dim=c(3.5,3.5/(nc+1)*(nr+1))}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,nc+1),ylim=c(0,nr+1),asp=1)
+
+nf = 2
+np = n
+ns = 2
+
+clrs = c("red","yellow","maroon","tan")
+clrs = c(rgb(1,0,0,0.2),rgb(1,1,0,0.4),rgb(0.8,0,0.8,0.3),rgb(0.6,0.5,0.2,0.2))
+clrs2 = c(rgb(1,0,0),rgb(1,1,0),rgb(0.8,0,0.8),rgb(0.6,0.5,0.2))
+for(i in 1:nf){
+    polygon(c(i-0.5,i-0.5,nf+0.5,nf+ns+0.5,nf+ns+0.5,nf+0.5,i+0.5,i+0.5),
+            c(0.5,np+0.5,np+nf-i+1.5,np+nf-i+1.5,np+nf-i+0.5,np+nf-i+0.5,np+0.5,0.5),col=clrs[i],border = F)
+    xt1 = i-0.3
+    xt2 = nf+0.5
+    yt1 = np+0.5
+    yt2 = np+nf-i+1.3
+    srt = atan2(yt2-yt1,xt2-xt1)/pi*180
+}
+
+for(i in 1:np){
+    for(j in 1:nf){
+        text(j,np-i+1,s[i,j])
+    }
+}
+
+Rstr = matrix(c("$\\cos(\\theta)$","$-\\sin(\\theta)$","$\\sin(\\theta)$","$\\cos(\\theta)$"),2)
+
+for(i in 1:nf){
+    for(j in 1:ns){
+        text(j+nf,np+nf-i+1,TeX(Rstr[i,j]))
+    }
+}
+
+for(i in 1:np){
+    for(j in 1:ns){
+        if(i != wunk || j!= xory){
+            text(nf+j,np+1-i,sprintf("%.03f",f[i,j]))
+        } else {
+            text(nf+j,np+1-i,"?")
+        }
+    }
+}
+
+for(i in 0:np){
+    lines(c(0.5,nc+0.5),c(i,i)+0.5)
+}
+for(i in 0:ns){
+    lines(nf+c(i,i)+0.5,c(0.5,np+nf+0.5))
+}
+
+lines(c(nf+0.5,nf+0.5),c(np,0)+0.5,lwd=3)
+lines(c(nf+0.5,nf+ns+0.5),c(np,np)+0.5,lwd=3)
+
+
+```
+\
+
+As denoted by the question mark in the diagram above, when the point $(`r x1[wunk]`,`r y1[wunk]`)$ is rotated by `r th` radians, what is the new $`r c("x","y")[xory]`$ coordinate?
+
+
+Solution
+========
+
+First, you can get decimal approximations for the rotation-matrix elements by using $\theta=`r th`$.
+
+$$R=`r matpr(R)`$$
+
+The initial point $(`r x1[wunk]`,`r y1[wunk]`)$ is in row `r wunk` of $S$. Because we want to find the new $`r c("x","y")[xory]`$ coordinate, use column `r xory` of $R$.
+
+```{r,echo=F}
+rx = R[1,xory]
+ry = R[2,xory]
+```
+
+$$(`r x1[wunk]`)(`r rx`)~+~(`r y1[wunk]`)(`r ry`)$$
+
+So, the new $`r c("x","y")[xory]`$ coordinate is `r f[wunk,xory]`.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r f[wunk,xory]`
+exname: rotate_2D
+extol: 0.001

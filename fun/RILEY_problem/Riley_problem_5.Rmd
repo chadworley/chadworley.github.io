@@ -1,0 +1,225 @@
+---
+title: "Riley's Problem"
+output: pdf_document
+always_allow_html: true
+---
+
+# Problem statement
+
+Each day a student is given 3 multiple-choice questions with 4 possible choices for each question (and only one correct choice for each question). Students are given 3 attempts; after each attempt they are told how many questions they got right, but not which questions were correct.
+
+On each attempt, the questions and choices remain constant, and students remember their past guesses and results.
+
+Also, in this class, only the highest score (of the 3 attempts) counts. So, we are not "simply" maximizing the expected points of the third attempt. For example, if a student has already gotten 2/3, then they only can do better by guessing the exact sequence, so they have no reason to hedge their 3rd guess for possibilities of 2 points.
+
+If we assume the students do not read the questions, but use an optimal strategy, then what is the expected number of correct questions?
+
+
+# Possible strategies
+
+We can always start by guessing AAA. I think the strategies listed below enumerate all meaningfully different guessing paths. Of course, the guesser alters the path depending on the feedback after 1st and 2nd attempts.
+
+* AAA
+    * AAB
+        * ABA BBA ABB BBB AAC ABC BBC
+    * ABB
+        * AAB ABC ACC AAC BAA BAB BAC BBB BBC BCC
+    * BBB
+        * ABB AAB BBC BCC CCC AAC ACC ABC
+        
+Notice this is significantly shorter than all 64 permutations (4 options for 3 spots) as options at each step. There are two rules I'm using to generate those paths. 
+
+1. For each spot, it can progress further along, by one letter, than the furthest it has been so far. There is no reason to jump to D before B and C. It can also go back to any previous letter it has been.
+2. If two spots have followed the same trajectory so far, then we do not need to consider as many permutations. We just need to say how many of those spots will do what type of change, not which spots will do those changes. For example, if we've guessed AAA-ABB, we do not need to consider both AAA-ABB-ABC and AAA-ABB-ACB separately, so we can simply consider the former.
+
+# Summary of optimal stategy
+
+After an exhaustive consideration of all the paths shown above with all 64 solution strings, I've determined the following path is an optimal strategy (some alternative choices produce equivalent expected values).
+
+```{r,echo=F}
+library(data.tree)
+g = Node$new("initial\nguess AAA")
+g$guess = strsplit("AAA","")
+g0 = g$AddChild("X=0\nguess BBB")
+g0$guess = strsplit("BBB","")
+g00 = g0$AddChild("Y=0\nguess CCC")
+g00$guess =  strsplit("CCC","")
+g01 = g0$AddChild("Y=1\nguess BBC")
+g01$guess = strsplit("BBC","")
+g02 = g0$AddChild("Y=2\nguess BBC")
+g02$guess = strsplit("BBC","")
+g1 = g$AddChild("X=1\nguess AAB")
+g1$guess = strsplit("AAB","")
+g10 = g1$AddChild("Y=0\nguess BBA")
+g10$guess =  strsplit("BBA","")
+g11 = g1$AddChild("Y=1\nguess ABC")
+g11$guess = strsplit("ABC","")
+g12 = g1$AddChild("Y=2\nguess ABB")
+g12$guess = strsplit("ABB","")
+g2 = g$AddChild("X=2\nguess AAB")
+g2$guess = strsplit("AAB","")
+g20 = g2$AddChild("Y=0\nguess CCC")
+g20$guess =  strsplit("CCC","") #Shouldn't happen
+g21 = g2$AddChild("Y=1\nguess ABA")
+g21$guess = strsplit("ABA","")
+g22 = g2$AddChild("Y=2\nguess AAC")
+g22$guess = strsplit("AAC","")
+plot(g)
+```
+
+* Guess AAA
+    * 1/64 chance of 3: aaa
+        * done with 3 points
+    * 9/64 chance of 2: aab aba baa aac aca caa aad ada daa
+        * Guess AAB for EV = 7/3 = 21/9
+            * 1/9 chance of 2,3 done with 3 points
+            * 2/9 chance of 2,2 $\to$ guess AAC to get EV=(3+2)/2=5/2
+            * 6/9 chance of 2,1 $\to$ guess ABA to get EV=(1+6*2)/6=13/6
+    * 27/64 chance of 1: abb abc abd acb acc acd adb adc add bab bac bad bba bca bda cab cac cad cba cca cda dab dac dad dba dca dda
+        * Guess AAB for EV=46/27
+            * 6/27 chance of 1,2 $\to$ guess ABB for EV=13/6
+            * 12/27 chance of 1,1 $\to$ guess AAC for EV=18/12
+            * 9/27 chance of 1,0 $\to$ guess BBA for EV=15/9
+    * 27/64 chance of 0: bbb ccc ccd cdc cdd dcc dcd ddc ddd bcc bcd bdc bdd cbc cbd ccb cdb dbc dbd dcb ddb bbc bbd bcd bdb cbb dbb
+        * Guess BBB for EV=44/27
+            * 1/27 chance of 0,3 $\to$ done with 3
+            * 6/27 chance of 0,2 $\to$ guess BBC for EV=13/6
+            * 12/27 chance of 0,1 $\to$ guess BBC for EV=16/12
+            * 8/27 chance of 0,0 $\to$ guess CCC for EV=12/8
+
+Overall expected value:
+
+$$\frac{3}{64}+\frac{21}{64}+\frac{46}{64}+\frac{44}{64}$$
+
+$$\frac{57}{32}~\approx~`r 57/32`$$
+
+```{r,echo=F}
+cnt = function(str1,str2){
+    pp1 = strsplit(str1,"")
+    pp2 = strsplit(str2,"")
+    return(sum(pp1[[1]]==pp2[[1]]))
+}
+
+runstrat = function(st){
+    sols = character()
+    for(i in LETTERS[1:4]){
+        for(j in LETTERS[1:4]){
+            for(k in LETTERS[1:4]){
+                sols = c(sols,paste0(i,j,k,collapse=""))
+            }
+        }
+    }
+    pnts = numeric()
+    for(sol in sols){
+        gx = st[[1]]
+        cx = cnt(sol,gx)
+        if(cx==3){
+            cy=3
+            cz=3
+        } else if(cx==2){
+            gy = st[["g2"]]
+            cy = cnt(sol,gy)
+            if(cy==3){
+                cz=3
+            } else if(cy==2){
+                gz = st[["g22"]]
+                cz = cnt(sol,gz)
+            } else if(cy==1){
+                gz = st[["g21"]]
+                cz = cnt(sol,gz)
+            } else if(cy==0){
+                gz = st[["g20"]]
+                cz = cnt(sol,gz)
+            }
+        } else if(cx==1){
+            gy = st[["g1"]]
+            cy = cnt(sol,gy)
+            if(cy==3){
+                cz=3
+            } else if(cy==2){
+                gz = st[["g12"]]
+                cz = cnt(sol,gz)
+            } else if(cy==1){
+                gz = st[["g11"]]
+                cz = cnt(sol,gz)
+            } else if(cy==0){
+                gz = st[["g10"]]
+                cz = cnt(sol,gz)
+            }
+        } else if(cx==0){
+            gy = st[["g0"]]
+            cy = cnt(sol,gy)
+            if(cy==3){
+                cz=3
+            } else if(cy==2){
+                gz = st[["g02"]]
+                cz = cnt(sol,gz)
+            } else if(cy==1){
+                gz = st[["g01"]]
+                cz = cnt(sol,gz)
+            } else if(cy==0){
+                gz = st[["g00"]]
+                cz = cnt(sol,gz)
+            }
+        }
+        pnts = c(pnts,max(c(cx,cy,cz)))
+    }
+    return(pnts)
+}
+
+st = c("g"="AAA",
+       "g0"="BBB","g00"="CCC","g01"="BBC","g02"="BBC",
+       "g1"="AAB","g10"="BBA","g11"="AAC","g12"="ABB",
+       "g2"="AAB","g20"="CCC","g21"="ABA","g22"="AAC")
+
+# table(runstrat(st))
+
+```
+
+
+* Chance of 3 pnts: $\frac{9}{64}$
+* Chance of 2 pnts: $\frac{33}{64}$
+* Chance of 1 pnt: $\frac{21}{64}$
+* Chance of 0 pnts: $\frac{1}{64}$
+
+
+## Summary statistics of optimal strategy
+
+$$\text{expected value}~=~\mu~=~\sum_{i=0}^3i\cdot p_i ~=~ \frac{57}{32}$$
+
+$$\text{variance}~=~\sigma^2~=~ \sum_{i=0}^3p_i(i-\mu)^2$$
+
+
+$$\sigma^2~=~ \frac{1}{64}\left(0-\frac{57}{32}\right)^2~+~\frac{21}{64}\left(1-\frac{57}{32}\right)^2~+~\frac{33}{64}\left(2-\frac{57}{32}\right)^2~+~\frac{9}{64}\left(3-\frac{57}{32}\right)^2$$
+
+$$\sigma^2~=~ \frac{495}{1024}$$
+
+$$\text{standard deviation}~=~\sigma~=~\frac{3\sqrt{55}}{32}$$
+
+```{r,echo=F}
+n=84
+```
+
+## `r n` entrance tickets
+
+Since January (ET_073), the entrance tickets have not shown which questions were correct. Also, entrance ticket 097 was a pop quiz. So that leaves us with `r n` entrance tickets.
+
+With `r n` entrance tickets, we can probably assume the normal approximation is valid.
+
+$$\text{expected total}=`r n`\cdot\frac{57}{32}\approx `r signif(n*57/32,3)`$$
+
+
+$$\mathrm{SE}=\frac{3\sqrt{55}\sqrt{`r n`}}{32}~\approx~`r signif(3*sqrt(55*n)/32,3)`$$
+
+```{r,echo=F}
+mu = 57/32
+sig = 3*sqrt(55)/32
+```
+
+So, with 150 entrance tickets, the middle 95% of points should be between `r n*mu-2*sig*sqrt(n)` and `r n*mu+2*sig*sqrt(n)`.
+
+As a proportion, this is between `r (n*mu-2*sig*sqrt(n))/(3*n)*100`% and `r (n*mu+2*sig*sqrt(n))/(3*n)*100`%.
+
+
+In my classes this year, about 1/3 of students are below `r n*mu-2*sig*sqrt(n)` points... and about 2/3 of students are above `r n*mu+2*sig*sqrt(n)`. Interestingly, very few are actually in that interval. So, maybe, 1/3 of students can't even be bothered to make the guesses, and the other 2/3 of students know enough SAT math to not simply make blind guesses.
+

@@ -1,0 +1,273 @@
+---
+title: "Riley's problem"
+output: 
+    html_document:
+        toc: true
+
+---
+
+# Problem statement
+
+Each day a student is given 3 multiple-choice questions with 4 possible choices but only 1 correct choice. Students are given 3 attempts; after each attempt they are told how many questions they got right, but not which questions were correct.
+
+On each attempt, the questions and choices remain constant, and students remember their past guesses and results.
+
+Also, in this class, only the highest score (of the 3 attempts) counts. So, we are not "simply" maximizing the expected points of the third attempt. I'm not sure if this matters yet, but I think it will.
+
+If we assume the students do not read the questions, but use an optimal strategy, then what is the expected number of correct questions?
+
+# Possible guess paths
+
+* AAA
+    * AAB
+        * ABA BBA ABB BBB AAC ABC BBC
+    * ABB
+        * AAB ABC ACC AAC BAA BAB BAC BBB BBC BCC
+    * BBB
+        * ABB AAB BBC BCC CCC AAC ACC ABC
+
+# Possible solution strings
+
+There are `r 4^3` possible solution springs.
+
+```{r,echo=F,results='asis'}
+for(i in LETTERS[1:4]){
+    for(j in LETTERS[1:4]){
+        for(k in LETTERS[1:4]){
+            cat(paste0(i,j,k,collapse=""))
+            cat(" ")
+        }
+    }
+}
+```
+
+## Solution strings with obvious strategies
+
+* AAA or BBB $\to$ AAA-BBB-CCC giving 3 points always
+    * 2 out of `r 4^3` solution strings
+* If only Cs and Ds $\to$ AAA-BBB-CCC giving EV=1.5?
+    * CCC 3, CCD 2, CDC 2, DCC 2, CDD 1, DCD 1, DDC 1, DDD 0.... 12/8 = 1.5
+    * 8 out of `r 4^3` solution strings
+* If one B, rest Cs and Ds $\to$ AAA-BBB-CCC or AAA-BBB-BCC or AAA-BBB-BBC
+    * for CCC: BCC 2, CBC 2, CCB 2, BCD 1, BDC 1, CBD 1, CDB 1, DBC 1, DCB 1, BDD 0, DBD 0, DDB 0
+    * for BCC: BCC 3, CBC 1, CCB 1, BCD 2, BDC 2, CBD 0, CDB 0, DBC 1, DCB 1, BDD 1, DBD 0, DDB 0
+    * for BBC: BCC 2, CBC 2, CCB 0, BCD 1, BDC 2, CBD 1, CDB 0, DBC 2, DCB 0, BDD 1, DBD 1, DDB 0
+    * 12 out of `r 4^3` solution strings
+    * EV=1
+    * AH! But remember, here, 0s are 1s... because maximum of attempts!
+    * for CCC: BCC 2, CBC 2, CCB 2, BCD 1, BDC 1, CBD 1, CDB 1, DBC 1, DCB 1, BDD 1, DBD 1, DDB 1
+        * 15/12
+    * for BCC: BCC 3, CBC 1, CCB 1, BCD 2, BDC 2, CBD 1, CDB 1, DBC 1, DCB 1, BDD 1, DBD 1, DDB 1
+        * 16/12
+    * for BBC: BCC 2, CBC 2, CCB 1, BCD 1, BDC 2, CBD 1, CDB 1, DBC 2, DCB 1, BDD 1, DBD 1, DDB 1
+        * 16/12
+    * So, AAA-BBB-BCC or AAA-BBB-BBC
+* If two B with a C or D:
+    * BBC BCB CBB BBD BDB DBB
+    * 6 of the solution strings.
+    * Already have 2, so must go for 3!
+    * AAA-BBB-BBC
+        * (3+2+2+2+2+2)/6 = EV = 13/6
+* If one A:
+    * AHHHHHHHHHH too complicated for here I think?
+    * I think this one will be most involved.
+    * We need to consider AAA-ABB and AAA-AAB and AAA-BBB
+    * Assume AAA-ABB
+    * If one A and 2 CDs
+    * If one A, one B, 1 CD
+    * If one A, two Bs
+* If two A:
+    * AAB ABA BAA AAC ACA CAA AAD ADA DAA
+    * 9 solution strings
+    * Already have 2 pnts... just need to maximize chance of 3 pnts.
+    * AAA-BBB or AAA-ABB or AAA-AAB
+    * AAA-BBB
+        * aab=21 aba=21 baa=21 aac=20 aca=20 caa=20 aad=20 ada=20 daa=20
+        * 1/3 chance of 21 $\to$ AAB to get (3+2+2)/3 = EV = 7/3
+        * 2/3 chance of 20 $\to$ AAC to get (3+2+2+2+2+2)/6 = EV = 13/6
+        * Overall EV = 1/3 * 7/3 + 2/3 * 13/6 = 20/9 = 2.22222222222
+    * AAA-ABB
+        * aab=22 aba=22 baa=20 aac=21 aca=21 caa=20 aad=21 ada=21 daa=20
+        * 2/9 chance of 22 $\to$ AAB to get EV=(3+2)/2=5/2
+        * 4/9 chance of 21 $\to$ AAC to get EV=(3+2+2+2)/4=9/4
+        * 3/9 chance of 20 $\to$ BAA to get EV=(3+2+2)/3=7/3
+        * Overall EV = 2/9 * 5/2  +  4/9 * 9/4  +  3/9 * 7/3 = 7/3 = 2.33333333333
+    * AAA-AAB
+        * aab=23 aba=21 baa=21 aac=22 aca=21 caa=21 aad=22 ada=21 daa=21
+        * 1/9 chance of EV=3
+        * 2/9 chance of 22 $\to$ AAC to get EV=(3+2)/2=5/2
+        * 6/9 chance of 21 $\to$ ABA to get EV=(1+6*2)/6=13/6
+        * Overall EV = 1/9 * 3 + 2/9 * 5/2 + 6/9 * 13/6 = 1/3 + 5/9 + 13/9 = 7/3 = 2.3333333
+
+AAA BBB
+CCC CCD CDC CDD DCC DCD DDC DDD
+BCC BCD BDC BDD CBC CBD CCB CDB DBC DBD DCB DDB
+BBC BBD BCB BDB CBB DBB
+AAB AAC AAD ABA ACA ADA BAA CAA DAA
+
+ABB ABC ABD ACB ACC ACD ADB ADC ADD BAB BAC BAD BBA BCA BDA CAB CAC CAD CBA CCA CDA DAB DAC DAD DBA DCA DDA 
+
+# One a...
+
+* One a...
+    * abb abc abd acb acc acd adb adc add bab bac bad bba bca bda cab cac cad cba cca cda dab dac dad dba dca dda
+* AAA-BBB gives EV=13/9=1.444444444
+    * abb2 abc1 abd1 acb1 acc0 acd0 adb1 adc0 add0 bab2 bac1 bad1 bba2 bca1 bda1 cab1 cac0 cad0 cba1 cca0 cda0 dab1 dac0 dad0 dba1 dca0 dda0
+    * abb2 bab2 bba2 $\to$ ABB
+        * 3/27 chance of EV=(3+2+2)/3=7/3
+    * abc1 abd1 acb1 adb1 bac1 bad1 bca1 bda1 cab1 cba1 dab1 dba1
+    * 12/27 chance... then what strat?
+        * AAA-BBB-ABB
+            * abc2 abd2 acb1 adb1 bac1 bad1 bca1 bda1 cab1 cba1 dab1 dba1
+            * 14/12
+        * AAA-BBB-AAB %%%this one
+            * abc1 abd1 acb2 adb2 bac1 bad1 bca1 bda1 cab2 cba1 dab2 dba1
+            * 16/12
+        * AAA-BBB-BBC
+            * abc2 abd1 acb1 adb1 bac2 bad1 bca1 bda1 cab1 cba1 dab1 dba1
+            * 14/12
+        * AAA-BBB-BCC
+            * abc1 abd1 acb1 adb1 bac2 bad1 bca2 bda1 cab1 cba1 dab1 dba1
+            * 14/12
+        * AAA-BBB-CCC
+            * abc1 abd1 acb1 adb1 bac1 bad1 bca1 bda1 cab1 cba1 dab1 dba1
+            * 12/12
+        * AAA-BBB-AAC
+            * abc2 abd1 acb1 adb1 bac2 bad1 bca1 bda1 cab1 cba1 dab1 dba1
+            * 14/12
+        * AAA-BBB-ACC
+            * abc2 abd1 acb2 adb1 bac1 bad1 bca1 bda1 cab1 cba1 dab1 dba1
+            * 14/12
+        * AAA-BBB-ABC
+            * abc3 abd2 acb1 adb1 bac1 bad1 bca1 bda1 cab1 cba1 dab1 dba1
+            * 15/12
+    * acc0 acd0 adc0 add0 cac0 cad0 cca0 cda0 dac0 dad0 dca0 dda0
+    * 12/27 chance... then what strat? No need to guess B... already have 1 pnt with AAA... and no need to guess more than one A...
+    * acc1 acd1 adc1 add1 cac1 cad1 cca1 cda1 dac1 dad1 dca1 dda1
+        * AAA-BBB-CCC
+            * acc2 acd1 adc1 add1 cac2 cad1 cca2 cda1 dac1 dad1 dca1 dda1
+                * 15/12
+        * AAA-BBB-ACC %% this one
+            * acc3 acd2 adc2 add1 cac1 cad1 cca1 cda1 dac1 dad1 dca1 dda1
+                * 16/12
+    * So, AAA-BBB leads to 3/27 * 7/3 + 12/27 * 16/12 + 12/27 * 16/12
+    * EV=13/9=1.444444444
+* AAA-ABB (1 then) give EV=43/27=1.59259259259
+    * abb3 abc2 abd2 acb2 acc1 acd1 adb2 adc1 add1 bab1 bac0 bad0 bba1 bca0 bda0 cab1 cac0 cad0 cba1 cca0 cda0 dab1 dac0 dad0 dba1 dca0 dda0
+    * 1/27 chance of abb3 so 3
+    * 4/27 chance of 2 and then EV=9/4
+        * abc2 abd2 acb2 adb2
+        * Need to go for 3! $\to$ ABC
+        * (3+2+2+2)/4 = 9/4
+    * 10/27 chance of 1 and then EV=14/10
+        * acc1 acd1 adc1 add1 bab1 bba1 cab1 cba1 dab1 dba1
+        * AAB ABC ACC AAC BAA BAB BAC BBB BBC BCC
+        * ABC ACC BAB BAC BCC
+        * AAC
+            * acc2 acd1 adc2 add1 bab1 bba1 cab1 cba1 dab1 dba1
+            * (12/10)      
+        * ABC
+            * acc2 acd1 adc2 add1 bab1 bba1 cab1 cba1 dab1 dba1
+            * (12/10)
+        * ACC  %% THIS ONE
+            * acc3 acd2 adc2 add1 bab1 bba1 cab1 cba1 dab1 dba1
+            * (14/10)
+        * BAB  %% OR THIS ONE
+            * acc1 acd1 adc1 add1 bab3 bba1 cab2 cba1 dab2 dba1
+            * (14/10)
+        * BBB
+            * acc1 acd1 adc1 add1 bab2 bba2 cab1 cba1 dab1 dba1
+            * (12/10)
+        * BBA
+            * acc1 acd1 adc1 add1 bab1 bba3 cab1 cba2 dab1 dba2
+            * (14/10)
+        * CBA
+            * acc1 acd1 adc1 add1 bab1 bba2 cab1 cba3 dab1 dba2
+            * (14/10)
+    * 12/27 chance of 0 and then 
+        * bac0 bad0 bca0 bda0 cac0 cad0 cca0 cda0 dac0 dad0 dca0 dda0
+        * AAB ABC ACC AAC BAA BAB BAC BBB BBC BCC
+            * A not in front... B not in 2 or 3... only one A poss
+        * BAC BCC
+        * BAC %% THIS ONE
+            * bac3 bad2 bca1 bda1 cac2 cad1 cca1 cda1 dac2 dad1 dca1 dda1
+            * 17/12
+        * BCC
+            * bac2 bad1 bca2 bda1 cac1 cad1 cca1 cda1 dac1 dad1 dca1 dda1
+            * 14/12
+    * 1/27 * 3 + 4/27 * 9/4 + 10/27 * 14/10 + 12/27 * 17/12 = 43/27 = 1.59259259259
+* AAA-AAB give EV=1.81481481481
+    * abb2 abc1 abd1 acb2 acc1 acd1 adb2 adc1 add1 bab2 bac1 bad1 bba0 bca0 bda0 cab2 cac1 cad1 cba0 cca0 cda0 dab2 dac1 dad1 dba0 dca0 dda0
+    * abb2 acb2 adb2 bab2 cab2 dab2
+    * abc1 abd1 acc1 acd1 adc1 add1 bac1 bad1 cac1 cad1 dac1 dad1
+    * bba0 bca0 bda0 cba0 cca0 cda0 dba0 dca0 dda0
+    * 6/27 chance of 2... should go for 3... ABB... (3+2+2+2+2+2)/6 = 13/6
+    * 12/27 chance of 1...
+        * abc1 abd1 acc1 acd1 adc1 add1 bac1 bad1 cac1 cad1 dac1 dad1
+        * no need for 2 As !! THIS WAS WRONG!! AAC is best
+        * BBA ABB BBB ABC BBC AAC
+        * ABC
+            * abc3 abd2 acc2 acd1 adc2 add1 bac1 bad1 cac1 cad1 dac1 dad1
+            * 17/12
+        * AAC
+            * aac2 abd1 acc2 acd1 adc2 add1 bac2 bad1 cac2 cad1 dac2 dad1
+            * 18/12
+    * 9/27 chance of 0...
+        * bba0 bca0 bda0 cba0 cca0 cda0 dba0 dca0 dda0
+        * We know A at end!
+        * BBA
+            * bba3 bca2 bda2 cba2 cca1 cda1 dba2 dca1 dda1
+            * 15/9
+    * 6/27 * 13/6 + 12/27 * 17/12 + 9/27 * 19/9 = 49/27 = 1.81481481481
+
+
+# Summary of optimal stategy
+
+* Guess AAA
+    * 1/64 chance of 3: aaa
+        * done with 3 points
+    * 9/64 chance of 2: aab aba baa aac aca caa aad ada daa
+        * Guess AAB for EV = 7/3 = 21/9
+            * 1/9 chance of 2,3 done with 3 points
+                * aab
+            * 2/9 chance of 2,2 $\to$ guess AAC to get EV=(3+2)/2=5/2
+                * aac aad
+            * 6/9 chance of 2,1 $\to$ guess ABA to get EV=(1+6*2)/6=13/6
+                * aba baa aca caa ada daa
+    * 27/64 chance of 1: abb abc abd acb acc acd adb adc add bab bac bad bba bca bda cab cac cad cba cca cda dab dac dad dba dca dda
+        * Guess AAB for EV=46/27
+            * 6/27 chance of 1,2 $\to$ guess ABB for EV=13/6
+                * abb acb adb bab cab dab
+            * 12/27 chance of 1,1 $\to$ guess AAC for EV=18/12
+                * abc abd acc acd adc add bac bad cac cad dac dad
+            * 9/27 chance of 1,0 $\to$ guess BBA for EV=15/9
+                * bba bca bda cba cca cda dba dca dda
+    * 27/64 chance of 0: bbb ccc ccd cdc cdd dcc dcd ddc ddd bcc bcd bdc bdd cbc cbd ccb cdb dbc dbd dcb ddb bbc bbd bcd bdb cbb dbb
+        * Guess BBB for EV=44/27
+            * 1/27 chance of 0,3 $\to$ done with 3
+                * bbb
+            * 6/27 chance of 0,2 $\to$ guess BBC for EV=13/6
+                * bbc bcb cbb bbd bdb dbb
+            * 12/27 chance of 0,1 $\to$ guess BBC for EV=16/12
+                * bcc cbc bcc bdd dbd ddb bcd bdc cbd dbc cdb dcb
+            * 8/27 chance of 0,0 $\to$ guess CCC for EV=12/8
+                * ccc ccd cdc dcc cdd dcd ddc ddd
+
+$$\frac{1}{64}\cdot 3~+~\frac{9}{64}\frac{21}{9}~+~\frac{27}{64}\frac{49}{27}~+~\frac{27}{63}\frac{44}{27}$$
+
+$$\frac{3}{64}~+~\frac{21}{64}~+~\frac{49}{64}~+~\frac{44}{63}$$
+
+$$\frac{3+21+49+44}{64}$$
+
+$$\frac{117}{64}~\approx~`r 117/64`$$
+
+$$\frac{\frac{117}{64}}{3}~\approx~`r 117/64/3`$$
+
+$$\frac{117}{`r 3*64`}~\approx~`r 117/64/3`$$
+
+
+
+
+
+
+

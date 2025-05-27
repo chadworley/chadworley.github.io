@@ -1,0 +1,295 @@
+# Problem statement
+
+Each day a student is given 3 multiple-choice questions with 4 possible choices but only 1 correct choice. Students are given 3 attempts; after each attempt they are told how many questions they got right, but not which questions were correct.
+
+On each attempt, the questions and choices remain constant, and students remember their past guesses and results.
+
+Also, in this class, only the highest score (of the 3 attempts) counts. So, we are not "simply" maximizing the expected points of the third attempt. I'm not sure if this matters yet, but I think it will.
+
+If we assume the students do not read the questions, but use an optimal strategy, then what is the expected number of correct questions?
+
+
+# Possible strategies
+
+We can always start by guessing AAA.
+
+* AAA
+    * AAB
+        * ABA BBA ABB BBB AAC ABC BBC
+    * ABB
+        * AAB ABC ACC AAC BAA BAB BAC BBB BBC BCC
+    * BBB
+        * ABB AAB BBC BCC CCC AAC ACC ABC
+
+
+# Summary of optimal stategy
+
+* AAA
+    * 1/64 chance of 3: aaa
+        * done with 3 points
+    * 9/64 chance of 2: aab aba baa aac aca caa aad ada daa
+        * Guess AAB for EV = 7/3
+            * 1/9 chance of 2,3 done with 3 points
+            * 2/9 chance of 2,2 $\to$ guess AAC to get EV=(3+2)/2=5/2
+            * 6/9 chance of 2,1 $\to$ guess ABA to get EV=(1+6*2)/6=13/6
+    * 27/64 chance of 1: abb abc abd acb acc acd adb adc add bab bac bad bba bca bda cab cac cad cba cca cda dab dac dad dba dca dda
+        * Guess AAB for EV=49/27
+            * 6/27 chance of 1,2 $\to$ guess ABB for EV=13/6
+            * 12/27 chance of 1,1 $\to$ guess AAC for EV=18/12
+            * 9/27 chance of 1,0 $\to$ guess BBA for EV=15/9
+    * 27/63 chance of 0: bbb ccc ccd cdc cdd dcc dcd ddc ddd bcc bcd bdc bdd cbc cbd ccb cdb dbc dbd dcb ddb bbc bbd bcd bdb cbb dbb
+        * Guess BBB for EV=44/27
+            * 1/27 chance of 0,3 $\to$ done with 3
+            * 6/27 chance of 0,2 $\to$ guess BBC for EV=13/6
+            * 12/27 chance of 0,1 $\to$ guess BBC for EV=16/12
+            * 8/27 chance of 0,0 $\to$ guess CCC for EV=12/8
+
+
+```{r,echo=F}
+cnt = function(str1,str2){
+    pp1 = strsplit(str1,"")
+    pp2 = strsplit(str2,"")
+    return(sum(pp1[[1]]==pp2[[1]]))
+}
+
+
+s1 <- list('AAA',
+            list("BBB",list("CCC"),list("BBC"),list("BBC")),
+            list("AAB",list("BBA"),list("ABC"),list("ABB")),
+            list("AAB",list("CCC"),list("ABA"),list("AAC"))
+            )
+
+# st0 = c("g"="AAA",
+#        "g0"="BBB","g00"="CCC","g01"="BBC","g02"="BBC",
+#        "g1"="AAB","g10"="BBA","g11"="ABC","g12"="ABB",
+#        "g2"="AAB","g20"="CCC","g21"="ABA","g22"="AAC")
+
+st0 = c("g"="AAA",
+       "g0"="BBB","g00"="CCC","g01"="BBC","g02"="BBC",
+       "g1"="AAB","g10"="BBA","g11"="AAC","g12"="ABB",
+       "g2"="AAB","g20"="CCC","g21"="ABA","g22"="AAC")
+
+gposs = c("AAA")
+gxposs = c("AAB","ABB","BBB")
+gyposs = unique(c("ABA","BBA","ABB","BBB","AAC","ABC","BBC",
+                  "AAB","ABC","ACC","BAA","BAB","BAC","BBB",
+                  "BBC","BCC","ABB","AAB","BBC","BCC","CCC","AAC","ACC","ABC"))
+
+sols = character()
+for(i in LETTERS[1:4]){
+    for(j in LETTERS[1:4]){
+        for(k in LETTERS[1:4]){
+            sols = c(sols,paste0(i,j,k,collapse=""))
+        }
+    }
+}
+
+st=st0
+```
+
+
+
+```{r,echo=F}
+runstrat = function(st){
+    pnts = numeric()
+    for(sol in sols){
+        gx = st[[1]]
+        cx = cnt(sol,gx)
+        if(cx==3){
+            cy=3
+            cz=3
+        } else if(cx==2){
+            gy = st[["g2"]]
+            cy = cnt(sol,gy)
+            if(cy==3){
+                cz=3
+            } else if(cy==2){
+                gz = st[["g22"]]
+                cz = cnt(sol,gz)
+            } else if(cy==1){
+                gz = st[["g21"]]
+                cz = cnt(sol,gz)
+            } else if(cy==0){
+                gz = st[["g20"]]
+                cz = cnt(sol,gz)
+            }
+        } else if(cx==1){
+            gy = st[["g1"]]
+            cy = cnt(sol,gy)
+            if(cy==3){
+                cz=3
+            } else if(cy==2){
+                gz = st[["g12"]]
+                cz = cnt(sol,gz)
+            } else if(cy==1){
+                gz = st[["g11"]]
+                cz = cnt(sol,gz)
+            } else if(cy==0){
+                gz = st[["g10"]]
+                cz = cnt(sol,gz)
+            }
+        } else if(cx==0){
+            gy = st[["g0"]]
+            cy = cnt(sol,gy)
+            if(cy==3){
+                cz=3
+            } else if(cy==2){
+                gz = st[["g02"]]
+                cz = cnt(sol,gz)
+            } else if(cy==1){
+                gz = st[["g01"]]
+                cz = cnt(sol,gz)
+            } else if(cy==0){
+                gz = st[["g00"]]
+                cz = cnt(sol,gz)
+            }
+        }
+        pnts = c(pnts,max(c(cx,cy,cz)))
+    }
+    return(pnts)
+}
+
+bestmean = 0
+# for(i in 1:10^5){
+#     st = st0
+#     nspots = sample(0:(length(st)-1),1)
+#     spots = sample(2:length(st),nspots)
+#     # for(spot in spots){
+#     #     if(nchar(names(st[spot]))==2){
+#     #         st[spot] = sample(gxposs,1)
+#     #     } else {
+#     #         st[spot] = sample(gyposs,1)
+#     #     }
+#     # }
+#     for(spot in spots){
+#         st[spot] = paste0(LETTERS[sample(1:3,3,T)],collapse="")
+#     }
+#     pnts = runstrat(st)
+#     mpnts = mean(pnts)
+#     if(mpnts>bestmean){
+#         print(st)
+#         print(mpnts)
+#         bestmean=mpnts
+#     }
+# }
+
+```
+
+
+
+
+
+
+
+
+
+```{r,echo=F}
+library(data.tree)
+g = Node$new("initial")
+g$guess = strsplit("AAA","")
+g0 = g$AddChild("X=0")
+g0$guess = strsplit("BBB","")
+g00 = g0$AddChild("Y=0")
+g00$guess =  strsplit("CCC","")
+g01 = g0$AddChild("Y=1")
+g01$guess = strsplit("BBC","")
+g02 = g0$AddChild("Y=2")
+g02$guess = strsplit("BBC","")
+g1 = g$AddChild("X=1")
+g1$guess = strsplit("AAB","")
+g10 = g1$AddChild("Y=0")
+g10$guess =  strsplit("BBA","")
+g11 = g1$AddChild("Y=1")
+g11$guess = strsplit("ABC","")
+g12 = g1$AddChild("Y=2")
+g12$guess = strsplit("ABB","")
+g2 = g$AddChild("X=2")
+g2$guess = strsplit("AAB","")
+g20 = g2$AddChild("Y=0")
+g20$guess =  strsplit("CCC","") #Shouldn't happen
+g21 = g2$AddChild("Y=1")
+g21$guess = strsplit("ABA","")
+g22 = g2$AddChild("Y=2")
+g22$guess = strsplit("AAC","")
+
+```
+            
+```{r}
+
+tots = numeric()
+g = c("A","A","A")
+g2 = c("A","A","B")
+g22 = c("A","A","C")
+g21 = c("A","B","A")
+g20 = c("X","X","X") #Shouldn't happen
+g1 = c("A","A","B") 
+g12 = c("A","B","B")
+g11 = c("A","B","C")
+g10 = c("B","B","A")
+g0 = c("B","B","B")
+g02 = c("B","B","C")
+g01 = c("B","B","C")
+g00 = c("C","C","C")
+
+
+
+for(i in 1:10^3){
+    sol = LETTERS[sample(1:4,3,T)]
+    g1 = c("A","A","A")
+    m1 = sum(sol==g1)
+    if(m1==3){
+        m2=3
+        m3=3
+    } else if(m1==2){
+        g2 = c("A","A","B")
+        m2 = sum(sol==g2)
+        if(m2==3){
+            m3 = 3
+        } else if(m2==2){
+            g3 = c("A","A","C")
+            m3 = sum(sol==g3)
+        } else if(m2==1){
+            g3 = c("A","B","A")
+            m3 = sum(sol==g3)
+        } else if(m2==0){
+            print("I don't think you should end up here!")
+        }
+    } else if(m1==1){
+        g2 = c("A","A","B")
+        m2 = sum(sol==g2)
+        if(m2==3){
+            m3 = 3
+        } else if(m2==2){
+            g3 = c("A","B","B")
+            m3 = sum(sol==g3)
+        } else if(m2==1){
+            g3 = c("A","B","C")
+            m3 = sum(sol==g3)
+        } else if(m2==0){
+            g3 = c("B","B","A")
+            m3 = sum(sol==g3)
+        }
+    } else if(m1==0){
+        g2 = c("B","B","B")
+        m2 = sum(sol==g2)
+        if(m2==3){
+            m3 = 3
+        } else if(m2==2){
+            g3 = c("B","B","C")
+            m3 = sum(sol==g3)
+        } else if(m2==1){
+            g3 = c("B","B","C")
+            m3 = sum(sol==g3)
+        } else if(m2==0){
+            g3 = c("C","C","C")
+            m3 = sum(sol==g3)
+        }
+    }
+    tot = max(c(m1,m2,m3))
+    tots = c(tots,tot)
+}
+table(tots)
+```
+
+
+

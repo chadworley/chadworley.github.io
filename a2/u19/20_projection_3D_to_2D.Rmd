@@ -1,0 +1,217 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+getR = function(u,t){
+  ux = u[1]
+  uy = u[2]
+  uz = u[3]
+  f = cos(t)+ux^2*(1-cos(t))
+  g = ux*uy*(1-cos(t))-uz*sin(t)
+  h = ux*uz*(1-cos(t))+uy*sin(t)
+  i = uy*ux*(1-cos(t))+uz*sin(t)
+  j = cos(t)+uy^2*(1-cos(t))
+  k = uy*uz*(1-cos(t))-ux*sin(t)
+  l = uz*ux*(1-cos(t))-uy*sin(t)
+  m = uz*uy*(1-cos(t))+ux*sin(t)
+  n = cos(t)+uz^2*(1-cos(t))
+  R = matrix(c(f,g,h,i,j,k,l,m,n),3,byrow=T)
+  return(R)
+}
+
+s = t(matrix(c(1,-1,-1,
+      -1,-1,-1,
+      -1,1,-1,
+      1,1,-1,
+      0,0,1),3))
+
+s2 = t(matrix(c(1,-1,-1,
+      -1,-1,-1,
+      -1,1,-1,
+      1,1,-1,
+      1,-1,-1,
+      0,0,1,
+      1,1,-1,
+      -1,1,-1,
+      0,0,1,
+      -1,-1,-1),3))
+
+# s3 = c(0,0,0,
+#       0,0,1,
+#       0,1,1,
+#       0,1,0,
+#       0,0,0,
+#       1,0,0,
+#       1,1,0,
+#       0,1,0,
+#       1,1,0,
+#       1,1,1,
+#       0,1,1,
+#       1,1,1,
+#       1,0,1,
+#       0,0,1,
+#       1,0,1,
+#       1,0,0)
+# s2 = t(matrix(s2,3))
+n = 5
+
+for(i in 1:7){
+    u = rnorm(3)
+    u[2] = abs(u[2])
+    u[3] = abs(u[3])
+    u = u/sqrt(sum(u^2))
+    th = runif(1,0,2*pi)
+    R = getR(u,th)
+    s = s%*%R
+    s2 = s2%*%R
+}
+
+s = round(s,4)
+s2 = round(s2,4)
+
+r = signif(runif(1,0.2,0.6),4)
+th = signif(runif(1,pi/6,pi/3),4)
+
+P = matrix(c(1,0,r*cos(th),0,1,r*sin(th)),3)
+Pstr = matrix(c("1","0","r\\cdot\\cos(\\theta)","0","1","r\\cdot\\sin(\\theta)"),3)
+
+wunk = sample(1:5,1)
+xory = sample(1:2,1)
+
+f = s%*%P
+f2 = s2%*%P
+
+
+```
+
+Question
+========
+
+A video-game developer is hoping to apply an [oblique projection](https://en.wikipedia.org/wiki/Oblique_projection) to show a set of 3D points as a 2D image. The starting points are stored as rows in a `r n` $\times$ 3 matrix $S$.
+
+$$S=`r matpr(s)`$$
+
+The oblique projection matrix $P$ has two key parameters: $\theta$ and $r$. For this problem, use $\theta=`r th`$ and $r=`r r`$.
+
+$$P~=~`r matpr(Pstr)`$$
+
+The final points (in matrix $F$) are found by multiplying $S\cdot P$.
+
+$$F=S\cdot P$$
+
+
+
+```{r,echo=F}
+nc = 5
+nr = n+3
+```
+
+```{r,echo=F,fig.dim=c(5,5/(nc+1)*(nr+1))}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,nc+1),ylim=c(0,nr+1),asp=1)
+
+nf = 3
+np = n
+ns = 2
+
+clrs = c("red","yellow","maroon","tan")
+clrs = c(rgb(1,0,0,0.2),rgb(1,1,0,0.4),rgb(0.8,0,0.8,0.3),rgb(0.6,0.5,0.2,0.2))
+clrs2 = c(rgb(1,0,0),rgb(1,1,0),rgb(0.8,0,0.8),rgb(0.6,0.5,0.2))
+for(i in 1:nf){
+    polygon(c(i-0.5,i-0.5,nf+0.5,nf+ns+0.5,nf+ns+0.5,nf+0.5,i+0.5,i+0.5),
+            c(0.5,np+0.5,np+nf-i+1.5,np+nf-i+1.5,np+nf-i+0.5,np+nf-i+0.5,np+0.5,0.5),col=clrs[i],border = F)
+    xt1 = i-0.3
+    xt2 = nf+0.5
+    yt1 = np+0.5
+    yt2 = np+nf-i+1.3
+    srt = atan2(yt2-yt1,xt2-xt1)/pi*180
+}
+
+for(i in 1:np){
+    for(j in 1:nf){
+        text(j,np-i+1,s[i,j])
+    }
+}
+
+
+for(i in 1:nf){
+    for(j in 1:ns){
+        text(j+nf,np+nf-i+1,TeX(Pstr[i,j]))
+    }
+}
+
+for(i in 1:np){
+    for(j in 1:ns){
+        if(i != wunk || j!= xory){
+            text(nf+j,np+1-i,sprintf("%.03f",f[i,j]))
+        } else {
+            text(nf+j,np+1-i,"?")
+        }
+    }
+}
+
+for(i in 0:np){
+    lines(c(0.5,nc+0.5),c(i,i)+0.5)
+}
+for(i in 0:ns){
+    lines(nf+c(i,i)+0.5,c(0.5,np+nf+0.5))
+}
+
+lines(c(nf+0.5,nf+0.5),c(np,0)+0.5,lwd=3)
+lines(c(nf+0.5,nf+ns+0.5),c(np,np)+0.5,lwd=3)
+```
+\
+
+What is the new $`r c("x","y")[xory]`$ coordinate when point $(`r s[wunk,1]`, `r s[wunk,2]`, `r s[wunk,3]`)$ is projected using the oblique projection with $\theta=`r th`$ and $r=`r r`$?
+
+
+Solution
+========
+
+Find the projection matrix by pluggin in $\theta=`r th`$ and $r=`r r`$.
+
+$$P=`r matpr(P)`$$
+
+We use row `r wunk` of the points matrix and column `r xory` of the projection matrix.
+
+
+$$(`r s[wunk,1]`)(`r P[1,xory]`)~+~(`r s[wunk,2]`)(`r P[2,xory]`)~+~(`r s[wunk,3]`)(`r P[3,xory]`)$$
+
+Thus, $`r c("x","y")[xory]`=`r f[wunk,xory]`$.
+
+
+```{r,echo=F,fig.dim=c(5,5)}
+maxx = max(f2[,1])
+minx = min(f2[,1])
+maxy = max(f2[,2])
+miny = min(f2[,2])
+midx = mean(c(minx,maxx))
+midy = mean(c(miny,maxy))
+radx = maxx-midx
+rady = maxy-midy
+maxrad = max(c(radx,rady))
+xlo = midx-maxrad
+xhi = midx+maxrad
+ylo = midy-maxrad
+yhi = midy+maxrad
+plot(0,0,"n",xlim=c(xlo,xhi),ylim=c(ylo,yhi),xlab="x",ylab="y",asp=1)
+lines(f2[,1],f2[,2])
+points(f[wunk,1],f[wunk,2],pch=19,col="red")
+```
+\
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r f[wunk,xory]`
+exname: projection_3D_to_2D
+extol: 0.001
