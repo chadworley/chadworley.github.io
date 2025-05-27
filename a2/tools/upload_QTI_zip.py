@@ -7,10 +7,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s19_17_rotate_2D.zip",
-"outcanvas/s19_18_shear_2D.zip",
-"outcanvas/s19_19_squeeze_2D.zip",
-"outcanvas/s19_20_projection_3D_to_2D.zip"]
+file_path_list = ["outcanvas/s19_21_multiple_transforms.zip"]
 
 
 # FOR UPLOADING ETS
