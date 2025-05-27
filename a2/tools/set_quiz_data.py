@@ -3,13 +3,13 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["13_groceries_SageMath.Rmd",
-"14_transpose_matrix.Rmd",
-"15_2D_rotation_mat_post.Rmd",
-"16_rotate_2D_points.Rmd"]
+files = ["17_rotate_2D.Rmd",
+"18_shear_2D.Rmd",
+"19_squeeze_2D.Rmd",
+"20_projection_3D_to_2D.Rmd"]
 
-avt = ["2025-05-23 7:00:00"]*len(files)
-dut = ["2025-05-23 22:59:00"]*len(files)
+avt = ["2025-05-28 7:00:00"]*len(files)
+dut = ["2025-05-28 22:59:00"]*len(files)
 front = "s19_"
 
 practice_url_front = "https://chadworley.github.io/a2/u19/outhtml/"

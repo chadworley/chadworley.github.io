@@ -7,10 +7,10 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s19_13_groceries_SageMath.zip",
-"outcanvas/s19_14_transpose_matrix.zip",
-"outcanvas/s19_15_2D_rotation_mat_post.zip",
-"outcanvas/s19_16_rotate_2D_points.zip"]
+file_path_list = ["outcanvas/s19_17_rotate_2D.zip",
+"outcanvas/s19_18_shear_2D.zip",
+"outcanvas/s19_19_squeeze_2D.zip",
+"outcanvas/s19_20_projection_3D_to_2D.zip"]
 
 
 # FOR UPLOADING ETS
