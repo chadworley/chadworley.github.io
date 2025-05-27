@@ -3,10 +3,7 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["17_rotate_2D.Rmd",
-"18_shear_2D.Rmd",
-"19_squeeze_2D.Rmd",
-"20_projection_3D_to_2D.Rmd"]
+files = ["21_multiple_transforms.Rmd"]
 
 avt = ["2025-05-28 7:00:00"]*len(files)
 dut = ["2025-05-28 22:59:00"]*len(files)

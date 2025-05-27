@@ -5,10 +5,7 @@ import os
 
 
 front = "s19_"
-files = ["17_rotate_2D.Rmd",
-"18_shear_2D.Rmd",
-"19_squeeze_2D.Rmd",
-"20_projection_3D_to_2D.Rmd"]
+files = ["21_multiple_transforms.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u19/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"
