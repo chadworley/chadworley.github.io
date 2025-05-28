@@ -1,0 +1,119 @@
+```{r,echo=F,warning=F}
+library(latex2exp)
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+while(T){
+    endxy = sample(6:10,2,T)
+    xt = endxy[1]
+    yt = endxy[2]
+    x1 = sample(1:(xt-1),1)
+    y1max = floor(yt/xt*x1)
+    y1 = sample(1:(y1max-1),1)
+    x2 = xt-x1
+    y2 = yt-y1
+    th1 = atan(y1/x1)
+    th2 = atan(y2/x2)
+    a = x1*y1/2
+    b = x2*y1
+    c = x2*y2/2
+    d = c
+    e = b
+    f = a
+    g = (x1+x2)*(y1+y2)-a-b-c-d-e-f
+    g2 = abs(x1*y2-x2*y1)
+    if(y2>0 && y1>0 && (y1/x1)<(y2/x2) & th2-th1>pi/12 && d!=a){break}
+}
+```
+
+Question
+========
+
+A $2\times 2$ matrix is often interpreted as two 2D points. We could think of each row (or each column) as representing a point in the $(x,y)$ plane.
+
+$$A~=~\begin{bmatrix}x_1 & y_1 \\ x_2 & y_2\end{bmatrix}$$
+
+The [determinant](https://en.wikipedia.org/wiki/Determinant) is defined as follows:
+
+$$\det(A)~=~x_1 y_2 - x_2y_1$$
+
+Let's practice evaluating the determinant.
+
+$$B=\begin{bmatrix}`r x1` & `r y1` \\ `r x2` & `r y2`\end{bmatrix}$$
+
+
+Evaluate $\det(B)$.
+
+
+Solution
+========
+
+$$\det(B) ~=~ `r x1`\cdot`r y2` - `r x2`\cdot`r y1`$$
+$$\det(B) ~=~ `r g`$$
+
+Notice, this also is the area of the parallelogram shown below:
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,10),ylim=c(0,10),axes=F,ann=F)
+for(i in 0:10){
+    lines(c(i,i),c(0,10),col="grey")
+    lines(c(0,10),c(i,i),col="grey")
+}
+cex = 1.4
+val = 0.6
+
+hues = seq(0,1,1/8)
+# polygon(c(0,x1,x1),c(0,0,y1),col=hsv(hues[1],1,1,0.3))
+# text(x1*2/3,y1/3,"A",col=hsv(hues[1],1,val),cex=cex)
+# polygon(c(x1,x1,xt,xt),c(0,y1,y1,0),col=hsv(hues[2],1,1,0.3))
+# text((x1+x2/2),y1/2,"B",col=hsv(hues[2],1,val),cex=cex)
+# polygon(c(x1,xt,xt),c(y1,y1,yt),col=hsv(hues[3],1,1,0.3))
+# text((x1+2*x2/3),y1+y2/3,"C",col=hsv(hues[3],1,val),cex=cex)
+# 
+# polygon(c(0,0,x2),c(0,y2,y2),col=hsv(hues[4],1,1,0.3))
+# text((x2/3),2*y2/3,"D",col=hsv(hues[4],1,val),cex=cex)
+# polygon(c(0,0,x2,x2),c(y2,yt,yt,y2),col=hsv(hues[5],1,1,0.3))
+# text((x2/2),y2+y1/2,"E",col=hsv(hues[5],1,val),cex=cex)
+# polygon(c(x2,x2,xt),c(y2,yt,yt),col=hsv(hues[6],1,1,0.3))
+# text(x2+x1/3,y2+2*y1/3,"F",col=hsv(hues[6],1,val),cex=cex)
+
+abline(h=0)
+abline(v=0)
+
+polygon(c(0,x1,xt,x2),c(0,y1,yt,y2),col=hsv(hues[7],1,1,0.3))
+text(xt/2,yt/2,"G",col=hsv(hues[7],1,val),cex=cex)
+points(x1,y1,pch=19)
+points(x2,y2,pch=19)
+text(x1,y1,TeX(paste0("$(",x1,",",y1,")$",collapse="")),adj=c(-0.1,1.1))
+text(x2,y2,TeX(paste0("$(",x2,",",y2,")$",collapse="")),adj=c(1.1,-0.1))
+```
+\
+
+$$G=`r g`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r g`
+exname: determinant_B

@@ -3,9 +3,12 @@ n = 30
 outdir = "outcanvas"
 genname = "s19_"
 
-probs = c("21_multiple_transforms.Rmd")
+probs = c("22_area_parallelogram.Rmd",
+          "23_determinant_A.Rmd",
+          "24_determinant_B.Rmd",
+          "25_determinant_C.Rmd")
 
-pnts = c(3)
+pnts = c(5,3,3,3)
 
 # pnts = rep(6,length(probs))
 

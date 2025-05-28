@@ -1,0 +1,152 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+while(T){
+    endxy = sample(6:10,2,T)
+    xt = endxy[1]
+    yt = endxy[2]
+    x1 = sample(1:(xt-1),1)
+    y1max = floor(yt/xt*x1)
+    y1 = sample(1:(y1max-1),1)
+    x2 = xt-x1
+    y2 = yt-y1
+    th1 = atan(y1/x1)
+    th2 = atan(y2/x2)
+    a = x1*y1/2
+    b = x2*y1
+    c = x2*y2/2
+    d = c
+    e = b
+    f = a
+    g = (x1+x2)*(y1+y2)-a-b-c-d-e-f
+    g2 = abs(x1*y2-x2*y1)
+    if(y2>0 && y1>0 && (y1/x1)<(y2/x2) & th2-th1>pi/12 && d!=a){break}
+}
+
+acha = a-0.5*(sample(0:5,1)-0:5)
+if(min(acha)<0){acha = acha+abs(min(acha))+0.5}
+achb = b-0.5*(sample(0:5,1)-0:5)
+if(min(achb)<0){achb = achb+abs(min(achb))+0.5}
+achc = c-0.5*(sample(0:5,1)-0:5)
+if(min(achc)<0){achc = achc+abs(min(achc))+0.5}
+achd = d-0.5*(sample(0:5,1)-0:5)
+if(min(achd)<0){achd = achd+abs(min(achd))+0.5}
+ache = e-0.5*(sample(0:5,1)-0:5)
+if(min(ache)<0){ache = ache+abs(min(ache))+0.5}
+achf = f-0.5*(sample(0:5,1)-0:5)
+if(min(achf)<0){achf = achf+abs(min(achf))+0.5}
+achg = g-0.5*(sample(0:5,1)-0:5)
+if(min(achg)<0){achg = achg+abs(min(achg))+0.5}
+sola = paste0(1*(acha==a),collapse = "")
+solb = paste0(1*(achb==b),collapse = "")
+solc = paste0(1*(achc==c),collapse = "")
+sold = paste0(1*(achd==d),collapse = "")
+sole = paste0(1*(ache==e),collapse = "")
+solf = paste0(1*(achf==f),collapse = "")
+solg = paste0(1*(achg==g),collapse = "")
+
+```
+
+Question
+========
+
+The figure below shows 7 polygons on a $10\times10$ grid. The grid is composed of 100 squares, each with an area of 1. Each polygon's area is labelled with an uppercase letter from $A$ to $G$. 
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,10),ylim=c(0,10),axes=F,ann=F)
+for(i in 0:10){
+    lines(c(i,i),c(0,10),col="grey")
+    lines(c(0,10),c(i,i),col="grey")
+}
+cex = 1.4
+val = 0.6
+
+hues = seq(0,1,1/8)
+polygon(c(0,x1,x1),c(0,0,y1),col=hsv(hues[1],1,1,0.3))
+text(x1*2/3,y1/3,"A",col=hsv(hues[1],1,val),cex=cex)
+polygon(c(x1,x1,xt,xt),c(0,y1,y1,0),col=hsv(hues[2],1,1,0.3))
+text((x1+x2/2),y1/2,"B",col=hsv(hues[2],1,val),cex=cex)
+polygon(c(x1,xt,xt),c(y1,y1,yt),col=hsv(hues[3],1,1,0.3))
+text((x1+2*x2/3),y1+y2/3,"C",col=hsv(hues[3],1,val),cex=cex)
+
+polygon(c(0,0,x2),c(0,y2,y2),col=hsv(hues[4],1,1,0.3))
+text((x2/3),2*y2/3,"D",col=hsv(hues[4],1,val),cex=cex)
+polygon(c(0,0,x2,x2),c(y2,yt,yt,y2),col=hsv(hues[5],1,1,0.3))
+text((x2/2),y2+y1/2,"E",col=hsv(hues[5],1,val),cex=cex)
+polygon(c(x2,x2,xt),c(y2,yt,yt),col=hsv(hues[6],1,1,0.3))
+text(x2+x1/3,y2+2*y1/3,"F",col=hsv(hues[6],1,val),cex=cex)
+
+polygon(c(0,x1,xt,x2),c(0,y1,yt,y2),col=hsv(hues[7],1,1,0.3))
+text(xt/2,yt/2,"G",col=hsv(hues[7],1,val),cex=cex)
+
+```
+\
+
+Find the areas of the triangles, rectangles, and parallelogram.
+
+* $A=$ ##ANSWER1##
+* $B=$ ##ANSWER2##
+* $C=$ ##ANSWER3##
+* $D=$ ##ANSWER4##
+* $E=$ ##ANSWER5##
+* $F=$ ##ANSWER6##
+* $G=$ ##ANSWER7##
+
+
+
+Answerlist
+--------
+
+`r paste0("* ",acha,collapse="\n")`
+`r paste0("* ",achb,collapse="\n")`
+`r paste0("* ",achc,collapse="\n")`
+`r paste0("* ",achd,collapse="\n")`
+`r paste0("* ",ache,collapse="\n")`
+`r paste0("* ",achf,collapse="\n")`
+`r paste0("* ",achg,collapse="\n")`
+
+
+Solution
+========
+
+* Remember the area of a rectangle is width times height.
+* Remember the area of a triangle is half of base times height.
+    * For a right triangle, half the product of the legs.
+* To find the area of the parallelogram, you can subtract all 6 other areas from the total area of the rectangle containing all 7 pieces.
+
+* $a=`r a`$
+* $b=`r b`$
+* $c=`r c`$
+* $d=`r d`$
+* $e=`r e`$
+* $f=`r f`$
+* $g=`r g`$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sola`|`r solb`|`r solc`|`r sold`|`r sole`|`r solf`|`r solg`
+exname: area_parallelogram

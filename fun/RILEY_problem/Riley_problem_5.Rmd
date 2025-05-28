@@ -223,3 +223,53 @@ As a proportion, this is between `r (n*mu-2*sig*sqrt(n))/(3*n)*100`% and `r (n*m
 
 In my classes this year, about 1/3 of students are below `r n*mu-2*sig*sqrt(n)` points... and about 2/3 of students are above `r n*mu+2*sig*sqrt(n)`. Interestingly, very few are actually in that interval. So, maybe, 1/3 of students can't even be bothered to make the guesses, and the other 2/3 of students know enough SAT math to not simply make blind guesses.
 
+
+# Sub-optimal strategy
+
+Now I'm curious about the points expected if a student simply guesses AAA-BBB-CCC every time.
+
+```{r}
+cnt = function(str1,str2){
+    pp1 = strsplit(str1,"")
+    pp2 = strsplit(str2,"")
+    return(sum(pp1[[1]]==pp2[[1]]))
+}
+ss = character()
+for(i in 1:4){
+    for(j in 1:4){
+        for(k in 1:4){
+            ss = c(ss,paste0(LETTERS[c(i,j,k)],collapse=""))
+        }
+    }
+}
+pnts = numeric()
+for(s in ss){
+    p1 = cnt("AAA",s)
+    p2 = cnt("BBB",s)
+    p3 = cnt("CCC",s)
+    pnts=c(pnts,max(p1,p2,p3))
+}
+table(pnts)
+```
+
+$$\frac{33}{64}+\frac{2\cdot 27}{64}+\frac{3\cdot 3}{64}$$
+
+$$\frac{33}{64}+\frac{54}{64}+\frac{9}{64}$$
+
+$$\frac{33+54+9}{64}$$
+
+$$\mathrm{EV}~=~\frac{96}{64}~=~1.5$$
+
+$$\sigma^2~=~\frac{1}{64}\cdot\left(0-1.5\right)^2+\frac{33}{64}\cdot\left(1-1.5\right)^2+\frac{27}{64}\cdot\left(2-1.5\right)^2+\frac{3}{64}\cdot\left(3-1.5\right)^2$$
+
+$$\sigma^2~=~\frac{3}{8}$$
+
+$$\sigma~=~\frac{\sqrt{6}}{4}$$
+
+So, using this suboptimal strategy on `r n` entrance tickets should yield (in the middle 95% of repetitions) between `r n*1.5-sqrt(6)/4*sqrt(n)` and `r n*1.5+sqrt(6)/4*sqrt(n)`.
+
+
+
+
+
+

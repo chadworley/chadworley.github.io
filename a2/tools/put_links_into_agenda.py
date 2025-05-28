@@ -5,7 +5,10 @@ import os
 
 
 front = "s19_"
-files = ["21_multiple_transforms.Rmd"]
+files = ["22_area_parallelogram.Rmd",
+"23_determinant_A.Rmd",
+"24_determinant_B.Rmd",
+"25_determinant_C.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u19/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

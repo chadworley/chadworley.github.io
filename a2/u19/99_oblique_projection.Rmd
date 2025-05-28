@@ -1,4 +1,8 @@
 ```{r,echo=F,warning=F}
+
+# I STARTED SWITCHING OVER TO 2nd-operand transformation matrices
+# But then I decided this whole question is mid...
+
 matpr = function(A){
   pra = "\\begin{bmatrix}\n"
   for(i in 1:dim(A)[1]){
@@ -81,18 +85,19 @@ Question
 
 One of the simplest 3D $\to$ 2D projections (to draw by hand) is an [oblique projection](https://en.wikipedia.org/wiki/Oblique_projection). Each type of oblique projection can be parameterized with an angle ($\theta$) and a ratio ($r<1$). Below is an oblique-projection matrix.
 
-$$P = \begin{bmatrix}1 & r\cos(\theta_P) & 0 \\ 0 & r\sin(\theta_P) & 1 \end{bmatrix}$$
+
+$$P = \begin{bmatrix}1 & 0 \\ r\cos(\theta_P) & r\sin(\theta_P) \\ 0 & 1 \end{bmatrix}$$
 
 We can exemplify an oblique projection with $r=0.5$ and $\theta_P=\frac{pi}{6}$ on a unit cube. The cube has lengths 1 unit long.
 
 ([SageMath](https://sagecell.sagemath.org/?z=eJxtUF0LgyAUfRf8Dxf2oiEtH7a3fsN6DCLCwuCOpk4N9vPnWrGgecCPq-d47jnBrZ_wOWtw3t71ENEasCPMBiMMc68pqSWU8FDR44s1TSE2yITD3ApKYD-a39PvumGV-UfYXR9pbcsp8clSkV8oiS7tHJ6vlFR7m1L4bLCBRcc_fyRRnwU0y1kuEuOkYrf0VmW1pGRCo9lazKNXJjgbNONCBZdy6bxK2ZSSvwGw2ExO&lang=sage&interacts=eJyLjgUAARUAuQ==))
 ```
-X = matrix(`r matcc(XS)`)
+X = matrix(`r matcc(t(XS))`)
 r = 0.5
 tp = pi/6
-P = matrix([[1,r*cos(tp),0],[0,r*sin(tp),1]])
-flat_X = P*X
-line(flat_X.transpose(),aspect_ratio=1)
+P = matrix([[1,0],[r*cos(tp),r*sin(tp)],[0,1]])
+flat_X = X*P
+line(flat_X,aspect_ratio=1)
 ```
 
 ```{r,echo=F,fig.dim=c(5,5)}
@@ -114,11 +119,11 @@ text(1+r/2,-0.05,r3,col="red")
 
 In 3D, there are relatively simple rotation matrices for spinning around the $x$, $y$, or $z$ axis.
 
-$$R_x = \begin{bmatrix}1 & 0 & 0 \\ 0 & \cos(\theta_x) & -\sin(\theta_x) \\ 0 &\sin(\theta_x) & \cos(\theta_x) \end{bmatrix}$$
+$$R_x = \begin{bmatrix}1 & 0 & 0 \\ 0 & \cos(\theta_x) & \sin(\theta_x) \\ 0 &-\sin(\theta_x) & \cos(\theta_x) \end{bmatrix}$$
 
-$$R_y = \begin{bmatrix}\cos(\theta_y) & 0 & \sin(\theta_y) \\ 0 & 1 & 0 \\ -\sin(\theta_y) & 0 & \cos(\theta_y) \end{bmatrix}$$
+$$R_y = \begin{bmatrix}\cos(\theta_y) & 0 & -\sin(\theta_y) \\ 0 & 1 & 0 \\ \sin(\theta_y) & 0 & \cos(\theta_y) \end{bmatrix}$$
 
-$$R_z = \begin{bmatrix}\cos(\theta_z) & -\sin(\theta_z) & 0 \\ \sin(\theta_z) & \cos(\theta_z) & 0 \\ 0 & 0 & 1\end{bmatrix}$$
+$$R_z = \begin{bmatrix}\cos(\theta_z) & \sin(\theta_z) & 0 \\ -\sin(\theta_z) & \cos(\theta_z) & 0 \\ 0 & 0 & 1\end{bmatrix}$$
 
 ## Information specific to this question
 

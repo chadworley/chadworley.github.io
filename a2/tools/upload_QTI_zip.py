@@ -7,7 +7,10 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s19_21_multiple_transforms.zip"]
+file_path_list = ["outcanvas/s19_22_area_parallelogram.zip",
+"outcanvas/s19_23_determinant_A.zip",
+"outcanvas/s19_24_determinant_B.zip",
+"outcanvas/s19_25_determinant_C.zip"]
 
 
 # FOR UPLOADING ETS

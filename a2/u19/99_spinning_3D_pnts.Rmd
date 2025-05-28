@@ -1,0 +1,72 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+n = 7
+r = sqrt(runif(n,0.05,1))
+t = runif(n,0,2*pi)
+y = runif(n,-1,1)
+x = r*cos(t)
+z = r*sin(t)
+
+S = round(matrix(c(x,y,z),n),4)
+
+```
+
+Question
+========
+
+Some [3D-to-2D projections](https://en.wikipedia.org/wiki/3D_projection) are not done by matrix multiplication. For example, a [one-point perspective](https://en.wikipedia.org/wiki/Perspective_(graphical)) could be achieved with the following (nonlinear, and therefore not done by matrix multiplication) formulas:
+
+$$x'~=~k\frac{x}{z}$$
+$$y'~=~k\frac{y}{z}$$
+
+where $x'$ and $y'$ are the coordinates of the 2D image, and $(x,y,z)$ is any point in 3D space, and $k$ is a scaling parameter. More specifically, imagine a camera with a sightline (like a laser) pointing straight ahead: $x$ is the horizontal displacement of any point from that sightline; $y$ is the vertical displacement of any point from that sightline; and $z$ is the distance of the object away from the camera. This assumes $z>0$.
+
+Even when matrix multiplication is not used for projecting the 3D points into 2D images, matrix multiplication remains useful for rotating, shearing, stretching, and reflecting points.
+
+Our goal will be to animate a 3D trace
+
+`r matcc(S)`
+
+```{r,echo=F}
+
+```
+
+
+Answerlist
+--------
+
+
+
+
+Solution
+========
+
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: 
+exname: spinning_3D_pnts

@@ -1,0 +1,70 @@
+```{r,echo=F,warning=F}
+library(latex2exp)
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+while(T){
+    abcd = sample(2:10,4)*sample(c(-1,1),4,T)
+    a = abcd[1]
+    b = abcd[2]
+    c = abcd[3]
+    d = abcd[4]
+    if(min(abcd)<0 && max(abcd)>0){break}
+}
+
+    
+```
+
+Question
+========
+
+Given a two-by-two matrix:
+
+$$M~=~\begin{bmatrix}a & b \\ c & d\end{bmatrix}$$
+
+The [determinant](https://en.wikipedia.org/wiki/Determinant) is defined as follows:
+
+$$\det(M)~=~ad-bc$$
+
+Let's practice evaluating the determinant.
+
+$$Q=\begin{bmatrix}`r a` & `r b` \\ `r c` & `r d`\end{bmatrix}$$
+
+
+Evaluate $\det(Q)$.
+
+
+Solution
+========
+
+
+$$\det(Q)~=~(`r a`)(`r d`)-(`r b`)(`r c`)$$
+
+$$\det(Q)~=~`r a*d-b*c`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r a*d-b*c`
+exname: determinant_C

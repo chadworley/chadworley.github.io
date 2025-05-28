@@ -1,6 +1,9 @@
 library("exams")
 
-pppsss = c("21_multiple_transforms.Rmd")
+pppsss = c("22_area_parallelogram.Rmd",
+           "23_determinant_A.Rmd",
+           "24_determinant_B.Rmd",
+           "25_determinant_C.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
