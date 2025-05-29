@@ -1,0 +1,142 @@
+```{r,echo=F,results='hide',message=FALSE, warning=FALSE, include=FALSE}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+html_input_table_33 = function(nr=3,nc=3){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:nr){
+    rs = paste0("<td>",rep("!!!",nc),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+latmat = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:nc],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+#library
+library(igraph,quietly=T)
+
+# Create data
+# set.seed(10)
+data <- matrix(sample(0:1, 25, replace=TRUE,prob=c(0.6,0.4)), nrow=5)
+colnames(data) = rownames(data) = LETTERS[1:5]
+
+for(i in 1:5){
+    data[i,i] = 0
+}
+
+# build the graph object
+network <- graph_from_adjacency_matrix(data)
+
+
+sols = character()
+for(jj in c(t(data))){
+    sols = c(sols,paste0(1*(jj==c(0,1)),collapse=""))
+}
+
+```
+
+Question
+========
+
+A matrix can be used to represent incidence relationships in a network. As a simple example, the [directed graph](https://en.wikipedia.org/wiki/Directed_graph) below
+
+```{r,echo=F,fig.dim=c(3,3)}
+par(mar=c(0,0,0,0))
+data2 = matrix(c(0,1,1,0,0,1,1,0,0),3,byrow = T)
+colnames(data2) = rownames(data2) = LETTERS[24:26]
+network2 <- graph_from_adjacency_matrix(data2)
+plot(network2)
+```
+
+can be represented with the following matrix
+
+$$`r latmat(data2)`$$
+
+because 
+
+* $X$ points to $Y$
+* $X$ points to $Z$
+* $Y$ points to $Z$
+* $Z$ points to $X$
+
+Notice I did assume the rows and columns follow alphabetical order.
+
+## Write matrix from directed graph
+
+Here is another directed graph:
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0))
+plot(network)
+```
+
+Please write the corresponding matrix. Assume rows and columns represent $a$ through $e$ in alphabetical order. Putting a 1 in the matrix represents the letter of that row points toward the letter of the column.
+
+```{r,echo=F,results='asis'}
+ans_num=1
+hm = html_input_table_33(5,5)
+for(j in 1:25){
+  hm = sub("!!!",paste0("##ANSWER",ans_num,"##",collapse=""),hm,fixed = T)
+  ans_num=ans_num+1
+}
+cat(hm)
+```
+
+
+Answerlist
+--------
+
+`r paste0(rep("* 0\n* 1",25),collapse="\n")`
+
+
+Solution
+========
+
+
+$$`r latmat(data)`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",25),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: subtract_matrices

@@ -1,9 +1,13 @@
 library("exams")
 
-pppsss = c("22_area_parallelogram.Rmd",
-           "23_determinant_A.Rmd",
-           "24_determinant_B.Rmd",
-           "25_determinant_C.Rmd")
+pppsss = c("26_Cramers_rule_2x2.Rmd",
+           "27_mult_2x2_mats.Rmd",
+           "28_Identity_Matrix.Rmd",
+           "29_check_if_inverse.Rmd",
+           "30_can_add_matrices.Rmd",
+           "31_add_matrices.Rmd",
+           "32_subtract_matrices.Rmd",
+           "33_ntwrk_incidence_mat.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

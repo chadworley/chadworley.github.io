@@ -1,0 +1,85 @@
+```{r,echo=F,warning=F,results='hide'}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+canadd = sample(c(T,F),1)
+dims = sample(2:7,4)
+s1 = ""
+if(canadd==T){
+  dims[1]=dims[3]
+  dims[2]=dims[4]
+  wrd1 = ""
+  wrd2 = ""
+} else {
+  shift = sample(c(0:1),1)
+  dims[1+shift]=dims[3+shift]
+  whichtrick = sample(1:4,1)
+  if(whichtrick==1){
+    dims[1]==dims[3]
+  } else if(whichtrick==2){
+    dims[2]==dims[4]
+  } else if(whichtrick==3){
+    dims[2]==dims[3]
+  } else if(whichtrick==4){
+    dims[2]==dims[3]
+    dims[1]==dims[4]
+  }
+  wrd1 = "do NOT"
+  wrd2 = "NOT"
+}
+a = matrix(sample(-9:9,prod(dims[1:2]),T),nrow = dims[1])
+b = matrix(sample(-9:9,prod(dims[3:4]),T),nrow = dims[3])
+pra = matpr(a)
+prb = matpr(b)
+
+ac = 1:10
+sol1 = paste0(1*(ac==dims[1]),collapse="")
+sol2 = paste0(1*(ac==dims[2]),collapse="")
+sol3 = paste0(1*(ac==dims[3]),collapse="")
+sol4 = paste0(1*(ac==dims[4]),collapse="")
+sol5 = paste0(1*(c(T,F)==canadd),collapse="")
+al = paste0("* ",ac,collapse="\n")
+```
+
+Question
+========
+
+If the dimensions of matrix $A$ are $m\times n$ and the dimensions of matrix $B$ are $p\times q$, then [matrix addition](https://en.wikipedia.org/wiki/Matrix_addition) $A+B$ is only possible if $m=p$ and $q=n$. If addition is possible, then the sum also has dimensions $m\times n$. 
+
+$$A=`r pra`$$
+$$B=`r prb`$$
+
+* $\mathrm{dim}(A)=$ ##ANSWER1##$\times$##ANSWER2##
+* $\mathrm{dim}(B)=$ ##ANSWER3##$\times$##ANSWER4##
+* Is the sum $A+B$ defined? ##ANSWER5##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+* Yes, the matrices can be added.
+* No, the matrices cannot be added.
+
+Solution
+========
+
+* The dimensions of $A$ are $`r dims[1]`\times`r dims[2]`$.
+* The dimensions of $B$ are $`r dims[3]`\times`r dims[4]`$.
+* The dimensions `r wrd1` match, so the sum is `r wrd2` defined.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`
+exname: can_add_mats

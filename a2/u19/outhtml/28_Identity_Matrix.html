@@ -1,0 +1,1226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>28_Identity_Matrix</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">28_Identity_Matrix</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(I\)</span> be a 3x3 <a href="https://en.wikipedia.org/wiki/Identity_matrix">identity matrix</a>. <span class="math display">\[I = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right]\]</span></p>
+<p>and let <span class="math inline">\(A\)</span> be a 3x3 square matrix.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+-7 &amp; 0 &amp; -5\\
+0 &amp; 3 &amp; -6\\
+9 &amp; 1 &amp; 4\\
+\end{matrix}
+\right]\]</span>
+Let <span class="math inline">\(P\)</span> be the product of <span class="math inline">\(I\)</span> times <span class="math inline">\(A\)</span>.</p>
+<p><span class="math display">\[P = I\cdot A\]</span></p>
+<p><span class="math display">\[P = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-7 &amp; 0 &amp; -5\\
+0 &amp; 3 &amp; -6\\
+9 &amp; 1 &amp; 4\\
+\end{matrix}
+\right]\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(P\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We wish to do matrix multiplication:</p>
+<p><span class="math display">\[\left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-7 &amp; 0 &amp; -5\\
+0 &amp; 3 &amp; -6\\
+9 &amp; 1 &amp; 4\\
+\end{matrix}
+\right]\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 1, sum the products of corresponding elements of row 1 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[1,1]}=(1)(-7)+(0)(0)+(0)(9)=-7\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 2, sum the products of corresponding elements of row 1 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[1,2]}=(1)(0)+(0)(3)+(0)(1)=0\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 3, sum the products of corresponding elements of row 1 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[1,3]}=(1)(-5)+(0)(-6)+(0)(4)=-5\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 1, sum the products of corresponding elements of row 2 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[2,1]}=(0)(-7)+(1)(0)+(0)(9)=0\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 2, sum the products of corresponding elements of row 2 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[2,2]}=(0)(0)+(1)(3)+(0)(1)=3\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 3, sum the products of corresponding elements of row 2 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[2,3]}=(0)(-5)+(1)(-6)+(0)(4)=-6\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 1, sum the products of corresponding elements of row 3 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[3,1]}=(0)(-7)+(0)(0)+(1)(9)=9\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 2, sum the products of corresponding elements of row 3 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[3,2]}=(0)(0)+(0)(3)+(1)(1)=1\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 3, sum the products of corresponding elements of row 3 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[3,3]}=(0)(-5)+(0)(-6)+(1)(4)=4\]</span></p>
+<p>All of that work leads to the answer:</p>
+<p><span class="math display">\[P ~=~ IA ~=~ \left[
+  \begin{matrix}
+-7 &amp; 0 &amp; -5\\
+0 &amp; 3 &amp; -6\\
+9 &amp; 1 &amp; 4\\
+\end{matrix}
+\right]\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(I\)</span> be a 3x3 <a href="https://en.wikipedia.org/wiki/Identity_matrix">identity matrix</a>. <span class="math display">\[I = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right]\]</span></p>
+<p>and let <span class="math inline">\(A\)</span> be a 3x3 square matrix.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+-2 &amp; -9 &amp; -2\\
+9 &amp; 3 &amp; 6\\
+-1 &amp; -2 &amp; 8\\
+\end{matrix}
+\right]\]</span>
+Let <span class="math inline">\(P\)</span> be the product of <span class="math inline">\(I\)</span> times <span class="math inline">\(A\)</span>.</p>
+<p><span class="math display">\[P = I\cdot A\]</span></p>
+<p><span class="math display">\[P = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-2 &amp; -9 &amp; -2\\
+9 &amp; 3 &amp; 6\\
+-1 &amp; -2 &amp; 8\\
+\end{matrix}
+\right]\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(P\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We wish to do matrix multiplication:</p>
+<p><span class="math display">\[\left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-2 &amp; -9 &amp; -2\\
+9 &amp; 3 &amp; 6\\
+-1 &amp; -2 &amp; 8\\
+\end{matrix}
+\right]\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 1, sum the products of corresponding elements of row 1 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[1,1]}=(1)(-2)+(0)(9)+(0)(-1)=-2\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 2, sum the products of corresponding elements of row 1 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[1,2]}=(1)(-9)+(0)(3)+(0)(-2)=-9\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 3, sum the products of corresponding elements of row 1 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[1,3]}=(1)(-2)+(0)(6)+(0)(8)=-2\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 1, sum the products of corresponding elements of row 2 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[2,1]}=(0)(-2)+(1)(9)+(0)(-1)=9\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 2, sum the products of corresponding elements of row 2 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[2,2]}=(0)(-9)+(1)(3)+(0)(-2)=3\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 3, sum the products of corresponding elements of row 2 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[2,3]}=(0)(-2)+(1)(6)+(0)(8)=6\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 1, sum the products of corresponding elements of row 3 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[3,1]}=(0)(-2)+(0)(9)+(1)(-1)=-1\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 2, sum the products of corresponding elements of row 3 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[3,2]}=(0)(-9)+(0)(3)+(1)(-2)=-2\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 3, sum the products of corresponding elements of row 3 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[3,3]}=(0)(-2)+(0)(6)+(1)(8)=8\]</span></p>
+<p>All of that work leads to the answer:</p>
+<p><span class="math display">\[P ~=~ IA ~=~ \left[
+  \begin{matrix}
+-2 &amp; -9 &amp; -2\\
+9 &amp; 3 &amp; 6\\
+-1 &amp; -2 &amp; 8\\
+\end{matrix}
+\right]\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(I\)</span> be a 3x3 <a href="https://en.wikipedia.org/wiki/Identity_matrix">identity matrix</a>. <span class="math display">\[I = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right]\]</span></p>
+<p>and let <span class="math inline">\(A\)</span> be a 3x3 square matrix.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+-6 &amp; 4 &amp; 5\\
+1 &amp; 6 &amp; -8\\
+-8 &amp; 0 &amp; -1\\
+\end{matrix}
+\right]\]</span>
+Let <span class="math inline">\(P\)</span> be the product of <span class="math inline">\(I\)</span> times <span class="math inline">\(A\)</span>.</p>
+<p><span class="math display">\[P = I\cdot A\]</span></p>
+<p><span class="math display">\[P = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-6 &amp; 4 &amp; 5\\
+1 &amp; 6 &amp; -8\\
+-8 &amp; 0 &amp; -1\\
+\end{matrix}
+\right]\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(P\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We wish to do matrix multiplication:</p>
+<p><span class="math display">\[\left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-6 &amp; 4 &amp; 5\\
+1 &amp; 6 &amp; -8\\
+-8 &amp; 0 &amp; -1\\
+\end{matrix}
+\right]\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 1, sum the products of corresponding elements of row 1 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[1,1]}=(1)(-6)+(0)(1)+(0)(-8)=-6\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 2, sum the products of corresponding elements of row 1 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[1,2]}=(1)(4)+(0)(6)+(0)(0)=4\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 3, sum the products of corresponding elements of row 1 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[1,3]}=(1)(5)+(0)(-8)+(0)(-1)=5\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 1, sum the products of corresponding elements of row 2 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[2,1]}=(0)(-6)+(1)(1)+(0)(-8)=1\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 2, sum the products of corresponding elements of row 2 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[2,2]}=(0)(4)+(1)(6)+(0)(0)=6\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 3, sum the products of corresponding elements of row 2 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[2,3]}=(0)(5)+(1)(-8)+(0)(-1)=-8\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 1, sum the products of corresponding elements of row 3 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[3,1]}=(0)(-6)+(0)(1)+(1)(-8)=-8\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 2, sum the products of corresponding elements of row 3 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[3,2]}=(0)(4)+(0)(6)+(1)(0)=0\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 3, sum the products of corresponding elements of row 3 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[3,3]}=(0)(5)+(0)(-8)+(1)(-1)=-1\]</span></p>
+<p>All of that work leads to the answer:</p>
+<p><span class="math display">\[P ~=~ IA ~=~ \left[
+  \begin{matrix}
+-6 &amp; 4 &amp; 5\\
+1 &amp; 6 &amp; -8\\
+-8 &amp; 0 &amp; -1\\
+\end{matrix}
+\right]\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(I\)</span> be a 3x3 <a href="https://en.wikipedia.org/wiki/Identity_matrix">identity matrix</a>. <span class="math display">\[I = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right]\]</span></p>
+<p>and let <span class="math inline">\(A\)</span> be a 3x3 square matrix.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+-2 &amp; -1 &amp; 0\\
+4 &amp; -9 &amp; -4\\
+4 &amp; 5 &amp; -5\\
+\end{matrix}
+\right]\]</span>
+Let <span class="math inline">\(P\)</span> be the product of <span class="math inline">\(I\)</span> times <span class="math inline">\(A\)</span>.</p>
+<p><span class="math display">\[P = I\cdot A\]</span></p>
+<p><span class="math display">\[P = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-2 &amp; -1 &amp; 0\\
+4 &amp; -9 &amp; -4\\
+4 &amp; 5 &amp; -5\\
+\end{matrix}
+\right]\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(P\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We wish to do matrix multiplication:</p>
+<p><span class="math display">\[\left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-2 &amp; -1 &amp; 0\\
+4 &amp; -9 &amp; -4\\
+4 &amp; 5 &amp; -5\\
+\end{matrix}
+\right]\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 1, sum the products of corresponding elements of row 1 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[1,1]}=(1)(-2)+(0)(4)+(0)(4)=-2\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 2, sum the products of corresponding elements of row 1 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[1,2]}=(1)(-1)+(0)(-9)+(0)(5)=-1\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 3, sum the products of corresponding elements of row 1 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[1,3]}=(1)(0)+(0)(-4)+(0)(-5)=0\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 1, sum the products of corresponding elements of row 2 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[2,1]}=(0)(-2)+(1)(4)+(0)(4)=4\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 2, sum the products of corresponding elements of row 2 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[2,2]}=(0)(-1)+(1)(-9)+(0)(5)=-9\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 3, sum the products of corresponding elements of row 2 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[2,3]}=(0)(0)+(1)(-4)+(0)(-5)=-4\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 1, sum the products of corresponding elements of row 3 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[3,1]}=(0)(-2)+(0)(4)+(1)(4)=4\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 2, sum the products of corresponding elements of row 3 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[3,2]}=(0)(-1)+(0)(-9)+(1)(5)=5\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 3, sum the products of corresponding elements of row 3 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[3,3]}=(0)(0)+(0)(-4)+(1)(-5)=-5\]</span></p>
+<p>All of that work leads to the answer:</p>
+<p><span class="math display">\[P ~=~ IA ~=~ \left[
+  \begin{matrix}
+-2 &amp; -1 &amp; 0\\
+4 &amp; -9 &amp; -4\\
+4 &amp; 5 &amp; -5\\
+\end{matrix}
+\right]\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(I\)</span> be a 3x3 <a href="https://en.wikipedia.org/wiki/Identity_matrix">identity matrix</a>. <span class="math display">\[I = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right]\]</span></p>
+<p>and let <span class="math inline">\(A\)</span> be a 3x3 square matrix.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+6 &amp; -4 &amp; -2\\
+-3 &amp; 1 &amp; -2\\
+-1 &amp; 7 &amp; -2\\
+\end{matrix}
+\right]\]</span>
+Let <span class="math inline">\(P\)</span> be the product of <span class="math inline">\(I\)</span> times <span class="math inline">\(A\)</span>.</p>
+<p><span class="math display">\[P = I\cdot A\]</span></p>
+<p><span class="math display">\[P = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+6 &amp; -4 &amp; -2\\
+-3 &amp; 1 &amp; -2\\
+-1 &amp; 7 &amp; -2\\
+\end{matrix}
+\right]\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(P\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We wish to do matrix multiplication:</p>
+<p><span class="math display">\[\left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+6 &amp; -4 &amp; -2\\
+-3 &amp; 1 &amp; -2\\
+-1 &amp; 7 &amp; -2\\
+\end{matrix}
+\right]\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 1, sum the products of corresponding elements of row 1 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[1,1]}=(1)(6)+(0)(-3)+(0)(-1)=6\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 2, sum the products of corresponding elements of row 1 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[1,2]}=(1)(-4)+(0)(1)+(0)(7)=-4\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 3, sum the products of corresponding elements of row 1 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[1,3]}=(1)(-2)+(0)(-2)+(0)(-2)=-2\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 1, sum the products of corresponding elements of row 2 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[2,1]}=(0)(6)+(1)(-3)+(0)(-1)=-3\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 2, sum the products of corresponding elements of row 2 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[2,2]}=(0)(-4)+(1)(1)+(0)(7)=1\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 3, sum the products of corresponding elements of row 2 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[2,3]}=(0)(-2)+(1)(-2)+(0)(-2)=-2\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 1, sum the products of corresponding elements of row 3 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[3,1]}=(0)(6)+(0)(-3)+(1)(-1)=-1\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 2, sum the products of corresponding elements of row 3 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[3,2]}=(0)(-4)+(0)(1)+(1)(7)=7\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 3, sum the products of corresponding elements of row 3 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[3,3]}=(0)(-2)+(0)(-2)+(1)(-2)=-2\]</span></p>
+<p>All of that work leads to the answer:</p>
+<p><span class="math display">\[P ~=~ IA ~=~ \left[
+  \begin{matrix}
+6 &amp; -4 &amp; -2\\
+-3 &amp; 1 &amp; -2\\
+-1 &amp; 7 &amp; -2\\
+\end{matrix}
+\right]\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(I\)</span> be a 3x3 <a href="https://en.wikipedia.org/wiki/Identity_matrix">identity matrix</a>. <span class="math display">\[I = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right]\]</span></p>
+<p>and let <span class="math inline">\(A\)</span> be a 3x3 square matrix.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+-7 &amp; 6 &amp; -3\\
+-2 &amp; -6 &amp; -9\\
+3 &amp; -4 &amp; -8\\
+\end{matrix}
+\right]\]</span>
+Let <span class="math inline">\(P\)</span> be the product of <span class="math inline">\(I\)</span> times <span class="math inline">\(A\)</span>.</p>
+<p><span class="math display">\[P = I\cdot A\]</span></p>
+<p><span class="math display">\[P = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-7 &amp; 6 &amp; -3\\
+-2 &amp; -6 &amp; -9\\
+3 &amp; -4 &amp; -8\\
+\end{matrix}
+\right]\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(P\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We wish to do matrix multiplication:</p>
+<p><span class="math display">\[\left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-7 &amp; 6 &amp; -3\\
+-2 &amp; -6 &amp; -9\\
+3 &amp; -4 &amp; -8\\
+\end{matrix}
+\right]\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 1, sum the products of corresponding elements of row 1 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[1,1]}=(1)(-7)+(0)(-2)+(0)(3)=-7\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 2, sum the products of corresponding elements of row 1 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[1,2]}=(1)(6)+(0)(-6)+(0)(-4)=6\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 3, sum the products of corresponding elements of row 1 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[1,3]}=(1)(-3)+(0)(-9)+(0)(-8)=-3\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 1, sum the products of corresponding elements of row 2 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[2,1]}=(0)(-7)+(1)(-2)+(0)(3)=-2\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 2, sum the products of corresponding elements of row 2 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[2,2]}=(0)(6)+(1)(-6)+(0)(-4)=-6\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 3, sum the products of corresponding elements of row 2 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[2,3]}=(0)(-3)+(1)(-9)+(0)(-8)=-9\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 1, sum the products of corresponding elements of row 3 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[3,1]}=(0)(-7)+(0)(-2)+(1)(3)=3\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 2, sum the products of corresponding elements of row 3 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[3,2]}=(0)(6)+(0)(-6)+(1)(-4)=-4\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 3, sum the products of corresponding elements of row 3 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[3,3]}=(0)(-3)+(0)(-9)+(1)(-8)=-8\]</span></p>
+<p>All of that work leads to the answer:</p>
+<p><span class="math display">\[P ~=~ IA ~=~ \left[
+  \begin{matrix}
+-7 &amp; 6 &amp; -3\\
+-2 &amp; -6 &amp; -9\\
+3 &amp; -4 &amp; -8\\
+\end{matrix}
+\right]\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(I\)</span> be a 3x3 <a href="https://en.wikipedia.org/wiki/Identity_matrix">identity matrix</a>. <span class="math display">\[I = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right]\]</span></p>
+<p>and let <span class="math inline">\(A\)</span> be a 3x3 square matrix.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+-3 &amp; -2 &amp; -8\\
+8 &amp; -9 &amp; 3\\
+0 &amp; -6 &amp; -7\\
+\end{matrix}
+\right]\]</span>
+Let <span class="math inline">\(P\)</span> be the product of <span class="math inline">\(I\)</span> times <span class="math inline">\(A\)</span>.</p>
+<p><span class="math display">\[P = I\cdot A\]</span></p>
+<p><span class="math display">\[P = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-3 &amp; -2 &amp; -8\\
+8 &amp; -9 &amp; 3\\
+0 &amp; -6 &amp; -7\\
+\end{matrix}
+\right]\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(P\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We wish to do matrix multiplication:</p>
+<p><span class="math display">\[\left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-3 &amp; -2 &amp; -8\\
+8 &amp; -9 &amp; 3\\
+0 &amp; -6 &amp; -7\\
+\end{matrix}
+\right]\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 1, sum the products of corresponding elements of row 1 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[1,1]}=(1)(-3)+(0)(8)+(0)(0)=-3\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 2, sum the products of corresponding elements of row 1 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[1,2]}=(1)(-2)+(0)(-9)+(0)(-6)=-2\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 3, sum the products of corresponding elements of row 1 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[1,3]}=(1)(-8)+(0)(3)+(0)(-7)=-8\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 1, sum the products of corresponding elements of row 2 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[2,1]}=(0)(-3)+(1)(8)+(0)(0)=8\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 2, sum the products of corresponding elements of row 2 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[2,2]}=(0)(-2)+(1)(-9)+(0)(-6)=-9\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 3, sum the products of corresponding elements of row 2 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[2,3]}=(0)(-8)+(1)(3)+(0)(-7)=3\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 1, sum the products of corresponding elements of row 3 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[3,1]}=(0)(-3)+(0)(8)+(1)(0)=0\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 2, sum the products of corresponding elements of row 3 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[3,2]}=(0)(-2)+(0)(-9)+(1)(-6)=-6\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 3, sum the products of corresponding elements of row 3 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[3,3]}=(0)(-8)+(0)(3)+(1)(-7)=-7\]</span></p>
+<p>All of that work leads to the answer:</p>
+<p><span class="math display">\[P ~=~ IA ~=~ \left[
+  \begin{matrix}
+-3 &amp; -2 &amp; -8\\
+8 &amp; -9 &amp; 3\\
+0 &amp; -6 &amp; -7\\
+\end{matrix}
+\right]\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(I\)</span> be a 3x3 <a href="https://en.wikipedia.org/wiki/Identity_matrix">identity matrix</a>. <span class="math display">\[I = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right]\]</span></p>
+<p>and let <span class="math inline">\(A\)</span> be a 3x3 square matrix.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+-3 &amp; 6 &amp; -6\\
+-6 &amp; -4 &amp; 0\\
+-4 &amp; -2 &amp; 3\\
+\end{matrix}
+\right]\]</span>
+Let <span class="math inline">\(P\)</span> be the product of <span class="math inline">\(I\)</span> times <span class="math inline">\(A\)</span>.</p>
+<p><span class="math display">\[P = I\cdot A\]</span></p>
+<p><span class="math display">\[P = \left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-3 &amp; 6 &amp; -6\\
+-6 &amp; -4 &amp; 0\\
+-4 &amp; -2 &amp; 3\\
+\end{matrix}
+\right]\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(P\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We wish to do matrix multiplication:</p>
+<p><span class="math display">\[\left[
+  \begin{matrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1\\
+\end{matrix}
+\right] \cdot \left[
+  \begin{matrix}
+-3 &amp; 6 &amp; -6\\
+-6 &amp; -4 &amp; 0\\
+-4 &amp; -2 &amp; 3\\
+\end{matrix}
+\right]\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 1, sum the products of corresponding elements of row 1 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[1,1]}=(1)(-3)+(0)(-6)+(0)(-4)=-3\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 2, sum the products of corresponding elements of row 1 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[1,2]}=(1)(6)+(0)(-4)+(0)(-2)=6\]</span></p>
+<p>To find the product matrix’s value in row 1 and column 3, sum the products of corresponding elements of row 1 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[1,3]}=(1)(-6)+(0)(0)+(0)(3)=-6\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 1, sum the products of corresponding elements of row 2 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[2,1]}=(0)(-3)+(1)(-6)+(0)(-4)=-6\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 2, sum the products of corresponding elements of row 2 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[2,2]}=(0)(6)+(1)(-4)+(0)(-2)=-4\]</span></p>
+<p>To find the product matrix’s value in row 2 and column 3, sum the products of corresponding elements of row 2 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[2,3]}=(0)(-6)+(1)(0)+(0)(3)=0\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 1, sum the products of corresponding elements of row 3 in matrix A and column 1 in matrix B.
+<span class="math display">\[P_{[3,1]}=(0)(-3)+(0)(-6)+(1)(-4)=-4\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 2, sum the products of corresponding elements of row 3 in matrix A and column 2 in matrix B.
+<span class="math display">\[P_{[3,2]}=(0)(6)+(0)(-4)+(1)(-2)=-2\]</span></p>
+<p>To find the product matrix’s value in row 3 and column 3, sum the products of corresponding elements of row 3 in matrix A and column 3 in matrix B.
+<span class="math display">\[P_{[3,3]}=(0)(-6)+(0)(0)+(1)(3)=3\]</span></p>
+<p>All of that work leads to the answer:</p>
+<p><span class="math display">\[P ~=~ IA ~=~ \left[
+  \begin{matrix}
+-3 &amp; 6 &amp; -6\\
+-6 &amp; -4 &amp; 0\\
+-4 &amp; -2 &amp; 3\\
+\end{matrix}
+\right]\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

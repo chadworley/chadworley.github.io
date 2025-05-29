@@ -1,0 +1,946 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>31_add_matrices</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">31_add_matrices</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be 3x4 matrices.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+3 &amp; -6 &amp; 6 &amp; 1\\
+-5 &amp; 2 &amp; -7 &amp; 0\\
+6 &amp; -5 &amp; -2 &amp; 2\\
+\end{matrix}
+\right]\]</span></p>
+<p><span class="math display">\[B = \left[
+  \begin{matrix}
+9 &amp; 9 &amp; -3 &amp; 4\\
+9 &amp; -7 &amp; 5 &amp; 6\\
+-7 &amp; 1 &amp; -8 &amp; 2\\
+\end{matrix}
+\right]\]</span></p>
+<p>Let <span class="math inline">\(C\)</span> be the <a href="https://en.wikipedia.org/wiki/Matrix_addition">sum</a> of <span class="math inline">\(A\)</span> plus <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[C = A + B\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(C\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Simply add corresponding elements.</p>
+<p><span class="math display">\[C ~=~ \left[
+  \begin{matrix}
+12 &amp; 3 &amp; 3 &amp; 5\\
+4 &amp; -5 &amp; -2 &amp; 6\\
+-1 &amp; -4 &amp; -10 &amp; 4\\
+\end{matrix}
+\right]\]</span></p>
+<p>You might be wondering why matrix multiplication is not as simple. What you are looking for is called the <a href="https://en.wikipedia.org/wiki/Hadamard_product_(matrices)">Hadamard product</a>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be 3x4 matrices.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+4 &amp; 3 &amp; 3 &amp; -1\\
+2 &amp; -2 &amp; 5 &amp; 2\\
+3 &amp; -7 &amp; 1 &amp; -2\\
+\end{matrix}
+\right]\]</span></p>
+<p><span class="math display">\[B = \left[
+  \begin{matrix}
+5 &amp; 6 &amp; 1 &amp; -1\\
+6 &amp; -5 &amp; -7 &amp; -8\\
+7 &amp; 7 &amp; 10 &amp; 8\\
+\end{matrix}
+\right]\]</span></p>
+<p>Let <span class="math inline">\(C\)</span> be the <a href="https://en.wikipedia.org/wiki/Matrix_addition">sum</a> of <span class="math inline">\(A\)</span> plus <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[C = A + B\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(C\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Simply add corresponding elements.</p>
+<p><span class="math display">\[C ~=~ \left[
+  \begin{matrix}
+9 &amp; 9 &amp; 4 &amp; -2\\
+8 &amp; -7 &amp; -2 &amp; -6\\
+10 &amp; 0 &amp; 11 &amp; 6\\
+\end{matrix}
+\right]\]</span></p>
+<p>You might be wondering why matrix multiplication is not as simple. What you are looking for is called the <a href="https://en.wikipedia.org/wiki/Hadamard_product_(matrices)">Hadamard product</a>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be 3x4 matrices.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+-6 &amp; 5 &amp; 2 &amp; -4\\
+-6 &amp; 0 &amp; -4 &amp; -7\\
+-10 &amp; 7 &amp; 2 &amp; 8\\
+\end{matrix}
+\right]\]</span></p>
+<p><span class="math display">\[B = \left[
+  \begin{matrix}
+-4 &amp; -2 &amp; 4 &amp; 8\\
+-6 &amp; 0 &amp; -7 &amp; -2\\
+-2 &amp; -5 &amp; -9 &amp; -1\\
+\end{matrix}
+\right]\]</span></p>
+<p>Let <span class="math inline">\(C\)</span> be the <a href="https://en.wikipedia.org/wiki/Matrix_addition">sum</a> of <span class="math inline">\(A\)</span> plus <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[C = A + B\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(C\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Simply add corresponding elements.</p>
+<p><span class="math display">\[C ~=~ \left[
+  \begin{matrix}
+-10 &amp; 3 &amp; 6 &amp; 4\\
+-12 &amp; 0 &amp; -11 &amp; -9\\
+-12 &amp; 2 &amp; -7 &amp; 7\\
+\end{matrix}
+\right]\]</span></p>
+<p>You might be wondering why matrix multiplication is not as simple. What you are looking for is called the <a href="https://en.wikipedia.org/wiki/Hadamard_product_(matrices)">Hadamard product</a>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be 3x4 matrices.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+7 &amp; -5 &amp; 6 &amp; -4\\
+1 &amp; 5 &amp; -5 &amp; -9\\
+8 &amp; 1 &amp; 3 &amp; 3\\
+\end{matrix}
+\right]\]</span></p>
+<p><span class="math display">\[B = \left[
+  \begin{matrix}
+-4 &amp; 2 &amp; -10 &amp; 3\\
+8 &amp; -6 &amp; 5 &amp; 1\\
+-9 &amp; 1 &amp; 3 &amp; 7\\
+\end{matrix}
+\right]\]</span></p>
+<p>Let <span class="math inline">\(C\)</span> be the <a href="https://en.wikipedia.org/wiki/Matrix_addition">sum</a> of <span class="math inline">\(A\)</span> plus <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[C = A + B\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(C\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Simply add corresponding elements.</p>
+<p><span class="math display">\[C ~=~ \left[
+  \begin{matrix}
+3 &amp; -3 &amp; -4 &amp; -1\\
+9 &amp; -1 &amp; 0 &amp; -8\\
+-1 &amp; 2 &amp; 6 &amp; 10\\
+\end{matrix}
+\right]\]</span></p>
+<p>You might be wondering why matrix multiplication is not as simple. What you are looking for is called the <a href="https://en.wikipedia.org/wiki/Hadamard_product_(matrices)">Hadamard product</a>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be 3x4 matrices.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+0 &amp; -4 &amp; 10 &amp; 4\\
+-5 &amp; 7 &amp; -10 &amp; 6\\
+6 &amp; 7 &amp; 6 &amp; 1\\
+\end{matrix}
+\right]\]</span></p>
+<p><span class="math display">\[B = \left[
+  \begin{matrix}
+-8 &amp; -2 &amp; -10 &amp; -4\\
+8 &amp; -6 &amp; -2 &amp; 3\\
+0 &amp; -5 &amp; -10 &amp; 7\\
+\end{matrix}
+\right]\]</span></p>
+<p>Let <span class="math inline">\(C\)</span> be the <a href="https://en.wikipedia.org/wiki/Matrix_addition">sum</a> of <span class="math inline">\(A\)</span> plus <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[C = A + B\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(C\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Simply add corresponding elements.</p>
+<p><span class="math display">\[C ~=~ \left[
+  \begin{matrix}
+-8 &amp; -6 &amp; 0 &amp; 0\\
+3 &amp; 1 &amp; -12 &amp; 9\\
+6 &amp; 2 &amp; -4 &amp; 8\\
+\end{matrix}
+\right]\]</span></p>
+<p>You might be wondering why matrix multiplication is not as simple. What you are looking for is called the <a href="https://en.wikipedia.org/wiki/Hadamard_product_(matrices)">Hadamard product</a>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be 3x4 matrices.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+2 &amp; 1 &amp; -10 &amp; -2\\
+-7 &amp; -9 &amp; -2 &amp; -3\\
+-5 &amp; 0 &amp; 2 &amp; 2\\
+\end{matrix}
+\right]\]</span></p>
+<p><span class="math display">\[B = \left[
+  \begin{matrix}
+1 &amp; 2 &amp; -2 &amp; 8\\
+5 &amp; -3 &amp; 8 &amp; -2\\
+-1 &amp; -7 &amp; -10 &amp; 2\\
+\end{matrix}
+\right]\]</span></p>
+<p>Let <span class="math inline">\(C\)</span> be the <a href="https://en.wikipedia.org/wiki/Matrix_addition">sum</a> of <span class="math inline">\(A\)</span> plus <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[C = A + B\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(C\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Simply add corresponding elements.</p>
+<p><span class="math display">\[C ~=~ \left[
+  \begin{matrix}
+3 &amp; 3 &amp; -12 &amp; 6\\
+-2 &amp; -12 &amp; 6 &amp; -5\\
+-6 &amp; -7 &amp; -8 &amp; 4\\
+\end{matrix}
+\right]\]</span></p>
+<p>You might be wondering why matrix multiplication is not as simple. What you are looking for is called the <a href="https://en.wikipedia.org/wiki/Hadamard_product_(matrices)">Hadamard product</a>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be 3x4 matrices.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+-5 &amp; -1 &amp; -5 &amp; 1\\
+9 &amp; 9 &amp; -5 &amp; -7\\
+-5 &amp; -7 &amp; -7 &amp; 4\\
+\end{matrix}
+\right]\]</span></p>
+<p><span class="math display">\[B = \left[
+  \begin{matrix}
+-3 &amp; -9 &amp; 3 &amp; -8\\
+-5 &amp; -2 &amp; 2 &amp; -2\\
+-7 &amp; -3 &amp; 3 &amp; -8\\
+\end{matrix}
+\right]\]</span></p>
+<p>Let <span class="math inline">\(C\)</span> be the <a href="https://en.wikipedia.org/wiki/Matrix_addition">sum</a> of <span class="math inline">\(A\)</span> plus <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[C = A + B\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(C\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Simply add corresponding elements.</p>
+<p><span class="math display">\[C ~=~ \left[
+  \begin{matrix}
+-8 &amp; -10 &amp; -2 &amp; -7\\
+4 &amp; 7 &amp; -3 &amp; -9\\
+-12 &amp; -10 &amp; -4 &amp; -4\\
+\end{matrix}
+\right]\]</span></p>
+<p>You might be wondering why matrix multiplication is not as simple. What you are looking for is called the <a href="https://en.wikipedia.org/wiki/Hadamard_product_(matrices)">Hadamard product</a>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>
+<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be 3x4 matrices.</p>
+<p><span class="math display">\[A = \left[
+  \begin{matrix}
+-7 &amp; -3 &amp; 1 &amp; -4\\
+2 &amp; -7 &amp; -6 &amp; -7\\
+3 &amp; -2 &amp; 3 &amp; 1\\
+\end{matrix}
+\right]\]</span></p>
+<p><span class="math display">\[B = \left[
+  \begin{matrix}
+9 &amp; -4 &amp; 3 &amp; 2\\
+-10 &amp; 6 &amp; 1 &amp; 6\\
+-9 &amp; 4 &amp; 0 &amp; -1\\
+\end{matrix}
+\right]\]</span></p>
+<p>Let <span class="math inline">\(C\)</span> be the <a href="https://en.wikipedia.org/wiki/Matrix_addition">sum</a> of <span class="math inline">\(A\)</span> plus <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[C = A + B\]</span></p>
+<p>Determine the values of matrix <span class="math inline">\(C\)</span>:</p>
+<div class="mc">
+<table class="matrix">
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+<tr>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+<td>
+<select><option>--------</option><option> -12</option><option>-11</option><option>-10</option><option>-9</option><option>-8</option><option>-7</option><option>-6</option><option>-5</option><option>-4</option><option>-3</option><option>-2</option><option>-1</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12 </option></select>
+</td>
+</tr>
+</table>
+</div>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Simply add corresponding elements.</p>
+<p><span class="math display">\[C ~=~ \left[
+  \begin{matrix}
+2 &amp; -7 &amp; 4 &amp; -2\\
+-8 &amp; -1 &amp; -5 &amp; -1\\
+-6 &amp; 2 &amp; 3 &amp; 0\\
+\end{matrix}
+\right]\]</span></p>
+<p>You might be wondering why matrix multiplication is not as simple. What you are looking for is called the <a href="https://en.wikipedia.org/wiki/Hadamard_product_(matrices)">Hadamard product</a>.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

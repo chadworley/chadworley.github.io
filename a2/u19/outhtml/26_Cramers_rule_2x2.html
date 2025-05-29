@@ -1,0 +1,442 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>26_Cramers_rule_2x2</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">26_Cramers_rule_2x2</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/System_of_linear_equations">linear 2-equation-2-variable system</a> of equations can be expressed generally in standard form, using 6 parameters (<span class="math inline">\(a\)</span> through <span class="math inline">\(f\)</span>) and 2 variables (<span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>).</p>
+<p><span class="math display">\[\begin{align}ax+by &amp;= c \\ dx+ey &amp;=f\end{align}\]</span></p>
+<p>Using determinants, we can express <a href="https://en.wikipedia.org/wiki/Cramer%27s_rule">Cramer’s rule</a>, which gives us the solutions to the system:</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{ce-bf}{ae-bd}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{af-cd}{ae-bd}\]</span></p>
+<p>Using Cramer’s rule, solve the linear system below:</p>
+<p><span class="math display">\[\begin{align}9x+12y&amp;=-7\\10x+2y&amp;=11\end{align}\]</span></p>
+<p>Express your answers in decimal form rounded to the hundredths place.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 1.40</option><option>1.41</option><option>1.42</option><option>1.43</option><option>1.44</option><option>1.45</option><option>1.69</option><option>1.70</option><option>1.71</option><option>1.72</option><option>1.73</option><option>1.74 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 1.40</option><option>1.41</option><option>1.42</option><option>1.43</option><option>1.44</option><option>1.45</option><option>1.69</option><option>1.70</option><option>1.71</option><option>1.72</option><option>1.73</option><option>1.74 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use Cramer’s rule. Here is the given system:</p>
+<p><span class="math display">\[\begin{align}9x+12y&amp;=-7\\10x+2y&amp;=11\end{align}\]</span></p>
+<p>Identify the parameters as defined in the general desciption.</p>
+<p><span class="math display">\[a=9\]</span>
+<span class="math display">\[b=12\]</span>
+<span class="math display">\[c=-7\]</span>
+<span class="math display">\[d=10\]</span>
+<span class="math display">\[e=2\]</span>
+<span class="math display">\[f=11\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}-7 &amp; 12\\ 11 &amp; 2\end{bmatrix}\right)}{\det\left(\begin{bmatrix}9 &amp; 12\\ 10 &amp; 2\end{bmatrix}\right)}\]</span></p>
+<p>Remember how to calculate a <a href="https://en.wikipedia.org/wiki/Determinant">determinant</a>.</p>
+<p><span class="math display">\[\begin{align}x~&amp;=~\frac{(-7)(2)-(12)(11)}{(9)(2)-(12)(10)}\\\\
+x~&amp;=~ \frac{-146}{-102} \\\\
+x~&amp;\approx~ 1.43
+\end{align}\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(y\)</span>.</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}9 &amp; -7\\ 10 &amp; 11\end{bmatrix}\right)}{\det\left(\begin{bmatrix}9 &amp; 12\\ 10 &amp; 2\end{bmatrix}\right)}\]</span></p>
+<p><span class="math display">\[\begin{align}y~&amp;=~\frac{(9)(11)-(-7)(10)}{(9)(2)-(12)(10)}\\\\
+y~&amp;=~ \frac{169}{-102} \\\\
+y~&amp;\approx~ 1.70
+\end{align}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/System_of_linear_equations">linear 2-equation-2-variable system</a> of equations can be expressed generally in standard form, using 6 parameters (<span class="math inline">\(a\)</span> through <span class="math inline">\(f\)</span>) and 2 variables (<span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>).</p>
+<p><span class="math display">\[\begin{align}ax+by &amp;= c \\ dx+ey &amp;=f\end{align}\]</span></p>
+<p>Using determinants, we can express <a href="https://en.wikipedia.org/wiki/Cramer%27s_rule">Cramer’s rule</a>, which gives us the solutions to the system:</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{ce-bf}{ae-bd}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{af-cd}{ae-bd}\]</span></p>
+<p>Using Cramer’s rule, solve the linear system below:</p>
+<p><span class="math display">\[\begin{align}12x+3y&amp;=2\\5x+10y&amp;=11\end{align}\]</span></p>
+<p>Express your answers in decimal form rounded to the hundredths place.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -0.32</option><option>-0.31</option><option>-0.30</option><option>-0.29</option><option>-0.28</option><option>-0.27</option><option>-0.16</option><option>-0.15</option><option>-0.14</option><option>-0.13</option><option>-0.12</option><option>-0.11 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -0.32</option><option>-0.31</option><option>-0.30</option><option>-0.29</option><option>-0.28</option><option>-0.27</option><option>-0.16</option><option>-0.15</option><option>-0.14</option><option>-0.13</option><option>-0.12</option><option>-0.11 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use Cramer’s rule. Here is the given system:</p>
+<p><span class="math display">\[\begin{align}12x+3y&amp;=2\\5x+10y&amp;=11\end{align}\]</span></p>
+<p>Identify the parameters as defined in the general desciption.</p>
+<p><span class="math display">\[a=12\]</span>
+<span class="math display">\[b=3\]</span>
+<span class="math display">\[c=2\]</span>
+<span class="math display">\[d=5\]</span>
+<span class="math display">\[e=10\]</span>
+<span class="math display">\[f=11\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}2 &amp; 3\\ 11 &amp; 10\end{bmatrix}\right)}{\det\left(\begin{bmatrix}12 &amp; 3\\ 5 &amp; 10\end{bmatrix}\right)}\]</span></p>
+<p>Remember how to calculate a <a href="https://en.wikipedia.org/wiki/Determinant">determinant</a>.</p>
+<p><span class="math display">\[\begin{align}x~&amp;=~\frac{(2)(10)-(3)(11)}{(12)(10)-(3)(5)}\\\\
+x~&amp;=~ \frac{-13}{105} \\\\
+x~&amp;\approx~ -0.12
+\end{align}\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(y\)</span>.</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}12 &amp; 2\\ 5 &amp; 11\end{bmatrix}\right)}{\det\left(\begin{bmatrix}12 &amp; 3\\ 5 &amp; 10\end{bmatrix}\right)}\]</span></p>
+<p><span class="math display">\[\begin{align}y~&amp;=~\frac{(12)(11)-(2)(5)}{(12)(10)-(3)(5)}\\\\
+y~&amp;=~ \frac{122}{105} \\\\
+y~&amp;\approx~ -0.30
+\end{align}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/System_of_linear_equations">linear 2-equation-2-variable system</a> of equations can be expressed generally in standard form, using 6 parameters (<span class="math inline">\(a\)</span> through <span class="math inline">\(f\)</span>) and 2 variables (<span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>).</p>
+<p><span class="math display">\[\begin{align}ax+by &amp;= c \\ dx+ey &amp;=f\end{align}\]</span></p>
+<p>Using determinants, we can express <a href="https://en.wikipedia.org/wiki/Cramer%27s_rule">Cramer’s rule</a>, which gives us the solutions to the system:</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{ce-bf}{ae-bd}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{af-cd}{ae-bd}\]</span></p>
+<p>Using Cramer’s rule, solve the linear system below:</p>
+<p><span class="math display">\[\begin{align}7x-12y&amp;=9\\2x+10y&amp;=-5\end{align}\]</span></p>
+<p>Express your answers in decimal form rounded to the hundredths place.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 0.27</option><option>0.28</option><option>0.29</option><option>0.30</option><option>0.31</option><option>0.32</option><option>0.74</option><option>0.75</option><option>0.76</option><option>0.77</option><option>0.78</option><option>0.79 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 0.27</option><option>0.28</option><option>0.29</option><option>0.30</option><option>0.31</option><option>0.32</option><option>0.74</option><option>0.75</option><option>0.76</option><option>0.77</option><option>0.78</option><option>0.79 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use Cramer’s rule. Here is the given system:</p>
+<p><span class="math display">\[\begin{align}7x-12y&amp;=9\\2x+10y&amp;=-5\end{align}\]</span></p>
+<p>Identify the parameters as defined in the general desciption.</p>
+<p><span class="math display">\[a=7\]</span>
+<span class="math display">\[b=-12\]</span>
+<span class="math display">\[c=9\]</span>
+<span class="math display">\[d=2\]</span>
+<span class="math display">\[e=10\]</span>
+<span class="math display">\[f=-5\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}9 &amp; -12\\ -5 &amp; 10\end{bmatrix}\right)}{\det\left(\begin{bmatrix}7 &amp; -12\\ 2 &amp; 10\end{bmatrix}\right)}\]</span></p>
+<p>Remember how to calculate a <a href="https://en.wikipedia.org/wiki/Determinant">determinant</a>.</p>
+<p><span class="math display">\[\begin{align}x~&amp;=~\frac{(9)(10)-(-12)(-5)}{(7)(10)-(-12)(2)}\\\\
+x~&amp;=~ \frac{30}{94} \\\\
+x~&amp;\approx~ 0.32
+\end{align}\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(y\)</span>.</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}7 &amp; 9\\ 2 &amp; -5\end{bmatrix}\right)}{\det\left(\begin{bmatrix}7 &amp; -12\\ 2 &amp; 10\end{bmatrix}\right)}\]</span></p>
+<p><span class="math display">\[\begin{align}y~&amp;=~\frac{(7)(-5)-(9)(2)}{(7)(10)-(-12)(2)}\\\\
+y~&amp;=~ \frac{-53}{94} \\\\
+y~&amp;\approx~ 0.78
+\end{align}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/System_of_linear_equations">linear 2-equation-2-variable system</a> of equations can be expressed generally in standard form, using 6 parameters (<span class="math inline">\(a\)</span> through <span class="math inline">\(f\)</span>) and 2 variables (<span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>).</p>
+<p><span class="math display">\[\begin{align}ax+by &amp;= c \\ dx+ey &amp;=f\end{align}\]</span></p>
+<p>Using determinants, we can express <a href="https://en.wikipedia.org/wiki/Cramer%27s_rule">Cramer’s rule</a>, which gives us the solutions to the system:</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{ce-bf}{ae-bd}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{af-cd}{ae-bd}\]</span></p>
+<p>Using Cramer’s rule, solve the linear system below:</p>
+<p><span class="math display">\[\begin{align}8x-9y&amp;=2\\12x-7y&amp;=11\end{align}\]</span></p>
+<p>Express your answers in decimal form rounded to the hundredths place.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -2.23</option><option>-2.22</option><option>-2.21</option><option>-2.20</option><option>-2.19</option><option>-2.18</option><option>1.59</option><option>1.60</option><option>1.61</option><option>1.62</option><option>1.63</option><option>1.64 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -2.23</option><option>-2.22</option><option>-2.21</option><option>-2.20</option><option>-2.19</option><option>-2.18</option><option>1.59</option><option>1.60</option><option>1.61</option><option>1.62</option><option>1.63</option><option>1.64 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use Cramer’s rule. Here is the given system:</p>
+<p><span class="math display">\[\begin{align}8x-9y&amp;=2\\12x-7y&amp;=11\end{align}\]</span></p>
+<p>Identify the parameters as defined in the general desciption.</p>
+<p><span class="math display">\[a=8\]</span>
+<span class="math display">\[b=-9\]</span>
+<span class="math display">\[c=2\]</span>
+<span class="math display">\[d=12\]</span>
+<span class="math display">\[e=-7\]</span>
+<span class="math display">\[f=11\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}2 &amp; -9\\ 11 &amp; -7\end{bmatrix}\right)}{\det\left(\begin{bmatrix}8 &amp; -9\\ 12 &amp; -7\end{bmatrix}\right)}\]</span></p>
+<p>Remember how to calculate a <a href="https://en.wikipedia.org/wiki/Determinant">determinant</a>.</p>
+<p><span class="math display">\[\begin{align}x~&amp;=~\frac{(2)(-7)-(-9)(11)}{(8)(-7)-(-9)(12)}\\\\
+x~&amp;=~ \frac{85}{52} \\\\
+x~&amp;\approx~ 1.63
+\end{align}\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(y\)</span>.</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}8 &amp; 2\\ 12 &amp; 11\end{bmatrix}\right)}{\det\left(\begin{bmatrix}8 &amp; -9\\ 12 &amp; -7\end{bmatrix}\right)}\]</span></p>
+<p><span class="math display">\[\begin{align}y~&amp;=~\frac{(8)(11)-(2)(12)}{(8)(-7)-(-9)(12)}\\\\
+y~&amp;=~ \frac{64}{52} \\\\
+y~&amp;\approx~ -2.23
+\end{align}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/System_of_linear_equations">linear 2-equation-2-variable system</a> of equations can be expressed generally in standard form, using 6 parameters (<span class="math inline">\(a\)</span> through <span class="math inline">\(f\)</span>) and 2 variables (<span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>).</p>
+<p><span class="math display">\[\begin{align}ax+by &amp;= c \\ dx+ey &amp;=f\end{align}\]</span></p>
+<p>Using determinants, we can express <a href="https://en.wikipedia.org/wiki/Cramer%27s_rule">Cramer’s rule</a>, which gives us the solutions to the system:</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{ce-bf}{ae-bd}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{af-cd}{ae-bd}\]</span></p>
+<p>Using Cramer’s rule, solve the linear system below:</p>
+<p><span class="math display">\[\begin{align}10x-5y&amp;=3\\-12x+9y&amp;=7\end{align}\]</span></p>
+<p>Express your answers in decimal form rounded to the hundredths place.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2.03</option><option>2.04</option><option>2.05</option><option>2.06</option><option>2.07</option><option>2.08</option><option>3.76</option><option>3.77</option><option>3.78</option><option>3.79</option><option>3.80</option><option>3.81 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2.03</option><option>2.04</option><option>2.05</option><option>2.06</option><option>2.07</option><option>2.08</option><option>3.76</option><option>3.77</option><option>3.78</option><option>3.79</option><option>3.80</option><option>3.81 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use Cramer’s rule. Here is the given system:</p>
+<p><span class="math display">\[\begin{align}10x-5y&amp;=3\\-12x+9y&amp;=7\end{align}\]</span></p>
+<p>Identify the parameters as defined in the general desciption.</p>
+<p><span class="math display">\[a=10\]</span>
+<span class="math display">\[b=-5\]</span>
+<span class="math display">\[c=3\]</span>
+<span class="math display">\[d=-12\]</span>
+<span class="math display">\[e=9\]</span>
+<span class="math display">\[f=7\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}3 &amp; -5\\ 7 &amp; 9\end{bmatrix}\right)}{\det\left(\begin{bmatrix}10 &amp; -5\\ -12 &amp; 9\end{bmatrix}\right)}\]</span></p>
+<p>Remember how to calculate a <a href="https://en.wikipedia.org/wiki/Determinant">determinant</a>.</p>
+<p><span class="math display">\[\begin{align}x~&amp;=~\frac{(3)(9)-(-5)(7)}{(10)(9)-(-5)(-12)}\\\\
+x~&amp;=~ \frac{62}{30} \\\\
+x~&amp;\approx~ 2.07
+\end{align}\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(y\)</span>.</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}10 &amp; 3\\ -12 &amp; 7\end{bmatrix}\right)}{\det\left(\begin{bmatrix}10 &amp; -5\\ -12 &amp; 9\end{bmatrix}\right)}\]</span></p>
+<p><span class="math display">\[\begin{align}y~&amp;=~\frac{(10)(7)-(3)(-12)}{(10)(9)-(-5)(-12)}\\\\
+y~&amp;=~ \frac{106}{30} \\\\
+y~&amp;\approx~ 3.80
+\end{align}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/System_of_linear_equations">linear 2-equation-2-variable system</a> of equations can be expressed generally in standard form, using 6 parameters (<span class="math inline">\(a\)</span> through <span class="math inline">\(f\)</span>) and 2 variables (<span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>).</p>
+<p><span class="math display">\[\begin{align}ax+by &amp;= c \\ dx+ey &amp;=f\end{align}\]</span></p>
+<p>Using determinants, we can express <a href="https://en.wikipedia.org/wiki/Cramer%27s_rule">Cramer’s rule</a>, which gives us the solutions to the system:</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{ce-bf}{ae-bd}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{af-cd}{ae-bd}\]</span></p>
+<p>Using Cramer’s rule, solve the linear system below:</p>
+<p><span class="math display">\[\begin{align}9x+3y&amp;=5\\-4x+7y&amp;=6\end{align}\]</span></p>
+<p>Express your answers in decimal form rounded to the hundredths place.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 0.21</option><option>0.22</option><option>0.23</option><option>0.24</option><option>0.25</option><option>0.26</option><option>0.90</option><option>0.91</option><option>0.92</option><option>0.93</option><option>0.94</option><option>0.95 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 0.21</option><option>0.22</option><option>0.23</option><option>0.24</option><option>0.25</option><option>0.26</option><option>0.90</option><option>0.91</option><option>0.92</option><option>0.93</option><option>0.94</option><option>0.95 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use Cramer’s rule. Here is the given system:</p>
+<p><span class="math display">\[\begin{align}9x+3y&amp;=5\\-4x+7y&amp;=6\end{align}\]</span></p>
+<p>Identify the parameters as defined in the general desciption.</p>
+<p><span class="math display">\[a=9\]</span>
+<span class="math display">\[b=3\]</span>
+<span class="math display">\[c=5\]</span>
+<span class="math display">\[d=-4\]</span>
+<span class="math display">\[e=7\]</span>
+<span class="math display">\[f=6\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}5 &amp; 3\\ 6 &amp; 7\end{bmatrix}\right)}{\det\left(\begin{bmatrix}9 &amp; 3\\ -4 &amp; 7\end{bmatrix}\right)}\]</span></p>
+<p>Remember how to calculate a <a href="https://en.wikipedia.org/wiki/Determinant">determinant</a>.</p>
+<p><span class="math display">\[\begin{align}x~&amp;=~\frac{(5)(7)-(3)(6)}{(9)(7)-(3)(-4)}\\\\
+x~&amp;=~ \frac{17}{75} \\\\
+x~&amp;\approx~ 0.23
+\end{align}\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(y\)</span>.</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}9 &amp; 5\\ -4 &amp; 6\end{bmatrix}\right)}{\det\left(\begin{bmatrix}9 &amp; 3\\ -4 &amp; 7\end{bmatrix}\right)}\]</span></p>
+<p><span class="math display">\[\begin{align}y~&amp;=~\frac{(9)(6)-(5)(-4)}{(9)(7)-(3)(-4)}\\\\
+y~&amp;=~ \frac{74}{75} \\\\
+y~&amp;\approx~ 0.92
+\end{align}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/System_of_linear_equations">linear 2-equation-2-variable system</a> of equations can be expressed generally in standard form, using 6 parameters (<span class="math inline">\(a\)</span> through <span class="math inline">\(f\)</span>) and 2 variables (<span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>).</p>
+<p><span class="math display">\[\begin{align}ax+by &amp;= c \\ dx+ey &amp;=f\end{align}\]</span></p>
+<p>Using determinants, we can express <a href="https://en.wikipedia.org/wiki/Cramer%27s_rule">Cramer’s rule</a>, which gives us the solutions to the system:</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{ce-bf}{ae-bd}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{af-cd}{ae-bd}\]</span></p>
+<p>Using Cramer’s rule, solve the linear system below:</p>
+<p><span class="math display">\[\begin{align}12x+7y&amp;=8\\-4x+10y&amp;=5\end{align}\]</span></p>
+<p>Express your answers in decimal form rounded to the hundredths place.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 0.25</option><option>0.26</option><option>0.27</option><option>0.28</option><option>0.29</option><option>0.30</option><option>0.75</option><option>0.76</option><option>0.77</option><option>0.78</option><option>0.79</option><option>0.80 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 0.25</option><option>0.26</option><option>0.27</option><option>0.28</option><option>0.29</option><option>0.30</option><option>0.75</option><option>0.76</option><option>0.77</option><option>0.78</option><option>0.79</option><option>0.80 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use Cramer’s rule. Here is the given system:</p>
+<p><span class="math display">\[\begin{align}12x+7y&amp;=8\\-4x+10y&amp;=5\end{align}\]</span></p>
+<p>Identify the parameters as defined in the general desciption.</p>
+<p><span class="math display">\[a=12\]</span>
+<span class="math display">\[b=7\]</span>
+<span class="math display">\[c=8\]</span>
+<span class="math display">\[d=-4\]</span>
+<span class="math display">\[e=10\]</span>
+<span class="math display">\[f=5\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}8 &amp; 7\\ 5 &amp; 10\end{bmatrix}\right)}{\det\left(\begin{bmatrix}12 &amp; 7\\ -4 &amp; 10\end{bmatrix}\right)}\]</span></p>
+<p>Remember how to calculate a <a href="https://en.wikipedia.org/wiki/Determinant">determinant</a>.</p>
+<p><span class="math display">\[\begin{align}x~&amp;=~\frac{(8)(10)-(7)(5)}{(12)(10)-(7)(-4)}\\\\
+x~&amp;=~ \frac{45}{148} \\\\
+x~&amp;\approx~ 0.30
+\end{align}\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(y\)</span>.</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}12 &amp; 8\\ -4 &amp; 5\end{bmatrix}\right)}{\det\left(\begin{bmatrix}12 &amp; 7\\ -4 &amp; 10\end{bmatrix}\right)}\]</span></p>
+<p><span class="math display">\[\begin{align}y~&amp;=~\frac{(12)(5)-(8)(-4)}{(12)(10)-(7)(-4)}\\\\
+y~&amp;=~ \frac{92}{148} \\\\
+y~&amp;\approx~ 0.78
+\end{align}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A <a href="https://en.wikipedia.org/wiki/System_of_linear_equations">linear 2-equation-2-variable system</a> of equations can be expressed generally in standard form, using 6 parameters (<span class="math inline">\(a\)</span> through <span class="math inline">\(f\)</span>) and 2 variables (<span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>).</p>
+<p><span class="math display">\[\begin{align}ax+by &amp;= c \\ dx+ey &amp;=f\end{align}\]</span></p>
+<p>Using determinants, we can express <a href="https://en.wikipedia.org/wiki/Cramer%27s_rule">Cramer’s rule</a>, which gives us the solutions to the system:</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{ce-bf}{ae-bd}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{af-cd}{ae-bd}\]</span></p>
+<p>Using Cramer’s rule, solve the linear system below:</p>
+<p><span class="math display">\[\begin{align}7x+9y&amp;=3\\-4x+10y&amp;=5\end{align}\]</span></p>
+<p>Express your answers in decimal form rounded to the hundredths place.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> -0.17</option><option>-0.16</option><option>-0.15</option><option>-0.14</option><option>-0.13</option><option>-0.12</option><option>0.39</option><option>0.40</option><option>0.41</option><option>0.42</option><option>0.43</option><option>0.44 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> -0.17</option><option>-0.16</option><option>-0.15</option><option>-0.14</option><option>-0.13</option><option>-0.12</option><option>0.39</option><option>0.40</option><option>0.41</option><option>0.42</option><option>0.43</option><option>0.44 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use Cramer’s rule. Here is the given system:</p>
+<p><span class="math display">\[\begin{align}7x+9y&amp;=3\\-4x+10y&amp;=5\end{align}\]</span></p>
+<p>Identify the parameters as defined in the general desciption.</p>
+<p><span class="math display">\[a=7\]</span>
+<span class="math display">\[b=9\]</span>
+<span class="math display">\[c=3\]</span>
+<span class="math display">\[d=-4\]</span>
+<span class="math display">\[e=10\]</span>
+<span class="math display">\[f=5\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[x = \frac{\det\left(\begin{bmatrix}c &amp; b\\ f &amp; e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}3 &amp; 9\\ 5 &amp; 10\end{bmatrix}\right)}{\det\left(\begin{bmatrix}7 &amp; 9\\ -4 &amp; 10\end{bmatrix}\right)}\]</span></p>
+<p>Remember how to calculate a <a href="https://en.wikipedia.org/wiki/Determinant">determinant</a>.</p>
+<p><span class="math display">\[\begin{align}x~&amp;=~\frac{(3)(10)-(9)(5)}{(7)(10)-(9)(-4)}\\\\
+x~&amp;=~ \frac{-15}{106} \\\\
+x~&amp;\approx~ -0.14
+\end{align}\]</span></p>
+<p>Put parameters into the formula for <span class="math inline">\(y\)</span>.</p>
+<p><span class="math display">\[y = \frac{\det\left(\begin{bmatrix}a &amp; c\\ d &amp; f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a &amp; b\\ d &amp; e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}7 &amp; 3\\ -4 &amp; 5\end{bmatrix}\right)}{\det\left(\begin{bmatrix}7 &amp; 9\\ -4 &amp; 10\end{bmatrix}\right)}\]</span></p>
+<p><span class="math display">\[\begin{align}y~&amp;=~\frac{(7)(5)-(3)(-4)}{(7)(10)-(9)(-4)}\\\\
+y~&amp;=~ \frac{47}{106} \\\\
+y~&amp;\approx~ 0.39
+\end{align}\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

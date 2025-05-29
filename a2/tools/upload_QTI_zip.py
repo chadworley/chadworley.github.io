@@ -7,15 +7,19 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s19_22_area_parallelogram.zip",
-"outcanvas/s19_23_determinant_A.zip",
-"outcanvas/s19_24_determinant_B.zip",
-"outcanvas/s19_25_determinant_C.zip"]
+file_path_list = ["outcanvas/s19_26_Cramers_rule_2x2.zip",
+"outcanvas/s19_27_mult_2x2_mats.zip",
+"outcanvas/s19_28_Identity_Matrix.zip",
+"outcanvas/s19_29_check_if_inverse.zip",
+"outcanvas/s19_30_can_add_matrices.zip",
+"outcanvas/s19_31_add_matrices.zip",
+"outcanvas/s19_32_subtract_matrices.zip",
+"outcanvas/s19_33_ntwrk_incidence_mat.zip"]
 
 
-# FOR UPLOADING ETS
+######## FOR UPLOADING ETS
 # fpl = []
-# for i in range(150,160):
+# for i in range(160,170):
 #     fpl.append("ET_"+str(i)+".zip")
 # file_path_list = fpl
 

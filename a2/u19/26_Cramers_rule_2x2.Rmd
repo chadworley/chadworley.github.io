@@ -1,0 +1,195 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],\n            [",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+lataug = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:3],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,'\\end{matrix}
+  \\;\\middle|\\;
+    \\,
+    \\begin{matrix}\n')
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,4:6],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+styleblock = '<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>'
+
+while(T){
+    abcdef = sample(2:12,6)*sample(c(-1,1),6,T)
+    a = abcdef[1]
+    b = abcdef[2]
+    c = abcdef[3]
+    d = abcdef[4]
+    e = abcdef[5]
+    f = abcdef[6]
+    if(sum(sign(c(a,b,c)))<0){
+        a = -a
+        b = -b
+        c = -c
+    }
+    if(sum(sign(c(d,e,f)))<0){
+        d = -d
+        e = -e
+        f = -f
+    }
+    detA = a*e-b*d
+    detx = c*e-b*f
+    dety = a*c-f*d
+    x = detx/detA
+    y = dety/detA
+    xr = round(detx/detA,2)
+    yr = round(dety/detA,2)
+    if(abs(detA)>0 && abs(detx)>0 && abs(dety)>0 && 
+       abs(gcd(c(a,b,c)))==1 && abs(gcd(c(d,e,f)))==1 && xr%%1!=0 && yr%%1!=0 && abs(xr)>0.1 && abs(yr)>0.1 && abs(xr)<100 && abs(yr)<100){break}
+}
+
+xch = round(xr-0.01*(sample(0:5,1)-0:5),2)
+ych = round(yr-0.01*(sample(0:5,1)-0:5),2)
+ach = sort(unique(c(xch,ych)))
+
+sol1 = paste0(1*(xr==ach),collapse="")
+sol2 = paste0(1*(yr==ach),collapse="")
+
+```
+
+Question
+========
+
+A [linear 2-equation-2-variable system](https://en.wikipedia.org/wiki/System_of_linear_equations) of equations can be expressed generally in standard form, using 6 parameters ($a$ through $f$) and 2 variables ($x$ and $y$).
+
+$$\begin{align}ax+by &= c \\ dx+ey &=f\end{align}$$
+
+Using determinants, we can express [Cramer's rule](https://en.wikipedia.org/wiki/Cramer%27s_rule), which gives us the solutions to the system:
+
+$$x = \frac{\det\left(\begin{bmatrix}c & b\\ f & e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a & b\\ d & e\end{bmatrix}\right)}~=~\frac{ce-bf}{ae-bd}$$
+
+and
+
+$$y = \frac{\det\left(\begin{bmatrix}a & c\\ d & f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a & b\\ d & e\end{bmatrix}\right)}~=~\frac{af-cd}{ae-bd}$$
+
+Using Cramer's rule, solve the linear system below:
+
+```{r,echo=F}
+soe = paste0("\\begin{align}",a,"x+",b,"y&=",c,"\\\\",d,"x+",e,"y&=",f,"\\end{align}",collapse="")
+soe = gsub("+-","-",soe,fixed=T)
+```
+
+
+$$`r soe`$$
+
+Express your answers in decimal form rounded to the hundredths place.
+
+* $x=$ ##ANSWER1##
+* $y=$ ##ANSWER2##
+
+
+Answerlist
+--------
+
+`r paste0("* ",sprintf("%.02f",ach),collapse="\n")`
+`r paste0("* ",sprintf("%.02f",ach),collapse="\n")`
+
+Solution
+========
+
+Use Cramer's rule. Here is the given system:
+
+$$`r soe`$$
+
+Identify the parameters as defined in the general desciption.
+
+$$a=`r a`$$
+$$b=`r b`$$
+$$c=`r c`$$
+$$d=`r d`$$
+$$e=`r e`$$
+$$f=`r f`$$
+
+Put parameters into the formula for $x$.
+
+$$x = \frac{\det\left(\begin{bmatrix}c & b\\ f & e\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a & b\\ d & e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}`r c` & `r b`\\ `r f` & `r e`\end{bmatrix}\right)}{\det\left(\begin{bmatrix}`r a` & `r b`\\ `r d` & `r e`\end{bmatrix}\right)}$$
+
+Remember how to calculate a [determinant](https://en.wikipedia.org/wiki/Determinant). 
+
+$$\begin{align}x~&=~\frac{(`r c`)(`r e`)-(`r b`)(`r f`)}{(`r a`)(`r e`)-(`r b`)(`r d`)}\\\\
+x~&=~ \frac{`r c*e-b*f`}{`r a*e-b*d`} \\\\
+x~&\approx~ `r sprintf("%.02f",xr)`
+\end{align}$$
+
+Put parameters into the formula for $y$.
+
+$$y = \frac{\det\left(\begin{bmatrix}a & c\\ d & f\end{bmatrix}\right)}{\det\left(\begin{bmatrix}a & b\\ d & e\end{bmatrix}\right)}~=~\frac{\det\left(\begin{bmatrix}`r a` & `r c`\\ `r d` & `r f`\end{bmatrix}\right)}{\det\left(\begin{bmatrix}`r a` & `r b`\\ `r d` & `r e`\end{bmatrix}\right)}$$
+
+$$\begin{align}y~&=~\frac{(`r a`)(`r f`)-(`r c`)(`r d`)}{(`r a`)(`r e`)-(`r b`)(`r d`)}\\\\
+y~&=~ \frac{`r a*f-c*d`}{`r a*e-b*d`} \\\\
+y~&\approx~ `r sprintf("%.02f",yr)`
+\end{align}$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: Cramers_rule_2x2

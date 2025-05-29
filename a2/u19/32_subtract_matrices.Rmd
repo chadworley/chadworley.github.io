@@ -1,0 +1,190 @@
+```{r,echo=F,warning=F}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+lat = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+latmat = function(A){
+  s = '\\left[
+  \\begin{matrix}\n'
+  nc = dim(A)[2]
+  for(i in 1:dim(A)[1]){
+    s2 = paste0(A[i,1:nc],collapse=" & ")
+    s = paste0(s,s2,"\\\\\n",collapse="")
+  }
+  s = paste0(s,"\\end{matrix}
+\\right]")
+  return(s)
+}
+
+styleblock = '<style>
+select.question_input {
+width: 5em;
+}
+tr {height: 3em;}
+.mc {
+display: inline-block;
+padding: 1px;
+margin: 1px;
+white-space: nowrap;
+background: linear-gradient(to right, black, black 10%, transparent 10%,transparent 90%,black 90%,black);
+}
+.matrix {
+    padding: 5px;
+    margin: 3px;
+    background: white;
+}
+td.lbtd {
+border-left: solid 2px #000;
+}
+.matrix td {
+    padding: 10px;    
+    text-align: center;
+}
+</style>'
+
+
+html_input_table = function(){
+  s = "<div class='mc'><table class='matrix'>"
+  nr = 3
+  nc = 4
+  nv = nc-1
+  for(i in 1:nr){
+    rs = paste0("<td>",rep("!!!",nv),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"<td class='lbtd'>!!!</td></tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+html_input_table_33 = function(nr=3,nc=3){
+  s = "<div class='mc'><table class='matrix'>"
+  for(i in 1:nr){
+    rs = paste0("<td>",rep("!!!",nc),"</td>",collapse="")
+    s = paste0(s,'<tr>',rs,"</tr>")
+  }
+  s = paste0(s,'</table></div>')
+  return(s)
+}
+
+prs = function(M,lets=c("x","y","z","q","r","s","t","u","v","w")){
+  s = "\\begin{aligned}"
+  for(i in 1:dim(M)[1]){
+    row = ""
+    nc = dim(M)[2]
+    ls = lets[1:(nc-1)]
+    row = paste0(strt(M[i,1]),ls[1],collapse="")
+    for(j in 2:(nc-1)){
+      row = paste0(row,md(M[i,j]),ls[j],collapse="")
+    }
+    row = paste(row,"&=",M[i,nc],"\\\\\n",collapse="")
+    row = sub("0x+","",row,fixed=T)
+    row = sub("0x-","-",row,fixed=T)
+    row = sub("0y+","",row,fixed=T)
+    row = sub("0y-","-",row,fixed=T)
+    row = sub("+0z","",row,fixed=T)
+    row = sub("-0z","",row,fixed=T)
+    s = paste0(s,row,collapse="")
+  }
+  s = paste0(s,"\\end{aligned}",collapse="")
+  return(s)
+}
+
+########################
+########################
+########################
+########################
+########################
+########################
+########################
+
+while(T){
+    A = matrix(sample(-10:10,12,T),3)
+    B = matrix(sample(-10:10,12,T),3)
+    C = A-B
+    if(max(abs(C))<=12){break}
+}
+
+ac = -12:12
+
+sols = character()
+for(aa in c(t(C))){
+  sols = c(sols,paste0(1*(aa==ac),collapse=""))
+}
+
+al = paste0("* ",ac,collapse="\n")
+al = paste0(rep(al,12),collapse="\n")
+
+```
+
+Question
+========
+
+`r styleblock`
+
+Let $A$ and $B$ be 3x4 matrices.
+
+$$A = `r latmat(A)`$$
+
+$$B = `r latmat(B)`$$
+
+Let $C$ be the [difference](https://en.wikipedia.org/wiki/Matrix_addition) of $A$ minus $B$. 
+
+$$C ~=~ A - B$$
+
+Determine the values of matrix $C$:
+
+```{r,echo=F,results='asis'}
+ans_num=1
+hm = html_input_table_33(3,4)
+for(j in 1:12){
+  hm = sub("!!!",paste0("##ANSWER",ans_num,"##",collapse=""),hm,fixed = T)
+  ans_num=ans_num+1
+}
+cat(hm)
+```
+
+Answerlist
+--------
+
+`r al`
+
+Solution
+========
+
+Simply subtract corresponding elements.
+
+$$C ~=~ `r latmat(C)`$$
+
+You might be wondering why matrix multiplication is not as simple. What you are looking for is called the [Hadamard product](https://en.wikipedia.org/wiki/Hadamard_product_(matrices)).
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",12),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: subtract_matrices
