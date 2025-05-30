@@ -3,17 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["26_Cramers_rule_2x2.Rmd",
-"27_mult_2x2_mats.Rmd",
-"28_Identity_Matrix.Rmd",
-"29_check_if_inverse.Rmd",
-"30_can_add_matrices.Rmd",
-"31_add_matrices.Rmd",
-"32_subtract_matrices.Rmd",
-"33_ntwrk_incidence_mat.Rmd"]
+files = ["26_Cramers_rule_2x2.Rmd"]
 
-avt = ["2025-05-29 7:00:00"]*4+["2025-05-30 7:00:00"]*4
-dut = ["2025-05-29 22:59:00"]*4+["2025-05-30 22:59:00"]*4
+avt = ["2025-05-29 7:00:00"]
+dut = ["2025-05-30 22:59:00"]
 front = "s19_"
 
 practice_url_front = "https://chadworley.github.io/a2/u19/outhtml/"

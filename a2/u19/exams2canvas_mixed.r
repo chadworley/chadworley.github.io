@@ -3,16 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "s19_"
 
-probs = c("26_Cramers_rule_2x2.Rmd",
-          "27_mult_2x2_mats.Rmd",
-          "28_Identity_Matrix.Rmd",
-          "29_check_if_inverse.Rmd",
-          "30_can_add_matrices.Rmd",
-          "31_add_matrices.Rmd",
-          "32_subtract_matrices.Rmd",
-          "33_ntwrk_incidence_mat.Rmd")
+probs = c("26_Cramers_rule_2x2.Rmd")
 
-pnts = c(4,3,4,4,3,4,4,5)
+pnts = c(4)
 
 # pnts = rep(6,length(probs))
 

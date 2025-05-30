@@ -7,14 +7,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s19_26_Cramers_rule_2x2.zip",
-"outcanvas/s19_27_mult_2x2_mats.zip",
-"outcanvas/s19_28_Identity_Matrix.zip",
-"outcanvas/s19_29_check_if_inverse.zip",
-"outcanvas/s19_30_can_add_matrices.zip",
-"outcanvas/s19_31_add_matrices.zip",
-"outcanvas/s19_32_subtract_matrices.zip",
-"outcanvas/s19_33_ntwrk_incidence_mat.zip"]
+file_path_list = ["outcanvas/s19_26_Cramers_rule_2x2.zip"]
 
 
 ######## FOR UPLOADING ETS
