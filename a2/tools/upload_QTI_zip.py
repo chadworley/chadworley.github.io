@@ -7,7 +7,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s19_34_spinning_pyramid.zip"]
+file_path_list = ["outcanvas/s19_online_mastery.zip"]
 
 ######## FOR UPLOADING ETS
 # fpl = []
