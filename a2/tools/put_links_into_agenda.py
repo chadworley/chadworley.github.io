@@ -5,14 +5,8 @@ import os
 
 
 front = "s19_"
-files = ["26_Cramers_rule_2x2.Rmd",
-"27_mult_2x2_mats.Rmd",
-"28_Identity_Matrix.Rmd",
-"29_check_if_inverse.Rmd",
-"30_can_add_matrices.Rmd",
-"31_add_matrices.Rmd",
-"32_subtract_matrices.Rmd",
-"33_ntwrk_incidence_mat.Rmd"]
+files = ["33_ntwrk_incidence_mat.Rmd",
+"34_spinning_pyramid.Rmd"]
 
 practice_url_front = "https://chadworley.github.io/a2/u19/outhtml/"
 agenda = "/Users/chad.worley@bartcharter.org/Documents/chadworley.github.io/a2/weekly_a2.Rmd"

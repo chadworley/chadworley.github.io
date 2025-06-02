@@ -3,9 +3,9 @@ n = 30
 outdir = "outcanvas"
 genname = "s19_"
 
-probs = c("26_Cramers_rule_2x2.Rmd")
+probs = c("34_spinning_pyramid.Rmd")
 
-pnts = c(4)
+pnts = c(2)
 
 # pnts = rep(6,length(probs))
 

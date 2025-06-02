@@ -1,0 +1,274 @@
+```{r,echo=F,warning=F}
+matpr = function(A){
+  pra = "\\begin{bmatrix}\n"
+  for(i in 1:dim(A)[1]){
+    pra = paste0(pra,paste0(A[i,],collapse=" & "))
+    if(i<dim(A)[1]){pra = paste0(pra,"\\\\\n")} else {pra = paste0(pra,"\n")}
+  }
+  pra = paste0(pra,"\\end{bmatrix}")
+  return(pra)
+}
+matcc = function(A){
+  s = "[["
+  for(i in 1:(dim(A)[1])){
+    s2 = paste0(A[i,],collapse=",")
+    s = paste0(s,s2,collapse="")
+    if(i<dim(A)[1]){
+      s = paste0(s,"],[",collapse="")
+    }
+  }
+  s = paste0(s,"]]",collapse="")
+  return(s)
+}
+
+while(T){
+  u1 = rnorm(3)
+  u1[2] = abs(u1[2])
+  u1[3] = abs(u1[3])
+  u1 = u1/sqrt(sum(u1^2))
+  u2 = rnorm(3)
+  u2[2] = abs(u2[2])
+  u2[3] = abs(u2[3])
+  u2 = u2/sqrt(sum(u2^2))
+  u3 = rnorm(3)
+  u3[2] = abs(u3[2])
+  u3[3] = abs(u3[3])
+  u3 = u3/sqrt(sum(u3^2))
+  u4 = rnorm(3)
+  u4[2] = abs(u4[2])
+  u4[3] = abs(u4[3])
+  u4 = u4/sqrt(sum(u4^2))
+  us = list(u1,u2,u3,u4)
+  phi12 = acos(abs(sum(u1*u2)))
+  phi13 = acos(abs(sum(u1*u3)))
+  phi14 = acos(abs(sum(u1*u4)))
+  phi23 = acos(abs(sum(u2*u3)))
+  phi24 = acos(abs(sum(u2*u4)))
+  phi34 = acos(abs(sum(u3*u4)))
+  phis = c(phi12,phi13,phi14,phi23,phi24,phi34)
+  if(min(phis)>pi/6){break}
+}
+
+getR = function(u,t){
+  ux = u[1]
+  uy = u[2]
+  uz = u[3]
+  f = cos(t)+ux^2*(1-cos(t))
+  g = ux*uy*(1-cos(t))-uz*sin(t)
+  h = ux*uz*(1-cos(t))+uy*sin(t)
+  i = uy*ux*(1-cos(t))+uz*sin(t)
+  j = cos(t)+uy^2*(1-cos(t))
+  k = uy*uz*(1-cos(t))-ux*sin(t)
+  l = uz*ux*(1-cos(t))-uy*sin(t)
+  m = uz*uy*(1-cos(t))+ux*sin(t)
+  n = cos(t)+uz^2*(1-cos(t))
+  R = matrix(c(f,g,h,i,j,k,l,m,n),3,byrow=T)
+  return(R)
+}
+
+n = 50
+#X = matrix(round(runif(n*3,-1,1),2),nrow=3)
+
+X = matrix(c(1,-1,-1,
+      -1,-1,-1,
+      -1,1,-1,
+      1,1,-1,
+      1,-1,-1,
+      0,0,1,
+      1,1,-1,
+      -1,1,-1,
+      0,0,1,
+      -1,-1,-1),3)
+
+ord = sample(1:4)
+sol = paste0(1*(1==ord),collapse="")
+P = matrix(c(1,0,0,0,0,1),2,byrow = T)
+```
+
+Question
+========
+
+Your goal is to make an animation (with 10 frames) of square pyramid spinning around a given axis. In 3D space, direction can be indicated with a unit vector $\vec{u}$:
+
+$$\vec{u} = \begin{bmatrix}u_x \\ u_y \\ u_z \end{bmatrix}$$
+A unit vector has a length of 1, so $u_x^2+u_y^2+u_z^2=1$.
+
+In order to rotate points around the axis $\vec{u}$ by an angle $\theta$, we can use the [general 3D rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle):
+
+$$R = \begin{bmatrix} \cos(\theta)+u_x^2(1-\cos(\theta)) & u_xu_y(1-\cos(\theta))-u_z\sin(\theta) & u_xu_z(1-\cos(\theta))+u_y\sin(\theta) \\ u_yu_x(1-\cos(\theta))+u_z\sin(\theta) & \cos(\theta)+u_y^2(1-\cos(\theta)) & u_yu_z(1-\cos(\theta))-u_x\sin(\theta) \\ u_zu_x(1-\cos(\theta))-u_y\sin(\theta) & u_zu_y(1-\cos(\theta))+u_x\sin(\theta) & \cos(\theta)+u_z^2(1-\cos(\theta)) \end{bmatrix}$$
+Because our animation has 10 frames, the angle should be $\theta=\frac{2\pi}{10}$.
+
+We will use the basic [orthographic projection](https://en.wikipedia.org/wiki/Orthographic_projection#Geometry) matrix below to flatten 3D points into a 2D plane:
+
+$$P = \begin{bmatrix}1 & 0 & 0 \\ 0 & 0 & 1\end{bmatrix}$$
+
+The axis of rotation should be:
+
+$$u_x=`r u1[1]`$$
+$$u_y=`r u1[2]`$$
+$$u_z=`r u1[3]`$$
+
+Finish the code below to graph the animation.
+
+```
+n = 10 #The number of frames
+X = matrix([[ 1,-1,-1, 1, 1, 0, 1,-1, 0,-1],
+            [-1,-1, 1, 1,-1, 0, 1, 1, 0,-1],
+            [-1,-1,-1,-1,-1, 1,-1,-1, 1,-1]])
+P = matrix([[1,0,0],
+            [0,0,1]])
+R = ######### ENTER YOUR CODE HERE ##############
+plots = []
+for i in range(n):
+    XP = P*R^i*X
+    nextplot = line(XP.transpose(),xmin=-2,xmax=2,ymin=-2,ymax=2,axes=False,aspect_ratio=1)
+    plots.append(nextplot)
+a = animate(plots)
+show(a)
+```
+
+Which animation matches?
+
+## A
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(3,3)}
+n = 20
+par(pty="s",mar=c(0,0,0,0))
+wo = ord[1]
+u = us[[wo]]
+t = 2*pi/n
+R = getR(u,t)
+Xc = X
+for(i in 1:n){
+  plot(0,0,type="n",axes=F,ann=F,xlim=c(-2,2),ylim=c(-2,2))
+  Xc_flat = P%*%Xc
+  lines(Xc_flat[1,],Xc_flat[2,])
+  Xc = R%*%Xc
+}
+```
+\
+
+## B
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(3,3)}
+n = 20
+par(pty="s",mar=c(0,0,0,0))
+wo = ord[2]
+u = us[[wo]]
+t = 2*pi/n
+R = getR(u,t)
+Xc = X
+for(i in 1:n){
+  plot(0,0,type="n",axes=F,ann=F,xlim=c(-2,2),ylim=c(-2,2))
+  Xc_flat = P%*%Xc
+  lines(Xc_flat[1,],Xc_flat[2,])
+  Xc = R%*%Xc
+}
+```
+\
+
+## C
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(3,3)}
+n = 20
+par(pty="s",mar=c(0,0,0,0))
+wo = ord[3]
+u = us[[wo]]
+t = 2*pi/n
+R = getR(u,t)
+Xc = X
+for(i in 1:n){
+  plot(0,0,type="n",axes=F,ann=F,xlim=c(-2,2),ylim=c(-2,2))
+  Xc_flat = P%*%Xc
+  lines(Xc_flat[1,],Xc_flat[2,])
+  Xc = R%*%Xc
+}
+```
+\
+
+## D
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(3,3)}
+n = 20
+par(pty="s",mar=c(0,0,0,0))
+wo = ord[4]
+u = us[[wo]]
+t = 2*pi/n
+R = getR(u,t)
+Xc = X
+for(i in 1:n){
+  plot(0,0,type="n",axes=F,ann=F,xlim=c(-2,2),ylim=c(-2,2))
+  Xc_flat = P%*%Xc
+  lines(Xc_flat[1,],Xc_flat[2,])
+  Xc = R%*%Xc
+}
+```
+\
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+
+
+
+Solution
+========
+
+The answer is `r c("A","B","C","D")[ord==1]`.
+
+[SageMath](https://sagecell.sagemath.org/)
+```
+n = 10 #The number of frames
+X = matrix([[ 1,-1,-1, 1, 1, 0, 1,-1, 0,-1],
+            [-1,-1, 1, 1,-1, 0, 1, 1, 0,-1],
+            [-1,-1,-1,-1,-1, 1,-1,-1, 1,-1]])
+P = matrix([[1,0,0],
+            [0,0,1]])
+R = matrix(`r matcc(getR(u1,2*pi/10))`)
+plots = []
+for i in range(n):
+    XP = P*R^i*X
+    nextplot = line(XP.transpose(),xmin=-2,xmax=2,ymin=-2,ymax=2,axes=False,aspect_ratio=1)
+    plots.append(nextplot)
+a = animate(plots)
+show(a)
+```
+
+Instead of calculating each element of the rotation matrix (R), I would recommend putting in the formulas in terms of $u_x$, $u_y$, $u_z$, and $\theta$. You would need to define those variables before they were referenced:
+
+```
+ux = `r u1[1]`
+uy = `r u1[2]`
+uz = `r u1[3]`
+th = 2*pi/n
+```
+
+And, heck, I'll even write out the formulas for you.
+
+```
+r11 = cos(th)+ux^2*(1-cos(th))
+r12 = ux*uy*(1-cos(th))-uz*sin(th)
+r13 = ux*uz*(1-cos(th))+uy*sin(th)
+r21 = uy*ux*(1-cos(th))+uz*sin(th)
+r22 = cos(th)+uy^2*(1-cos(th))
+r23 = uy*uz*(1-cos(th))-ux*sin(th)
+r31 = uz*ux*(1-cos(th))-uy*sin(th)
+r32 = uz*uy*(1-cos(th))+ux*sin(th)
+r33 = cos(th)+uz^2*(1-cos(th))
+R = matrix([[r11,r12,r13],
+            [r21,r22,r23],
+            [r31,r32,r33]])
+```
+
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: spinning_pyramid

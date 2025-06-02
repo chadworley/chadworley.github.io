@@ -3,10 +3,10 @@ import time
 from datetime import datetime, timedelta
 import os
 
-files = ["26_Cramers_rule_2x2.Rmd"]
+files = ["34_spinning_pyramid.Rmd"]
 
-avt = ["2025-05-29 7:00:00"]
-dut = ["2025-05-30 22:59:00"]
+avt = ["2025-06-02 7:00:00"]
+dut = ["2025-06-02 22:59:00"]
 front = "s19_"
 
 practice_url_front = "https://chadworley.github.io/a2/u19/outhtml/"
