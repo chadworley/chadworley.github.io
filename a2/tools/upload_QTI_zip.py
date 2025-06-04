@@ -7,13 +7,13 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 # Variables
 course_id = '1314'  # Replace with your course ID... alg '1314'... ml '1282'
 
-file_path_list = ["outcanvas/s19_online_mastery.zip"]
+# file_path_list = ["outcanvas/s19_online_mastery.zip"]
 
 ######## FOR UPLOADING ETS
-# fpl = []
-# for i in range(160,170):
-#     fpl.append("ET_"+str(i)+".zip")
-# file_path_list = fpl
+fpl = []
+for i in range(164,173):
+    fpl.append("ET_"+str(i)+".zip")
+file_path_list = fpl
 
 canvas_url = 'https://bart.instructure.com'
 
