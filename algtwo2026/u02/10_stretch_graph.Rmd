@@ -1,0 +1,136 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+x = seq(0,50,0.1)
+y = sqrt(48*x)-x
+
+xp = 12
+yp = 12
+
+poss = c(-3/2,-4/3,-3/4,-2/3,2/3,3/4,4/3,3/2)
+sposs = c("-3/2","-4/3","-3/4","-2/3","2/3","3/4","4/3","3/2")
+fposs = c("\\frac{-3}{2}","\\frac{-4}{3}","\\frac{-3}{4}","\\frac{-2}{3}",
+          "\\frac{2}{3}","\\frac{3}{4}","\\frac{4}{3}","\\frac{3}{2}")
+hposs = c("\\frac{-2}{3}","\\frac{-3}{4}","\\frac{-4}{3}","\\frac{-3}{2}",
+          "\\frac{3}{2}","\\frac{4}{3}","\\frac{3}{4}","\\frac{2}{3}")
+
+wa = sample(1:length(poss),1)
+wb = sample(1:length(poss),1)
+
+a = poss[wa]
+b = poss[wb]
+
+x2 = x/b
+y2 = y*a
+
+xp2 = round(xp/b)
+yp2 = round(yp*a)
+
+sol1 = paste0(1*(wa==1:length(poss)),collapse="")
+sol2 = paste0(1*(wb==1:length(poss)),collapse="")
+
+al = paste0("* ",sposs,collapse="\n")
+
+```
+
+Question
+========
+
+Let $f$ be a function defined below for $x\ge 0$:
+
+$$f(x)~=~\sqrt{48\cdot x}\,-\,x$$
+
+Notice $f$ has a [global extremum](https://en.wikipedia.org/wiki/Maximum_and_minimum) at point $(12, 12)$.
+
+A second function, $g$, is created by randomly selecting $a$ and $b$ in the definitional equation below.
+
+$$g(x)~=~a\cdot f(bx)$$
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-20,20),ylim=c(-20,20),axes=F,ann=F)
+for(i in -22:22){
+    abline(h=i,col="lightgrey",lwd=0.8)
+    abline(v=i,col="lightgrey",lwd=0.8)
+}
+for(i in seq(-20,20,5)){
+    abline(h=i,col="darkgrey",lwd=1.2)
+    abline(v=i,col="darkgrey",lwd=1.2)
+}
+for(i in seq(-20,20,10)){
+    abline(h=i,col="black",lwd=1.2)
+    abline(v=i,col="black",lwd=1.2)
+}
+arrows(-20.9,0,20.9,0,0.1,10,3,lwd=2.5)
+arrows(0,-20.9,0,20.9,0.1,10,3,lwd=2.5)
+lines(x,y,col="blue",lwd=3)
+points(xp,yp,col="blue",pch=20,cex=1.5)
+lines(x2,y2,col="red",lwd=3)
+points(xp2,yp2,col="red",pch=20,cex=1.5)
+text(10,-0.3,10,adj=c(0.5,1))
+text(-10,-0.3,-10,adj=c(0.5,1))
+text(-0.3,10,10,adj=c(1,0.5))
+text(-0.3,-10,-10,adj=c(1,0.5))
+text(21,0.5,"x",cex=0.8)
+text(0.5,21,"y",cex=0.8)
+
+xxx = c(x,x2)
+yyy = c(y,y2)
+
+adtl = min((xxx+10)^2+(yyy-10)^2)
+adtr = min((xxx-10)^2+(yyy-10)^2)
+adbl = min((xxx+10)^2+(yyy+10)^2)
+adbr = min((xxx-10)^2+(yyy+10)^2)
+ads = c(adtl,adtr,adbl,adbr)
+iii = min(which(ads==max(ads)))
+
+if(iii==1){
+    legend("topleft",c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(3,3))
+} else if(iii==2){
+    legend("topright",c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(3,3))
+} else if(iii==3){
+    legend("bottomleft",c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(3,3))
+} else if(iii==4){
+    legend("bottomright",c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(3,3))
+}
+
+```
+\
+
+We can see that $g$ is a stretched (and possibly reflected) version of $f$. Finish the equality below.
+
+* $g(x)~=~$ ##ANSWER1## $\cdot f($ ##ANSWER2## $\cdot x)$
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+Notice the extremum of $g$ is at $(`r xp2`, `r yp2`)$.
+
+* The horizontal scale factor equals $\frac{`r xp2`}{12} ~=~ `r hposs[wb]`$
+* The vertical scale factor equals $\frac{`r yp2`}{12} ~=~ `r fposs[wa]`$
+
+The horizontal multiplicative factor ($b$) is the [reciprocal](https://en.wikipedia.org/wiki/Multiplicative_inverse) of the horizontal scale factor.
+
+$$b~=~ \left(`r hposs[wb]`\right)^{-1} ~=~ `r fposs[wb]`$$
+
+The vertical multiplicative factor ($a$) is equal to the vertical scale factor.
+
+$$a~=~`r fposs[wa]`$$
+
+Thus,
+
+$$g(x) ~=~ `r fposs[wa]` \cdot f\left(`r fposs[wb]` \cdot x\right)$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: stretch_graph

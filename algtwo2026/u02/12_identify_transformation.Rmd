@@ -1,0 +1,123 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+f = function(x){
+    return((x^3-3*x^2+2)/2)
+}
+ht = function(x,k){
+    return(f(x+k))
+}
+vt = function(x,k){
+    return(f(x)+k)
+}
+hd = function(x,k){
+    return(f(k*x))
+}
+vd = function(x,k){
+    return(k*f(x))
+}
+
+gposs = c(ht,vt,hd,vd)
+kposs = c(-2,-1/2,1/2,2)
+
+k = sample(kposs,1)
+wt = sample(1:4,1)
+x = seq(-10,10,0.01)
+ys = list(ht(x,k),
+          vt(x,k),
+          hd(x,k),
+          vd(x,k))
+y = ys[[wt]]
+
+sol1 = paste0(1*(wt==1:4),collapse="")
+sol2 = paste0(1*(kposs==k),collapse="")
+
+gtp = c("g(x) = f(x+k)",
+        "g(x) = f(x)+k",
+        "g(x) = f(k*x)",
+        "g(x) = k*f(x)"
+        )
+gtex = c("g(x)~=~f(x+k)",
+        "g(x)~=~f(x)+k",
+        "g(x)~=~f(k\\cdot x)",
+        "g(x) = k \\cdot f(x)"
+        )
+
+ans = gtex[wt]
+ans2 = gsub("k",k,ans,fixed=T)
+ans2 = gsub("+-","-",ans2,fixed=T)
+
+```
+
+Question
+========
+
+Let $f(x)=\frac{x^3-3x^2+2}{2}$. Function $g$ is made with a simple transformation (horizontal or vertical shift or stretch with possible reflection). Both functions are graphed below.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-6,6),ylim=c(-6,6),ann=F,axes=F)
+for(i in -10:10){
+    abline(h=i,col="lightgrey",lwd=0.8)
+    abline(v=i,col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    abline(h=i,col="darkgrey")
+    abline(v=i,col="darkgrey")
+}
+arrows(-6.3,0,6.3,0,0.1,10,3,lwd=2)
+arrows(0,-6.3,0,6.3,0.1,10,3,lwd=2)
+text(5,-0.5,"5")
+text(-5,-0.5,"-5")
+text(-0.5,5,"5")
+text(-0.5,-5,"-5")
+text(5.5,0.5,"x")
+text(0.5,5.5,"y")
+
+lines(x,f(x),lwd=2,col="red",lty=2)
+lines(x,y,lwd=3,col="blue")
+
+legend("topright",legend=c("y = f(x)","y = g(x)"),col=c("red","blue"),lty=c(2,1),lwd=c(2,3))
+
+```
+\
+
+1. Which equation was used to generate $g$?
+* ##ANSWER1##
+2. What is the value of $k$?
+* ##ANSWER2##
+
+
+Answerlist
+--------
+
+* g(x) = f(x+k)
+* g(x) = f(x)+k
+* g(x) = f(k*x)
+* g(x) = k*f(x)
+* k = -2
+* k = -1/2
+* k = 1/2
+* k = 2
+
+
+Solution
+========
+
+If you open [Desmos](https://www.desmos.com/calculator) and type $f(x)=\frac{x^3-3x^2+2}{2}$ and then type
+
+$$`r ans2`$$
+
+You'll get a picture that looks like the given graph.
+
+So, the equation was $`r ans`$, and the parameter was $k=`r k`$.
+
+To arrive at this answer, I would use Desmos. I would start by typing $f(x)=\frac{x^3-3x^2+2}{2}$. Then I would try $g(x)=f(x+k)$, add a slider for $k$, and check if you can get the second curve to look like the given. If not, try $g(x)=f(x)+k$ or $g(x)=f(kx)$ or $g(x)=k\cdot f(x)$. Remember, there are only 4 possible values for $k$.
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: identify_transformation

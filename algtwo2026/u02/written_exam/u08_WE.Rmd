@@ -1,0 +1,316 @@
+---
+header-includes:
+   - \usepackage{array}
+output: pdf_document
+params:
+    rseed: 1
+    showsol: false
+    titex: "Practice"
+urlcolor: blue
+---
+
+
+```{r,echo=F}
+# In the future, you should make it so the domain is never the same as the range!
+set.seed(params$rseed)
+if(params$showsol){
+    solstart = ""
+    solend = "\\vfill"
+    hidesolstart = "<!---"
+    hidesolend = "-->"
+} else {
+    solstart = "<!---"
+    solend = "-->"
+    hidesolstart = ""
+    hidesolend = ""
+}
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## Intervals, Transformations, and Slope  `r params$titex` (version `r params$rseed`)
+
+
+```{r,echo=F}
+while(T){
+    xp = sort(sample(-10:10,5))
+    while(T){
+        yp = sample(1:10,5,T)*c(1,-1,1,-1,-1)*sample(c(-1,1),1)
+        if(abs(yp[5])<abs(yp[4])){break}
+    }
+    
+    if(sample(1:2,1)==1){
+        yp = rev(yp)
+    }
+    xa = min(xp):max(xp)
+    ya = rep(0,length(xa))
+    for(i in 1:length(xa)){
+        x = xa[i]
+        xl = max(xp[xp<=x])
+        xr = min(c(xp[xp>x],xp[length(xp)]))
+        yl = yp[xp==xl]
+        yr = yp[xp==xr]
+        rat = (x-xl)/(xr-xl)
+        if(x>xl){
+            ya[i] = yl*(1-rat)+yr*rat
+        } else {
+            ya[i] = yl
+        }
+        
+    }
+    if(sum(ya==0)==3){break}
+}
+
+xpn = c(xa[1],xa[ya==0],xa[length(xa)])
+ipos = character()
+ineg = character()
+for(i in 1:(length(xpn)-1)){
+    xl = xpn[i]
+    xr = xpn[i+1]
+    xt = xl+1
+    yl = ya[xa==xl]
+    yt = ya[xa==xt]
+    ymid = mean(c(yl,yt))
+    if(ymid>0){
+        ipos = c(ipos,paste0("(",xl,", ",xr,")",collapse=""))
+    } else {
+        ineg = c(ineg,paste0("(",xl,", ",xr,")",collapse=""))
+    }
+}
+iinc = character()
+idec = character()
+for(i in 1:(length(xp)-1)){
+    xl = xp[i]
+    xr = xp[i+1]
+    xt = xl+1
+    yl = ya[xa==xl]
+    yt = ya[xa==xt]
+    if(yt>yl){
+        iinc = c(iinc,paste0("(",xl,", ",xr,")",collapse=""))
+    } else {
+        idec = c(idec,paste0("(",xl,", ",xr,")",collapse=""))
+    }
+}
+
+
+if(params$showsol){
+    posint = paste0("$",paste0(ipos,collapse=" \\cup "),"$",collapse="")
+    negint = paste0("$",paste0(ineg,collapse=" \\cup "),"$",collapse="")
+    incint = paste0("$",paste0(iinc,collapse=" \\cup "),"$",collapse="")
+    decint = paste0("$",paste0(idec,collapse=" \\cup "),"$",collapse="")
+    domint = paste0("$(",min(xp),", ",max(xp),")$")
+    ranint = paste0("$(",min(yp),", ",max(yp),")$")
+} else {
+    posint = ""
+    negint = ""
+    incint = ""
+    decint = ""
+    domint = ""
+    ranint = ""
+}
+
+
+```
+
+1. The function $f$ is graphed below.
+
+```{r,echo=F,fig.dim=c(5,4)}
+layout(matrix(c(1,1,1,1,2),nrow=1))
+par(mar=c(0,0,0,0),pty="s")
+plot(xa,ya,"l",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    abline(h=i,col="lightgrey",lwd=0.5)
+    abline(v=i,col="lightgrey",lwd=0.5)
+}
+for(i in seq(-10,10,5)){
+    abline(h=i,col="darkgrey",lwd=1)
+    abline(v=i,col="darkgrey",lwd=1)
+}
+arrows(-10.3,0,10.3,0,0.1,10,3,lwd=2)
+arrows(0,-10.3,0,10.3,0.1,10,3,lwd=2)
+lines(xa,ya,col="blue",lwd=3)
+points(xp,yp,pch=20,col="blue",cex=1.6)
+points(xa[1],ya[1],pch=20,col="white",cex=0.8)
+points(xa[length(xa)],ya[length(xa)],pch=20,col="white",cex=0.8)
+
+text(10,-0.5,"10",cex=0.8)
+text(-10,-0.5,"-10",cex=0.8)
+text(-0.5,10,"10",cex=0.8)
+text(-0.5,-10,"-10",cex=0.8)
+text(10,0.5,"x",cex=0.8)
+text(0.5,10,"y",cex=0.8)
+
+plot(0,0,"n",axes=F,ann=F)
+legend("center",legend="y = f(x)",col="blue",lwd=3)
+
+
+
+```
+\
+
+Indicate the following intervals using interval notation. Remember, you can use $\cup$ between two intervals to indicate the union. Except for range, all intervals will indicate $x$ values; this is standard.
+
+\begin{tabular}{|m{1in}|m{5in}|}\hline
+Feature & Where \\ \hline \hline
+Positive & `r posint` \\  [2.5em]  \hline
+Negative & `r negint` \\  [2.5em]  \hline
+Increasing & `r incint` \\ [2.5em]  \hline
+Decreasing & `r decint` \\ [2.5em]  \hline
+Domain & `r domint` \\ [2.5em]  \hline
+Range & `r ranint` \\ [2.5em]  \hline
+\end{tabular}
+
+\newpage
+
+## Intervals, Transformations, and Slope  `r params$titex` (version `r params$rseed`)
+
+```{r prob2,echo=F}
+while(T){
+    xs = sort(sample(c(-6,-4,-2,0,2,4,6),3))
+    ys = sample(-5:5,3)
+    m1 = (ys[2]-ys[1])/(xs[2]-xs[1])
+    m2 = (ys[3]-ys[2])/(xs[3]-xs[2])
+    if(abs(m1)!=abs(m2) && max(xs)-min(xs)>4 && sign(m1)!=sign(m2)){break}
+}
+h = sample(c(-2,2),1)
+xa = xs+h
+ya = ys
+ea = gsub("--","+",paste0("$y=f(x-",h,")$",collapse=""),fixed=T)
+
+k = sample(c(-2,2),1)
+xb = xs
+yb = ys+k
+eb = gsub("+-","-",paste0("$y=f(x)+",k,"$",collapse=""),fixed=T)
+
+a = sample(c(-2,2),1)
+xc = xs
+yc = a*ys
+ec = paste0("$y=",a,"\\cdot f(x)$",collapse="")
+
+b = sample(c(-2,2),1)
+xd = xs/b
+yd = ys
+ed = paste0("$y=f(",b,"\\cdot x)$",collapse="")
+
+xl = list(xa,xb,xc,xd)
+yl = list(ya,yb,yc,yd)
+el = c(ea,eb,ec,ed)
+
+daord = sample(1:4)
+
+```
+
+2. In the four graphs below, $y=f(x)$ is graphed as a dotted line. With a solid line, please graph the transformations indicated by the equations below.
+
+```{r,echo=F,fig.dim=c(6,5)}
+par(mfrow=c(2,2),pty="s",mar=c(0,0,2,0))
+library(latex2exp)
+for(j in 1:4){
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    mtext(TeX(el[daord[j]]),3,0)
+    for(i in -10:10){
+        lines(c(i,i),c(-10,10),col="lightgrey",lwd=0.5)
+        lines(c(-10,10),c(i,i),col="lightgrey",lwd=0.5)
+    }
+    for(i in seq(-10,10,5)){
+        lines(c(i,i),c(-10,10),col="darkgrey",lwd=1)
+        lines(c(-10,10),c(i,i),col="darkgrey",lwd=1)
+    }
+    arrows(-10.5,0,10.5,0,0.1,10,3,lwd=2)
+    arrows(0,-10.5,0,10.5,0.1,10,3,lwd=2)
+    lines(xs,ys,col="red",lty=2,lwd=1)
+    points(xs,ys,col="red",pch=20,cex=0.5)
+    if(params$showsol){
+        lines(xl[[daord[j]]],yl[[daord[j]]],col="blue",lwd=3)
+        points(xl[[daord[j]]],yl[[daord[j]]],col="blue",pch=20,cex=1)
+    }
+}
+```
+\
+
+
+```{r prob3, echo=F}
+dafracs = list(c(1,2),c(3,2),c(5,2),c(7,2),c(9,2),
+               c(1,3),c(2,3),c(4,3),c(5,3),c(7,3),c(8,3),
+               c(1,4),c(3,4),c(5,4),c(7,4),c(9,4),
+               c(1,5),c(2,5),c(3,5),c(4,5),c(6,5),c(7,5),c(8,5),c(9,5),
+               c(1,6),c(5,6),c(7,6),
+               c(1,7),c(2,7),c(3,7),c(4,7),c(5,7),c(6,7),c(8,7),c(9,7),
+               c(1,8),c(3,8),c(5,8),c(7,8),c(9,8),
+               c(1,9),c(2,9),c(4,9),c(5,9),c(7,9),c(8,9))
+
+fi = sample(1:length(dafracs),3)
+mult = sample(2:9,3,T)
+sgn = sample(c(-1,1),3,T)
+f = dafracs[[fi[1]]]
+dy = f[1]*mult[1]*sample(c(-1,1),1)
+w = f[2]*mult[1]
+
+while(T){
+    xl = sample(11:99,1)
+    xr = xl+w
+    x = c(xl,xr)
+    if(max(x)<100){break}
+}
+while(T){
+    yl = sample(11:99,1)
+    yr = yl+dy
+    y = c(yl,yr)
+    dps = sort(unique(c(x,y)))
+    if(max(y)<100 && min(y)>0 && length(dps)==4){break}
+}
+allpairs = list()
+for(i in 1:4){
+    if(dps[i]==xl){
+        allpairs[[i]] = c(xl,yl)
+    } else if(dps[i]==xr){
+        allpairs[[i]] = c(xr,yr)
+    } else if(dps[i]==yl){
+        allpairs[[i]] = c(yl,xr)
+    } else if(dps[i]==yr){
+        allpairs[[i]] = c(yr,xl)
+    }
+}
+
+solst = ""
+
+if(params$showsol){
+    s1 = paste0("$\\frac{g(",xr,")-g(",xl,")}{",xr,"-",xl,"}=\\frac{",yr,"-",yl,"}{",xr,"-",xl,"}=\\frac{",yr-yl,"}{",xr-xl,"}$\n\n",collapse="")
+    s4 = paste0("The greatest common factor of ",yr-yl," and ",xr-xl," is ",mult[1],". Divide numerator and denominator by the greatest common factor.",collapse="")
+    s5 = paste0("$$\\mathrm{AROC}=\\frac{",sign(dy)*f[1],"}{",f[2],"}$$",collapse="")
+    solst = paste0(c(s1,s4,s5),collapse="\n")
+}
+```
+
+3. Let function $g$ be defined by the table below. Use the formula $\frac{g(x_2)-g(x_1)}{x_2-x_1}$ to find the average rate of change between $x_1=`r xl`$ and $x_2=`r xr`$. Express your answer as a reduced fraction.
+
+| $x$ | $g(x)$ |
+|:---:|:---:|
+| `r allpairs[[1]][1]` | `r allpairs[[1]][2]` |
+| `r allpairs[[2]][1]` | `r allpairs[[2]][2]` |
+| `r allpairs[[3]][1]` | `r allpairs[[3]][2]` |
+| `r allpairs[[4]][1]` | `r allpairs[[4]][2]` |
+
+`r solst`
+
+
+
+
+
+
+
+
+

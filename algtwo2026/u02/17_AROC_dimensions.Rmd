@@ -1,0 +1,159 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=999)
+
+D = list(c("energy","N\\cdot m","distance","m","force","N"),
+         c("energy","J","time","s","power","J/s"),
+         c("energy","kW\\cdot hr","time","hr","power","kW"),
+         c("distance","m","time","s","velocity","m/s"),
+         c("velocity","m/s","time","s","acceleration","m/s^2"),
+         c("acceleration","m/s^2","time","s","jerk","m/s^3"),
+         c("momentum","N\\cdot s","time","s","force","N"),
+         c("charge","C","time","s","current","C/s")
+         )
+
+uc = c("s","hr","m","m/s","m/s^2","m/s^3","N","N\\cdot s","N\\cdot m","J","J/s",
+          "kW","kW\\cdot hr","C","C/s")
+
+units = c("s","hr","m","m/s","m/s²","m/s³","N","N*s","N*m","J","J/s",
+          "kW","kW*hr","C","C/s")
+
+quants = sort(c("time","distance","force","energy","power","velocity","acceleration","jerk","momentum","charge","current"))
+
+while(T){
+    whi = sample(1:length(D),1)
+    u = D[[whi]]
+    x = seq(0,1,0.001)
+    while(T){
+        cf = runif(6,-1,1)
+        ss = runif(1,-0.2,0.2)
+        ph = runif(1,0,2*pi)
+        ff = runif(1,1,3)
+        y = (cf[6]*x^5+cf[5]*x^4+
+                 cf[4]*x^3+cf[3]*x^2+cf[2]*x+cf[1])+ss*sin(x*2*pi*ff+ph)
+        if(min(y)>0 && max(y)<1 && max(y)-min(y)>0.4){break}
+    }
+    x = x*100
+    ymult = sample(c(1,10,100,1000),1)
+    y = y*ymult
+    
+    while(T){
+        ii = sort(sample(2:(length(x)-1),2))
+        x1 = x[ii[1]]
+        x2 = x[ii[2]]
+        y1 = round(y[ii[1]]/ymult*1000)*ymult/1000
+        y2 = round(y[ii[2]]/ymult*1000)*ymult/1000
+        if(x2-x1>5){break}
+    }
+    
+    ii3 = round(mean(ii))
+    m = (y2-y1)/(x2-x1)
+    ylin = m*(x-x1)+y1
+    
+    mr = signif(m,3)
+    sfs = (sqrt(10))^((-4:0+sample(0:4,1)))
+    ach = sort(c(-signif(m*sfs,3),signif(m*sfs,3)))
+    sol1 = paste0(1*(mr==ach),collapse="")
+    sol2 = paste0(1*(uc==u[6]),collapse="")
+    sol3 = paste0(1*(quants==u[5]),collapse="")
+    if(sum(mr==ach)==1  && mr>0.01){break}
+}
+
+al1 = paste0("* ",ach,collapse="\n")
+al2 = paste0("* ",units,collapse="\n")
+al3 = paste0("* ",quants,collapse="\n")
+
+
+```
+
+
+
+Question
+========
+
+In the table below, various physical quantities and some common units of measure are presented:
+
+```{css, echo=F}
+.taby td {
+    border: 2px solid black;
+    padding: 0.5em;
+}
+.taby tr {
+    border: 2px solid black;
+    padding: 0.5em;
+}
+.taby th {
+    border: 2px solid black;
+    border-bottom: 5px solid black;
+    background: #CCC;
+    padding: 0.5em;
+}
+```
+
+<div class="taby">
+| quantity | units of measure |
+|:---:|:---:|
+| time | seconds ($\mathrm{s}$) |
+| distance | meters ($\mathrm{m}$) |
+| velocity | meters per second ($\mathrm{m/s}$) |
+| acceleration | meters per squared second ($\mathrm{m/s^2}$) |
+| jerk | meters per cubed second ($\mathrm{m/s^3}$) |
+| force | Newtons ($\mathrm{N}$) |
+| momentum | Newton-seconds ($\mathrm{N\cdot s}$) |
+| energy | Newton-meters ($\mathrm{N\cdot m}$)|
+| energy | Joules ($\mathrm{J}$) |
+| energy | kilowatt-hours ($\mathrm{kW\cdot hr}$) |
+| power | Newton-meters per second ($\mathrm{\frac{N\cdot m}{s}}$) |
+| power | Joules per second ($\mathrm{J/s}$) = Watts ($\mathrm{W}$) |
+| power | kilowatt ($\mathrm{kW}$) |
+| electrical charge | Coulombs ($\mathrm{C}$) |
+| electrical current | Coulombs/second ($\mathrm{C/s}$) = amperes ($\mathrm{A}$) |
+</div>
+
+A device measures `r u[1]` (in $\mathrm{`r u[2]`}$) as a function of `r u[3]` (in $\mathrm{`r u[4]`}$). Those measurements are graphed below as a blue curve. Two points are selected, and their [secant line](https://en.wikipedia.org/wiki/Secant_line) is drawn in red.
+
+```{r,echo=F,fig.dim=c(8,5)}
+library(latex2exp)
+
+par(mar=c(4,5,2,2))
+
+plot(x,y,"l",col="blue",lwd=2,xlim=c(0,100),ylim=c(0,ymult),xlab=TeX(paste0(u[3]," ($",u[4],"$)",collapse="")),ylab=TeX(paste0(u[1]," ($",u[2],"$)",collapse="")))
+
+lines(x,ylin,col="red")
+points(x1,y1,pch=20,col="red",cex=1.3)
+points(x2,y2,pch=20,col="red",cex=1.3)
+
+```
+\
+
+The two marked points are at coordinates (`r x1`, `r y1`) and (`r x2`, `r y2`). Determine the average rate of change of the `r u[1]` over the given interval of `r u[3]` marked by the two points.
+
+AROC = ##ANSWER1## ##ANSWER2##
+
+This average rate of change is a quantity of ##ANSWER3##.
+
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al3`
+
+Solution
+========
+
+$$\mathrm{AROC}~=~\frac{(`r y2`-`r y1`)(\mathrm{`r u[2]`})}{(`r x2`-`r x1`)(\mathrm{`r u[4]`})}$$
+
+$$\mathrm{AROC}~=~\frac{`r y2-y1`}{`r x2-x1`}\,\frac{\mathrm{`r u[2]`}}{\mathrm{`r u[4]`}}$$
+
+$$\mathrm{AROC}~=~`r mr`\,\mathrm{`r u[6]`}$$
+
+Thus when we find the average rate of change of `r u[1]` over an interval of `r u[3]`, the result is a quantity of `r u[5]`.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: AROC_dimensions

@@ -1,0 +1,126 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# We ask: if A is function of B (50% chance yes)
+#         if B is function of A (50% chance yes)
+#         if relation is one-to-one (if prior both yes then yes)
+# versions: 1=nono, 2=yesno, 3=noyes, 4=yesyes
+
+shouldAafoB = sample(c(F,T),1)
+shouldBafoA = sample(c(F,T),1)
+
+while(T){
+  n = sample(6:8,1)
+  A = sample(0:10,n,T)
+  B = sample(0:10,n,T)
+  afa = character()
+  afb = character()
+  bfa = character()
+  bfb = character()
+  ifAafoB = T
+  ifBafoA = T
+  afbads = ""
+  bfbads = ""
+  for(i in 1:n){
+    a = as.character(A[i])
+    b = as.character(B[i])
+    if(!(a %in% afa)){
+      afa = c(afa,a)
+      afb = c(afb,b)
+    } else {
+      pos = which(afa==a)
+      if(afb[pos]!=b){
+        ifBafoA = F
+        afbads = paste0("(",c(a,a),", ",c(afb[pos],b),")",collapse=" and ")
+      }
+    }
+    if(!(b %in% bfb)){
+      bfb = c(bfb,b)
+      bfa = c(bfa,a)
+    } else {
+      pos = which(bfb==b)
+      if(bfa[pos]!=a){
+        ifAafoB = F
+        bfbads = paste0("(",c(bfa[pos],a),", ",c(b,b),")",collapse=" and ")
+      }
+    }
+  }
+  mystr = paste("(",A,", ",B,")\n\n",collapse="")
+  if(ifAafoB==shouldAafoB && 
+     ifBafoA==shouldBafoA && 
+     length(unique(A)) >= length(A)-2 &&
+     length(unique(A)) < length(A) && 
+     length(unique(B)) >= length(B)-2 && 
+     length(unique(B)) < length(B) ){
+    break
+  }
+}
+
+if(!ifBafoA && !ifAafoB){
+  ans1 = "01"
+  ans2 = "01"
+  ans3 = "01"
+  sol = paste0("An $x$ value repeats with different $y$ values, so $y$ is not a function of $x$. The graph fails the vertical line test. For example: ",afbads,"\n\n Also, a $y$ value repeates with different $x$ values, so $x$ is not a function of $y$. The graph fails the horizontal line test. For example: ",bfbads,"\n\n We would need both to be function of the other to have a one-to-one function. Neither is, so we don't even have a function in either direction.")
+}
+if(ifBafoA && !ifAafoB){
+  ans1 = "10"
+  ans2 = "01"
+  ans3 = "01"
+  sol = paste0("Every $x$ value has only one $y$ value, so $y$ is a function of $x$. The graph passes the vertical line test. \n\n A $y$ value repeates with different $x$ values, so $x$ is not a function of $y$. The graph fails the horizontal line test. For example: ",bfbads," \n\n Because $x$ is not a function of $y$, these points are inconsistent with a one-to-one function.")
+}
+if(!ifBafoA && ifAafoB){
+  ans1 = "01"
+  ans2 = "10"
+  ans3 = "01"
+  sol = paste0("An $x$ value repeats with different $y$ values, so $y$ is not a function of $x$. The graph fails the vertical-line test. For example: ",afbads,"\n\n Every $y$ value has only one $x$ value, so $x$ is a function of $y$. The graph passes the horizontal line test. \n\n Because $y$ is not a function of $x$, these points are inconsistent with a one-to-one function.")
+}
+if(ifBafoA && ifAafoB){
+  ans1 = "10"
+  ans2 = "10"
+  ans3 = "10"
+  sol = "Every $x$ value has only one $y$ value, and vice versa. The graph passes both the vertical-line and horizontal-line tests. This means $y$ is a function of $x$ and $x$ is a function of $y$, and the points are consistent with a one-to-one function."
+}
+```
+
+Question
+========
+
+```{r,echo=FALSE,fig.dim=c(5,5)}
+par(pty="s")
+plot(A,B,xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="y",asp=1,pch=20,cex=2)
+for(i in 0:10){
+  abline(h=i,lty=3)
+  abline(v=i,lty=3)
+}
+```
+\
+
+Are these points consistent with $y$ being a function of $x$? ##ANSWER1##
+
+Are these points consistent with $x$ being a function of $y$? ##ANSWER2##
+
+Are these points consistent with a one-to-one function? ##ANSWER3##
+
+
+Answerlist
+--------
+
+* Yes
+* No
+* Yes
+* No
+* Yes
+* No
+
+
+Solution
+========
+
+It is best to visualize the vertical line test and the horizontal line test. If you can draw a vertical line through 2 (or more) points, then $y$ is not a function of $x$. If you can draw a horizontal line through 2 (or more) points, then $x$ is not a function of $y$.
+
+`r sol`
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`
+exname: are_points_a_function

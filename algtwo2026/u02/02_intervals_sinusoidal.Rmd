@@ -1,0 +1,176 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+step = 0.01
+x = seq(-5,5,step)
+n = length(x)
+a = sample(3:5,1)
+h = sample(-3:4,1)
+fun = function(x){round(a*sin(pi/4*(x-h)),8)}
+dfun = function(x){round(a*cos(pi/4*(x-h))*pi/4,8)}
+ddfun = function(x){round(-a*sin(pi/4*(x-h))*pi^2/4^2,8)}
+
+y = fun(x)
+dy = dfun(x)
+ddy = ddfun(x)
+
+maxes = c(-14,-6,2,10)+h
+mins = c(-10,-2,6,14)+h
+znp = c(-8,0,8)+h
+zpn = c(-12,-4,4,12)+h
+ends = c(-5,5)
+crits = sort(unique(c(zpn,znp,mins,maxes)))
+crits = crits[abs(crits)<5]
+
+posint = ""
+negint = ""
+incint = ""
+decint = ""
+
+if(y[1]>0){
+  posint = "(-5,"
+}
+if(y[1]<0){
+  negint = "(-5,"
+}
+if(y[1]==0){
+  if(dy[1]>0){
+    posint = "(-5,"
+  }
+  if(dy[1]<0){
+    negint = "(-5,"
+  }
+}
+if(dy[1]>0){
+  incint = "(-5,"
+}
+if(dy[1]<0){
+  decint = "(-5,"
+}
+if(dy[1]==0){
+    if(ddy[1]>0){
+    incint = "(-5,"
+  }
+  if(ddy[1]<0){
+    decint = "(-5,"
+  }
+}
+
+for(xx in crits){
+  i = which(x==xx)
+  if(xx %in% maxes){
+    incint = paste0(incint,xx,")")
+    decint = paste0(decint,"(",xx,",")
+  }
+  if(xx %in% mins){
+    decint = paste0(decint,xx,")")
+    incint = paste0(incint,"(",xx,",")
+  }
+  if(xx %in% znp){
+    negint = paste0(negint,xx,")")
+    posint = paste0(posint,"(",xx,",")
+  }
+  if(xx %in% zpn){
+    posint = paste0(posint,xx,")")
+    negint = paste0(negint,"(",xx,",")
+  }
+}
+
+xe = x[length(y)]
+ye = y[length(y)]
+dye = dy[length(y)]
+ddye = ddy[length(y)]
+
+if(ye>0){
+  posint = paste0(posint,xe,")")
+}
+if(ye<0){
+  negint =  paste0(negint,xe,")")
+}
+if(ye==0){
+  if(dye>0){
+    negint = paste0(negint,xe,")")
+  }
+  if(dye<0){
+    posint = paste0(posint,xe,")")
+  }
+}
+if(dye>0){
+  incint = paste0(incint,xe,")")
+}
+if(dye<0){
+  decint = paste0(decint,xe,")")
+}
+if(dye==0){
+    if(ddye<0){
+    incint = paste0(incint,xe,")")
+  }
+  if(ddye>0){
+    decint = paste0(decint,xe,")")
+  }
+}
+
+posint = gsub("\\)\\(","\\)U\\(",posint)
+negint = gsub("\\)\\(","\\)U\\(",negint)
+incint = gsub("\\)\\(","\\)U\\(",incint)
+decint = gsub("\\)\\(","\\)U\\(",decint)
+
+intervals = sample(c(posint,negint,incint,decint))
+
+al = paste0("* ",intervals,"\n",collapse="")
+
+ans1 = paste0(1*(intervals==posint),collapse="")
+ans2 = paste0(1*(intervals==negint),collapse="")
+ans3 = paste0(1*(intervals==incint),collapse="")
+ans4 = paste0(1*(intervals==decint),collapse="")
+```
+
+Question
+========
+
+Let function $f$ be defined by the graph below.
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+par(pty="s")
+plot(0,0,type="n",xlim=c(-5,5),ylim=c(-5,5),lwd=2,ylab="f(x)",xlab="x")
+for(j in seq(-5,5,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+lines(x,y,col = "blue",lwd=4)
+points(x[1],y[1],col="blue",cex=2.5,pch=20)
+points(x[1],y[1],col="white",cex=1.5,pch=20)
+points(x[n],y[n],col="blue",cex=2.5,pch=20)
+points(x[n],y[n],col="white",cex=1.5,pch=20)
+```
+\
+
+* Over what interval is the function positive? ##ANSWER1##
+* Over what interval is the function negative? ##ANSWER2##
+* Over what interval is the function increasing? ##ANSWER3##
+* Over what interval is the function decreasing? ##ANSWER4##
+
+Answerlist
+--------
+`r al`
+`r al`
+`r al`
+`r al`
+
+Solution
+========
+
+* The function "is positive" when $f(x)>0$. The interval refers to the $x$ values (inputs) that produce a positive output. Determine where the curve is above the $x$ axis. Indicate "where" with the $x$ values at the endpoints: `r posint`
+* The function "is negative" when $f(x)<0$. The interval refers to the $x$ values (inputs) that produce a negative output. Determine where the curve is below the $x$ axis. Indicate "where" with the $x$ values at the endpoints: `r negint`
+* The function is increasing when an ant going left-to-right is walking up hill: `r incint`
+* The function is decreasing when an ant going left-to-right is walking down hill: `r decint`
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`|`r ans4`
+exname: intervals_sinusoidal

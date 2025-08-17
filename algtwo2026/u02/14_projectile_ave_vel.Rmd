@@ -1,0 +1,52 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+while(T){
+    a = -round(runif(1,1,5),1)*2
+    v0 = round(runif(1,10,99),1)
+    ttop = v0/abs(a)
+    tland = ttop*2
+    ts = round(sort(runif(2,0,tland)),1)
+    y1 = a/2*ts[1]^2+v0*ts[1]
+    y2 = a/2*ts[2]^2+v0*ts[2]
+    h = ts[2]-ts[1]
+    aroc = (y2-y1)/h
+    if(diff(ts)>0.2 && abs(aroc)>0.2 && ts[1]>0){break}
+}
+
+
+```
+
+
+Question
+========
+
+On an alien planet, a projectile is shot upward. The gravity is `r a` m/s$^2$ and the initial upward velocity (at $t=0$) is `r v0` m/s. The effects of air resistance are minimal, so that the height in meters, $h$, is a quadratic function in time, $t$, in seconds.
+
+$$h(t)~=~`r a/2`t^2+`r v0`t$$
+
+What is the [average velocity](https://en.wikipedia.org/wiki/Velocity#Average_velocity), in meters per second, of the projectile between $t=`r ts[1]`$ seconds and $t=`r ts[2]`$ seconds?
+
+
+Solution
+========
+
+$$\bar{v}~=~\frac{\Delta h}{\Delta t}~=~ \frac{h(`r ts[2]`)\,-\,h(`r ts[1]`)}{`r ts[2]`-`r ts[1]`}$$
+
+$$\bar{v}~=~ \frac{`r y2`\,-\,`r y1`}{`r ts[2]- ts[1]`}$$
+
+$$\bar{v}~=~ `r aroc`\,\mathrm{m/s}$$
+
+Personally, I would use Desmos:
+
+1. Define $h(t)~=~`r a/2`t^2+`r v0`t$
+2. Evaluate $\frac{h(`r ts[2]`)\,-\,h(`r ts[1]`)}{`r ts[2]`-`r ts[1]`}$.
+    * Answer = `r aroc`
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r aroc`
+exname: eval_function
+extol: 0.1

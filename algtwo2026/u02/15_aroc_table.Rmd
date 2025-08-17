@@ -1,0 +1,206 @@
+```{r data generation, echo = FALSE}
+dafracs = list(c(1,2),c(3,2),c(5,2),c(7,2),c(9,2),
+               c(1,3),c(2,3),c(4,3),c(5,3),c(7,3),c(8,3),
+               c(1,4),c(3,4),c(5,4),c(7,4),c(9,4),
+               c(1,5),c(2,5),c(3,5),c(4,5),c(6,5),c(7,5),c(8,5),c(9,5),
+               c(1,6),c(5,6),c(7,6),
+               c(1,7),c(2,7),c(3,7),c(4,7),c(5,7),c(6,7),c(8,7),c(9,7),
+               c(1,8),c(3,8),c(5,8),c(7,8),c(9,8),
+               c(1,9),c(2,9),c(4,9),c(5,9),c(7,9),c(8,9))
+
+fi = sample(1:length(dafracs),3)
+mult = sample(2:9,3,T)
+sgn = sample(c(-1,1),3,T)
+f1 = dafracs[[fi[1]]]
+f2 = dafracs[[fi[2]]]
+f3 = dafracs[[fi[3]]]
+dy1 = f1[1]*mult[1]*sample(c(-1,1),1)
+dy2 = f2[1]*mult[2]*sample(c(-1,1),1)
+dy3 = f3[1]*mult[3]*sample(c(-1,1),1)
+w1 = f1[2]*mult[1]
+w2 = f2[2]*mult[2]
+w3 = f3[2]*mult[3]
+
+while(T){
+    x1l = sample(11:99,1)
+    x1r = x1l+w1
+    x2l = sample(11:99,1)
+    x2r = x2l+w2
+    x3l = sample(11:99,1)
+    x3r = x3l+w3
+    xa = c(x1l,x1r,x2l,x2r,x3l,x3r)
+    xs = unique(xa)
+    if(max(xs)<100 && length(xs)<6){break}
+}
+
+while(T){
+    y1l = sample(11:99,1)
+    y1r = y1l+dy1
+    y2l = sample(11:99,1)
+    y2r = y2l+dy2
+    y3l = sample(11:99,1)
+    y3r = y3l+dy3
+    ya = c(y1l,y1r,y2l,y2r,y3l,y3r)
+    ys = unique(ya)
+    if(max(ys)<100 && min(ys)>0){break}
+}
+
+while(length(xs)<10){
+    xs = sort(unique(c(xs,sample(11:99,1))))
+}
+
+f = sample(11:99,10,T)
+g = sample(11:99,10,T)
+h = sample(11:99,10,T)
+
+for(i in 1:10){
+    x = xs[i]
+    if(x==x1l){
+        f[i] = y1l
+    }
+    if(x==x1r){
+        f[i] = y1r
+    }
+    if(x==x2l){
+        g[i] = y2l
+    }
+    if(x==x2r){
+        g[i] = y2r
+    }
+    if(x==x3l){
+        h[i] = y3l
+    }
+    if(x==x3r){
+        h[i] = y3r
+    }
+}
+
+mytab = data.frame(xs,f,g,h)
+colnames(mytab) = c("t","f(t)","g(t)","h(t)")
+
+numch = c(-9:-1,1:9)
+dench = 1:9
+
+sol1 = paste0(1*(f1[1]*sign(dy1)==numch),collapse="")
+sol2 = paste0(1*(f1[2]==dench),collapse="")
+sol3 = paste0(1*(f2[1]*sign(dy2)==numch),collapse="")
+sol4 = paste0(1*(f2[2]==dench),collapse="")
+sol5 = paste0(1*(f3[1]*sign(dy3)==numch),collapse="")
+sol6 = paste0(1*(f3[2]==dench),collapse="")
+
+al1 = paste0("* ",numch,collapse="\n")
+al2 = paste0("* ",dench,collapse="\n")
+
+```
+
+
+Question
+========
+
+Three functions vary in time as shown in the table below.
+
+```{css,echo=F}
+.tabl td {
+  border: 1px solid black;
+  text-align: center;
+  padding: 15px;
+  margin: 1em;
+}
+.tabl th {
+  border: 2px solid black;
+  border-bottom: 2px solid black;
+  text-align: center;
+  background-color: #227;
+  padding: 15px;
+  color: white;
+}
+```
+
+<div class="tabl">
+
+```{r,echo=F}
+kableExtra::kable(mytab)
+```
+
+</div>
+
+```{css,echo=F}
+.frac table {
+    width: 4em;
+    background-color: #FFF;
+}
+.frac td {
+  border: 0px;
+  text-align: center;
+  padding: 0px;
+  margin: 0em;
+  background-color: #FFF;
+}
+.frac th {
+  border-bottom: 2px solid black;
+  text-align: center;
+  padding: 0px;
+  margin: 0em;
+  background-color: #FFF;
+}
+```
+
+1. Find the average rate of change of function $f$ between $t=`r x1l`$ and $t=`r x1r`$. Express your answer as a fraction in reduced form.
+
+<div class="frac">
+| ##ANSWER1## |
+|:---:|
+| ##ANSWER2## |
+</div>
+
+
+2. Find the average rate of change of function $g$ between $t=`r x2l`$ and $t=`r x2r`$. Express your answer as a fraction in reduced form.
+
+<div class="frac">
+| ##ANSWER3## |
+|:---:|
+| ##ANSWER4## |
+</div>
+
+
+3. Find the average rate of change of function $h$ between $t=`r x3l`$ and $t=`r x3r`$. Express your answer as a fraction in reduced form.
+
+<div class="frac">
+| ##ANSWER5## |
+|:---:|
+| ##ANSWER6## |
+</div>
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al1`
+`r al2`
+`r al1`
+`r al2`
+
+
+Solution
+========
+
+1. The average rate of change of function $f$ between $t=`r x1l`$ and $t=`r x1r`$ =
+
+$$\frac{f(`r x1r`)-f(`r x1l`)}{`r x1r`-`r x1l`}~=~\frac{`r y1r`-`r y1l`}{`r x1r`-`r x1l`} ~=~ \frac{`r y1r-y1l`}{`r x1r-x1l`} ~=~ \frac{`r f1[1]*sign(dy1)`}{`r f1[2]`}$$
+
+2. The average rate of change of function $g$ between $t=`r x2l`$ and $t=`r x2r`$ =
+
+$$\frac{g(`r x2r`)-g(`r x2l`)}{`r x2r`-`r x2l`}~=~\frac{`r y2r`-`r y2l`}{`r x2r`-`r x2l`} ~=~ \frac{`r y2r-y2l`}{`r x2r-x2l`} ~=~ \frac{`r f2[1]*sign(dy2)`}{`r f2[2]`}$$
+
+3. The average rate of change of function $h$ between $t=`r x3l`$ and $t=`r x3r`$ =
+
+$$\frac{h(`r x3r`)-h(`r x3l`)}{`r x3r`-`r x3l`}~=~\frac{`r y3r`-`r y3l`}{`r x3r`-`r x3l`} ~=~ \frac{`r y3r-y3l`}{`r x3r-x3l`} ~=~ \frac{`r f3[1]*sign(dy3)`}{`r f3[2]`}$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`|`r sol6`
+exname: aroc_table

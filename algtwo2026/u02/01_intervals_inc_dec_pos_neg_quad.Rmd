@@ -1,0 +1,106 @@
+```{r data generation, echo = FALSE, results = "hide"}
+### update the graph to have easier gridlines!
+while(T){
+    h = sample(-4:4,1)
+    k = sample(1:8,1)
+    if(h!=k){break}
+}
+isup = sample(c(T,F),1)
+mult = -1+2*isup
+k = k*(-mult)
+dis = sample(2:5,1)
+roots = c(h-dis,h+dis)
+p = roots[1]
+q = roots[2]
+k2 = (h-p)*(h-q)
+a = k/k2
+adom = "(-∞,∞)"
+if(isup){
+  ainc = paste0("(",h,",∞)")
+  adec = paste0("(-∞,",h,")")
+  apos = paste0("(-∞,",p,")U(",q,",∞)")
+  aneg = paste0("(",p,",",q,")")
+  aran = paste0("[",k,",∞)")
+} else {
+  adec = paste0("(",h,",∞)")
+  ainc = paste0("(-∞,",h,")")
+  aneg = paste0("(-∞,",p,")U(",q,",∞)")
+  apos = paste0("(",p,",",q,")")
+  aran = paste0("(-∞,",k,"]")
+}
+fun = function(x){a*(x-p)*(x-q)}
+achos = sample(c(ainc,adec,apos,aneg,adom,aran))
+schos = paste0("* ",achos,"\n",collapse="")
+
+ans1 = paste0(1*(achos==apos),collapse="")
+ans2 = paste0(1*(achos==aneg),collapse="")
+ans3 = paste0(1*(achos==ainc),collapse="")
+ans4 = paste0(1*(achos==adec),collapse="")
+ans5 = paste0(1*(achos==adom),collapse="")
+ans6 = paste0(1*(achos==aran),collapse="")
+```
+
+Question
+========
+
+Consider the quadratic function graphed below:
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+par(pty="s")
+x = seq(-10,10,0.001)
+plot(x,fun(x),type="n",xlim=c(-10,10),ylim=c(-10,10),lwd=2,ylab="f(x)",xlab="x")
+for(j in seq(-10,10,2)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+lines(x,fun(x),type="l",lwd=4,col="blue")
+```
+\
+
+
+
+* What is the interval(s) over which the function is positive? ##ANSWER1##
+* What is the interval(s) over which the function is negative? ##ANSWER2##
+* What is the interval(s) over which the function is increasing? ##ANSWER3##
+* What is the interval(s) over which the function is decreasing? ##ANSWER4##
+* What is the domain (in interval notation)? ##ANSWER5##
+* What is the range (in interval notation)? ##ANSWER6##
+
+
+Answerlist
+--------
+`r schos`
+`r schos`
+`r schos`
+`r schos`
+`r schos`
+`r schos`
+
+
+Solution
+========
+
+* Positive: `r apos`
+* Negative: `r aneg`
+* Increasing: `r ainc`
+* Decreasing: `r adec`
+* Domain: `r adom`
+* Range: `r aran`
+
+
+* The function "is positive" when $f(x)>0$. The interval refers to the $x$ values (inputs) that produce a positive output. Determine where the curve is above the $x$ axis. Indicate "where" with the $x$ values at the endpoints: `r apos`
+* The function "is negative" when $f(x)<0$. The interval refers to the $x$ values (inputs) that produce a negative output. Determine where the curve is below the $x$ axis. Indicate "where" with the $x$ values at the endpoints: `r aneg`
+* The function is increasing when an ant going left-to-right is walking up hill: `r ainc`
+* The function is decreasing when an ant going left-to-right is walking down hill: `r adec`
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`|`r ans4`|`r ans5`|`r ans6`
+exname: intervals_quadratic
+exshuffle: false

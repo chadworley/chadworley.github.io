@@ -1,0 +1,186 @@
+---
+output: pdf_document
+params:
+    rseed: 1
+    showsol: true
+    titex: "Practice"
+urlcolor: blue
+---
+
+```{r,echo=F}
+set.seed(params$rseed)
+sols = numeric()
+if(params$showsol){
+    solstart = ""
+    solend = "\\vfill"
+    hidesolstart = "<!---"
+    hidesolend = "-->"
+} else {
+    solstart = "<!---"
+    solend = "-->"
+    hidesolstart = ""
+    hidesolend = ""
+}
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    q1 = paste0("You've been given a graph of $y=f(x)$, with a few key points indicated. Please sketch $y=f^{-1}(x)$, where $f^{-1}$ is the **inverse** of $f$.")
+    x1 = sort(sample(-9:9,4))
+    y1 = sort(sample(-9:9,4),decreasing = sample(c(T,F),1))
+    x1a = y1
+    y1a = x1
+    minabsslope = min(abs(diff(y1)/diff(x1)))
+    maxabsslope = max(abs(diff(y1)/diff(x1)))
+    
+    if(max(x1)-min(x1)>7 && length(unique(diff(y1)/diff(x1)))>=3 && maxabsslope/minabsslope>4 && sum(x1==y1)==0 && sum(abs(diff(y1)/diff(x1))==1)==0){break}
+}
+
+while(T){
+    q2 = paste0("You've been given part of $y=f(x)$. Sketch the other half to make $f$ **even**.")
+    x2 = sort(c(0,sample(1:9,3)))
+    y2 = sample(-9:9,4)
+    x2a = -x2
+    y2a = y2
+    if(max(x2)>6 && length(unique(diff(y2)/diff(x2)))>=3){break}
+}
+
+while(T){
+    q3 = paste0("You've been given part of $y=f(x)$. Sketch the other half to make $f$ **odd**.")
+    x3 = sort(c(0,sample(1:9,3)))
+    y3 = c(0,sample(-9:9,3))
+    x3a = -x3
+    y3a = -y3
+    if(max(x3)>6 && length(unique(diff(y3)/diff(x3)))>=3){break}
+}
+
+qs = c(q1,q2,q3)
+xs = list(x1,x2,x3)
+ys = list(y1,y2,y3)
+xas = list(x1a,x2a,x3a)
+yas = list(y1a,y2a,y3a)
+
+myord = sample(1:3)
+
+
+makeit = function(xx,yy){
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    for(i in -10:10){
+        if(i%%5==0){
+            abline(h=i,col="darkgrey",lwd=1.2)
+            abline(v=i,col="darkgrey",lwd=1.2)
+        } else {
+            abline(h=i,col="lightgrey")
+            abline(v=i,col="lightgrey")
+        }
+    }
+    arrows(-10.3,0,10.3,0,0.1,10,3,lwd=2)
+    arrows(0,-10.3,0,10.3,0.1,10,3,lwd=2)
+    text(10,-0.5,"10",cex=0.6)
+    text(-10,-0.5,"-10",cex=0.6)
+    text(10,0.5,"x",cex=0.6)
+    text(-0.3,10,"10",cex=0.6,adj=1)
+    text(-0.3,-10,"-10",cex=0.6,adj=1)
+    text(0.3,10,"y",cex=0.6,adj=0)
+    lines(xx,yy,col="blue",lwd=3)
+    points(xx,yy,col="blue",pch=20,cex=1.5)
+}
+
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## Inverse, Even, Odd, Domain, Range `r params$titex` (version `r params$rseed`)
+
+
+
+```{r,echo=F}
+iii = myord[1]
+```
+
+1. `r qs[iii]`
+
+
+```{r, echo=F, fig.dim=c(3.5,3.5)}
+makeit(xs[[iii]],ys[[iii]])
+if(params$showsol){
+    lines(xas[[iii]],yas[[iii]],col="red",lwd=3)
+    points(xas[[iii]],yas[[iii]],col="red",pch=20,cex=1.5)
+}
+```
+
+\vfill
+
+
+```{r,echo=F}
+iii = myord[2]
+```
+
+2. `r qs[iii]`
+
+
+```{r, echo=F, fig.dim=c(3.5,3.5)}
+makeit(xs[[iii]],ys[[iii]])
+if(params$showsol){
+    lines(xas[[iii]],yas[[iii]],col="red",lwd=3)
+    points(xas[[iii]],yas[[iii]],col="red",pch=20,cex=1.5)
+}
+```
+
+\vfill
+
+\newpage
+
+## Inverse, Even, Odd, Domain, Range `r params$titex` (version `r params$rseed`)
+
+```{r,echo=F}
+iii = myord[3]
+```
+
+3. `r qs[iii]`
+
+```{r, echo=F, fig.dim=c(3.5,3.5)}
+makeit(xs[[iii]],ys[[iii]])
+if(params$showsol){
+    lines(xas[[iii]],yas[[iii]],col="red",lwd=3)
+    points(xas[[iii]],yas[[iii]],col="red",pch=20,cex=1.5)
+}
+```
+
+\vfill
+
+4. Find the domain and range of the function shown below.
+
+```{r,echo=F,fig.dim=c(3.5,3.5)}
+while(T){
+    x4 = sort(sample(-9:9,5))
+    y4 = sample(-9:9,5)
+    dlo = min(x4)
+    dhi = max(x4)
+    rlo = min(y4)
+    rhi = max(y4)
+    if(length(unique(c(dlo,dhi,rlo,rhi)))==4){break}
+}
+makeit(x4,y4)
+if(params$showsol){
+    polygon(c(dlo,dlo,dhi,dhi),c(rlo,rhi,rhi,rlo),border="red",lty = 3,lwd=3)
+    lines(c(dlo,dlo,dlo,dhi,dhi,dhi),c(-0.5,0.5,0,0,-0.5,0.5),col="red",lwd=3)
+    lines(c(-0.5,0.5,0,0,-0.5,0.5),c(rlo,rlo,rlo,rhi,rhi,rhi),col="red",lwd=3)
+}
+```
+`r solstart`Domain= $[`r dlo`, `r dhi`]$ \hfill Range= $[`r rlo`, `r rhi`]$\newline Note: you do NOT need to draw lines on this last graph. You can just give domain and range.
+`r solend`
+
+

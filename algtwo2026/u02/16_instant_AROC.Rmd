@@ -1,0 +1,58 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+cf = sample(c(-5,-4,-3,-2,2,3,4,5),3)
+while(length(unique(cf))<2){
+  cf = sample(-4:4,3)
+}
+while(T){
+    a = round(cf[1])
+    b = round(cf[2])
+    c = round(cf[3])
+    p = round(runif(1,-10,10))
+    h = sample(c(0.1,0.01,0.001),1)
+    fp = a*p^2+b*p+c
+    fph= a*(p+h)^2+b*(p+h)+c
+    m = (fph-fp)/h
+    if(round(m,2)!=0){break}
+}
+
+```
+
+
+
+Question
+========
+
+In real life, the [average rate of change](https://en.wikipedia.org/wiki/Rate_(mathematics)#Of_change) over a small time interval is used to approximate the instantaneous rate of change (like with a [bicycle's speedometer](https://en.wikipedia.org/wiki/Cyclocomputer#The_wheel_sensor)). The step size, $h$, is the width of the interval, so we find the average rate of change of $f(x)$ between $x=a$ and $x=a+h$:
+
+$$\text{AROC} = \frac{f(a+h)-f(a)}{h}$$
+
+```{python, echo = FALSE, results = "hide"}
+from sympy import *
+x = symbols("x")
+exp = int(r.a)*x**2+int(r.b)*x+int(r.c)
+lexp = latex(exp)
+```
+
+Let function $f$ be defined as follows:
+$$f(x) = `r py$lexp`$$
+**Evaluate** the average rate of change of $f$ at $x=`r p`$ with a step size $h=`r h`$. 
+
+*You can round (or truncate) your final answer at the hundredths place.*
+
+
+Solution
+========
+
+$$f(`r p`)=`r fp`$$
+$$f(`r p`+`r h`)=`r fph`$$
+
+$$\text{AROC} = \frac{(`r fph`)-(`r fp`)}{`r h`} = `r round(m,2)` $$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r m`
+exname: instant_AROC
+extol: 0.01

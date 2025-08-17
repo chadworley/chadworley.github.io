@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>01_is_relation_a_function</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 8;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">01_is_relation_a_function</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A list of inputs and outputs is expressed as <span class="math inline">\((x,y)\)</span> pairs.</p>
+<p>( 5 , 8 )</p>
+<p>( 8 , 7 )</p>
+<p>( 2 , 8 )</p>
+<p>( 2 , 8 )</p>
+<p>( 1 , 4 )</p>
+<p>Is this list consistent with <span class="math inline">\(y\)</span> being a function of <span class="math inline">\(x\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with <span class="math inline">\(x\)</span> being a function of <span class="math inline">\(y\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with a one-to-one function? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Every repeated <span class="math inline">\(x\)</span> value is matched with a consistent (also repeating) <span class="math inline">\(y\)</span>, so <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span>.</p>
+<p>A <span class="math inline">\(y\)</span> value repeates with different <span class="math inline">\(x\)</span> values, so <span class="math inline">\(x\)</span> is not a function of <span class="math inline">\(y\)</span>. For example: (5, 8) and (2, 8)</p>
+<p>Because <span class="math inline">\(x\)</span> is not a function of <span class="math inline">\(y\)</span>, this list is inconsistent with a one-to-one function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A list of inputs and outputs is expressed as <span class="math inline">\((x,y)\)</span> pairs.</p>
+<p>( 9 , 6 )</p>
+<p>( 8 , 8 )</p>
+<p>( 1 , 8 )</p>
+<p>( 2 , 3 )</p>
+<p>( 7 , 3 )</p>
+<p>( 9 , 2 )</p>
+<p>( 4 , 9 )</p>
+<p>Is this list consistent with <span class="math inline">\(y\)</span> being a function of <span class="math inline">\(x\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with <span class="math inline">\(x\)</span> being a function of <span class="math inline">\(y\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with a one-to-one function? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>An <span class="math inline">\(x\)</span> value repeats with different <span class="math inline">\(y\)</span> values, so <span class="math inline">\(y\)</span> is not a function of <span class="math inline">\(x\)</span>. For example: (9, 6) and (9, 2)</p>
+<p>Also, a <span class="math inline">\(y\)</span> value repeates with different <span class="math inline">\(x\)</span> values, so <span class="math inline">\(x\)</span> is not a function of <span class="math inline">\(y\)</span>. For example: (2, 3) and (7, 3)</p>
+<p>We would need both to be function of the other to have a one-to-one function. Neither is, so we don’t even have a function in either direction.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A list of inputs and outputs is expressed as <span class="math inline">\((x,y)\)</span> pairs.</p>
+<p>( 2 , 1 )</p>
+<p>( 6 , 9 )</p>
+<p>( 9 , 8 )</p>
+<p>( 1 , 5 )</p>
+<p>( 9 , 8 )</p>
+<p>Is this list consistent with <span class="math inline">\(y\)</span> being a function of <span class="math inline">\(x\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with <span class="math inline">\(x\)</span> being a function of <span class="math inline">\(y\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with a one-to-one function? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Every repeated <span class="math inline">\(x\)</span> value is matched with a consistent (also repeating) <span class="math inline">\(y\)</span>, and vice versa. This means <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(x\)</span> is a function of <span class="math inline">\(y\)</span>, and the list is consistent with a one-to-one function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A list of inputs and outputs is expressed as <span class="math inline">\((x,y)\)</span> pairs.</p>
+<p>( 5 , 3 )</p>
+<p>( 5 , 3 )</p>
+<p>( 2 , 4 )</p>
+<p>( 8 , 9 )</p>
+<p>( 6 , 7 )</p>
+<p>Is this list consistent with <span class="math inline">\(y\)</span> being a function of <span class="math inline">\(x\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with <span class="math inline">\(x\)</span> being a function of <span class="math inline">\(y\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with a one-to-one function? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Every repeated <span class="math inline">\(x\)</span> value is matched with a consistent (also repeating) <span class="math inline">\(y\)</span>, and vice versa. This means <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(x\)</span> is a function of <span class="math inline">\(y\)</span>, and the list is consistent with a one-to-one function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A list of inputs and outputs is expressed as <span class="math inline">\((x,y)\)</span> pairs.</p>
+<p>( 4 , 8 )</p>
+<p>( 9 , 1 )</p>
+<p>( 2 , 2 )</p>
+<p>( 2 , 2 )</p>
+<p>( 6 , 9 )</p>
+<p>( 1 , 4 )</p>
+<p>Is this list consistent with <span class="math inline">\(y\)</span> being a function of <span class="math inline">\(x\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with <span class="math inline">\(x\)</span> being a function of <span class="math inline">\(y\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with a one-to-one function? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Every repeated <span class="math inline">\(x\)</span> value is matched with a consistent (also repeating) <span class="math inline">\(y\)</span>, and vice versa. This means <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(x\)</span> is a function of <span class="math inline">\(y\)</span>, and the list is consistent with a one-to-one function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A list of inputs and outputs is expressed as <span class="math inline">\((x,y)\)</span> pairs.</p>
+<p>( 1 , 6 )</p>
+<p>( 4 , 5 )</p>
+<p>( 6 , 1 )</p>
+<p>( 9 , 7 )</p>
+<p>( 4 , 5 )</p>
+<p>( 5 , 6 )</p>
+<p>( 3 , 3 )</p>
+<p>( 7 , 4 )</p>
+<p>Is this list consistent with <span class="math inline">\(y\)</span> being a function of <span class="math inline">\(x\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with <span class="math inline">\(x\)</span> being a function of <span class="math inline">\(y\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with a one-to-one function? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Every repeated <span class="math inline">\(x\)</span> value is matched with a consistent (also repeating) <span class="math inline">\(y\)</span>, so <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span>.</p>
+<p>A <span class="math inline">\(y\)</span> value repeates with different <span class="math inline">\(x\)</span> values, so <span class="math inline">\(x\)</span> is not a function of <span class="math inline">\(y\)</span>. For example: (1, 6) and (5, 6)</p>
+<p>Because <span class="math inline">\(x\)</span> is not a function of <span class="math inline">\(y\)</span>, this list is inconsistent with a one-to-one function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A list of inputs and outputs is expressed as <span class="math inline">\((x,y)\)</span> pairs.</p>
+<p>( 3 , 5 )</p>
+<p>( 9 , 4 )</p>
+<p>( 7 , 8 )</p>
+<p>( 5 , 9 )</p>
+<p>( 7 , 8 )</p>
+<p>Is this list consistent with <span class="math inline">\(y\)</span> being a function of <span class="math inline">\(x\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with <span class="math inline">\(x\)</span> being a function of <span class="math inline">\(y\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with a one-to-one function? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Every repeated <span class="math inline">\(x\)</span> value is matched with a consistent (also repeating) <span class="math inline">\(y\)</span>, and vice versa. This means <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span> and <span class="math inline">\(x\)</span> is a function of <span class="math inline">\(y\)</span>, and the list is consistent with a one-to-one function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>A list of inputs and outputs is expressed as <span class="math inline">\((x,y)\)</span> pairs.</p>
+<p>( 9 , 8 )</p>
+<p>( 3 , 9 )</p>
+<p>( 5 , 8 )</p>
+<p>( 6 , 6 )</p>
+<p>( 2 , 3 )</p>
+<p>( 4 , 4 )</p>
+<p>( 3 , 9 )</p>
+<p>Is this list consistent with <span class="math inline">\(y\)</span> being a function of <span class="math inline">\(x\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with <span class="math inline">\(x\)</span> being a function of <span class="math inline">\(y\)</span>? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<p>Is this list consistent with a one-to-one function? <select><option>--------</option><option> Yes</option><option>No </option></select></p>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Every repeated <span class="math inline">\(x\)</span> value is matched with a consistent (also repeating) <span class="math inline">\(y\)</span>, so <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span>.</p>
+<p>A <span class="math inline">\(y\)</span> value repeates with different <span class="math inline">\(x\)</span> values, so <span class="math inline">\(x\)</span> is not a function of <span class="math inline">\(y\)</span>. For example: (9, 8) and (5, 8)</p>
+<p>Because <span class="math inline">\(x\)</span> is not a function of <span class="math inline">\(y\)</span>, this list is inconsistent with a one-to-one function.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
