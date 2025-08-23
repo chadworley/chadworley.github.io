@@ -1,0 +1,539 @@
+---
+output: pdf_document
+params:
+    rseed: 1
+    showsol: true
+    titex: "Classwork"
+urlcolor: blue
+---
+
+```{r,echo=F}
+set.seed(params$rseed)
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## Check if Relation is a Function (12 pts classwork, version `r params$rseed`)
+
+```{r data generation, echo = FALSE, results = "hide"}
+# We ask: if A is function of B (50% chance yes)
+#         if B is function of A (50% chance yes)
+#         if relation is one-to-one (if prior both yes then yes)
+# versions: 1=nono, 2=yesno, 3=noyes, 4=yesyes
+
+shouldAafoB = sample(c(F,T),1)
+shouldBafoA = sample(c(F,T),1)
+
+while(T){
+  n = sample(5:8,1)
+  A = sample(1:9,n,T)
+  B = sample(1:9,n,T)
+  afa = character()
+  afb = character()
+  bfa = character()
+  bfb = character()
+  ifAafoB = T
+  ifBafoA = T
+  afbads = ""
+  bfbads = ""
+  for(i in 1:n){
+    a = as.character(A[i])
+    b = as.character(B[i])
+    if(!(a %in% afa)){
+      afa = c(afa,a)
+      afb = c(afb,b)
+    } else {
+      pos = which(afa==a)
+      if(afb[pos]!=b){
+        ifBafoA = F
+        afbads = paste0("(",c(a,a),", ",c(afb[pos],b),")",collapse=" and ")
+      }
+    }
+    if(!(b %in% bfb)){
+      bfb = c(bfb,b)
+      bfa = c(bfa,a)
+    } else {
+      pos = which(bfb==b)
+      if(bfa[pos]!=a){
+        ifAafoB = F
+        bfbads = paste0("(",c(bfa[pos],a),", ",c(b,b),")",collapse=" and ")
+      }
+    }
+  }
+  mystr = paste("(",A,", ",B,")",collapse="~~~")
+  if(ifAafoB==shouldAafoB && 
+     ifBafoA==shouldBafoA && 
+     length(unique(A)) >= length(A)-2 &&
+     length(unique(A)) < length(A) && 
+     length(unique(B)) >= length(B)-2 && 
+     length(unique(B)) < length(B) ){
+    break
+  }
+}
+
+if(!ifBafoA && !ifAafoB){
+  ans1 = "no"
+  ans2 = "no"
+  ans3 = "no"
+  sol = paste0("An $x$ value repeats with different $y$ values, so $y$ is not a function of $x$. For example: ",afbads,"\n\n Also, a $y$ value repeates with different $x$ values, so $x$ is not a function of $y$. For example: ",bfbads,"\n\n We would need both to be function of the other to have a one-to-one function. Neither is, so we don't even have a function in either direction.")
+}
+if(ifBafoA && !ifAafoB){
+  ans1 = "yes"
+  ans2 = "no"
+  ans3 = "no"
+  sol = paste0("Every repeated $x$ value is matched with a consistent (also repeating) $y$, so $y$ is a function of $x$. \n\n A $y$ value repeates with different $x$ values, so $x$ is not a function of $y$. For example: ",bfbads," \n\n Because $x$ is not a function of $y$, this list is inconsistent with a one-to-one function.")
+}
+if(!ifBafoA && ifAafoB){
+  ans1 = "no"
+  ans2 = "yes"
+  ans3 = "no"
+  sol = paste0("An $x$ value repeats with different $y$ values, so $y$ is not a function of $x$. For example: ",afbads,"\n\n Every repeated $y$ value is matched with a consistent (also repeating) $x$, so $x$ is a function of $y$. \n\n Because $y$ is not a function of $x$, this list is inconsistent with a one-to-one function.")
+}
+if(ifBafoA && ifAafoB){
+  ans1 = "yes"
+  ans2 = "yes"
+  ans3 = "yes"
+  sol = "Every repeated $x$ value is matched with a consistent (also repeating) $y$, and vice versa. This means $y$ is a function of $x$ and $x$ is a function of $y$, and the list is consistent with a one-to-one function."
+}
+```
+
+**1.** A [relation](https://en.wikipedia.org/wiki/Relation_(mathematics)) is expressed as a list of $(x,y)$ ordered pairs.
+
+$$`r mystr`$$
+
+* Is this list consistent with $y$ being a function of $x$? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans1)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+* Is this list consistent with $x$ being a function of $y$? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans2)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+* Is this list consistent with a one-to-one function? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans3)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+# Define the text to append
+new_line <- paste0("version ",params$rseed,"\nq1: ",ans1," ",ans2," ",ans3,"\n")
+
+# Append the new line to the file
+cat(new_line, file = "iraf_sols.txt", append = TRUE)
+```
+
+```{r question2, echo = FALSE, results = "hide"}
+# We ask: if A is function of B (50% chance yes)
+#         if B is function of A (50% chance yes)
+#         if relation is one-to-one (if prior both yes then yes)
+# versions: 1=nono, 2=yesno, 3=noyes, 4=yesyes
+
+shouldAafoB = sample(c(F,T),1)
+shouldBafoA = sample(c(F,T),1)
+
+while(T){
+  n = sample(6:8,1)
+  A = sample(0:10,n,T)
+  B = sample(0:10,n,T)
+  afa = character()
+  afb = character()
+  bfa = character()
+  bfb = character()
+  ifAafoB = T
+  ifBafoA = T
+  afbads = ""
+  bfbads = ""
+  for(i in 1:n){
+    a = as.character(A[i])
+    b = as.character(B[i])
+    if(!(a %in% afa)){
+      afa = c(afa,a)
+      afb = c(afb,b)
+    } else {
+      pos = which(afa==a)
+      if(afb[pos]!=b){
+        ifBafoA = F
+        afbads = paste0("(",c(a,a),", ",c(afb[pos],b),")",collapse=" and ")
+      }
+    }
+    if(!(b %in% bfb)){
+      bfb = c(bfb,b)
+      bfa = c(bfa,a)
+    } else {
+      pos = which(bfb==b)
+      if(bfa[pos]!=a){
+        ifAafoB = F
+        bfbads = paste0("(",c(bfa[pos],a),", ",c(b,b),")",collapse=" and ")
+      }
+    }
+  }
+  mystr = paste("(",A,", ",B,")\n\n",collapse="")
+  if(ifAafoB==shouldAafoB && 
+     ifBafoA==shouldBafoA && 
+     length(unique(A)) >= length(A)-2 &&
+     length(unique(A)) < length(A) && 
+     length(unique(B)) >= length(B)-2 && 
+     length(unique(B)) < length(B) ){
+    break
+  }
+}
+
+if(!ifBafoA && !ifAafoB){
+  ans1 = "no"
+  ans2 = "no"
+  ans3 = "no"
+  sol = paste0("An $x$ value repeats with different $y$ values, so $y$ is not a function of $x$. The graph fails the vertical line test. For example: ",afbads,"\n\n Also, a $y$ value repeates with different $x$ values, so $x$ is not a function of $y$. The graph fails the horizontal line test. For example: ",bfbads,"\n\n We would need both to be function of the other to have a one-to-one function. Neither is, so we don't even have a function in either direction.")
+}
+if(ifBafoA && !ifAafoB){
+  ans1 = "yes"
+  ans2 = "no"
+  ans3 = "no"
+  sol = paste0("Every $x$ value has only one $y$ value, so $y$ is a function of $x$. The graph passes the vertical line test. \n\n A $y$ value repeates with different $x$ values, so $x$ is not a function of $y$. The graph fails the horizontal line test. For example: ",bfbads," \n\n Because $x$ is not a function of $y$, these points are inconsistent with a one-to-one function.")
+}
+if(!ifBafoA && ifAafoB){
+  ans1 = "no"
+  ans2 = "yes"
+  ans3 = "no"
+  sol = paste0("An $x$ value repeats with different $y$ values, so $y$ is not a function of $x$. The graph fails the vertical-line test. For example: ",afbads,"\n\n Every $y$ value has only one $x$ value, so $x$ is a function of $y$. The graph passes the horizontal line test. \n\n Because $y$ is not a function of $x$, these points are inconsistent with a one-to-one function.")
+}
+if(ifBafoA && ifAafoB){
+  ans1 = "yes"
+  ans2 = "yes"
+  ans3 = "yes"
+  sol = "Every $x$ value has only one $y$ value, and vice versa. The graph passes both the vertical-line and horizontal-line tests. This means $y$ is a function of $x$ and $x$ is a function of $y$, and the points are consistent with a one-to-one function."
+}
+```
+
+\hrule
+
+**2.** A relation is shown as points on a graph.
+
+```{r,echo=FALSE,fig.dim=c(3.5,3.5),fig.align='center'}
+par(pty="s",mar=c(4,4,1,1))
+plot(A,B,xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="y",asp=1,pch=20,cex=2)
+for(i in 0:10){
+  abline(h=i,lty=3)
+  abline(v=i,lty=3)
+}
+```
+\
+
+* Is this relation consistent with $y$ being a function of $x$? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans1)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+* Is this relation consistent with $x$ being a function of $y$? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans2)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+* Is this relation consistent with a one-to-one function? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans3)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+# Define the text to append
+new_line <- paste0("q2: ",ans1," ",ans2," ",ans3,"\n")
+
+# Append the new line to the file
+cat(new_line, file = "iraf_sols.txt", append = TRUE)
+```
+
+\newpage
+
+```{r q3, echo = FALSE, results = "hide"}
+# We ask: if A is function of B (50% chance yes)
+#         if B is function of A (50% chance yes)
+#         if relation is one-to-one (if prior both yes then yes)
+# versions: 1=nono, 2=yesno, 3=noyes, 4=yesyes
+
+shouldAafoB = sample(c(F,T),1)
+shouldBafoA = sample(c(F,T),1)
+
+while(T){
+  n = sample(6:8,1)
+  A = sample(0:9,n,T)
+  B = sample(0:9,n,T)
+  afa = character()
+  afb = character()
+  bfa = character()
+  bfb = character()
+  ifAafoB = T
+  ifBafoA = T
+  afbads = ""
+  bfbads = ""
+  for(i in 1:n){
+    a = as.character(A[i])
+    b = as.character(B[i])
+    if(!(a %in% afa)){
+      afa = c(afa,a)
+      afb = c(afb,b)
+    } else {
+      pos = which(afa==a)
+      if(afb[pos]!=b){
+        ifBafoA = F
+        afbads = paste0("(",c(a,a),", ",c(afb[pos],b),")",collapse=" and ")
+      }
+    }
+    if(!(b %in% bfb)){
+      bfb = c(bfb,b)
+      bfa = c(bfa,a)
+    } else {
+      pos = which(bfb==b)
+      if(bfa[pos]!=a){
+        ifAafoB = F
+        bfbads = paste0("(",c(bfa[pos],a),", ",c(b,b),")",collapse=" and ")
+      }
+    }
+  }
+  mystr = paste("(",A,", ",B,")\n\n",collapse="")
+  if(ifAafoB==shouldAafoB && 
+     ifBafoA==shouldBafoA && 
+     length(unique(A)) >= length(A)-2 &&
+     length(unique(A)) < length(A) && 
+     length(unique(B)) >= length(B)-2 && 
+     length(unique(B)) < length(B) ){
+    break
+  }
+}
+
+if(!ifBafoA && !ifAafoB){
+  ans1 = "no"
+  ans2 = "no"
+  ans3 = "no"
+  sol = paste0("An $x$ value has two different connections, so $y$ is not a function of $x$. For example: ",afbads,"\n\n Also, a $y$ value has two different connections, so $x$ is not a function of $y$. For example: ",bfbads,"\n\n We would need both to be function of the other to have a one-to-one function. Neither is, so we don't even have a function in either direction.")
+}
+if(ifBafoA && !ifAafoB){
+  ans1 = "yes"
+  ans2 = "no"
+  ans3 = "no"
+  sol = paste0("Every $x$ value has only one connection, so $y$ is a function of $x$. \n\n A $y$ value has two connections, so $x$ is not a function of $y$. For example: ",bfbads," \n\n Because $x$ is not a function of $y$, these connections are inconsistent with a one-to-one function.")
+}
+if(!ifBafoA && ifAafoB){
+  ans1 = "no"
+  ans2 = "yes"
+  ans3 = "no"
+  sol = paste0("An $x$ value has two connections, so $y$ is not a function of $x$. For example: ",afbads,"\n\n Every $y$ value has only one connection, so $x$ is a function of $y$. \n\n Because $y$ is not a function of $x$, these connections are inconsistent with a one-to-one function.")
+}
+if(ifBafoA && ifAafoB){
+  ans1 = "yes"
+  ans2 = "yes"
+  ans3 = "yes"
+  sol = "Every $x$ value has only one connection, and vice versa. This means $y$ is a function of $x$ and $x$ is a function of $y$, and the connections are consistent with a one-to-one function."
+}
+```
+
+## Check if Relation is a Function (version `r params$rseed`)
+
+3. A relation is shown with segments connecting elements of two sets.
+
+```{r,echo=FALSE,fig.dim=c(2,2)}
+par(pty="s",mar=c(0,0,0,0))
+plot(0,0,type="n",axes = F,asp=1,xlim=c(0,10),ylim=c(0,10),ann=FALSE)
+for(i in 0:9){
+  text(0,i,i)
+  text(10,i,i)
+}
+text(0,10,"x",cex=2)
+text(10,10,"y",cex=2)
+for(i in 1:n){
+  lines(c(0.5,9.5),c(A[i],B[i]))
+}
+```
+\
+
+* Is this relation consistent with $y$ being a function of $x$? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans1)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+* Is this relation consistent with $x$ being a function of $y$? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans2)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+* Is this relation consistent with a one-to-one function? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans3)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+# Define the text to append
+new_line <- paste0("q3: ",ans1," ",ans2," ",ans3,"\n")
+
+# Append the new line to the file
+cat(new_line, file = "iraf_sols.txt", append = TRUE)
+```
+
+\hrule
+
+
+```{r q4, echo = FALSE, results = "hide"}
+# We ask: if A is function of B (50% chance yes)
+#         if B is function of A (50% chance yes)
+#         if relation is one-to-one (if prior both yes then yes)
+# versions: 1=nono, 2=yesno, 3=noyes, 4=yesyes
+should_y_bafo_x = sample(c(T,F),1,prob=c(0.5,0.5))
+should_x_bafo_y = sample(c(T,F),1,prob=c(0.5,0.5))
+while(T){
+  x = sample(1:9,4,F)
+  y = sample(1:9,4,F)
+  is_x_afo_y = (length(unique(sign(diff(y))))==1)
+  is_y_afo_x = (length(unique(sign(diff(x))))==1)
+  if( abs(atan((y[3]-y[2])/(x[3]-x[2])) - atan((y[2]-y[1])/(x[2]-x[1]))) > pi/8 &&
+      abs(atan((y[4]-y[3])/(x[4]-x[3])) - atan((y[3]-y[2])/(x[3]-x[2]))) > pi/8 &&
+      is_x_afo_y == should_x_bafo_y &&
+      is_y_afo_x == should_y_bafo_x
+  ){break}
+}
+ans1 = paste0((is_y_afo_x==c(T,F))*1,collapse="")
+ans2 = paste0((is_x_afo_y==c(T,F))*1,collapse="")
+ans3 = paste0(((is_y_afo_x && is_x_afo_y)==c(T,F))*1,collapse="")
+
+if(ans1=="01"){
+    ans1 = "no"
+} else {
+    ans1 = "yes"
+}
+
+if(ans2=="01"){
+    ans2 = "no"
+} else {
+    ans2 = "yes"
+}
+
+if(ans3=="01"){
+    ans3 = "no"
+} else {
+    ans3 = "yes"
+}
+
+
+```
+
+**4.** A relation is shown as a curve plotted on an $x,y$ 
+
+```{r,echo=FALSE,fig.dim=c(2.6,2.6)}
+par(pty="s",mar=c(4,4,1,1))
+plot(x,y,type="n",xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="y",asp=1,pch=20,cex=2)
+xspline(x,y,shape=c(0,rep(-0.3,length(x)-2),0),lwd=3)
+for(i in 0:10){
+  abline(h=i,lty=3)
+  abline(v=i,lty=3)
+}
+```
+\
+
+* Is this relation consistent with $y$ being a function of $x$? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans1)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+* Is this relation consistent with $x$ being a function of $y$? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans2)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+* Is this relation consistent with a one-to-one function? Why or why not?
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+cat("\\color{red} ")
+cat(ans3)
+cat(" \\color{black} ")
+```
+
+\vfill
+
+```{r,echo=F,eval=params$showsol,results="asis"}
+# Define the text to append
+new_line <- paste0("q4: ",ans1," ",ans2," ",ans3,"\n\n")
+
+# Append the new line to the file
+cat(new_line, file = "iraf_sols.txt", append = TRUE, sep = "\n")
+```
+
+
+

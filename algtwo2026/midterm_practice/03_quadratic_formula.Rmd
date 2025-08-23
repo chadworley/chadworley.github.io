@@ -1,0 +1,112 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+primes = c(2,3,5,7)
+r1 = sample(primes,2)
+a1 = r1[1]
+b1 = r1[2]*sample(c(-1,1),1)
+r1 = -b1/a1
+while(T){
+  r2 = sample(primes,2)
+  a2 = r2[1]
+  b2 = r2[2]*sample(c(-1,1),1)
+  r2 = -b2/a2
+  if(r1!=r2 && r1!=-r2){break}
+}
+if(r1<r2){
+  n1 = -b1
+  d1 = a1
+  n2 = -b2
+  d2 = a2
+} else {
+  n1 = -b2
+  d1 = a2
+  n2 = -b1
+  d2 = a1
+}
+a = a1*a2
+b = a1*b2+a2*b1
+c = b1*b2
+eq = paste0(a,"x^2+",b,"x+",c)
+eq = gsub("+-","-",eq,fixed=TRUE)
+eq = gsub("+1x","+x",eq,fixed=TRUE)
+eq = gsub("-1x","-x",eq,fixed=TRUE)
+
+fracs = c(n1/d1,n2/d2,-n1/d1,-n2/d2)
+ns = c(n1,n2,-n1,-n2)
+ds = c(d1,d2,d1,d2)
+while(length(fracs)<8){
+  r = sample(primes,2)
+  n = r[1]*sample(c(-1,1),1)
+  d = r[2]
+  r = n/d
+  if(sum(r==fracs)==0){
+    fracs = c(fracs,r,-r)
+    ns = c(ns,n,-n)
+    ds = c(ds,d,d)
+  }
+}
+ord = numeric()
+for(i in sort(fracs)){
+  ord = c(ord,which(fracs==i))
+}
+sfs = fracs[ord]
+sns = ns[ord]
+sds = ds[ord]
+anli = paste0("* ",sns,"/",sds,"\n",collapse="")
+sol = paste0(1*(sfs==fracs[1])+1*(sfs==fracs[2]),collapse="")
+```
+
+
+Question
+========
+
+The quadratic formula states:
+
+* If $ax^2+bx+c=0$ then:
+$$x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
+
+Use the quadratic formula to solve the quadratic equation:
+$$`r eq`=0$$
+
+Answerlist
+--------
+
+`r anli`
+
+
+Solution
+========
+
+Plug numbers into the quadratic formula.
+
+$$x = \frac{-(`r b`)\pm\sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)} $$
+
+Simplify.
+
+$$x = \frac{`r -b` \pm \sqrt{`r b^2-4*a*c`}}{`r 2*a`}$$
+
+$$x = \frac{`r -b` \pm `r sqrt(b^2-4*a*c)`}{`r 2*a`}$$
+
+$$x = \frac{`r -b-sqrt(b^2-4*a*c)`}{`r 2*a`}~~~~~~~~\text{OR}~~~~~~~~\frac{`r -b+sqrt(b^2-4*a*c)`}{`r 2*a`}$$
+
+$$x = \frac{`r n1`}{`r d1`} ~~~~~~\text{OR}~~~~~~~ x=\frac{`r n2`}{`r d2`} $$
+
+### Factoring
+
+I should mention if you are handy with factoring, you might create an equivalent (factored) equation:
+
+```{r,echo=FALSE}
+fex = paste0("(",d1,"x-",n1,")(",d2,"x-",n2,") = 0",collapse="")
+fex = gsub("--","+",fex,fixed=TRUE)
+```
+
+$$`r fex`$$
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: quadratic_formula

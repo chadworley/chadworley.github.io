@@ -1,0 +1,107 @@
+```{r,echo=F}
+getcs = function(cfs,root){
+  cs = c(cfs[1])
+  t = cfs[1]*root
+  cs = c(cs,t+cfs[2])
+  t = cs[2]*root
+  cs = c(cs,t+cfs[3])
+  t = cs[3]*root
+  cs = c(cs,t+cfs[4])
+  return(cs)
+}
+
+getts = function(cfs,root){
+  cs = c(cfs[1])
+  t = c(cfs[1]*root)
+  cs = c(cs,t[1]+cfs[2])
+  t = c(t,cs[2]*root)
+  cs = c(cs,t[2]+cfs[3])
+  t = c(t,cs[3]*root)
+  cs = c(cs,t[3]+cfs[4])
+  return(t)
+}
+
+while(T){
+  cfs = sample(2:9,4)*c(1,sample(c(-1,1),3,T))
+  root = sample(2:9,1)*sample(c(-1,1),1)
+  
+  numerator = paste0(cfs[1],"x^3+",cfs[2],"x^2+",cfs[3],"x+",cfs[4],collapse="")
+  numerator = gsub("+-","-",numerator,fixed=T)
+  
+  denom = paste0("x+",-root,collapse="")
+  denom = gsub("+-","-",denom,fixed=T)
+  denom2 = paste0("x+",root,collapse="")
+  denom2 = gsub("+-","-",denom2,fixed=T)
+  
+  cs1 = getcs(cfs,root)
+  cs2 = getcs(cfs,-root)
+  if(max(abs(c(cs1,cs2)))<50 && min(abs(c(cs1,cs2)))>0){break}
+}
+
+t = getts(cfs,root)
+
+ex1 = paste0(cs1[1],"x^2+",cs1[2],"x+",cs1[3],
+             "+\\frac{",cs1[4],"}{",denom,"}",collapse="")
+ex1 = gsub("+-","-",ex1,fixed=T)
+ex1 = gsub("+1x","+x",ex1,fixed=T)
+ex1 = gsub("-1x","-x",ex1,fixed=T)
+ex1 = gsub("+\\frac{-","-\\frac{",ex1,fixed=T)
+ex2 = paste0(cs1[1],"x^3+",cs1[2],"x^2+",cs1[3],
+             "x+",cs1[4],collapse="")
+ex2 = gsub("+-","-",ex2,fixed=T)
+ex2 = gsub("+1x","+x",ex2,fixed=T)
+ex2 = gsub("-1x","-x",ex2,fixed=T)
+ex3 = paste0(cs2[1],"x^2+",cs2[2],"x+",cs2[3],
+             "+\\frac{",cs2[4],"}{",denom,"}",collapse="")
+ex3 = gsub("+-","-",ex3,fixed=T)
+ex3 = gsub("+\\frac{-","-\\frac{",ex3,fixed=T)
+ex3 = gsub("+1x","+x",ex3,fixed=T)
+ex3 = gsub("-1x","-x",ex3,fixed=T)
+ex4 = paste0(cs2[1],"x^3+",cs2[2],"x^2+",cs2[3],
+             "x+",cs2[4],collapse="")
+ex4 = gsub("+-","-",ex4,fixed=T)
+ex4 = gsub("+1x","+x",ex4,fixed=T)
+ex4 = gsub("-1x","-x",ex4,fixed=T)
+
+es = sample(c(ex1,ex2,ex3,ex4))
+
+sol = paste0(1*(es==ex1),collapse="")
+```
+
+Question
+========
+
+Given $x\ne`r root`$, which expression is equivalent to $\frac{`r numerator`}{`r denom`}$?
+
+(A) $~~`r es[1]`$
+(B) $~~`r es[2]`$
+(C) $~~`r es[3]`$
+(D) $~~`r es[4]`$
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+
+
+Solution
+========
+
+I'd recommend using synthetic division.
+
+|| `r cfs[1]` | `r cfs[2]` | `r cfs[3]` | `r cfs[4]` |
+|:---:|:---:|:---:|:---:|:---:|
+| `r root`   | | `r t[1]` | `r t[2]` | `r t[3]` |
+| | `r cs1[1]` | `r cs1[2]` | `r cs1[3]` | `r cs1[4]` |
+
+The correct answer is $`r ex1`$.
+ 
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: divide_cubic_by_linear
