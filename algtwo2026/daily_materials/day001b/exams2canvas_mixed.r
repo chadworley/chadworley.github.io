@@ -1,7 +1,7 @@
 library("exams")
 n = 30
 outdir = "outcanvas"
-genname = "u07_"
+# genname = "u01_"
 
 # probs = c("08_inverse_table.Rmd",
 #           "09_two-step_inverse_alg.Rmd",
@@ -29,29 +29,16 @@ genname = "u07_"
 # }
 
 
-pm = list(c("01_is_relation_a_function.Rmd",
-            "02_are_points_a_function.Rmd",
-            "03_are_connections_a_function.Rmd",
-            "04_is_curve_a_function.Rmd"),
-          c("05_evaluate_function.Rmd",
-            "06_eval_func_from_graph.Rmd",
-            "07_inv_func_from_graph.Rmd"),
-          "08_inverse_table.Rmd",
-          "09_two-step_inverse_alg.Rmd",
-          "10_graph_inverse.Rmd",
-          "13_negs.Rmd",
-          "14_even_or_odd_polynomial.Rmd",
-          "15_even_or_odd_graph.Rmd",
-          c("17_use_even_prop.Rmd",
-            "18_use_odd_prop.Rmd"),
-          "16_domain_range_basic.Rmd"
-          )
+pm = list("01_is_relation_a_function.Rmd",
+          "02_are_points_a_function.Rmd",
+          "03_are_connections_a_function.Rmd",
+          "04_is_curve_a_function.Rmd")
 
 exams2canvas(pm,
              n=n,
              dir=outdir,
-             points=c(1,1,1,1,1,1,1,1,1,1),
+             points=c(3,3,3,3),
              maxattempts = 6,
-             name=paste0(genname,"_mastery"),
+             name="CW_IsRelationFunction",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
