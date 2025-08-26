@@ -1,0 +1,55 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+cf = sample(c(-5,-4,-3,-2,2,3,4,5),3)
+while(length(unique(cf))<2){
+  cf = sample(-4:4,3)
+}
+a = round(cf[1])
+b = round(cf[2])
+c = round(cf[3])
+p = round(runif(1,-10,10),2)
+fp = a*p^2+b*p+c
+```
+
+
+
+Question
+========
+
+```{python, echo = FALSE, results = "hide"}
+from sympy import *
+x = symbols("x")
+exp = int(r.a)*x**2+int(r.b)*x+int(r.c)
+lexp = latex(exp)
+```
+
+Let function $f$ be defined as follows:
+$$f(x) = `r py$lexp`$$
+**Evaluate** $f(`r p`)$. 
+
+*You can round (or truncate) at the tenths place.*
+
+
+Solution
+========
+
+```{python, echo = FALSE, results = "hide"}
+slexp = lexp.replace("x","("+str(r.p)+")")
+```
+
+
+Replace all $x$ variables with $`r p`$ in the definition of $f$.
+
+$$`r py$slexp`$$
+
+You'll want to use a calculator.
+
+$$f(`r p`)~=~`r fp`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r fp`
+exname: eval_function
+extol: 0.1

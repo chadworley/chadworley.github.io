@@ -1,0 +1,61 @@
+```{r,echo=F}
+
+x = runif(40,-1,1)
+y = runif(40,-1,1)
+h = runif(40,0,1)
+
+th = round(sample(0:7,1)*pi/4+runif(1,pi/20,pi/4-pi/20),2)
+m = tan(th)
+
+```
+
+Question
+========
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",ann=F,axes=F,xlim=c(-1.4,1.4),ylim=c(-1.4,1.4))
+
+arrows(-1.2,0,1.2,0,col=rgb(0.95,0.95,0.95),code = 3)
+arrows(0,-1.2,0,1.2,col=rgb(0.95,0.95,0.95),code=3)
+
+#points(x,y,pch=19,col=hsv(h,0.7,0.7,0.3))
+
+
+# x*cos(th)^2*(1-tan(th)^2)+y*
+
+xp = (x*(1-m^2)+y*2*m)/(1+m^2)
+yp = (x*2*m+y*(m^2-1))/(1+m^2)
+
+xx = c(x,xp)
+yy = c(y,yp)
+hh = c(h,h)
+
+xx1 = xx[yy<m*xx]
+yy1 = yy[yy<m*xx]
+hh1 = hh[yy<m*xx]
+
+xx2 = (xx1*(1-m^2)+yy1*2*m)/(1+m^2)
+yy2 = (xx1*2*m+yy1*(m^2-1))/(1+m^2)
+
+xa = c(xx1,xx2)
+ya = c(yy1,yy2)
+
+points(xa,ya,col=hsv(c(hh1,hh1),1,1),pch=19)
+abline(0,m)
+
+```
+\
+
+
+
+Solution
+========
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: 1
+exname: translate_point

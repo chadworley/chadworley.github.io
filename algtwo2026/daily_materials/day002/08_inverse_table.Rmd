@@ -1,0 +1,141 @@
+```{r data generation, echo = FALSE, results = "hide"}
+## This version does not have the composition element of inverse functions... just table
+
+x = 1:7
+while(T){
+  f = sample(x)
+  canpass = T
+  for(i in x){
+    if(which(f==i)==f[i]){
+      canpass = F
+    }
+  }
+  if(sum(f==x)==0 && canpass){break}
+}
+
+fi = numeric()
+for(i in x){
+  fi = c(fi,which(f==i))
+}
+al = paste0("* ",x,"\n",collapse="")
+al2 = paste0(rep(al,length(x)),collapse="")
+ans = character()
+for(i in x){
+  ans = c(ans,paste0(1*(x==fi[i]),collapse=""))
+}
+
+rx = sample(x,4)
+ff = f[f[rx[1]]]
+fg = f[fi[rx[2]]]
+gf = fi[f[rx[3]]]
+gg = fi[fi[rx[4]]]
+
+p2nums = c(ff,fg,gf,gg)
+p2nams = c(paste0("f(f(",rx[1],"))"),
+           paste0("f(f^{-1}(",rx[2],"))"),
+           paste0("f^{-1}(f(",rx[3],"))"),
+           paste0("f^{-1}(f^{-1}(",rx[4],"))")
+)
+
+p2exp = c(paste0("f(f(",rx[1],")) = f(",f[rx[1]],") = ",f[f[rx[1]]]),
+          paste0("f(f^{-1}(",rx[2],")) = f(",fi[rx[2]],") = ",f[fi[rx[2]]]),
+          paste0("f^{-1}(f(",rx[3],")) = f^{-1}(",f[rx[3]],") = ",fi[f[rx[3]]]),
+          paste0("f^{-1}(f^{-1}(",rx[4],")) = f^{-1}(",fi[rx[4]],") = ",fi[fi[rx[4]]])
+          )
+
+p2ord = sample(1:4)
+p2ans1 = paste0(1*(p2nums[1]==x),collapse="")
+p2ans2 = paste0(1*(p2nums[2]==x),collapse="")
+p2ans3 = paste0(1*(p2nums[3]==x),collapse="")
+p2ans4 = paste0(1*(p2nums[4]==x),collapse="")
+n = length(x)
+
+p2ans = c(p2ans1,p2ans2,p2ans3,p2ans4)
+
+p2q = paste0("* Calculate $",p2nams[p2ord],"$ = ##ANSWER",(n+1):(n+length(p2ord)),"##\n",collapse="")
+
+p2al = paste0("* ",x,"\n",collapse="")
+p2al2 = paste0(rep(p2al,length(p2ord)),collapse="")
+
+p2es = paste0("* Use tables: $",p2exp[p2ord],"$\n",collapse="")
+```
+
+Question
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+Let a [one-to-one function](https://en.wikipedia.org/wiki/Injective_function), $f$, be defined by the table below.
+
+```{r tab2, results="asis", echo=F}
+mydf2 = data.frame(x,f)
+colnames(mydf2) = c("$x$","$f(x)$")
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+Create the [inverse function's](https://en.wikipedia.org/wiki/Inverse_function){target="_blank"} table.
+
+```{r tab4, results="asis", echo=F}
+allans = paste0("##ANSWER",x,"##")
+mydf4 = data.frame(x,allans)
+colnames(mydf4) = c("$x$","$f^{-1}(x)$")
+knitr::kable(mydf4,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+
+Answerlist
+--------
+`r al2`
+
+
+Solution
+========
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+The inverse function $f^{-1}$ is defined by the table below.
+
+```{r tab3, results="asis", echo=F}
+mydf3 = data.frame(x,fi)
+colnames(mydf3) = c("$x$","$f^{-1}(x)$")
+knitr::kable(mydf3,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+Notice, you just switch the columns of the given $f$ table and then sort by the first column.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(x)),collapse="|")`
+exsolution: `r paste0(ans,collapse="|")`
+exname: inverse_table

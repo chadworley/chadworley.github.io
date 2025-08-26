@@ -1,0 +1,74 @@
+```{r data generation, echo = FALSE, results = "hide"}
+x = 1:9
+f = sample(1:9)
+g = sample(1:9)
+h = sample(1:9)
+
+outs = sample(1:9,3)
+
+x1 = x[outs[1]==f]
+x2 = x[outs[2]==g]
+x3 = x[outs[3]==h]
+
+al = paste0("* ",1:9,collapse="\n")
+
+sol1 = paste0(1*(x1==x),collapse="")
+sol2 = paste0(1*(x2==x),collapse="")
+sol3 = paste0(1*(x3==x),collapse="")
+
+```
+
+Question
+========
+
+Consider the functions $f$, $g$, and $h$ shown below.
+
+```{r,echo=F,warning=FALSE}
+library(kableExtra)
+data <- data.frame(
+  x,
+  f,
+  g,
+  h
+)
+colnames(data) = c("x","f(x)","g(x)","h(x)")
+kable(data, "html") %>%
+  kable_styling(bootstrap_options = "bordered",full_width=F)
+```
+\
+
+Evaluate the [inverse-function](https://en.wikipedia.org/wiki/Inverse_function) expressions below.
+
+* $f^{-1}(`r outs[1]`)~=$ ##ANSWER1##
+* $g^{-1}(`r outs[2]`)~=$ ##ANSWER2##
+* $h^{-1}(`r outs[3]`)~=$ ##ANSWER3##
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+First, it must be said that the inverse-function notation is an abomination.
+
+> Inverse function notation, such as $f^{-1}(x)$, is a convention used in mathematics to represent the inverse of a function $f$. While it is widely adopted and understood by mathematicians, it is a source of confusion for some, particularly students learning about inverse functions for the first time. The primary reason for this confusion is the notation's similarity to an exponent. Students may mistakenly interpret $f^{-1}(x)$ as $1/f(x)$ or the reciprocal of the function, rather than the function that "undoes" the action of $f$. This ambiguity necessitates explicit clarification of the distinction between inverse functions and reciprocals when teaching the concept.
+
+To evaluate $f^{-1}(`r outs[1]`)$, start in the SECOND COLUMN, and go down to the row where $f=`r outs[1]`$. Then, move to the FIRST COLUMN in the same row, to see that $x~=~`r x1`$. This tells us that $f^{-1}(`r outs[1]`)=`r x1`$.
+
+To evaluate $g^{-1}(`r outs[2]`)$, start in the THIRD COLUMN, and go down to the row where $g=`r outs[2]`$. Then, move to the FIRST COLUMN in the same row, to see that $x~=~`r x2`$. This tells us that $g^{-1}(`r outs[2]`)=`r x2`$.
+
+To evaluate $h^{-1}(`r outs[3]`)$, start in the FOURTH COLUMN, and go down to the row where $h=`r outs[3]`$. Then, move to the FIRST COLUMN in the same row, to see that $x~=~`r x3`$. This tells us that $h^{-1}(`r outs[3]`)=`r x3`$.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: inverses_table

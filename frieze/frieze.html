@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frieze Pattern Drawing Tool</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #canvas {
+            display: grid;
+            grid-template-columns: repeat(60, 10px);
+            grid-template-rows: repeat(10, 10px);
+            border: 1px solid black;
+        }
+        .pixel {
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border: 1px solid #ccc;
+        }
+        .selected {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <select id="modeSelect">
+        <option value="p1">Hop (p1)</option>
+        <option value="p11g">Step (p11g)</option>
+        <option value="p1m1">Sidle (p1m1)</option>
+        <option value="p2">Spinning Hop (p2)</option>
+        <option value="p2mg">Spinning Sidle (p2mg)</option>
+        <option value="p11m">Jump (p11m)</option>
+        <option value="p2mm">Spinning Jump (p2mm)</option>
+    </select>
+
+    <button id="clearBtn">Clear</button>
+
+    <div id="canvas"></div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const modeSelect = document.getElementById('modeSelect');
+        const clearBtn = document.getElementById('clearBtn');
+        const pixels = [];
+
+        // Create pixels
+        for (let i = 0; i < 60 * 10; i++) {
+            const pixel = document.createElement('div');
+            pixel.classList.add('pixel');
+            pixel.addEventListener('click', () => togglePixel(pixel));
+            canvas.appendChild(pixel);
+            pixels.push(pixel);
+        }
+
+        function clearCanvas() {
+            pixels.forEach(p => p.classList.remove('selected'));
+        }
+
+        // Clear when mode changes
+        modeSelect.addEventListener('change', clearCanvas);
+        clearBtn.addEventListener('click', clearCanvas);
+
+        function togglePixel(pixel) {
+            applyModeLinks(pixel);
+        }
+
+        function applyModeLinks(selectedPixel) {
+            const index = Array.from(pixels).indexOf(selectedPixel);
+            const mode = modeSelect.value;
+            // Example logic for links; customize as needed
+            const rownum = Math.floor(index/60);
+            const colnum = Math.floor(index%10);
+            const colnumi = Math.floor(index%60);
+            const whichcell = Math.floor(colnumi/10);
+            const evencell = Math.floor(whichcell%2);
+            switch (mode) {
+                case 'p1':
+                    for(let i = 0; i<6; i++){
+                        const idx = rownum*60 + colnum + i*10;
+                        if (pixels[idx]) pixels[idx].classList.toggle('selected');
+                    }
+                    break;
+                case 'p11g':
+                    for(let i = 0; i<6; i++){
+                        var idx = 0;
+                        if(i%2 == evencell){
+                          idx = (rownum)*60 + colnum + i*10;
+                        } else {
+                          idx = (9-rownum)*60 + colnum + i*10;
+                        }
+                        if (pixels[idx]) pixels[idx].classList.toggle('selected');
+                    }
+                    break;
+                case 'p2':
+                    for(let i = -Math.floor(whichcell/2); i<Math.floor(3-whichcell/2+0.5); i++){
+                        const idx = rownum*60 + colnumi + i*20;
+                        if (pixels[idx]) pixels[idx].classList.toggle('selected');
+                    }
+                    for(let j = 0; j<3; j++){
+                        const rownum2 = 9-rownum;
+                        const colnum2 = 59-(colnum+j*20+evencell*10);
+                        const idx2 = rownum2*60 + colnum2;
+                        if (pixels[idx2]) pixels[idx2].classList.toggle('selected');
+                    }
+                    break;
+                case 'p1m1':
+                    for(let i = 0; i<6; i++){
+                        var idx = 0;
+                        if(i%2 == evencell){
+                          idx = (rownum)*60 + colnum + i*10;
+                        } else {
+                          idx = rownum*60 + 9-colnum + i*10;
+                        }
+                        if (pixels[idx]) pixels[idx].classList.toggle('selected');
+                    }
+                    break;
+                case 'p2mg':
+                    var cell0col = 0;
+                    var cell0row = 0;
+                    if(whichcell==0){
+                        cell0col = colnum;
+                        cell0row = rownum;
+                    }
+                    if(whichcell==1){
+                        cell0col = 9-colnum;
+                        cell0row = rownum;
+                    }
+                    if(whichcell==2){
+                        cell0col = colnum;
+                        cell0row = 9-rownum;
+                    }
+                    if(whichcell==3){
+                        cell0col = 9-colnum;
+                        cell0row = 9-rownum;
+                    }
+                    if(whichcell==4){
+                        cell0col = colnum;
+                        cell0row = rownum;
+                    }
+                    if(whichcell==5){
+                        cell0col = 9-colnum;
+                        cell0row = rownum;
+                    }
+                    var cell1col = 10+9-cell0col;
+                    var cell1row = cell0row;
+                    var cell2col = 20+cell0col;
+                    var cell2row = 9-cell0row;
+                    var cell3col = 30+9-cell0col;
+                    var cell3row = 9-cell0row;
+                    var cell4col = 40+cell0col;
+                    var cell4row = cell0row;
+                    var cell5col = 50+9-cell0col;
+                    var cell5row = cell0row;
+                    var cols = [cell0col,cell1col,cell2col,cell3col,cell4col,cell5col];
+                    var rows = [cell0row,cell1row,cell2row,cell3row,cell4row,cell5row];
+                    for(let i=0;i<6;i++){
+                        const idx = rows[i]*60 + cols[i];
+                        if (pixels[idx]) pixels[idx].classList.toggle('selected');
+                    }
+                    break;
+                case 'p11m':
+                    for(let i = 0; i<6; i++){
+                        const idx = rownum*60 + colnum + i*10;
+                        if (pixels[idx]) pixels[idx].classList.toggle('selected');
+                        const idx2 = (9-rownum)*60 + colnum + i*10;
+                        if (pixels[idx2]) pixels[idx2].classList.toggle('selected');
+                    }
+                    break;
+                case 'p2mm':
+                    var cell0col = 0;
+                    var cell0row = 0;
+                    if(whichcell%2==0){
+                        cell0col = colnum;
+                        cell0row = rownum;
+                    } else {
+                        cell0col = 9-colnum;
+                        cell0row = rownum;
+                    }
+                    for(let i = 0; i<3; i++){
+                        const idx = cell0row*60 + cell0col + i*20;
+                        if (pixels[idx]) pixels[idx].classList.toggle('selected');
+                        const idx2 = (9-cell0row)*60 + cell0col + i*20;
+                        if (pixels[idx2]) pixels[idx2].classList.toggle('selected');
+                        const idx3 = cell0row*60 + 9-cell0col + i*20+10;
+                        if (pixels[idx3]) pixels[idx3].classList.toggle('selected');
+                        const idx4 = (9-cell0row)*60 + 9-cell0col + i*20+10;
+                        if (pixels[idx4]) pixels[idx4].classList.toggle('selected');
+                    }
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
