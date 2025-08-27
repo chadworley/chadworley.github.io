@@ -1,0 +1,60 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+while(T){
+    m = sample(c(-5,-4,-3,-2,2,3,4,5),1)
+    b = sample(c(-9,-8,-7,-6,6,7,8,9),1)
+    a = sample(c(-5,-4,-3,-2,2,3,4,5),1)
+    nums = c(m,b,a)
+    if(length(unique(abs(nums)))==3){break}
+}
+
+ex1 = paste0(m,"x+",b,collapse="")
+ex1 = gsub("+-","-",ex1,fixed=T)
+
+ex2 = paste0(m,"\\cdot(",a,")+",b,collapse="")
+ex2 = gsub("+-","-",ex2,fixed=T)
+
+ex3 = paste0(m*a,"+",b,collapse="")
+ex3 = gsub("+-","-",ex3,fixed=T)
+
+fp = m*a+b
+
+```
+
+
+
+Question
+========
+
+
+Let function $f$ be defined as follows:
+
+$$f(x)~=~`r ex1`$$
+
+
+**Evaluate** $f(`r a`)$. 
+
+
+Solution
+========
+
+In the definition of $f$, replace $x$ with `r a`.
+
+$$f(`r a`)~=~ `r ex2`$$
+
+Multiply `r m` and `r a`.
+
+
+$$f(`r a`)~=~ `r ex3`$$
+
+Add/subtract as needed.
+
+$$f(`r a`)~=~`r fp`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r fp`
+exname: eval_linear_function

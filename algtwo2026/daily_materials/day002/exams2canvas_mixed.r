@@ -29,16 +29,20 @@ outdir = "outcanvas"
 # }
 
 
-pm = list("01_is_relation_a_function.Rmd",
-          "02_are_points_a_function.Rmd",
-          "03_are_connections_a_function.Rmd",
-          "04_is_curve_a_function.Rmd")
+pm = list("05a_evaluate_linear_function.Rmd",
+          "06_eval_func_from_graph.Rmd",
+          "05c_evaluate_functions_tab.Rmd",
+          "07_inv_func_from_graph.Rmd",
+          "08b_inverse_table.Rmd")
+
 
 exams2canvas(pm,
              n=n,
              dir=outdir,
-             points=c(3,3,3,3),
+             points=c(2,2,2,2,2),
              maxattempts = 6,
-             name="CW_IsRelationFunction",
+             name="CW_08_27_eval_funcs_and_invs",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
+
+
