@@ -29,11 +29,11 @@ outdir = "outcanvas"
 # }
 
 
-pm = list("05a_evaluate_linear_function.Rmd",
-          "06_eval_func_from_graph.Rmd",
-          "05c_evaluate_functions_tab.Rmd",
-          "07_inv_func_from_graph.Rmd",
-          "08b_inverse_table.Rmd")
+pm = list("08_inverse_table.Rmd",
+          "10_graph_inverse.Rmd",
+          "09_two-step_inverse_alg.Rmd",
+          "09_two-step_inverse_alg.Rmd",
+          "09_two-step_inverse_alg.Rmd")
 
 
 exams2canvas(pm,
@@ -41,7 +41,7 @@ exams2canvas(pm,
              dir=outdir,
              points=c(2,2,2,2,2),
              maxattempts = 6,
-             name="CW_08_27_eval_funcs_and_invs",
+             name="CW_08_27_create_inverse_func",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
 
