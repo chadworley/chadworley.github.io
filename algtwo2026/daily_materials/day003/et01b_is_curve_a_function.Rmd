@@ -1,0 +1,104 @@
+```{r data generation, echo = FALSE, results = "hide"}
+# We ask: if A is function of B (50% chance yes)
+#         if B is function of A (50% chance yes)
+#         if relation is one-to-one (if prior both yes then yes)
+# versions: 1=nono, 2=yesno, 3=noyes, 4=yesyes
+should_y_bafo_x = sample(c(T,F),1,prob=c(0.5,0.5))
+should_x_bafo_y = sample(c(T,F),1,prob=c(0.5,0.5))
+while(T){
+  x = sample(1:9,4,F)
+  y = sample(1:9,4,F)
+  is_x_afo_y = (length(unique(sign(diff(y))))==1)
+  is_y_afo_x = (length(unique(sign(diff(x))))==1)
+  if( abs(atan((y[3]-y[2])/(x[3]-x[2])) - atan((y[2]-y[1])/(x[2]-x[1]))) > pi/8 &&
+      abs(atan((y[4]-y[3])/(x[4]-x[3])) - atan((y[3]-y[2])/(x[3]-x[2]))) > pi/8 &&
+      is_x_afo_y == should_x_bafo_y &&
+      is_y_afo_x == should_y_bafo_x
+  ){break}
+}
+ans1 = paste0((is_y_afo_x==c(T,F))*1,collapse="")
+ans2 = paste0((is_x_afo_y==c(T,F))*1,collapse="")
+ans3 = paste0(((is_y_afo_x && is_x_afo_y)==c(T,F))*1,collapse="")
+
+if(is_y_afo_x && is_x_afo_y){
+    text66 = "The curve passed the vertical line test and the horizontal line test. So, we have a one-to-one function."
+}
+if(is_y_afo_x && !is_x_afo_y){
+    text66 = "The curve failed the horizontal line test. So $x$ is not a function of $y$. Also, we do not have a one-to-one function."
+}
+if(!is_y_afo_x && is_x_afo_y){
+    text66 = "The curve failed the vertical line test. So $y$ is not a function of $x$. Also, we do not have a one-to-one function."
+}
+if(!is_y_afo_x && !is_x_afo_y){
+    text66 = "The curve failed both tests. So $y$ is not a function of $x$. Also, So $x$ is not a function of $y$. Also, we do not have a one-to-one function."
+}
+
+```
+
+Question
+========
+
+```{r,echo=FALSE,fig.dim=c(5,5)}
+par(pty="s")
+plot(x,y,type="n",xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="y",asp=1,pch=20,cex=2)
+xspline(x,y,shape=c(0,rep(-0.3,length(x)-2),0),lwd=3)
+for(i in 0:10){
+  abline(h=i,lty=3)
+  abline(v=i,lty=3)
+}
+```
+\
+
+* Is $y$ a function of $x$? ##ANSWER1##
+* Is $x$ a function of $y$? ##ANSWER2##
+* Do we have a one-to-one function? ##ANSWER3##
+
+Answerlist
+--------
+
+* Yes
+* No
+* Yes
+* No
+* Yes
+* No
+
+
+Solution
+========
+
+It is best to visualize the vertical line test and the horizontal line test. If you can draw a vertical line through 2 (or more) points, then $y$ is not a function of $x$. If you can draw a horizontal line through 2 (or more) points, then $x$ is not a function of $y$.
+
+The function is one-to-one if and only if $y$ is a function of $x$ and $x$ is a function of $y$.
+
+Below, if the function is not one-to-one, some failed line tests are shown:
+
+```{r,echo=FALSE,fig.dim=c(5,5)}
+par(pty="s")
+plot(x,y,type="n",xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="y",asp=1,pch=20,cex=2)
+xspline(x,y,shape=c(0,rep(-0.3,length(x)-2),0),lwd=3)
+for(i in 0:10){
+  abline(h=i,lty=3)
+  abline(v=i,lty=3)
+}
+ix = which(abs(diff(sign(diff(x))))==2)[1]
+iy = which(abs(diff(sign(diff(y))))==2)[1]
+xm = (13*x[ix+1]+x[ix]+x[ix+2])/15
+ym = (13*y[iy+1]+y[iy]+y[iy+2])/15
+abline(v=xm,col="red",lwd=2)
+abline(h=ym,col="red",lwd=2)
+text(xm,9.5,"VL fail",col="red",cex=1.3)
+text(9.5,ym,"HL\nfail",col="red",cex=1.3)
+```
+\
+
+`r text66`
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`
+exname: is_curve_a_function

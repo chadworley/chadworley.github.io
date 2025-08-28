@@ -1,0 +1,87 @@
+```{r data generation, echo = FALSE, results = "hide"}
+nums = c(sample(3:9,2))
+am = "2(x+1)"
+ad = "\\frac{x+1}{2}"
+sm = "2(x-1)"
+sd = "\\frac{x-1}{2}"
+ma = "1x+2"
+da = "\\frac{x}{1}+2"
+ms = "1x-2"
+ds = "\\frac{x}{1}-2"
+qs = c(am,ad,sm,sd,ma,da,ms,ds)
+wd = c("adds 1 and then multiplies by 2",
+       "adds 1 and then divides by 2",
+       "subtracts 1 and then multiplies by 2",
+       "subtracts 1 and then divides by 2",
+       "multiplies by 1 and then adds 2",
+       "divides by 1 and then adds 2",
+       "multiplies by 1 and then subtracts 2",
+       "divides by 1 and then subtracts 2")
+n1 = paste0(nums[1])
+n2 = paste0(nums[2])
+correct_strings = list(c("Add",n1,"Multiply by",n2),
+                       c("Add",n1,"Divide by",n2),
+                       c("Subtract",n1,"Multiply by",n2),
+                       c("Subtract",n1,"Divide by",n2),
+                       c("Multiply by",n1,"Add",n2),
+                       c("Divide by",n1,"Add",n2),
+                       c("Multiply by",n1,"Subtract",n2),
+                       c("Divide by",n1,"Subtract",n2))
+
+w = sample(1:length(qs),1)
+ex1 = gsub("1",n1,qs[w],fixed=T)
+ex1 = gsub("2",n2,ex1,fixed=T)
+
+ac1 = c("Add","Subtract","Multiply by","Divide by")
+ac2 = sort(c(n1,n2))
+
+cs = correct_strings[[w]]
+
+sol1 = paste0(1*(ac1==cs[1]),collapse="")
+sol2 = paste0(1*(ac2==n1),collapse="")
+sol3 = paste0(1*(ac1==cs[3]),collapse="")
+sol4 = paste0(1*(ac2==n2),collapse="")
+
+al1 = paste0("* ",ac1,collapse="\n")
+al2 = paste0("* ",ac2,collapse="\n")
+
+ops1 = wd[w]
+ops1 = gsub("1",n1,ops1,fixed=T)
+ops1 = gsub("2",n2,ops1,fixed=T)
+
+
+```
+
+Question
+========
+
+Let function $f$ be defined with the algebraic expression below:
+$$f(x)~=~`r ex1`$$
+
+To calculate the output, this function applies two elementary operations to the input. Describe those two operations (in order according to PEMDAS).
+
+1. ##ANSWER1## ##ANSWER2##
+2. ##ANSWER3## ##ANSWER4##
+
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al1`
+`r al2`
+
+
+Solution
+========
+
+The function `r ops1`. This is based on [PEMDAS](https://en.wikipedia.org/wiki/Order_of_operations).
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: identify_two_steps
