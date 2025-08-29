@@ -18,16 +18,15 @@ outdir = "outcanvas"
 
 
 # Classwork
-pm = list("01_identify_two_steps.Rmd",
-          "02_identify_three_steps.Rmd",
-          "03_two-step_inverse_alg.Rmd",
-          "04_inverse_table.Rmd",
-          "05_graph_inverse.Rmd")
+pm = list("01_ops_two_steps.Rmd",
+          "02_two-step_inverse_alg.Rmd",
+          "03_inverse_table.Rmd",
+          "04_graph_inverse.Rmd")
 
 exams2canvas(pm,
              n=n,
              dir=outdir,
-             points=c(2,2,2,5,3),
+             points=c(2,2,4,2),
              maxattempts = 6,
              name="CW_08_29_create_inverse_funcs",
              template = "canvas_qti12.xml",
