@@ -1,0 +1,140 @@
+```{r data generation, echo = FALSE, results = "hide"}
+while(T){
+    ylims = sample(2*(0:5),5)
+    ylims2 = ylims+sample(c(-1,1),5,T)
+    ypnts = c(ylims[1])
+    oypnts = numeric()
+    for(i in 2:5){
+        vv = sample(1:2,2)
+        ww = c(ylims[i],ylims2[i-1])
+        ypnts = c(ypnts,ww[vv[1]])
+        oypnts = c(oypnts,ww[vv[2]])
+    }
+    ypnts = c(ypnts,ylims2[5])
+    xposs = c(2,4,6,8)
+    yposs = ypnts[2:5]
+    picks = sample(1:4,2)
+    x1 = xposs[picks[1]]
+    y1 = yposs[picks[1]]
+    x2 = xposs[picks[2]]
+    y2 = yposs[picks[2]]
+    if(min(ylims2)>0 && max(ylims2)<10 &&
+       length(unique(ypnts))==6 && 
+       y2 %in% oypnts &&
+       length(unique(c(x1,y1,x2,y2)))==4){break}
+}
+
+
+ach = 0:10
+
+sol1 = paste0(1*(y1==ach),collapse="")
+sol2 = paste0(1*(x2==ach),collapse="")
+
+al = paste0("* ",ach,collapse="\n")
+```
+
+
+
+Question
+========
+
+The graph of $y=f(x)$ is shown below.
+
+```{r,fig.dim=c(10,5),echo=FALSE}
+par(pty="s",mar=c(3,3,0,0),mfrow=c(1,2))
+plot(0,0,type="n",xlim=c(0,10),ylim=c(0,10),asp=1,ann=F,axes=F)
+for(i in 0:10){
+  lines(c(0,10),c(i,i),col="grey")
+  lines(c(i,i),c(0,10),col="grey")
+}
+abline(h=0)
+abline(v=0)
+
+axis(1,0:10,tick = F,pos = 0)
+axis(2,0:10,tick = F,pos = 0)
+
+mtext("x",1,1.2,at=10)
+mtext("y",2,1.2,at=10)
+
+for(i in 1:5){
+    lines(c(2*i-2,2*i),c(ylims[i],ylims2[i]),col="blue",lwd=3)
+}
+points(2*(0:5),ypnts,pch=19,col="blue")
+points(2*(1:4),oypnts,pch=19,col="blue")
+points(2*(1:4),oypnts,pch=19,col="white",cex=0.7)
+
+plot(0,0,type="n",xlim=c(0,10),ylim=c(0,10),asp=1,ann=F,axes=F)
+legend("left","y=f(x)",col="blue",lwd=3)
+```
+\
+
+* $f(`r x1`)=$ ##ANSWER1##
+* $f^{-1}(`r y2`)=$ ##ANSWER2##
+
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+
+To evaluate $f(`r x1`)$, start by finding $x=`r x1`$ on the horizontal axis. Move up until you hit the curve (or a filled dot... NOT an empty dot...). This is marked with a red circle below. Then read off the $y$ coordinate of the point.
+
+$$f(`r x1`)~=~`r y1`$$
+
+To evaluate $f^{-1}(`r y2`)$, start by finding $y=`r y2`$ on the vertical axis. Move sideways until you hit the curve (or a filled dot... NOT an empty dot...). This is marked with a purple circle. Then read off the $x$ coordinate of the point.
+
+$$f^{-1}(`r y2`)~=~`r x2`$$
+
+
+```{r,fig.dim=c(10,5),echo=FALSE}
+par(pty="s",mar=c(3,3,0,0),mfrow=c(1,2))
+plot(0,0,type="n",xlim=c(0,10),ylim=c(0,10),asp=1,ann=F,axes=F)
+for(i in 0:10){
+  lines(c(0,10),c(i,i),col="grey")
+  lines(c(i,i),c(0,10),col="grey")
+}
+abline(h=0)
+abline(v=0)
+
+axis(1,0:10,tick = F,pos = 0)
+axis(2,0:10,tick = F,pos = 0)
+
+mtext("x",1,1.2,at=10)
+mtext("y",2,1.2,at=10)
+
+for(i in 1:5){
+    lines(c(2*i-2,2*i),c(ylims[i],ylims2[i]),col="blue",lwd=3)
+}
+points(2*(0:5),ypnts,pch=19,col="blue")
+points(2*(1:4),oypnts,pch=19,col="blue")
+points(2*(1:4),oypnts,pch=19,col="white",cex=0.7)
+
+
+# points(x1,y1,pch=1,cex=1,col="black")
+points(x1,y1,pch=1,cex=2,col="red",lwd=2)
+# points(x2,y2,pch=1,cex=1,col="black")
+points(x2,y2,pch=1,cex=2,col="purple",lwd=2)
+
+
+
+
+plot(0,0,type="n",xlim=c(0,10),ylim=c(0,10),asp=1,ann=F,axes=F)
+legend("left","y=f(x)",col="blue",lwd=3)
+```
+\
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: eval_func_n_inv_from_graph

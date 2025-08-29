@@ -1,0 +1,63 @@
+```{r data generation, echo = FALSE, results = "hide"}
+nums = c(sample(3:9,2))
+am = "2(x+1)"
+ad = "\\frac{x+1}{2}"
+sm = "2(x-1)"
+sd = "\\frac{x-1}{2}"
+ma = "1x+2"
+da = "\\frac{x}{1}+2"
+ms = "1x-2"
+ds = "\\frac{x}{1}-2"
+qs = c(am,ad,sm,sd,ma,da,ms,ds)
+
+wd = c("add 1 and then multiply by 2",
+       "add 1 and then divide by 2",
+       "subtract 1 and then multiply by 2",
+       "subtract 1 and then divide by 2",
+       "multiply by 1 and then add 2",
+       "divide by 1 and then add 2",
+       "multiply by 1 and then subtract 2",
+       "divide by 1 and then subtract 2")
+
+exn = sample(1:length(qs),4)
+q = gsub("2",nums[2],gsub("1",nums[1],qs[exn]))
+a = gsub("2",nums[1],gsub("1",nums[2],qs[length(qs)-exn+1]))
+
+exp1 = gsub("2",nums[2],gsub("1",nums[1],wd[exn[1]]))
+exp2 = gsub("2",nums[1],gsub("1",nums[2],wd[length(qs)-exn[1]+1]))
+
+aran = sample(a)
+ans = paste0(1*(a[1]==aran),collapse="")
+al = paste0("* $f^{-1}(x)~=~",aran,"$\n",collapse="\n")
+```
+
+Question
+========
+
+Let function $f$ be defined with the algebraic formula below:
+$$f(x) = `r q[1]`$$
+
+Find an expression for the inverse function $f^{-1}$.
+
+Answerlist
+--------
+`r al`
+
+
+Solution
+========
+
+The original function tells us to `r exp1`.
+
+The inverse function does the inverse operations in the reverse order, so it must `r exp2`.
+
+
+
+$$f^{-1}(x)=`r a[1]`$$
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r ans`
+exname: two-step_inverse_alg

@@ -1,0 +1,213 @@
+---
+title: "Creating inverse functions (tables and graphs)"
+date: "Fri Aug 29"
+author: "Mr. Worley"
+output: 
+    slidy_presentation:
+        incremental: true
+---
+
+# Entrance Ticket
+
+Entrance ticket on Canvas: [ET_08_29](https://bart.instructure.com/courses/2110/quizzes/3144)
+
+
+# Inverse function from table
+
+
+Consider the function $f$ defined by the table below.
+
+```{css,echo=F}
+#myContainer table {
+        border-collapse: collapse; /* Optional: Collapses borders for a single line */
+        border: 2px solid black; /* Border around the entire table */
+    }
+#myContainer th,
+#myContainer td {
+        border: 1px solid grey; /* Borders for individual cells */
+        padding: 8px; /* Optional: Add padding for better readability */
+}
+```
+
+<div id="myContainer">
+
+| $x$ | $f(x)$ |
+|:---:|:---:|
+| 1 | 5 |
+| 2 | 3 |
+| 3 | 1 |
+| 4 | 2 |
+| 5 | 4 |
+
+</div>
+
+What values would you use to fill the inverse function's table?
+
+<div id="myContainer">
+
+| $x$ | $f^{-1}(x)$ |
+|:---:|:---:|
+| 1 |  |
+| 2 |  |
+| 3 |  |
+| 4 |  |
+| 5 |  |
+
+</div>
+
+
+# Inverse function from table
+
+
+Consider the function $f$ defined by the table below.
+
+```{css,echo=F}
+#myContainer table {
+        border-collapse: collapse; /* Optional: Collapses borders for a single line */
+        border: 2px solid black; /* Border around the entire table */
+    }
+#myContainer th,
+#myContainer td {
+        border: 1px solid grey; /* Borders for individual cells */
+        padding: 8px; /* Optional: Add padding for better readability */
+}
+```
+
+<div id="myContainer">
+
+| $x$ | $f(x)$ |
+|:---:|:---:|
+| 1 | 5 |
+| 2 | 3 |
+| 3 | 1 |
+| 4 | 2 |
+| 5 | 4 |
+
+</div>
+
+What values would you use to fill the inverse function's table?
+
+<div id="myContainer">
+
+| $x$ | $f^{-1}(x)$ |
+|:---:|:---:|
+| 1 | 3 |
+| 2 | 4 |
+| 3 | 2 |
+| 4 | 5 |
+| 5 | 1 |
+
+</div>
+
+Notice you swap the two columns, and then sort the first column. We are still "swapping $x$ and $y$".
+
+
+
+# Inverse function from table
+
+
+Consider the function $f$ defined by the table below.
+
+```{css,echo=F}
+#myContainer table {
+        border-collapse: collapse; /* Optional: Collapses borders for a single line */
+        border: 2px solid black; /* Border around the entire table */
+    }
+#myContainer th,
+#myContainer td {
+        border: 1px solid grey; /* Borders for individual cells */
+        padding: 8px; /* Optional: Add padding for better readability */
+}
+```
+
+<div id="myContainer">
+
+| $x$ | $f(x)$ |
+|:---:|:---:|
+| 1 | 4 |
+| 2 | 1 |
+| 3 | 2 |
+| 4 | 5 |
+| 5 | 3 |
+
+</div>
+
+What values would you use to fill the inverse function's table?
+
+<div id="myContainer">
+
+| $x$ | $f^{-1}(x)$ |
+|:---:|:---:|
+| 1 |  |
+| 2 |  |
+| 3 |  |
+| 4 |  |
+| 5 |  |
+
+</div>
+
+
+
+# Inverse function from curve
+
+Let function $f$ be defined by the (piece-wise linear) curve shown below.
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+par(mar=c(4,4,0,0))
+set.seed(123)
+xy = sample(1:9,8)
+x = sort(xy[1:4])
+y = sort(xy[5:8],decreasing = sample(c(T,F),1))
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,11),ylim=c(0,11),lwd=2,ylab="y",xlab="x")
+for(j in seq(0,10,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+lines(x,y,col="blue",lwd=2)
+legend("topright","y=f(x)",lwd=2,col="blue")
+#abline(0,1,col="black",cex="0.5",lty=2)
+```
+
+* How to find the inverse function's curve?
+* "SWAP $x$ AND $y$"
+* The curve reflects over the $y=x$ line (the 45° line).
+* Find the coordinates of the vertices:
+$$(`r x[1]`,`r y[1]`)~~~(`r x[2]`,`r y[2]`)~~~(`r x[3]`,`r y[3]`)~~~(`r x[4]`,`r y[4]`)$$
+* Swap the coordinates of the vertices:
+$$(`r y[1]`,`r x[1]`)~~~(`r y[2]`,`r x[2]`)~~~(`r y[3]`,`r x[3]`)~~~(`r y[4]`,`r x[4]`)$$
+* Draw a new curve connecting those new coordinates.
+
+
+# Inverse function from curve
+
+The original function $f$ and the inverse function $f^{-1}$ are mirror reflections over the $y=x$ line. This is because we "swap $x$ and $y$."
+
+```{r,fig.dim=c(5,5),echo=FALSE,results="asis"}
+par(mar=c(4,4,0,0))
+library(latex2exp)
+set.seed(123)
+xy = sample(1:9,8)
+x = sort(xy[1:4])
+y = sort(xy[5:8],decreasing = sample(c(T,F),1))
+par(pty="s")
+plot(0,0,type="n",xlim=c(0,11),ylim=c(0,11),lwd=2,ylab="y",xlab="x")
+for(j in seq(0,10,1)){
+  abline(h=j,lty=3)
+  abline(v=j,lty=3)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+lines(x,y,col="blue",lwd=2)
+lines(y,x,col="red",lwd=2)
+lines(c(0,11),c(0,11),col="black",lwd=0.5,lty=2)
+legend("topright",c(TeX("$y=f(x)$"),TeX("$y=f^{-1}(x)$")),
+       lwd=c(2,2),col=c("blue","red"),
+       lty=c(1,1))
+
+```
+
+
+
