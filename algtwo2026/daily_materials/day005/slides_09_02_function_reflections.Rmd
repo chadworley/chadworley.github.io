@@ -1,0 +1,301 @@
+---
+title: "Function Reflections"
+author: "Mr. Worley"
+date: "2025 Sep 2"
+# output: html_document
+output:
+    slidy_presentation:
+        incremental: true
+---
+
+# Generate $f(-x)$ from $f(x)$ table
+
+Let's define a function with a table.
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -3:3
+f = c(2,-1,3,-3,-2,0,1)
+df1 = data.frame(x,f)
+colnames(df1) = c("$x$","$f(x)$")
+kable(df1) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+
+Our first goal is to make another column for $f(-x)$.
+
+* We must distinguish between two things that were previously equivalent:
+    1. The value of $x$
+    2. The input into the function (the argument)
+* For example, if $x=2$, then the argument of $f(-x)$ is $-2$, because $-x=-2$.
+* In our example, we know $f(-2)=-1$.
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -3:3
+f = c(2,-1,3,-3,-2,0,1)
+fn = c(" "," "," "," "," ","-1"," ")
+df1 = data.frame(x,f,fn)
+colnames(df1) = c("$x$","$f(x)$","$f(-x)$")
+kable(df1) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+* Can you fill the rest of the table?
+* Basically, the $f(-x)$ column is just the reverse of the $f(x)$ column. 
+\
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -3:3
+f = c(2,-1,3,-3,-2,0,1)
+fn = f[length(x):1]
+df1 = data.frame(x,f,fn)
+colnames(df1) = c("$x$","$f(x)$","$f(-x)$")
+kable(df1) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+* Can you predict what geometric transformation relates the graphs of $y=f(x)$ and $y=f(-x)$?
+* The graphs (connected with line segments for visual clarity) have reflective symmetry over the $y$ axis.
+```{r,echo=F,fig.dim=c(8,4)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s",mfrow=c(1,2))
+plot(0,0,"n",xlim=c(-5,5),ylim=c(-5,5),axes=F,ann=F)
+for(i in seq(-5,5,1)){
+    lines(c(i,i),c(-5,5),col="grey")
+    lines(c(-5,5),c(i,i),col="grey")
+    text(i,0,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+    text(0,i,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(5.3,0,"x",adj=c(1.2,1.2))
+text(0,5.5,"y",adj=c(1.2,1.2))
+lines(x,f,col="blue",lwd=4)
+lines(x,fn,col="red",lwd=4)
+
+plot(0,0,"n",axes=F,ann=F)
+legend("left",
+       c(TeX("$y=f(x)$"),TeX("$y=f(-x)$")),
+       col=c("blue","red"),
+       lwd=c(4,4))
+```
+
+
+
+# Generate $-f(x)$ from $f(x)$ table
+
+Let's reuse the example function:
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -3:3
+f = c(2,-1,3,-3,-2,0,1)
+df1 = data.frame(x,f)
+colnames(df1) = c("$x$","$f(x)$")
+kable(df1) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+
+Our goal is to make another column for $-f(x)$. 
+
+* Notice the value of $-f(x)$ is simply to opposite of the value of $f(x)$.
+* For example, if $f(x)=3$ then $-f(x)=-3$. In our example, this means that since $f(-1)=3$ we know $-f(-1)=-3$.
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -3:3
+f = c(2,-1,3,-3,-2,0,1)
+nf = c(" "," ","-3"," "," "," "," ")
+df1 = data.frame(x,f,nf)
+colnames(df1) = c("$x$","$f(x)$","$-f(x)$")
+kable(df1) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+* Can you predict the rest of the table?
+* To produce this new column, we just use the negatives of the values in the $f(x)$ column.
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -3:3
+f = c(2,-1,3,-3,-2,0,1)
+nf = -f
+df1 = data.frame(x,f,nf)
+colnames(df1) = c("$x$","$f(x)$","$-f(x)$")
+kable(df1) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+* Can you predict the geometric transformation that relates the graphs of $y=f(x)$ and $y=-f(x)$?
+* The graphs are mirror reflections across the $x$ axis. I've connected the points for visual clarity (even though the function was only defined for integers). \
+```{r,echo=F,fig.dim=c(8,4)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s",mfrow=c(1,2))
+plot(0,0,"n",xlim=c(-5,5),ylim=c(-5,5),axes=F,ann=F)
+for(i in seq(-5,5,1)){
+    lines(c(i,i),c(-5,5),col="grey")
+    lines(c(-5,5),c(i,i),col="grey")
+    text(i,0,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+    text(0,i,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(5.3,0,"x",adj=c(1.2,1.2))
+text(0,5.5,"y",adj=c(1.2,1.2))
+lines(x,f,col="blue",lwd=3)
+lines(x,nf,col="purple",lwd=4)
+
+plot(0,0,"n",axes=F,ann=F)
+legend("left",
+       c(TeX("$y=f(x)$"),TeX("$y=-f(x)$")),
+       col=c("blue","purple"),
+       lwd=c(3,4))
+```
+
+
+# Generate $-f(-x)$ from $f(x)$ table
+
+
+Again, let's reuse the example function:
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -3:3
+f = c(2,-1,3,-3,-2,0,1)
+df1 = data.frame(x,f)
+colnames(df1) = c("$x$","$f(x)$")
+kable(df1) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+
+Our goal is to make another column for $-f(-x)$. Based on the two previous examples, you might be able to predict how to fill the $-f(-x)$ column.
+
+* Pick a value of $x$. Let's start with $x=-3$. Our goal is to evaluate $-f(-(-3))$.
+* Simplify the expression inside the argument. We know $-(-3)=3$.
+* So, we need to evaluate $-f(3)$.
+* Okay, we can find $f(3)$ and then negate it.
+* Thus, since $f(3)=1$, we know that $-f(-(-3))=-1$.
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -3:3
+f = c(2,-1,3,-3,-2,0,1)
+nfn = c("-1"," "," "," "," "," "," ")
+df1 = data.frame(x,f,nfn)
+colnames(df1) = c("$x$","$f(x)$","$-f(-x)$")
+kable(df1) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+* Can you predict how to fill the rest of the table?
+* Basically, you can reverse the order of the second column and then negate each element.
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -3:3
+f = c(2,-1,3,-3,-2,0,1)
+nfn = -fn
+df1 = data.frame(x,f,nfn)
+colnames(df1) = c("$x$","$f(x)$","$-f(-x)$")
+kable(df1) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+* Can you predict the geometric transformation that relates the graphs of $y=f(x)$ and $y=-f(-x)$?
+* The two graphs are related by a 180° rotation around the origin. 
+* This is equivalent to combining two reflections, one over the $y$ axis and one over the $x$ axis (in either order).
+```{r,echo=F,fig.dim=c(8,4)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s",mfrow=c(1,2))
+plot(0,0,"n",xlim=c(-5,5),ylim=c(-5,5),axes=F,ann=F)
+for(i in seq(-5,5,1)){
+    lines(c(i,i),c(-5,5),col="grey")
+    lines(c(-5,5),c(i,i),col="grey")
+    text(i,0,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+    text(0,i,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(5.3,0,"x",adj=c(1.2,1.2))
+text(0,5.5,"y",adj=c(1.2,1.2))
+lines(x,f,col="blue",lwd=3)
+lines(x,nfn,col="darkgreen",lwd=4)
+
+plot(0,0,"n",axes=F,ann=F)
+legend("left",
+       c(TeX("$y=f(x)$"),TeX("$y=-f(-x)$")),
+       col=c("blue","darkgreen"),
+       lwd=c(3,4))
+```
+
+# All of them: $f(x)$ and $-f(x)$ and $f(-x)$ and $-f(-x)$
+
+All four in a table:
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -3:3
+f = c(2,-1,3,-3,-2,0,1)
+df1 = data.frame(x,f,nf,fn,nfn)
+colnames(df1) = c("$x$","$f(x)$","$-f(x)$","$f(-x)$","$-f(-x)$")
+kable(df1) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+
+
+All four graphed:
+
+```{r,echo=F,fig.dim=c(8,8)}
+library(latex2exp)
+par(mar=c(0,0,0,0),pty="s",mfrow=c(2,2))
+plot(0,0,"n",xlim=c(-5,5),ylim=c(-5,5),axes=F,ann=F)
+for(i in seq(-5,5,1)){
+    lines(c(i,i),c(-5,5),col="grey")
+    lines(c(-5,5),c(i,i),col="grey")
+    text(i,0,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+    text(0,i,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(5.3,0,"x",adj=c(1.2,1.2))
+text(0,5.5,"y",adj=c(1.2,1.2))
+lines(x,f,col="blue",lwd=2)
+legend(0,4,xjust = 0.5,yjust = 0.5,TeX("$y=f(x)$"),col="blue",lwd=2)
+
+plot(0,0,"n",xlim=c(-5,5),ylim=c(-5,5),axes=F,ann=F)
+for(i in seq(-5,5,1)){
+    lines(c(i,i),c(-5,5),col="grey")
+    lines(c(-5,5),c(i,i),col="grey")
+    text(i,0,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+    text(0,i,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(5.3,0,"x",adj=c(1.2,1.2))
+text(0,5.5,"y",adj=c(1.2,1.2))
+lines(x,fn,col="red",lwd=2)
+legend(0,4,xjust = 0.5,yjust = 0.5,TeX("$y=f(-x)$"),col="red",lwd=2)
+
+plot(0,0,"n",xlim=c(-5,5),ylim=c(-5,5),axes=F,ann=F)
+for(i in seq(-5,5,1)){
+    lines(c(i,i),c(-5,5),col="grey")
+    lines(c(-5,5),c(i,i),col="grey")
+    text(i,0,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+    text(0,i,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(5.3,0,"x",adj=c(1.2,1.2))
+text(0,5.5,"y",adj=c(1.2,1.2))
+lines(x,nf,col="purple",lwd=2)
+legend(0,4,xjust = 0.5,yjust = 0.5,TeX("$y=-f(x)$"),col="purple",lwd=2)
+
+plot(0,0,"n",xlim=c(-5,5),ylim=c(-5,5),axes=F,ann=F)
+for(i in seq(-5,5,1)){
+    lines(c(i,i),c(-5,5),col="grey")
+    lines(c(-5,5),c(i,i),col="grey")
+    text(i,0,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+    text(0,i,i,cex=0.8,adj=c(1.2,1.2),col="darkgrey")
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(5.3,0,"x",adj=c(1.2,1.2))
+text(0,5.5,"y",adj=c(1.2,1.2))
+lines(x,nfn,col="darkgreen",lwd=2)
+legend(0,4,xjust = 0.5,yjust = 0.5,TeX("$y=-f(-x)$"),col="darkgreen",lwd=2)
+
+```
+
+
+
+

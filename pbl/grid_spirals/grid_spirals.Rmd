@@ -1,0 +1,256 @@
+---
+title: "grid spirals"
+author: "Mr. Worley"
+# output: slidy_presentation
+output: html_document
+---
+
+
+# Turn 90°, lengths: 4, 3, 2, 1
+
+Dr. Huston suggested to draw a pattern on grid paper by:
+
+1. Start on a gridpoint.
+2. Draw a line straight down of length 4.
+3. Turn 90° counterclockwise.
+4. Draw a line with length 3.
+5. Turn 90° counterclockwise.
+6. Draw a line with length 2.
+7. Turn 90° counterclockwise.
+8. Draw a line with length 1.
+7. Turn 90° counterclockwise.
+8. Draw a line with length 4.
+9. Keep going with this pattern. Lengths are 4, then 3, then 2, then 1. Each time turn 90°.
+
+
+
+```{r,echo=F}
+turn = pi/2
+a1 = -pi/2
+lengths = 4:1
+n = 100
+a = a1
+x = 0
+y = 0
+xs = c(x)
+ys = c(y)
+for(i in 0:n){
+    l = lengths[(i %% length(lengths)) +1]
+    x2 = x+l*cos(a)
+    y2 = y+l*sin(a)
+    xs = c(xs,x2)
+    ys = c(ys,y2)
+    x = x2
+    y = y2
+    a = a+turn
+}
+par(pty="s",mar=c(0,0,0,0))
+plot(xs,ys,"l",axes=F,ann=F)
+for(xi in min(xs-1):max(xs+1)){
+    lines(c(xi,xi),c(min(ys)-1,max(ys)+1),col="grey",lwd=0.6)
+}
+for(yi in min(ys-1):max(ys+1)){
+    lines(c(min(xs)-1,max(xs)+1),c(yi,yi),col="grey",lwd=0.6)
+}
+lines(xs,ys,lwd=1.2)
+points(0,0,pch=19,cex=0.8)
+```
+
+# Turn 90°, lengths: 5, 4, 3, 2, 1
+
+If we count down from 5 instead of 4, we get a closed-loop pattern.
+
+```{r,echo=F}
+turn = pi/2
+a1 = -pi/2
+lengths = 5:1
+n = 100
+a = a1
+x = 0
+y = 0
+xs = c(x)
+ys = c(y)
+for(i in 0:n){
+    l = lengths[(i %% length(lengths)) +1]
+    x2 = x+l*cos(a)
+    y2 = y+l*sin(a)
+    xs = c(xs,x2)
+    ys = c(ys,y2)
+    x = x2
+    y = y2
+    a = a+turn
+}
+par(pty="s",mar=c(0,0,0,0))
+plot(xs,ys,"l",axes=F,ann=F)
+for(xi in min(xs-1):max(xs+1)){
+    lines(c(xi,xi),c(min(ys)-1,max(ys)+1),col="grey",lwd=0.6)
+}
+for(yi in min(ys-1):max(ys+1)){
+    lines(c(min(xs)-1,max(xs)+1),c(yi,yi),col="grey",lwd=0.6)
+}
+lines(xs,ys,lwd=1.2)
+points(0,0,pch=19,cex=0.8)
+```
+
+# Turn 90°, lengths: [6 .. 1]
+
+If we count down from 6, we get another closed-loop pattern.
+
+```{r,echo=F}
+getxsys = function(turn,a1,lengths,n){
+    a = a1
+    x = 0
+    y = 0
+    xs = c(x)
+    ys = c(y)
+    for(i in 0:n){
+        l = lengths[(i %% length(lengths)) +1]
+        x2 = x+l*cos(a)
+        y2 = y+l*sin(a)
+        xs = c(xs,x2)
+        ys = c(ys,y2)
+        x = x2
+        y = y2
+        a = a+turn
+    }
+    return(list(xs,ys))
+}
+plotpattern = function(xsys){
+    par(pty="s",mar=c(0,0,0,0))
+    xs = xsys[[1]]
+    ys = xsys[[2]]
+    plot(xs,ys,"l",axes=F,ann=F)
+    for(xi in min(xs-1):max(xs+1)){
+        lines(c(xi,xi),c(min(ys)-1,max(ys)+1),col="grey",lwd=0.6)
+    }
+    for(yi in min(ys-1):max(ys+1)){
+        lines(c(min(xs)-1,max(xs)+1),c(yi,yi),col="grey",lwd=0.6)
+    }
+    lines(xs,ys,lwd=1.2)
+    points(0,0,pch=19,cex=0.8)
+}
+turn = pi/2
+a1 = -pi/2
+lengths = 6:1
+n = 100
+xsys = getxsys(turn,a1,lengths,n)
+plotpattern(xsys)
+```
+
+# Turn 90°, lengths: [7 .. 1]
+
+If we count down from 7, we get another closed-loop pattern.
+
+```{r,echo=F}
+getxsys = function(turn,a1,lengths,n){
+    a = a1
+    x = 0
+    y = 0
+    xs = c(x)
+    ys = c(y)
+    for(i in 0:n){
+        l = lengths[(i %% length(lengths)) +1]
+        x2 = x+l*cos(a)
+        y2 = y+l*sin(a)
+        xs = c(xs,x2)
+        ys = c(ys,y2)
+        x = x2
+        y = y2
+        a = a+turn
+    }
+    return(list(xs,ys))
+}
+plotpattern = function(xsys){
+    par(pty="s",mar=c(0,0,0,0))
+    xs = xsys[[1]]
+    ys = xsys[[2]]
+    plot(xs,ys,"l",axes=F,ann=F)
+    for(xi in min(xs-1):max(xs+1)){
+        lines(c(xi,xi),c(min(ys)-1,max(ys)+1),col="grey",lwd=0.6)
+    }
+    for(yi in min(ys-1):max(ys+1)){
+        lines(c(min(xs)-1,max(xs)+1),c(yi,yi),col="grey",lwd=0.6)
+    }
+    lines(xs,ys,lwd=1.2)
+    points(0,0,pch=19,cex=0.8)
+}
+turn = pi/2
+a1 = -pi/2
+lengths = 7:1
+n = 100
+xsys = getxsys(turn,a1,lengths,n)
+plotpattern(xsys)
+```
+
+
+
+
+
+# Turn 90°, lengths: [11 .. 1]
+
+If we count down from 11, we get another closed-loop pattern.
+
+```{r,echo=F}
+turn = pi/2
+a1 = -pi/2
+lengths = 11:1
+n = 100
+xsys = getxsys(turn,a1,lengths,n)
+plotpattern(xsys)
+```
+
+# Turn 120°, lengths: [7 .. 1]
+
+If we count down from 7, and turn by 120°, we get another closed-loop pattern.
+
+```{r,echo=F}
+plotpattern2 = function(xsys){
+    par(pty="s",mar=c(0,0,0,0))
+    xs = xsys[[1]]
+    ys = xsys[[2]]
+    plot(xs,ys,"l",axes=F,ann=F)
+    for(i in -20:20){
+        abline(v=i*cos(pi/6),col="grey",lwd=0.6)
+        abline(a=sin(pi/6)*i*2,b=tan(pi/6),col="grey",lwd=0.6)
+        abline(a=sin(pi/6)*i*2,b=tan(-pi/6),col="grey",lwd=0.6)
+    }
+    lines(xs,ys,lwd=1.2)
+    points(0,0,pch=19,cex=0.8)
+}
+turn = 2*pi/3
+a1 = -pi/2
+lengths = 7:1
+n = 100
+xsys = getxsys(turn,a1,lengths,n)
+plotpattern2(xsys)
+
+```
+
+
+# Turn 60°, lengths: [5 .. 1]
+
+If we count down from 5, and turn by 60°, we get another closed-loop pattern.
+
+```{r,echo=F}
+plotpattern2 = function(xsys){
+    par(pty="s",mar=c(0,0,0,0))
+    xs = xsys[[1]]
+    ys = xsys[[2]]
+    plot(xs,ys,"l",axes=F,ann=F)
+    for(i in -100:100){
+        abline(v=i*cos(pi/6),col="grey",lwd=0.6)
+        abline(a=sin(pi/6)*i*2,b=tan(pi/6),col="grey",lwd=0.6)
+        abline(a=sin(pi/6)*i*2,b=tan(-pi/6),col="grey",lwd=0.6)
+    }
+    lines(xs,ys,lwd=1.2)
+    points(0,0,pch=19,cex=0.8)
+}
+turn = pi/3
+a1 = -pi/2
+lengths = 5:1
+n = 100
+xsys = getxsys(turn,a1,lengths,n)
+plotpattern2(xsys)
+
+```
+
