@@ -1,5 +1,5 @@
 library("exams")
-n = 50
+n = 30
 outdir = "outcanvas"
 
 ### Entrance ticket
