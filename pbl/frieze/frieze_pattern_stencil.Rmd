@@ -1,0 +1,195 @@
+---
+output: pdf_document
+---
+
+\pagenumbering{gobble}
+
+```{r,echo=F}
+scalar = 0.5
+scale2 = 1.05
+```
+
+Frieze Patterns with Stencils \hspace{1in} **Name:** \hrule
+
+# Instructions
+
+1. Find a stencil (2 inch by 2 inch), or 7 different stencils. Choose stencils without any reflective or rotational symmetry.
+2. Grab some colored pencils.
+3. For each Frieze group, generate a pattern using a stencil, following the examples below:
+
+```{r,echo=F,fig.dim=c(8*scalar,1*scalar),results='asis'}
+par(mar=c(0,0,0,0))
+
+n1 = c("p1","p11g","p1m1","p2","p2mg","p11m","p2mm")
+n2 = c("hop","step","sidle","spinning hop","spinning sidle","jump","spinning jump")
+
+x = c(0.3,0.3,0.7,0.7,0.4,0.4,0.6,0.6,0.4,0.4)
+y = c(0.2,0.8,0.8,0.7,0.7,0.6,0.6,0.5,0.5,0.2)
+xm = 1-x
+ym = y
+xg = x
+yg = 1-y
+xr = 1-x
+yr = 1-y
+xp1 = list(x,x+1,x+2,x+3)
+yp1 = list(y,y,y,y)
+xp11g = list(x,x+1,x+2,x+3)
+yp11g = list(y,yg,y,yg)
+xp1m1 = list(x,xm+1,x+2,xm+3)
+yp1m1 = list(y,y,y,y)
+xp2 = list(x,xr+1,x+2,xr+3)
+yp2 = list(y,yr,y,yr)
+xp2mg = list(x,xm+1,x+2,xm+3)
+yp2mg = list(y,y,yg,yg)
+xp11m = list(x,x+1,x+2,x+3)
+yp11m = list(y,y,y,y)
+xp2mm = list(x,xm+1,x+2,xm+3)
+yp2mm = list(y,y,y,y)
+
+xs = list(xp1,xp11g,xp1m1,xp2,xp2mg,xp11m,xp2mm)
+ys = list(yp1,yp11g,yp1m1,yp2,yp2mg,yp11m,yp2mm)
+
+for(i in 1:5){
+    cat(paste0(n1[i]," (",n2[i],") \n\\\n",collapse=""))
+    plot(0,0,"n",xlim=c(0,8),ylim=c(0,1),axes=F,ann=F, xaxs = "i", yaxs = "i")
+    for(j in 1:4){
+        polygon(xs[[i]][[j]],ys[[i]][[j]],col="black")
+        polygon(xs[[i]][[j]]+4,ys[[i]][[j]],col="black")
+        polygon(c(0,0,1,1)+j-1,c(0,1,1,0))
+        polygon(c(0,0,1,1)+j+3,c(0,1,1,0))
+    }
+    # text(0,0.5,n1[i],adj=c(0.5,1.2),srt=90)
+    cat(" \n\n \\vfill \n\n ")
+}
+
+```
+
+```{r,echo=F,fig.dim=c(8*scalar,2*scalar),results='asis'}
+par(mar=c(0,0,0,0))
+
+
+cat(paste0(n1[6]," (",n2[6],") \n\n",collapse=""))
+plot(0,0,"n",xlim=c(0,8),ylim=c(0,2),axes=F,ann=F, xaxs = "i", yaxs = "i")
+for(j in 1:4){
+    polygon(xs[[6]][[j]],1+ys[[6]][[j]],col="black")
+    polygon(xs[[6]][[j]],1-ys[[6]][[j]],col="black")
+    polygon(xs[[6]][[j]]+4,1+ys[[6]][[j]],col="black")
+    polygon(xs[[6]][[j]]+4,1-ys[[6]][[j]],col="black")
+    polygon(c(0,0,2,2)+j-1,c(0,2,2,0))
+    polygon(c(0,0,2,2)+j+3,c(0,2,2,0))
+}
+abline(h=1)
+cat("\n\n")
+cat("\\vfill \n\n")
+
+cat(paste0(n1[7]," (",n2[7],") \n\n",collapse=""))
+plot(0,0,"n",xlim=c(0,8),ylim=c(0,2),axes=F,ann=F, xaxs = "i", yaxs = "i")
+for(j in 1:4){
+    polygon(xs[[7]][[j]],1+ys[[7]][[j]],col="black")
+    polygon(xs[[7]][[j]],1-ys[[7]][[j]],col="black")
+    polygon(xs[[7]][[j]]+4,1+ys[[7]][[j]],col="black")
+    polygon(xs[[7]][[j]]+4,1-ys[[7]][[j]],col="black")
+    polygon(c(0,0,2,2)+j-1,c(0,2,2,0))
+    polygon(c(0,0,2,2)+j+3,c(0,2,2,0))
+    cat(" \n\n ")
+}
+abline(h=1)
+
+```
+
+
+\newpage
+
+\vfill
+
+```{r,echo=F,fig.dim=c(6,9)*scale2,fig.align='center'}
+par(mar=c(0,0,0,0),oma=c(0, 0, 0, 0))
+plot(0,0,"n",xlim=c(0,6),ylim=c(0,9),axes=F,ann=F, xaxs = "i", yaxs = "i")
+for(i in 1:4){
+    polygon(c(0,2,2,0)+0.5,c(0,0,2,2)+2*i-2+0.5,lwd=3)
+    polygon(c(0,2,2,0)+3.5,c(0,0,2,2)+2*i-2+0.5,lwd=3)
+}
+text(0.5,0.5,paste0(n1[1]," (",n2[1],")",collapse=""),cex=2,adj=c(0,-0.7),srt=90)
+text(3.5,0.5,paste0(n1[2]," (",n2[2],")",collapse=""),cex=2,adj=c(0,-0.7),srt=90)
+text(0,6,"Name:",cex=1.5,srt=90,adj=c(1,1))
+lines(c(0.3,0.3),c(6,9))
+```
+
+\vfill
+
+
+\newpage
+
+\vfill
+
+```{r,echo=F,fig.dim=c(6,9)*scale2,fig.align='center'}
+par(mar=c(0,0,0,0),oma=c(0, 0, 0, 0))
+plot(0,0,"n",xlim=c(0,6),ylim=c(0,9),axes=F,ann=F, xaxs = "i", yaxs = "i")
+for(i in 1:4){
+    polygon(c(0,2,2,0)+0.5,c(0,0,2,2)+2*i-2+0.5,lwd=3)
+    polygon(c(0,2,2,0)+3.5,c(0,0,2,2)+2*i-2+0.5,lwd=3)
+}
+text(0.5,0.5,paste0(n1[3]," (",n2[3],")",collapse=""),cex=2,adj=c(0,-0.7),srt=90)
+text(3.5,0.5,paste0(n1[4]," (",n2[4],")",collapse=""),cex=2,adj=c(0,-0.7),srt=90)
+text(0,6,"Name:",cex=1.5,srt=90,adj=c(1,1))
+lines(c(0.3,0.3),c(6,9))
+```
+
+\vfill
+
+\newpage
+
+\vfill
+
+```{r,echo=F,fig.dim=c(6,9)*scale2,fig.align='center'}
+par(mar=c(0,0,0,0),oma=c(0, 0, 0, 0))
+plot(0,0,"n",xlim=c(0,6),ylim=c(0,9),axes=F,ann=F, xaxs = "i", yaxs = "i")
+for(i in 1:4){
+    polygon(c(0,2,2,0)+2,c(0,0,2,2)+2*i-2+0.5,lwd=3)
+    # polygon(c(0,2,2,0)+3.5,c(0,0,2,2)+2*i-2+0.5,lwd=3)
+}
+text(2,0.5,paste0(n1[5]," (",n2[5],")",collapse=""),cex=2,adj=c(0,-0.7),srt=90)
+# text(3.5,0.5,paste0(n1[4]," (",n2[4],")",collapse=""),cex=2,adj=c(0,-0.7),srt=90)
+text(0,6,"Name:",cex=1.5,srt=90,adj=c(1,1))
+lines(c(0.3,0.3),c(6,9))
+```
+
+\vfill
+
+\newpage
+
+\vfill
+
+```{r,echo=F,fig.dim=c(6,9)*scale2,fig.align='center'}
+par(mar=c(0,0,0,0),oma=c(0, 0, 0, 0))
+plot(0,0,"n",xlim=c(0,6),ylim=c(0,9),axes=F,ann=F, xaxs = "i", yaxs = "i")
+for(i in 1:4){
+    polygon(c(0,2,2,0)+1,c(0,0,2,2)+2*i-2+0.5,lwd=3)
+    polygon(c(0,2,2,0)+3,c(0,0,2,2)+2*i-2+0.5,lwd=3)
+}
+text(1,0.5,paste0(n1[6]," (",n2[6],")",collapse=""),cex=2,adj=c(0,-0.7),srt=90)
+# text(3.5,0.5,paste0(n1[4]," (",n2[4],")",collapse=""),cex=2,adj=c(0,-0.7),srt=90)
+text(0,6,"Name:",cex=1.5,srt=90,adj=c(1,1))
+lines(c(0.3,0.3),c(6,9))
+```
+
+\vfill
+
+\newpage
+
+\vfill
+
+```{r,echo=F,fig.dim=c(6,9)*scale2,fig.align='center'}
+par(mar=c(0,0,0,0),oma=c(0, 0, 0, 0))
+plot(0,0,"n",xlim=c(0,6),ylim=c(0,9),axes=F,ann=F, xaxs = "i", yaxs = "i")
+for(i in 1:4){
+    polygon(c(0,2,2,0)+1,c(0,0,2,2)+2*i-2+0.5,lwd=3)
+    polygon(c(0,2,2,0)+3,c(0,0,2,2)+2*i-2+0.5,lwd=3)
+}
+text(1,0.5,paste0(n1[7]," (",n2[7],")",collapse=""),cex=2,adj=c(0,-0.7),srt=90)
+# text(3.5,0.5,paste0(n1[4]," (",n2[4],")",collapse=""),cex=2,adj=c(0,-0.7),srt=90)
+text(0,6,"Name:",cex=1.5,srt=90,adj=c(1,1))
+lines(c(0.3,0.3),c(6,9))
+```
+
+\vfill

@@ -6,7 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '2110' 
-file_path_list = ["outcanvas/CW_08_29_create_inverse_funcs.zip"]
+file_path_list = ["outcanvas/OCW_09_04_fnctn_reflections.zip"]
 
 ######## FOR UPLOADING ETS
 # fpl = []

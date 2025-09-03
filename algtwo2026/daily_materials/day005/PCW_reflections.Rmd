@@ -1,0 +1,314 @@
+---
+output: pdf_document
+params:
+    rseed: 1
+    showsol: true
+urlcolor: blue
+---
+
+```{r,echo=F}
+set.seed(params$rseed)
+qord = sample(1:4)
+fns = c("-f(x)","f(-x)","-f(-x)","f^{-1}(x)")
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## Function reflections
+
+```{r q1,echo=F}
+qn = 1 
+n = 4
+while(T){
+    decreasing = sample(c(T,F),1)
+    xy = sample(-9:9,2*n)
+    x = sort(xy[1:n])
+    y = sort(xy[(n+1):(2*n)],decreasing = decreasing)
+    m = (y[2:n]-y[1:(n-1)])/(x[2:n]-x[1:(n-1)])
+    l = sqrt((x[2:n]-x[1:(n-1)])^2+(y[2:n]-y[1:(n-1)])^2)
+    a = atan(m)
+    stf = paste0(x,y,collapse=", ")
+    
+    xnf = x
+    ynf = -y
+    stnf = paste0(xnf,ynf,collapse=", ")
+    
+    xfn = -x
+    yfn = y
+    stfn = paste0(xfn,yfn,collapse=", ")
+    
+    xnfn = -x
+    ynfn = -y
+    stnfn = paste0(xnfn,ynfn,collapse=", ")
+    
+    xfi = y
+    yfi = x
+    stfi = paste0(xfi,yfi,collapse=", ")
+    
+    sts = c(stf,stnf,stfn,stnfn,stfi)
+    
+    if(length(unique(m))==(n-1) && length(unique(sts))==5 && min(abs(diff(a)))>pi/10 && abs(log(l[3]/l[1]))>log(1.4)){break}
+}
+xs = list(xnf,xfn,xnfn,xfi)
+ys = list(ynf,yfn,ynfn,yfi)
+xsol = xs[[qord[qn]]]
+ysol = ys[[qord[qn]]]
+```
+
+1. Below is a plot of $y=f(x)$. On the same $xy$ plane, please draw $y=`r fns[qord[qn]]`$.
+
+```{r,echo=F,fig.dim=c(3.5,3.5),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+text(10,0.5,"x",adj=0)
+text(0.5,10,"y",adj=c(0.5,-0.3))
+text(10,-0.5,"10",adj=c(0.5))
+text(-0.5,10,"10",adj=c(0.8,-0.1))
+text(-10,-0.5,"-10")
+text(-0.5,-10,"-10",adj=c(0.9,1.05))
+dems = seq(-10,10,0.2)
+NNN = length(dems)
+for(i in -10:10){
+    points(rep(i,NNN),dems,pch=19,cex=0.02)
+    points(dems,rep(i,NNN),pch=19,cex=0.02)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),lwd=0.8)
+    lines(c(i,i),c(-10,10),lwd=0.8)
+}
+abline(h=0,lwd=3)
+abline(v=0,lwd=3)
+lines(x,y,col="blue",lwd=3)
+points(x,y,pch=19,cex=0.8,col="blue")
+
+if(params$showsol){
+    lines(xsol,ysol,col="red",lwd=3)
+    points(xsol,ysol,pch=19,cex=0.8,col="red")
+}
+
+```
+
+\vfill
+
+```{r q2,echo=F}
+qn = 2
+n = 4
+while(T){
+    decreasing = sample(c(T,F),1)
+    xy = sample(-9:9,2*n)
+    x = sort(xy[1:n])
+    y = sort(xy[(n+1):(2*n)],decreasing = decreasing)
+    m = (y[2:n]-y[1:(n-1)])/(x[2:n]-x[1:(n-1)])
+    l = sqrt((x[2:n]-x[1:(n-1)])^2+(y[2:n]-y[1:(n-1)])^2)
+    a = atan(m)
+    stf = paste0(x,y,collapse=", ")
+    
+    xnf = x
+    ynf = -y
+    stnf = paste0(xnf,ynf,collapse=", ")
+    
+    xfn = -x
+    yfn = y
+    stfn = paste0(xfn,yfn,collapse=", ")
+    
+    xnfn = -x
+    ynfn = -y
+    stnfn = paste0(xnfn,ynfn,collapse=", ")
+    
+    xfi = y
+    yfi = x
+    stfi = paste0(xfi,yfi,collapse=", ")
+    
+    sts = c(stf,stnf,stfn,stnfn,stfi)
+    
+    if(length(unique(m))==(n-1) && length(unique(sts))==5 && min(abs(diff(a)))>pi/10 && abs(log(l[3]/l[1]))>log(1.4)){break}
+}
+xs = list(xnf,xfn,xnfn,xfi)
+ys = list(ynf,yfn,ynfn,yfi)
+xsol = xs[[qord[qn]]]
+ysol = ys[[qord[qn]]]
+```
+
+`r qn`. Below is a plot of $y=f(x)$. On the same $xy$ plane, please draw $y=`r fns[qord[qn]]`$.
+
+```{r,echo=F,fig.dim=c(3.5,3.5),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+text(10,0.5,"x",adj=0)
+text(0.5,10,"y",adj=c(0.5,-0.3))
+text(10,-0.5,"10",adj=c(0.5))
+text(-0.5,10,"10",adj=c(0.8,-0.1))
+text(-10,-0.5,"-10")
+text(-0.5,-10,"-10",adj=c(0.9,1.05))
+dems = seq(-10,10,0.2)
+NNN = length(dems)
+for(i in -10:10){
+    points(rep(i,NNN),dems,pch=19,cex=0.02)
+    points(dems,rep(i,NNN),pch=19,cex=0.02)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),lwd=0.8)
+    lines(c(i,i),c(-10,10),lwd=0.8)
+}
+abline(h=0,lwd=3)
+abline(v=0,lwd=3)
+lines(x,y,col="blue",lwd=3)
+points(x,y,pch=19,cex=0.8,col="blue")
+
+if(params$showsol){
+    lines(xsol,ysol,col="red",lwd=3)
+    points(xsol,ysol,pch=19,cex=0.8,col="red")
+}
+```
+
+\vfill
+
+\newpage
+
+```{r q3,echo=F}
+qn = 3
+n = 4
+while(T){
+    decreasing = sample(c(T,F),1)
+    xy = sample(-9:9,2*n)
+    x = sort(xy[1:n])
+    y = sort(xy[(n+1):(2*n)],decreasing = decreasing)
+    m = (y[2:n]-y[1:(n-1)])/(x[2:n]-x[1:(n-1)])
+    l = sqrt((x[2:n]-x[1:(n-1)])^2+(y[2:n]-y[1:(n-1)])^2)
+    a = atan(m)
+    stf = paste0(x,y,collapse=", ")
+    
+    xnf = x
+    ynf = -y
+    stnf = paste0(xnf,ynf,collapse=", ")
+    
+    xfn = -x
+    yfn = y
+    stfn = paste0(xfn,yfn,collapse=", ")
+    
+    xnfn = -x
+    ynfn = -y
+    stnfn = paste0(xnfn,ynfn,collapse=", ")
+    
+    xfi = y
+    yfi = x
+    stfi = paste0(xfi,yfi,collapse=", ")
+    
+    sts = c(stf,stnf,stfn,stnfn,stfi)
+    
+    if(length(unique(m))==(n-1) && length(unique(sts))==5 && min(abs(diff(a)))>pi/10 && abs(log(l[3]/l[1]))>log(1.4)){break}
+}
+xs = list(xnf,xfn,xnfn,xfi)
+ys = list(ynf,yfn,ynfn,yfi)
+xsol = xs[[qord[qn]]]
+ysol = ys[[qord[qn]]]
+```
+
+`r qn`. Below is a plot of $y=f(x)$. On the same $xy$ plane, please draw $y=`r fns[qord[qn]]`$.
+
+```{r,echo=F,fig.dim=c(3.5,3.5),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+text(10,0.5,"x",adj=0)
+text(0.5,10,"y",adj=c(0.5,-0.3))
+text(10,-0.5,"10",adj=c(0.5))
+text(-0.5,10,"10",adj=c(0.8,-0.1))
+text(-10,-0.5,"-10")
+text(-0.5,-10,"-10",adj=c(0.9,1.05))
+dems = seq(-10,10,0.2)
+NNN = length(dems)
+for(i in -10:10){
+    points(rep(i,NNN),dems,pch=19,cex=0.02)
+    points(dems,rep(i,NNN),pch=19,cex=0.02)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),lwd=0.8)
+    lines(c(i,i),c(-10,10),lwd=0.8)
+}
+abline(h=0,lwd=3)
+abline(v=0,lwd=3)
+lines(x,y,col="blue",lwd=3)
+points(x,y,pch=19,cex=0.8,col="blue")
+
+if(params$showsol){
+    lines(xsol,ysol,col="red",lwd=3)
+    points(xsol,ysol,pch=19,cex=0.8,col="red")
+}
+```
+
+\vfill
+
+```{r q4,echo=F}
+qn = 4
+n = 4
+while(T){
+    decreasing = sample(c(T,F),1)
+    xy = sample(-9:9,2*n)
+    x = sort(xy[1:n])
+    y = sort(xy[(n+1):(2*n)],decreasing = decreasing)
+    m = (y[2:n]-y[1:(n-1)])/(x[2:n]-x[1:(n-1)])
+    l = sqrt((x[2:n]-x[1:(n-1)])^2+(y[2:n]-y[1:(n-1)])^2)
+    a = atan(m)
+    stf = paste0(x,y,collapse=", ")
+    
+    xnf = x
+    ynf = -y
+    stnf = paste0(xnf,ynf,collapse=", ")
+    
+    xfn = -x
+    yfn = y
+    stfn = paste0(xfn,yfn,collapse=", ")
+    
+    xnfn = -x
+    ynfn = -y
+    stnfn = paste0(xnfn,ynfn,collapse=", ")
+    
+    xfi = y
+    yfi = x
+    stfi = paste0(xfi,yfi,collapse=", ")
+    
+    sts = c(stf,stnf,stfn,stnfn,stfi)
+    
+    if(length(unique(m))==(n-1) && length(unique(sts))==5 && min(abs(diff(a)))>pi/10 && abs(log(l[3]/l[1]))>log(1.4)){break}
+}
+xs = list(xnf,xfn,xnfn,xfi)
+ys = list(ynf,yfn,ynfn,yfi)
+xsol = xs[[qord[qn]]]
+ysol = ys[[qord[qn]]]
+```
+
+`r qn`. Below is a plot of $y=f(x)$. On the same $xy$ plane, please draw $y=`r fns[qord[qn]]`$.
+
+```{r,echo=F,fig.dim=c(3.5,3.5),fig.align='center'}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+text(10,0.5,"x",adj=0)
+text(0.5,10,"y",adj=c(0.5,-0.3))
+text(10,-0.5,"10",adj=c(0.5))
+text(-0.5,10,"10",adj=c(0.8,-0.1))
+text(-10,-0.5,"-10")
+text(-0.5,-10,"-10",adj=c(0.9,1.05))
+dems = seq(-10,10,0.2)
+NNN = length(dems)
+for(i in -10:10){
+    points(rep(i,NNN),dems,pch=19,cex=0.02)
+    points(dems,rep(i,NNN),pch=19,cex=0.02)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),lwd=0.8)
+    lines(c(i,i),c(-10,10),lwd=0.8)
+}
+abline(h=0,lwd=3)
+abline(v=0,lwd=3)
+lines(x,y,col="blue",lwd=3)
+points(x,y,pch=19,cex=0.8,col="blue")
+
+if(params$showsol){
+    lines(xsol,ysol,col="red",lwd=3)
+    points(xsol,ysol,pch=19,cex=0.8,col="red")
+}
+```
+
+\vfill
+
+
