@@ -8,6 +8,105 @@ output:
         incremental: true
 ---
 
+# Puzzle 1
+
+Let function $f$ be defined by the table below.
+
+```{r, echo = FALSE, results = "hide"}
+set.seed(123)
+x = -3:3
+n = length(x)
+f = sample(10:(10+n-1),n)*sample(c(-1,1),n,T)
+a = sample(1:3,1)*sample(c(-1,1),1)
+fn = rev(f)
+fna = fn[x==a]
+```
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(x,f)
+colnames(df) = c("$x$","$f(x)$")
+kable_styling(kable(df),bootstrap_options = "bordered",full_width = F)
+```
+
+Let $a=`r a`$. Evaluate $f(-a)$.
+
+* Solution
+* Since $a=`r a`$, we know $-a=`r -a`$. So we evaluate $f(`r -a`)$.
+$$f(`r -a`) = `r fna`$$
+Thus, $f(-(`r a`))=`r fna`$ and $$f(-a)=`r fna`$$
+
+# Puzzle 2
+
+Let function $f$ be defined by the table below.
+
+```{r, echo = FALSE, results = "hide"}
+x = -3:3
+n = length(x)
+f = sample(10:(10+n-1),n)*sample(c(-1,1),n,T)
+a = sample(1:3,1)*sample(c(-1,1),1)
+fn = rev(f)
+fna = fn[x==a]
+nf = -f
+nfa = nf[x==a]
+nfn = -fn
+nfna = nfn[x==a]
+```
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(x,f)
+colnames(df) = c("$x$","$f(x)$")
+kable_styling(kable(df),bootstrap_options = "bordered",full_width = F)
+```
+
+Let $a=`r a`$. Evaluate $-f(a)$.
+
+* Solution
+* First, evaluate $f(`r a`)$.
+$$f(`r a`)=`r f[x==a]`$$
+* So, we can just multiply both sides of the equation by $-1$.
+$$-f(`r a`) = `r nfa`$$
+* Thus, $$-f(a)=`r nfa`$$
+(because $a=`r a`$)
+
+# Puzzle 3
+
+Let function $f$ be defined by the table below.
+
+```{r, echo = FALSE, results = "hide"}
+x = -3:3
+n = length(x)
+f = sample(10:(10+n-1),n)*sample(c(-1,1),n,T)
+a = sample(1:3,1)*sample(c(-1,1),1)
+fn = rev(f)
+fna = fn[x==a]
+nf = -f
+nfa = nf[x==a]
+nfn = -fn
+nfna = nfn[x==a]
+```
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(x,f)
+colnames(df) = c("$x$","$f(x)$")
+kable_styling(kable(df),bootstrap_options = "bordered",full_width = F)
+```
+
+Let $a=`r a`$. Evaluate $-f(-a)$.
+
+* Solution
+* Since $a=`r a`$, we know $-a=`r -a`$. So we evaluate $-f(`r -a`)$. In order to do this, first evaluate $f(`r -a`)$. 
+$$f(`r -a`)=`r fna`$$
+* Multiply both sides by $-1$.
+$$-f(`r -a`)=`r -fna`$$
+* And thus, if $a=`r a`$, then we know $-f(-a)=`r nfna`$.
+
+# Classwork break 1
+
+Please complete [OCW_eval_func_w_negs](https://bart.instructure.com/courses/2110/quizzes/3150)
+
 # Generate $f(-x)$ from $f(x)$ table
 
 Let's define a function with a table.
@@ -53,7 +152,7 @@ kable(df1) %>%
     kable_styling(bootstrap_options = "bordered",full_width = F)
 ```
 * Can you predict what geometric transformation relates the graphs of $y=f(x)$ and $y=f(-x)$?
-* The graphs (connected with line segments for visual clarity) have reflective symmetry over the $y$ axis.
+* The graphs (connected with line segments for visual clarity) are reflections of each other over the $y$ axis.
 * 
 ```{r,echo=F,fig.dim=c(8,4)}
 library(latex2exp)

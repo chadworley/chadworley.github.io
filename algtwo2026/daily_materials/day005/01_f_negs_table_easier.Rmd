@@ -1,0 +1,77 @@
+```{r data generation, echo = FALSE, results = "hide"}
+x = -3:3
+f = sample(11:17,7)*sample(c(-1,1),7,T)
+nf = -f
+fn = f[length(x):1]
+nfn = -fn
+
+# fi = numeric()
+# for(i in x){
+#   fi = c(fi,x[which(f==i)])
+# }
+
+sols = character()
+
+anf = paste0("##ANSWER",seq(1,length(x)*3-2,3),"##")
+afn = paste0("##ANSWER",seq(2,length(x)*3-1,3),"##")
+anfn = paste0("##ANSWER",seq(3,length(x)*3,3),"##")
+
+achs = list()
+als = character()
+
+for(i in 1:length(x)){
+    ca = nf[i]
+    aposs = unique(sort(c(f[i],nf[i],fn[i],nfn[i])))
+    sols = c(sols,paste0(1*(nf[i]==aposs),collapse=""))
+    sols = c(sols,paste0(1*(fn[i]==aposs),collapse=""))
+    sols = c(sols,paste0(1*(nfn[i]==aposs),collapse=""))
+    als = c(als,paste0("* ",aposs,collapse="\n"))
+    als = c(als,paste0("* ",aposs,collapse="\n"))
+    als = c(als,paste0("* ",aposs,collapse="\n"))
+}
+
+al2 = paste0(als,collapse="\n")
+    
+```
+
+Question
+========
+
+
+A function $f$ is defined in the table below. Finish the table by completing the columns of $-f(x)$ and $f(-x)$ and $-f(-x)$.
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(x,f,anf,afn,anfn)
+colnames(df) = c("$x$","$f(x)$","$-f(x)$","$f(-x)$","$-f(-x)$")
+kable(df) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+
+
+
+Answerlist
+--------
+
+`r al2`
+
+Solution
+========
+
+See [the slides](https://chadworley.github.io/algtwo2026/daily_materials/day005/slides_09_02_function_reflections.html).
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(x,f,nf,fn,nfn)
+colnames(df) = c("$x$","$f(x)$","$-f(x)$","$f(-x)$","$-f(-x)$")
+kable(df) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(sols)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: inverse_table
