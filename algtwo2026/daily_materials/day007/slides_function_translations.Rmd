@@ -7,6 +7,79 @@ output:
         incremental: true
 ---
 
+# Puzzle 1
+
+```{r, echo = FALSE, results = "hide"}
+set.seed(123)
+x = 1:9
+n = length(x)
+f = sample(20:80,n)*sample(c(-1,1),n,T)
+a = sample(4:6,1)
+c = 2
+fapc = f[x==a+c]
+```
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(x,f)
+colnames(df) = c("$x$","$f(x)$")
+kable_styling(kable(df),bootstrap_options = "bordered",full_width = F)
+```
+
+Let $a=`r a`$. Evaluate $f(a+`r c`)$.
+
+* Solution: substitute $`r a`$ for $a$ in the expression.
+$$f(a+`r c`)~=~f(`r a`+`r c`)$$
+* Simplify the argument with arithmetic.
+$$f(a+`r c`)~=~f(`r a+c`)$$
+* Use the table to determine that $f(`r a+c`)=`r f[a+c]`$.
+$$f(a+`r c`)~=~`r f[a+c]`$$
+
+# Puzzle 2
+
+```{r, echo = FALSE, results = "hide"}
+fapc = f[x==a]+c
+```
+
+```{r,echo=F,warning=F}
+df = data.frame(x,f)
+colnames(df) = c("$x$","$f(x)$")
+kable_styling(kable(df),bootstrap_options = "bordered",full_width = F)
+```
+
+Let $a=`r a`$. Evaluate $f(a)+`r c`$.
+
+* Solution: substitute $`r a`$ for $a$ in the expression.
+$$f(a)+`r c`~=~f(`r a`)+`r c`$$
+* Use the table to determine that $f(`r a`)=`r f[a]`$. Substitute.
+$$f(a)+`r c`~=~`r f[a]`+`r c`$$
+* Use arithmetic. $$f(a)+`r c`=`r f[a]+c`$$
+
+# Puzzle 3
+
+```{r, echo = FALSE, results = "hide"}
+d = 3
+fapc = f[x==a-c]+d
+```
+
+```{r,echo=F,warning=F}
+df = data.frame(x,f)
+colnames(df) = c("$x$","$f(x)$")
+kable_styling(kable(df),bootstrap_options = "bordered",full_width = F)
+```
+
+Let $a=`r a`$. Evaluate $f(a-`r c`)+`r d`$.
+
+* Solution: substitute $`r a`$ for $a$ in the expression.
+$$f(a-`r c`)+`r d`~=~f(`r a`-`r c`)+`r d`$$
+* Use arithmetic to simplify the argument. $$f(a-`r c`)+`r d`~=~f(`r a-c`)+`r d`$$
+* Use the table.
+$$f(a-`r c`)+`r d`~=~`r f[a-c]`+`r d`$$
+* Use arithmetric to simplify.
+$$f(a-`r c`)+`r d`~=~`r f[a-c]+d`$$
+
+
+
 # Horizontal Translation
 
 Let function $f$ be defined with the following table:

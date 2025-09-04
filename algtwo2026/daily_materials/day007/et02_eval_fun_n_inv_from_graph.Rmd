@@ -1,0 +1,85 @@
+```{r data generation, echo = FALSE, results = "hide"}
+rands = sample(1:9,8)
+xbase = rands[1:3]
+x = sort(c(0,rands[1:3],10))
+y = sort(rands[4:8],decreasing = sample(c(T,F),1))
+
+xs = sample(xbase,2)
+x1 = xs[1]
+x2 = xs[2]
+y1 = y[x==x1]
+y2 = y[x==x2]
+
+ach = 1:9
+
+sol1 = paste0(1*(y1==ach),collapse="")
+sol2 = paste0(1*(x2==ach),collapse="")
+
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+
+
+Question
+========
+
+
+Function $f$ is graphed below.
+
+```{r,fig.dim=c(5,5),echo=FALSE}
+par(pty="s")
+plot(x,y,type="n",xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="f(x)",asp=1,pch=20,cex=2)
+for(i in 0:10){
+  abline(h=i,lty=3)
+  abline(v=i,lty=3)
+}
+xspline(x,y,shape=c(0,rep(-0.3,length(x)-2),0),border="blue",lwd=4)
+```
+\
+
+Evaluate the expressions:
+
+* $f(`r x1`)~=~$ ##ANSWER1##
+* $f^{-1}(`r y2`)~=~$ ##ANSWER2## 
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+
+Solution
+========
+
+Find the correct points on the graph where $x=`r x1`$ and where $f(x)=`r y2`$.
+
+```{r,fig.dim=c(5,5),echo=FALSE}
+par(pty="s")
+plot(x,y,type="n",xlim=c(0,10),ylim=c(0,10),xlab="x",ylab="f(x)",asp=1,pch=20,cex=2)
+for(i in 0:10){
+  abline(h=i,lty=3)
+  abline(v=i,lty=3)
+}
+dify=0
+xspline(x,y,shape=c(0,rep(-0.3,length(x)-2),0),border="blue",lwd=4)
+points(x1,y1,pch=20,cex=2.5,col="black")
+points(x1,y1,pch=20,cex=2,col="red")
+points(x2,y2,pch=20,cex=2.5,col="black")
+points(x2,y2,pch=20,cex=2,col="green")
+```
+\
+
+First, the red dot tells us that $f(`r x1`)=`r y1`$.
+
+And then, the green dot tells us that $f(`r x2`)=`r y2`$, and thus $f^{-1}(`r y2`)=`r x2`$.
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: eval_func_n_inv_from_graph

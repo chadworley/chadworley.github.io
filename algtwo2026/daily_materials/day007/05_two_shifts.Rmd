@@ -1,0 +1,58 @@
+```{r data generation, echo = FALSE, results = "hide"}
+x = 1:9
+n = length(x)
+f = sample(20:80,n)*sample(c(-1,1),n,T)
+a = sample(4:6,1)
+hk = sample(1:3,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+ans = f[a+h]+k
+
+exp1 = paste0("f(a+",h,")+",k,collapse="")
+exp1 = gsub("+-","-",exp1,fixed=T)
+exp2 = gsub("a",a,exp1,fixed=T)
+
+exp3 = paste0("f(",a+h,")+",k,collapse="")
+exp3 = gsub("+-","-",exp3,fixed=T)
+
+exp4 = paste0(f[a+h],"+",k,collapse="")
+exp4 = gsub("+-","-",exp4,fixed=T)
+
+
+```
+
+Question
+========
+
+Function $f$ is defined by the table below:
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(x,f)
+colnames(df) = c("$x$","$f(x)$")
+kable_styling(kable(df),bootstrap_options = "bordered",full_width = F)
+```
+
+Let $a=`r a`$. 
+
+* Evaluate $`r exp1`$
+
+
+Solution
+========
+
+Replace $a$ with $`r a`$ because $a=`r a`$.
+$$`r exp2`~=~?$$
+Simplify the argument using arithmetic.
+$$`r exp3`~=~?$$
+Use the table to evaluate the function. We see that $f(`r a+h`)=`r f[a+h]`$.
+$$`r exp4`~=~?$$
+Simplify the expression using arithmetic.
+$$`r exp1`~=~`r ans`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r ans`
+exname: fa_mc
