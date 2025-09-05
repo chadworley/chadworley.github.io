@@ -6,7 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '2110' 
-file_path_list = ["outcanvas/OCW_eval_translated_func.zip"]
+file_path_list = ["outcanvas/OCW_function_translations.zip"]
 
 ######## FOR UPLOADING ETS
 # fpl = []
