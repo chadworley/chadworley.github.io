@@ -1,0 +1,48 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+while(T){
+    x = round(runif(1,30,80),1)*sample(c(-1,1),1)
+    y = round(runif(1,30,80),1)*sample(c(-1,1),1)
+    if(abs(x)!=abs(y)){break}
+}
+
+```
+
+
+
+Question
+========
+
+Let $f$ be an **even** function and $f(`r x`)=`r y`$. Evaluate $f(`r -x`)$.
+
+
+Solution
+========
+
+Since $f$ is even, we know $f(-x)=f(x)$ for any value of $x$. Thus $f(`r -x`)=f(`r x`)$. So,
+
+$$f(`r -x`)=`r y`$$
+
+Notice the reflective symmetry across the $y$ axis.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(pty="s")
+plot(0,0,"n",xlim=c(-100,100),ylim=c(-100,100),xlab="x",ylab="y")
+for(i in seq(-100,100,10)){
+    abline(h=i,col="grey")
+    abline(v=i,col="grey")
+}
+arrows(-104,0,104,0,0.1,10,3,lwd=2)
+arrows(0,-104,0,104,0.1,10,3,lwd=2)
+points(c(x,-x),c(y,y),pch=20,col="red",cex=2)
+text(x,y+10,paste0("(",x,", ",y,")",collapse=""))
+text(-x,y+10,paste0("(",-x,", ",y,")",collapse=""))
+
+```
+
+
+Meta-information
+============
+extype: num
+exsolution: `r y`
+exname: use_even_prop

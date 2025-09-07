@@ -1,0 +1,72 @@
+```{r data generation, echo = FALSE, results = "hide"}
+nums = sample(2:9,2)
+A = nums[1]
+B = nums[2]
+am = "B(x+A)"
+ad = "\\frac{x+A}{B}"
+sm = "B(x-A)"
+sd = "\\frac{x-A}{B}"
+ma = "Ax+B"
+da = "\\frac{x}{A}+B"
+ms = "Ax-B"
+ds = "\\frac{x}{A}-B"
+qs = c(am,ad,sm,sd,ma,da,ms,ds)
+
+wd = c("add A and then multiply by B",
+       "add A and then divide by B",
+       "subtract A and then multiply by B",
+       "subtract A and then divide by B",
+       "multiply by A and then add B",
+       "divide by A and then add B",
+       "multiply by A and then subtract B",
+       "divide by A and then subtract B")
+
+qt = sample(1:8,1)
+fexp = qs[qt]
+fwd = wd[qt]
+iexp = qs[9-qt]
+iwd = wd[9-qt]
+
+fexp = gsub("A",nums[1],fexp,fixed=T)
+fexp = gsub("B",nums[2],fexp,fixed=T)
+
+iexp = gsub("B",nums[1],iexp,fixed=T)
+iexp = gsub("A",nums[2],iexp,fixed=T)
+
+while(T){
+    x = sample(3:100,1)
+    ys = c((x+A)*B,(x+A)/B,(x-A)*B,(x-A)/B,x*A+B,x/A+B,x*A-B,x/A-B)
+    y = ys[qt]
+    if(length(unique(c(x,y,A,B)))==4 && y%%1==0 && y>0 && y<100){break}
+}
+
+```
+
+Question
+========
+
+Let function $f$ be defined by the algebraic expression below:
+
+$$f(x)~=~`r fexp`$$
+
+Evaluate $f^{-1}(`r y`)$.
+
+
+Solution
+========
+
+Get inverse function.
+$$f^{-1}(x)~=~`r iexp`$$
+Then use it to evaluate $f^{-1}(`r y`)$.
+
+$$f^{-1}(`r y`)~=~`r gsub("x",paste0("(",y,")"),iexp,fixed=T)`$$
+
+$$f^{-1}(`r y`)~=~`r x`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r x`
+exname: eval_inv_alg

@@ -19,33 +19,33 @@ outdir = "outcanvas"
 
 
 # Classwork 1
-# pm = list(c("01_f_apc.Rmd","02_f_amc.Rmd"),
-#           c("03_fa_pc.Rmd","04_fa_mc.Rmd"),
-#           "05_two_shifts.Rmd",
-#           "05_two_shifts.Rmd")
-# 
-# exams2canvas(pm,
-#              n=n,
-#              dir=outdir,
-#              points=c(2,2,2,2),
-#              maxattempts = 8,
-#              name="OCW_eval_translated_func",
-#              template = "canvas_qti12.xml",
-#              cloze = list(enumerate = FALSE))
-
-# Classwork 2
-pm = list(c("10_shift_table_left.Rmd","11_shift_table_right.Rmd"),
-          c("12_shift_table_up.Rmd","13_shift_table_down.Rmd"),
-          "14_translate_table.Rmd",
-          "15_translate_graph.Rmd")
+pm = list(c("01_f_apc.Rmd","02_f_amc.Rmd"),
+          c("03_fa_pc.Rmd","04_fa_mc.Rmd"),
+          "05_two_shifts.Rmd",
+          "05_two_shifts.Rmd")
 
 exams2canvas(pm,
              n=n,
              dir=outdir,
              points=c(2,2,2,2),
              maxattempts = 8,
-             name="OCW_function_translations",
+             name="OCW_eval_translated_func",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
+
+# Classwork 2
+# pm = list(c("10_shift_table_left.Rmd","11_shift_table_right.Rmd"),
+#           c("12_shift_table_up.Rmd","13_shift_table_down.Rmd"),
+#           "14_translate_table.Rmd",
+#           "15_translate_graph.Rmd")
+# 
+# exams2canvas(pm,
+#              n=n,
+#              dir=outdir,
+#              points=c(2,2,2,2),
+#              maxattempts = 8,
+#              name="OCW_function_translations",
+#              template = "canvas_qti12.xml",
+#              cloze = list(enumerate = FALSE))
 
 
