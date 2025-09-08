@@ -17,9 +17,9 @@ from sympy import *
 x,a = symbols("x a")
 exp = int(r.a)*x**3+int(r.b)*x**2+int(r.c)*x+int(r.d)
 lexp = latex(exp)
-cexp = latex( -int(r.a)*a**3-int(r.b)*a**2-int(r.c)*a-int(r.d) )
+wexp2 = latex( -int(r.a)*a**3-int(r.b)*a**2-int(r.c)*a-int(r.d) )
 wexp1 = latex( exp.subs(x,a) )
-wexp2 = latex( int(r.a)*a**3-int(r.b)*a**2+int(r.c)*a-int(r.d) )
+cexp = latex( int(r.a)*a**3-int(r.b)*a**2+int(r.c)*a-int(r.d) )
 wexp3 = latex( exp.subs(x,-a) )
 exps = [cexp,wexp1,wexp2,wexp3]
 ```
@@ -32,7 +32,7 @@ ans1 = paste0(1*(rexps==exps[1]),collapse="")
 
 Let function $f$ be defined as follows:
 $$f(x) ~=~ `r py$lexp`$$
-Which of the following expressions is equivalent to $-f(a)$?
+Which of the following expressions is equivalent to $-f(-a)$?
 
 Answerlist
 --------
@@ -46,15 +46,15 @@ Answerlist
 Solution
 ========
 
-Substitute $a$ for $x$ and multiply the whole expression by $(-1)$.
+Substitute $-a$ for $x$ and multiply the whole expression by $(-1)$.
 
-$$-f(a) ~=~ `r py$cexp`$$
+$$-f(-a) ~=~ `r py$cexp`$$
 
+The shortcut is to recognize that only the quadratic (with $x^2$) and constant (the two EVEN powered terms) switch signs between $f(x)$ and $-f(-a)$.
 
-The shortcut is to recognize that all terms switch signs between $f(x)$ and $-f(a)$.
 
 Meta-information
 ============
 extype: schoice
 exsolution: `r ans1`
-exname: neg_a_function
+exname: neg_of_f_neg_a

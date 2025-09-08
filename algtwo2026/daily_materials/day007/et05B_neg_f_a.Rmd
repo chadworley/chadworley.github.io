@@ -1,0 +1,49 @@
+```{r data generation, echo = FALSE, results = "hide"}
+x = -4:4
+n = length(x)
+f = sample(10:(10+n-1),n)*sample(c(-1,1),n,T)
+a = sample(1:4,1)*sample(c(-1,1),1)
+
+fn = rev(f)
+fna = fn[x==a]
+
+nf = -f
+nfa = nf[x==a]
+
+```
+
+Question
+========
+
+Function $f$ is defined by the table below:
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(x,f)
+colnames(df) = c("$x$","$f(x)$")
+kable_styling(kable(df),bootstrap_options = "bordered",full_width = F)
+```
+
+Let $a=`r a`$. 
+
+* Evaluate $-f(a)$.
+
+
+Solution
+========
+
+* First, evaluate $f(`r a`)$.
+$$f(`r a`)=`r f[x==a]`$$
+
+* So, we can just multiply both sides of the equation by $-1$.
+$$-f(`r a`) = `r nfa`$$
+
+* Thus, $$-f(a)=`r nfa`$$
+(because $a=`r a`$)
+
+
+Meta-information
+============
+extype: num
+exsolution: `r nfa`
+exname: neg_f_a

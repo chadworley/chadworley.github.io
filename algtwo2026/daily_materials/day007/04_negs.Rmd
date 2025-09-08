@@ -6,21 +6,28 @@ b = round(cf[2])
 c = round(cf[3])
 d = round(cf[4])
 
-isnegf = sample(c(T,F),1)
-if(isnegf){
+qt = sample(1:3,1)
+if(qt==1){
   an = -a
   bn = -b
   cn = -c
   dn = -d
   qex = "-f(x)"
-  anst = "Multiply the whole expression by $(-1)$."
-} else {
+  anst = "Multiply the whole expression by $(-1)$. This changes the sign of every term."
+} else if(qt==2) {
   an = -a
   bn = b
   cn = -c
   dn = d
   qex = "f(-x)"
-  anst = "Substitute $-x$ for $x$ and simplify."
+  anst = "Substitute $-x$ for $x$ and simplify. This changes the sign of the ODD powered terms."
+} else {
+  an = a
+  bn = -b
+  cn = c
+  dn = -d
+  qex = "-f(-x)"
+  anst = "Substitute $-x$ for $x$, multiplify the whole expression by $(-1)$, and simplify. This changes the sign of the EVEN powered terms."
 }
 al = -5:5
 al2 = character()
@@ -67,6 +74,16 @@ Simplify $`r qex`$.
     margin-left: 0.5em;
 }
 ```
+
+<style>
+.boxy select {
+    width: 5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-right: 0em;
+    margin-left: 0.5em;
+}
+</style>
 
 <div class="boxy">
 
