@@ -1,0 +1,130 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+    useseed: false
+urlcolor: blue
+---
+
+```{r,echo=F}
+if(params$useseed){
+    set.seed(params$rseed)
+}
+
+while(T){
+    ys1 = c(0,sample(-9:9,3))
+    ys2 = c(0,sample(-9:9,3))
+    ys3 = c(0,sample(-9:9,3))
+    ys4 = c(0,sample(-9:9,3))
+    sy1 = sign(diff(ys1))
+    sy2 = sign(diff(ys2))
+    sy3 = sign(diff(ys3))
+    sy4 = sign(diff(ys4))
+    ss1 = paste0(sy1,collapse="")
+    ss2 = paste0(sy2,collapse="")
+    ss3 = paste0(sy3,collapse="")
+    ss4 = paste0(sy4,collapse="")
+    if(length(unique(c(ss1,ss2,ss3,ss4)))==4){break}
+}
+
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## PCW_0909_draw_even_or_odd (version `r params$rseed`)
+
+A function is even if $f(x)=f(-x)$ for all $x$ in the domain. A function is odd if $f(x)=-f(-x)$ for all $x$ in the domain.
+
+1. I have drawn half of a function. Draw the other half to make it even or odd.
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+makem = function(xs,ys){
+    par(mar=c(0,0.5,1,0.5),pty="s",mfrow=c(1,2))
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    dems = seq(-10,10,0.2)
+    NNN = length(dems)
+    for(i in -10:10){
+        points(rep(i,NNN),dems,pch=19,cex=0.02)
+        points(dems,rep(i,NNN),pch=19,cex=0.02)
+    }
+    for(i in seq(-10,10,5)){
+        lines(c(-10,10),c(i,i),lwd=0.8)
+        lines(c(i,i),c(-10,10),lwd=0.8)
+    }
+    abline(h=0,lwd=2)
+    abline(v=0,lwd=2)
+    text(10,0,"x",adj=c(-0.1,1.1))
+    text(0,10,"y",adj=c(1.1,-0.1))
+    lines(xs,ys,lwd=3,col="blue")
+    points(xs,ys,pch=19,cex=0.8,col="blue")
+    mtext("EVEN",3)
+    if(params$showsol){
+        lines(-xs,ys,lwd=3,col="red")
+    }
+    
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    dems = seq(-10,10,0.2)
+    NNN = length(dems)
+    for(i in -10:10){
+        points(rep(i,NNN),dems,pch=19,cex=0.02)
+        points(dems,rep(i,NNN),pch=19,cex=0.02)
+    }
+    for(i in seq(-10,10,5)){
+        lines(c(-10,10),c(i,i),lwd=0.8)
+        lines(c(i,i),c(-10,10),lwd=0.8)
+    }
+    abline(h=0,lwd=2)
+    abline(v=0,lwd=2)
+    text(10,0,"x",adj=c(-0.1,1.1))
+    text(0,10,"y",adj=c(1.1,-0.1))
+    lines(xs,ys,lwd=3,col="blue")
+    points(xs,ys,pch=19,cex=0.8,col="blue")
+    mtext("ODD",3)
+    if(params$showsol){
+        lines(-xs,-ys,lwd=3,col="red")
+    }
+}
+xs = sort(c(0,sample(1:9,3)))
+ys = ys1
+makem(xs,ys)
+```
+
+\vfill
+
+2. I have drawn half of a function. Draw the other half to make it even or odd.
+
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+xs = sort(c(0,sample(1:9,3)))
+ys = ys2
+makem(xs,ys)
+```
+
+\vfill
+
+\newpage
+
+A function is even if $f(x)=f(-x)$ for all $x$ in the domain. A function is odd if $f(x)=-f(-x)$ for all $x$ in the domain.
+
+
+3. I have drawn half of a function. Draw the other half to make it even or odd.
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+xs = sort(c(0,sample(1:9,3)))
+ys = ys3
+makem(xs,ys)
+```
+
+\vfill
+
+4. I have drawn half of a function. Draw the other half to make it even or odd.
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+xs = sort(c(0,sample(1:9,3)))
+ys = ys4
+makem(xs,ys)
+```
+
+\vfill
+
