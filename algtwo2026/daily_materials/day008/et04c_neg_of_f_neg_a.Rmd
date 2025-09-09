@@ -1,0 +1,60 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+cf = sample(c(-5,-4,-3,-2,2,3,4,5),4)
+a = round(cf[1])
+b = round(cf[2])
+c = round(cf[3])
+d = round(cf[4])
+```
+
+
+
+Question
+========
+
+```{python, echo = FALSE, results = "hide"}
+from sympy import *
+x,a = symbols("x a")
+exp = int(r.a)*x**3+int(r.b)*x**2+int(r.c)*x+int(r.d)
+lexp = latex(exp)
+wexp2 = latex( -int(r.a)*a**3-int(r.b)*a**2-int(r.c)*a-int(r.d) )
+wexp1 = latex( exp.subs(x,a) )
+cexp = latex( int(r.a)*a**3-int(r.b)*a**2+int(r.c)*a-int(r.d) )
+wexp3 = latex( exp.subs(x,-a) )
+exps = [cexp,wexp1,wexp2,wexp3]
+```
+
+```{r,echo=FALSE}
+exps = py$exps
+rexps = sample(exps)
+ans1 = paste0(1*(rexps==exps[1]),collapse="")
+```
+
+Let function $f$ be defined as follows:
+$$f(x) ~=~ `r py$lexp`$$
+Which of the following expressions is equivalent to $-f(-a)$?
+
+Answerlist
+--------
+
+* $`r rexps[1]`$
+* $`r rexps[2]`$
+* $`r rexps[3]`$
+* $`r rexps[4]`$
+
+
+Solution
+========
+
+Substitute $-a$ for $x$ and multiply the whole expression by $(-1)$.
+
+$$-f(-a) ~=~ `r py$cexp`$$
+
+The shortcut is to recognize that only the quadratic (with $x^2$) and constant (the two EVEN powered terms) switch signs between $f(x)$ and $-f(-a)$.
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r ans1`
+exname: neg_of_f_neg_a

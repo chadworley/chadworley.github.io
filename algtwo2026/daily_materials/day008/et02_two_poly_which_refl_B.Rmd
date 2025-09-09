@@ -1,0 +1,108 @@
+```{r data generation, echo = FALSE, results = "hide"}
+cf = sample(2:9,8,T)*sample(c(-1,1),8,T)
+dg = 7:0
+mkp = function(cf,dg){
+    f = paste0("{",cf,"}x^{",dg,"}",collapse="+")
+    f = gsub("+{-","-{",f,fixed=T)
+    f = gsub("x^{1}","x",f,fixed=T)
+    f = gsub("x^{0}","",f,fixed=T)
+    return(f)
+}
+
+wo = sample(1:3,1)
+
+m1 = rep(c(-1,1),4) #f(-x)
+m2 = rep(-1,8) #-f(x)
+m3 = rep(c(1,-1),4) #-f(-x)
+
+f = mkp(cf,dg)
+fn = mkp(cf*m1,dg)
+nf = mkp(cf*m2,dg)
+nfn = mkp(cf*m3,dg)
+
+fs = c(fn,nf,nfn)
+
+cor = paste0("g(x)~=~",fs[wo],collapse="")
+
+ach = paste0("g(x)~=~",sample(fs))
+sol = paste0(1*(cor==ach),collapse="")
+
+g = fs[wo]
+
+descs = c("horizontal reflections over the $y$ axis","vertical reflections over the $x$ axis","180° rotations around the origin")
+desc = descs[wo]
+
+eqs = c("f(-x)","-f(x)","-f(-x)")
+cor_fx = eqs[wo]
+
+wrd1 = c("the ODD powered","ALL","the EVEN powered")[wo]
+
+```
+
+
+
+Question
+========
+
+Let function $f$ be defined by the polynomial below.
+
+$$f(x)=`r f`$$
+
+Another function, $g$, is another polynomial. The two functions are `r desc`. Which equation describes function $g$?
+
+
+Answerlist
+--------
+
+* $`r ach[1]`$
+* $`r ach[2]`$
+* $`r ach[3]`$
+
+
+Solution
+========
+
+The two functions are `r desc`, this tells us that, for all values of $x$:
+
+$$g(x)~=~`r cor_fx`$$
+
+And thus, between $f(x)$ and $g(x)$, the sign changed on `r wrd1` terms.
+
+$$`r cor`$$
+
+```{r,echo=F,fig.dim=c(8,4)}
+par(mfrow=c(1,2),mar=c(2,2,0,0))
+x = seq(-1,1,0.01)
+f = rep(0,length(x))
+for(i in 1:length(cf)){
+    f = f+cf[i]*x^dg[i]
+}
+
+nf = -f
+fn = rev(f)
+nfn = -fn
+
+fys = list(fn,nf,nfn)
+f2 = fys[[wo]]
+
+exy = max(abs(f))
+
+plot(x,f,"l",ylim=c(-exy,exy),col="blue",xlab="",ylab="")
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+lines(x,f,col="blue",lwd=2)
+lines(x,f2,col="red",lwd=2)
+text(1,0,"x",adj=c(1.1,1.1))
+text(0,exy,"y",adj=c(1.1,1.1))
+
+plot(0,0,"n",axes=F,ann=F)
+legend("left",c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=2)
+
+```
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: poly_which_reflection
