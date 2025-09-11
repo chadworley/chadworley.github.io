@@ -1,0 +1,161 @@
+---
+title: "Even and Odd Functions"
+author: "Mr. Worley"
+date: "2025 Sep 9"
+output:
+    slidy_presentation:
+        incremental: false
+# output: html_document
+---
+
+# Entrance ticket!
+
+Complete the entrance ticket: [ET_09_09](https://bart.instructure.com/courses/2110/quizzes/3171)
+
+Each term of a polynomial is either ODD powered or EVEN powered.
+
+To find $f(-x)$ from polynomial $f(x)$, switch sign on ODD powered terms.
+
+To find $-f(-x)$ from polynomial $f(x)$, switch sign on EVEN powered terms.
+
+To find $-f(x)$ from polynomial $f(x)$, switch sign on ALL terms.
+
+The linear term (like $-5x$ or $+6x$) is an ODD powered term, because $x^1\equiv x$. (And 1 is ODD.)
+
+The constant term (like $-5$ or $+6$) is an EVEN powered term, because $x^0 \equiv 1$. (And 0 is EVEN.)
+
+
+# Graphical examples
+
+* Let two functions be defined with polynomials:
+$$f(x)=x^5+x^4+x^3+x^2+x+1$$
+$$g(x)=-x^5+x^4-x^3+x^2-x+1$$
+What type of reflection relates these two functions?
+
+* Since the ODD powered terms have their signs changed, it seems $g(x)~=~f(-x)$, so the two curves $y=f(x)$ and $y=g(x)$ are horizontal reflections over the $y$ axis.\
+```{r,echo=F,fig.dim=c(4,4)}
+par(pty="s")
+x = seq(-1,1,0.01)
+f = x^5+x^4+x^3+x^2+x+1
+g = -x^5+x^4-x^3+x^2-x+1
+plot(x,f,"l",col="blue",ylab="y")
+lines(x,g,col="red")
+abline(h=0)
+abline(v=0)
+legend("top",c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(1,1))
+```
+
+* Let two functions be defined with polynomials:
+$$f(x)=x^5+x^4+x^3+x^2+x+1$$
+$$h(x)=-x^5-x^4-x^3-x^2-x-1$$
+What type of reflection relates these two functions?
+
+* Since ALL terms have their signs changed, it seems $h(x)~=~-f(x)$, so the two curves $y=f(x)$ and $y=h(x)$ are vertical reflections over the $x$ axis.\
+```{r,echo=F,fig.dim=c(4,4)}
+par(pty="s")
+x = seq(-1,1,0.01)
+f = x^5+x^4+x^3+x^2+x+1
+h = -f
+plot(x,f,"l",col="blue",ylab="y",ylim=c(-6,6))
+lines(x,h,col="purple")
+abline(h=0)
+abline(v=0)
+legend("top",c("y=f(x)","y=h(x)"),col=c("blue","purple"),lwd=c(1,1))
+```
+
+* Let two functions be defined with polynomials:
+$$f(x)=x^5+x^4+x^3+x^2+x+1$$
+$$j(x)=x^5-x^4+x^3-x^2+x-1$$
+What type of reflection relates these two functions?
+
+* Since the EVEN powered terms have their signs changed, it seems $j(x)~=~-f(-x)$, so the two curves $y=f(x)$ and $y=j(x)$ are 180° rotations around the origin.\
+```{r,echo=F,fig.dim=c(4,4)}
+par(pty="s")
+x = seq(-1,1,0.01)
+f = x^5+x^4+x^3+x^2+x+1
+j = -g
+plot(x,f,"l",col="blue",ylab="y",ylim=c(-6,6))
+lines(x,j,col="darkgreen")
+abline(h=0)
+abline(v=0)
+legend("top",c("y=f(x)","y=j(x)"),col=c("blue","darkgreen"),lwd=c(1,1))
+```
+
+
+# Define an EVEN function
+
+* A function is **even** if and only if $f(x)=f(-x)$ for all values of $x$ in the domain of the function.
+* An example of an even polynomial is $f(x)=5x^8+4x^6-3x^4+9x^2-7$.
+    * Notice it only has EVEN powered terms.
+* In an even function **opposite inputs give equal outputs**.
+* Here is another **even** function:
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -4:4
+f = c(5,3,7,4,-3,4,7,3,5)
+df = data.frame(x,f)
+colnames(df) = c("$x$","$f(x)$")
+kable(df) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+* Even functions have reflective symmetry over the $y$ axis.\
+```{r,echo=F,fig.dim=c(4,4)}
+x = -4:4
+f = c(5,3,7,4,-3,4,7,3,5)
+par(pty="s",mar=c(0,0,0,0))
+plot(x,f,"l",lwd=2,col="blue",axes=F,ann=F,ylim=c(-max(abs(f)),max(abs(f))))
+abline(v=0,lwd=2)
+abline(h=0,lwd=2)
+lines(x,f,col="blue",lwd=4)
+text(4,0,"x",adj=c(0,1.1))
+text(0,7,"y",adj=c(1.1,0))
+
+```
+
+
+# Define an ODD function
+
+* A function is **odd** if and only if $f(x)=-f(-x)$ for all values of $x$ in the domain of the function.
+* An example of an odd polynomial is $f(x)=5x^9+4x^7-3x^5+9x^3-7x$.
+    * Notice it only has ODD powered terms.
+* In an odd function **opposite inputs give opposite outputs**.
+* Here is another **odd** function:
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = -4:4
+f = c(-5,-3,7,4,0,-4,-7,3,5)
+df = data.frame(x,f)
+colnames(df) = c("$x$","$f(x)$")
+kable(df) %>%
+    kable_styling(bootstrap_options = "bordered",full_width = F)
+```
+* Odd functions have 180° rotational symmetry around the origin.\
+```{r,echo=F,fig.dim=c(4,4)}
+
+par(pty="s",mar=c(0,0,0,0))
+plot(x,f,"l",lwd=2,col="blue",axes=F,ann=F)
+abline(v=0,lwd=2)
+abline(h=0,lwd=2)
+lines(x,f,col="blue",lwd=4)
+text(4,0,"x",adj=c(0,1.1))
+text(0,7,"y",adj=c(1.1,0))
+
+```
+
+# Is it possible...
+
+Can a function be neither even nor odd?
+
+* Indeed, most functions are neither even nor odd. For example $y=2x+3$ is neither even nor odd because it is the sum of an odd term (the linear term, $2x$) and an even term (the constant, $3$).
+* You could prove this by recognizing $2(-x)+3$ is not equivalent to $2x+3$, and also $-(2(-x)+3)$ is not equivalent to $2x+3$.
+
+
+# Classwork
+
+
+* [OCW_0909_even_odd_funcs](https://bart.instructure.com/courses/2110/quizzes/3173)
+* [PCW_draw_even_or_odd](https://chadworley.github.io/algtwo2026/daily_materials/day008/PCW_draw_even_or_odd/PCW/PCW_draw_even_or_odd.html)
+
+
+
+

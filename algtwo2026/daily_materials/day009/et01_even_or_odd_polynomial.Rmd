@@ -1,0 +1,75 @@
+```{r data generation, echo = FALSE, results = "hide"}
+library(reticulate)
+cf = sample(c(-5,-4,-3,-2,2,3,4,5),2)
+a = round(cf[1])
+b = round(cf[2])
+ans = sample(1:3,1)
+if(ans==1){
+  eon = "even"
+  degs = c(0,2)
+  ans1 = "100"
+  explain = "$f(-x)=f(x)$ for all $x$"
+}
+if(ans==2){
+  eon = "odd"
+  degs = c(1,3)
+  ans1 = "010"
+  explain = "$f(-x)=-f(x)$ for all $x$, which also means $f(x)=-f(-x)$ for all $x$"
+}
+if(ans==3){
+  eon = "neither"
+  degs = sample(list(c(0,1),c(1,2),c(0,3)),1)[[1]]
+  ans1 = "001"
+  explain = "$f(-x)$ is not equivalent to $f(x)$, and $f(-x)$ is not equivalent to $-f(x)$"
+}
+```
+
+
+
+Question
+========
+
+```{python, echo = FALSE, results = "hide"}
+from sympy import *
+x = symbols("x")
+exp = int(r.a)*x**int(r.degs[0])+int(r.b)*x**int(r.degs[1])
+lexp = latex(exp)
+lexp2 = latex(exp.subs(x,-x))
+```
+
+This question is in regards to [even and odd functions](https://en.wikipedia.org/wiki/Even_and_odd_functions){target="_blank"}.
+
+* A function $f$ is **even** if and only if $f(x)=f(-x)$ for all $x$. In an even function, *opposite inputs give equal outputs*.
+* A function $f$ is **odd** if and only if $f(x)=-f(-x)$ for all $x$. In an odd function, *opposite inputs give opposite outputs*.
+* A function can also be neither even nor odd.
+
+Let function $f$ be defined as follows:
+$$f(x) ~=~ `r py$lexp`$$
+Is the function even, odd, or neither?
+
+Answerlist
+--------
+
+* Even
+* Odd
+* Neither
+
+
+Solution
+========
+
+First, simplify $f(-x)$.
+$$f(-x) = `r py$lexp2` $$
+
+Notice that `r explain`.
+
+The function is `r eon`.
+
+As a shortcut, if all degrees (exponents) are odd, the polynomial is odd. If all degrees are even, the polynomial is even. Remember, linear terms have an implicit degree of 1 (odd) and constant terms have an implicit degree of 0 (even). The terminology of "even" and "odd" actually originates from polynomials, but the definitions are useful for other function families too.
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r ans1`
+exname: even_odd_neither_poly
