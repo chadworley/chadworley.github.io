@@ -1,0 +1,78 @@
+```{r data generation, echo = FALSE, results = "hide"}
+nmax = sample(5:8,1)
+nterms = 4
+cf = sample(2:9,nterms,T)*sample(c(-1,1),nterms,T)
+dg = nmax:(nmax-4+1)
+mkp = function(cf,dg){
+    f = paste0("{",cf,"}x^{",dg,"}",collapse="+")
+    f = gsub("+{-","-{",f,fixed=T)
+    f = gsub("x^{1}","x",f,fixed=T)
+    f = gsub("x^{0}","",f,fixed=T)
+    f = gsub("x^{0}","",f,fixed=T)
+    f = gsub("{","",f,fixed=T)
+    f = gsub("}","",f,fixed=T)
+    return(f)
+}
+m1 = rep(-1,nterms) #-f(x)
+if(nmax%%2==1){
+    m2 = rep(c(-1,1),nterms)[1:nterms] #f(-x)
+    m3 = rep(c(1,-1),nterms)[1:nterms] #-f(-x)
+} else {
+    m2 = rep(c(1,-1),nterms)[1:nterms] #f(-x)
+    m3 = rep(c(-1,1),nterms)[1:nterms] #-f(-x)
+}
+f = mkp(cf,dg)
+nf = mkp(cf*m1,dg)
+fn = mkp(cf*m2,dg)
+nfn = mkp(cf*m3,dg)
+ex1 = gsub("x","(-x)",f,fixed=T)
+
+ach = sample(c(f,nf,fn,nfn))
+al = paste0("* $",ach,"$",collapse="\n")
+
+sol = paste0(1*(ach==fn),collapse="")
+
+```
+
+Question
+========
+
+Simplify the expression:
+$$`r ex1`$$
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+The correct answer is $`r fn`$.
+
+If you multiply together an even number of negatives, the result is positive. If you multiply together an odd number of negatives, the result is negative.
+
+Maybe it helps to consider that exponents distribute over multiplication, and $-x$ is short for the product of $(-1)$ and $(x)$. So, I can rewrite $(-x)^5$ as $(-1)^5(x)^5$. Then, we know $(-1)^5=-1$ and $(x)^5$ is just $x^5$. Thus, we can prove that $(-x)^5$ is an equivalent expression to $-x^5$.
+
+In short, this sequence of [identities](https://en.wikipedia.org/wiki/Identity_(mathematics)) should not surprise you too much:
+
+$$\begin{align}
+(-x)^2~&\equiv~x^2 \\
+(-x)^3~&\equiv~-x^3 \\
+(-x)^4~&\equiv~x^4 \\
+(-x)^5~&\equiv~-x^5 \\
+(-x)^6~&\equiv~x^6 \\
+(-x)^7~&\equiv~-x^7 \\
+(-x)^8~&\equiv~x^8 \\
+(-x)^9~&\equiv~-x^9
+\end{align}$$
+
+And then you just need to take the signs of the coefficients (the numbers in front of the $x$s), and alter them depending on whether a negative makes its way out of an odd exponent (said very informally).
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: simp_poly_nx

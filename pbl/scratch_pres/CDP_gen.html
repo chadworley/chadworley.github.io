@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Pattern Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        h1, h2 {
+            color: #0056b3;
+        }
+        #controls {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+        #controls div {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="number"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+            align-self: flex-end; /* Align button to the right within its container */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #svgContainer {
+            border: 2px solid #007bff;
+            background-color: #ffffff;
+            margin-top: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            overflow: hidden; /* Ensure SVG content stays within bounds */
+        }
+        #svgCodeOutput {
+            width: 90%;
+            max-width: 600px;
+            height: 200px;
+            margin-top: 20px;
+            font-family: 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.9em;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fcfcfc;
+            resize: vertical;
+            white-space: pre;
+            overflow: auto;
+        }
+        #nrContainer {
+            width: 90%;
+            max-width: 600px;
+            height: 20pt;
+            margin-top: 20px;
+            font-family: 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.9em;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fcfcfc;
+            resize: vertical;
+            white-space: pre;
+            overflow: auto;
+        }
+        svg {
+            display: block; /* Remove extra space below SVG */
+        }
+    </style>
+</head>
+<body>
+    <h1>Countdown Pattern SVG Generator</h1>
+
+    <div id="controls">
+        <div>
+            <label for="turn_angle">Turn Angle (degrees clockwise):</label>
+            <input type="number" id="turn_angle" value="60" min="0" step="any">
+        </div>
+        <div>
+            <label for="countdown_max">Countdown Max:</label>
+            <input type="number" id="countdown_max" value="19" min="1" step="1">
+        </div>
+        <div>
+            <label for="num_reps">Maximum Number of Repetitions:</label>
+            <input type="number" id="num_reps" value="100" min="1" step="1">
+        </div>
+        <button onclick="generatePattern()">Generate SVG</button>
+    </div>
+
+    <h2>Generated Pattern:</h2>
+    <div id="svgContainer">
+        <!-- SVG will be injected here -->
+    </div>
+    
+    <div id="nrContainer">
+        <!-- The number of reps used for the pattern... -->
+    </div>
+
+    <h2>SVG Code:</h2>
+    <textarea id="svgCodeOutput" readonly></textarea>
+
+    <script>
+        function generatePattern() {
+            const turn_angle = parseFloat(document.getElementById('turn_angle').value);
+            const countdown_max = parseInt(document.getElementById('countdown_max').value);
+            const num_reps = parseInt(document.getElementById('num_reps').value);
+
+            // Input validation
+            if (isNaN(turn_angle) || isNaN(countdown_max) || isNaN(num_reps) || countdown_max < 1 || num_reps < 1) {
+                alert("Please enter valid positive numbers for all parameters.");
+                return;
+            }
+
+            const points = [];
+            let current_x = 0;
+            let current_y = 0;
+            let current_angle_deg = 90; // Start pointing up (90 degrees on a standard Cartesian plane)
+
+            // points.push([current_x, current_y]); // Add the starting point
+
+            // Generate points for the pattern
+            for (let i = 0; i < num_reps; i++) {
+                let count_val = countdown_max;
+                while (count_val > 0) {
+                    const current_angle_rad = current_angle_deg * Math.PI / 180;
+                    
+                    // Move forward 'count_val' units
+                    current_x += count_val * Math.cos(current_angle_rad);
+                    current_y += count_val * Math.sin(current_angle_rad);
+                    points.push([current_x, current_y]);
+
+                    // Turn 'turn_angle' degrees clockwise
+                    current_angle_deg -= turn_angle; 
+                    count_val--;
+                }
+                document.getElementById('nrContainer').value = "The number of repetitions used: "+(i+1);
+                document.getElementById('nrContainer').innerHTML = "The number of repetitions used: "+(i+1);
+                if(Math.abs(current_x)<0.01 && Math.abs(current_y)<0.01 && Math.abs(current_angle_deg%360+270)<0.01){break;}
+            }
+
+            // Calculate bounding box for scaling
+            let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+            if (points.length > 0) {
+                for (const p of points) {
+                    minX = Math.min(minX, p[0]);
+                    minY = Math.min(minY, p[1]);
+                    maxX = Math.max(maxX, p[0]);
+                    maxY = Math.max(maxY, p[1]);
+                }
+            } else {
+                // Default for no points (shouldn't happen with current logic)
+                minX = minY = maxX = maxY = 0;
+            }
+            
+            const patternWidth = maxX - minX;
+            const patternHeight = maxY - minY;
+            const midX = (minX+maxX)/2;
+            const midY = (minY+maxY)/2;
+            const patternDim = Math.max(patternWidth, patternHeight);
+            for (const p of points) {
+                p[0] = (p[0]-midX)/patternDim*100
+                p[1] = (p[1]-midY)/patternDim*100
+            }
+            
+            // Determine viewBox for scaling and centering the pattern within a 300x300 area
+            // We want the pattern to fill the square, so the larger dimension determines the viewBox size.
+            let viewBoxSize = 100;
+
+            // Handle cases where pattern might be a single point or very small, to avoid zero viewBoxSize
+            if (viewBoxSize === 0) {
+                viewBoxSize = 10; // Default a small viewBox to be visible
+                minX -= 5; // Adjust min/max to center the point in the default viewBox
+                minY -= 5;
+            }
+
+            // Calculate viewBox coordinates to center the pattern
+            // The viewBox will have a square aspect ratio. We adjust its X and Y origin
+            // to center the actual pattern within that square.
+            const viewBoxX = -50;
+            const viewBoxY = -50;
+            
+            // Format points for SVG polygon 'points' attribute
+            const pointsString = points.map(p => `${p[0]},${p[1]}`).join(' ');
+
+            // Calculate stroke-width to maintain a consistent visual thickness regardless of zoom.
+            // A stroke-width of 'N' in viewBox units corresponds to `N * (SVG_WIDTH / viewBoxSize)` pixels.
+            // We want a stroke of approximately 1 pixel on the 300x300 display.
+            const targetPixelStrokeWidth = 0.5; // e.g., 1.5 pixels
+            const svgWidthPixels = 500;
+            const effectiveStrokeWidth = targetPixelStrokeWidth * (viewBoxSize / svgWidthPixels);
+
+            // Generate the SVG string
+            const svg = `
+<svg width="${svgWidthPixels}" height="${svgWidthPixels}" viewBox="${viewBoxX} ${viewBoxY} ${viewBoxSize} ${viewBoxSize}">
+    <rect x="${viewBoxX}" y="${viewBoxY}" width="${viewBoxSize}" height="${viewBoxSize}" fill="white" stroke="none"/>
+    <polygon points="${pointsString}"
+             fill="none" 
+             stroke="blue" 
+             stroke-width="${Math.max(effectiveStrokeWidth, 0.1)}" 
+             stroke-linecap="round" 
+             stroke-linejoin="round"/>
+</svg>
+            `;
+
+            // Display the SVG
+            document.getElementById('svgContainer').innerHTML = svg;
+            // Display the SVG code
+            document.getElementById('svgCodeOutput').value = svg;
+            
+            document.getElementById('nrContainer').value = "Number of countdowns used";
+        }
+
+        // Generate a pattern with default values when the page loads
+        window.onload = generatePattern;
+    </script>
+</body>
+</html>

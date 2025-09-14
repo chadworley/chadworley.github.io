@@ -1,0 +1,64 @@
+```{r data generation, echo = FALSE, results = "hide"}
+nmax = sample(5:8,1)
+nterms = 4
+cf = sample(2:9,nterms,T)*sample(c(-1,1),nterms,T)
+dg = nmax:(nmax-4+1)
+mkp = function(cf,dg){
+    f = paste0("{",cf,"}x^{",dg,"}",collapse="+")
+    f = gsub("+{-","-{",f,fixed=T)
+    f = gsub("x^{1}","x",f,fixed=T)
+    f = gsub("x^{0}","",f,fixed=T)
+    f = gsub("x^{0}","",f,fixed=T)
+    f = gsub("{","",f,fixed=T)
+    f = gsub("}","",f,fixed=T)
+    return(f)
+}
+m1 = rep(-1,nterms) #-f(x)
+if(nmax%%2==1){
+    m2 = rep(c(-1,1),nterms)[1:nterms] #f(-x)
+    m3 = rep(c(1,-1),nterms)[1:nterms] #-f(-x)
+} else {
+    m2 = rep(c(1,-1),nterms)[1:nterms] #f(-x)
+    m3 = rep(c(-1,1),nterms)[1:nterms] #-f(-x)
+}
+f = mkp(cf,dg)
+nf = mkp(cf*m1,dg)
+fn = mkp(cf*m2,dg)
+nfn = mkp(cf*m3,dg)
+ex1 = gsub("x","(-x)",f,fixed=T)
+ex2 = paste0("-\\left(",f,"\\right)",collapse="")
+
+ach = sample(c(f,nf,fn,nfn))
+al = paste0("* $",ach,"$",collapse="\n")
+
+sol = paste0(1*(ach==nf),collapse="")
+
+```
+
+Question
+========
+
+Simplify the expression:
+$$`r ex2`$$
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+The correct answer is $`r nf`$. The negative gets distributed to each term of the polynomial. (Where each term is a product of a coefficient [a number] times $x$ raised to a whole number.)
+
+I am pretty careful to use the word "term" to mean things added or subtracted. I use "factor" when things are multiplied (or divided I guess). So, each term of the polynomial has two factors: a coefficient and $x$ raised to a whole number.
+
+In short, just change the signs of all the coefficients.
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: simp_n_poly_x

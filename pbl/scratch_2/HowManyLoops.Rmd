@@ -1,0 +1,88 @@
+---
+output: pdf_document
+urlcolor: blue
+---
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+# How many loops will my countdown pattern have?
+
+* Two key parameters that dictate the countdown pattern:
+    * `turn_deg`: The turn angle (in degrees)
+    * `count_max`: The countdown maximum (which is also number of segments per loop)
+* From those, **can we predict how many loops are formed?**
+* For example, if we set the parameters to the values below:
+    * `turn_deg` = 108° which is equivalent to $\frac{3}{10}$ full turn
+    * `count_max` = 6
+    * Then we get 5 loops:\
+```{r,echo=F,fig.dim=c(1,1)}
+drawit = function(L=16,dD=-pi/2,D=-pi/2,n=1000,lwd=1,col="blue"){
+    x = c(0)
+    y = c(0)
+    l = L
+    for(i in 1:n){
+        x0 = x[i]
+        y0 = y[i]
+        x2 = x[i]+l*cos(D)
+        y2 = y[i]+l*sin(D)
+        l = (l-2)%%L+1
+        D = D+dD
+        x = c(x,x2)
+        y = c(y,y2)
+        if(abs(x2)<0.001 && abs(y2)<0.001){break}
+    }
+    xmin = min(x)
+    xmax = max(x)
+    xmid = mean(c(xmin,xmax))
+    ymin = min(y)
+    ymax = max(y)
+    ymid = mean(c(ymin,ymax))
+    r = max(c(xmax-xmid,ymax-ymid))
+    xlo = xmid-r
+    xhi = xmid+r
+    ylo = ymid-r
+    yhi = ymid+r
+    plot(0,0,"n",ann=F,xlim=c(xlo,xhi),ylim=c(ylo,yhi))
+    lines(x,y,lwd=lwd,col=col)
+}
+par(mar=c(0,0,0,0),pty="s",oma=c(0,0,0,0))
+drawit(L=6,dD=3*pi/5,lwd=1.5)
+```
+* Sometimes we can get infinity loops. For example:
+    * `turn_deg` = 90° which is equivalent to $\frac{1}{4}$ full turn
+    * `count_max` = 8\
+```{r,echo=F,fig.dim=c(1,1)}
+par(mar=c(0,0,0,0),pty="s",oma=c(0,0,0,0))
+drawit(L=8,dD=pi/2,n=128)
+```
+    * Notice, this pattern would continue forever, making `loops`=$\infty$.
+* As suggested before, it'll be useful to use **fraction of a full turn** instead of degrees. Some examples:
+$$120^{\circ}=\frac{1}{3}\text{ full turn}$$
+$$90^{\circ}=\frac{1}{4}\text{ full turn}$$
+$$72^{\circ}=\frac{1}{5}\text{ full turn}$$
+$$144^{\circ}=\frac{2}{5}\text{ full turn}$$
+$$60^{\circ}=\frac{1}{6}\text{ full turn}$$
+* In our new Scratch project, we will set the numerator and denominator of the turn fraction.
+    * https://scratch.mit.edu/projects/1216750917
+    * `turn_a` is the numerator (top of fraction)
+    * `turn_b` is the denominator (bottom of fraction)
+    * The computer will calculate `turn_deg` for you. $$\mathtt{turn\_deg}~=~360^{\circ}\cdot \frac{\mathtt{turn\_a}}{\mathtt{turn\_b}}$$
+* In order to find the prediction rule, record some results in tables.
+
+\newpage
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+turn_a = rep(1,10)
+turn_b = rep(1,10)
+count_max = c(1,2,3,4,5,6,7,8,9,10)
+turn_deg = rep("$\\phantom{\\cfrac{2222}{2222}}$",10)
+loops = rep("$\\phantom{\\cfrac{2222}{2222}}$",10)
+df = data.frame(turn_a,turn_b,count_max,turn_deg,loops)
+kable(df,escape = FALSE)
+
+```
+
+
+
+
