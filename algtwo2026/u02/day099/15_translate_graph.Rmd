@@ -1,0 +1,185 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+while(T){
+    x = sort(sample(-9:9,4))
+    y = sample(-9:9,4)
+    
+    hk = sample(2:9,2)*sample(c(-1,1),2,T)
+    h = hk[1]
+    k = hk[2]
+    x2 = x+h
+    y2 = y+k
+    if(max(abs(c(x2,y2)))<10){break}
+}
+
+ach = -10:10
+ach = ach[ach!=0]
+ast = paste("+",ach)
+al = paste0("* +",ach,collapse="\n")
+al = gsub("+-","-",al,fixed=T)
+
+sol1 = paste0(1*(ach==-h),collapse="")
+sol2 = paste0(1*(ach==k),collapse="")
+
+
+if(h>0){
+    lr = "right"
+} else {
+    lr = "left"
+}
+
+if(k>0){
+    ud = "up"
+} else {
+    ud = "down"
+}
+
+ans = paste0("g(x)~=~f(x+",-h,")+",k,collapse="")
+ans = gsub("+-","-",ans,fixed=T)
+
+```
+
+Question
+========
+
+In the graph below, we see $y=f(x)$ as a blue line and $y=g(x)$ as a red line.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    abline(h=i,col="lightgrey",lwd=0.8)
+    abline(v=i,col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    abline(h=i,col="darkgrey",lwd=1.2)
+    abline(v=i,col="darkgrey",lwd=1.2)
+}
+arrows(-10.3,0,10.3,0,0.1,10,3,lwd=2)
+arrows(0,-10.3,0,10.3,0.1,10,3,lwd=2)
+lines(x,y,col="blue",lwd=3)
+points(x,y,col="blue",pch=20,cex=1.5)
+lines(x2,y2,col="red",lwd=3)
+points(x2,y2,col="red",pch=20,cex=1.5)
+text(10,-0.5,10,cex=0.8)
+text(-10,-0.5,-10,cex=0.8)
+text(-0.5,10,10,cex=0.8)
+text(-0.5,-10,-10,cex=0.8)
+text(10,0.5,"x",cex=0.8)
+text(0.5,10,"y",cex=0.8)
+
+xxx = c(x,x2)
+yyy = c(y,y2)
+
+adtl = min((xxx+10)^2+(yyy-10)^2)
+adtr = min((xxx-10)^2+(yyy-10)^2)
+adbl = min((xxx+10)^2+(yyy+10)^2)
+adbr = min((xxx-10)^2+(yyy+10)^2)
+ads = c(adtl,adtr,adbl,adbr)
+iii = min(which(ads==max(ads)))
+
+if(iii==1){
+    legend("topleft",c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(3,3))
+} else if(iii==2){
+    legend("topright",c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(3,3))
+} else if(iii==3){
+    legend("bottomleft",c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(3,3))
+} else if(iii==4){
+    legend("bottomright",c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(3,3))
+}
+
+```
+\
+
+
+```{css,echo=F}
+.question_input {
+  width: 30pt;
+}
+```
+
+We can see that $g$ is a translated version of $f$. Thus, we can find constants $a$ and $b$ such that $g(x)=f(x+a)+b$ for all values of $x$. Determine $a$ and $b$:
+
+
+* $g(x)~=~ f\biggl(x$##ANSWER1##$\biggr)$##ANSWER2##
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+To go from blue dots to red dots, you go `r abs(h)` units `r lr` and `r abs(k)` units `r ud`.
+
+```{r,echo=F,fig.dim=c(6,6)}
+
+col1 = rgb(0.8,0.8,1)
+col2 = rgb(1,0.8,0.8)
+
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    abline(h=i,col="lightgrey",lwd=0.8)
+    abline(v=i,col="lightgrey",lwd=0.8)
+}
+for(i in seq(-10,10,5)){
+    abline(h=i,col="darkgrey",lwd=1.2)
+    abline(v=i,col="darkgrey",lwd=1.2)
+}
+arrows(-10.3,0,10.3,0,0.1,10,3,lwd=2,col=rgb(0.5,0.5,0.5))
+arrows(0,-10.3,0,10.3,0.1,10,3,lwd=2,col=rgb(0.5,0.5,0.5))
+lines(x,y,col=col1,lwd=3)
+points(x,y,col=col1,pch=20,cex=1.5)
+lines(x2,y2,col=col2,lwd=3)
+points(x2,y2,col=col2,pch=20,cex=1.5)
+text(10,-0.5,10,cex=0.8)
+text(-10,-0.5,-10,cex=0.8)
+text(-0.5,10,10,cex=0.8)
+text(-0.5,-10,-10,cex=0.8)
+text(10,0.5,"x",cex=0.8)
+text(0.5,10,"y",cex=0.8)
+
+xxx = c(x,x2)
+yyy = c(y,y2)
+
+adtl = min((xxx+10)^2+(yyy-10)^2)
+adtr = min((xxx-10)^2+(yyy-10)^2)
+adbl = min((xxx+10)^2+(yyy+10)^2)
+adbr = min((xxx-10)^2+(yyy+10)^2)
+ads = c(adtl,adtr,adbl,adbr)
+iii = min(which(ads==max(ads)))
+
+if(iii==1){
+    legend("topleft",c("y=f(x)","y=g(x)"),col=c(col1,col2),lwd=c(3,3))
+} else if(iii==2){
+    legend("topright",c("y=f(x)","y=g(x)"),col=c(col1,col2),lwd=c(3,3))
+} else if(iii==3){
+    legend("bottomleft",c("y=f(x)","y=g(x)"),col=c(col1,col2),lwd=c(3,3))
+} else if(iii==4){
+    legend("bottomright",c("y=f(x)","y=g(x)"),col=c(col1,col2),lwd=c(3,3))
+}
+
+
+for(j in 1:4){
+    arrows(x[j],y[j],x2[j],y[j],lwd=4,length=0.15,angle=20,2)
+    arrows(x2[j],y[j],x2[j],y2[j],lwd=4,length=0.15,angle=20,2)
+}
+
+```
+\
+
+So,
+$$`r ans`$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: translate_graph

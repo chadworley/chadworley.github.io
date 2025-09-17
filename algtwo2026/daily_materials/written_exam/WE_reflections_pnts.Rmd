@@ -1,0 +1,755 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+    useseed: false
+    titex: "practice"
+urlcolor: blue
+---
+
+```{r,echo=F}
+# # Topics:
+# * Is a relation a function? Is function one-to-one?
+# * Function notation
+#     * Evaluate a function at x=a
+# * Inverse functions
+#     * Tables/graphs/expressions (2 step functions)
+# * Function reflections
+# * Even/odd functions
+
+# To whoever edits this in the future: I am terribly sorry. I wrote this during a fever, so the code is fucking crazy.
+# It'd be nice to have a question like: simplify (-x)^3+(-x)^2+(-x)+1 or simplify -(x^3+x^2+x+1)
+
+testing = F
+ttn = 0
+tt = function(){
+    ttn <<- ttn+1
+    if(testing){
+        print(ttn)
+    }
+}
+
+if(params$useseed){
+    set.seed(params$rseed)
+}
+if(params$showsol){
+    solstart = "\\color{red}"
+    solend = "\\color{black}"
+    hidesolstart = "<!---"
+    hidesolend = "-->"
+} else {
+    solstart = "<!---"
+    solend = "-->"
+    hidesolstart = ""
+    hidesolend = ""
+}
+qcnt = 0
+pn = function(){
+    qcnt <<- qcnt+1
+    return(paste0(qcnt,"."))
+}
+tt()
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+# Exam: Function Reflections (`r params$titex` version `r params$rseed`)
+
+```{r,echo=F}
+n = sample(c(4,5),1)
+cf = sample(2:9,n+1)*sample(c(-1,1),n+1,T)
+dg = n:0
+mkp = function(cf,dg){
+    f = paste0("{",cf,"}x^{",dg,"}",collapse="+")
+    f = gsub("+{-","-{",f,fixed=T)
+    f = gsub("x^{1}","x",f,fixed=T)
+    f = gsub("x^{0}","",f,fixed=T)
+    f = gsub("x^{0}","",f,fixed=T)
+    f = gsub("{","",f,fixed=T)
+    f = gsub("}","",f,fixed=T)
+    return(f)
+}
+m1 = rev(rep(c(1,-1),3)[1:(n+1)]) #f(-x)
+m2 = rep(-1,n+1) #-f(x)
+m3 = rev(rep(c(-1,1),3)[1:(n+1)]) #-f(-x)
+f = mkp(cf,dg)
+fn = mkp(cf*m1,dg)
+nf = mkp(cf*m2,dg)
+nfn = mkp(cf*m3,dg)
+ffs = list(fn,nf,nfn)
+fts = c("f(-x)","-f(x)","-f(-x)")
+ord1 = sample(1:3)
+ord2 = sample(1:3)
+```
+
+`r pn()` (worth 9 points) Let function $f$ be defined by the polynomial below:
+$$f(x)~=~`r f`$$
+Draw lines that match each function reflection with its polynomial:
+
+```{r,echo=F,fig.dim=c(5,1.5),fig.align='center'}
+library(latex2exp)
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1.5),axes=F,ann=F)
+text(0.15,0.9,TeX(paste0("$",fts[ord1[1]],"$",collapse="")),adj=1)
+text(0.15,0.5,TeX(paste0("$",fts[ord1[2]],"$",collapse="")),adj=1)
+text(0.15,0.1,TeX(paste0("$",fts[ord1[3]],"$",collapse="")),adj=1)
+
+if(n==4){
+    bump=-0.1
+} else {
+    bump=0
+}
+text(1+bump,0.9,TeX(paste0("$",ffs[[ord2[1]]],"$",collapse="")),adj=1)
+text(1+bump,0.5,TeX(paste0("$",ffs[[ord2[2]]],"$",collapse="")),adj=1)
+text(1+bump,0.1,TeX(paste0("$",ffs[[ord2[3]]],"$",collapse="")),adj=1)
+
+text(0.13,1.5,"Reflections",adj=c(0.5,1))
+text(0.75,1.5,"Polynomials",adj=c(0.5,1))
+
+lines(c(0,0.25),c(1.2,1.2),lwd=2)
+lines(c(0.5,1),c(1.2,1.2),lwd=2)
+
+xp = c(rep(0.2,3),rep(0.5,3))
+yp = c(rep(c(0.1,0.5,0.9),2))
+points(xp,yp,pch=19)
+
+if(params$showsol){
+    yps = rev(yp[1:3])
+    for(i in 1:3){
+        lines(c(0.2,0.5),c(yps[which(ord1==i)],yps[which(ord2==i)]),col="red")
+    }
+}
+```
+
+
+`r pn()` (worth 20 points) In each $xy$ plane shown below, a function is graphed with blue. Draw the indicated reflections (as a second curve, indicated in legend) with black (or with whatever you have). The $x$ axis is horizontal and the $y$ axis is vertical (as typical), and the scale is equal on both axes.
+
+```{r,echo=F,fig.dim=c(7,5.5),fig.align='center'}
+qord = sample(1:4)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),mfrow=c(2,2))
+fts = c("f^{-1}(x)","f(-x)","-f(x)","-f(-x)")
+while(T){
+    x = sort(sample(1:5,3,F)*sample(c(-1,1),3,T))
+    y = sort(sample(1:5,3,F)*sample(c(-1,1),3,T),decreasing = sample(c(T,F),1))
+    m = diff(y)/diff(x)
+    th = atan(m)
+    d = sqrt(diff(x)^2+diff(y)^2)
+    if(diff(th)>pi/8 && abs(log(d[2]/d[1]))>log(1.7) && sum(1==abs(m))==0){break}
+}
+plot(0,0,"n",xlim=c(-8.8,5.2),ylim=c(-5.5,5.5),axes=F,ann=F)
+j = seq(-5,5,0.2)
+for(i in -5:5){
+    points(rep(i,length(j)),j,pch=19,cex=0.1)
+    points(j,rep(i,length(j)),pch=19,cex=0.1)
+}
+polygon(c(-5,5,5,-5),c(-5,-5,5,5))
+arrows(0,5.5,0,-5.5,0.07,15,3,lwd=2)
+arrows(5.5,0,-5.5,0,0.07,15,3,lwd=2)
+lines(x,y,col="blue",lwd=2)
+points(x,y,col="blue",cex=0.8,pch=19)
+qt = qord[1]
+if(qt==1){
+    x2 = y
+    y2 = x
+} else if(qt==2){
+    x2 = -x
+    y2 = y
+} else if(qt==3){
+    x2 = x
+    y2 = -y
+} else if(qt==4){
+    x2 = -x
+    y2 = -y
+}
+ft = fts[qord[1]]
+ft = gsub("f","g",ft)
+ft = paste0("$y=",ft,"$",collapse="")
+if(params$showsol){
+    lines(x2,y2,lwd=2,col="red")
+    points(x2,y2,pch=19,cex=0.8,col="red")
+    legend("topleft",c(TeX("$y=g(x)$"),TeX(ft)),pch=c(19,19),pt.cex = 0.7,cex=0.9,col=c("blue","red"))
+} else {
+    legend("topleft",c(TeX("$y=g(x)$"),TeX(ft)),pch=c(19,19),pt.cex = 0.7,cex=0.9,col=c("blue","black"))
+}
+
+
+while(T){
+    x = sort(sample(1:5,3,F)*sample(c(-1,1),3,T))
+    y = sort(sample(1:5,3,F)*sample(c(-1,1),3,T),decreasing = sample(c(T,F),1))
+    m = diff(y)/diff(x)
+    th = atan(m)
+    d = sqrt(diff(x)^2+diff(y)^2)
+    if(diff(th)>pi/8 && abs(log(d[2]/d[1]))>log(1.7) && sum(1==abs(m))==0){break}
+}
+plot(0,0,"n",xlim=c(-5.2,8.8),ylim=c(-5.5,5.5),axes=F,ann=F)
+j = seq(-5,5,0.2)
+for(i in -5:5){
+    points(rep(i,length(j)),j,pch=19,cex=0.1)
+    points(j,rep(i,length(j)),pch=19,cex=0.1)
+}
+polygon(c(-5,5,5,-5),c(-5,-5,5,5))
+arrows(0,5.5,0,-5.5,0.07,15,3,lwd=2)
+arrows(5.5,0,-5.5,0,0.07,15,3,lwd=2)
+lines(x,y,col="blue",lwd=2)
+points(x,y,col="blue",cex=0.8,pch=19)
+qt = qord[2]
+if(qt==1){
+    x2 = y
+    y2 = x
+} else if(qt==2){
+    x2 = -x
+    y2 = y
+} else if(qt==3){
+    x2 = x
+    y2 = -y
+} else if(qt==4){
+    x2 = -x
+    y2 = -y
+}
+ft = fts[qord[2]]
+ft = gsub("f","h",ft)
+ft = paste0("$y=",ft,"$",collapse="")
+if(params$showsol){
+    lines(x2,y2,lwd=2,col="red")
+    points(x2,y2,pch=19,cex=0.8,col="red")
+    legend("topright",c(TeX("$y=h(x)$"),TeX(ft)),pch=c(19,19),pt.cex = 0.7,cex=0.9,col=c("blue","red"))
+} else {
+    legend("topright",c(TeX("$y=h(x)$"),TeX(ft)),pch=c(19,19),pt.cex = 0.7,cex=0.9,col=c("blue","black"))
+}
+
+while(T){
+    x = sort(sample(1:5,3,F)*sample(c(-1,1),3,T))
+    y = sort(sample(1:5,3,F)*sample(c(-1,1),3,T),decreasing = sample(c(T,F),1))
+    m = diff(y)/diff(x)
+    th = atan(m)
+    d = sqrt(diff(x)^2+diff(y)^2)
+    if(diff(th)>pi/8 && abs(log(d[2]/d[1]))>log(1.7) && sum(1==abs(m))==0){break}
+}
+plot(0,0,"n",xlim=c(-8.8,5.2),ylim=c(-5.5,5.5),axes=F,ann=F)
+j = seq(-5,5,0.2)
+for(i in -5:5){
+    points(rep(i,length(j)),j,pch=19,cex=0.1)
+    points(j,rep(i,length(j)),pch=19,cex=0.1)
+}
+polygon(c(-5,5,5,-5),c(-5,-5,5,5))
+arrows(0,5.5,0,-5.5,0.07,15,3,lwd=2)
+arrows(5.5,0,-5.5,0,0.07,15,3,lwd=2)
+lines(x,y,col="blue",lwd=2)
+points(x,y,col="blue",cex=0.8,pch=19)
+qt = qord[3]
+if(qt==1){
+    x2 = y
+    y2 = x
+} else if(qt==2){
+    x2 = -x
+    y2 = y
+} else if(qt==3){
+    x2 = x
+    y2 = -y
+} else if(qt==4){
+    x2 = -x
+    y2 = -y
+}
+ft = fts[qord[3]]
+ft = gsub("f","m",ft)
+ft = paste0("$y=",ft,"$",collapse="")
+if(params$showsol){
+    lines(x2,y2,lwd=2,col="red")
+    points(x2,y2,pch=19,cex=0.8,col="red")
+    legend("bottomleft",c(TeX("$y=m(x)$"),TeX(ft)),pch=c(19,19),pt.cex = 0.7,cex=0.9,col=c("blue","red"))
+} else {
+    legend("bottomleft",c(TeX("$y=m(x)$"),TeX(ft)),pch=c(19,19),pt.cex = 0.7,cex=0.9,col=c("blue","black"))
+}
+
+while(T){
+    x = sort(sample(1:5,3,F)*sample(c(-1,1),3,T))
+    y = sort(sample(1:5,3,F)*sample(c(-1,1),3,T),decreasing = sample(c(T,F),1))
+    m = diff(y)/diff(x)
+    th = atan(m)
+    d = sqrt(diff(x)^2+diff(y)^2)
+    if(diff(th)>pi/8 && abs(log(d[2]/d[1]))>log(1.7) && sum(1==abs(m))==0){break}
+}
+plot(0,0,"n",xlim=c(-5.2,8.8),ylim=c(-5.5,5.5),axes=F,ann=F)
+j = seq(-5,5,0.2)
+for(i in -5:5){
+    points(rep(i,length(j)),j,pch=19,cex=0.1)
+    points(j,rep(i,length(j)),pch=19,cex=0.1)
+}
+polygon(c(-5,5,5,-5),c(-5,-5,5,5))
+arrows(0,5.5,0,-5.5,0.07,15,3,lwd=2)
+arrows(5.5,0,-5.5,0,0.07,15,3,lwd=2)
+lines(x,y,col="blue",lwd=2)
+points(x,y,col="blue",cex=0.8,pch=19)
+qt = qord[4]
+if(qt==1){
+    x2 = y
+    y2 = x
+} else if(qt==2){
+    x2 = -x
+    y2 = y
+} else if(qt==3){
+    x2 = x
+    y2 = -y
+} else if(qt==4){
+    x2 = -x
+    y2 = -y
+}
+ft = fts[qord[4]]
+ft = gsub("f","p",ft)
+ft = paste0("$y=",ft,"$",collapse="")
+if(params$showsol){
+    lines(x2,y2,lwd=2,col="red")
+    points(x2,y2,pch=19,cex=0.8,col="red")
+    legend("bottomright",c(TeX("$y=p(x)$"),TeX(ft)),pch=c(19,19),pt.cex = 0.7,cex=0.9,col=c("blue","red"))
+} else {
+    legend("bottomright",c(TeX("$y=p(x)$"),TeX(ft)),pch=c(19,19),pt.cex = 0.7,cex=0.9,col=c("blue","black"))
+}
+```
+
+
+\newpage
+
+# Exam: Function Reflections (`r params$titex` version `r params$rseed`)
+
+
+```{r, echo = FALSE}
+
+while(T){
+    x = 1:9
+    f = sample(1:9)
+    g = sample(1:9)
+    h = sample(1:9)
+    pairs = c(paste0(x,f),paste0(x,g),paste0(x,h),paste0(f,x),paste0(g,x),paste0(h,x))
+    pairs = unique(pairs)
+    funs = list(f,g,h)
+    fun12 = sample(1:3,2)
+    fun1 = fun12[1]
+    fun2 = fun12[2]
+    num1 = sample(1:9,1)
+    num2 = sample(1:9,1)
+    ans1 = funs[[fun1]][num1]
+    ans2 = x[num2==funs[[fun2]]]
+    p2 = c(paste0(x[num1],f[num1]),paste0(x[num1],g[num1]),paste0(x[num1],h[num1]),
+           paste0(f[num1],x[num1]),paste0(g[num1],x[num1]),paste0(h[num1],x[num1]),
+           paste0(x[ans2],f[ans2]),paste0(x[ans2],g[ans2]),paste0(x[ans2],h[ans2]),
+           paste0(f[ans2],x[ans2]),paste0(g[ans2],x[ans2]),paste0(h[ans2],x[ans2]))
+    p2 = unique(p2)
+    if(length(unique(c(num1,num2,ans1,ans2)))==4 && length(pairs)>(length(x)*6-7) && length(p2)==12){break}
+}
+
+lets = c("f","g","h")
+let1 = lets[fun1]
+let2 = lets[fun2]
+
+while(T){
+    fun34 = sample(1:3,2)
+    x34 = sample(1:9,2)
+    eo = sample(1:2,2)
+    wrds = c("even","odd")
+    mult = c(1,-1)
+    x3 = x34[1]
+    x4 = x34[2]
+    y3 = funs[[fun34[1]]][x3]*mult[eo[1]]
+    y4 = funs[[fun34[2]]][x4]*mult[eo[2]]
+    if(length(unique(c(fun12,fun34)))==3 && 
+       length(unique(c(x34,num1,num2,ans1,ans2)))==6 &&
+       length(unique(c(x3,x4,y3,y4)))==4){break}
+}
+
+let3 = lets[fun34[1]]
+let4 = lets[fun34[2]]
+```
+
+For all questions on this page, the functions $f$, $g$, and $h$ are defined by the table below. 
+
+\begin{centering}
+
+```{r,echo=F,}
+data <- data.frame(
+  x,
+  f,
+  g,
+  h
+)
+colnames(data) = c("$x$","$f(x)$","$g(x)$","$h(x)$")
+knitr::kable(data,format = "latex",escape = FALSE,align = 'c')
+```
+
+\end{centering}
+
+`r pn()` (worth 3 points) Evaluate $`r let1`(`r num1`)$.
+
+\vfill
+`r solstart`
+$$`r let1`(`r num1`)=`r ans1`$$
+`r solend`
+\vfill
+
+`r pn()` (worth 3 points) Evaluate $`r let2`^{-1}(`r num2`)$.
+
+\vfill
+`r solstart`
+$$`r let2`^{-1}(`r num2`)=`r ans2`$$
+`r solend`
+\vfill
+
+`r pn()` (worth 3 points) Assuming $`r let3`$ is an **`r wrds[eo[1]]`** function, evaluate $`r let3`(-`r x3`)$.
+
+\vfill
+`r solstart`
+If function `r let3` is `r wrds[eo[1]]`, then
+$$`r let3`(-`r x3`)=`r y3`$$
+`r solend`
+\vfill
+
+`r pn()` (worth 3 points) Assuming $`r let4`$ is an **`r wrds[eo[2]]`** function, evaluate $`r let4`(-`r x4`)$.
+
+\vfill
+`r solstart`
+If function `r let4` is `r wrds[eo[2]]`, then
+$$`r let4`(-`r x4`)=`r y4`$$
+`r solend`
+\vfill
+
+
+\newpage
+
+# Exam: Function Reflections (`r params$titex` version `r params$rseed`)
+
+
+```{r,echo=F}
+wo = sample(1:4,1,F,c(1/3,1/6,1/6,1/3))
+dg = list(c(3,1),c(3,0),c(2,1),c(2,0))[[wo]]
+mlt1 = list(c(-1,-1),c(-1,1),c(1,-1),c(1,1))[[wo]]
+cf = sample(c(-1,1),2,T)
+tp = c("odd","neither","neither","even")[wo]
+
+tp7 = tp
+    
+mkp = function(cf,dg){
+    f = paste0("{",cf,"}x^{",dg,"}",collapse="+")
+    f = gsub("+{-1}x","-x",f,fixed=T)
+    f = gsub("+{1}x","+x",f,fixed=T)
+    f = gsub("{-1}x","-x",f,fixed=T)
+    f = gsub("{1}x","x",f,fixed=T)
+    f = gsub("+{-","-{",f,fixed=T)
+    f = gsub("x^{1}","x",f,fixed=T)
+    f = gsub("+x^{0}","+1",f,fixed=T)
+    f = gsub("-x^{0}","-1",f,fixed=T)
+    f = gsub("x^{0}","",f,fixed=T)
+    f = gsub("{","",f,fixed=T)
+    f = gsub("}","",f,fixed=T)
+    return(f)
+}
+exp1 = mkp(cf,dg)
+exp2 = mkp(cf*mlt1,dg)
+exp3 = mkp(-cf*mlt1,dg)
+
+wrk2 = gsub("x","(-x)",exp1,fixed = T)
+wrk3 = paste0("-\\left(",exp2,"\\right)",collapse="")
+
+explain = c("We see that $p(x)=-p(-x)$ for all $x$ because $p(x)$ and $-p(-x)$ are equivalent polynomials. Thus function $p$ satisfies the criterion for being an odd function.",
+            "We see that $p(x)$ is not equivalent to either $p(-x)$ or $-p(-x)$, so $p$ is neither even nor odd.",
+            "We see that $p(x)$ is not equivalent to either $p(-x)$ or $-p(-x)$, so $p$ is neither even nor odd.",
+            "We see that $p(x)=p(-x)$ for all $x$ because $p(x)$ and $p(-x)$ are equivalent polynomials.  Thus function $p$ satisfies the criterion for being an even function.")[wo]
+
+tt()
+```
+
+`r pn()` (worth 15 points) A function, $f$, is **even** if $f(x)=f(-x)$ for all $x$ in the domain. A function, $g$, is **odd** if $g(x)=-g(-x)$ for all $x$ in the domain.\
+Let polynomial $p$ be defined with the following equation:
+$$p(x)~=~`r exp1`$$
+    a. Express $p(-x)$ as a polynomial in standard form.\
+    \vfill
+    `r solstart`
+    $$p(-x)~=~`r wrk2`$$
+    $$p(-x)~=~`r exp2`$$
+    `r solend`
+    \vfill
+    b. Express $-p(-x)$ as a polynomial in standard form.\
+    \vfill
+    `r solstart`
+    $$-p(-x)~=~`r wrk3`$$
+    $$-p(-x)~=~`r exp3`$$
+    `r solend`
+    \vfill
+    c. Is polynomial $p$ even, odd, or neither?\
+    \vfill
+    `r solstart`
+    `r tp`
+    `r solend`
+    \vfill
+    d. Explain how you know the answer to part c.
+    \vfill
+    `r solstart`
+    `r explain`
+    `r solend`
+    \vfill
+
+
+\newpage
+
+# Exam: Function Reflections (`r params$titex` version `r params$rseed`)
+
+`r pn()` (worth 10 points) I have drawn half of a function. Draw the other half to make it even or odd.
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+makem = function(xs,ys){
+    par(mar=c(0,0.5,1,0.5),pty="s",mfrow=c(1,2))
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    dems = seq(-10,10,0.2)
+    NNN = length(dems)
+    for(i in -10:10){
+        points(rep(i,NNN),dems,pch=19,cex=0.02)
+        points(dems,rep(i,NNN),pch=19,cex=0.02)
+    }
+    for(i in seq(-10,10,5)){
+        lines(c(-10,10),c(i,i),lwd=0.8)
+        lines(c(i,i),c(-10,10),lwd=0.8)
+    }
+    abline(h=0,lwd=2)
+    abline(v=0,lwd=2)
+    text(10,0,"x",adj=c(-0.1,1.1))
+    text(0,10,"y",adj=c(1.1,-0.1))
+    lines(xs,ys,lwd=3,col="blue")
+    points(xs,ys,pch=19,cex=0.8,col="blue")
+    mtext("EVEN",3)
+    if(params$showsol){
+        lines(-xs,ys,lwd=3,col="red")
+        points(-xs,ys,pch=19,cex=0.8,col="red")
+    }
+    
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    dems = seq(-10,10,0.2)
+    NNN = length(dems)
+    for(i in -10:10){
+        points(rep(i,NNN),dems,pch=19,cex=0.02)
+        points(dems,rep(i,NNN),pch=19,cex=0.02)
+    }
+    for(i in seq(-10,10,5)){
+        lines(c(-10,10),c(i,i),lwd=0.8)
+        lines(c(i,i),c(-10,10),lwd=0.8)
+    }
+    abline(h=0,lwd=2)
+    abline(v=0,lwd=2)
+    text(10,0,"x",adj=c(-0.1,1.1))
+    text(0,10,"y",adj=c(1.1,-0.1))
+    lines(xs,ys,lwd=3,col="blue")
+    points(xs,ys,pch=19,cex=0.8,col="blue")
+    mtext("ODD",3)
+    if(params$showsol){
+        lines(-xs,-ys,lwd=3,col="red")
+        points(-xs,-ys,pch=19,cex=0.8,col="red")
+    }
+}
+while(T){
+    xs = sort(c(0,sample(1:9,3)))
+    ys = c(0,sample(1:9,3)*sample(c(-1,1),3,T))
+    m = diff(ys)/diff(xs)
+    th = atan(m)
+    if(max(xs)>5 && min(abs(diff(th)))>pi/10 && max(abs(diff(th)))<(pi-pi/8)){break}
+}
+makem(xs,ys)
+tt()
+```
+
+\vfill 
+
+```{r,echo=F}
+nums = sample(2:9,2)
+A = nums[1]
+B = nums[2]
+am = "B(x+A)"
+ad = "\\frac{x+A}{B}"
+sm = "B(x-A)"
+sd = "\\frac{x-A}{B}"
+ma = "Ax+B"
+da = "\\frac{x}{A}+B"
+ms = "Ax-B"
+ds = "\\frac{x}{A}-B"
+qs = c(am,ad,sm,sd,ma,da,ms,ds)
+
+wd = c("step 1: add A\\\nstep 2: multiply by B",
+       "step 1: add A\\\nstep 2: divide by B",
+       "step 1: subtract A\\\nstep 2: multiply by B",
+       "step 1: subtract A\\\nstep 2: divide by B",
+       "step 1: multiply by A\\\nstep 2: add B",
+       "step 1: divide by A\\\nstep 2: add B",
+       "step 1: multiply by A\\\nstep 2: subtract B",
+       "step 1: divide by A\\\nstep 2: subtract B")
+
+qt = sample(1:8,1)
+fexp = qs[qt]
+fwd = wd[qt]
+iexp = qs[9-qt]
+iwd = wd[9-qt]
+
+fexp = gsub("A",nums[1],fexp,fixed=T)
+fexp = gsub("B",nums[2],fexp,fixed=T)
+
+iexp = gsub("B",nums[1],iexp,fixed=T)
+iexp = gsub("A",nums[2],iexp,fixed=T)
+
+fwd = gsub("A",nums[1],fwd,fixed=T)
+fwd = gsub("B",nums[2],fwd,fixed=T)
+
+iwd = gsub("B",nums[1],iwd,fixed=T)
+iwd = gsub("A",nums[2],iwd,fixed=T)
+
+while(T){
+    x = sample(2:100,1)
+    ys = c((x+A)*B,(x+A)/B,(x-A)*B,(x-A)/B,x*A+B,x/A+B,x*A-B,x/A-B)
+    y = ys[qt]
+    if(length(unique(c(x,y,A,B)))==4 && y%%1==0 && y>1 && y<100){break}
+}
+while(T){
+    x2 = sample(2:100,1)
+    ys2 = c((x2+A)*B,(x2+A)/B,(x2-A)*B,(x2-A)/B,x2*A+B,x2/A+B,x2*A-B,x2/A-B)
+    y2 = ys2[qt]
+    if(length(unique(c(x2,y2,A,B)))==4 && y2%%1==0 && y2>1 && y2<100 && y2!=y){break}
+}
+```
+
+`r pn()` (worth 10 points) Let function $f$ be defined with the equation below.
+$$f(x)~=~`r fexp`$$
+    a. Evaluate $f(`r x`)$.\
+    \vfill 
+    `r solstart`
+    `r fwd`
+    $$f(`r x`)~=~`r gsub("x",paste0("(",x,")",collapse=""),fexp,fixed=T)`$$
+    $$f(`r x`)~=~`r y`$$
+    `r solend`
+    \vfill 
+    b. Evaluate $f^{-1}(`r y2`)$.\
+    \vfill
+    `r solstart`
+    `r iwd`
+    $$f^{-1}(x)~=~`r iexp`$$
+    $$f^{-1}(`r y2`)~=~`r gsub("x",paste0("(",y2,")",collapse=""),iexp,fixed=T)`$$
+    $$f^{-1}(`r y2`)~=~`r x2`$$
+    `r solend`
+    \vfill 
+
+
+\newpage
+
+# Exam: Function Reflections (`r params$titex` version `r params$rseed`)
+
+
+`r pn()` (worth 6 points) The function $b$ is represented by the curve $y=b(x)$ graphed below.
+```{r,echo=F}
+rands = sample(1:9,8)
+xbase = rands[1:3]
+x = sort(c(0,rands[1:3],10))
+y = sort(rands[4:8],decreasing = sample(c(T,F),1))
+xs = sample(xbase,2)
+x1 = xs[1]
+x2 = xs[2]
+y1 = y[x==x1]
+y2 = y[x==x2]
+```
+```{r,fig.dim=c(6,3),echo=FALSE,fig.align='center'}
+par(pty="s",mar=c(1,1,0.2,0.2),oma=c(0,0,0,0),mfrow=c(1,2))
+plot(x,y,type="n",xlim=c(0,10),ylim=c(0,10),ann=F,axes=F,asp=1,pch=20,cex=2)
+j = seq(0,10,0.2)
+for(i in 0:10){
+  points(rep(i,length(j)),j,pch=19,cex=0.05)
+  points(j,rep(i,length(j)),pch=19,cex=0.05)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+xspline(x,y,shape=c(0,rep(-0.3,length(x)-2),0),border="blue",lwd=2)
+axis(1,line=-1,lwd = 0)
+mtext("x",1,-1.5,at=10.3)
+axis(2,line=-1,lwd = 0)
+mtext("y",2,-1.3,at=10.3)
+
+plot(0,0,"n",axes=F,ann=F)
+legend("left","y=b(x)",col="blue",lwd=2)
+
+# plot(0,0,"n",axes=F,ann=F,xlim=c(0,1),ylim=c(0,1))
+# text(0,0.9,TeX(paste0("a. Evaluate $b(",x1,")$.")),adj=0)
+# text(0,0.5,TeX(paste0("b. Evaluate $b^{-1}(",y2,")$.")),adj=0)
+# 
+# if(params$showsol){
+#     text(0.2,0.7,TeX(paste0("$b(",x1,")=",y1,"$.")),adj=0,col="red")
+#     text(0.2,0.3,TeX(paste0("$b^{-1}(",y2,")=",x2,"$.")),adj=0,col="red")
+# }
+```
+\
+    a. Evaluate $b(`r x1`)$.
+    \vfill 
+    `r solstart`
+    $$b(`r x1`)~=~`r y1`$$
+    `r solend`
+    \vfill 
+    b. Evaluate $b^{-1}(`r y2`)$.
+    \vfill 
+    `r solstart`
+    $$b^{-1}(`r y2`)~=~`r x2`$$
+    `r solend`
+    \vfill 
+
+\newpage
+
+# Exam: Function Reflections (`r params$titex` version `r params$rseed`)
+
+
+`r pn()` (worth 18 points) Function $f$ is defined by the table below. 
+
+    a. Complete the columns for $-f(x)$ and $f(-x)$ and $-f(-x)$.\
+```{r,echo=F,warning=F,results='asis'}
+library(kableExtra)
+while(T){
+    wo = sample(c("odd","even","neither"),1)
+    if(wo != tp7){break}
+}
+
+x = -2:2
+f = sample(3:9,5)*c(-1,1,0,1,-1)*sample(c(-1,1),1)
+if(wo=="odd"){
+    f[1] = -f[5]
+    f[2] = -f[4]
+    expl = paste0(c("Function $f$ is ",wo," because column $-f(-x)$ matches column $f(x)$ exactly."),collapse="")
+} else if(wo=="even"){
+    f[1] = f[5]
+    f[2] = f[4]
+    expl = paste0(c("Function $f$ is ",wo," because column $f(-x)$ matches column $f(x)$ exactly."),collapse="")
+
+} else {
+    dang = sample(c(-1,1),1)
+    f[1] = f[5]*dang
+    f[2] = -f[4]*dang
+    expl = paste0(c("Function $f$ is ",wo," because neither column $-f(-x)$ nor column $f(-x)$ matches column $f(x)$ exactly."),collapse="")
+}
+blank = rep("$\\phantom{\\cfrac{123123}{1231232}}$",5)
+
+df = data.frame(x,f,blank,blank,blank)
+
+if(params$showsol){
+    nf = paste0("\\color{red}\\vspace{-7pt}",-f," \\color{black}")
+    fn = paste0("\\color{red}\\vspace{-7pt}",rev(f),"\\color{black}")
+    nfn = paste0("\\color{red}\\vspace{-7pt}",-rev(f),"\\color{black}")
+    df = data.frame(x,f,nf,fn,nfn)
+}
+
+colnames(df) = c("$x$","$f(x)$","$-f(x)$","$f(-x)$","$-f(-x)$")
+
+kable(df,align = "c")
+```
+\
+\vspace{20pt}
+    b. Is function $f$ even, odd, or neither?
+    \vfill
+    `r solstart`
+    `r wo`
+    `r solend`
+    \vfill
+    c. How do you know the answer to part b?
+    \vfill
+    `r solstart`
+    `r expl`
+    `r solend`
+    \vfill
+

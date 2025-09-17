@@ -1,0 +1,601 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: false
+    useseed: false
+---
+
+```{r,echo=F,eval=params$useseed}
+set.seed(params$rseed)
+```
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## Grid Countdown Spirals
+
+Follow the teacher! Use a ruler!
+
+1. Start at the star.
+2. Go down 4 units.
+3. Go right 3 units.
+4. Go up 2 units.
+5. Go left 1 unit.
+6. Repeat steps 2 through 5... Notice a 90° turn counterclockwise after each segment. 
+
+```{r,echo=F,fig.dim=c(6,6)}
+pch = 8
+par(mar=c(0,0,0,0),pty="s")
+turn = pi/2
+a1 = -pi/2
+lengths = 4:1
+n = 50
+a = a1
+x = 0
+y = 0
+xs = c(x)
+ys = c(y)
+for(i in 0:n){
+    l = lengths[(i %% length(lengths)) +1]
+    x2 = x+l*cos(a)
+    y2 = y+l*sin(a)
+    xs = c(xs,x2)
+    ys = c(ys,y2)
+    x = x2
+    y = y2
+    a = a+turn
+}
+minx = min(xs)
+maxx = max(xs)
+midx = mean(c(minx,maxx))
+dx = maxx-minx
+miny = min(ys)
+maxy = max(ys)
+midy = mean(c(miny,maxy))
+dy = maxy-miny
+dd = max(dx,dy)
+rr = dd/2
+plot(0,0,"n",xlim=c(midx-rr,midx+rr),ylim=c(midy-rr,midy+rr))
+xlow = floor(midx-rr)-1
+xhi = ceiling(midx+rr)+1
+ylow = floor(midy-rr)-1
+yhi = ceiling(midy+rr)+1
+for(i in xlow:xhi){
+    for(j in ylow:yhi){
+        points(i,j,pch=19,cex=0.2)
+    }
+}
+points(0,0,pch=pch,cex=0.6)
+if(params$showsol){
+    lines(xs,ys,col="red")
+}
+
+```
+
+* Describe the result:
+
+
+\newpage
+
+Repeatedly count backwards from 5 for distance, turning 90° counterclockwise after each segment. Remember... Down, Right, Up, Left!
+
+1. Start at the star, heading down.
+2. Move 5 and then turn 90° counterclockwise.
+3. Move 4 and then turn 90° counterclockwise.
+4. Move 3 and then turn 90° counterclockwise.
+5. Move 2 and then turn 90° counterclockwise.
+6. Move 1 and then turn 90° counterclockwise.
+7. Repeat steps 2 through 6.
+
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+turn = pi/2
+a1 = -pi/2
+lengths = 5:1
+n = 50
+a = a1
+x = 0
+y = 0
+xs = c(x)
+ys = c(y)
+for(i in 0:n){
+    l = lengths[(i %% length(lengths)) +1]
+    x2 = x+l*cos(a)
+    y2 = y+l*sin(a)
+    xs = c(xs,x2)
+    ys = c(ys,y2)
+    x = x2
+    y = y2
+    a = a+turn
+}
+minx = min(xs)
+maxx = max(xs)
+midx = mean(c(minx,maxx))
+dx = maxx-minx
+miny = min(ys)
+maxy = max(ys)
+midy = mean(c(miny,maxy))
+dy = maxy-miny
+dd = max(dx,dy)
+rr = dd/2
+plot(0,0,"n",xlim=c(midx-rr-2,midx+rr+2),ylim=c(midy-rr-2,midy+rr+2))
+xlow = floor(midx-rr)-4
+xhi = ceiling(midx+rr)+4
+ylow = floor(midy-rr)-4
+yhi = ceiling(midy+rr)+4
+for(i in xlow:xhi){
+    for(j in ylow:yhi){
+        points(i,j,pch=19,cex=0.4)
+    }
+}
+points(0,0,pch=pch,cex=0.8)
+if(params$showsol){
+    lines(xs,ys,col="red")
+}
+
+```
+
+* Describe the result:
+
+
+\newpage
+
+Repeatedly count backwards from 6 for distance, turning 90° after each segment. Remember... Down, Right, Up, Left!
+
+1. Start at the star, heading down.
+2. Move 6 and then turn 90° counterclockwise.
+3. Move 5 and then turn 90° counterclockwise.
+4. Move 4 and then turn 90° counterclockwise.
+5. Move 3 and then turn 90° counterclockwise.
+6. Move 2 and then turn 90° counterclockwise.
+7. Move 1 and then turn 90° counterclockwise.
+8. Repeat steps 2 through 7.
+
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+turn = pi/2
+a1 = -pi/2
+lengths = 6:1
+n = 50
+a = a1
+x = 0
+y = 0
+xs = c(x)
+ys = c(y)
+for(i in 0:n){
+    l = lengths[(i %% length(lengths)) +1]
+    x2 = x+l*cos(a)
+    y2 = y+l*sin(a)
+    xs = c(xs,x2)
+    ys = c(ys,y2)
+    x = x2
+    y = y2
+    a = a+turn
+}
+minx = min(xs)
+maxx = max(xs)
+midx = mean(c(minx,maxx))
+dx = maxx-minx
+miny = min(ys)
+maxy = max(ys)
+midy = mean(c(miny,maxy))
+dy = maxy-miny
+dd = max(dx,dy)
+rr = dd/2
+plot(0,0,"n",xlim=c(midx-rr-2,midx+rr+2),ylim=c(midy-rr-2,midy+rr+2))
+xlow = floor(midx-rr)-4
+xhi = ceiling(midx+rr)+4
+ylow = floor(midy-rr)-4
+yhi = ceiling(midy+rr)+4
+for(i in xlow:xhi){
+    for(j in ylow:yhi){
+        points(i,j,pch=19,cex=0.4)
+    }
+}
+points(0,0,pch=pch,cex=0.8)
+
+if(params$showsol){
+    lines(xs,ys,col="red")
+}
+
+```
+
+* Describe the result:
+
+\newpage
+
+* Start at star, heading down.
+* Repeatedly count backwards from 9 for distance.
+* Turn 90° counterclockwise after each segment. Remember... Down, Right, Up, Left!
+
+```{r,echo=F,fig.dim=c(7,7)}
+par(mar=c(0,0,0,0),pty="s")
+turn = pi/2
+a1 = -pi/2
+lengths = 9:1
+n = 50
+a = a1
+x = 0
+y = 0
+xs = c(x)
+ys = c(y)
+for(i in 0:n){
+    l = lengths[(i %% length(lengths)) +1]
+    x2 = x+l*cos(a)
+    y2 = y+l*sin(a)
+    xs = c(xs,x2)
+    ys = c(ys,y2)
+    x = x2
+    y = y2
+    a = a+turn
+}
+minx = min(xs)
+maxx = max(xs)
+midx = mean(c(minx,maxx))
+dx = maxx-minx
+miny = min(ys)
+maxy = max(ys)
+midy = mean(c(miny,maxy))
+dy = maxy-miny
+dd = max(dx,dy)
+rr = dd/2
+plot(0,0,"n",xlim=c(midx-rr-2,midx+rr+2),ylim=c(midy-rr-2,midy+rr+2))
+xlow = floor(midx-rr)-4
+xhi = ceiling(midx+rr)+4
+ylow = floor(midy-rr)-4
+yhi = ceiling(midy+rr)+4
+for(i in xlow:xhi){
+    for(j in ylow:yhi){
+        points(i,j,pch=19,cex=0.4)
+    }
+}
+points(0,0,pch=pch,cex=0.8)
+
+if(params$showsol){
+    lines(xs,ys,col="red")
+}
+
+```
+
+* Describe the result:
+
+
+
+\newpage
+
+* Start at star, heading down.
+* Repeatedly count backwards from 10 for distance.
+* Turn 90° counterclockwise after each segment. Remember... Down, Right, Up, Left!
+
+```{r,echo=F,fig.dim=c(7,7)}
+par(mar=c(0,0,0,0),pty="s")
+turn = pi/2
+a1 = -pi/2
+lengths = 10:1
+n = 50
+a = a1
+x = 0
+y = 0
+xs = c(x)
+ys = c(y)
+for(i in 0:n){
+    l = lengths[(i %% length(lengths)) +1]
+    x2 = x+l*cos(a)
+    y2 = y+l*sin(a)
+    xs = c(xs,x2)
+    ys = c(ys,y2)
+    x = x2
+    y = y2
+    a = a+turn
+}
+minx = min(xs)
+maxx = max(xs)
+midx = mean(c(minx,maxx))
+dx = maxx-minx
+miny = min(ys)
+maxy = max(ys)
+midy = mean(c(miny,maxy))
+dy = maxy-miny
+dd = max(dx,dy)
+rr = dd/2
+plot(0,0,"n",xlim=c(midx-rr-2,midx+rr+2),ylim=c(midy-rr-2,midy+rr+2))
+xlow = floor(midx-rr)-4
+xhi = ceiling(midx+rr)+4
+ylow = floor(midy-rr)-4
+yhi = ceiling(midy+rr)+4
+for(i in xlow:xhi){
+    for(j in ylow:yhi){
+        points(i,j,pch=19,cex=0.4)
+    }
+}
+points(0,0,pch=pch,cex=0.8)
+
+if(params$showsol){
+    lines(xs,ys,col="red")
+}
+
+```
+
+* Describe the result:
+
+
+
+\newpage
+
+* Start at star heading down.
+* Repeatedly count backwards from 10 for distance.
+* Turn **120° counterclockwise** after each segment.
+    1. Down (South)
+    2. Up-Right (Northeast)
+    3. Up-Left (Northwest)
+* I've started the pattern for you.
+
+```{r,echo=F,fig.dim=c(7,7)}
+par(mar=c(0,0,0,0),pty="s")
+turn = 2*pi/3
+a1 = -pi/2
+lengths = 10:1
+n = 50
+a = a1
+x = 0
+y = 0
+xs = c(x)
+ys = c(y)
+for(i in 0:n){
+    l = lengths[(i %% length(lengths)) +1]
+    x2 = x+l*cos(a)
+    y2 = y+l*sin(a)
+    xs = c(xs,x2)
+    ys = c(ys,y2)
+    x = x2
+    y = y2
+    a = a+turn
+}
+minx = min(xs)
+maxx = max(xs)
+midx = mean(c(minx,maxx))
+dx = maxx-minx
+miny = min(ys)
+maxy = max(ys)
+midy = mean(c(miny,maxy))
+dy = maxy-miny
+dd = max(dx,dy)
+rr = dd/2
+plot(0,0,"n",xlim=c(midx-rr-2,midx+rr+2),ylim=c(midy-rr-2,midy+rr+2))
+xlow = floor(midx-rr)-4
+xhi = ceiling(midx+rr)+4
+ylow = floor(midy-rr)-4
+yhi = ceiling(midy+rr)+4
+ndl = ceiling(-xlow/cos(pi/3))
+ndr = ceiling(xhi/cos(pi/3))
+ndd = ceiling(-ylow/sin(pi/3))
+ndu = ceiling(yhi/sin(pi/3))
+
+for(i in -ndl:ndr){
+    for(j in -ndd:ndu){
+        points(i*cos(pi/6),j+0.5*(i%%2),pch=19,cex=0.3)
+    }
+}
+points(0,0,pch=pch,cex=0.8)
+lines(xs[1:5],ys[1:5],col="black")
+
+if(params$showsol){
+    lines(xs,ys,col="red")
+}
+
+```
+
+* Describe the result:
+
+
+\newpage
+
+* Start at star, heading down.
+* Repeatedly count backwards from 10 for distance.
+* Turn 60° counterclockwise after each segment.
+    1. S
+    2. SE
+    3. NE
+    4. N
+    5. NW
+    6. SW
+* I've started the pattern for you.
+
+
+```{r,echo=F,fig.dim=c(7,7)}
+par(mar=c(0,0,0,0),pty="s")
+turn = pi/3
+a1 = -pi/2
+lengths = 10:1
+n = 50
+a = a1
+x = 0
+y = 0
+xs = c(x)
+ys = c(y)
+for(i in 0:n){
+    l = lengths[(i %% length(lengths)) +1]
+    x2 = x+l*cos(a)
+    y2 = y+l*sin(a)
+    xs = c(xs,x2)
+    ys = c(ys,y2)
+    x = x2
+    y = y2
+    a = a+turn
+}
+minx = min(xs)
+maxx = max(xs)
+midx = mean(c(minx,maxx))
+dx = maxx-minx
+miny = min(ys)
+maxy = max(ys)
+midy = mean(c(miny,maxy))
+dy = maxy-miny
+dd = max(dx,dy)
+rr = dd/2
+plot(0,0,"n",xlim=c(midx-rr-2,midx+rr+2),ylim=c(midy-rr-2,midy+rr+2))
+xlow = floor(midx-rr)-4
+xhi = ceiling(midx+rr)+4
+ylow = floor(midy-rr)-4
+yhi = ceiling(midy+rr)+4
+ndl = ceiling(-xlow/cos(pi/3))
+ndr = ceiling(xhi/cos(pi/3))
+ndd = ceiling(-ylow/sin(pi/3))
+ndu = ceiling(yhi/sin(pi/3))
+
+for(i in -ndl:ndr){
+    for(j in -ndd:ndu){
+        points(i*cos(pi/6),j+0.5*(i%%2),pch=19,cex=0.3)
+    }
+}
+points(0,0,pch=pch,cex=0.8)
+lines(xs[1:5],ys[1:5],col="black")
+
+if(params$showsol){
+    lines(xs,ys,col="red")
+}
+
+```
+
+* Describe the result:
+
+
+
+\newpage
+
+* Start at star, heading down.
+* Repeatedly count backwards from 7 for distance.
+* Turn 60° counterclockwise after each segment.
+* I've started the pattern for you.
+
+```{r,echo=F,fig.dim=c(7,7)}
+par(mar=c(0,0,0,0),pty="s")
+turn = pi/3
+a1 = -pi/2
+lengths = 7:1
+n = 50
+a = a1
+x = 0
+y = 0
+xs = c(x)
+ys = c(y)
+for(i in 0:n){
+    l = lengths[(i %% length(lengths)) +1]
+    x2 = x+l*cos(a)
+    y2 = y+l*sin(a)
+    xs = c(xs,x2)
+    ys = c(ys,y2)
+    x = x2
+    y = y2
+    a = a+turn
+}
+minx = min(xs)
+maxx = max(xs)
+midx = mean(c(minx,maxx))
+dx = maxx-minx
+miny = min(ys)
+maxy = max(ys)
+midy = mean(c(miny,maxy))
+dy = maxy-miny
+dd = max(dx,dy)
+rr = dd/2
+plot(0,0,"n",xlim=c(midx-rr-2,midx+rr+2),ylim=c(midy-rr-2,midy+rr+2))
+xlow = floor(midx-rr)-4
+xhi = ceiling(midx+rr)+4
+ylow = floor(midy-rr)-4
+yhi = ceiling(midy+rr)+4
+ndl = ceiling(-xlow/cos(pi/3))
+ndr = ceiling(xhi/cos(pi/3))
+ndd = ceiling(-ylow/sin(pi/3))
+ndu = ceiling(yhi/sin(pi/3))
+
+for(i in -ndl:ndr){
+    for(j in -ndd:ndu){
+        points(i*cos(pi/6),j+0.5*(i%%2),pch=19,cex=0.3)
+    }
+}
+points(0,0,pch=pch,cex=0.8)
+lines(xs[1:5],ys[1:5],col="black")
+
+if(params$showsol){
+    lines(xs,ys,col="red")
+}
+
+```
+
+* Describe the result:
+
+\newpage
+
+Make up your own algorithm. Get creative!
+
+```{r,echo=F,fig.dim=c(7.09,7.09)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,18),ylim=c(0,18),axes=F,ann=F,xaxs="i",yaxs="i")
+for(i in 0:(2*18)){
+    for(j in 0:(2*18)){
+        points(i/2,j/2,pch=19,cex=0.4)
+    }
+}
+```
+
+Explain your algorithm:
+
+
+\newpage
+
+
+Make up your own algorithm. Get creative!
+
+```{r,echo=F,fig.dim=c(7.09,7.09)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,18),ylim=c(0,18),axes=F,ann=F,xaxs="i",yaxs="i")
+ndr = ceiling(18/cos(pi/3))*2
+for(i in 0:ndr){
+    for(j in -3:50){
+        points(i*cos(pi/6)/2,(j+0.5*(i%%2))/2,pch=19,cex=0.3)
+    }
+}
+```
+
+Explain your algorithm:
+
+
+* Describe the result:
+
+\newpage
+
+Make up your own algorithm. Get creative!
+
+```{r,echo=F,fig.dim=c(7.09,7.09)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,18),ylim=c(0,18),axes=F,ann=F,xaxs="i",yaxs="i")
+for(i in 0:(4*18)){
+    for(j in 0:(4*18)){
+        points(i/4,j/4,pch=19,cex=0.2)
+    }
+}
+```
+
+Explain your algorithm:
+
+
+\newpage
+
+Make up your own algorithm. Get creative!
+
+```{r,echo=F,fig.dim=c(7.09,7.09)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(0,18),ylim=c(0,18),axes=F,ann=F,xaxs="i",yaxs="i")
+ndr = ceiling(18/cos(pi/3))*4
+for(i in 0:ndr){
+    for(j in -3:100){
+        points(i*cos(pi/6)/4,(j+0.5*(i%%2))/4,pch=19,cex=0.2)
+    }
+}
+```
+
+Explain your algorithm:
+

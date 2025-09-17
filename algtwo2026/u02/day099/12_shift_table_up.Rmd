@@ -1,0 +1,92 @@
+```{r data generation, echo = FALSE, results = "hide"}
+while(T){
+    x = sort(sample(3:7,4))
+    y = sample(3:7,4)
+    if(length(unique(c(x,y)))==5){break}
+}
+
+hk = sample(2:3,2)
+h = 0
+k = hk[2]
+x2 = x-h
+y2 = y+k
+f = data.frame(x,y)
+colnames(f) = c("$x$","$f(x)$")
+g = data.frame(x2,y2)
+colnames(g) = c("$x$","$g(x)$")
+col1 = paste0("##ANSWER",1:4,"##")
+col2 = paste0("##ANSWER",5:8,"##")
+adf = data.frame(col1,col2)
+colnames(adf) = c("$x$","$g(x)$")
+if(h<0){
+  inside = paste0("+",h,collapse="")
+  hor = "right"
+} else {
+  inside = paste0("-",-h,collapse="")
+  hor = "left"
+}
+if(k<0){
+  outside = paste0("-",-k,collapse="")
+  ver = "down"
+} else {
+  outside = paste0("+",k,collapse="")
+  ver = "up"
+}
+ex = paste0("f(x)+",abs(k),collapse="")
+answer_possibilities = 0:10
+anslist = paste0("* ",rep(answer_possibilities,8),"\n",collapse="")
+ans1 = paste0(1*(x2[1]==answer_possibilities),collapse="")
+ans2 = paste0(1*(x2[2]==answer_possibilities),collapse="")
+ans3 = paste0(1*(x2[3]==answer_possibilities),collapse="")
+ans4 = paste0(1*(x2[4]==answer_possibilities),collapse="")
+ans5 = paste0(1*(y2[1]==answer_possibilities),collapse="")
+ans6 = paste0(1*(y2[2]==answer_possibilities),collapse="")
+ans7 = paste0(1*(y2[3]==answer_possibilities),collapse="")
+ans8 = paste0(1*(y2[4]==answer_possibilities),collapse="")
+```
+
+Question
+========
+
+Let $f(x)$ be defined by the table below:
+
+```{r tabf, results="asis", echo=F,warning=F}
+library(kableExtra)
+kable_styling(kable(f, align = "cc",row.names=F),bootstrap_options = "bordered",full_width = F)
+```
+
+Let $g(x)$ be defined with the equation $g(x)=`r ex`$. What are the 4 corresponding points on $g$? (Use same order.)
+
+```{r tabadf, results="asis", echo=F}
+kable_styling(kable(adf, align = "cc",row.names=F),bootstrap_options = "bordered",full_width = F)
+```
+
+
+
+Answerlist
+--------
+`r anslist`
+
+
+Solution
+========
+
+
+```{r tabg, results="asis", echo=F}
+kable_styling(kable(g, align = "cc",row.names=F),bootstrap_options = "bordered",full_width = F)
+```
+
+* Notice $g(`r x2[1]`)~=~f(`r x2[1]`)+`r k` ~=~`r y[1]`+`r k`~=~`r y2[1]`$
+* Notice $g(`r x2[2]`)~=~f(`r x2[2]`)+`r k` ~=~`r y[2]`+`r k`~=~`r y2[2]`$
+* Notice $g(`r x2[3]`)~=~f(`r x2[3]`)+`r k` ~=~`r y[3]`+`r k`~=~`r y2[3]`$
+* Notice $g(`r x2[4]`)~=~f(`r x2[4]`)+`r k` ~=~`r y[4]`+`r k`~=~`r y2[4]`$
+
+The "shortcut" is to recognize that the definition $g(x)=`r ex`$ implies a vertical shift **up** by `r abs(k)`.
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r ans1`|`r ans2`|`r ans3`|`r ans4`|`r ans5`|`r ans6`|`r ans7`|`r ans8`
+exname: translate_table
+exshuffle: FALSE

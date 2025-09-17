@@ -1,0 +1,1140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>01_use_fsol_find_gsol</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 30;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">01_use_fsol_find_gsol</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[85]=67\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[5\left(x+6\right)\right]}-59}{2}\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 4</option><option>11</option><option>12</option><option>36</option><option>49</option><option>63</option><option>71</option><option>75</option><option>81</option><option>85 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 4</option><option>11</option><option>12</option><option>36</option><option>49</option><option>63</option><option>71</option><option>75</option><option>81</option><option>85 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[85]=67\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[5\left(x+6\right)\right]}-59}{2}\]</span></p>
+<p>First, let’s make the argument equal to 85.</p>
+<p><span class="math display">\[5\left(x+6\right)~=~85\]</span></p>
+<p>Divide by 5.</p>
+<p><span class="math display">\[x+6~=~17\]</span></p>
+<p>Subtract 6.</p>
+<p><span class="math display">\[x~=~11\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[5\left((11)+6\right)\right]}-59}{2}\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[85\right]}-59}{2}\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[85]=67\)</span>. So, we can substitute 67 in place of <span class="math inline">\(f[85]\)</span>.</p>
+<p><span class="math display">\[y=\frac{67-59}{2}\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=4\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=11\)</span> and <span class="math inline">\(y=4\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[85]=60\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[5\left(x-79\right)\right]}}{15}+71\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 1</option><option>3</option><option>5</option><option>12</option><option>27</option><option>35</option><option>73</option><option>75</option><option>91</option><option>96 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 1</option><option>3</option><option>5</option><option>12</option><option>27</option><option>35</option><option>73</option><option>75</option><option>91</option><option>96 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[85]=60\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[5\left(x-79\right)\right]}}{15}+71\]</span></p>
+<p>First, let’s make the argument equal to 85.</p>
+<p><span class="math display">\[5\left(x-79\right)~=~85\]</span></p>
+<p>Divide by 5.</p>
+<p><span class="math display">\[x-79~=~17\]</span></p>
+<p>Add 79.</p>
+<p><span class="math display">\[x~=~96\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[5\left((96)-79\right)\right]}}{15}+71\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[85\right]}}{15}+71\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[85]=60\)</span>. So, we can substitute 60 in place of <span class="math inline">\(f[85]\)</span>.</p>
+<p><span class="math display">\[y=\frac{60}{15}+71\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=75\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=96\)</span> and <span class="math inline">\(y=75\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[19]=58\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x}{2}-5\right]}+54}{14}\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 8</option><option>12</option><option>19</option><option>24</option><option>29</option><option>34</option><option>48</option><option>56</option><option>86</option><option>91 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 8</option><option>12</option><option>19</option><option>24</option><option>29</option><option>34</option><option>48</option><option>56</option><option>86</option><option>91 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[19]=58\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x}{2}-5\right]}+54}{14}\]</span></p>
+<p>First, let’s make the argument equal to 19.</p>
+<p><span class="math display">\[\frac{x}{2}-5~=~19\]</span></p>
+<p>Add 5.</p>
+<p><span class="math display">\[\frac{x}{2}~=~24\]</span></p>
+<p>Multiply by 2.</p>
+<p><span class="math display">\[x~=~48\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{(48)}{2}-5\right]}+54}{14}\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[19\right]}+54}{14}\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[19]=58\)</span>. So, we can substitute 58 in place of <span class="math inline">\(f[19]\)</span>.</p>
+<p><span class="math display">\[y=\frac{58+54}{14}\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=8\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=48\)</span> and <span class="math inline">\(y=8\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[78]=26\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[3\left(x+15\right)\right]}+34}{30}\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>11</option><option>18</option><option>33</option><option>35</option><option>45</option><option>48</option><option>63</option><option>71</option><option>93 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>11</option><option>18</option><option>33</option><option>35</option><option>45</option><option>48</option><option>63</option><option>71</option><option>93 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[78]=26\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[3\left(x+15\right)\right]}+34}{30}\]</span></p>
+<p>First, let’s make the argument equal to 78.</p>
+<p><span class="math display">\[3\left(x+15\right)~=~78\]</span></p>
+<p>Divide by 3.</p>
+<p><span class="math display">\[x+15~=~26\]</span></p>
+<p>Subtract 15.</p>
+<p><span class="math display">\[x~=~11\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[3\left((11)+15\right)\right]}+34}{30}\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[78\right]}+34}{30}\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[78]=26\)</span>. So, we can substitute 26 in place of <span class="math inline">\(f[78]\)</span>.</p>
+<p><span class="math display">\[y=\frac{26+34}{30}\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=2\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=11\)</span> and <span class="math inline">\(y=2\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[85]=99\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[17\left(x-41\right)\right]}-21}{13}\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>6</option><option>16</option><option>44</option><option>46</option><option>57</option><option>60</option><option>70</option><option>85</option><option>96 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>6</option><option>16</option><option>44</option><option>46</option><option>57</option><option>60</option><option>70</option><option>85</option><option>96 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[85]=99\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[17\left(x-41\right)\right]}-21}{13}\]</span></p>
+<p>First, let’s make the argument equal to 85.</p>
+<p><span class="math display">\[17\left(x-41\right)~=~85\]</span></p>
+<p>Divide by 17.</p>
+<p><span class="math display">\[x-41~=~5\]</span></p>
+<p>Add 41.</p>
+<p><span class="math display">\[x~=~46\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[17\left((46)-41\right)\right]}-21}{13}\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[85\right]}-21}{13}\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[85]=99\)</span>. So, we can substitute 99 in place of <span class="math inline">\(f[85]\)</span>.</p>
+<p><span class="math display">\[y=\frac{99-21}{13}\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=6\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=46\)</span> and <span class="math inline">\(y=6\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[89]=69\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[4 x-71\right]}+64}{7}\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 19</option><option>35</option><option>40</option><option>56</option><option>59</option><option>65</option><option>81</option><option>88</option><option>89</option><option>99 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 19</option><option>35</option><option>40</option><option>56</option><option>59</option><option>65</option><option>81</option><option>88</option><option>89</option><option>99 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[89]=69\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[4 x-71\right]}+64}{7}\]</span></p>
+<p>First, let’s make the argument equal to 89.</p>
+<p><span class="math display">\[4 x-71~=~89\]</span></p>
+<p>Add 71.</p>
+<p><span class="math display">\[4 x~=~160\]</span></p>
+<p>Divide by 4.</p>
+<p><span class="math display">\[x~=~40\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[4 (40)-71\right]}+64}{7}\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[89\right]}+64}{7}\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[89]=69\)</span>. So, we can substitute 69 in place of <span class="math inline">\(f[89]\)</span>.</p>
+<p><span class="math display">\[y=\frac{69+64}{7}\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=19\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=40\)</span> and <span class="math inline">\(y=19\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[28]=17\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=4\cdot\left(f{\left[\frac{x+49}{3}\right]}+7\right)\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>6</option><option>7</option><option>22</option><option>28</option><option>35</option><option>40</option><option>56</option><option>91</option><option>96 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>6</option><option>7</option><option>22</option><option>28</option><option>35</option><option>40</option><option>56</option><option>91</option><option>96 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[28]=17\]</span></p>
+<p><span class="math display">\[y=4\cdot\left(f{\left[\frac{x+49}{3}\right]}+7\right)\]</span></p>
+<p>First, let’s make the argument equal to 28.</p>
+<p><span class="math display">\[\frac{x+49}{3}~=~28\]</span></p>
+<p>Multiply by 3.</p>
+<p><span class="math display">\[x+49~=~84\]</span></p>
+<p>Subtract 49.</p>
+<p><span class="math display">\[x~=~35\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=4\cdot\left(f{\left[\frac{(35)+49}{3}\right]}+7\right)\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=4\cdot\left(f{\left[28\right]}+7\right)\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[28]=17\)</span>. So, we can substitute 17 in place of <span class="math inline">\(f[28]\)</span>.</p>
+<p><span class="math display">\[y=4\cdot\left(17+7\right)\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=96\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=35\)</span> and <span class="math inline">\(y=96\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[99]=48\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=2\cdot f{\left[9\left(x-23\right)\right]}-66\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>16</option><option>30</option><option>32</option><option>34</option><option>48</option><option>50</option><option>57</option><option>90</option><option>99 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>16</option><option>30</option><option>32</option><option>34</option><option>48</option><option>50</option><option>57</option><option>90</option><option>99 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[99]=48\]</span></p>
+<p><span class="math display">\[y=2\cdot f{\left[9\left(x-23\right)\right]}-66\]</span></p>
+<p>First, let’s make the argument equal to 99.</p>
+<p><span class="math display">\[9\left(x-23\right)~=~99\]</span></p>
+<p>Divide by 9.</p>
+<p><span class="math display">\[x-23~=~11\]</span></p>
+<p>Add 23.</p>
+<p><span class="math display">\[x~=~34\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=2\cdot f{\left[9\left((34)-23\right)\right]}-66\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=2\cdot f{\left[99\right]}-66\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[99]=48\)</span>. So, we can substitute 48 in place of <span class="math inline">\(f[99]\)</span>.</p>
+<p><span class="math display">\[y=2\cdot 48-66\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=30\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=34\)</span> and <span class="math inline">\(y=30\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[60]=4\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=20\cdot f{\left[10\left(x-80\right)\right]}-37\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 3</option><option>25</option><option>34</option><option>36</option><option>43</option><option>48</option><option>60</option><option>74</option><option>86</option><option>90 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 3</option><option>25</option><option>34</option><option>36</option><option>43</option><option>48</option><option>60</option><option>74</option><option>86</option><option>90 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[60]=4\]</span></p>
+<p><span class="math display">\[y=20\cdot f{\left[10\left(x-80\right)\right]}-37\]</span></p>
+<p>First, let’s make the argument equal to 60.</p>
+<p><span class="math display">\[10\left(x-80\right)~=~60\]</span></p>
+<p>Divide by 10.</p>
+<p><span class="math display">\[x-80~=~6\]</span></p>
+<p>Add 80.</p>
+<p><span class="math display">\[x~=~86\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=20\cdot f{\left[10\left((86)-80\right)\right]}-37\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=20\cdot f{\left[60\right]}-37\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[60]=4\)</span>. So, we can substitute 4 in place of <span class="math inline">\(f[60]\)</span>.</p>
+<p><span class="math display">\[y=20\cdot 4-37\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=43\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=86\)</span> and <span class="math inline">\(y=43\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[36]=60\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[6\left(x-35\right)\right]}}{12}+15\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 3</option><option>7</option><option>9</option><option>16</option><option>20</option><option>26</option><option>37</option><option>41</option><option>45</option><option>79 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 3</option><option>7</option><option>9</option><option>16</option><option>20</option><option>26</option><option>37</option><option>41</option><option>45</option><option>79 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[36]=60\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[6\left(x-35\right)\right]}}{12}+15\]</span></p>
+<p>First, let’s make the argument equal to 36.</p>
+<p><span class="math display">\[6\left(x-35\right)~=~36\]</span></p>
+<p>Divide by 6.</p>
+<p><span class="math display">\[x-35~=~6\]</span></p>
+<p>Add 35.</p>
+<p><span class="math display">\[x~=~41\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[6\left((41)-35\right)\right]}}{12}+15\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[36\right]}}{12}+15\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[36]=60\)</span>. So, we can substitute 60 in place of <span class="math inline">\(f[36]\)</span>.</p>
+<p><span class="math display">\[y=\frac{60}{12}+15\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=20\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=41\)</span> and <span class="math inline">\(y=20\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[23]=74\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x}{17}+21\right]}}{2}-8\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 4</option><option>21</option><option>23</option><option>25</option><option>29</option><option>34</option><option>41</option><option>45</option><option>52</option><option>84 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 4</option><option>21</option><option>23</option><option>25</option><option>29</option><option>34</option><option>41</option><option>45</option><option>52</option><option>84 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[23]=74\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x}{17}+21\right]}}{2}-8\]</span></p>
+<p>First, let’s make the argument equal to 23.</p>
+<p><span class="math display">\[\frac{x}{17}+21~=~23\]</span></p>
+<p>Subtract 21.</p>
+<p><span class="math display">\[\frac{x}{17}~=~2\]</span></p>
+<p>Multiply by 17.</p>
+<p><span class="math display">\[x~=~34\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{(34)}{17}+21\right]}}{2}-8\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[23\right]}}{2}-8\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[23]=74\)</span>. So, we can substitute 74 in place of <span class="math inline">\(f[23]\)</span>.</p>
+<p><span class="math display">\[y=\frac{74}{2}-8\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=29\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=34\)</span> and <span class="math inline">\(y=29\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[90]=96\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[5\left(x+8\right)\right]}}{4}-22\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>7</option><option>8</option><option>10</option><option>18</option><option>46</option><option>58</option><option>75</option><option>85</option><option>90 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>7</option><option>8</option><option>10</option><option>18</option><option>46</option><option>58</option><option>75</option><option>85</option><option>90 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[90]=96\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[5\left(x+8\right)\right]}}{4}-22\]</span></p>
+<p>First, let’s make the argument equal to 90.</p>
+<p><span class="math display">\[5\left(x+8\right)~=~90\]</span></p>
+<p>Divide by 5.</p>
+<p><span class="math display">\[x+8~=~18\]</span></p>
+<p>Subtract 8.</p>
+<p><span class="math display">\[x~=~10\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[5\left((10)+8\right)\right]}}{4}-22\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[90\right]}}{4}-22\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[90]=96\)</span>. So, we can substitute 96 in place of <span class="math inline">\(f[90]\)</span>.</p>
+<p><span class="math display">\[y=\frac{96}{4}-22\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=2\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=10\)</span> and <span class="math inline">\(y=2\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[5]=3\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=30\cdot f{\left[\frac{x+9}{13}\right]}-10\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 14</option><option>30</option><option>40</option><option>45</option><option>48</option><option>56</option><option>60</option><option>80</option><option>89</option><option>94 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 14</option><option>30</option><option>40</option><option>45</option><option>48</option><option>56</option><option>60</option><option>80</option><option>89</option><option>94 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[5]=3\]</span></p>
+<p><span class="math display">\[y=30\cdot f{\left[\frac{x+9}{13}\right]}-10\]</span></p>
+<p>First, let’s make the argument equal to 5.</p>
+<p><span class="math display">\[\frac{x+9}{13}~=~5\]</span></p>
+<p>Multiply by 13.</p>
+<p><span class="math display">\[x+9~=~65\]</span></p>
+<p>Subtract 9.</p>
+<p><span class="math display">\[x~=~56\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=30\cdot f{\left[\frac{(56)+9}{13}\right]}-10\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=30\cdot f{\left[5\right]}-10\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[5]=3\)</span>. So, we can substitute 3 in place of <span class="math inline">\(f[5]\)</span>.</p>
+<p><span class="math display">\[y=30\cdot 3-10\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=80\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=56\)</span> and <span class="math inline">\(y=80\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[44]=7\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=4\cdot\left(f{\left[\frac{x}{12}+36\right]}+16\right)\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 3</option><option>5</option><option>8</option><option>10</option><option>11</option><option>12</option><option>20</option><option>44</option><option>92</option><option>96 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 3</option><option>5</option><option>8</option><option>10</option><option>11</option><option>12</option><option>20</option><option>44</option><option>92</option><option>96 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[44]=7\]</span></p>
+<p><span class="math display">\[y=4\cdot\left(f{\left[\frac{x}{12}+36\right]}+16\right)\]</span></p>
+<p>First, let’s make the argument equal to 44.</p>
+<p><span class="math display">\[\frac{x}{12}+36~=~44\]</span></p>
+<p>Subtract 36.</p>
+<p><span class="math display">\[\frac{x}{12}~=~8\]</span></p>
+<p>Multiply by 12.</p>
+<p><span class="math display">\[x~=~96\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=4\cdot\left(f{\left[\frac{(96)}{12}+36\right]}+16\right)\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=4\cdot\left(f{\left[44\right]}+16\right)\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[44]=7\)</span>. So, we can substitute 7 in place of <span class="math inline">\(f[44]\)</span>.</p>
+<p><span class="math display">\[y=4\cdot\left(7+16\right)\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=92\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=96\)</span> and <span class="math inline">\(y=92\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[86]=27\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=5\cdot f{\left[\frac{x}{22}+82\right]}-59\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 17</option><option>31</option><option>40</option><option>48</option><option>58</option><option>76</option><option>80</option><option>81</option><option>86</option><option>88 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 17</option><option>31</option><option>40</option><option>48</option><option>58</option><option>76</option><option>80</option><option>81</option><option>86</option><option>88 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[86]=27\]</span></p>
+<p><span class="math display">\[y=5\cdot f{\left[\frac{x}{22}+82\right]}-59\]</span></p>
+<p>First, let’s make the argument equal to 86.</p>
+<p><span class="math display">\[\frac{x}{22}+82~=~86\]</span></p>
+<p>Subtract 82.</p>
+<p><span class="math display">\[\frac{x}{22}~=~4\]</span></p>
+<p>Multiply by 22.</p>
+<p><span class="math display">\[x~=~88\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=5\cdot f{\left[\frac{(88)}{22}+82\right]}-59\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=5\cdot f{\left[86\right]}-59\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[86]=27\)</span>. So, we can substitute 27 in place of <span class="math inline">\(f[86]\)</span>.</p>
+<p><span class="math display">\[y=5\cdot 27-59\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=76\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=88\)</span> and <span class="math inline">\(y=76\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[78]=80\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[2\left(x+19\right)\right]}}{5}+77\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>15</option><option>20</option><option>21</option><option>23</option><option>29</option><option>62</option><option>78</option><option>81</option><option>93 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>15</option><option>20</option><option>21</option><option>23</option><option>29</option><option>62</option><option>78</option><option>81</option><option>93 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[78]=80\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[2\left(x+19\right)\right]}}{5}+77\]</span></p>
+<p>First, let’s make the argument equal to 78.</p>
+<p><span class="math display">\[2\left(x+19\right)~=~78\]</span></p>
+<p>Divide by 2.</p>
+<p><span class="math display">\[x+19~=~39\]</span></p>
+<p>Subtract 19.</p>
+<p><span class="math display">\[x~=~20\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[2\left((20)+19\right)\right]}}{5}+77\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[78\right]}}{5}+77\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[78]=80\)</span>. So, we can substitute 80 in place of <span class="math inline">\(f[78]\)</span>.</p>
+<p><span class="math display">\[y=\frac{80}{5}+77\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=93\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=20\)</span> and <span class="math inline">\(y=93\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[93]=45\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[80 x-67\right]}+30}{15}\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>5</option><option>33</option><option>45</option><option>47</option><option>54</option><option>60</option><option>75</option><option>90</option><option>93 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>5</option><option>33</option><option>45</option><option>47</option><option>54</option><option>60</option><option>75</option><option>90</option><option>93 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[93]=45\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[80 x-67\right]}+30}{15}\]</span></p>
+<p>First, let’s make the argument equal to 93.</p>
+<p><span class="math display">\[80 x-67~=~93\]</span></p>
+<p>Add 67.</p>
+<p><span class="math display">\[80 x~=~160\]</span></p>
+<p>Divide by 80.</p>
+<p><span class="math display">\[x~=~2\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[80 (2)-67\right]}+30}{15}\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[93\right]}+30}{15}\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[93]=45\)</span>. So, we can substitute 45 in place of <span class="math inline">\(f[93]\)</span>.</p>
+<p><span class="math display">\[y=\frac{45+30}{15}\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=5\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=2\)</span> and <span class="math inline">\(y=5\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[2]=18\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=5\cdot f{\left[\frac{x-37}{17}\right]}-32\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 10</option><option>23</option><option>28</option><option>33</option><option>37</option><option>48</option><option>58</option><option>59</option><option>71</option><option>74 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 10</option><option>23</option><option>28</option><option>33</option><option>37</option><option>48</option><option>58</option><option>59</option><option>71</option><option>74 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[2]=18\]</span></p>
+<p><span class="math display">\[y=5\cdot f{\left[\frac{x-37}{17}\right]}-32\]</span></p>
+<p>First, let’s make the argument equal to 2.</p>
+<p><span class="math display">\[\frac{x-37}{17}~=~2\]</span></p>
+<p>Multiply by 17.</p>
+<p><span class="math display">\[x-37~=~34\]</span></p>
+<p>Add 37.</p>
+<p><span class="math display">\[x~=~71\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=5\cdot f{\left[\frac{(71)-37}{17}\right]}-32\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=5\cdot f{\left[2\right]}-32\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[2]=18\)</span>. So, we can substitute 18 in place of <span class="math inline">\(f[2]\)</span>.</p>
+<p><span class="math display">\[y=5\cdot 18-32\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=58\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=71\)</span> and <span class="math inline">\(y=58\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[41]=89\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[3 x+20\right]}-37}{13}\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 4</option><option>7</option><option>15</option><option>23</option><option>41</option><option>54</option><option>60</option><option>80</option><option>81</option><option>88 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 4</option><option>7</option><option>15</option><option>23</option><option>41</option><option>54</option><option>60</option><option>80</option><option>81</option><option>88 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[41]=89\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[3 x+20\right]}-37}{13}\]</span></p>
+<p>First, let’s make the argument equal to 41.</p>
+<p><span class="math display">\[3 x+20~=~41\]</span></p>
+<p>Subtract 20.</p>
+<p><span class="math display">\[3 x~=~21\]</span></p>
+<p>Divide by 3.</p>
+<p><span class="math display">\[x~=~7\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[3 (7)+20\right]}-37}{13}\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[41\right]}-37}{13}\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[41]=89\)</span>. So, we can substitute 89 in place of <span class="math inline">\(f[41]\)</span>.</p>
+<p><span class="math display">\[y=\frac{89-37}{13}\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=4\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=7\)</span> and <span class="math inline">\(y=4\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[56]=8\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=3\cdot\left(f{\left[77 x-98\right]}+9\right)\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>15</option><option>21</option><option>33</option><option>34</option><option>45</option><option>51</option><option>56</option><option>69</option><option>99 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>15</option><option>21</option><option>33</option><option>34</option><option>45</option><option>51</option><option>56</option><option>69</option><option>99 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[56]=8\]</span></p>
+<p><span class="math display">\[y=3\cdot\left(f{\left[77 x-98\right]}+9\right)\]</span></p>
+<p>First, let’s make the argument equal to 56.</p>
+<p><span class="math display">\[77 x-98~=~56\]</span></p>
+<p>Add 98.</p>
+<p><span class="math display">\[77 x~=~154\]</span></p>
+<p>Divide by 77.</p>
+<p><span class="math display">\[x~=~2\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=3\cdot\left(f{\left[77 (2)-98\right]}+9\right)\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=3\cdot\left(f{\left[56\right]}+9\right)\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[56]=8\)</span>. So, we can substitute 8 in place of <span class="math inline">\(f[56]\)</span>.</p>
+<p><span class="math display">\[y=3\cdot\left(8+9\right)\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=51\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=2\)</span> and <span class="math inline">\(y=51\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[9]=55\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x}{2}-11\right]}-7}{16}\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 3</option><option>7</option><option>8</option><option>22</option><option>31</option><option>33</option><option>40</option><option>69</option><option>88</option><option>99 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 3</option><option>7</option><option>8</option><option>22</option><option>31</option><option>33</option><option>40</option><option>69</option><option>88</option><option>99 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[9]=55\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x}{2}-11\right]}-7}{16}\]</span></p>
+<p>First, let’s make the argument equal to 9.</p>
+<p><span class="math display">\[\frac{x}{2}-11~=~9\]</span></p>
+<p>Add 11.</p>
+<p><span class="math display">\[\frac{x}{2}~=~20\]</span></p>
+<p>Multiply by 2.</p>
+<p><span class="math display">\[x~=~40\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{(40)}{2}-11\right]}-7}{16}\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[9\right]}-7}{16}\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[9]=55\)</span>. So, we can substitute 55 in place of <span class="math inline">\(f[9]\)</span>.</p>
+<p><span class="math display">\[y=\frac{55-7}{16}\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=3\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=40\)</span> and <span class="math inline">\(y=3\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[2]=48\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x-16}{9}\right]}}{12}+89\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 3</option><option>12</option><option>18</option><option>34</option><option>42</option><option>58</option><option>60</option><option>65</option><option>92</option><option>93 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 3</option><option>12</option><option>18</option><option>34</option><option>42</option><option>58</option><option>60</option><option>65</option><option>92</option><option>93 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[2]=48\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x-16}{9}\right]}}{12}+89\]</span></p>
+<p>First, let’s make the argument equal to 2.</p>
+<p><span class="math display">\[\frac{x-16}{9}~=~2\]</span></p>
+<p>Multiply by 9.</p>
+<p><span class="math display">\[x-16~=~18\]</span></p>
+<p>Add 16.</p>
+<p><span class="math display">\[x~=~34\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{(34)-16}{9}\right]}}{12}+89\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[2\right]}}{12}+89\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[2]=48\)</span>. So, we can substitute 48 in place of <span class="math inline">\(f[2]\)</span>.</p>
+<p><span class="math display">\[y=\frac{48}{12}+89\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=93\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=34\)</span> and <span class="math inline">\(y=93\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[80]=14\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=12\cdot f{\left[\frac{x}{23}+78\right]}-79\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 4</option><option>5</option><option>16</option><option>45</option><option>46</option><option>48</option><option>55</option><option>76</option><option>86</option><option>89 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 4</option><option>5</option><option>16</option><option>45</option><option>46</option><option>48</option><option>55</option><option>76</option><option>86</option><option>89 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[80]=14\]</span></p>
+<p><span class="math display">\[y=12\cdot f{\left[\frac{x}{23}+78\right]}-79\]</span></p>
+<p>First, let’s make the argument equal to 80.</p>
+<p><span class="math display">\[\frac{x}{23}+78~=~80\]</span></p>
+<p>Subtract 78.</p>
+<p><span class="math display">\[\frac{x}{23}~=~2\]</span></p>
+<p>Multiply by 23.</p>
+<p><span class="math display">\[x~=~46\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=12\cdot f{\left[\frac{(46)}{23}+78\right]}-79\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=12\cdot f{\left[80\right]}-79\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[80]=14\)</span>. So, we can substitute 14 in place of <span class="math inline">\(f[80]\)</span>.</p>
+<p><span class="math display">\[y=12\cdot 14-79\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=89\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=46\)</span> and <span class="math inline">\(y=89\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[19]=30\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[32 x-77\right]}}{15}+42\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>3</option><option>19</option><option>21</option><option>44</option><option>61</option><option>72</option><option>81</option><option>84</option><option>87 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>3</option><option>19</option><option>21</option><option>44</option><option>61</option><option>72</option><option>81</option><option>84</option><option>87 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[19]=30\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[32 x-77\right]}}{15}+42\]</span></p>
+<p>First, let’s make the argument equal to 19.</p>
+<p><span class="math display">\[32 x-77~=~19\]</span></p>
+<p>Add 77.</p>
+<p><span class="math display">\[32 x~=~96\]</span></p>
+<p>Divide by 32.</p>
+<p><span class="math display">\[x~=~3\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[32 (3)-77\right]}}{15}+42\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[19\right]}}{15}+42\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[19]=30\)</span>. So, we can substitute 30 in place of <span class="math inline">\(f[19]\)</span>.</p>
+<p><span class="math display">\[y=\frac{30}{15}+42\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=44\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=3\)</span> and <span class="math inline">\(y=44\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[2]=3\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=6\cdot f{\left[\frac{x+88}{91}\right]}+37\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>22</option><option>25</option><option>34</option><option>55</option><option>61</option><option>66</option><option>69</option><option>94</option><option>98 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>22</option><option>25</option><option>34</option><option>55</option><option>61</option><option>66</option><option>69</option><option>94</option><option>98 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[2]=3\]</span></p>
+<p><span class="math display">\[y=6\cdot f{\left[\frac{x+88}{91}\right]}+37\]</span></p>
+<p>First, let’s make the argument equal to 2.</p>
+<p><span class="math display">\[\frac{x+88}{91}~=~2\]</span></p>
+<p>Multiply by 91.</p>
+<p><span class="math display">\[x+88~=~182\]</span></p>
+<p>Subtract 88.</p>
+<p><span class="math display">\[x~=~94\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=6\cdot f{\left[\frac{(94)+88}{91}\right]}+37\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=6\cdot f{\left[2\right]}+37\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[2]=3\)</span>. So, we can substitute 3 in place of <span class="math inline">\(f[2]\)</span>.</p>
+<p><span class="math display">\[y=6\cdot 3+37\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=55\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=94\)</span> and <span class="math inline">\(y=55\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[2]=10\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x-75}{9}\right]}}{5}+22\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>15</option><option>18</option><option>23</option><option>24</option><option>28</option><option>70</option><option>72</option><option>75</option><option>93 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>15</option><option>18</option><option>23</option><option>24</option><option>28</option><option>70</option><option>72</option><option>75</option><option>93 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[2]=10\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x-75}{9}\right]}}{5}+22\]</span></p>
+<p>First, let’s make the argument equal to 2.</p>
+<p><span class="math display">\[\frac{x-75}{9}~=~2\]</span></p>
+<p>Multiply by 9.</p>
+<p><span class="math display">\[x-75~=~18\]</span></p>
+<p>Add 75.</p>
+<p><span class="math display">\[x~=~93\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{(93)-75}{9}\right]}}{5}+22\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[2\right]}}{5}+22\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[2]=10\)</span>. So, we can substitute 10 in place of <span class="math inline">\(f[2]\)</span>.</p>
+<p><span class="math display">\[y=\frac{10}{5}+22\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=24\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=93\)</span> and <span class="math inline">\(y=24\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[91]=22\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=26\cdot\left(f{\left[6 x+7\right]}-19\right)\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 4</option><option>14</option><option>42</option><option>43</option><option>56</option><option>77</option><option>78</option><option>90</option><option>91</option><option>92 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 4</option><option>14</option><option>42</option><option>43</option><option>56</option><option>77</option><option>78</option><option>90</option><option>91</option><option>92 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[91]=22\]</span></p>
+<p><span class="math display">\[y=26\cdot\left(f{\left[6 x+7\right]}-19\right)\]</span></p>
+<p>First, let’s make the argument equal to 91.</p>
+<p><span class="math display">\[6 x+7~=~91\]</span></p>
+<p>Subtract 7.</p>
+<p><span class="math display">\[6 x~=~84\]</span></p>
+<p>Divide by 6.</p>
+<p><span class="math display">\[x~=~14\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=26\cdot\left(f{\left[6 (14)+7\right]}-19\right)\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=26\cdot\left(f{\left[91\right]}-19\right)\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[91]=22\)</span>. So, we can substitute 22 in place of <span class="math inline">\(f[91]\)</span>.</p>
+<p><span class="math display">\[y=26\cdot\left(22-19\right)\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=78\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=14\)</span> and <span class="math inline">\(y=78\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[2]=92\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x+42}{50}\right]}-65}{9}\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 2</option><option>3</option><option>7</option><option>15</option><option>40</option><option>53</option><option>58</option><option>63</option><option>73</option><option>83 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 2</option><option>3</option><option>7</option><option>15</option><option>40</option><option>53</option><option>58</option><option>63</option><option>73</option><option>83 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[2]=92\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x+42}{50}\right]}-65}{9}\]</span></p>
+<p>First, let’s make the argument equal to 2.</p>
+<p><span class="math display">\[\frac{x+42}{50}~=~2\]</span></p>
+<p>Multiply by 50.</p>
+<p><span class="math display">\[x+42~=~100\]</span></p>
+<p>Subtract 42.</p>
+<p><span class="math display">\[x~=~58\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{(58)+42}{50}\right]}-65}{9}\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[2\right]}-65}{9}\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[2]=92\)</span>. So, we can substitute 92 in place of <span class="math inline">\(f[2]\)</span>.</p>
+<p><span class="math display">\[y=\frac{92-65}{9}\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=3\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=58\)</span> and <span class="math inline">\(y=3\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[71]=11\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=15\cdot\left(f{\left[6 x+41\right]}-9\right)\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 5</option><option>9</option><option>25</option><option>30</option><option>43</option><option>60</option><option>66</option><option>71</option><option>84</option><option>97 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 5</option><option>9</option><option>25</option><option>30</option><option>43</option><option>60</option><option>66</option><option>71</option><option>84</option><option>97 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[71]=11\]</span></p>
+<p><span class="math display">\[y=15\cdot\left(f{\left[6 x+41\right]}-9\right)\]</span></p>
+<p>First, let’s make the argument equal to 71.</p>
+<p><span class="math display">\[6 x+41~=~71\]</span></p>
+<p>Subtract 41.</p>
+<p><span class="math display">\[6 x~=~30\]</span></p>
+<p>Divide by 6.</p>
+<p><span class="math display">\[x~=~5\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=15\cdot\left(f{\left[6 (5)+41\right]}-9\right)\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=15\cdot\left(f{\left[71\right]}-9\right)\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[71]=11\)</span>. So, we can substitute 11 in place of <span class="math inline">\(f[71]\)</span>.</p>
+<p><span class="math display">\[y=15\cdot\left(11-9\right)\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=30\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=5\)</span> and <span class="math inline">\(y=30\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>If <span class="math inline">\(f[3]=88\)</span>, then there exists a knowable solution to the equation below.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x-31}{2}\right]}+24}{28}\]</span></p>
+<p>Find the solution.</p>
+<ul>
+<li><span class="math inline">\(x=\)</span> <select><option>--------</option><option> 3</option><option>4</option><option>12</option><option>13</option><option>19</option><option>37</option><option>43</option><option>64</option><option>75</option><option>80 </option></select></li>
+<li><span class="math inline">\(y=\)</span> <select><option>--------</option><option> 3</option><option>4</option><option>12</option><option>13</option><option>19</option><option>37</option><option>43</option><option>64</option><option>75</option><option>80 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Rewrite the given information:</p>
+<p><span class="math display">\[f[3]=88\]</span></p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{x-31}{2}\right]}+24}{28}\]</span></p>
+<p>First, let’s make the argument equal to 3.</p>
+<p><span class="math display">\[\frac{x-31}{2}~=~3\]</span></p>
+<p>Multiply by 2.</p>
+<p><span class="math display">\[x-31~=~6\]</span></p>
+<p>Add 31.</p>
+<p><span class="math display">\[x~=~37\]</span></p>
+<p>Let’s plug that value of <span class="math inline">\(x\)</span> into the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[\frac{(37)-31}{2}\right]}+24}{28}\]</span></p>
+<p>Simplify the argument using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=\frac{f{\left[3\right]}+24}{28}\]</span></p>
+<p>Excellent! Now we can use the first bit of information given to us:
+<span class="math inline">\(f[3]=88\)</span>. So, we can substitute 88 in place of <span class="math inline">\(f[3]\)</span>.</p>
+<p><span class="math display">\[y=\frac{88+24}{28}\]</span></p>
+<p>Simplify the expression using arithmetic and order of operations.</p>
+<p><span class="math display">\[y=4\]</span></p>
+<p>And, thus, we have our solution: <span class="math inline">\(x=37\)</span> and <span class="math inline">\(y=4\)</span>.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
