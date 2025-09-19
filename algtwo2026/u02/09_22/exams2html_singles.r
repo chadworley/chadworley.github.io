@@ -7,7 +7,7 @@ for(ppss in pppsss){
     genname = strsplit(ppss,".",T)[[1]][1]
     probs = ppss
 
-    nvers = 30
+    nvers = 12
     ps = character(0)
     for(prob in probs){
       ps = c(ps,rep(prob,nvers))
