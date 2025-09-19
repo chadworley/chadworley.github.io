@@ -1,0 +1,171 @@
+```{r data generation, echo = FALSE, results = "hide"}
+am = "(x+A)\\cdot B"
+ad = "\\frac{x+A}{B}"
+sm = "(x-A)\\cdot B"
+sd = "\\frac{x-A}{B}"
+ma = "A x+B"
+da = "\\frac{x}{A}+B"
+ms = "A x-B"
+ds = "\\frac{x}{A}-B"
+qs = c(am,ad,sm,sd,ma,da,ms,ds)
+
+am = "(x+A)\\cdot B"
+ad = "\\frac{x+A}{B}"
+sm = "(x-A)\\cdot B"
+sd = "\\frac{x-A}{B}"
+ma = "A\\cdot x+B"
+da = "\\frac{x}{A}+B"
+ms = "A\\cdot x-B"
+ds = "\\frac{x}{A}-B"
+q2s = c(am,ad,sm,sd,ma,da,ms,ds)
+
+exn = sample(1:length(qs),1)
+
+while(T){
+  nums = c(sample(2:9,2))
+  x = sample(2:12,1)
+  a = nums[1]
+  b = nums[2]
+  if(exn==1){
+    y = b*(x+a)
+    y2 = x+a
+  } else if(exn==2){
+    y = (x+a)/b
+    y2 = x+a
+  } else if(exn==3){
+    y = (x-a)*b
+    y2 = x-a
+  } else if(exn==4){
+    y = (x-a)/b
+    y2 = x-a
+  } else if(exn==5){
+    y = a*x+b
+    y2 = a*x
+  } else if(exn==6){
+    y = x/a+b
+    y2 = x/a
+  } else if(exn==7){
+    y = a*x-b
+    y2 = a*x
+  } else if(exn==8){
+    y = x/a-b
+    y2 = x/a
+  }
+  if(y%%1==0 && abs(y)<70 && abs(y)>0 && x!=a && x!=b  && x!=y && y>1){break}
+}
+
+wd = c("add A and then multiply by B",
+       "add A and then divide by B",
+       "subtract A and then multiply by B",
+       "subtract A and then divide by B",
+       "multiply by A and then add B",
+       "divide by A and then add B",
+       "multiply by A and then subtract B",
+       "divide by A and then subtract B")
+
+q = gsub("B",nums[2],gsub("A",nums[1],qs[exn]))
+a = gsub("x",y,gsub("B",nums[1],gsub("A",nums[2],q2s[length(qs)-exn+1])))
+
+exp1 = gsub("B",nums[2],gsub("A",nums[1],wd[exn]))
+exp2 = gsub("B",nums[1],gsub("A",nums[2],wd[length(qs)-exn+1]))
+
+ques = paste0(y,"=",q)
+
+
+step1 = c("Add X to both sides of the equation.",
+       "Add X to both sides of the equation.",
+       "Subtract X from both sides of the equation.",
+       "Subtract X from both sides of the equation.",
+       "Multiply both sides of the equation by X.",
+       "Divide both sides of the equation by X.",
+       "Multiply both sides of the equation by X.",
+       "Divide both sides of the equation by X.")
+step2 = c("Multiply both sides of the equation by X.",
+       "Divide both sides of the equation by X.",
+       "Multiply both sides of the equation by X.",
+       "Divide both sides of the equation by X.",
+       "Add X to both sides of the equation.",
+       "Add X to both sides of the equation.",
+       "Subtract X from both sides of the equation.",
+       "Subtract X from both sides of the equation.")
+am = "x+A"
+ad = "x+A"
+sm = "x-A"
+sd = "x-A"
+ma = "A x"
+da = "\\frac{x}{A}"
+ms = "A x"
+ds = "\\frac{x}{A}"
+ex3 = c(am,ad,sm,sd,ma,da,ms,ds)
+
+s1 = step1[9-exn]
+s1 = gsub("X",nums[2],s1,fixed=T)
+
+s2 = step2[9-exn]
+s2 = gsub("X",nums[1],s2,fixed=T)
+
+e1 = ex3[exn]
+e1 = gsub("A",nums[1],e1,fixed=T)
+
+check1 = gsub("x",paste0("(",x,")",collapse=""),ques,fixed=T)
+check1 = gsub("=","\\stackrel{?}{=}",check1,fixed=T)
+
+am = "A\\cdot B"
+ad = "\\frac{A}{B}"
+sm = "A\\cdot B"
+sd = "\\frac{A}{B}"
+ma = "A+B"
+da = "A+B"
+ms = "A-B"
+ds = "A-B"
+finals = c(am,ad,sm,sd,ma,da,ms,ds)
+fn = finals[exn]
+fn = gsub("A",y2,fn,fixed=T)
+fn = gsub("B",nums[2],fn,fixed=T)
+
+```
+
+Question
+========
+
+Solve the equation below.
+$$`r ques`$$
+
+
+Solution
+========
+
+Rewrite the given equation.
+$$`r ques`$$
+`r s1`
+
+$$`r y2`=`r e1`$$
+
+`r s2`
+
+$$`r x`=x$$
+
+Switch sides (which is allowed because equality is commutative).
+
+$$x=`r x`$$
+
+You can check your possible answer by substituting `r x` for $x$ in the original equation.
+
+$$`r check1`$$
+
+
+$$`r y` \stackrel{?}{=} `r fn`$$
+
+
+$$`r y` \stackrel{\checkmark}{=} `r y`$$
+
+So, indeed we see that $x=`r x`$ is a solution to the equation.
+
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r x`
+exname: two-step_equations

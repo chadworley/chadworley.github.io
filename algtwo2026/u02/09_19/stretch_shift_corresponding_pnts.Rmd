@@ -1,0 +1,288 @@
+```{r data generation, echo = FALSE, results = "hide"}
+exp_types = sample(1:8,2)
+et1 = exp_types[1]
+et2 = exp_types[2]
+exp_frames = c("M\\cdot\\left(x+A\\right)",
+               "M\\cdot x+A",
+               "M\\cdot\\left(x-A\\right)",
+               "M\\cdot x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+funcs = list(function(x,A,M){M*(x+A)},
+             function(x,A,M){M*x+A},
+             function(x,A,M){M*(x-A)},
+             function(x,A,M){M*x-A},
+             function(x,A,M){(x+A)/M},
+             function(x,A,M){x/M+A},
+             function(x,A,M){(x-A)/M},
+             function(x,A,M){x/M-A}
+             )
+while(T){
+    mults = sample(c(2:3),2)
+    Mx = mults[1]
+    My = mults[2]
+    xspace1 = sample(1:3,1)
+    yspace1 = sample(1:3,1)
+    xspace2 = xspace1*mults[1]
+    yspace2 = yspace1*mults[2]
+    xbig = sort(sample(0:floor(20/xspace2),3))*xspace2
+    ybig = sample(0:floor(20/yspace2),3)*yspace2
+    shifts = sample(1:6,2)
+    Ax = shifts[1]
+    Ay = shifts[2]
+    if(et1<5){
+        xsmall = funcs[[9-et1]](xbig,Ax,Mx)
+        x1 = xbig
+        x2 = xsmall
+    } else {
+        xsmall = funcs[[et1]](xbig,Ax,Mx)
+        x1 = xsmall
+        x2 = xbig
+    }
+    if(et2<5){
+        ysmall = funcs[[9-et2]](ybig,Ay,My)
+        y1 = ysmall
+        y2 = ybig
+    } else {
+        ysmall = funcs[[et2]](ybig,Ay,My)
+        y1 = ybig
+        y2 = ysmall
+    }
+    alldem = c(x1,x2,y1,y2)
+    m11 = (y1[2]-y1[1])/(x1[2]-x1[1])
+    m12 = (y1[3]-y1[2])/(x1[3]-x1[2])
+    if(min(alldem)>=0 && max(alldem)<=20 && sum(alldem%%1==0)==12 && m11 != m12){break}
+}
+
+
+exp1 = exp_frames[et2]
+exp1 = gsub("x","f{\\left[X\\right]}",exp1,fixed=T)
+exp1 = gsub("A",Ay,exp1,fixed=T)
+exp1 = gsub("M",My,exp1,fixed=T)
+exp1 = gsub("X",exp_frames[et1],exp1,fixed=T)
+exp1 = gsub("A",Ax,exp1,fixed=T)
+exp1 = gsub("M",Mx,exp1,fixed=T)
+
+
+
+ach = 0:20
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+Question
+========
+
+Curve $y=f[x]$ contains points $(`r x1[1]`,`r y1[1]`)$ and $(`r x1[2]`,`r y1[2]`)$ and $(`r x1[3]`,`r y1[3]`)$, as shown on the $x$-$y$ plane below.
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+par(mar=c(3,3,0,0),oma=c(0,0,0,0),pty="s",mfrow=c(1,2))
+plot(0,0,"n",xlim=c(0,20),ylim=c(0,20),axes=F,ann=F)
+for(i in 1:20){
+    lines(c(i,i),c(0,20),lwd=0.7)
+    lines(c(0,20),c(i,i),lwd=0.7)
+}
+for(i in seq(0,20,5)){
+    lines(c(i,i),c(0,20),lwd=1.2)
+    lines(c(0,20),c(i,i),lwd=1.2)
+}
+axis(1,line=0)
+axis(2,line=0)
+mtext("x",1,line=2)
+mtext("y",2,line=2)
+lines(x1,y1,col="blue",lwd=3)
+points(x1,y1,col="blue",pch=19,cex=0.8)
+
+# if(params$showsol==T){
+#     lines(x2,y2,col="red",lwd=3)
+#     points(x2,y2,col="red",pch=19,cex=0.8)
+# }
+
+plot(0,0,"n",axes=F,ann=F)
+legend("left","y = f[x]",col="blue",lwd=3)
+
+
+answers = c(x2,y2)
+sols = character()
+for(i in 1:6){
+    sols = c(sols,paste0(1*(0:20==answers[i]),collapse=""))
+}
+solstr = paste0(sols,collapse=" | ")
+
+```
+
+In other words:
+$$f[`r x1[1]`]=`r y1[1]`$$
+$$f[`r x1[2]`]=`r y1[2]`$$
+$$f[`r x1[3]`]=`r y1[3]`$$
+
+Let function $g$ be a transformation of function $f$, as defined by the equation below:
+
+$$g[x]~=~`r exp1`$$
+
+Find the three corresponding points of curve $y=g[x]$.
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = paste0("##ANSWER",1:3,"##")
+gx = paste0("##ANSWER",4:6,"##")
+df = data.frame(x,gx)
+colnames(df)=c("$x$","$g[x]$")
+kable(df)
+```
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+x = paste0(x2)
+gx = paste0(y2)
+df = data.frame(x,gx)
+colnames(df)=c("$x$","$g[x]$")
+kable(df)
+```
+
+
+```{r,echo=F}
+exp2 = exp_frames[et1]
+exp2 = gsub("A",Ax,exp2,fixed=T)
+exp2 = gsub("M",Mx,exp2,fixed=T)
+
+```
+
+
+**How to get the answers...**
+
+Rewrite the given information:
+$$f[`r x1[1]`]=`r y1[1]`$$
+$$f[`r x1[2]`]=`r y1[2]`$$
+$$f[`r x1[3]`]=`r y1[3]`$$
+$$g[x]=`r exp1`$$
+
+```{r,echo=F}
+exp3 = gsub("x",x2[1],exp1,fixed=T)
+exp4 = exp_frames[et2]
+exp4 = gsub("x","f{\\left[X\\right]}",exp4,fixed=T)
+exp4 = gsub("X",x1[1],exp4,fixed=T)
+exp4 = gsub("A",Ax,exp4,fixed=T)
+exp4 = gsub("M",Mx,exp4,fixed=T)
+exp5 = exp_frames[et2]
+exp5 = gsub("x",y1[1],exp5,fixed=T)
+exp5 = gsub("A",Ax,exp5,fixed=T)
+exp5 = gsub("M",Mx,exp5,fixed=T)
+```
+
+1. Use $f[`r x1[1]`]=`r y1[1]`$.
+    * Set the argument of $f$ equal to `r x1[1]`.
+    $$`r exp2`=`r x1[1]`$$
+    Solve the two-step equation.
+    $$x=`r x2[1]`$$
+    Substitute `r x2[1]` for $x$ in the main equation.
+    $$g[`r x2[1]`]=`r exp3`$$
+    Simplify the argument.
+    $$g[`r x2[1]`]=`r exp4`$$
+    Substitute `r y1[1]` for $f[`r x1[1]`]$ because $f[`r x1[1]`]=`r y1[1]`$.
+    $$g[`r x2[1]`]=`r exp5`$$
+    Use arithmetic to evaluate the numerical expression.
+    $$g[`r x2[1]`]=`r y2[1]`$$
+    So our first new point on $y=g(x)$ is point $(`r x2[1]`,`r y2[1]`)$.
+```{r,echo=F}
+exp3 = gsub("x",x2[2],exp1,fixed=T)
+exp4 = exp_frames[et2]
+exp4 = gsub("x","f{\\left[X\\right]}",exp4,fixed=T)
+exp4 = gsub("X",x1[2],exp4,fixed=T)
+exp4 = gsub("A",Ax,exp4,fixed=T)
+exp4 = gsub("M",Mx,exp4,fixed=T)
+exp5 = exp_frames[et2]
+exp5 = gsub("x",y1[2],exp5,fixed=T)
+exp5 = gsub("A",Ax,exp5,fixed=T)
+exp5 = gsub("M",Mx,exp5,fixed=T)
+```
+2. Use old point = $(`r x1[2]`,`r y1[2]`)$. So, use $f[`r x1[2]`]=`r y1[2]`$.
+    * Set the argument of $f$ equal to `r x1[2]`.
+    $$`r exp2`=`r x1[2]`$$
+    Solve the two-step equation.
+    $$x=`r x2[2]`$$
+    Substitute `r x2[2]` for $x$ in the main equation.
+    $$g[`r x2[2]`]=`r exp3`$$
+    Simplify the argument.
+    $$g[`r x2[2]`]=`r exp4`$$
+    Substitute `r y1[2]` for $f[`r x1[2]`]$ because $f[`r x1[2]`]=`r y1[2]`$.
+    $$g[`r x2[2]`]=`r exp5`$$
+    Use arithmetic to evaluate the numerical expression.
+    $$g[`r x2[2]`]=`r y2[2]`$$
+    So our second new point on $y=g(x)$ is point $(`r x2[2]`,`r y2[2]`)$.
+```{r,echo=F}
+exp3 = gsub("x",x2[3],exp1,fixed=T)
+exp4 = exp_frames[et2]
+exp4 = gsub("x","f{\\left[X\\right]}",exp4,fixed=T)
+exp4 = gsub("X",x1[3],exp4,fixed=T)
+exp4 = gsub("A",Ax,exp4,fixed=T)
+exp4 = gsub("M",Mx,exp4,fixed=T)
+exp5 = exp_frames[et2]
+exp5 = gsub("x",y1[3],exp5,fixed=T)
+exp5 = gsub("A",Ax,exp5,fixed=T)
+exp5 = gsub("M",Mx,exp5,fixed=T)
+```
+3. Use old point = $(`r x1[3]`,`r y1[3]`)$.  So, use $f[`r x1[3]`]=`r y1[3]`$.
+    * Set the argument of $f$ equal to `r x1[3]`.
+    $$`r exp2`=`r x1[3]`$$
+    Solve the two-step equation.
+    $$x=`r x2[3]`$$
+    Substitute `r x2[3]` for $x$ in the main equation.
+    $$g[`r x2[3]`]=`r exp3`$$
+    Simplify the argument.
+    $$g[`r x2[3]`]=`r exp4`$$
+    Substitute `r y1[3]` for $f[`r x1[3]`]$ because $f[`r x1[3]`]=`r y1[3]`$.
+    $$g[`r x2[3]`]=`r exp5`$$
+    Use arithmetic to evaluate the numerical expression.
+    $$g[`r x2[3]`]=`r y2[3]`$$
+    So our third new point on $y=g(x)$ is point $(`r x2[3]`,`r y2[3]`)$.
+
+```{r,echo=F,fig.dim=c(7,3.5)}
+par(mar=c(3,3,0,0),oma=c(0,0,0,0),pty="s",mfrow=c(1,2))
+plot(0,0,"n",xlim=c(0,20),ylim=c(0,20),axes=F,ann=F)
+for(i in 1:20){
+    lines(c(i,i),c(0,20),lwd=0.7)
+    lines(c(0,20),c(i,i),lwd=0.7)
+}
+for(i in seq(0,20,5)){
+    lines(c(i,i),c(0,20),lwd=1.2)
+    lines(c(0,20),c(i,i),lwd=1.2)
+}
+axis(1,line=0)
+axis(2,line=0)
+mtext("x",1,line=2)
+mtext("y",2,line=2)
+lines(x1,y1,col="blue",lwd=3)
+points(x1,y1,col="blue",pch=19,cex=0.8)
+
+lines(x2,y2,col="red",lwd=3)
+points(x2,y2,col="red",pch=19,cex=0.8)
+
+plot(0,0,"n",axes=F,ann=F)
+legend("left",c("y = f[x]","y = g[x]"),col=c("blue","red"),lwd=c(3,3))
+```
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r solstr`
+exname: stretch_and_shift

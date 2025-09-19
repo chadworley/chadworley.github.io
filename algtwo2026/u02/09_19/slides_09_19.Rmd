@@ -1,0 +1,216 @@
+---
+output: slidy_presentation
+---
+
+
+# Agenda
+
+* Entrance Ticket: [ET_09_18](https://bart.instructure.com/courses/2110/quizzes/3180)
+* Slides: stretching and shifting curves
+* [OCW_09_17_solve_eq_with_func](https://bart.instructure.com/courses/2110/quizzes/3179)
+* [PCW_09_18](https://bart.instructure.com/courses/2110/assignments/28737)
+
+
+# Problem 1
+
+Curve $y=f[x]$ hits points $(2,0)$ and $(5,6)$ and $(8,4)$.
+
+```{r,echo=F,fig.dim=c(4,4)}
+x = c(2,5,8)
+y = c(0,6,4)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),lwd=0.7,col="grey")
+    lines(c(i,i),c(-10,10),lwd=0.7,col="grey")
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey")
+    lines(c(i,i),c(-10,10),col="darkgrey")
+}
+# abline(h=0)
+# abline(v=0)
+arrows(-10.3,0,10.3,0,0.05,45,3,lwd=2)
+arrows(0,-10.3,0,10.3,0.05,45,3,lwd=2)
+text(10,0,"x",adj=c(-0.2,1.1))
+text(0,10,"y",adj=c(1.1,-0.4))
+text(5,0,"5",adj=c(0.5,1.1),col="darkgrey")
+text(0,5,"5",adj=c(1.1,0.5),col="darkgrey")
+
+
+lines(x,y,lwd=2,col="blue")
+points(x,y,pch=19,col="blue",cex=0.8)
+legend("topleft","y = f[x]",col="blue",lwd=2)
+
+```
+
+
+Find the corresponding points of the equation below:
+
+$$y~=~\frac{f[3x-7]}{2}+6$$
+
+# Solution 1
+
+Given equation:
+
+$$y~=~\frac{f[3x-7]}{2}+6$$
+
+We were told three input/output pairs of the function.
+
+$$f[2]=0$$
+$$f[5]=6$$
+$$f[8]=4$$
+
+Let's start by using $f[2]=0$, so let's make the argument equal to $2$.
+$$3x-7=2$$
+$$3x=9$$
+$$x=3$$
+$$y=\frac{f[3\cdot 3-7]}{2}+6$$
+$$y=\frac{f[9-7]}{2}+6$$
+$$y=\frac{f[2]}{2}+6$$
+$$y=\frac{0}{2}+6$$
+$$y=0+6$$
+$$y=6$$
+So, the first point on the new curve is $(3,6)$. Now, we can repeat the process using 
+$f[5]=6$.
+$$3x-7=5$$
+$$3x=12$$
+$$x=4$$
+$$y=\frac{f[3\cdot 4-7]}{2}+6$$
+$$y=\frac{f[12-7]}{2}+6$$
+$$y=\frac{f[5]}{2}+6$$
+$$y=\frac{6}{2}+6$$
+$$y=3+6$$
+$$y=9$$
+The second point on the new curve is $(4,9)$. Now, we can repeat the process using 
+$f[8]=4$.
+
+$$3x-7=8$$
+$$3x=15$$
+$$x=5$$
+$$y=\frac{f[3\cdot 5-7]}{2}+6$$
+$$y=\frac{f[15-7]}{2}+6$$
+$$y=\frac{f[8]}{2}+6$$
+$$y=\frac{4}{2}+6$$
+$$y=2+6$$
+$$y=8$$
+And, so our last point is at $(5,8)$.
+
+Let's make a table of the corresponding points:
+
+```{css,echo=F}
+#myBorderedDiv table {
+  border: 2px solid black; /* Border for the entire table */
+  width: 70%; /* Optional: Make the table take full width of its container */
+}
+#myBorderedDiv th,
+#myBorderedDiv td {
+  border: 1px solid gray; /* Borders for table headers and data cells */
+  padding: 8px; /* Optional: Add some padding inside cells */
+  text-align: center; /* Optional: Align text within cells */
+}
+```
+
+
+<div id="myBorderedDiv">
+
+| point on $y=f(x)$ | point on $y~=~\frac{f[3x-7]}{2}+6$ |
+|:---:|:---:|
+| $(2,0)$ | $(3,6)$ |
+| $(5,6)$ | $(4,9)$ |
+| $(8,4)$ | $(5,8)$ |
+
+</div>
+
+
+* Questions to ponder
+    * What formula produces the new $x$ values from the old $x$ values?
+    * What formula produces the new $y$ values from the old $y$ values?
+
+Let's also graph this new curve.
+
+```{r,echo=F,fig.dim=c(4,4)}
+x = c(2,5,8)
+y = c(0,6,4)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),lwd=0.7,col="grey")
+    lines(c(i,i),c(-10,10),lwd=0.7,col="grey")
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey")
+    lines(c(i,i),c(-10,10),col="darkgrey")
+}
+# abline(h=0)
+# abline(v=0)
+arrows(-10.3,0,10.3,0,0.05,45,3,lwd=2)
+arrows(0,-10.3,0,10.3,0.05,45,3,lwd=2)
+text(10,0,"x",adj=c(-0.2,1.1))
+text(0,10,"y",adj=c(1.1,-0.4))
+text(5,0,"5",adj=c(0.5,1.1),col="darkgrey")
+text(0,5,"5",adj=c(1.1,0.5),col="darkgrey")
+
+library(latex2exp)
+
+lines(x,y,lwd=2,col="blue")
+points(x,y,pch=19,col="blue",cex=0.8)
+legend("topleft",c(TeX("$y = f(x)$"),TeX("y = \\frac{f[3x-7]}{2}+6"),""),col=c("blue","red",NA),lwd=c(2,2,NA))
+
+x2 = c(3,4,5)
+y2 = c(6,9,8)
+
+lines(x2,y2,lwd=2,col="red")
+points(x2,y2,pch=19,col="red",cex=0.8)
+
+
+```
+
+
+Notice the new curve is half as tall and one third as wide. Also, the new curve has shifted.
+
+
+
+
+
+# Problem 2
+
+Curve $y=f[x]$ hits points $(-3,5)$ and $(0,0)$ and $(2,4)$.
+
+```{r,echo=F,fig.dim=c(4,4)}
+x = c(-3,0,2)
+y = c(5,0,4)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),lwd=0.7,col="grey")
+    lines(c(i,i),c(-10,10),lwd=0.7,col="grey")
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey")
+    lines(c(i,i),c(-10,10),col="darkgrey")
+}
+# abline(h=0)
+# abline(v=0)
+arrows(-10.3,0,10.3,0,0.05,45,3,lwd=2)
+arrows(0,-10.3,0,10.3,0.05,45,3,lwd=2)
+text(10,0,"x",adj=c(-0.2,1.1))
+text(0,10,"y",adj=c(1.1,-0.4))
+text(5,0,"5",adj=c(0.5,1.1),col="darkgrey")
+text(0,5,"5",adj=c(1.1,0.5),col="darkgrey")
+
+
+lines(x,y,lwd=2,col="blue")
+points(x,y,pch=19,col="blue",cex=0.8)
+legend("topleft","y = f[x]",col="blue",lwd=2)
+
+```
+
+
+Find the corresponding points of the equation below:
+
+$$y~=~2\cdot f{\left[\frac{x}{3}-1\right]}-6$$
+
+\vspace{10in}
+
+
