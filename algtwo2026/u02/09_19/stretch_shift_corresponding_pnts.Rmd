@@ -67,9 +67,22 @@ exp1 = gsub("A",Ax,exp1,fixed=T)
 exp1 = gsub("M",Mx,exp1,fixed=T)
 
 
+answers = c(x2,y2)
 
-ach = 0:20
+ach = sort(answers)
+while(length(ach)<10){
+    ach=unique(sort(c(ach,sample(0:20,1))))
+}
+
 al = paste0("* ",ach,collapse="\n")
+
+answers = c(x2,y2)
+sols = character()
+for(i in 1:6){
+    sols = c(sols,paste0(1*(ach==answers[i]),collapse=""))
+}
+solstr = paste0(sols,collapse="|")
+
 
 ```
 
@@ -103,14 +116,6 @@ points(x1,y1,col="blue",pch=19,cex=0.8)
 
 plot(0,0,"n",axes=F,ann=F)
 legend("left","y = f[x]",col="blue",lwd=3)
-
-
-answers = c(x2,y2)
-sols = character()
-for(i in 1:6){
-    sols = c(sols,paste0(1*(0:20==answers[i]),collapse=""))
-}
-solstr = paste0(sols,collapse=" | ")
 
 ```
 
@@ -279,6 +284,26 @@ plot(0,0,"n",axes=F,ann=F)
 legend("left",c("y = f[x]","y = g[x]"),col=c("blue","red"),lwd=c(3,3))
 ```
 
+**Shortcut...**
+
+You can save a lot of time by recognizing the following:
+
+```{r,echo=F}
+inveq = exp_frames[9-et1]
+inveq = gsub("A",Ax,inveq,fixed=T)
+inveq = gsub("M",Mx,inveq,fixed=T)
+inveq = gsub("x","x_{\\text{old}}",inveq,fixed=T)
+
+yeq = exp_frames[et2]
+yeq = gsub("A",Ay,yeq,fixed=T)
+yeq = gsub("M",My,yeq,fixed=T)
+yeq = gsub("x","y_{\\text{old}}",yeq,fixed=T)
+```
+
+* The new $x$ values are found using the INVERSE of the argument expression.
+    * $$x_{\text{new}}~=~`r inveq`$$
+* The new $y$ values are found using the operations outside the function.
+    * $$y_{\text{new}}~=~`r yeq`$$
 
 Meta-information
 ============

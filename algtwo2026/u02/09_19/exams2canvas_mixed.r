@@ -3,17 +3,17 @@ n = 30
 outdir = "outcanvas"
 
 ### Entrance ticket
-pm = list("et01_two-step_inverse_alg.Rmd",
-          "et01_two-step_inverse_alg.Rmd")
-
-exams2canvas(pm,
-             n=n,
-             dir=outdir,
-             points=c(1,1),
-             maxattempts = 6,
-             name="ET_09_19",
-             template = "canvas_qti12.xml",
-             cloze = list(enumerate = FALSE))
+# pm = list("et01_two-step_inverse_alg.Rmd",
+#           "et01_two-step_inverse_alg.Rmd")
+# 
+# exams2canvas(pm,
+#              n=n,
+#              dir=outdir,
+#              points=c(1,1),
+#              maxattempts = 6,
+#              name="ET_09_19",
+#              template = "canvas_qti12.xml",
+#              cloze = list(enumerate = FALSE))
 
 
 # Classwork 1
