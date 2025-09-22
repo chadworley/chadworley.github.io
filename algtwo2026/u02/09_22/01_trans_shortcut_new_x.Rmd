@@ -1,0 +1,160 @@
+```{r data generation, echo = FALSE, results = "hide"}
+nums = sample(3:9,4)
+am = "B\\cdot\\left(x+A\\right)"
+ad = "\\frac{x+A}{B}"
+sm = "B\\cdot\\left(x-A\\right)"
+sd = "\\frac{x-A}{B}"
+ma = "A\\cdot x+B"
+da = "\\frac{x}{A}+B"
+ms = "A\\cdot x-B"
+ds = "\\frac{x}{A}-B"
+exframe = c(am,ad,sm,sd,ma,da,ms,ds)
+
+s1 = c("Add X to both sides.",
+       "Add X to both sides.",
+       "Subtract X from both sides.",
+       "Subtract X from both sides.",
+       "Multiply both sides by X.",
+       "Divide both sides by X.",
+       "Multiply both sides by X.",
+       "Divide both sides by X.")
+
+s2 = c("Multiply both sides by X.",
+       "Divide both sides by X.",
+       "Multiply both sides by X.",
+       "Divide both sides by X.",
+       "Add X to both sides.",
+       "Add X to both sides.",
+       "Subtract X from both sides.",
+       "Subtract X from both sides.")
+
+wd = c("add A and then multiply by B",
+       "add A and then divide by B",
+       "subtract A and then multiply by B",
+       "subtract A and then divide by B",
+       "multiply by A and then add B",
+       "divide by A and then add B",
+       "multiply by A and then subtract B",
+       "divide by A and then subtract B")
+
+am = "x/A"
+ad = "Ax"
+sm = "x/A"
+sd = "Ax"
+ma = "x-A"
+da = "x-A"
+ms = "x+A"
+ds = "x+A"
+ls1 = c(am,ad,sm,sd,ma,da,ms,ds)
+
+am = "y+A"
+ad = "y+A"
+sm = "y-A"
+sd = "y-A"
+ma = "Ay"
+da = "\\frac{y}{A}"
+ms = "Ay"
+ds = "\\frac{y}{A}"
+rs1 = c(am,ad,sm,sd,ma,da,ms,ds)
+
+ef = sample(1:8,2,T)
+expfa = gsub("x","f{\\left[arg\\right]}",exframe[ef[2]],fixed=T)
+expfa = gsub("A",nums[3],expfa,fixed=T)
+expfa = gsub("B",nums[4],expfa,fixed=T)
+exp1 = gsub("arg",exframe[ef[1]],expfa,fixed=T)
+exp1 = gsub("A",nums[1],exp1,fixed=T)
+exp1 = gsub("B",nums[2],exp1,fixed=T)
+
+argexp = exframe[ef[1]]
+argexp = gsub("A",nums[1],argexp,fixed=T)
+argexp = gsub("B",nums[2],argexp,fixed=T)
+
+
+invarg = exframe[9-ef[1]]
+invarg = gsub("B",nums[1],invarg,fixed=T)
+invarg = gsub("A",nums[2],invarg,fixed=T)
+invarg = gsub("x","x_1",invarg,fixed=T)
+
+argops = wd[ef[1]]
+argops = gsub("A",nums[1],argops,fixed=T)
+argops = gsub("B",nums[2],argops,fixed=T)
+
+
+invops = wd[9-ef[1]]
+invops = gsub("B",nums[1],invops,fixed=T)
+invops = gsub("A",nums[2],invops,fixed=T)
+
+ach = character()
+for(i in 1:8){
+    ggg = exframe[i]
+    ggg = gsub("A",nums[1],ggg,fixed=T)
+    ggg = gsub("B",nums[2],ggg,fixed=T)
+    ggg = gsub("x","x_1",ggg,fixed=T)
+    ach = c(ach,ggg)
+    ggg = exframe[i]
+    ggg = gsub("A",nums[2],ggg,fixed=T)
+    ggg = gsub("B",nums[1],ggg,fixed=T)
+    ggg = gsub("x","x_1",ggg,fixed=T)
+    ach = c(ach,ggg)
+}
+ach = sample(ach)
+
+al = paste0("* $x_2~=~",ach,"$",collapse="\n")
+
+sol = paste0(1*(ach==invarg),collapse="")
+
+```
+
+Question
+========
+
+(*Note, we use subscripts like adjectives. So, $x_1$ is "first $x$" and $x_2$ is "second $x$". This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different $x$ values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are $x$ values.*)
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$, as shown below:
+
+$$g[x]~=~`r exp1`$$
+
+If we know values for $x_1$ and $y_1$ such that $f[x_1]=y_1$, we can find values for $x_2$ and $y_2$ such that $g[x_2]=y_2$. 
+
+* What is the formula to calculate $x_2$ from $x_1$?
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+Let's try to memorize the shortcut. To find the new $x$ values, we use the INVERSE of the argument expression. In the $f$ argument, the operations are `r argops`. So, the inverse must `r invops`.
+
+$$x_2 ~=~ `r invarg`$$
+
+The reason this works can be thought of this way... but it is quite abstract. We will practice with more specific examples soon. 
+
+* We know that we want the equation's left side to be $g[x_2]$. This is because we are deriving an equation involving $g[x_2]$.
+$$g[x_2]~=~`r gsub("x","x_2",exp1,fixed=T)`$$
+
+* We only know the output of $f$ if the input is $x_1$. So, we need the $f$ argument to equal $x_1$.
+$$`r gsub("x","x_2",argexp,fixed=T)`~=~x_1$$
+* But we want a formula solved for $x_2$, so we'll need to do some algebra. `r gsub("X",nums[2],s1[9-ef[1]],fixed=T)`
+$$`r gsub("A",nums[1],gsub("y","x_2",rs1[ef[1]],fixed=T),fixed=T)`~=~`r gsub("A",nums[2],gsub("x","x_1",ls1[ef[1]],fixed=T),fixed=T)`$$
+* `r gsub("X",nums[1],s2[9-ef[1]],fixed=T)`
+$$x_2 ~=~ `r invarg`$$
+
+As a final note, notice that if $`r gsub("x","x_2",argexp,fixed=T)`~=~x_1$, we will be able to set up the following equations:
+
+
+$$g[x_2]~=~`r gsub("arg","x_1",expfa,fixed=T)`$$
+
+
+$$y_2~=~`r gsub("f{\\left[arg\\right]}","y_1",expfa,fixed=T)`$$
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: trans_shortcut_new_x

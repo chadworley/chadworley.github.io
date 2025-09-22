@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>03_get_new_x_with_shortcut</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 12;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">03_get_new_x_with_shortcut</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~2\cdot f{\left[8\left(x+3\right)\right]}-6\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=88\)</span> and <span class="math inline">\(y_{\text{old}}=43\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to add 3 and then multiply by 8, so the inverse must divide by 8 and then subtract 3.</p>
+<p><span class="math display">\[x_{\text{new}}~=~\frac{x_{\text{old}}}{8}-3\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~\frac{88}{8}-3\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~4\cdot\left(f{\left[\frac{x-7}{5}\right]}+3\right)\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=13\)</span> and <span class="math inline">\(y_{\text{old}}=1\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to subtract 7 and then divide by 5, so the inverse must multiply by 5 and then add 7.</p>
+<p><span class="math display">\[x_{\text{new}}~=~5 x_{\text{old}}+7\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~5\cdot 13+7\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~72\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~9\cdot f{\left[\frac{x+8}{7}\right]}+2\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=9\)</span> and <span class="math inline">\(y_{\text{old}}=0\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to add 8 and then divide by 7, so the inverse must multiply by 7 and then subtract 8.</p>
+<p><span class="math display">\[x_{\text{new}}~=~7 x_{\text{old}}-8\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~7\cdot 9-8\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~55\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~8\cdot\left(f{\left[3\left(x-9\right)\right]}-6\right)\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=90\)</span> and <span class="math inline">\(y_{\text{old}}=6\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to subtract 9 and then multiply by 3, so the inverse must divide by 3 and then add 9.</p>
+<p><span class="math display">\[x_{\text{new}}~=~\frac{x_{\text{old}}}{3}+9\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~\frac{90}{3}+9\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~39\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~4\cdot f{\left[\frac{x-6}{2}\right]}-8\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=45\)</span> and <span class="math inline">\(y_{\text{old}}=18\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to subtract 6 and then divide by 2, so the inverse must multiply by 2 and then add 6.</p>
+<p><span class="math display">\[x_{\text{new}}~=~2 x_{\text{old}}+6\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~2\cdot 45+6\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~96\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~2\cdot\left(f{\left[\frac{x+3}{9}\right]}-5\right)\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=11\)</span> and <span class="math inline">\(y_{\text{old}}=13\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to add 3 and then divide by 9, so the inverse must multiply by 9 and then subtract 3.</p>
+<p><span class="math display">\[x_{\text{new}}~=~9 x_{\text{old}}-3\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~9\cdot 11-3\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~96\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[5 x-3\right]}}{8}+2\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=42\)</span> and <span class="math inline">\(y_{\text{old}}=80\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to multiply by 5 and then subtract 3, so the inverse must add 3 and then divide by 5.</p>
+<p><span class="math display">\[x_{\text{new}}~=~\frac{x_{\text{old}}+3}{5}\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~\frac{42+3}{5}\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~2\cdot f{\left[6\left(x+4\right)\right]}+3\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=90\)</span> and <span class="math inline">\(y_{\text{old}}=35\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to add 4 and then multiply by 6, so the inverse must divide by 6 and then subtract 4.</p>
+<p><span class="math display">\[x_{\text{new}}~=~\frac{x_{\text{old}}}{6}-4\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~\frac{90}{6}-4\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~11\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[\frac{x}{4}-2\right]}-6}{8}\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=19\)</span> and <span class="math inline">\(y_{\text{old}}=54\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to divide by 4 and then subtract 2, so the inverse must add 2 and then multiply by 4.</p>
+<p><span class="math display">\[x_{\text{new}}~=~4\left(x_{\text{old}}+2\right)\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~4\cdot\left(19+2\right)\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~84\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[\frac{x}{6}-2\right]}-5}{3}\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=3\)</span> and <span class="math inline">\(y_{\text{old}}=41\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to divide by 6 and then subtract 2, so the inverse must add 2 and then multiply by 6.</p>
+<p><span class="math display">\[x_{\text{new}}~=~6\left(x_{\text{old}}+2\right)\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~6\cdot\left(3+2\right)\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~30\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~6\cdot\left(f{\left[\frac{x}{3}+5\right]}-2\right)\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=37\)</span> and <span class="math inline">\(y_{\text{old}}=12\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to divide by 3 and then add 5, so the inverse must subtract 5 and then multiply by 3.</p>
+<p><span class="math display">\[x_{\text{new}}~=~3\left(x_{\text{old}}-5\right)\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~3\cdot\left(37-5\right)\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~96\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~8\cdot\left(f{\left[\frac{x}{4}-5\right]}+2\right)\]</span></p>
+<p>If values <span class="math inline">\(x_{\text{old}}=10\)</span> and <span class="math inline">\(y_{\text{old}}=7\)</span> satisfy the equation <span class="math inline">\(y_{\text{old}}=f[x_{\text{old}}]\)</span>, we can find corresponding values for <span class="math inline">\(x_{\text{new}}\)</span> and <span class="math inline">\(y_{\text{new}}\)</span> such that <span class="math inline">\(y_{\text{new}}=g[x_{\text{new}}]\)</span>.</p>
+<ul>
+<li>What is the value of <span class="math inline">\(x_{\text{new}}\)</span>?</li>
+</ul>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to divide by 4 and then subtract 5, so the inverse must add 5 and then multiply by 4.</p>
+<p><span class="math display">\[x_{\text{new}}~=~4\left(x_{\text{old}}+5\right)\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~4\cdot\left(10+5\right)\]</span></p>
+<p><span class="math display">\[x_{\text{new}}~=~60\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

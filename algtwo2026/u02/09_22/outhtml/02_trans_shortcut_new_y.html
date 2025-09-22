@@ -1,0 +1,906 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>02_trans_shortcut_new_y</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 12;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">02_trans_shortcut_new_y</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~9\cdot f{\left[3\cdot x+6\right]}-4\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~4\cdot y_1-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1+4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{4}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+9}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~4\cdot\left(y_1+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~4\cdot\left(y_1-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~4\cdot y_1+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1-4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-9}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-4}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{4}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1-4\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+4}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1+4\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(3\cdot x_2+6~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~9\cdot f{\left[3\cdot x_2+6\right]}-4\]</span>
+<span class="math display">\[g[x_2]~=~9\cdot f{\left[x_1\right]}-4\]</span>
+<span class="math display">\[y_2~=~9\cdot y_1-4\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~8\cdot f{\left[7\cdot x+3\right]}+4\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~8\cdot\left(y_1+4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~4\cdot y_1+8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~4\cdot y_1-8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot y_1+4\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{4}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~4\cdot\left(y_1+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+4}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+8}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot\left(y_1-4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{4}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-8}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{8}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~4\cdot\left(y_1-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-4}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot y_1-4\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{8}+4\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(7\cdot x_2+3~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~8\cdot f{\left[7\cdot x_2+3\right]}+4\]</span>
+<span class="math display">\[g[x_2]~=~8\cdot f{\left[x_1\right]}+4\]</span>
+<span class="math display">\[y_2~=~8\cdot y_1+4\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~6\cdot\left(f{\left[\frac{x-9}{8}\right]}+3\right)\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-3}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-6}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot\left(y_1-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot y_1+3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{6}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+3}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot y_1-6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot y_1-3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{3}-6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot y_1+6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot\left(y_1+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot\left(y_1-3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{6}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+6}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{3}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot\left(y_1+3\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(\frac{x_2-9}{8}~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~6\cdot\left(f{\left[\frac{x_2-9}{8}\right]}+3\right)\]</span>
+<span class="math display">\[g[x_2]~=~6\cdot\left(f{\left[x_1\right]}+3\right)\]</span>
+<span class="math display">\[y_2~=~6\cdot\left(y_1+3\right)\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~8\cdot f{\left[\frac{x}{3}+5\right]}-6\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{8}-6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{6}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot\left(y_1-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-6}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-8}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{8}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot\left(y_1+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+6}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot\left(y_1-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot y_1+8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{6}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot y_1+6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+8}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot y_1-8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot y_1-6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot\left(y_1+6\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(\frac{x_2}{3}+5~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~8\cdot f{\left[\frac{x_2}{3}+5\right]}-6\]</span>
+<span class="math display">\[g[x_2]~=~8\cdot f{\left[x_1\right]}-6\]</span>
+<span class="math display">\[y_2~=~8\cdot y_1-6\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~9\cdot\left(f{\left[\frac{x}{8}-7\right]}+6\right)\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~6\cdot y_1-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot\left(y_1-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot y_1+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-6}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{6}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+6}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1-6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot\left(y_1+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1+6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+9}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-9}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{6}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}-6\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(\frac{x_2}{8}-7~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~9\cdot\left(f{\left[\frac{x_2}{8}-7\right]}+6\right)\]</span>
+<span class="math display">\[g[x_2]~=~9\cdot\left(f{\left[x_1\right]}+6\right)\]</span>
+<span class="math display">\[y_2~=~9\cdot\left(y_1+6\right)\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[\frac{x+9}{6}\right]}+5}{3}\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~3\cdot\left(y_1+5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{5}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{5}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot y_1+5\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~5\cdot y_1-3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-3}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{3}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot\left(y_1-5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+3}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-5}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~5\cdot y_1+3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot y_1-5\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~5\cdot\left(y_1+3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{3}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+5}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~5\cdot\left(y_1-3\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(\frac{x_2+9}{6}~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~\frac{f{\left[\frac{x_2+9}{6}\right]}+5}{3}\]</span>
+<span class="math display">\[g[x_2]~=~\frac{f{\left[x_1\right]}+5}{3}\]</span>
+<span class="math display">\[y_2~=~\frac{y_1+5}{3}\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[\frac{x}{5}+9\right]}}{3}+7\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~3\cdot\left(y_1-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{7}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+7}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot y_1+7\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~7\cdot\left(y_1-3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~7\cdot\left(y_1+3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+3}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{7}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~7\cdot y_1+3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-3}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot y_1-7\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-7}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{3}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{3}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~7\cdot y_1-3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot\left(y_1+7\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(\frac{x_2}{5}+9~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~\frac{f{\left[\frac{x_2}{5}+9\right]}}{3}+7\]</span>
+<span class="math display">\[g[x_2]~=~\frac{f{\left[x_1\right]}}{3}+7\]</span>
+<span class="math display">\[y_2~=~\frac{y_1}{3}+7\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~3\cdot f{\left[4\cdot x-8\right]}-9\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{3}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-3}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+9}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot y_1+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-9}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+3}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1-3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1-3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot\left(y_1+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1+3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot y_1-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot\left(y_1-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{3}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1+3\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(4\cdot x_2-8~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~3\cdot f{\left[4\cdot x_2-8\right]}-9\]</span>
+<span class="math display">\[g[x_2]~=~3\cdot f{\left[x_1\right]}-9\]</span>
+<span class="math display">\[y_2~=~3\cdot y_1-9\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~9\cdot\left(f{\left[4\cdot\left(x-7\right)\right]}+8\right)\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~8\cdot\left(y_1+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{8}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+8}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1-8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot y_1-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{8}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-9}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot y_1+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+9}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1+8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot\left(y_1-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-8}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1-8\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(4\cdot\left(x_2-7\right)~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~9\cdot\left(f{\left[4\cdot\left(x_2-7\right)\right]}+8\right)\]</span>
+<span class="math display">\[g[x_2]~=~9\cdot\left(f{\left[x_1\right]}+8\right)\]</span>
+<span class="math display">\[y_2~=~9\cdot\left(y_1+8\right)\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[\frac{x}{7}+9\right]}}{8}+6\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{6}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot\left(y_1-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+6}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot\left(y_1+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot\left(y_1+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+8}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-6}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot y_1+6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{8}-6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{6}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot y_1-8\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot\left(y_1-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-8}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{8}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~8\cdot y_1-6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot y_1+8\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(\frac{x_2}{7}+9~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~\frac{f{\left[\frac{x_2}{7}+9\right]}}{8}+6\]</span>
+<span class="math display">\[g[x_2]~=~\frac{f{\left[x_1\right]}}{8}+6\]</span>
+<span class="math display">\[y_2~=~\frac{y_1}{8}+6\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~3\cdot f{\left[7\cdot x+6\right]}+9\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1+3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1-3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+9}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1+3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot y_1+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-9}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1-3\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{3}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot\left(y_1-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot\left(y_1+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~3\cdot y_1-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-3}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+3}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{3}-9\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(7\cdot x_2+6~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~3\cdot f{\left[7\cdot x_2+6\right]}+9\]</span>
+<span class="math display">\[g[x_2]~=~3\cdot f{\left[x_1\right]}+9\]</span>
+<span class="math display">\[y_2~=~3\cdot y_1+9\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~6\cdot f{\left[\frac{x}{4}-8\right]}+9\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(y_2\)</span> from <span class="math inline">\(y_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-9}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{6}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1-6}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+9}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot\left(y_1+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{6}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1+6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~9\cdot y_1-6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1+6}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot y_1-9\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot\left(y_1-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~\frac{y_1}{9}-6\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot\left(y_1+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(y_2~=~6\cdot y_1+9\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>If we force <span class="math inline">\(\frac{x_2}{4}-8~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~6\cdot f{\left[\frac{x_2}{4}-8\right]}+9\]</span>
+<span class="math display">\[g[x_2]~=~6\cdot f{\left[x_1\right]}+9\]</span>
+<span class="math display">\[y_2~=~6\cdot y_1+9\]</span></p>
+<p>Notice, you just use the operations outside the function.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

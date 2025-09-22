@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("stretch_shift_corresponding_pnts.Rmd")
+pppsss = c("et01_use_fsol_find_gsol.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

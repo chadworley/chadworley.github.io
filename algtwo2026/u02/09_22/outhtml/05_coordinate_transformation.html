@@ -1,0 +1,834 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>05_coordinate_transformation</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 12;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">05_coordinate_transformation</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~2\cdot f{\left[8\left(x+3\right)\right]}-6\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-3}{8},2 b-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-8}{3},\frac{b}{2}+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-8}{3},\frac{b}{6}+2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{8}-3,2 b-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{8}-3,6 b-2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(3 a+8,\frac{b}{2}+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8 a+3,\frac{b+6}{2}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8 a+3,6 b-2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8\left(a+3\right),\frac{b}{6}+2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8\left(a+3\right),2\left(b-6\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8\left(a+3\right),6 b-2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8\left(a+3\right),6\left(b-2\right)\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(8\left(x+3\right)\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[8\left(x+3\right)~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>divide by 8</li>
+<li>subtract 3</li>
+</ol>
+<p><span class="math display">\[x~=~\frac{a}{8}-3\]</span></p>
+<p>So, now, since <span class="math inline">\(8\left(x+3\right)~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~2\cdot f{\left[a\right]}-6\]</span></p>
+<p>We can also substitute <span class="math inline">\(\frac{a}{8}-3\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[\frac{a}{8}-3\right]}~=~2\cdot b-6\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(\frac{a}{8}-3,2 b-6\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(\frac{a}{8}-3,2 b-6\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~2\cdot f{\left[6\left(x+8\right)\right]}-5\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-6}{8},\frac{b}{5}+2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-6}{8},2\left(b-5\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-6}{8},5 b-2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-8}{6},\frac{b}{5}+2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-8}{6},\frac{b+2}{5}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{6}-8,2 b-5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{6}-8,5 b-2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{8}-6,\frac{b}{2}+5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{8}-6,2\left(b-5\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{8}-6,5\left(b-2\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(6\left(a+8\right),\frac{b+5}{2}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8\left(a+6\right),5 b-2\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(6\left(x+8\right)\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[6\left(x+8\right)~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>divide by 6</li>
+<li>subtract 8</li>
+</ol>
+<p><span class="math display">\[x~=~\frac{a}{6}-8\]</span></p>
+<p>So, now, since <span class="math inline">\(6\left(x+8\right)~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~2\cdot f{\left[a\right]}-5\]</span></p>
+<p>We can also substitute <span class="math inline">\(\frac{a}{6}-8\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[\frac{a}{6}-8\right]}~=~2\cdot b-5\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(\frac{a}{6}-8,2 b-5\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(\frac{a}{6}-8,2 b-5\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[6\left(x+2\right)\right]}+4}{7}\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-2}{6},\frac{b+7}{4}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-2}{6},4 b-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{2}-6,7 b-4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{6}-2,\frac{b+4}{7}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{6}-2,4 b-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{6}-2,7 b-4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2 a+6,4 b-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2\left(a+6\right),\frac{b}{7}+4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2\left(a+6\right),\frac{b+7}{4}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2\left(a+6\right),4 b-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(6 a+2,\frac{b}{7}+4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(6 a+2,7\left(b-4\right)\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(6\left(x+2\right)\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[6\left(x+2\right)~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>divide by 6</li>
+<li>subtract 2</li>
+</ol>
+<p><span class="math display">\[x~=~\frac{a}{6}-2\]</span></p>
+<p>So, now, since <span class="math inline">\(6\left(x+2\right)~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~\frac{f{\left[a\right]}+4}{7}\]</span></p>
+<p>We can also substitute <span class="math inline">\(\frac{a}{6}-2\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[\frac{a}{6}-2\right]}~=~\frac{b+4}{7}\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(\frac{a}{6}-2,\frac{b+4}{7}\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(\frac{a}{6}-2,\frac{b+4}{7}\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[4\left(x+7\right)\right]}}{2}-8\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-7}{4},2 b+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-7}{4},8 b+2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{4}-7,\frac{b-8}{2}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{4}-7,\frac{b}{2}-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{4}-7,2 b+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{4}-7,2\left(b+8\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{7}-4,\frac{b-8}{2}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(4 a+7,8 b+2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(4\left(a+7\right),\frac{b-2}{8}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(4\left(a+7\right),\frac{b-8}{2}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(7 a+4,\frac{b-2}{8}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(7\left(a+4\right),\frac{b}{8}-2\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(4\left(x+7\right)\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[4\left(x+7\right)~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>divide by 4</li>
+<li>subtract 7</li>
+</ol>
+<p><span class="math display">\[x~=~\frac{a}{4}-7\]</span></p>
+<p>So, now, since <span class="math inline">\(4\left(x+7\right)~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~\frac{f{\left[a\right]}}{2}-8\]</span></p>
+<p>We can also substitute <span class="math inline">\(\frac{a}{4}-7\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[\frac{a}{4}-7\right]}~=~\frac{b}{2}-8\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(\frac{a}{4}-7,\frac{b}{2}-8\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(\frac{a}{4}-7,\frac{b}{2}-8\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[\frac{x+2}{3}\right]}-8}{5}\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{2}+3,\frac{b-8}{5}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{2}+3,8 b+5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{3}+2,\frac{b-5}{8}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+2}{3},5 b+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+3}{2},\frac{b}{5}-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2 a-3,5\left(b+8\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2\left(a-3\right),\frac{b-8}{5}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2\left(a-3\right),8 b+5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(3 a-2,\frac{b-8}{5}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(3 a-2,\frac{b}{5}-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(3\left(a-2\right),\frac{b}{5}-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(3\left(a-2\right),8\left(b+5\right)\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(\frac{x+2}{3}\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[\frac{x+2}{3}~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>multiply by 3</li>
+<li>subtract 2</li>
+</ol>
+<p><span class="math display">\[x~=~3 a-2\]</span></p>
+<p>So, now, since <span class="math inline">\(\frac{x+2}{3}~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~\frac{f{\left[a\right]}-8}{5}\]</span></p>
+<p>We can also substitute <span class="math inline">\(3 a-2\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[3 a-2\right]}~=~\frac{b-8}{5}\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(3 a-2,\frac{b-8}{5}\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(3 a-2,\frac{b-8}{5}\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[3 x-8\right]}}{6}-4\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{3}+8,\frac{b-6}{4}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{3}+8,6\left(b+4\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{8}+3,4 b+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+3}{8},4 b+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+3}{8},6 b+4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+3}{8},6\left(b+4\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+8}{3},\frac{b-4}{6}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+8}{3},\frac{b-6}{4}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+8}{3},\frac{b}{6}-4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(3 a-8,\frac{b-4}{6}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(3 a-8,\frac{b}{4}-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8 a-3,6\left(b+4\right)\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(3 x-8\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[3 x-8~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>add 8</li>
+<li>divide by 3</li>
+</ol>
+<p><span class="math display">\[x~=~\frac{a+8}{3}\]</span></p>
+<p>So, now, since <span class="math inline">\(3 x-8~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~\frac{f{\left[a\right]}}{6}-4\]</span></p>
+<p>We can also substitute <span class="math inline">\(\frac{a+8}{3}\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[\frac{a+8}{3}\right]}~=~\frac{b}{6}-4\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(\frac{a+8}{3},\frac{b}{6}-4\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(\frac{a+8}{3},\frac{b}{6}-4\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~7\cdot\left(f{\left[\frac{x}{2}+4\right]}+5\right)\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{4}+2,7\left(b+5\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+2}{4},7 b+5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+4}{2},\frac{b-5}{7}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+4}{2},5\left(b+7\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+4}{2},7 b+5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2 a-4,\frac{b}{5}-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2 a-4,7 b+5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2\left(a-4\right),7 b+5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2\left(a-4\right),7\left(b+5\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(4 a-2,\frac{b-5}{7}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(4\left(a-2\right),\frac{b-5}{7}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(4\left(a-2\right),5 b+7\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(\frac{x}{2}+4\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[\frac{x}{2}+4~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>subtract 4</li>
+<li>multiply by 2</li>
+</ol>
+<p><span class="math display">\[x~=~2\left(a-4\right)\]</span></p>
+<p>So, now, since <span class="math inline">\(\frac{x}{2}+4~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~7\cdot\left(f{\left[a\right]}+5\right)\]</span></p>
+<p>We can also substitute <span class="math inline">\(2\left(a-4\right)\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[2\left(a-4\right)\right]}~=~7\cdot\left(b+5\right)\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(2\left(a-4\right),7\left(b+5\right)\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(2\left(a-4\right),7\left(b+5\right)\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~6\cdot f{\left[\frac{x+8}{2}\right]}+9\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{2}+8,\frac{b}{6}-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{8}+2,\frac{b-9}{6}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+2}{8},\frac{b}{6}-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+2}{8},9\left(b+6\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+8}{2},\frac{b-6}{9}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+8}{2},6 b+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2 a-8,6 b+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2 a-8,9 b+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2\left(a-8\right),\frac{b}{6}-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8 a-2,\frac{b-6}{9}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8 a-2,6 b+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(8\left(a-2\right),6\left(b+9\right)\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(\frac{x+8}{2}\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[\frac{x+8}{2}~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>multiply by 2</li>
+<li>subtract 8</li>
+</ol>
+<p><span class="math display">\[x~=~2 a-8\]</span></p>
+<p>So, now, since <span class="math inline">\(\frac{x+8}{2}~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~6\cdot f{\left[a\right]}+9\]</span></p>
+<p>We can also substitute <span class="math inline">\(2 a-8\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[2 a-8\right]}~=~6\cdot b+9\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(2 a-8,6 b+9\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(2 a-8,6 b+9\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~8\cdot f{\left[9 x+5\right]}+7\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-5}{9},\frac{b-7}{8}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-5}{9},8 b+7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{5}-9,\frac{b}{7}-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{5}-9,\frac{b}{8}-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{5}-9,8 b+7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{9}-5,8 b+7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(5 a+9,\frac{b-8}{7}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(5\left(a+9\right),\frac{b-7}{8}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9 a+5,8 b+7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9\left(a+5\right),\frac{b-8}{7}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9\left(a+5\right),7 b+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9\left(a+5\right),7\left(b+8\right)\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(9 x+5\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[9 x+5~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>subtract 5</li>
+<li>divide by 9</li>
+</ol>
+<p><span class="math display">\[x~=~\frac{a-5}{9}\]</span></p>
+<p>So, now, since <span class="math inline">\(9 x+5~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~8\cdot f{\left[a\right]}+7\]</span></p>
+<p>We can also substitute <span class="math inline">\(\frac{a-5}{9}\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[\frac{a-5}{9}\right]}~=~8\cdot b+7\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(\frac{a-5}{9},8 b+7\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(\frac{a-5}{9},8 b+7\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[9\left(x-2\right)\right]}}{5}+8\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{2}+9,5 b-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{9}+2,\frac{b}{5}+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+9}{2},\frac{b}{5}+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+9}{2},\frac{b+5}{8}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a+9}{2},5\left(b-8\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2 a-9,\frac{b}{5}+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2 a-9,8\left(b-5\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2\left(a-9\right),\frac{b+8}{5}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9 a-2,\frac{b+5}{8}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9 a-2,\frac{b+8}{5}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9\left(a-2\right),8 b-5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9\left(a-2\right),8\left(b-5\right)\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(9\left(x-2\right)\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[9\left(x-2\right)~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>divide by 9</li>
+<li>add 2</li>
+</ol>
+<p><span class="math display">\[x~=~\frac{a}{9}+2\]</span></p>
+<p>So, now, since <span class="math inline">\(9\left(x-2\right)~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~\frac{f{\left[a\right]}}{5}+8\]</span></p>
+<p>We can also substitute <span class="math inline">\(\frac{a}{9}+2\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[\frac{a}{9}+2\right]}~=~\frac{b}{5}+8\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(\frac{a}{9}+2,\frac{b}{5}+8\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(\frac{a}{9}+2,\frac{b}{5}+8\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~9\cdot f{\left[\frac{x}{6}-2\right]}-7\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-2}{6},\frac{b}{7}+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-2}{6},\frac{b+7}{9}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-6}{2},\frac{b}{7}+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-6}{2},\frac{b+9}{7}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{2}-6,\frac{b}{7}+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{6}-2,\frac{b}{9}+7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{6}-2,7 b-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{6}-2,9 b-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2 a+6,\frac{b}{7}+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(2 a+6,\frac{b+9}{7}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(6 a+2,\frac{b}{7}+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(6\left(a+2\right),9 b-7\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(\frac{x}{6}-2\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[\frac{x}{6}-2~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>add 2</li>
+<li>multiply by 6</li>
+</ol>
+<p><span class="math display">\[x~=~6\left(a+2\right)\]</span></p>
+<p>So, now, since <span class="math inline">\(\frac{x}{6}-2~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~9\cdot f{\left[a\right]}-7\]</span></p>
+<p>We can also substitute <span class="math inline">\(6\left(a+2\right)\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[6\left(a+2\right)\right]}~=~9\cdot b-7\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(6\left(a+2\right),9 b-7\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(6\left(a+2\right),9 b-7\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below as an equation true for any value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[g[x]~=~2\cdot\left(f{\left[4 x+9\right]}+6\right)\]</span></p>
+<p>For every point <span class="math inline">\((a,b)\)</span> on the curve <span class="math inline">\(y=f[x]\)</span> there is a corresponding point on the curve <span class="math inline">\(y=g[x]\)</span>. What is the rule that describes this coordinate transformation?</p>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a-9}{4},2\left(b+6\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{4}-9,\frac{b}{2}-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{4}-9,2 b+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{9}-4,\frac{b}{2}-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{9}-4,2\left(b+6\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(\frac{a}{9}-4,6 b+2\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(4 a+9,\frac{b-2}{6}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(4 a+9,\frac{b-6}{2}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(4 a+9,2\left(b+6\right)\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9\left(a+4\right),\frac{b-6}{2}\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9\left(a+4\right),\frac{b}{2}-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\((a,b)\to \left(9\left(a+4\right),6\left(b+2\right)\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>We know we need the argument <span class="math inline">\(4 x+9\)</span> to equal <span class="math inline">\(a\)</span> because we wish to use the fact that <span class="math inline">\(f[a]=b\)</span>.</p>
+<p><span class="math display">\[4 x+9~=~a\]</span>
+Solve for <span class="math inline">\(x\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>subtract 9</li>
+<li>divide by 4</li>
+</ol>
+<p><span class="math display">\[x~=~\frac{a-9}{4}\]</span></p>
+<p>So, now, since <span class="math inline">\(4 x+9~=~a\)</span>, we can rewrite the main equation:
+<span class="math display">\[g[x]~=~2\cdot\left(f{\left[a\right]}+6\right)\]</span></p>
+<p>We can also substitute <span class="math inline">\(\frac{a-9}{4}\)</span> for <span class="math inline">\(x\)</span> and substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f[a]\)</span>.</p>
+<p><span class="math display">\[g{\left[\frac{a-9}{4}\right]}~=~2\cdot\left(b+6\right)\]</span></p>
+<p>And, thus, the corresponding point on the <span class="math inline">\(g\)</span> curve is <span class="math inline">\(\left(\frac{a-9}{4},2\left(b+6\right)\right)\)</span>. As a coordinate transformation:</p>
+<p><span class="math display">\[(a,b)\to \left(\frac{a-9}{4},2\left(b+6\right)\right)\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

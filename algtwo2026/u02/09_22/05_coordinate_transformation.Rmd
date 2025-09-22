@@ -1,0 +1,162 @@
+```{r data generation, echo = FALSE, results = "hide"}
+exp_types = sample(1:8,2,T)
+et1 = exp_types[1]
+et2 = exp_types[2]
+mas = sample(2:9,4)
+m1 = mas[1]
+m2 = mas[2]
+a1 = mas[3]
+a2 = mas[4]
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+exp_frames2 = c("M\\cdot\\left(x+A\\right)",
+               "M\\cdot x+A",
+               "M\\cdot\\left(x-A\\right)",
+               "M\\cdot x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+wd = c("add A and then multiply by M",
+       "multiply by M and then add A",
+       "subtract A and then multiply by M",
+       "multiply by M and then subtract A",
+       "add A and then divide by M",
+       "divide by M and then add A",
+       "subtract A and then divide by M",
+       "divide by M and then subtract A")
+
+wd2 = c("  1. add A\n  2. multiply by M",
+        "  1. multiply by M\n  2. add A",
+        "  1. subtract A\n  2. multiply by M",
+        "  1. multiply by M\n  2. subtract A",
+        "  1. add A\n  2. divide by M",
+        "  1. divide by M\n  2. add A",
+        "  1. subtract A\n  2. divide by M",
+        "  1. divide by M\n  2. subtract A")
+
+
+exp2 = exp_frames2[et2]
+exp2 = gsub("A",a2,exp2,fixed=T)
+exp2 = gsub("M",m2,exp2,fixed=T)
+exp3 = gsub("x","f{\\left[a\\right]}",exp2,fixed=T)
+exp4 = gsub("x","b",exp2,fixed=T)
+exptemp = gsub("x","f{\\left[arg\\right]}",exp2,fixed=T)
+exp1 = gsub("arg",exp_frames[et1],exptemp,fixed=T)
+exp1 = gsub("A",a1,exp1,fixed=T)
+exp1 = gsub("M",m1,exp1,fixed=T)
+
+argex = exp_frames[et1]
+argex = gsub("A",a1,argex,fixed=T)
+argex = gsub("M",m1,argex,fixed=T)
+
+argsteps = wd2[et1]
+argsteps = gsub("A",a1,argsteps,fixed=T)
+argsteps = gsub("M",m1,argsteps,fixed=T)
+
+
+invsteps = wd2[9-et1]
+invsteps = gsub("A",a1,invsteps,fixed=T)
+invsteps = gsub("M",m1,invsteps,fixed=T)
+
+invarg = exp_frames[9-et1]
+invarg = gsub("A",a1,invarg,fixed=T)
+invarg = gsub("M",m1,invarg,fixed=T)
+invarg = gsub("x","a",invarg,fixed=T)
+
+argwd = wd[et1]
+argwd = gsub("A",a1,argwd,fixed=T)
+argwd = gsub("M",m1,argwd,fixed=T)
+
+invwd = wd[9-et1]
+invwd = gsub("A",a1,invwd,fixed=T)
+invwd = gsub("M",m1,invwd,fixed=T)
+
+outex = exp_frames[et2]
+outex = gsub("A",a2,outex,fixed=T)
+outex = gsub("M",m2,outex,fixed=T)
+outex = gsub("x","b",outex,fixed=T)
+
+ca = paste0("$(a,b)\\to \\left(",invarg,",",outex,"\\right)$",collapse="")
+cp = paste0("$\\left(",invarg,",",outex,"\\right)$",collapse="")
+
+ach = c(ca)
+
+
+types1 = c( ((et1-1)%/%2)*2+1, ((et1-1)%/%2)*2+2, ((9-et1-1)%/%2)*2+1, ((9-et1-1)%/%2)*2+2 )
+types2 = c( ((et2-1)%/%2)*2+1, ((et2-1)%/%2)*2+2, ((9-et2-1)%/%2)*2+1, ((9-et2-1)%/%2)*2+2 )
+
+while(length(ach)<12){
+    ia = exp_frames[sample(types1,1)]
+    taps = sample(c(a1,m1))
+    ia = gsub("A",taps[1],ia,fixed=T)
+    ia = gsub("M",taps[2],ia,fixed=T)
+    ia = gsub("x","a",ia,fixed=T)
+    
+    ib = exp_frames[sample(types2,1)]
+    taps = sample(c(a2,m2))
+    ib = gsub("A",taps[1],ib,fixed=T)
+    ib = gsub("M",taps[2],ib,fixed=T)
+    ib = gsub("x","b",ib,fixed=T)
+    
+    inca = paste0("$(a,b)\\to \\left(",ia,",",ib,"\\right)$",collapse="")
+    if(!(inca %in% ach)){ach=c(ach,inca)}
+}
+ach = sort(ach)
+al = paste0("* ",ach,collapse="\n")
+sol = paste0(1*(ach==ca),collapse="")
+
+```
+
+Question
+========
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$, as shown below as an equation true for any value of $x$:
+
+$$g[x]~=~`r exp1`$$
+
+For every point $(a,b)$ on the curve $y=f[x]$ there is a corresponding point on the curve $y=g[x]$. What is the rule that describes this coordinate transformation?
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+We know we need the argument $`r argex`$ to equal $a$ because we wish to use the fact that $f[a]=b$.
+
+$$`r argex`~=~a$$
+Solve for $x$.
+
+`r invsteps`
+
+$$x~=~`r invarg`$$
+
+So, now, since $`r argex`~=~a$, we can rewrite the main equation:
+$$g[x]~=~`r exp3`$$
+
+We can also substitute $`r invarg`$ for $x$ and substitute $b$ for $f[a]$.
+
+$$g{\left[`r invarg`\right]}~=~`r exp4`$$
+
+And, thus, the corresponding point on the $g$ curve is `r cp`. As a coordinate transformation:
+
+$`r ca`$
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: coordinate_transformation

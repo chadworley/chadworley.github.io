@@ -3,46 +3,47 @@ n = 30
 outdir = "outcanvas"
 
 ### Entrance ticket
-# pm = list("et01_two-step_inverse_alg.Rmd",
-#           "et01_two-step_inverse_alg.Rmd")
-# 
-# exams2canvas(pm,
-#              n=n,
-#              dir=outdir,
-#              points=c(1,1),
-#              maxattempts = 6,
-#              name="ET_09_19",
-#              template = "canvas_qti12.xml",
-#              cloze = list(enumerate = FALSE))
-
-
-# Classwork 1
-pm = list("stretch_shift_corresponding_pnts.Rmd",
-          "stretch_shift_corresponding_pnts.Rmd")
+pm = list("et01_use_fsol_find_gsol.Rmd")
 
 exams2canvas(pm,
              n=n,
              dir=outdir,
-             points=c(6,6),
+             points=c(1),
+             maxattempts = 6,
+             name="ET_0922",
+             template = "canvas_qti12.xml",
+             cloze = list(enumerate = FALSE))
+
+
+# Classwork 1
+pm = list("05_coordinate_transformation.Rmd",
+          "05_coordinate_transformation.Rmd")
+
+exams2canvas(pm,
+             n=n,
+             dir=outdir,
+             points=c(2,2),
              maxattempts = 8,
-             name="OCW_09_19_stretch_and_shift",
+             name="OCW_0922_coordnt_transfrmtn",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
 
 
 # Classwork 2
-# pm = list(c("10_shift_table_left.Rmd","11_shift_table_right.Rmd"),
-#           c("12_shift_table_up.Rmd","13_shift_table_down.Rmd"),
-#           "14_translate_table.Rmd",
-#           "15_translate_graph.Rmd")
-# 
-# exams2canvas(pm,
-#              n=n,
-#              dir=outdir,
-#              points=c(2,2,2,2),
-#              maxattempts = 8,
-#              name="OCW_function_translations",
-#              template = "canvas_qti12.xml",
-#              cloze = list(enumerate = FALSE))
+pm = list("01_trans_shortcut_new_x.Rmd",
+          "02_trans_shortcut_new_y.Rmd",
+          "03_get_new_x_with_shortcut.Rmd",
+          "04_get_new_y_with_shortcut.Rmd",
+          "05_coordinate_transformation.Rmd",
+          "06_get_new_pnts_shortcut.Rmd")
+
+exams2canvas(pm,
+             n=n,
+             dir=outdir,
+             points=c(2,2,2,2,2,8),
+             maxattempts = 8,
+             name="OCW_0922_B_transform_shortcuts",
+             template = "canvas_qti12.xml",
+             cloze = list(enumerate = FALSE))
 
 

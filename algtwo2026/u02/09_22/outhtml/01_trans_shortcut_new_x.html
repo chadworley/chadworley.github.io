@@ -1,0 +1,1050 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>01_trans_shortcut_new_x</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 12;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">01_trans_shortcut_new_x</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~9\cdot f{\left[3\cdot x+6\right]}-4\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{3}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot x_1-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot\left(x_1+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{6}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+3}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot\left(x_1+3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot\left(x_1-3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot x_1+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{3}-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot\left(x_1-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-3}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-6}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{6}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot x_1-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+6}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot x_1+6\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are multiply by 3 and then add 6. So, the inverse must subtract 6 and then divide by 3.</p>
+<p><span class="math display">\[x_2 ~=~ \frac{x_1-6}{3}\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~9\cdot f{\left[3\cdot x_2+6\right]}-4\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[3\cdot x_2+6~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Subtract 6 from both sides.
+<span class="math display">\[3x_2~=~x_1-6\]</span></p></li>
+<li><p>Divide both sides by 3.
+<span class="math display">\[x_2 ~=~ \frac{x_1-6}{3}\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(3\cdot x_2+6~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~9\cdot f{\left[x_1\right]}-4\]</span></p>
+<p><span class="math display">\[y_2~=~9\cdot y_1-4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~8\cdot f{\left[7\cdot x+3\right]}+4\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~7\cdot\left(x_1+3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot x_1+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot x_1-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot x_1+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{3}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot\left(x_1+7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+3}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+7}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot\left(x_1-3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{3}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-7}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{7}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot\left(x_1-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-3}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot x_1-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{7}+3\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are multiply by 7 and then add 3. So, the inverse must subtract 3 and then divide by 7.</p>
+<p><span class="math display">\[x_2 ~=~ \frac{x_1-3}{7}\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~8\cdot f{\left[7\cdot x_2+3\right]}+4\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[7\cdot x_2+3~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Subtract 3 from both sides.
+<span class="math display">\[7x_2~=~x_1-3\]</span></p></li>
+<li><p>Divide both sides by 7.
+<span class="math display">\[x_2 ~=~ \frac{x_1-3}{7}\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(7\cdot x_2+3~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~8\cdot f{\left[x_1\right]}+4\]</span></p>
+<p><span class="math display">\[y_2~=~8\cdot y_1+4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~6\cdot\left(f{\left[\frac{x-9}{8}\right]}+3\right)\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-9}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-8}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot\left(x_1-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot x_1+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{8}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+9}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot x_1-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot x_1-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{9}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot x_1+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot\left(x_1+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot\left(x_1-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{8}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+8}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{9}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot\left(x_1+9\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are subtract 9 and then divide by 8. So, the inverse must multiply by 8 and then add 9.</p>
+<p><span class="math display">\[x_2 ~=~ 8\cdot x_1+9\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~6\cdot\left(f{\left[\frac{x_2-9}{8}\right]}+3\right)\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[\frac{x_2-9}{8}~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Multiply both sides by 8.
+<span class="math display">\[x_2-9~=~8x_1\]</span></p></li>
+<li><p>Add 9 to both sides.
+<span class="math display">\[x_2 ~=~ 8\cdot x_1+9\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(\frac{x_2-9}{8}~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~6\cdot\left(f{\left[x_1\right]}+3\right)\]</span></p>
+<p><span class="math display">\[y_2~=~6\cdot\left(y_1+3\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~8\cdot f{\left[\frac{x}{3}+5\right]}-6\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{3}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{5}+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot\left(x_1-5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-5}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-3}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{3}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~5\cdot\left(x_1+3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+5}{3}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~5\cdot\left(x_1-3\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~5\cdot x_1+3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{5}-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot x_1+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+3}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~5\cdot x_1-3\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot x_1-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~3\cdot\left(x_1+5\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are divide by 3 and then add 5. So, the inverse must subtract 5 and then multiply by 3.</p>
+<p><span class="math display">\[x_2 ~=~ 3\cdot\left(x_1-5\right)\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~8\cdot f{\left[\frac{x_2}{3}+5\right]}-6\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[\frac{x_2}{3}+5~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Subtract 5 from both sides.
+<span class="math display">\[\frac{x_2}{3}~=~x_1-5\]</span></p></li>
+<li><p>Multiply both sides by 3.
+<span class="math display">\[x_2 ~=~ 3\cdot\left(x_1-5\right)\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(\frac{x_2}{3}+5~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~8\cdot f{\left[x_1\right]}-6\]</span></p>
+<p><span class="math display">\[y_2~=~8\cdot y_1-6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~9\cdot\left(f{\left[\frac{x}{8}-7\right]}+6\right)\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~8\cdot x_1-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot\left(x_1-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot\left(x_1-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot\left(x_1+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot x_1+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-8}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{8}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+8}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot x_1-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot\left(x_1+7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot x_1+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{7}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+7}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-7}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{8}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{7}-8\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are divide by 8 and then subtract 7. So, the inverse must add 7 and then multiply by 8.</p>
+<p><span class="math display">\[x_2 ~=~ 8\cdot\left(x_1+7\right)\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~9\cdot\left(f{\left[\frac{x_2}{8}-7\right]}+6\right)\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[\frac{x_2}{8}-7~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Add 7 to both sides.
+<span class="math display">\[\frac{x_2}{8}~=~x_1+7\]</span></p></li>
+<li><p>Multiply both sides by 8.
+<span class="math display">\[x_2 ~=~ 8\cdot\left(x_1+7\right)\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(\frac{x_2}{8}-7~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~9\cdot\left(f{\left[x_1\right]}+6\right)\]</span></p>
+<p><span class="math display">\[y_2~=~9\cdot\left(y_1+6\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[\frac{x+9}{6}\right]}+5}{3}\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~6\cdot\left(x_1+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{9}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{9}-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot x_1+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot x_1-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-6}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{6}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot\left(x_1-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+6}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-9}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot x_1+6\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot x_1-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot\left(x_1+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{6}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+9}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot\left(x_1-6\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are add 9 and then divide by 6. So, the inverse must multiply by 6 and then subtract 9.</p>
+<p><span class="math display">\[x_2 ~=~ 6\cdot x_1-9\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~\frac{f{\left[\frac{x_2+9}{6}\right]}+5}{3}\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[\frac{x_2+9}{6}~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Multiply both sides by 6.
+<span class="math display">\[x_2+9~=~6x_1\]</span></p></li>
+<li><p>Subtract 9 from both sides.
+<span class="math display">\[x_2 ~=~ 6\cdot x_1-9\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(\frac{x_2+9}{6}~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~\frac{f{\left[x_1\right]}+5}{3}\]</span></p>
+<p><span class="math display">\[y_2~=~\frac{y_1+5}{3}\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[\frac{x}{5}+9\right]}}{3}+7\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~5\cdot\left(x_1-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{9}+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+9}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~5\cdot x_1+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot\left(x_1-5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot\left(x_1+5\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+5}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{9}-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot x_1+5\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-5}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~5\cdot x_1-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-9}{5}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{5}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{5}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot x_1-5\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~5\cdot\left(x_1+9\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are divide by 5 and then add 9. So, the inverse must subtract 9 and then multiply by 5.</p>
+<p><span class="math display">\[x_2 ~=~ 5\cdot\left(x_1-9\right)\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~\frac{f{\left[\frac{x_2}{5}+9\right]}}{3}+7\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[\frac{x_2}{5}+9~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Subtract 9 from both sides.
+<span class="math display">\[\frac{x_2}{5}~=~x_1-9\]</span></p></li>
+<li><p>Multiply both sides by 5.
+<span class="math display">\[x_2 ~=~ 5\cdot\left(x_1-9\right)\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(\frac{x_2}{5}+9~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~\frac{f{\left[x_1\right]}}{3}+7\]</span></p>
+<p><span class="math display">\[y_2~=~\frac{y_1}{3}+7\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~3\cdot f{\left[4\cdot x-8\right]}-9\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{4}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-4}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+8}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot x_1+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-8}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+4}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot\left(x_1-4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{8}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot x_1-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot\left(x_1+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot\left(x_1+4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{8}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot x_1-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot\left(x_1-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{4}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot x_1+4\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are multiply by 4 and then subtract 8. So, the inverse must add 8 and then divide by 4.</p>
+<p><span class="math display">\[x_2 ~=~ \frac{x_1+8}{4}\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~3\cdot f{\left[4\cdot x_2-8\right]}-9\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[4\cdot x_2-8~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Add 8 to both sides.
+<span class="math display">\[4x_2~=~x_1+8\]</span></p></li>
+<li><p>Divide both sides by 4.
+<span class="math display">\[x_2 ~=~ \frac{x_1+8}{4}\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(4\cdot x_2-8~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~3\cdot f{\left[x_1\right]}-9\]</span></p>
+<p><span class="math display">\[y_2~=~3\cdot y_1-9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~9\cdot\left(f{\left[4\cdot\left(x-7\right)\right]}+8\right)\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~7\cdot\left(x_1+4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{7}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+7}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot x_1-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot x_1-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{7}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-4}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot x_1+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{4}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+4}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot x_1+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot\left(x_1-4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{4}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot\left(x_1+7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-7}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot\left(x_1-7\right)\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are subtract 7 and then multiply by 4. So, the inverse must divide by 4 and then add 7.</p>
+<p><span class="math display">\[x_2 ~=~ \frac{x_1}{4}+7\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~9\cdot\left(f{\left[4\cdot\left(x_2-7\right)\right]}+8\right)\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[4\cdot\left(x_2-7\right)~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Divide both sides by 4.
+<span class="math display">\[x_2-7~=~x_1/4\]</span></p></li>
+<li><p>Add 7 to both sides.
+<span class="math display">\[x_2 ~=~ \frac{x_1}{4}+7\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(4\cdot\left(x_2-7\right)~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~9\cdot\left(f{\left[x_1\right]}+8\right)\]</span></p>
+<p><span class="math display">\[y_2~=~9\cdot\left(y_1+8\right)\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~\frac{f{\left[\frac{x}{7}+9\right]}}{8}+6\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{9}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot\left(x_1-9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+9}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot\left(x_1+9\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot\left(x_1+7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+7}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-9}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot x_1+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{7}-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{9}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot x_1-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot\left(x_1-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-7}{9}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{7}+9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot x_1-9\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~9\cdot x_1+7\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are divide by 7 and then add 9. So, the inverse must subtract 9 and then multiply by 7.</p>
+<p><span class="math display">\[x_2 ~=~ 7\cdot\left(x_1-9\right)\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~\frac{f{\left[\frac{x_2}{7}+9\right]}}{8}+6\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[\frac{x_2}{7}+9~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Subtract 9 from both sides.
+<span class="math display">\[\frac{x_2}{7}~=~x_1-9\]</span></p></li>
+<li><p>Multiply both sides by 7.
+<span class="math display">\[x_2 ~=~ 7\cdot\left(x_1-9\right)\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(\frac{x_2}{7}+9~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~\frac{f{\left[x_1\right]}}{8}+6\]</span></p>
+<p><span class="math display">\[y_2~=~\frac{y_1}{8}+6\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~3\cdot f{\left[7\cdot x+6\right]}+9\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{6}-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot\left(x_1+7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot\left(x_1-7\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+6}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot x_1+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{6}+7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot x_1+6\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-6}{7}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~6\cdot x_1-7\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{7}+6\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot\left(x_1-6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot\left(x_1+6\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~7\cdot x_1-6\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-7}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+7}{6}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{7}-6\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are multiply by 7 and then add 6. So, the inverse must subtract 6 and then divide by 7.</p>
+<p><span class="math display">\[x_2 ~=~ \frac{x_1-6}{7}\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~3\cdot f{\left[7\cdot x_2+6\right]}+9\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[7\cdot x_2+6~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Subtract 6 from both sides.
+<span class="math display">\[7x_2~=~x_1-6\]</span></p></li>
+<li><p>Divide both sides by 7.
+<span class="math display">\[x_2 ~=~ \frac{x_1-6}{7}\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(7\cdot x_2+6~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~3\cdot f{\left[x_1\right]}+9\]</span></p>
+<p><span class="math display">\[y_2~=~3\cdot y_1+9\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>(<em>Note, we use subscripts like adjectives. So, <span class="math inline">\(x_1\)</span> is “first <span class="math inline">\(x\)</span>” and <span class="math inline">\(x_2\)</span> is “second <span class="math inline">\(x\)</span>”. This means the subscript is not involved with any arithmetic; it just allows us to distiguish between different <span class="math inline">\(x\)</span> values. The alternative would be to use a bunch of different letters, but then it is easy to forget which letters are <span class="math inline">\(x\)</span> values.</em>)</p>
+<p>Consider the two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span>, where <span class="math inline">\(g\)</span> is defined as a transformation of <span class="math inline">\(f\)</span>, as shown below:</p>
+<p><span class="math display">\[g[x]~=~6\cdot f{\left[\frac{x}{4}-8\right]}+9\]</span></p>
+<p>If we know values for <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y_1\)</span> such that <span class="math inline">\(f[x_1]=y_1\)</span>, we can find values for <span class="math inline">\(x_2\)</span> and <span class="math inline">\(y_2\)</span> such that <span class="math inline">\(g[x_2]=y_2\)</span>.</p>
+<ul>
+<li>What is the formula to calculate <span class="math inline">\(x_2\)</span> from <span class="math inline">\(x_1\)</span>?</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+<span class="math inline">\(x_2~=~8\cdot\left(x_1-4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-8}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{4}-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1-4}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+8}{4}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{8}+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot\left(x_1+4\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{4}+8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot x_1+4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~8\cdot x_1-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1+4}{8}\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot x_1-8\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot\left(x_1-8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~\frac{x_1}{8}-4\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot\left(x_1+8\right)\)</span>
+</li>
+<li>
+<span class="math inline">\(x_2~=~4\cdot x_1+8\)</span>
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Let’s try to memorize the shortcut. To find the new <span class="math inline">\(x\)</span> values, we use the INVERSE of the argument expression. In the <span class="math inline">\(f\)</span> argument, the operations are divide by 4 and then subtract 8. So, the inverse must add 8 and then multiply by 4.</p>
+<p><span class="math display">\[x_2 ~=~ 4\cdot\left(x_1+8\right)\]</span></p>
+<p>The reason this works can be thought of this way… but it is quite abstract. We will practice with more specific examples soon.</p>
+<ul>
+<li><p>We know that we want the equation’s left side to be <span class="math inline">\(g[x_2]\)</span>. This is because we are deriving an equation involving <span class="math inline">\(g[x_2]\)</span>.
+<span class="math display">\[g[x_2]~=~6\cdot f{\left[\frac{x_2}{4}-8\right]}+9\]</span></p></li>
+<li><p>We only know the output of <span class="math inline">\(f\)</span> if the input is <span class="math inline">\(x_1\)</span>. So, we need the <span class="math inline">\(f\)</span> argument to equal <span class="math inline">\(x_1\)</span>.
+<span class="math display">\[\frac{x_2}{4}-8~=~x_1\]</span></p></li>
+<li><p>But we want a formula solved for <span class="math inline">\(x_2\)</span>, so we’ll need to do some algebra. Add 8 to both sides.
+<span class="math display">\[\frac{x_2}{4}~=~x_1+8\]</span></p></li>
+<li><p>Multiply both sides by 4.
+<span class="math display">\[x_2 ~=~ 4\cdot\left(x_1+8\right)\]</span></p></li>
+</ul>
+<p>As a final note, notice that if <span class="math inline">\(\frac{x_2}{4}-8~=~x_1\)</span>, we will be able to set up the following equations:</p>
+<p><span class="math display">\[g[x_2]~=~6\cdot f{\left[x_1\right]}+9\]</span></p>
+<p><span class="math display">\[y_2~=~6\cdot y_1+9\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

@@ -5,7 +5,6 @@ outdir = "outcanvas"
 ### Entrance ticket
 # pm = list("et01_two-step_inverse_alg.Rmd",
 #           "et01_two-step_inverse_alg.Rmd")
-# 
 # exams2canvas(pm,
 #              n=n,
 #              dir=outdir,
@@ -19,7 +18,6 @@ outdir = "outcanvas"
 # Classwork 1
 pm = list("stretch_shift_corresponding_pnts.Rmd",
           "stretch_shift_corresponding_pnts.Rmd")
-
 exams2canvas(pm,
              n=n,
              dir=outdir,
@@ -28,7 +26,6 @@ exams2canvas(pm,
              name="OCW_09_19_stretch_and_shift",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
-
 
 # Classwork 2
 # pm = list(c("10_shift_table_left.Rmd","11_shift_table_right.Rmd"),
@@ -44,5 +41,4 @@ exams2canvas(pm,
 #              name="OCW_function_translations",
 #              template = "canvas_qti12.xml",
 #              cloze = list(enumerate = FALSE))
-
 

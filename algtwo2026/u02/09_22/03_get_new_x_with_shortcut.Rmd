@@ -1,0 +1,130 @@
+```{r data generation, echo = FALSE, results = "hide"}
+xmin = 0
+ymin = 0
+xmax = 100
+ymax = 100
+np = 1
+exp_types = sample(1:8,2,T)
+et1 = exp_types[1]
+et2 = exp_types[2]
+mas = sample(2:9,4)
+m1 = mas[1]
+m2 = mas[2]
+a1 = mas[3]
+a2 = mas[4]
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+exp_frames2 = c("M\\cdot\\left(x+A\\right)",
+               "M\\cdot x+A",
+               "M\\cdot\\left(x-A\\right)",
+               "M\\cdot x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+wd = c("add A and then multiply by M",
+       "multiply by M and then add A",
+       "subtract A and then multiply by M",
+       "multiply by M and then subtract A",
+       "add A and then divide by M",
+       "divide by M and then add A",
+       "subtract A and then divide by M",
+       "divide by M and then subtract A")
+
+funcs = list(function(x,A,M){M*(x+A)},
+             function(x,A,M){M*x+A},
+             function(x,A,M){M*(x-A)},
+             function(x,A,M){M*x-A},
+             function(x,A,M){(x+A)/M},
+             function(x,A,M){x/M+A},
+             function(x,A,M){(x-A)/M},
+             function(x,A,M){x/M-A}
+             )
+xold = numeric()
+yold = numeric()
+xnew = numeric()
+ynew = numeric()
+while(length(xold)<np){
+    xo = sample(0:100,1)
+    yo = sample(0:100,1)
+    xn = funcs[[9-et1]](xo,a1,m1)
+    yn = funcs[[et2]](yo,a2,m2)
+    if(xn%%1==0 && yn%%1==0 && !(xo %in% xold) && !(yo %in% yold) && 
+       xn>=xmin && xn<=xmax && yn>=ymin && yn<=ymax){
+        xold = c(xold,xo)
+        yold = c(yold,yo)
+        xnew = c(xnew,xn)
+        ynew = c(ynew,yn)
+        }
+}
+
+exp1 = exp_frames2[et2]
+exp1 = gsub("A",a2,exp1,fixed=T)
+exp1 = gsub("M",m2,exp1,fixed=T)
+exp1 = gsub("x","f{\\left[arg\\right]}",exp1,fixed=T)
+exp1 = gsub("arg",exp_frames[et1],exp1,fixed=T)
+exp1 = gsub("A",a1,exp1,fixed=T)
+exp1 = gsub("M",m1,exp1,fixed=T)
+
+argex = exp_frames[et1]
+argex = gsub("A",a1,argex,fixed=T)
+argex = gsub("M",m1,argex,fixed=T)
+
+invarg = exp_frames[9-et1]
+invarg = gsub("A",a1,invarg,fixed=T)
+invarg = gsub("M",m1,invarg,fixed=T)
+invarg = gsub("x","x_{\\text{old}}",invarg,fixed=T)
+
+invsub = exp_frames2[9-et1]
+invsub = gsub("A",a1,invsub,fixed=T)
+invsub = gsub("M",m1,invsub,fixed=T)
+invsub = gsub("x",xold[1],invsub,fixed=T)
+
+argwd = wd[et1]
+argwd = gsub("A",a1,argwd,fixed=T)
+argwd = gsub("M",m1,argwd,fixed=T)
+
+invwd = wd[9-et1]
+invwd = gsub("A",a1,invwd,fixed=T)
+invwd = gsub("M",m1,invwd,fixed=T)
+
+```
+
+Question
+========
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$, as shown below as an equation true for any value of $x$:
+
+$$g[x]~=~`r exp1`$$
+
+If values $x_{\text{old}}=`r xold[1]`$ and $y_{\text{old}}=`r yold[1]`$ satisfy the equation $y_{\text{old}}=f[x_{\text{old}}]$, we can find corresponding values for $x_{\text{new}}$ and $y_{\text{new}}$ such that $y_{\text{new}}=g[x_{\text{new}}]$. 
+
+* What is the value of $x_{\text{new}}$?
+
+
+Solution
+========
+
+Use the shortcut, which tells us we can make a formula by inverting the argument expression. The argument expression says to `r argwd`, so the inverse must `r invwd`.
+
+$$x_{\text{new}}~=~`r invarg`$$
+
+
+$$x_{\text{new}}~=~`r invsub`$$
+
+
+$$x_{\text{new}}~=~`r xnew[1]`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r xnew[1]`
+exname: trans_shortcut_new_x

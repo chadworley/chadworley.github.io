@@ -1,0 +1,195 @@
+```{r data generation, echo = FALSE, results = "hide"}
+am = "B\\cdot\\left(X+A\\right)"
+ad = "\\frac{X+A}{B}"
+sm = "B\\cdot\\left(X-A\\right)"
+sd = "\\frac{X-A}{B}"
+ma = "A\\cdot X+B"
+da = "\\frac{X}{A}+B"
+ms = "A\\cdot X-B"
+ds = "\\frac{X}{A}-B"
+qs = c(am,ad,sm,sd,ma,da,ms,ds) #For outer expression
+
+am2 = "B\\left(X+A\\right)"
+ad2 = "\\frac{X+A}{B}"
+sm2 = "B\\left(X-A\\right)"
+sd2 = "\\frac{X-A}{B}"
+ma2 = "A X+B"
+da2 = "\\frac{X}{A}+B"
+ms2 = "A X-B"
+ds2 = "\\frac{X}{A}-B"
+qs2 = c(am2,ad2,sm2,sd2,ma2,da2,ms2,ds2) #For argument expression
+
+
+ops = list(c("Add","Multiply by"),
+           c("Add","Divide by"),
+           c("Subtract","Multiply by"),
+           c("Subtract","Divide by"),
+           c("Multiply by","Add"),
+           c("Divide by","Add"),
+           c("Multiply by","Subtract"),
+           c("Divide by","Subtract"))
+
+fam = function(X,A,B){B*(X+A)}
+fad = function(X,A,B){(X+A)/B}
+fsm = function(X,A,B){B*(X-A)}
+fsd = function(X,A,B){(X-A)/B}
+fma = function(X,A,B){A*X+B}
+fda = function(X,A,B){X/A+B}
+fms = function(X,A,B){A*X-B}
+fds = function(X,A,B){X/A-B}
+fs = list(fam,fad,fsm,fsd,fma,fda,fms,fds)
+
+t1 = sample(1:8,1) #arg exp
+t2 = sample(1:8,1) #out exp
+while(T){
+    ns = sample(2:99,4)
+    x1 = sample(2:99,1)
+    y1 = fs[[t1]](x1,ns[3],ns[4])
+    x2 = sample(2:99,1)
+    y2 = fs[[t2]](x2,ns[1],ns[2])
+    if(y1%%1==0 && y2%%1==0 && y1>1 && y2>1 && y1<100 && y2<100 && length(unique(c(ns,x1,y1,x2,y2)))==8){break}
+}
+outexp = gsub("A",ns[1],qs[t2],fixed=T)
+outexp = gsub("B",ns[2],outexp,fixed=T)
+exp1 = gsub("X","f{\\left[arg\\right]}",outexp,fixed=T)
+exp1 = gsub("arg",qs2[t1],exp1,fixed=T)
+exp1 = gsub("X","x",exp1,fixed=T)
+exp1 = gsub("A",ns[3],exp1,fixed=T)
+exp1 = gsub("B",ns[4],exp1,fixed=T)
+
+arg1 = qs2[t1]
+arg1 = gsub("X","x",arg1,fixed=T)
+arg1 = gsub("A",ns[3],arg1,fixed=T)
+arg1 = gsub("B",ns[4],arg1,fixed=T)
+
+am3 = "X+A"
+ad3 = "X+A"
+sm3 = "X-A"
+sd3 = "X-A"
+ma3 = "A X"
+da3 = "\\frac{X}{A}"
+ms3 = "A X"
+ds3 = "\\frac{X}{A}"
+qs3 = c(am3,ad3,sm3,sd3,ma3,da3,ms3,ds3) #For argument expression
+arg3 = qs3[t1]
+arg3 = gsub("X","x",arg3,fixed=T)
+arg3 = gsub("A",ns[3],arg3,fixed=T)
+
+exp4 = gsub("x",paste0("(",x1,")",collapse=""),exp1,fixed=T)
+
+exp5 = gsub("X","f{\\left[arg\\right]}",outexp,fixed=T)
+exp5 = gsub("arg",y1,exp5,fixed=T)
+
+exp6 = gsub("X",x2,outexp,fixed=T)
+
+fam3 = function(X,A){X+A}
+fad3 = function(X,A){X+A}
+fsm3 = function(X,A){X-A}
+fsd3 = function(X,A){X-A}
+fma3 = function(X,A){A*X}
+fda3 = function(X,A){X/A}
+fms3 = function(X,A){A*X}
+fds3 = function(X,A){X/A}
+fs3 = list(fam3,fad3,fsm3,fsd3,fma3,fda3,fms3,fds3)
+
+ach = numeric()
+for(i in 1:8){
+    ach = c(ach,fs[[i]](x1,ns[3],ns[4]))
+    ach = c(ach,fs[[i]](x2,ns[1],ns[2]))
+    ach = c(ach,fs[[i]](x2,ns[3],ns[4]))
+    ach = c(ach,fs[[i]](x1,ns[1],ns[2]))
+    ach = c(ach,fs[[i]](x1,ns[4],ns[3]))
+    ach = c(ach,fs[[i]](x2,ns[2],ns[1]))
+    ach = c(ach,fs[[i]](x2,ns[4],ns[3]))
+    ach = c(ach,fs[[i]](x1,ns[2],ns[1]))
+}
+ach = unique(ach)
+ach = ach[ach%%1==0]
+ach = ach[ach>1]
+ach = ach[ach<100]
+while(length(ach)<12){
+    ach = unique(c(ach,sample(1:99,1)))
+}
+ach = sample(ach)
+if(length(ach)>12){
+    ach = ach[1:12]
+}
+if(!(x1 %in% ach)){
+    ach[1] = x1
+}
+if(!(y2 %in% ach)){
+    ach[2] = y2
+}
+ach = sort(ach)
+al = paste0("* ",ach,collapse="\n")
+
+sol1 = paste0(1*(ach==x1),collapse="")
+sol2 = paste0(1*(ach==y2),collapse="")
+
+```
+
+Question
+========
+
+If $f[`r y1`]=`r x2`$, then there exists a knowable solution to the equation below.
+
+$$y=`r exp1`$$
+
+Find the solution.
+
+* $x=$ ##ANSWER1##
+* $y=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+
+Solution
+========
+
+Rewrite the given information:
+
+$$f[`r y1`]=`r x2`$$
+
+$$y=`r exp1`$$
+
+First, let's make the argument equal to `r y1`.
+
+$$`r arg1`~=~`r y1`$$
+
+`r ops[[9-t1]][1]` `r ns[4]`.
+
+$$`r arg3`~=~`r fs3[[9-t1]](y1,ns[4])`$$
+
+`r ops[[9-t1]][2]` `r ns[3]`.
+
+$$x~=~`r x1`$$
+
+Let's plug that value of $x$ into the given equation.
+
+$$y=`r exp4`$$
+
+Simplify the argument using arithmetic and order of operations.
+
+$$y=`r exp5`$$
+
+Excellent! Now we can use the first bit of information given to us: 
+$f[`r y1`]=`r x2`$. So, we can substitute `r x2` in place of $f[`r y1`]$.
+
+$$y=`r exp6`$$
+
+Simplify the expression using arithmetic and order of operations.
+
+$$y=`r y2`$$
+
+And, thus, we have our solution: $x=`r x1`$ and $y=`r y2`$.
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: use_fsol_find_gsol

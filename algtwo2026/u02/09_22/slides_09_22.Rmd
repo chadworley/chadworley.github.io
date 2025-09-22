@@ -1,0 +1,393 @@
+---
+output: slidy_presentation
+---
+
+# Agenda
+
+* Entrance Ticket
+* Coordinate Transformations
+
+
+# Coordinate transformations
+
+* Shift all points 2 units right:
+$$(a,b)\to (a+2,b)$$
+* Shift all points 3 units left and 5 units up:
+$$(a,b)\to (a-3,b+5)$$
+* Stretch points horizontally by a factor of 2:
+$$(a,b)\to (2a,b)$$
+
+
+# Problem 1
+
+Let function $g$ be defined as a transformation of function $f$:
+
+$$g[x]~=~ \frac{f[2x+3]}{5}+7$$
+
+We know point $(a,b)$ is on curve $f$. In other words, we know $f[a]=b$.
+
+* What is the corresponding point on curve $g$?
+
+# Solution 1
+
+Restate problem. We are given two equations:
+
+$$g[x]~=~ \frac{f[2x+3]}{5}+7$$
+$$f[a]=b$$
+
+We wish to find a coordinate transformation that describes how to find the corresponding point on $g$.
+
+
+1. Set the argument of $f$ equal to $a$ because we want to use the fact that $f[a]=b$.
+$$2x+3=a$$
+2. Solve for $x$.
+$$2x=a-3$$
+$$x=\frac{a-3}{2}$$
+3. Substitute $a$ for $2x+3$.
+
+$$g[x]~=~ \frac{f[a]}{5}+7$$
+
+4. Substitute $\frac{a-3}{2}$ for $x$.
+
+$$g{\left[\frac{a-3}{2}\right]}~=~ \frac{f[a]}{5}+7$$
+
+5. Substitute $b$ for $f[a]$.
+
+$$g{\left[\frac{a-3}{2}\right]}~=~ \frac{b}{5}+7$$
+
+And, so we know point $\left(\frac{a-3}{2},\frac{b}{5}+7\right)$ is on the $g$ curve. Thus, the coordinate transformation can be written:
+
+$$(a,b)\to \left(\frac{a-3}{2},\frac{b}{5}+7\right)$$
+
+# Shortcut
+
+We were given:
+
+$$g[x]~=~ \frac{f[2x+3]}{5}+7$$
+
+### Horizontal coordinate
+
+Notice the argument $2x+3$ is composed of two elementary operations:
+
+1. Multiply by 2
+2. Add 3
+
+If we consider the INVERSE of the argument:
+
+1. Subtract 3
+2. Divide by 2
+
+And that's exactly what we see in the expression $\frac{a-3}{2}$. This is not a coincidence.
+
+### Vertical coordinate
+
+Replace the entire $f$ expression (the $f$, the argument, and the argument's brackets) with $b$. In this case, we get $\frac{b}{5}+7$
+
+
+### Final answer
+
+$$(a,b)\to \left(\frac{a-3}{2},\frac{b}{5}+7\right)$$
+
+
+
+# Problem 2
+
+```{r, echo = FALSE, results = "hide"}
+set.seed(1)
+et1s = sample(1:8,8)
+et2s = sample(1:8,8)
+et1 = et1s[1]
+et2 = et2s[1]
+mas = sample(2:9,4)
+m1 = mas[1]
+m2 = mas[2]
+a1 = mas[3]
+a2 = mas[4]
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+exp_frames2 = c("M\\cdot\\left(x+A\\right)",
+               "M\\cdot x+A",
+               "M\\cdot\\left(x-A\\right)",
+               "M\\cdot x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+exp2 = exp_frames2[et2]
+exp2 = gsub("A",a2,exp2,fixed=T)
+exp2 = gsub("M",m2,exp2,fixed=T)
+exp3 = gsub("x","f{\\left[a\\right]}",exp2,fixed=T)
+exp4 = gsub("x","b",exp2,fixed=T)
+exptemp = gsub("x","f{\\left[arg\\right]}",exp2,fixed=T)
+exp1 = gsub("arg",exp_frames[et1],exptemp,fixed=T)
+exp1 = gsub("A",a1,exp1,fixed=T)
+exp1 = gsub("M",m1,exp1,fixed=T)
+
+invarg = exp_frames[9-et1]
+invarg = gsub("A",a1,invarg,fixed=T)
+invarg = gsub("M",m1,invarg,fixed=T)
+invarg = gsub("x","a",invarg,fixed=T)
+
+outex = exp_frames[et2]
+outex = gsub("A",a2,outex,fixed=T)
+outex = gsub("M",m2,outex,fixed=T)
+outex = gsub("x","b",outex,fixed=T)
+
+ca = paste0("$$(a,b)\\to \\left(",invarg,"~,~",outex,"\\right)$$",collapse="")
+
+```
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$:
+
+$$g[x]~=~`r exp1`$$
+
+For point $(a,b)$ on curve $f$ there is a corresponding point on the curve $g$. 
+
+Write the coordinate transformation.
+
+
+# Solution 2
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$:
+
+$$g[x]~=~`r exp1`$$
+
+For point $(a,b)$ on curve $f$ there is a corresponding point on the curve $g$. 
+
+Write the coordinate transformation.
+
+
+`r ca`
+
+
+# Problem 3
+
+```{r, echo = FALSE, results = "hide"}
+et1 = et1s[2]
+et2 = et2s[2]
+mas = sample(2:9,4)
+m1 = mas[1]
+m2 = mas[2]
+a1 = mas[3]
+a2 = mas[4]
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+exp_frames2 = c("M\\cdot\\left(x+A\\right)",
+               "M\\cdot x+A",
+               "M\\cdot\\left(x-A\\right)",
+               "M\\cdot x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+exp2 = exp_frames2[et2]
+exp2 = gsub("A",a2,exp2,fixed=T)
+exp2 = gsub("M",m2,exp2,fixed=T)
+exp3 = gsub("x","f{\\left[a\\right]}",exp2,fixed=T)
+exp4 = gsub("x","b",exp2,fixed=T)
+exptemp = gsub("x","f{\\left[arg\\right]}",exp2,fixed=T)
+exp1 = gsub("arg",exp_frames[et1],exptemp,fixed=T)
+exp1 = gsub("A",a1,exp1,fixed=T)
+exp1 = gsub("M",m1,exp1,fixed=T)
+
+invarg = exp_frames[9-et1]
+invarg = gsub("A",a1,invarg,fixed=T)
+invarg = gsub("M",m1,invarg,fixed=T)
+invarg = gsub("x","a",invarg,fixed=T)
+
+outex = exp_frames[et2]
+outex = gsub("A",a2,outex,fixed=T)
+outex = gsub("M",m2,outex,fixed=T)
+outex = gsub("x","b",outex,fixed=T)
+
+ca = paste0("$$(a,b)\\to \\left(",invarg,"~,~",outex,"\\right)$$",collapse="")
+
+```
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$:
+
+$$g[x]~=~`r exp1`$$
+
+For point $(a,b)$ on curve $f$ there is a corresponding point on the curve $g$. 
+
+Write the coordinate transformation.
+
+
+# Solution 3
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$:
+
+$$g[x]~=~`r exp1`$$
+
+For point $(a,b)$ on curve $f$ there is a corresponding point on the curve $g$. 
+
+Write the coordinate transformation.
+
+
+`r ca`
+
+
+# Problem 4
+
+```{r, echo = FALSE, results = "hide"}
+et1 = et1s[3]
+et2 = et2s[3]
+mas = sample(2:9,4)
+m1 = mas[1]
+m2 = mas[2]
+a1 = mas[3]
+a2 = mas[4]
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+exp_frames2 = c("M\\cdot\\left(x+A\\right)",
+               "M\\cdot x+A",
+               "M\\cdot\\left(x-A\\right)",
+               "M\\cdot x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+exp2 = exp_frames2[et2]
+exp2 = gsub("A",a2,exp2,fixed=T)
+exp2 = gsub("M",m2,exp2,fixed=T)
+exp3 = gsub("x","f{\\left[a\\right]}",exp2,fixed=T)
+exp4 = gsub("x","b",exp2,fixed=T)
+exptemp = gsub("x","f{\\left[arg\\right]}",exp2,fixed=T)
+exp1 = gsub("arg",exp_frames[et1],exptemp,fixed=T)
+exp1 = gsub("A",a1,exp1,fixed=T)
+exp1 = gsub("M",m1,exp1,fixed=T)
+
+invarg = exp_frames[9-et1]
+invarg = gsub("A",a1,invarg,fixed=T)
+invarg = gsub("M",m1,invarg,fixed=T)
+invarg = gsub("x","a",invarg,fixed=T)
+
+outex = exp_frames[et2]
+outex = gsub("A",a2,outex,fixed=T)
+outex = gsub("M",m2,outex,fixed=T)
+outex = gsub("x","b",outex,fixed=T)
+
+ca = paste0("$$(a,b)\\to \\left(",invarg,"~,~",outex,"\\right)$$",collapse="")
+
+```
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$:
+
+$$g[x]~=~`r exp1`$$
+
+For point $(a,b)$ on curve $f$ there is a corresponding point on the curve $g$. 
+
+Write the coordinate transformation.
+
+
+# Solution 4
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$:
+
+$$g[x]~=~`r exp1`$$
+
+For point $(a,b)$ on curve $f$ there is a corresponding point on the curve $g$. 
+
+Write the coordinate transformation.
+
+
+`r ca`
+
+
+# Problem 5
+
+```{r, echo = FALSE, results = "hide"}
+et1 = et1s[4]
+et2 = et2s[4]
+mas = sample(2:9,4)
+m1 = mas[1]
+m2 = mas[2]
+a1 = mas[3]
+a2 = mas[4]
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+exp_frames2 = c("M\\cdot\\left(x+A\\right)",
+               "M\\cdot x+A",
+               "M\\cdot\\left(x-A\\right)",
+               "M\\cdot x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+exp2 = exp_frames2[et2]
+exp2 = gsub("A",a2,exp2,fixed=T)
+exp2 = gsub("M",m2,exp2,fixed=T)
+exp3 = gsub("x","f{\\left[a\\right]}",exp2,fixed=T)
+exp4 = gsub("x","b",exp2,fixed=T)
+exptemp = gsub("x","f{\\left[arg\\right]}",exp2,fixed=T)
+exp1 = gsub("arg",exp_frames[et1],exptemp,fixed=T)
+exp1 = gsub("A",a1,exp1,fixed=T)
+exp1 = gsub("M",m1,exp1,fixed=T)
+
+invarg = exp_frames[9-et1]
+invarg = gsub("A",a1,invarg,fixed=T)
+invarg = gsub("M",m1,invarg,fixed=T)
+invarg = gsub("x","a",invarg,fixed=T)
+
+outex = exp_frames[et2]
+outex = gsub("A",a2,outex,fixed=T)
+outex = gsub("M",m2,outex,fixed=T)
+outex = gsub("x","b",outex,fixed=T)
+
+ca = paste0("$$(a,b)\\to \\left(",invarg,"~,~",outex,"\\right)$$",collapse="")
+
+```
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$:
+
+$$g[x]~=~`r exp1`$$
+
+For point $(a,b)$ on curve $f$ there is a corresponding point on the curve $g$. 
+
+Write the coordinate transformation.
+
+
+# Solution 5
+
+Consider the two functions $f$ and $g$, where $g$ is defined as a transformation of $f$:
+
+$$g[x]~=~`r exp1`$$
+
+For point $(a,b)$ on curve $f$ there is a corresponding point on the curve $g$. 
+
+Write the coordinate transformation.
+
+
+`r ca`
+
+
+
+
