@@ -3,31 +3,31 @@ n = 30
 outdir = "outcanvas"
 
 ### Entrance ticket
-pm = list("et01_coordinate_transformation.Rmd")
-
-exams2canvas(pm,
-             n=n,
-             dir=outdir,
-             points=c(2),
-             maxattempts = 6,
-             name="ET_0923",
-             template = "canvas_qti12.xml",
-             cloze = list(enumerate = FALSE))
-
-
-
-# Classwork 1
-# pm = list("05_coordinate_transformation.Rmd",
-#           "05_coordinate_transformation.Rmd")
+# pm = list("et01_coordinate_transformation.Rmd")
 # 
 # exams2canvas(pm,
 #              n=n,
 #              dir=outdir,
-#              points=c(2,2),
-#              maxattempts = 8,
-#              name="OCW_0922_coordnt_transfrmtn",
+#              points=c(2),
+#              maxattempts = 6,
+#              name="ET_0923",
 #              template = "canvas_qti12.xml",
 #              cloze = list(enumerate = FALSE))
+# 
+
+
+# Classwork 1
+pm = list("01_translate_table.Rmd",
+          "02_translate_graph.Rmd")
+
+exams2canvas(pm,
+             n=n,
+             dir=outdir,
+             points=c(4,4),
+             maxattempts = 8,
+             name="OCW_0923_shift_function",
+             template = "canvas_qti12.xml",
+             cloze = list(enumerate = FALSE))
 
 
 # Classwork 2
