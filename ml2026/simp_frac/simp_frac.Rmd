@@ -1,0 +1,74 @@
+```{r data generation, echo = FALSE, results = "hide"}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+tops = c(24, 30, 32, 40, 42, 45, 48, 52, 56, 60, 63, 72, 75, 80, 84)
+bots = c(96, 105, 108, 120, 144, 150)
+
+top = sample(tops,1)
+bot = sample(bots,1)
+
+tsimp = round(top/gcd2(top,bot))
+bsimp = round(bot/gcd2(top,bot))
+ans = paste0("\\frac{",tsimp,"}{",bsimp,"}",collapse="")
+ach = c(ans)
+while(length(ach)<10){
+    tt = sample(tops,1)
+    bb = sample(bots,1)
+    t2 = round(tt/gcd2(tt,bb))
+    b2 = round(bb/gcd2(tt,bb))
+    aa = paste0("\\frac{",t2,"}{",b2,"}",collapse="")
+    if(!(aa %in% ach)){ach = c(ach,aa)}
+}
+ach = sample(ach)
+sol = paste0(1*(ach==ans),collapse="")
+al = paste0("* $",ach,"$",collapse="\n")
+
+```
+
+Question
+========
+
+Simplify $\frac{`r top`}{`r bot`}$.
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+```{r,echo=F,results='asis'}
+primes = c(2,3,5,7,11)
+t = top
+b = bot
+i = 1
+while(t>tsimp){
+    if((t%%primes[i]==0) && (b%%primes[i]==0)){
+        cat(paste0("Both ",t," and ",b," are divisible by ",primes[i],". So, divide the top and bottom by ",primes[i],". $$\\frac{",t,"}{",b,"}~=~\\frac{",round(t/primes[i]),"}{",round(b/primes[i]),"}$$"))
+        t = round(t/primes[i])
+        b = round(b/primes[i])
+    } else {
+        i = i+1
+    }
+    if(i>5){break}
+}
+
+```
+
+Now the numerator (top) and denominator (bottom) have no shared factors other than 1.
+
+So, the correct answer:
+$$\frac{`r top`}{`r bot`}~=~\frac{`r tsimp`}{`r bsimp`}$$
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: simp_frac
