@@ -1,0 +1,150 @@
+---
+output: pdf_document
+---
+
+
+```{r,echo=F}
+start = c("A")
+rules = list("A"="+B-A-B+",
+             "B"="-A+B+A-")
+n = 6
+sts = start
+st = start
+for(jj in 1:n){
+    st2 = ""
+    for(i in 1:nchar(st)){
+        ch = substr(st,i,i)
+        # cn = as.integer(charToRaw(ch))
+        st2 = paste0(st2,rules[[ch]])
+    } 
+    sts = c(sts,st2)
+    st = st2
+}
+```
+
+
+```{r,echo=F,fig.dim=c(2,2)}
+string = sts[7]
+angle = pi/4
+switch = 1
+d = 0
+x = 0
+y = 0
+xl = c(x)
+yl = c(y)
+cols = numeric()
+dsave = numeric()
+xsave = numeric()
+ysave = numeric()
+for(i in 1:nchar(string)){
+    ch = substr(string,i,i)
+    cn = as.integer(charToRaw(ch))
+    if(cn>=as.integer(charToRaw("A")) && cn<=as.integer(charToRaw("L"))){
+        cols = c(cols,"blue")
+        x = x+cos(d)
+        y = y+sin(d)
+        xl = c(xl,x)
+        yl = c(yl,y)
+    }
+    if(cn>=as.integer(charToRaw("M")) && cn<=as.integer(charToRaw("Z"))){
+        cols = c(cols,"NA")
+        x = x+cos(d)
+        y = y+sin(d)
+        xl = c(xl,x)
+        yl = c(yl,y)
+    }
+    if(cn==as.integer(charToRaw("["))){
+        dsave = c(dsave,d)
+        xsave = c(xsave,d)
+        ysave = c(ysave,d)
+    }
+    if(cn==as.integer(charToRaw("["))){
+        cols = c(cols,"NA")
+        x = xsave[length(xsave)]
+        y = ysave[length(ysave)]
+        d = dsave[length(dsave)]
+        if(length(xsave)>1){
+            xsave = xsave[1:(length(xsave)-1)]
+            ysave = ysave[1:(length(xsave)-1)]
+            dsave = dsave[1:(length(xsave)-1)]
+        } else {
+            xsave = numeric()
+            ysave = numeric()
+            dsave = numeric()
+        }
+        xl = c(xl,x)
+        yl = c(yl,y)
+    }
+    if(cn==as.integer(charToRaw("-"))){
+        d = d-angle*switch
+    }
+    if(cn==as.integer(charToRaw("+"))){
+        d = d+angle*switch
+    }
+    if(cn==as.integer(charToRaw("."))){
+        switch = switch*(-1)
+    }
+}
+xwid = max(xl)-min(xl)
+ywid = max(yl)-min(yl)
+xmid = (max(xl)+min(xl))/2
+ymid = (max(yl)+min(yl))/2
+wid = max(c(xwid,ywid))
+x2 = (xl-xmid)/wid*2
+y2 = (yl-ymid)/wid*2
+
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+lines(x2,y2)
+# for(i in 2:length(xl)){
+#     lines(c(x2[i-1],x2[i]),c(y2[i-1],y2[i]),col="blue")
+# }
+polygon(c(-1,-1,1,1),c(-1,1,1,-1))
+print(x2)
+print(y2)
+print(cols)
+```
+
+
+A [Lindenmayer system](https://en.wikipedia.org/wiki/L-system) (or L-system) is a set of rewrite rules. When these rules are iterated multiple times, we can get complex results from rather simple rules. For example:
+
+* Start
+    * A
+* Rules
+    * A $\to$ AB
+    * B $\to$ A
+* Iterations:
+    1. A
+    2. AB
+    3. ABA
+    4. ABAAB
+    5. ABAABABA
+    6. ABAABABAABAAB
+    
+It might help to see this spaced out...
+
+```
+5. A  B  A  A  B  A  B  A
+6. AB A  AB AB A  AB A  AB
+```
+
+# Practice
+
+* Start
+    * A
+* Rules
+    * A $\to$ BA
+    * B $\to$ AB
+* Write the first 5 iterations of this L-system:
+
+\vspace{3in}
+    
+    
+<!-- 1. A -->
+<!-- 2. BA -->
+<!-- 3. ABBA -->
+<!-- 4. BAABABBA -->
+<!-- 5. ABBABAABBAABABBA -->
+
+When these letters correspond to drawing commands (like move forward, turn 15°, or go back to last saved spot), we can get fractals.
+

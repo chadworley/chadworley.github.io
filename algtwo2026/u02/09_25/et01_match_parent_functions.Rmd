@@ -1,0 +1,114 @@
+```{r data generation, echo = FALSE, results = "hide"}
+funs = list(c("1","constant",function(x){1+x*0}),
+            c("$x$","linear",function(x){x}),
+            c("$|x|$","absolute",function(x){abs(x)}),
+            c("$x^2$","quadratic",function(x){x^2}),
+            c("$x^3$","cubic",function(x){x^3}),
+            c("$\\frac{1}{x}$","reciprocal",function(x){1/x}),
+            c("$\\sqrt{x}$","square root",function(x){x^(1/2)}),
+            c("$\\sqrt[3]{x}$","cube root",function(x){abs(x)^(1/3)*sign(x)}),
+            c("$\\sin(x)$","sine",function(x){sin(x)}),
+            c("$\\cos(x)$","cosine",function(x){cos(x)}),
+            c("$\\tan(x)$","tangent",function(x){tan(x)}),
+            c("$\\lceil x \\rceil$","ceiling",function(x){ceiling(x)}),
+            c("$\\lfloor x \\rfloor$","floor",function(x){floor(x)}),
+            c("$e^x$","exponential",function(x){exp(x)}),
+            c("$\\ln(x)$","logarithmic",function(x){log(x)}),
+            c("$\\frac{e^x}{e^x+1}$","logistic",function(x){exp(x)/(exp(x)+1)}),
+            c("$\\frac{1}{x^2}$","squared reciprocal",function(x){1/x^2})
+            )
+n = length(funs)
+ord = sample(1:n)
+eqs = character()
+nms = character()
+for(fun in funs){
+  eqs = c(eqs,fun[[1]][1])
+  nms = c(nms,fun[[2]][1])
+}
+eqli = paste0("* ",eqs,"\n",collapse="")
+nmli = paste0("* ",nms,"\n",collapse="")
+mydf2 = data.frame(nms,eqs)
+colnames(mydf2) = c("name","$f(x)=$")
+
+answers = c()
+for(i in ord){
+  answers=c(answers,paste0(c(rep(0,i-1),1,rep(0,n-i)),collapse=""))
+}
+```
+
+Question
+========
+
+Here are some common (and less common) parent functions:
+
+<style type="text/css" rel="stylesheet">
+.bordered-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border:2px solid #000000;
+}
+.bordered-table th {
+    border:2px solid #000000;
+    padding: 4px;
+}
+.bordered-table td{
+    border:2px solid #000000;
+    padding: 4px;
+}
+</style>
+
+```{r tab2, results="asis", echo=F}
+knitr::kable(mydf2,format="html",table.attr='class="bordered-table"', align = "cc",row.names=F)
+```
+
+Use [Desmos](https://www.desmos.com/calculator) to graph the parent functions. You can use `floor(x)` and `ceil(x)` for the floor and ceiling functions. The Desmos shortcut for square-root is `sqrt`, and the shortcut for cube-root is `cbrt`.
+
+Match the graphs with their names.
+
+```{r,fig.dim=c(3,3),echo=FALSE,results="asis"}
+for(i in 1:length(funs)){
+  fun = funs[[ord[i]]]
+  par(pty="s",mar=c(3,3,2,2))
+  x = seq(-4.999,4.999,0.001)
+  suppressWarnings(plot(x,fun[[3]](x),type="n",xlim=c(-5,5),ylim=c(-5,5),lwd=2,ylab="f(x)",xlab="x"))
+  for(j in -5:5){
+    abline(h=j,lty=3)
+    abline(v=j,lty=3)
+  }
+  abline(h=0,lwd=2)
+  abline(v=0,lwd=2)
+  mtext("x",1,2)
+  mtext("f(x)",2,2)
+  suppressWarnings({y = fun[[3]](x)})
+  breaks = c(0,which(diff(y)>0.2),length(x))
+  for(j in 1:(length(breaks)-1)){
+    suppressWarnings(lines(x[(breaks[j]+1):(breaks[j+1]-1)],y[(breaks[j]+1):(breaks[j+1]-1)],type="l",lwd=4,col="blue"))
+  }
+  cat(paste0("\n##ANSWER",i,"##\n\n"))
+}
+```
+
+Answerlist
+--------
+```{r,echo=FALSE,results="asis"}
+for(i in 1:length(funs)){
+  cat(nmli)
+}
+```
+
+
+Solution
+========
+
+You could try graphing the options or referencing a parent-function chart.
+
+In Desmos, you can use `floor(x)` and `ceil(x)` for the floor and ceiling functions.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(funs)),collapse="|")`
+exsolution: `r paste0(answers,collapse="|")`
+exname: match_parent_functions
+exshuffle: false

@@ -1,0 +1,225 @@
+---
+title: "Some parent functions"
+output: 
+  html_document:
+      default
+  pdf_document:
+    pandoc_args: [
+      "-V", "classoption=twocolumn"
+    ]
+---
+
+```{r,echo=F}
+fdim = 2
+```
+
+### Absolute-value function
+
+$$y=|x|$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit = function(){
+    par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+    plot(0,0,"n",xlim=c(-5,5),ylim=c(-5,5),axes=F,ann=F)
+    for(i in -5:5){
+        lines(c(-5,5),c(i,i),col="grey",lwd=0.5)
+        lines(c(i,i),c(-5,5),col="grey",lwd=0.5)
+    }
+    for(i in seq(-5,5,10)){
+        lines(c(-5,5),c(i,i),col="darkgrey",lwd=0.8)
+        lines(c(i,i),c(-5,5),col="darkgrey",lwd=0.8)
+    }
+    abline(h=0,lwd=1.5)
+    abline(v=0,lwd=1.5)
+    text(5,-0.5,"5",cex=0.7)
+    text(-0.5,5,"5",cex=0.7)
+    text(5,0.5,"x",cex=0.7)
+    text(0.5,5,"y",cex=0.7)
+}
+startit()
+x = seq(-5,5,0.1)
+y = abs(x)
+lines(x,y,lwd=3,col="blue")
+xp = 0
+yp = 0
+points(yp,xp,pch=19,col="blue",cex=0.8)
+```
+
+### Squaring function
+
+$$y=x^2$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x = seq(-sqrt(5),sqrt(5),0.01)
+y = x^2
+lines(x,y,lwd=3,col="blue")
+xp = -2:2
+yp = xp^2
+points(xp,yp,pch=19,col="blue",cex=0.8)
+```
+
+
+### Square-root function
+
+$$y=\sqrt{x}~~~~\text{or}~~~~y=x^{1/2}$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x = seq(0,sqrt(5),0.01)
+y = x^2
+lines(y,x,lwd=3,col="blue")
+xp = 0:2
+yp = xp^2
+points(yp,xp,pch=19,col="blue",cex=0.8)
+```
+
+
+\newpage
+
+### Reciprocal function
+
+$$y=\frac{1}{x}~~~~\text{or}~~~~y=x^{-1}$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x1 = seq(-5,-1/5,0.01)
+y1 = 1/x1
+lines(x1,y1,lwd=3,col="blue")
+x2 = seq(1/5,5,0.01)
+y2 = 1/x2
+lines(x2,y2,lwd=3,col="blue")
+xp = c(-1,1)
+yp = 1/xp
+points(yp,xp,pch=19,col="blue",cex=0.8)
+```
+
+### Cubing function
+
+$$y=x^3$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x = seq(-5^(1/3),5^(1/3),0.01)
+y = x^3
+lines(x,y,lwd=3,col="blue")
+xp = -2:2
+yp = xp^3
+points(xp,yp,pch=19,col="blue",cex=0.8)
+```
+
+
+### Cube-root function
+
+$$y=\sqrt[3]{x}~~~~\text{or}~~~~y=x^{1/3}$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x = seq(-5,5,0.01)
+y = sign(x)*abs(x)^(1/3)
+lines(x,y,lwd=3,col="blue")
+xp = c(-8,-1,0,1,8)
+yp = sign(xp)*abs(xp)^(1/3)
+points(xp,yp,pch=19,col="blue",cex=0.8)
+```
+
+\newpage
+
+### Exponential (base 2)
+
+$$y=2^x$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x = seq(-5,log(5)/log(2),0.001)
+y = 2^x
+lines(x,y,lwd=3,col="blue")
+xp = c(0,1,2)
+yp = 2^xp
+points(xp,yp,pch=19,col="blue",cex=0.8)
+```
+
+
+### Logarithm (base 2)
+
+$$y=\log_2(x)$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x = seq(-5,log(5)/log(2),0.001)
+y = 2^x
+lines(y,x,lwd=3,col="blue")
+xp = c(0,1,2)
+yp = 2^xp
+points(yp,xp,pch=19,col="blue",cex=0.8)
+```
+
+### Squared reciprocal
+
+$$y=\frac{1}{x^2}~~~~\text{or}~~~~y=x^{-2}$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x = seq(-5,-sqrt(1/5),0.001)
+y = 1/x^2
+lines(x,y,lwd=3,col="blue")
+x = seq(sqrt(1/5),5,0.001)
+y = 1/x^2
+lines(x,y,lwd=3,col="blue")
+xp = c(-1,1)
+yp = 1/xp^2
+points(xp,yp,pch=19,col="blue",cex=0.8)
+```
+
+\newpage
+
+### Sine 
+
+$$y=\sin(x)$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x = seq(-5,5,0.001)
+y = sin(x)
+lines(x,y,lwd=3,col="blue")
+xp = 0
+yp = 0
+points(xp,yp,pch=19,col="blue",cex=0.8)
+```
+
+
+### Cosine 
+
+$$y=\cos(x)$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x = seq(-5,5,0.001)
+y = cos(x)
+lines(x,y,lwd=3,col="blue")
+xp = 0
+yp = 1
+points(xp,yp,pch=19,col="blue",cex=0.8)
+```
+
+
+### Tangent 
+
+$$y=\tan(x)$$
+
+```{r,echo=F,fig.dim=c(fdim,fdim),fig.align='center'}
+startit()
+x = seq(-atan(5),atan(5),0.001)
+y = tan(x)
+lines(x,y,lwd=3,col="blue")
+x = seq(-pi-atan(5),-pi+atan(5),0.001)
+y = tan(x)
+lines(x,y,lwd=3,col="blue")
+x = seq(pi-atan(5),pi+atan(5),0.001)
+y = tan(x)
+lines(x,y,lwd=3,col="blue")
+xp = 0
+yp = 0
+points(xp,yp,pch=19,col="blue",cex=0.9)
+```
+
