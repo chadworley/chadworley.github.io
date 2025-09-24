@@ -1,0 +1,459 @@
+---
+output: slidy_presentation
+---
+
+# Agenda
+
+* Entrance Ticket
+* Some elementary transformations
+
+# The square-root function
+
+* The [square-root](https://en.wikipedia.org/wiki/Square_root) function is typically indicated with a [radical symbol](https://en.wikipedia.org/wiki/Radical_symbol).
+$$\text{square-root}(x) ~=~ \sqrt{x}$$
+* Notice the [overline](https://en.wikipedia.org/wiki/Overline) indicates the [argument](https://en.wikipedia.org/wiki/Argument_of_a_function) of the function.
+$$\sqrt{\mathrm{argument}}$$
+* The square-root function is an imperfect **[inverse](https://en.wikipedia.org/wiki/Inverse_function)** of the [squaring function](https://en.wikipedia.org/wiki/Square_(algebra)#square_function). For example...
+$$\sqrt{3^2}=3$$
+$$\sqrt{4^2}=4$$
+$$\sqrt{(-4)^2}\ne -4$$
+* Here are some key input-output pairs:
+$$\sqrt{0}=0$$
+$$\sqrt{1}=1$$
+$$\sqrt{4}=2$$
+$$\sqrt{9}=3$$
+$$\sqrt{16}=4$$
+$$\sqrt{25}=5$$
+
+* Practice: evaluate the expression.
+$$2\cdot \sqrt{\frac{10}{2}+11}+4$$
+
+# The graph of $y=\sqrt{x}$
+
+```{r,echo=F,fig.dim=c(9,3)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-5,25),ylim=c(-5,5),axes=F,ann=F)
+for(i in -5:25){
+    lines(c(i,i),c(-5,5),lwd=0.4)
+}
+for(i in -5:5){
+    lines(c(-5,25),c(i,i),lwd=0.4)
+}
+for(i in seq(-5,25,5)){
+    lines(c(i,i),c(-5,5),lwd=1)
+    if(i!=0){
+        text(i,-0.5,i)
+    }
+}
+for(i in seq(-5,5,5)){
+    lines(c(-5,25),c(i,i),lwd=1)
+    if(i!=0){
+        text(-0.5,i,i)
+    }
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+yp = 0:5
+xp = yp^2
+xl = seq(0,25,0.1)
+yl = sqrt(xl)
+lines(xl,yl,lwd=3,col="blue")
+points(xp,yp,pch=19,col="blue")
+text(25.5,0,"x",adj=c(0.5,1.3))
+text(0.25,5.1,"y")
+
+```
+
+
+```{r,echo=F,warning=FALSE}
+library(kableExtra)
+df = data.frame(xp,yp)
+colnames(df) = c("$x$","$y$")
+kable(df,align = "c") %>%
+    kable_styling("bordered",full_width = F)
+```
+
+# Add a constant in the argument
+
+Some solutions to $b=\sqrt{a}$ are shown below.
+
+```{r,echo=F,warning=FALSE}
+eqs = paste0("$\\sqrt{",(0:5)^2,"}=",0:5,"$")
+df = data.frame(xp,yp,eqs)
+colnames(df) = c("$a$","$b$","equation")
+kable(df,align = "c") %>%
+    kable_styling("bordered",full_width = F)
+```
+
+
+Find the corresponding solutions to $y=\sqrt{x+2}$.
+
+```{r,echo=F,warning=FALSE}
+blanks = rep("$\\phantom{\\cfrac{999}{999}}$",length(xp))
+df = data.frame(blanks,blanks)
+colnames(df) = c("$x$","$y$")
+kable(df,align = "c") %>%
+    kable_styling("bordered",full_width = F)
+```
+
+# Graph of $y=\sqrt{x+2}$
+
+
+```{r,echo=F,fig.dim=c(9,3)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-5,25),ylim=c(-5,5),axes=F,ann=F)
+for(i in -5:25){
+    lines(c(i,i),c(-5,5),lwd=0.4)
+}
+for(i in -5:5){
+    lines(c(-5,25),c(i,i),lwd=0.4)
+}
+for(i in seq(-5,25,5)){
+    lines(c(i,i),c(-5,5),lwd=1)
+    if(i!=0){
+        text(i,-0.5,i)
+    }
+}
+for(i in seq(-5,5,5)){
+    lines(c(-5,25),c(i,i),lwd=1)
+    if(i!=0){
+        text(-0.5,i,i)
+    }
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(25.5,0,"x",adj=c(0.5,1.3))
+text(0.25,5.1,"y")
+
+yp = 0:5
+xp = yp^2-2
+xl = seq(-2,25,0.1)
+yl = sqrt(xl+2)
+lines(xl,yl,lwd=3,col="blue")
+points(xp,yp,pch=19,col="blue")
+
+yp = 0:5
+xp = yp^2
+xl = seq(0,25,0.1)
+yl = sqrt(xl)
+lines(xl,yl,lwd=3,col="grey")
+points(xp,yp,pch=19,col="grey")
+
+library(latex2exp)
+legend("topleft",c(TeX("$y=\\sqrt{x+2}$"),TeX("$y=\\sqrt{x}$")),col=c("blue","grey"),lwd=c(3,3))
+
+```
+
+Adding 2 inside the argument shifted (translated) the curve 2 units to the **LEFT**.
+
+
+# Add constant outside of function
+
+Some solutions to $b=\sqrt{a}$ are shown below.
+
+```{r,echo=F,warning=FALSE}
+eqs = paste0("$\\sqrt{",(0:5)^2,"}=",0:5,"$")
+df = data.frame(xp,yp,eqs)
+colnames(df) = c("$a$","$b$","equation")
+kable(df,align = "c") %>%
+    kable_styling("bordered",full_width = F)
+```
+
+Find the corresponding solutions to $y=\sqrt{x}+2$.
+
+```{r,echo=F,warning=FALSE}
+blanks = rep("$\\phantom{\\cfrac{999}{999}}$",length(xp))
+df = data.frame(blanks,blanks)
+colnames(df) = c("$x$","$y$")
+kable(df,align = "c") %>%
+    kable_styling("bordered",full_width = F)
+```
+
+# Graph of $y=\sqrt{x}+2$
+
+```{r,echo=F,fig.dim=c(9,3)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-5,25),ylim=c(-5,5),axes=F,ann=F)
+for(i in -5:25){
+    lines(c(i,i),c(-5,5),lwd=0.4)
+}
+for(i in -5:5){
+    lines(c(-5,25),c(i,i),lwd=0.4)
+}
+for(i in seq(-5,25,5)){
+    lines(c(i,i),c(-5,5),lwd=1)
+    if(i!=0){
+        text(i,-0.5,i)
+    }
+}
+for(i in seq(-5,5,5)){
+    lines(c(-5,25),c(i,i),lwd=1)
+    if(i!=0){
+        text(-0.5,i,i)
+    }
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(25.5,0,"x",adj=c(0.5,1.3))
+text(0.25,5.1,"y")
+
+yp = 0:5
+xp = yp^2
+xl = seq(0,25,0.1)
+yl = sqrt(xl)+2
+lines(xl,yl,lwd=3,col="blue")
+points(xp,yp+2,pch=19,col="blue")
+
+yp = 0:5
+xp = yp^2
+xl = seq(0,25,0.1)
+yl = sqrt(xl)
+lines(xl,yl,lwd=3,col="grey")
+points(xp,yp,pch=19,col="grey")
+
+library(latex2exp)
+legend("topleft",c(TeX("$y=\\sqrt{x}+2$"),TeX("$y=\\sqrt{x}$")),col=c("blue","grey"),lwd=c(3,3))
+
+```
+
+Adding 2 outside the argument shifted (translated) the curve 2 units **UP**.
+
+# Subtract constant inside of function
+
+Some solutions to $b=\sqrt{a}$ are shown below.
+
+```{r,echo=F,warning=FALSE}
+eqs = paste0("$\\sqrt{",(0:5)^2,"}=",0:5,"$")
+df = data.frame(xp,yp,eqs)
+colnames(df) = c("$a$","$b$","equation")
+kable(df,align = "c") %>%
+    kable_styling("bordered",full_width = F)
+```
+
+Find the corresponding solutions to $y=\sqrt{x-2}$.
+
+```{r,echo=F,warning=FALSE}
+blanks = rep("$\\phantom{\\cfrac{999}{999}}$",length(xp))
+df = data.frame(blanks,blanks)
+colnames(df) = c("$x$","$y$")
+kable(df,align = "c") %>%
+    kable_styling("bordered",full_width = F)
+```
+
+# Graph of $y=\sqrt{x-2}$
+
+```{r,echo=F,fig.dim=c(9,3)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-5,25),ylim=c(-5,5),axes=F,ann=F)
+for(i in -5:25){
+    lines(c(i,i),c(-5,5),lwd=0.4)
+}
+for(i in -5:5){
+    lines(c(-5,25),c(i,i),lwd=0.4)
+}
+for(i in seq(-5,25,5)){
+    lines(c(i,i),c(-5,5),lwd=1)
+    if(i!=0){
+        text(i,-0.5,i)
+    }
+}
+for(i in seq(-5,5,5)){
+    lines(c(-5,25),c(i,i),lwd=1)
+    if(i!=0){
+        text(-0.5,i,i)
+    }
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(25.5,0,"x",adj=c(0.5,1.3))
+text(0.25,5.1,"y")
+
+yp = 0:5
+xp = yp^2
+xl = seq(0,25,0.1)
+yl = sqrt(xl)
+lines(xl+2,yl,lwd=3,col="blue")
+points(xp+2,yp,pch=19,col="blue")
+
+yp = 0:5
+xp = yp^2
+xl = seq(0,25,0.1)
+yl = sqrt(xl)
+lines(xl,yl,lwd=3,col="grey")
+points(xp,yp,pch=19,col="grey")
+
+library(latex2exp)
+legend("topleft",c(TeX("$y=\\sqrt{x-2}$"),TeX("$y=\\sqrt{x}$")),col=c("blue","grey"),lwd=c(3,3))
+
+```
+
+**Subtracting** 2 inside the argument shifted (translated) the curve 2 units **RIGHT**.
+
+$$(a,b)~\to~(a+2,b)$$
+
+The horizontal coordinate transformations are from the INVERSE of the argument.
+
+Remember, we can set the argument equal to $a$.
+
+$$a=x-2$$
+
+And solve for $x$.
+
+$$x=a+2$$
+
+# Subtracting a constant outside the function
+
+Some solutions to $b=\sqrt{a}$ are shown below.
+
+```{r,echo=F,warning=FALSE}
+eqs = paste0("$\\sqrt{",(0:5)^2,"}=",0:5,"$")
+df = data.frame(xp,yp,eqs)
+colnames(df) = c("$a$","$b$","equation")
+kable(df,align = "c") %>%
+    kable_styling("bordered",full_width = F)
+```
+
+Find the corresponding solutions to $y=\sqrt{x}-2$.
+
+```{r,echo=F,warning=FALSE}
+blanks = rep("$\\phantom{\\cfrac{999}{999}}$",length(xp))
+df = data.frame(blanks,blanks)
+colnames(df) = c("$x$","$y$")
+kable(df,align = "c") %>%
+    kable_styling("bordered",full_width = F)
+```
+
+
+# Graph of $y=\sqrt{x}-2$
+
+
+```{r,echo=F,fig.dim=c(9,3)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-5,25),ylim=c(-5,5),axes=F,ann=F)
+for(i in -5:25){
+    lines(c(i,i),c(-5,5),lwd=0.4)
+}
+for(i in -5:5){
+    lines(c(-5,25),c(i,i),lwd=0.4)
+}
+for(i in seq(-5,25,5)){
+    lines(c(i,i),c(-5,5),lwd=1)
+    if(i!=0){
+        text(i,-0.5,i)
+    }
+}
+for(i in seq(-5,5,5)){
+    lines(c(-5,25),c(i,i),lwd=1)
+    if(i!=0){
+        text(-0.5,i,i)
+    }
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(25.5,0,"x",adj=c(0.5,1.3))
+text(0.25,5.1,"y")
+
+yp = 0:5
+xp = yp^2
+xl = seq(0,25,0.1)
+yl = sqrt(xl)
+lines(xl,yl-2,lwd=3,col="blue")
+points(xp,yp-2,pch=19,col="blue")
+
+yp = 0:5
+xp = yp^2
+xl = seq(0,25,0.1)
+yl = sqrt(xl)
+lines(xl,yl,lwd=3,col="grey")
+points(xp,yp,pch=19,col="grey")
+
+library(latex2exp)
+legend("topleft",c(TeX("$y=\\sqrt{x}-2$"),TeX("$y=\\sqrt{x}$")),col=c("blue","grey"),lwd=c(3,3))
+
+```
+
+
+Subtracting 2 outside the function resulted is a shift **DOWN** by 2 units.
+
+$$(a,b)~\to~(a,b-2)$$
+
+Notice, we just replace the whole square-root function (and its argument) with $b$.
+
+
+# Adding or Subtracting Inside and Out
+
+Use these facts:
+$$\sqrt{0}=0$$
+$$\sqrt{1}=1$$
+$$\sqrt{4}=2$$
+$$\sqrt{9}=3$$
+$$\sqrt{16}=4$$
+$$\sqrt{25}=5$$
+
+To find corresponding solutions to the equation below:
+$$y=\sqrt{x-6}-4$$
+
+
+# Some solutions to $y=\sqrt{x-6}-4$
+
+```{r,echo=F,warning=FALSE}
+eqs = paste0("$\\sqrt{",(0:5)^2,"}=",0:5,"$")
+xx = c(0,1,4,9,16,25)+6
+yy = (0:5)-4
+exps = paste0("$\\sqrt{",xx,"-6}-4$")
+x2 = paste0("$",xx,"$")
+y2 = paste0("$",yy,"$")
+df = data.frame(eqs,x2,exps,y2)
+colnames(df) = c("square-root fact","$~~~x~~~$","$\\sqrt{x-6}-4$","$~~~y~~~$")
+kable(df,align = "c") %>%
+    kable_styling("bordered",full_width = F)
+```
+
+
+
+```{r,echo=F,fig.dim=c(9,3)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-5,25),ylim=c(-5,5),axes=F,ann=F)
+for(i in -5:25){
+    lines(c(i,i),c(-5,5),lwd=0.4)
+}
+for(i in -5:5){
+    lines(c(-5,25),c(i,i),lwd=0.4)
+}
+for(i in seq(-5,25,5)){
+    lines(c(i,i),c(-5,5),lwd=1)
+    if(i!=0){
+        text(i,-0.5,i)
+    }
+}
+for(i in seq(-5,5,5)){
+    lines(c(-5,25),c(i,i),lwd=1)
+    if(i!=0){
+        text(-0.5,i,i)
+    }
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(25.5,0,"x",adj=c(0.5,1.3))
+text(0.25,5.1,"y")
+
+yp = 0:5
+xp = yp^2
+xl = seq(0,25,0.1)
+yl = sqrt(xl)
+lines(xl+6,yl-4,lwd=3,col="blue")
+points(xp+6,yp-4,pch=19,col="blue")
+
+yp = 0:5
+xp = yp^2
+xl = seq(0,25,0.1)
+yl = sqrt(xl)
+lines(xl,yl,lwd=3,col="grey")
+points(xp,yp,pch=19,col="grey")
+
+library(latex2exp)
+legend("topleft",c(TeX("$y=\\sqrt{x-6}-4$"),TeX("$y=\\sqrt{x}$")),col=c("blue","grey"),lwd=c(3,3))
+
+```
+
+The curve shifted 6 units right and 4 units down.

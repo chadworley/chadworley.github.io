@@ -1,0 +1,231 @@
+```{r data generation, echo = FALSE, results = "hide"}
+xmin = 0
+ymin = 0
+xmax = 100
+ymax = 100
+np = 4
+exp_types = sample(1:8,2,T)
+et1 = exp_types[1]
+et2 = exp_types[2]
+mas = sample(2:9,4)
+m1 = mas[1]
+m2 = mas[2]
+a1 = mas[3]
+a2 = mas[4]
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+exp_frames2 = c("M\\cdot\\left(x+A\\right)",
+               "M\\cdot x+A",
+               "M\\cdot\\left(x-A\\right)",
+               "M\\cdot x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+wd = c("add A and then multiply by M",
+       "multiply by M and then add A",
+       "subtract A and then multiply by M",
+       "multiply by M and then subtract A",
+       "add A and then divide by M",
+       "divide by M and then add A",
+       "subtract A and then divide by M",
+       "divide by M and then subtract A")
+
+funcs = list(function(x,A,M){M*(x+A)},
+             function(x,A,M){M*x+A},
+             function(x,A,M){M*(x-A)},
+             function(x,A,M){M*x-A},
+             function(x,A,M){(x+A)/M},
+             function(x,A,M){x/M+A},
+             function(x,A,M){(x-A)/M},
+             function(x,A,M){x/M-A}
+             )
+xold = numeric()
+yold = numeric()
+xnew = numeric()
+ynew = numeric()
+while(length(xold)<np){
+    xo = sample(0:100,1)
+    yo = sample(0:100,1)
+    xn = funcs[[9-et1]](xo,a1,m1)
+    yn = funcs[[et2]](yo,a2,m2)
+    if(xn%%1==0 && yn%%1==0 && !(xo %in% xold) && !(yo %in% yold) && 
+       xn>=xmin && xn<=xmax && yn>=ymin && yn<=ymax){
+        xold = c(xold,xo)
+        yold = c(yold,yo)
+        xnew = c(xnew,xn)
+        ynew = c(ynew,yn)
+        }
+}
+xoldsorted = sort(xold)
+yoldunsorted = yold
+xnewunsorted = xnew
+ynewunsorted = ynew
+for(i in 1:length(xoldsorted)){
+    j = which(xold==xoldsorted[i])
+    yold[i] = yoldunsorted[j]
+    xnew[i] = xnewunsorted[j]
+    ynew[i] = ynewunsorted[j]
+}
+xold = xoldsorted
+
+exp1 = exp_frames2[et2]
+exp1 = gsub("A",a2,exp1,fixed=T)
+exp1 = gsub("M",m2,exp1,fixed=T)
+exp1 = gsub("x","f{\\left[arg\\right]}",exp1,fixed=T)
+exp1 = gsub("arg",exp_frames[et1],exp1,fixed=T)
+exp1 = gsub("A",a1,exp1,fixed=T)
+exp1 = gsub("M",m1,exp1,fixed=T)
+
+argex = exp_frames[et1]
+argex = gsub("A",a1,argex,fixed=T)
+argex = gsub("M",m1,argex,fixed=T)
+
+invarg = exp_frames[9-et1]
+invarg = gsub("A",a1,invarg,fixed=T)
+invarg = gsub("M",m1,invarg,fixed=T)
+invarg = gsub("x","a",invarg,fixed=T)
+
+invsub = exp_frames2[9-et1]
+invsub = gsub("A",a1,invsub,fixed=T)
+invsub = gsub("M",m1,invsub,fixed=T)
+invsub = gsub("x",xold[1],invsub,fixed=T)
+
+argwd = wd[et1]
+argwd = gsub("A",a1,argwd,fixed=T)
+argwd = gsub("M",m1,argwd,fixed=T)
+
+invwd = wd[9-et1]
+invwd = gsub("A",a1,invwd,fixed=T)
+invwd = gsub("M",m1,invwd,fixed=T)
+
+
+outex = exp_frames2[et2]
+outex = gsub("A",a2,outex,fixed=T)
+outex = gsub("M",m2,outex,fixed=T)
+outex = gsub("x","b",outex,fixed=T)
+
+outex2 = exp_frames2[et2]
+outex2 = gsub("A",a2,outex2,fixed=T)
+outex2 = gsub("M",m2,outex2,fixed=T)
+outex2 = gsub("x",yold[1],outex2,fixed=T)
+
+ach = sort(unique(c(xnew,ynew)))
+while(length(ach)<10){
+    ach = sort(unique(c(ach,sample(0:100,1))))
+}
+
+sols = character()
+for(i in 1:np){
+    sols = c(sols,paste0(1*(ach==xnew[i]),collapse=""))
+}
+for(i in 1:np){
+    sols = c(sols,paste0(1*(ach==ynew[i]),collapse=""))
+}
+
+al = paste0("* ",ach,collapse="\n")
+tal = paste0(rep(al,np*2),collapse="\n")
+
+
+coor_tran = paste0("$(a,b)~~\\to ~~\\left(",invarg,"~,~",outex,"\\right)$",collapse="")
+```
+
+Question
+========
+
+Let $f$ be a function. Solutions to $b=f[a]$ are shown:
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(xold,yold)
+colnames(df) = c("$a$","$b$")
+kable(df) %>%
+    kable_styling("bordered",full_width = F)
+```
+
+
+Each $(a,b)$ solution has a corresponding $(x,y)$ solution to the equation below.
+
+$$y~=~`r exp1`$$
+
+Express the corresponding solutions in the same order.
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(paste0("##ANSWER",1:np,"##"),paste0("##ANSWER",(np+1):(2*np),"##"))
+colnames(df) = c("$x$","$y$")
+kable(df) %>%
+    kable_styling("bordered",full_width = F)
+```
+
+Answerlist
+--------
+
+`r tal`
+
+
+Solution
+========
+
+Use the shortcut for $x$, which tells us we can make a formula by inverting the argument expression. The argument expression says to `r argwd`, so the inverse must `r invwd`.
+
+$$x~=~`r invarg`$$
+
+Use the shortcut for $y$, which tells us we can make a formula by just looking at the operations outside of the function.
+
+$$y~=~`r outex`$$
+
+We could write this as a coordinate transformation:
+
+$`r coor_tran`$
+
+
+Use those formulas!
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+xcol = character()
+ycol = character()
+
+for(i in 1:np){
+    invsub = exp_frames2[9-et1]
+    invsub = gsub("A",a1,invsub,fixed=T)
+    invsub = gsub("M",m1,invsub,fixed=T)
+    invsub = gsub("x",xold[i],invsub,fixed=T)
+    xcol = c(xcol,paste0("$$",invsub,"$$"))
+    outex2 = exp_frames2[et2]
+    outex2 = gsub("A",a2,outex2,fixed=T)
+    outex2 = gsub("M",m2,outex2,fixed=T)
+    outex2 = gsub("x",yold[i],outex2,fixed=T)
+    ycol = c(ycol,paste0("$$",outex2,"$$"))
+}
+
+df = data.frame(paste0("$$",xold,"$$"),paste0("$$",yold,"$$"),xcol,ycol)
+colnames(df) = c("$a$","$b$","$x$","$y$")
+kable(df) %>%
+    kable_styling("bordered",full_width = F)
+```
+
+And evaluate all the numerical expressions to get the answer.
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(xnew,ynew)
+colnames(df) = c("$x$","$y$")
+kable(df) %>%
+    kable_styling("bordered",full_width = F)
+```
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",np*2),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: get_new_pnts_shortcut
