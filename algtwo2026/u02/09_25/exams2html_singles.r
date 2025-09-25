@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("01_id_parent_and_shift.Rmd")
+pppsss = c("01b_id_parent_and_shift.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
