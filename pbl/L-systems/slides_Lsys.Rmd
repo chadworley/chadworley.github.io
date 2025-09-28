@@ -1,0 +1,748 @@
+---
+output: slidy_presentation
+title: "Lindenmayer Systems and Turtle Graphics"
+author: "Mr. Worley"
+date: "2025 Sep 29"
+---
+
+```{r,echo=F}
+subtrahend = 2
+```
+
+
+```{r,echo=F,cache=T}
+getstr = function(start="A",
+                  rules=list("A"="A[+A][-A]b","b"="[+C][-C]","C"="CC"),
+                  n=10){
+    st = start
+    for(jj in 1:n){
+        ss = strsplit(st,"")[[1]]
+        s2 = ss
+        for(i in names(rules)){
+            s2[ss==i] = rules[[i]]
+        }
+        st = paste0(s2,collapse="")
+    }
+    return(st)
+}
+
+getxyc = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2){
+    switch = 1
+    d = angle_initial
+    x = 0
+    y = 0
+    dsave = numeric()
+    xsave = numeric()
+    ysave = numeric()
+    chs = strsplit(string,"")[[1]]
+    xl = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    yl = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    draw = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    j = 0
+    for(i in 1:nchar(string)){
+        ch = chs[i]
+        cn = as.integer(charToRaw(ch))
+        if(cn>=as.integer(charToRaw("A")) && cn<=as.integer(charToRaw("L"))){
+            j = j+1
+            draw[j+1] = 1
+            x = x+cos(d)
+            y = y+sin(d)
+            xl[j+1] = x
+            yl[j+1] = y
+        }
+        if(cn>=as.integer(charToRaw("M")) && cn<=as.integer(charToRaw("Z"))){
+            j = j+1
+            draw[j+1] = 0
+            x = x+cos(d)
+            y = y+sin(d)
+            xl[j+1] = x
+            yl[j+1] = y
+        }
+        if(cn==as.integer(charToRaw("["))){
+            dsave = c(dsave,d)
+            xsave = c(xsave,x)
+            ysave = c(ysave,y)
+        }
+        if(cn==as.integer(charToRaw("]"))){
+            j = j+1
+            draw[j+1] = 0
+            x = xsave[length(xsave)]
+            y = ysave[length(ysave)]
+            d = dsave[length(dsave)]
+            if(length(xsave)>1){
+                xsave = xsave[1:(length(xsave)-1)]
+                ysave = ysave[1:(length(ysave)-1)]
+                dsave = dsave[1:(length(dsave)-1)]
+            } else {
+                xsave = numeric()
+                ysave = numeric()
+                dsave = numeric()
+            }
+            xl[j+1] = x
+            yl[j+1] = y
+        }
+        if(cn==as.integer(charToRaw("-"))){
+            d = d-angle*switch
+        }
+        if(cn==as.integer(charToRaw("+"))){
+            d = d+angle*switch
+        }
+        if(cn==as.integer(charToRaw("."))){
+            switch = switch*(-1)
+        }
+    }
+    
+    xwid = max(xl)-min(xl)
+    ywid = max(yl)-min(yl)
+    xmid = (max(xl)+min(xl))/2
+    ymid = (max(yl)+min(yl))/2
+    wid = max(c(xwid,ywid))
+    x2 = (xl-xmid)/wid*2
+    y2 = (yl-ymid)/wid*2
+    return(list(x2,y2,draw))
+}
+
+makeplot = function(xyd,lwd=1,col="blue"){
+    x = xyd[[1]]
+    y = xyd[[2]]
+    d = xyd[[3]]
+    plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+    starts = numeric()
+    if(d[1]){
+        starts = c(1)
+    }
+    starts = c(starts,which(diff(d)==1))
+    ends = which(diff(d)==-1)
+    if(d[length(d)]==1){
+        ends = c(ends,length(d))
+    }
+    for(i in 1:length(starts)){
+        lines(x[starts[i]:ends[i]],y[starts[i]:ends[i]],lwd=lwd,col=col)
+    }
+}
+
+catinfo = function(angle,start,rules,N){
+    cat(paste0("Angle = ",angle,"°\n"))
+    cat(paste0("Start = ",start))
+    cat("\n")
+    cat("Rules:")
+    cat("\n")
+    cat(paste0("  ",names(rules)," > ",rules,collapse="\n"))
+    cat(paste0("\nNumber of recursions = ",N))
+}
+```
+
+# Examples
+
+## Example 1
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+angle = 30
+N = 7
+start_angle = 90
+start = "A"
+rules = list("A"="A[+A][-A]B",
+             "B"="[--B]A")
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+# print(xyc[[3]])
+makeplot(xyc,lwd=0.6,col="darkgreen")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 2
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+angle = 60
+N = 7
+start_angle = 0
+start = "A"
+rules = list("A"="B+B+B+B+B+B+",
+             "B"="B[--CCC-a][-CCC-a]B",
+             "C"="CC",
+             "a"="B+B+B+B+B+B+")
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=0.6,col="black")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 3
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "A"
+rules = list("A"="[----AAB][--AAB][++AAB]AAB",
+             "B"="[-C][+C][--C][++C][---C][+++C]",
+             "C"="CAB")
+angle = 45
+start_angle = 0
+N = 6
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=0.6,col="black")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 4
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "A"
+rules = list("A"="[-AAB][--AAB][+AAB][++AAB]AAB",
+             "B"="[-C][+C][--C][++C]CA",
+             "C"="CC")
+angle = 72
+start_angle = 72/4
+N = 5
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=0.6,col="black")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 5
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "a"
+rules = list("a"="B+B+B+B+B+B",
+             "B"="BB[---CCa]",
+             "C"="CC")
+angle = 60
+start_angle = 0
+N = 9
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col="black")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 6
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "A"
+rules = list("A"="B+B+B+B+B",
+             "B"="[-CCA]BB",
+             "C"="CC")
+angle = 72
+start_angle = 0
+N = 9
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col="black")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 7
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "A"
+rules = list("A"="+A-B-B[B]",
+             "B"="-B+A+A[A]")
+angle = 45
+start_angle = 0
+N = 8
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col="black")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+
+## Example 8
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "A"
+rules = list("A"="AA[-A][+A]")
+angle = 90
+start_angle = 0
+N = 8
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col="black")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 9
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "A"
+rules = list("A"="AcbcA",
+             "b"="[+A][-A][++A][--A][+++A][---A][++++A][----A][+++++A][-----A]",
+             "c"="bAb")
+angle = 30
+start_angle = 0
+N = 6
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col="black")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 10
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "AB"
+rules = list("A"="B--B",
+             "B"="AA+++AA")
+angle = 30
+start_angle = 0
+N = 12
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col="black")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 11
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "x"
+rules = list("x"="FFF[+FFF+FFF+FF+FF+F+Fx][-FFF-FFF-FF-FF-F-Fx]Fx",
+             "F"="FFx")
+angle = 30
+start_angle = 90
+N = 6
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=0.3,col="black")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 12
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "A"
+rules = list("A"="AB",
+             "B"="A[++C][--C]",
+             "C"="C[+C][-C]A")
+angle = 45
+start_angle = 90
+N = 10
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col="maroon")
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 13
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "-x"
+rules = list("x"="F+[[x]-x]-F[-Fx]+x",
+             "F"="FF")
+angle = 25
+start_angle = 90
+N = 7
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col=rgb(0.5,0,0.5))
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 14
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "b"
+rules = list("A"="AA",
+             "b"="AbA+AbA+AbA")
+angle = 90
+start_angle = 90
+N = 9
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col=rgb(0,0,0.5))
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 15
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "A"
+rules = list("A"="A+A-A")
+angle = 115
+start_angle = 90
+N = 11
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col=rgb(0,0,0))
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 16
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "A"
+rules = list("A"="A[+AA][-AA]B",
+             "B"="ABA")
+angle = 90
+start_angle = -90
+N = 7
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col=rgb(0,0,0))
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+## Example 17
+
+```{r,echo=F,fig.dim=c(5,5),cache=T}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = "x"
+rules = list("x"="FFF[+FF+FF+FF+F+Fx][-FF-FF-FF-F-Fx]FFFFFFFFFFFFFFx",
+             "F"="FF")
+angle = 6
+start_angle = 90
+N = 8
+s = getstr(start,rules,N)
+xyc = getxyc(s,angle/180*pi,angle_initial=start_angle/180*pi)
+makeplot(xyc,lwd=1,col=rgb(0,0,0))
+```
+
+```
+```{r,echo=F,results='asis'}
+catinfo(angle,start,rules,N)
+```
+```
+
+# What is a Lindenmayer System?
+
+* Begin with a string of characters (a "word").
+    * For example, let's start with "A".
+* Define replacement rules.
+    * Example:
+        * Replace "A" with "BO"
+        * Replace "B" with "BA"
+        * Replace "O" with "BA"
+    * First few recursions:
+        
+        >0. "A"
+        >1. "BO"
+        >2. "BABA"
+        >3. "BABOBABO"
+        >4. "BABOBABABABOBABA"
+        >5. "BABOBABABABOBABOBABOBABABABOBABO"
+
+# Recursive Replacement of Letters
+
+* Start:
+    * `A`
+* Rules:
+    * `A` $\to$ `ART-`
+    * `R` $\to$ `RAT-`
+    * `T` $\to$ `TAR-`
+    * `-` $\to$ `-`
+* Notice, "-" is constant. We usually don't include constants in the rules. If a character does not have a replacement rule, we assume it is a constant.
+* Find the recursions (the iterations):
+
+    >0. `A`
+    >1. `ART-`
+    >2. `ART-RAT-TAR-`
+    >3. `ART-RAT-TAR--RAT-ART-TAR--TAR-ART-RAT--`
+    >3. `ART-RAT-TAR--RAT-ART-TAR--TAR-ART-RAT---RAT-ART-TAR--ART-RAT-TAR--TAR-ART-RAT---TAR-ART-RAT--ART-RAT-TAR--RAT-ART-TAR---`
+
+# Recursive Replacement of Letters
+
+* Start:
+    * "CAT"
+* Rules:
+    * "C" $\to$ "TTT"
+    * "A" $\to$ "AA"
+    * "T" $\to$ "C"
+* Find the recursions (the iterations):
+
+    >0. "CAT"
+    >1. "TTTAAC"
+    >2. "CCCAAAATTT"
+    >3. "TTTTTTTTTAAAAAAAACCC"
+    >4. "CCCCCCCCCAAAAAAAAAAAAAAAATTTTTTTTT"
+
+>- Notice there were 9 Cs, 16 As, 9 Ts
+
+# Okay, but what about those pictures?
+
+* Turtle Graphics! A turtle drags a pen and follows commands.
+    * "F" = Forward one step
+    * "+" = Turn right by 90°
+    * "-" = Turn left by 90°
+    * "[" = Record current position, top of a list
+    * "]" = Teleport to top-of-list position, and remove position from list
+
+
+```{r,echo=F}
+xyd = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2){
+    switch = 1
+    d = angle_initial
+    x = 0
+    y = 0
+    xl = c(x)
+    yl = c(y)
+    dsave = numeric()
+    xsave = numeric()
+    ysave = numeric()
+    chs = strsplit(string,"")[[1]]
+    xl = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    yl = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    draw = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    draw[1]=1
+    j = 1
+    for(i in 1:nchar(string)){
+        ch = chs[i]
+        cn = as.integer(charToRaw(ch))
+        if(cn>=as.integer(charToRaw("A")) && cn<=as.integer(charToRaw("L"))){
+            j = j+1
+            draw[j] = 1
+            x = x+cos(d)
+            y = y+sin(d)
+            xl[j] = x
+            yl[j] = y
+        }
+        if(cn>=as.integer(charToRaw("M")) && cn<=as.integer(charToRaw("Z"))){
+            j = j+1
+            draw[j] = 0
+            x = x+cos(d)
+            y = y+sin(d)
+            xl[j] = x
+            yl[j] = y
+        }
+        if(cn==as.integer(charToRaw("["))){
+            dsave = c(dsave,d)
+            xsave = c(xsave,x)
+            ysave = c(ysave,y)
+        }
+        if(cn==as.integer(charToRaw("]"))){
+            j = j+1
+            draw[j] = 0
+            x = xsave[length(xsave)]
+            y = ysave[length(ysave)]
+            d = dsave[length(dsave)]
+            if(length(xsave)>1){
+                xsave = xsave[1:(length(xsave)-1)]
+                ysave = ysave[1:(length(ysave)-1)]
+                dsave = dsave[1:(length(dsave)-1)]
+            } else {
+                xsave = numeric()
+                ysave = numeric()
+                dsave = numeric()
+            }
+            xl[j] = x
+            yl[j] = y
+        }
+        if(cn==as.integer(charToRaw("-"))){
+            d = d+angle*switch
+        }
+        if(cn==as.integer(charToRaw("+"))){
+            d = d-angle*switch
+        }
+        if(cn==as.integer(charToRaw("."))){
+            switch = switch*(-1)
+        }
+    }
+    return(list(xl,yl,draw,x,y,d,xsave,ysave,dsave))
+}
+
+plotit = function(xyd,lwd=1,col="blue"){
+    x = xyd[[1]]
+    y = xyd[[2]]
+    d = xyd[[3]]
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    starts = numeric()
+    if(d[1]){
+        starts = c(1)
+    }
+    starts = c(starts,which(diff(d)==1))
+    ends = which(diff(d)==-1)
+    if(d[length(d)]==1){
+        ends = c(ends,length(d))
+    }
+    for(i in 1:length(starts)){
+        lines(x[starts[i]:ends[i]],y[starts[i]:ends[i]],lwd=lwd,col=col)
+    }
+}
+```
+
+```{r,echo=F,animation.hook='gifski',interval=1,fig.dim=c(5,5),cache=T}
+s = "FFFF[+FFF[+FF+F][-FF-F]F][-FFF[-FF-F][+FF+F]F]F[+F][-F]F"
+# ss = strsplit(s,"")[[1]]
+x = 0
+y = 0
+d = pi/2
+for(i in 1:nchar(s)){
+    par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+    ss = substr(s,1,i)
+    xyd1 = xyd(ss,pi/2,angle_initial=pi/2)
+    plotit(xyd1,lwd=3,col=rgb(0,0,0))
+    text(-9,9,s,adj=c(0,0.5),col="grey")
+    text(-9,9,ss,adj=c(0,0.5))
+    x = xyd1[[4]]
+    y = xyd1[[5]]
+    d = xyd1[[6]]
+    xsave = round(xyd1[[7]],1)
+    ysave = round(xyd1[[8]],1)
+    dsave = xyd1[[9]]
+    arrows(x-cos(d)/4,y-sin(d)/4,x+cos(d)/4,y+sin(d)/4,0.1,15,2,col="darkgreen",lwd=5)
+    if(length(xsave)>0){
+        text(-5,-9,paste0(rev(xsave),collapse="\n"),adj=c(0.5,0),col="red")
+        text(0,-9,paste0(rev(ysave),collapse="\n"),adj=c(0.5,0),col="red")
+        text(5,-9,paste0(rev(round(dsave/pi*180)),"°",collapse="\n"),adj=c(0.5,0),col="red")
+        for(i in 1:length(xsave)){
+            xs = xsave[i]
+            ys = ysave[i]
+            ds = dsave[i]
+            arrows(xs-cos(ds)/5,ys-sin(ds)/5,xs+cos(ds)/5,ys+sin(ds)/5,0.1,15,2,col="red",lwd=2)
+        }
+    }
+    
+}
+
+```
+
+# You try!
+
+* "F" = Forward one step
+* "+" = Turn right by 90°
+* "-" = Turn left by 90°
+* "[" = Record current position, top of a list
+* "]" = Teleport to top-of-list position, and remove position from list
+
+
+Draw the following string:
+
+$$\mathtt{FFF[+FFF+FFF+FF+FF+F+F][-FFF-FFF-FF-FF-F-F]F}$$
+
+# Correct answer
+
+```{r,echo=F,animation.hook='gifski',interval=0.3,fig.dim=c(5,5),cache=T}
+s = "FFF[+FFF+FFF+FF+FF+F+F][-FFF-FFF-FF-FF-F-F]F"
+x = 0
+y = 0
+d = pi/2
+for(i in 1:nchar(s)){
+    par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+    ss = substr(s,1,i)
+    xyd1 = xyd(ss,pi/2,angle_initial=pi/2)
+    plotit(xyd1,lwd=3,col=rgb(0,0,0))
+    text(-9,9,s,adj=c(0,0.5),col="grey")
+    text(-9,9,ss,adj=c(0,0.5))
+    x = xyd1[[4]]
+    y = xyd1[[5]]
+    d = xyd1[[6]]
+    xsave = round(xyd1[[7]],1)
+    ysave = round(xyd1[[8]],1)
+    dsave = xyd1[[9]]
+    arrows(x-cos(d)/4,y-sin(d)/4,x+cos(d)/4,y+sin(d)/4,0.1,15,2,col="darkgreen",lwd=5)
+    if(length(xsave)>0){
+        text(-5,-9,paste0(rev(xsave),collapse="\n"),adj=c(0.5,0),col="red")
+        text(0,-9,paste0(rev(ysave),collapse="\n"),adj=c(0.5,0),col="red")
+        text(5,-9,paste0(rev(round(dsave/pi*180)),"°",collapse="\n"),adj=c(0.5,0),col="red")
+        for(i in 1:length(xsave)){
+            xs = xsave[i]
+            ys = ysave[i]
+            ds = dsave[i]
+            arrows(xs-cos(ds)/5,ys-sin(ds)/5,xs+cos(ds)/5,ys+sin(ds)/5,0.1,15,2,col="red",lwd=2)
+        }
+    }
+}
+```
+
+
+
+# Okay
+
+
+
+

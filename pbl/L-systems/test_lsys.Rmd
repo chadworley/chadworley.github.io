@@ -1,0 +1,141 @@
+
+```{r,echo=F}
+
+getstr = function(start="A",
+                  rules=list("A"="A[+A][-A]b","b"="[+C][-C]","C"="CC"),
+                  n=10){
+    st = start
+    for(jj in 1:n){
+        st2 = ""
+        for(i in 1:nchar(st)){
+            ch = substr(st,i,i)
+            # cn = as.integer(charToRaw(ch))
+            if(!is.null(rules[[ch]])){
+                st2 = paste0(st2,rules[[ch]],collapse="")
+            } else {
+                st2 = paste0(st2,ch,collapse="")
+            }
+        }
+        st = st2
+    }
+    return(st)
+}
+
+getxyc = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2,col="blue"){
+    switch = 1
+    d = angle_initial
+    x = 0
+    y = 0
+    xl = c(x)
+    yl = c(y)
+    cols = numeric()
+    dsave = numeric()
+    xsave = numeric()
+    ysave = numeric()
+    for(i in 1:nchar(string)){
+        ch = substr(string,i,i)
+        cn = as.integer(charToRaw(ch))
+        if(cn>=as.integer(charToRaw("A")) && cn<=as.integer(charToRaw("L"))){
+            cols = c(cols,col)
+            x = x+cos(d)
+            y = y+sin(d)
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn>=as.integer(charToRaw("M")) && cn<=as.integer(charToRaw("Z"))){
+            cols = c(cols,"NA")
+            x = x+cos(d)
+            y = y+sin(d)
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn==as.integer(charToRaw("["))){
+            dsave = c(dsave,d)
+            xsave = c(xsave,x)
+            ysave = c(ysave,y)
+        }
+        if(cn==as.integer(charToRaw("]"))){
+            cols = c(cols,"NA")
+            x = xsave[length(xsave)]
+            y = ysave[length(ysave)]
+            d = dsave[length(dsave)]
+            if(length(xsave)>1){
+                xsave = xsave[1:(length(xsave)-1)]
+                ysave = ysave[1:(length(ysave)-1)]
+                dsave = dsave[1:(length(dsave)-1)]
+            } else {
+                xsave = numeric()
+                ysave = numeric()
+                dsave = numeric()
+            }
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn==as.integer(charToRaw("-"))){
+            d = d-angle
+        }
+        if(cn==as.integer(charToRaw("+"))){
+            d = d+angle
+        }
+        if(cn==as.integer(charToRaw("."))){
+            switch = switch*(-1)
+        }
+    }
+    
+    xwid = max(xl)-min(xl)
+    ywid = max(yl)-min(yl)
+    xmid = (max(xl)+min(xl))/2
+    ymid = (max(yl)+min(yl))/2
+    wid = max(c(xwid,ywid))
+    x2 = (xl-xmid)/wid*2
+    y2 = (yl-ymid)/wid*2
+    return(list(x2,y2,cols))
+}
+
+makeplot = function(xyc,lwd=1){
+    x = xyc[[1]]
+    y = xyc[[2]]
+    c = xyc[[3]]
+    plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+    # lines(x2,y2)
+    for(i in 2:length(x)){
+        lines(c(x[i-1],x[i]),c(y[i-1],y[i]),col=c[i-1])
+    }
+}
+```
+
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+start = c("A")
+rules = list("A"="B+B+B+B+B+B+",
+             "B"="B[--CCC-a][-CCC-a]B",
+             "C"="CC",
+             "a"="B+B+B+B+B+B+")
+s = getstr(start,rules,5)
+s2 = gsub("A","F",s,fixed=T)
+s2 = gsub("B","F",s2,fixed=T)
+s2 = gsub("C","F",s2,fixed=T)
+s2 = gsub("+","R",s2,fixed=T)
+s2 = gsub("-","L",s2,fixed=T)
+s2 = gsub("[","A",s2,fixed=T)
+s2 = gsub("]","Z",s2,fixed=T)
+
+# s3 = ""
+# chunk = 4
+# nrep = floor(nchar(s2)/chunk)
+# for(i in 1:nrep){
+#     s3 = paste0(s3," ",substr(s2,i*chunk-chunk+1,i*chunk),collapse="")
+#     if(i %% 5 ==0){
+#         s3 = paste0(s3,"\n")
+#     }
+# }
+# if(nchar(s2)>nrep*chunk){
+#     s3 = paste0(s3," ",substr(s2,nrep*chunk,nchar(s2)))
+# }
+
+xyc = getxyc(s,pi/3,angle_initial=0,col="black")
+makeplot(xyc,lwd=0.3)
+# cat(s3)
+```
+
