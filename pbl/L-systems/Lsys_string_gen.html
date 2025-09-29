@@ -114,7 +114,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>L-System Generator</h1>
+        <h1>L-System String Generator</h1>
 
         <div class="input-group">
             <label for="axiom">Axiom (Starting String):</label>
@@ -123,11 +123,10 @@
 
         <div class="input-group">
             <label for="rules">Replacement Rules (one per line, e.g., F=F+F-F or A->AB):</label>
-            <textarea id="rules" placeholder="e.g.,
-F=F[+F]F[-F]F
-X=F[+X]F[-X]+X"
-            >F=FF
-X=F[+X][-X]FX</textarea>
+            <textarea id="rules" placeholder="F = F[+F][-F]X
+X = XXF"
+            >F = FX
+X = F[+X][-X]FX</textarea>
         </div>
 
         <div class="input-group">
@@ -135,10 +134,13 @@ X=F[+X][-X]FX</textarea>
             <input type="number" id="iterations" value="4" min="0">
         </div>
 
-        <button onclick="generateLSystem()">Generate Sequence</button>
+        <button onclick="generateLSystem()">Generate Strings</button>
 
         <div class="output-section">
-            <h2>Generated Sequences</h2>
+            <h2>Generated Strings</h2>
+            
+            <button type="button" onclick="copyLastString()">Copy Last String</button>
+            
             <div id="output">
                 <!-- Sequences will be displayed here -->
             </div>

@@ -1,6 +1,11 @@
 ---
 output: pdf_document
+params:
+    showsol: true
 ---
+
+
+Name: \hspace{4in} Date: \hrule
 
 # Lindenmayer Systems and Turtle Graphics
 
@@ -165,32 +170,176 @@ A [Lindenmayer system](https://en.wikipedia.org/wiki/L-system) (or L-system) is 
 Start:
     x
 Rules:
-    A > AA
-    x > xAx
+    A = A-
+    x = Ax
+    - = -
+(The "-" character is a constant. We usually don't bother listing constants.)
 The start string and first 4 recursions:
     0. x
-    1. xAx
-    2. xAxAAxAx
-    3. xAxAAxAxAAAAxAxAAxAx
-    4. xAxAAxAxAAAAxAxAAxAxAAAAAAAAxAxAAxAxAAAAxAxAAxAx
+    1. Ax
+    2. A-Ax
+    3. A--A-Ax
+    4. A---A--A-Ax
 ```
 
 
 # Practice
 
-* Start
-    * A
-* Rules
-    A $\to$ BA
-    B $\to$ AB
-* Write the first 5 iterations of this L-system:
+```
+Start:
+    A
+Rules:
+    A = -B
+    B = -AB
+The start string and first 4 recursions:
+```
 
+\vfill
 
+```{r,echo=F,results='asis',eval=params$showsol}
 
+cat("\\color{red}\n```
+    0. A\n
+    1. -B\n
+    2. --AB\n
+    3. ---B-AB\n
+    4. ----AB--B-AB
+```\n\\color{black}")
+
+```
+
+\vfill
 
 
 \newpage  
    
 
-When these letters correspond to drawing commands (like move forward, turn 15°, or go back to last saved spot), we can get fractals.
+When L-system strings' characters correspond to drawing commands, we can get fractal-like patterns.
+
+Use the following table of drawing commands:
+
+```
+F = Move forward one step while drawing line
+X = Move forward one step without drawing line
++ = Turn right 90°
+- = Turn left 90°
+[ = Save current position (x, y, and direction) to top of list
+] = Teleport to top-of-list position (without drawing); erase top-of-list position
+```
+
+Starting at $(0,0)$ pointing up, draw the pattern described by the commands in the string below:
+
+
+```{r,echo=F}
+start = c("F")
+rules = list("F"="FF[+F-F][-F+F]xF",
+             "X"="XX")
+s = getstr(start,rules,n=2)
+s1 = substr(s,1,50)
+s2 = substr(s,51,100)
+s3 = substr(s,101,nchar(s))
+
+getxyd = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2,col="blue"){
+    switch = 1
+    d = angle_initial
+    x = 0
+    y = 0
+    xl = c(x)
+    yl = c(y)
+    cols = numeric()
+    dsave = numeric()
+    xsave = numeric()
+    ysave = numeric()
+    for(i in 1:nchar(string)){
+        ch = substr(string,i,i)
+        cn = as.integer(charToRaw(ch))
+        if(cn>=as.integer(charToRaw("A")) && cn<=as.integer(charToRaw("L"))){
+            cols = c(cols,col)
+            x = x+cos(d)
+            y = y+sin(d)
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn>=as.integer(charToRaw("M")) && cn<=as.integer(charToRaw("Z"))){
+            cols = c(cols,"NA")
+            x = x+cos(d)
+            y = y+sin(d)
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn==as.integer(charToRaw("["))){
+            dsave = c(dsave,d)
+            xsave = c(xsave,x)
+            ysave = c(ysave,y)
+        }
+        if(cn==as.integer(charToRaw("]"))){
+            cols = c(cols,"NA")
+            x = xsave[length(xsave)]
+            y = ysave[length(ysave)]
+            d = dsave[length(dsave)]
+            if(length(xsave)>1){
+                xsave = xsave[1:(length(xsave)-1)]
+                ysave = ysave[1:(length(ysave)-1)]
+                dsave = dsave[1:(length(dsave)-1)]
+            } else {
+                xsave = numeric()
+                ysave = numeric()
+                dsave = numeric()
+            }
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn==as.integer(charToRaw("-"))){
+            d = d-angle
+        }
+        if(cn==as.integer(charToRaw("+"))){
+            d = d+angle
+        }
+        if(cn==as.integer(charToRaw("."))){
+            switch = switch*(-1)
+        }
+    }
+    return(list(xl,yl,cols))
+}
+
+```
+
+\LARGE
+```
+`r s1`
+
+`r s2`
+
+`r s3`
+```
+\normalsize
+
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F,xlim=c(-10,10),ylim=c(-5,15))
+abline(h=0,col="grey")
+abline(v=0,col="grey")
+for(i in -10:10){
+    for(j in -5:15){
+        points(i,j,pch=19,cex=0.5)
+    }
+}
+points(0,0,pch=12)
+
+if(params$showsol){
+    s = gsub("x","X",s,fixed=T)
+    xyd = getxyd(s,angle=pi/2,col = "red")
+    x = xyd[[1]]
+    y = xyd[[2]]
+    c = xyd[[3]]
+    # lines(x2,y2)
+    for(i in 2:length(x)){
+        lines(c(x[i-1],x[i]),c(y[i-1],y[i]),col=c[i-1],lwd=3)
+    }
+}
+```
+
+
+
 
