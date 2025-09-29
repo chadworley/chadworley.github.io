@@ -1,0 +1,94 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+hk = sample(1:6,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+
+f = paste0("\\log_2(x+",-h,")+",k,collapse="")
+f = gsub("+-","-",f,fixed=T)
+
+a1 = "No."
+a2 = paste0("Yes, at x=",h,".",collapse="")
+
+ach = character()
+for(i in c("x","y")){
+    for(j in sort(c(-h,-k,h,k))){
+        ach = c(ach,paste0("Yes, at ",i,"=",j,".",collapse=""))
+    }
+}
+ach = c(ach,"No.")
+al = paste0("* ",ach,collapse="\n")
+
+sol1 = paste0(1*(ach==a1),collapse="")
+sol2 = paste0(1*(ach==a2),collapse="")
+
+```
+
+Question
+========
+
+Consider the curve represented by the equation below:
+
+$$y~=~`r f`$$
+
+Does the curve $y=`r f`$ have a horizontal [asymptote](https://en.wikipedia.org/wiki/Asymptote)?
+
+##ANSWER1##
+
+Does the curve $y=`r f`$ have a vertical [asymptote](https://en.wikipedia.org/wiki/Asymptote)?
+
+##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+The vertical asymptote is shown below as a red dashed line. The blue curve represents $y=`r f`$.
+
+```{r,echo=F,fig.dim=c(5,5),warning=F}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.5)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+
+x = seq(-10,10,0.00001)
+y = log(x-h)/log(2)+k
+x2 = x[!is.na(y)]
+y2 = y[!is.na(y)]
+x = x2[abs(y2)<=10]
+y = y2[abs(y2)<=10]
+breaks = c(0,which(abs(diff(y))>10),length(x))
+for(j in 1:(length(breaks)-1)){
+    suppressWarnings(lines(x[(breaks[j]+1):(breaks[j+1]-1)],y[(breaks[j]+1):(breaks[j+1]-1)],type="l",lwd=4,col="blue"))
+}
+
+abline(v=h,col="red",lty=2,lwd=2)
+
+```
+\
+
+Notice, the parent function, $y=\log_2(x)$, has a vertical asymptote at $x=0$. When we shift the points left or right, the vertical asymptote also shifts left or right.
+
+Also, kind of strange, but a vertical line is indicated by $x$ equaling a constant.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: asymp_log

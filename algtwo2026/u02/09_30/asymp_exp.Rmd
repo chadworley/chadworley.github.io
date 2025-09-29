@@ -1,0 +1,106 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+hk = sample(1:6,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+
+f = paste0("2^{x+",-h,"}+",k,collapse="")
+f = gsub("+-","-",f,fixed=T)
+
+a1 = paste0("Yes, at y=",k,".",collapse="")
+a2 = "No."
+
+ach = character()
+for(i in c("x","y")){
+    for(j in sort(c(-h,-k,h,k))){
+        ach = c(ach,paste0("Yes, at ",i,"=",j,".",collapse=""))
+    }
+}
+ach = c(ach,"No.")
+al = paste0("* ",ach,collapse="\n")
+
+sol1 = paste0(1*(ach==a1),collapse="")
+sol2 = paste0(1*(ach==a2),collapse="")
+
+```
+
+Question
+========
+
+Consider the curve represented by the equation below:
+
+$$y~=~`r f`$$
+
+Does the curve $y=`r f`$ have a horizontal [asymptote](https://en.wikipedia.org/wiki/Asymptote)?
+
+##ANSWER1##
+
+Does the curve $y=`r f`$ have a vertical [asymptote](https://en.wikipedia.org/wiki/Asymptote)?
+
+##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+Solution
+========
+
+The horizontal asymptote is shown below as a red dashed line. The blue curve represents $y=`r f`$.
+
+```{r,echo=F,fig.dim=c(5,5),warning=F}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.5)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+
+x = seq(-10,10,0.0001)
+y = 2^(x-h)+k
+x2 = x[!is.na(y)]
+y2 = y[!is.na(y)]
+x = x2[abs(y2)<=10]
+y = y2[abs(y2)<=10]
+breaks = c(0,which(abs(diff(y))>10),length(x))
+for(j in 1:(length(breaks)-1)){
+    suppressWarnings(lines(x[(breaks[j]+1):(breaks[j+1]-1)],y[(breaks[j]+1):(breaks[j+1]-1)],type="l",lwd=4,col="blue"))
+}
+
+abline(h=k,col="red",lty=2,lwd=2)
+
+# xp = -10:10
+# yp = ff(xp-h)+k
+# xp2 = xp[!is.na(yp)]
+# yp2 = yp[!is.na(yp)]
+# xp = xp2[abs(yp2)<=10]
+# yp = yp2[abs(yp2)<=10]
+# if(length(yp)>0){
+#     for(i in 1:length(xp)){
+#         if(yp[i]%%1==0){points(xp[i],yp[i],pch=19,cex=0.8,col="blue")}
+#     }
+# }
+
+```
+\
+
+Notice, the parent function, $y=2^x$, has a horizontal asymptote at $y=0$. When we shift the points up or down, the horizontal asymptote also shifts up or down.
+
+Also, kind of strange, but a horizontal line is indicated by $y$ equaling a constant.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: asymp_exp
