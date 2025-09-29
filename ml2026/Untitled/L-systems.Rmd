@@ -1,0 +1,345 @@
+---
+output: pdf_document
+params:
+    showsol: true
+---
+
+
+Name: \hspace{4in} Date: \hrule
+
+# Lindenmayer Systems and Turtle Graphics
+
+
+```{r,echo=F}
+
+getstr = function(start="A",
+                  rules=list("A"="A[+A][-A]b","b"="[+C][-C]","C"="CC"),
+                  n=10){
+    st = start
+    for(jj in 1:n){
+        st2 = ""
+        for(i in 1:nchar(st)){
+            ch = substr(st,i,i)
+            # cn = as.integer(charToRaw(ch))
+            if(!is.null(rules[[ch]])){
+                st2 = paste0(st2,rules[[ch]],collapse="")
+            } else {
+                st2 = paste0(st2,ch,collapse="")
+            }
+        }
+        st = st2
+    }
+    return(st)
+}
+
+getxyc = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2,col="blue"){
+    switch = 1
+    d = angle_initial
+    x = 0
+    y = 0
+    xl = c(x)
+    yl = c(y)
+    cols = numeric()
+    dsave = numeric()
+    xsave = numeric()
+    ysave = numeric()
+    for(i in 1:nchar(string)){
+        ch = substr(string,i,i)
+        cn = as.integer(charToRaw(ch))
+        if(cn>=as.integer(charToRaw("A")) && cn<=as.integer(charToRaw("L"))){
+            cols = c(cols,col)
+            x = x+cos(d)
+            y = y+sin(d)
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn>=as.integer(charToRaw("M")) && cn<=as.integer(charToRaw("Z"))){
+            cols = c(cols,"NA")
+            x = x+cos(d)
+            y = y+sin(d)
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn==as.integer(charToRaw("["))){
+            dsave = c(dsave,d)
+            xsave = c(xsave,x)
+            ysave = c(ysave,y)
+        }
+        if(cn==as.integer(charToRaw("]"))){
+            cols = c(cols,"NA")
+            x = xsave[length(xsave)]
+            y = ysave[length(ysave)]
+            d = dsave[length(dsave)]
+            if(length(xsave)>1){
+                xsave = xsave[1:(length(xsave)-1)]
+                ysave = ysave[1:(length(ysave)-1)]
+                dsave = dsave[1:(length(dsave)-1)]
+            } else {
+                xsave = numeric()
+                ysave = numeric()
+                dsave = numeric()
+            }
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn==as.integer(charToRaw("-"))){
+            d = d-angle
+        }
+        if(cn==as.integer(charToRaw("+"))){
+            d = d+angle
+        }
+        if(cn==as.integer(charToRaw("."))){
+            switch = switch*(-1)
+        }
+    }
+    
+    xwid = max(xl)-min(xl)
+    ywid = max(yl)-min(yl)
+    xmid = (max(xl)+min(xl))/2
+    ymid = (max(yl)+min(yl))/2
+    wid = max(c(xwid,ywid))
+    x2 = (xl-xmid)/wid*2
+    y2 = (yl-ymid)/wid*2
+    return(list(x2,y2,cols))
+}
+
+makeplot = function(xyc,lwd=1){
+    x = xyc[[1]]
+    y = xyc[[2]]
+    c = xyc[[3]]
+    plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+    # lines(x2,y2)
+    for(i in 2:length(x)){
+        lines(c(x[i-1],x[i]),c(y[i-1],y[i]),col=c[i-1])
+    }
+}
+```
+
+
+```{r,echo=F,fig.dim=c(6,1)}
+minus = 2
+par(mfrow=c(1,6),mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+
+start = c("A")
+rules = list("A"="B-C-B-C-",
+             "B"="B+B-",
+             "C"="B")
+s = getstr(start,rules,10-minus)
+xyc = getxyc(s,pi/2,angle_initial=3*pi/4,col="red")
+makeplot(xyc,lwd=0.3)
+
+start = c("A")
+rules = list("A"="AA[+A][-A]")
+s = getstr(start,rules,n=6-minus)
+xyc = getxyc(s,pi/3,angle_initial=pi/2,col="orange")
+makeplot(xyc,lwd=0.3)
+
+start = c("-x")
+rules = list("x"="F+[[x]-x]-F[-Fx]+x",
+             "F"="FF")
+s = getstr(start,rules,n=6-minus)
+xyc = getxyc(s,25/180*pi,angle_initial=pi/2,col="darkgreen")
+makeplot(xyc,lwd=0.3)
+
+start = c("A")
+rules = list("A"="B-A-B",
+             "B"="A+B+A")
+s = getstr(start,rules,n=6-minus)
+xyc = getxyc(s,pi/3,angle_initial=pi/2,col="blue")
+makeplot(xyc,lwd=0.3)
+
+start = c("F")
+rules = list("F"="F+G",
+             "G"="F-G")
+s = getstr(start,rules,n=10-minus)
+xyc = getxyc(s,pi/2,angle_initial=pi/2,col="purple")
+makeplot(xyc,lwd=0.3)
+
+start = c("A")
+rules = list("A"="AB",
+             "B"="[-A][+A]")
+s = getstr(start,rules,n=13-minus)
+xyc = getxyc(s,pi/12,angle_initial=pi/2,col="black")
+makeplot(xyc,lwd=0.3)
+```
+
+
+A [Lindenmayer system](https://en.wikipedia.org/wiki/L-system) (or L-system) is a set of rewrite rules. When these rules are repeatedly applied to a starting string ("word"), we can get complex results from simple rules. For example:
+
+```
+Start:
+    x
+Rules:
+    A = A-
+    x = Ax
+    - = -
+(The "-" character is a constant. We usually don't bother listing constants.)
+The start string and first 4 recursions:
+    0. x
+    1. Ax
+    2. A-Ax
+    3. A--A-Ax
+    4. A---A--A-Ax
+```
+
+
+# Practice
+
+```
+Start:
+    A
+Rules:
+    A = -B
+    B = -AB
+The start string and first 4 recursions:
+```
+
+\vfill
+
+```{r,echo=F,results='asis',eval=params$showsol}
+
+cat("\\color{red}\n```
+    0. A\n
+    1. -B\n
+    2. --AB\n
+    3. ---B-AB\n
+    4. ----AB--B-AB
+```\n\\color{black}")
+
+```
+
+\vfill
+
+
+\newpage  
+   
+
+When L-system strings' characters correspond to drawing commands, we can get fractal-like patterns.
+
+Use the following table of drawing commands:
+
+```
+F = Move forward one step while drawing line
+X = Move forward one step without drawing line
++ = Turn right 90°
+- = Turn left 90°
+[ = Save current position (x, y, and direction) to top of list
+] = Teleport to top-of-list position (without drawing); erase top-of-list position
+```
+
+Starting at $(0,0)$ pointing up, draw the pattern described by the commands in the string below:
+
+
+```{r,echo=F}
+start = c("F")
+rules = list("F"="FF[+F-F][-F+F]xF",
+             "X"="XX")
+s = getstr(start,rules,n=2)
+s1 = substr(s,1,50)
+s2 = substr(s,51,100)
+s3 = substr(s,101,nchar(s))
+
+getxyd = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2,col="blue"){
+    switch = 1
+    d = angle_initial
+    x = 0
+    y = 0
+    xl = c(x)
+    yl = c(y)
+    cols = numeric()
+    dsave = numeric()
+    xsave = numeric()
+    ysave = numeric()
+    for(i in 1:nchar(string)){
+        ch = substr(string,i,i)
+        cn = as.integer(charToRaw(ch))
+        if(cn>=as.integer(charToRaw("A")) && cn<=as.integer(charToRaw("L"))){
+            cols = c(cols,col)
+            x = x+cos(d)
+            y = y+sin(d)
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn>=as.integer(charToRaw("M")) && cn<=as.integer(charToRaw("Z"))){
+            cols = c(cols,"NA")
+            x = x+cos(d)
+            y = y+sin(d)
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn==as.integer(charToRaw("["))){
+            dsave = c(dsave,d)
+            xsave = c(xsave,x)
+            ysave = c(ysave,y)
+        }
+        if(cn==as.integer(charToRaw("]"))){
+            cols = c(cols,"NA")
+            x = xsave[length(xsave)]
+            y = ysave[length(ysave)]
+            d = dsave[length(dsave)]
+            if(length(xsave)>1){
+                xsave = xsave[1:(length(xsave)-1)]
+                ysave = ysave[1:(length(ysave)-1)]
+                dsave = dsave[1:(length(dsave)-1)]
+            } else {
+                xsave = numeric()
+                ysave = numeric()
+                dsave = numeric()
+            }
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn==as.integer(charToRaw("-"))){
+            d = d-angle
+        }
+        if(cn==as.integer(charToRaw("+"))){
+            d = d+angle
+        }
+        if(cn==as.integer(charToRaw("."))){
+            switch = switch*(-1)
+        }
+    }
+    return(list(xl,yl,cols))
+}
+
+```
+
+\LARGE
+```
+`r s1`
+
+`r s2`
+
+`r s3`
+```
+\normalsize
+
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F,xlim=c(-10,10),ylim=c(-5,15))
+abline(h=0,col="grey")
+abline(v=0,col="grey")
+for(i in -10:10){
+    for(j in -5:15){
+        points(i,j,pch=19,cex=0.5)
+    }
+}
+points(0,0,pch=12)
+
+if(params$showsol){
+    s = gsub("x","X",s,fixed=T)
+    xyd = getxyd(s,angle=pi/2,col = "red")
+    x = xyd[[1]]
+    y = xyd[[2]]
+    c = xyd[[3]]
+    # lines(x2,y2)
+    for(i in 2:length(x)){
+        lines(c(x[i-1],x[i]),c(y[i-1],y[i]),col=c[i-1],lwd=3)
+    }
+}
+```
+
+
+
+

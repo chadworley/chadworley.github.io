@@ -1,5 +1,5 @@
 ---
-output: pdf_document
+output: html_document
 params:
     rseed: 0
     showsol: true
@@ -7,6 +7,7 @@ params:
     titex: "PCW_09_29: Graph Parent Translations"
 urlcolor: blue
 ---
+
 
 ```{r,echo=F}
 if(params$useseed){
@@ -39,12 +40,12 @@ mkplot = function(){
     plot(0,0,"n",axes=F,ann=F,xlim=c(-10,10),ylim=c(-10,10))
     j = seq(-10,10,0.2)
     for(i in -10:10){
-        points(rep(i,length(j)),j,cex=0.01,pch=19)
-        points(j,rep(i,length(j)),cex=0.01,pch=19)
+        lines(c(-10,10),c(i,i),lwd=0.3)
+        lines(c(i,i),c(-10,10),lwd=0.3)
     }
     for(i in seq(-10,10,5)){
-        lines(c(-10,10),c(i,i),lwd=0.5)
-        lines(c(i,i),c(-10,10),lwd=0.5)
+        lines(c(-10,10),c(i,i),lwd=0.8)
+        lines(c(i,i),c(-10,10),lwd=0.8)
     }
     abline(h=0,lwd=1.5)
     abline(v=0,lwd=1.5)
