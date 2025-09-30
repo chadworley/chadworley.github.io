@@ -1,0 +1,222 @@
+---
+output: slidy_presentation
+---
+
+
+# Agenda
+
+* Entrance ticket: [ET_0930](https://bart.instructure.com/courses/2110/quizzes/3204)
+* Slides: Asymptotes in parent functions and shifts
+* [OCW_0930_asymptote_shift](https://bart.instructure.com/courses/2110/quizzes/3205)
+* [PCW_0930](PCW_0930: EQs from shifts)
+
+
+
+# Asymptotes in parent functions
+
+* An [asymptote](https://en.wikipedia.org/wiki/Asymptote) of a curve is a straight line such that the distance between the curve and the line approaches zero as one or both of the $x$ or $y$ coordinates tends to infinity.
+* Examples:
+    * Exponential parent function, $y=2^x$, has a horizontal asymptote $y=0$, which is approached as $x\to -\infty$.\
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.5)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+x = seq(-10,10,0.1)
+y = 2^x
+x2 = x[abs(y)<=10]
+y2 = y[abs(y)<=10]
+lines(x2,y2,lwd=5,col="blue")
+abline(h=0,col="red",lty=2,lwd=4)
+text(10,-0.5,"x")
+text(-0.5,10,"y")
+```
+\
+* Logarithmic parent function, $y=\log_2(x)$, has a vertical asymptote $x=0$, which is approached as $y\to -\infty$.\
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.5)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+x = seq(-10,10,0.1)
+y = 2^x
+x2 = x[abs(y)<=10]
+y2 = y[abs(y)<=10]
+lines(y2,x2,lwd=5,col="blue")
+abline(v=0,col="red",lty=2,lwd=4)
+text(10,-0.5,"x")
+text(-0.5,10,"y")
+```
+\
+* Reciprocal parent function, $y=\frac{1}{x}$, has two asymptotes at $y=0$ and $x=0$.
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.5)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+x = seq(-10,-0.001,0.001)
+y = 1/x
+x2 = x[abs(y)<=10]
+y2 = y[abs(y)<=10]
+lines(x2,y2,lwd=5,col="blue")
+x = seq(0.001,10,0.001)
+y = 1/x
+x2 = x[abs(y)<=10]
+y2 = y[abs(y)<=10]
+lines(x2,y2,lwd=5,col="blue")
+abline(v=0,col="red",lty=2,lwd=4)
+abline(h=0,col="red",lty=2,lwd=4)
+text(10,-0.5,"x")
+text(-0.5,10,"y")
+```
+\
+* Tangent parent function, $y=\tan(x)$, has vertical asymptotes at $x=\pi/2+n\pi$ for any integer $n$.\
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.5)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+x = seq(-10,10,0.001)
+y = tan(x)
+x2 = x[abs(y)<=10]
+y2 = y[abs(y)<=10]
+
+breaks = c(0,which(abs(diff(y2))>=5),length(x2))
+for(i in 1:(length(breaks)-1)){
+    lines(x2[(breaks[i]+1):(breaks[i+1])],y2[(breaks[i]+1):(breaks[i+1])],lwd=5,col="blue")
+}
+abline(v=pi/2,col="red",lty=2,lwd=4)
+abline(v=pi/2+pi,col="red",lty=2,lwd=4)
+abline(v=pi/2+2*pi,col="red",lty=2,lwd=4)
+abline(v=pi/2-pi,col="red",lty=2,lwd=4)
+abline(v=pi/2-2*pi,col="red",lty=2,lwd=4)
+abline(v=pi/2-3*pi,col="red",lty=2,lwd=4)
+text(10,-0.5,"x")
+text(-0.5,10,"y")
+```
+\
+
+# Shifting with asymptotes
+
+Asymptotes shift when the function shifts.
+
+* Examples:
+    * Consider $y=2^{x-3}+4$. Notice the horizontal asymptote shifts up to $y=4$.\
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.5)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+x = seq(-10,10,0.1)
+y = 2^(x-3)+4
+x2 = x[abs(y)<=10]
+y2 = y[abs(y)<=10]
+lines(x2,y2,lwd=5,col="blue")
+abline(h=+4,col="red",lty=2,lwd=4)
+text(10,-0.5,"x")
+text(-0.5,10,"y")
+```
+\
+* Consider $y=\log_2(x-3)+4$. Notice the vertical asymptote shifts right to $x=3$.\
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.5)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+x = seq(-10,10,0.1)
+y = 2^(x-4)+3
+x2 = x[abs(y)<=10]
+y2 = y[abs(y)<=10]
+lines(y2,x2,lwd=5,col="blue")
+abline(v=3,col="red",lty=2,lwd=4)
+text(10,-0.5,"x")
+text(-0.5,10,"y")
+```
+\
+* Consider $y=\frac{1}{x-3}+4$.\
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+
+for(i in -10:10){
+    lines(c(-10,10),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-10,10),col="grey",lwd=0.5)
+}
+for(i in seq(-10,10,5)){
+    lines(c(-10,10),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-10,10),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+x = seq(-10,3-0.001,0.001)
+y = 1/(x-3)+4
+x2 = x[abs(y)<=10]
+y2 = y[abs(y)<=10]
+lines(x2,y2,lwd=5,col="blue")
+x = seq(3+0.001,10,0.001)
+y = 1/(x-3)+4
+x2 = x[abs(y)<=10]
+y2 = y[abs(y)<=10]
+lines(x2,y2,lwd=5,col="blue")
+abline(v=3,col="red",lty=2,lwd=4)
+abline(h=4,col="red",lty=2,lwd=4)
+text(10,-0.5,"x")
+text(-0.5,10,"y")
+```
+\
+
+
