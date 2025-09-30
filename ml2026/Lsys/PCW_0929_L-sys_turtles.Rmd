@@ -165,7 +165,9 @@ makeplot(xyc,lwd=0.3)
 ```
 
 
-A [Lindenmayer system](https://en.wikipedia.org/wiki/L-system) (or L-system) is a set of rewrite rules. When these rules are repeatedly applied to a starting string ("word"), we can get complex results from simple rules. For example:
+A [Lindenmayer system](https://en.wikipedia.org/wiki/L-system) (or L-system) is a set of rewrite rules. When these rules are repeatedly applied to a starting string ("word"), we can get complex results from simple rules. 
+
+# Example
 
 ```
 Start:
@@ -232,13 +234,17 @@ Starting at $(0,0)$ pointing up, draw the pattern described by the commands in t
 
 
 ```{r,echo=F}
-start = c("F")
-rules = list("F"="FF[+F-F][-F+F]xF",
-             "X"="XX")
-s = getstr(start,rules,n=2)
+# start = c("F")
+# rules = list("F"="xFF+F",
+#              "x"="FFF[-FFF]+FFF+FF")
+# s = getstr(start,rules,n=2)
+# s1 = substr(s,1,50)
+# s2 = substr(s,51,100)
+# s3 = substr(s,101,nchar(s))
+
+s = "xx[+FFF-FFxx+F-FF-FF-F[-F+F]F-F][-FFF+FFxx-F+FF+FF+F[+F-F]F+F]xx[+F-F][-F+F]"
 s1 = substr(s,1,50)
-s2 = substr(s,51,100)
-s3 = substr(s,101,nchar(s))
+s2 = substr(s,51,nchar(s))
 
 getxyd = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2,col="blue"){
     switch = 1
@@ -291,10 +297,10 @@ getxyd = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2,col="blue"
             yl = c(yl,y)
         }
         if(cn==as.integer(charToRaw("-"))){
-            d = d-angle
+            d = d+angle
         }
         if(cn==as.integer(charToRaw("+"))){
-            d = d+angle
+            d = d-angle
         }
         if(cn==as.integer(charToRaw("."))){
             switch = switch*(-1)
@@ -305,20 +311,21 @@ getxyd = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2,col="blue"
 
 ```
 
+\vfill
+
 \LARGE
 ```
 `r s1`
 
 `r s2`
-
-`r s3`
 ```
 \normalsize
 
+\vfill
 
-```{r,echo=F,fig.dim=c(5,5)}
+```{r,echo=F,fig.dim=c(5,5),fig.align='center'}
 par(mar=c(0,0,0,0),oma=c(0,0,0,0))
-plot(0,0,"n",axes=F,ann=F,xlim=c(-10,10),ylim=c(-5,15))
+plot(0,0,"n",axes=F,ann=F,xlim=c(-8,8),ylim=c(-3,11))
 abline(h=0,col="grey")
 abline(v=0,col="grey")
 for(i in -10:10){
@@ -341,6 +348,6 @@ if(params$showsol){
 }
 ```
 
-
+\vfill
 
 
