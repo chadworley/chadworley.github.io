@@ -35,6 +35,168 @@ Of course, I'm just using 2 as an example. This generalizes with any scale facto
 * The vertical transformations are "normal" and indicated by operations outside the function.
 
 
+# Examples of horizontal shrinking
+
+Notice $y=\sqrt{2x}$ is shrunk towards the $y$ axis. (Unfortunately we see this could also be visualized as a stretch vertically. A lot of the parent functions have an equivalent vertical stretch for any horiztonal shrink.)
+
+```{r,echo=F,fig.dim=c(8,4),warning=F}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s",mfrow=c(1,2))
+lim = 10
+plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
+
+for(i in -lim:lim){
+    lines(c(-lim,lim),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-lim,lim),col="grey",lwd=0.5)
+}
+for(i in seq(-lim,lim,5)){
+    lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(lim,0,"x",adj=c(-0.3,1.2))
+text(0,lim,"y",adj=c(1.2,-0.3))
+x = seq(0,10,0.01)
+xp = c(1,2,4,9)
+lines(x,sqrt(x),col="grey",lwd=1.4)
+points(xp,sqrt(xp),col="grey",pch=19,cex=0.5)
+lines(x,sqrt(2*x),col="blue",lwd=1.4)
+points(xp/2,sqrt(xp),col="blue",pch=19,cex=0.5)
+
+plot(0,0,"n",axes=F,ann=F)
+library(latex2exp)
+legend("bottomleft",c(TeX("$y=\\sqrt{x}$"),TeX("$y=\\sqrt{2x}$")),col=c("grey","blue"),lwd=c(1.4,1.4))
+```
+\
+
+Notice $y=\cos(2x)$ is shrunk towards the $y$ axis. The trigonometric wave functions are excellent examples of functions with clearly distinct horizontal shrink and vertical stretch.
+
+```{r,echo=F,fig.dim=c(8,4),warning=F}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s",mfrow=c(1,2))
+lim = 10
+plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
+
+for(i in -lim:lim){
+    lines(c(-lim,lim),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-lim,lim),col="grey",lwd=0.5)
+}
+for(i in seq(-lim,lim,5)){
+    lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(lim,0,"x",adj=c(-0.3,1.2))
+text(0,lim,"y",adj=c(1.2,-0.3))
+x = seq(-10,10,0.01)
+xp = pi*(-5:5)
+lines(x,cos(x),col="grey",lwd=1.4)
+points(xp,cos(xp),col="grey",pch=19,cex=0.5)
+lines(x,cos(2*x),col="blue",lwd=1.4)
+points(xp/2,cos(xp),col="blue",pch=19,cex=0.5)
+
+plot(0,0,"n",axes=F,ann=F)
+library(latex2exp)
+legend("bottomleft",c(TeX("$y=\\cos{x}$"),TeX("$y=\\cos(2x)$")),col=c("grey","blue"),lwd=c(1.4,1.4))
+```
+\
+
+
+# Example of horizontal stretch
+
+Notice $y=\cos{\left(\frac{x}{2}\right)}$ is stretched away from the $x$ axis.
+
+```{r,echo=F,fig.dim=c(8,4),warning=F}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s",mfrow=c(1,2))
+lim = 10
+plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
+
+for(i in -lim:lim){
+    lines(c(-lim,lim),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-lim,lim),col="grey",lwd=0.5)
+}
+for(i in seq(-lim,lim,5)){
+    lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(lim,0,"x",adj=c(-0.3,1.2))
+text(0,lim,"y",adj=c(1.2,-0.3))
+x = seq(-10,10,0.01)
+lines(x,cos(x),col="grey",lwd=1.4)
+lines(x,cos(x/2),col="blue",lwd=1.4)
+
+plot(0,0,"n",axes=F,ann=F)
+library(latex2exp)
+legend("bottomleft",c(TeX("$y=\\cos{x}$"),TeX("$y=\\cos{\\left(\\frac{x}{2}\\right)}$")),col=c("grey","blue"),lwd=c(1.4,1.4))
+```
+\
+
+
+
+# Example of vertical stretch
+
+Notice $y=2\cos(x)$ is stretched away from the $x$ axis.
+
+```{r,echo=F,fig.dim=c(8,4),warning=F}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s",mfrow=c(1,2))
+lim = 10
+plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
+
+for(i in -lim:lim){
+    lines(c(-lim,lim),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-lim,lim),col="grey",lwd=0.5)
+}
+for(i in seq(-lim,lim,5)){
+    lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(lim,0,"x",adj=c(-0.3,1.2))
+text(0,lim,"y",adj=c(1.2,-0.3))
+x = seq(-10,10,0.01)
+lines(x,cos(x),col="grey",lwd=1.4)
+lines(x,2*cos(x),col="blue",lwd=1.4)
+
+plot(0,0,"n",axes=F,ann=F)
+library(latex2exp)
+legend("bottomleft",c(TeX("$y=\\cos{x}$"),TeX("$y=2\\cos(x)$")),col=c("grey","blue"),lwd=c(1.4,1.4))
+```
+\
+
+
+# Example of vertical shrink
+
+Notice $y=\frac{\cos(x)}{2}$ is shrunk toward the $x$ axis.
+
+```{r,echo=F,fig.dim=c(8,4),warning=F}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s",mfrow=c(1,2))
+lim = 10
+plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
+
+for(i in -lim:lim){
+    lines(c(-lim,lim),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-lim,lim),col="grey",lwd=0.5)
+}
+for(i in seq(-lim,lim,5)){
+    lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(lim,0,"x",adj=c(-0.3,1.2))
+text(0,lim,"y",adj=c(1.2,-0.3))
+x = seq(-10,10,0.01)
+lines(x,cos(x),col="grey",lwd=1.4)
+lines(x,cos(x)/2,col="blue",lwd=1.4)
+
+plot(0,0,"n",axes=F,ann=F)
+library(latex2exp)
+legend("bottomleft",c(TeX("$y=\\cos{x}$"),TeX("$y=\\frac{\\cos(x)}{2}$"),""),col=c("grey","blue",NA),lwd=c(1.4,1.4,0))
+```
+\
 
 
 
