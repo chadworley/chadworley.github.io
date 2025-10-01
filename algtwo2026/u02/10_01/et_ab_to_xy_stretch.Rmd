@@ -1,0 +1,138 @@
+```{r data generation, echo = FALSE, results = "hide"}
+np = 4
+VH = sample(2:3)
+V = VH[1]
+H = VH[2]
+a = sort(6*sample(c(-5:-1,1:5),np))
+b = 6*sample(c(-5:-1,1:5),np)
+
+qt = sample(1:4,1)
+if(qt==1){
+    CA = paste0("y~=~",V,"\\cdot f(",H,"\\cdot x)",collapse="")
+    x = a/H
+    y = b*V
+    hss = "shrink"
+    vss = "stretch"
+    ex1 = paste0(H,"\\cdot x",collapse="")
+    ex2 = paste0("\\frac{a}{",H,"}",collapse="")
+    ex3 = paste0(V,"\\cdot b",collapse="")
+}
+if(qt==2){
+    CA = paste0("y~=~",V,"\\cdot f{\\left(\\frac{x}{",H,"}\\right)}",collapse="")
+    x = a*H
+    y = b*V
+    hss = "stretch"
+    vss = "stretch"
+    ex1 = paste0("\\frac{x}{",H,"}",collapse="")
+    ex2 = paste0(H,"\\cdot a",collapse="")
+    ex3 = paste0(V,"\\cdot b",collapse="")
+}
+if(qt==3){
+    CA = paste0("y~=~ \\frac{f(",H,"\\cdot x)}{",V,"}",collapse="")
+    x = a/H
+    y = b/V
+    hss = "shrink"
+    vss = "shrink"
+    ex1 = paste0(H,"\\cdot x",collapse="")
+    ex2 = paste0("\\frac{a}{",H,"}",collapse="")
+    ex3 = paste0("\\frac{b}{",V,"}",collapse="")
+}
+if(qt==4){
+    CA = paste0("y~=~\\frac{f{\\left(\\frac{x}{",H,"}\\right)}}{",V,"}",collapse="")
+    x = a*H
+    y = b/V
+    hss = "stretch"
+    vss = "shrink"
+    ex1 = paste0("\\frac{x}{",H,"}",collapse="")
+    ex2 = paste0(H,"\\cdot a",collapse="")
+    ex3 = paste0("\\frac{b}{",V,"}",collapse="")
+}
+
+al = numeric()
+
+aches = list()
+sols = character()
+for(i in 1:length(a)){
+    aches[[i]] = c(a[i]/3,a[i]/2,a[i]*2,a[i]*3)
+    sols = c(sols,paste0(1*(x[i]==aches[[i]]),collapse=""))
+    al = c(al,a[i]/3,a[i]/2,a[i]*2,a[i]*3)
+}
+for(i in 1:length(a)){
+    aches[[np+i]] = c(b[i]/3,b[i]/2,b[i]*2,b[i]*3)
+    sols = c(sols,paste0(1*(y[i]==aches[[np+i]]),collapse=""))
+    al = c(al,b[i]/3,b[i]/2,b[i]*2,b[i]*3)
+}
+
+
+
+```
+
+Question
+========
+
+Let $f$ be a function. Solutions to $b=f[a]$ are shown as rows in the table:
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(a,b)
+colnames(df) = c("$a$","$b$")
+kable(df) %>%
+    kable_styling("bordered",full_width = F)
+```
+
+
+Each $(a,b)$ solution has a corresponding $(x,y)$ solution to the equation below.
+
+$$`r CA`$$
+
+Express the corresponding solutions in the same order.
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(paste0("##ANSWER",1:np,"##"),paste0("##ANSWER",(np+1):(2*np),"##"))
+colnames(df) = c("$x$","$y$")
+kable(df) %>%
+    kable_styling("bordered",full_width = F)
+```
+
+Answerlist
+--------
+
+`r paste0("* ",al,collapse="\n")`
+
+
+Solution
+========
+
+The transformations are a horizontal `r hss` by factor `r H` and a vertical `r vss` by factor `r V`.
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(x,y)
+colnames(df) = c("$x$","$y$")
+kable(df) %>%
+    kable_styling("bordered",full_width = F)
+
+```
+
+We could approach this by finding the coordinate transformations. First, we set the argument to $a$.
+
+$$`r ex1`=a$$
+$$x=`r ex2`$$
+
+Then, replace $f(\ldots)$ with $b$.
+
+$$y=`r ex3`$$
+
+This gives the coordinate transformation:
+
+$$(a,b)~\to~ \left(`r ex2`~,~`r ex3`\right)$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",2*np),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: ab_to_xy_stretch

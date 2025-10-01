@@ -1,0 +1,87 @@
+```{r data generation, echo = FALSE, results = "hide"}
+B = sample(2:3,1)
+while(T){
+    x2 = sort(sample(-3:3,4))
+    x1 = x2*B
+    y1 = sample(-10:10,4)
+    y2 = y1
+    if(min(x1)<0 && max(x1)>0 && min(y1)<0 && max(y1)>0){break}
+}
+
+CA = paste0("g(x)= f{\\left(\\frac{x}{",B,"}\\right)}")
+
+sol3 = paste0(1*(2:4==B),collapse="")
+
+```
+
+Question
+========
+
+Let function $g$ be defined as a transformation of function $f$.
+
+$$`r CA`$$
+
+The blue curve represents $y=f(x)$. The red curve represents $y=g(x)$.
+
+```{r,echo=F,fig.dim=c(8,4),warning=F}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s",mfrow=c(1,2))
+lim = 10
+plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
+
+for(i in -lim:lim){
+    lines(c(-lim,lim),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-lim,lim),col="grey",lwd=0.5)
+}
+for(i in seq(-lim,lim,5)){
+    lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(lim,0,"x",adj=c(-0.3,1.2))
+text(0,lim,"y",adj=c(1.2,-0.3))
+lines(x2,y2,col="blue",lwd=1.4)
+points(x2,y2,col="blue",pch=19,cex=0.5)
+lines(x1,y1,col="red",lwd=1.4)
+points(x1,y1,col="red",pch=19,cex=0.5)
+
+
+plot(0,0,"n",axes=F,ann=F)
+library(latex2exp)
+legend("bottomleft",c(TeX("$y=f(x)$"),TeX("$y=g(x)$")),col=c("blue","red"),lwd=c(1.4,1.4))
+```
+\
+
+What kind of transformation do we see from $y=f(x)$ to $y=g(x)$?
+
+* ##ANSWER1## ##ANSWER2## by factor ##ANSWER3##
+
+
+Answerlist
+--------
+
+* Horizontal
+* Vertical
+* Stretch
+* Shrink
+* 2
+* 3
+* 4
+
+
+Solution
+========
+
+Notice the red dots are farther away from the vertical axis by a factor of `r B`. Or, as a coordinate transformation:
+
+$$(a,b) \to \left(`r B`a~,~b\right)$$
+
+The correct description is that we see a horizontal stretch by factor `r B`.
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: 10|10|`r sol3`
+exname: hor_squeeze_desc

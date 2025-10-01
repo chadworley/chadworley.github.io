@@ -1,0 +1,120 @@
+```{r data generation, echo = FALSE, results = "hide"}
+np = 3
+ab = sample(10:90,np*2)
+a = sort(ab[1:np])
+b = ab[(np+1):(np*2)]
+
+hk = sample(1:5,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+
+exp1 = paste0("f(x+",-h,")+",k)
+exp1 = gsub("+-","-",exp1,fixed=T)
+
+aches = list()
+sols = character()
+for(i in 1:np){
+    ach = sort(unique(a[i]+c(h,-h,k,-k)))
+    aches[[i]] = ach
+    sols = c(sols,paste0(1*(ach==a[i]+h),collapse=""))
+}
+for(i in 1:np){
+    ach = sort(unique(b[i]+c(h,-h,k,-k)))
+    aches[[np+i]] = ach
+    sols = c(sols,paste0(1*(ach==b[i]+k),collapse=""))
+}
+
+al = ""
+for(i in 1:(2*np)){
+    al = paste0(al,"\n",paste0("* ",aches[[i]],collapse="\n"))
+}
+
+lr = c("left","right")[round(sign(h)/2+1.5)]
+du = c("down","up")[round(sign(k)/2+1.5)]
+
+hsa = c("subtract","add")[round(sign(h)/2+1.5)]
+vsa = c("subtract","add")[round(sign(k)/2+1.5)]
+
+hft = c("from","to")[round(sign(h)/2+1.5)]
+vft = c("from","to")[round(sign(k)/2+1.5)]
+
+
+```
+
+Question
+========
+
+Let $f$ be a function. Solutions to $f[a]=b$ are shown as rows in the table:
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(a,b)
+colnames(df) = c("$a$","$b$")
+kable(df) %>%
+    kable_styling("bordered",full_width = F)
+```
+
+
+Each $(a,b)$ solution has a corresponding $(x,y)$ solution to the equation below.
+
+$$y~=~`r exp1`$$
+
+Express the corresponding solutions in the same order.
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(paste0("##ANSWER",1:np,"##"),paste0("##ANSWER",(np+1):(2*np),"##"))
+colnames(df) = c("$x$","$y$")
+kable(df) %>%
+    kable_styling("bordered",full_width = F)
+```
+
+Answerlist
+--------
+
+`r al`
+
+Solution
+========
+
+The transformations are a translation `r lr` by `r abs(h)` and a translation `r du` by `r abs(k)`. So, `r hsa` `r abs(h)` `r hft` each $a$ value to find each $x$ value. Also, `r vsa` `r abs(k)` `r vft` each $b$ value to find each $y$ value.
+
+```{r,echo=F,warning=F}
+library(kableExtra)
+df = data.frame(a+h,b+k)
+colnames(df) = c("$x$","$y$")
+kable(df) %>%
+    kable_styling("bordered",full_width = F)
+
+ex1 = paste0("x+",-h,collapse="")
+ex1 = gsub("+-","-",ex1,fixed=T)
+ex2 = paste0("a+",h,collapse="")
+ex2 = gsub("+-","-",ex2,fixed=T)
+
+ex3 = paste0("b+",k,collapse="")
+ex3 = gsub("+-","-",ex3,fixed=T)
+```
+
+We could approach this by finding the coordinate transformations. First, we set the argument to $a$.
+
+$$`r ex1`=a$$
+$$x=`r ex2`$$
+
+Then, replace $f(\ldots)$ with $b$.
+
+$$y=`r ex3`$$
+
+This gives the coordinate transformation:
+
+$$(a,b)~\to~ (`r ex2`~,~`r ex3`)$$
+
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",np*2),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: ab_to_xy_shifts

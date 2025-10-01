@@ -1,0 +1,92 @@
+```{r data generation, echo = FALSE, results = "hide"}
+B = sample(2:3,1)
+while(T){
+    x1 = sort(sample(-10:10,4))
+    x2 = x1
+    y1 = sample(-3:3,4)
+    y2 = y1*B
+    if(min(x1)<0 && max(x1)>0 && min(y1)<0 && max(y1)>0){break}
+}
+
+ach = paste0("g(x)=",2:3,"\\cdot f(x)")
+ach = c(ach,paste0("g(x)= \\frac{f(x)}{",2:3,"}"))
+ach = c(ach,paste0("g(x)= f{\\left(",2:3,"\\cdot x\\right)}"))
+ach = c(ach,paste0("g(x)= f{\\left(\\frac{x}{",2:3,"}\\right)}"))
+
+ach = sample(ach)
+
+al = paste0("* $",ach,"$",collapse="\n")
+
+CA = paste0("g(x)= \\frac{f(x)}{",B,"}")
+
+sol = paste0(1*(ach==CA),collapse="")
+
+```
+
+Question
+========
+
+The blue curve represents $y=f(x)$. The red curve represents $y=g(x)$.
+
+```{r,echo=F,fig.dim=c(8,4),warning=F}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s",mfrow=c(1,2))
+lim = 10
+plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
+
+for(i in -lim:lim){
+    lines(c(-lim,lim),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-lim,lim),col="grey",lwd=0.5)
+}
+for(i in seq(-lim,lim,5)){
+    lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(lim,0,"x",adj=c(-0.3,1.2))
+text(0,lim,"y",adj=c(1.2,-0.3))
+lines(x2,y2,col="blue",lwd=1.4)
+points(x2,y2,col="blue",pch=19,cex=0.5)
+lines(x1,y1,col="red",lwd=1.4)
+points(x1,y1,col="red",pch=19,cex=0.5)
+
+plot(0,0,"n",axes=F,ann=F)
+library(latex2exp)
+legend("bottomleft",c(TeX("$y=f(x)$"),TeX("$y=g(x)$")),col=c("blue","red"),lwd=c(1.4,1.4))
+```
+\
+
+What equation expresses the function transformation?
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+We see the points are transformed vertically, so we are expecting the operation **outside the argument**. We also remember that vertical transformations are "normal".
+
+In this case, we see from blue to red, the points have shrunk towards the horizontal axis by a factor of `r B`. In other words, the coordinate transformation is:
+
+$$(a,b)\to \left(a~,~\frac{b}{`r B`}\right)$$
+
+So, the correct answer is:
+
+$$`r CA`$$
+
+It might help to visually check all the following:
+
+$$g(`r x1[1]`) = \frac{f(`r x2[1]`)}{`r B`}$$
+$$g(`r x1[2]`) = \frac{f(`r x2[2]`)}{`r B`}$$
+$$g(`r x1[3]`) = \frac{f(`r x2[3]`)}{`r B`}$$
+$$g(`r x1[4]`) = \frac{f(`r x2[4]`)}{`r B`}$$
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: ver_squeeze
