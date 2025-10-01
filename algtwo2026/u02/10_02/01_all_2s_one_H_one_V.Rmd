@@ -1,0 +1,110 @@
+```{r data generation, echo = FALSE, results = "hide"}
+np = 5
+while(T){
+    x1 = sort(sample(-5:5,5)*2)
+    y1 = sample(-5:5,5)*2
+    m = diff(y1)/diff(x1)
+    if(min(x1)<0 && min(y1)<0 && max(x1)>0 && max(y1)>0 && min(abs(diff(m)))>0){break}
+}
+
+
+hwo = sample(1:4,1)
+vwo = sample(1:4,1)
+
+hmoves = c("shift left by 2","shift right by 2","stretch by factor 2","shrink by factor 2")
+hops = list(function(x){x-2},
+            function(x){x+2},
+            function(x){2*x},
+            function(x){x/2})
+hexp = c("x+2","x-2","\\frac{x}{2}","2x")
+hct = c("a-2","a+2","2a","\\frac{a}{2}")
+
+vmoves = c("shift down by 2","shift up by 2","stretch by factor 2","shrink by factor 2")
+vops = list(function(x){x-2},
+            function(x){x+2},
+            function(x){2*x},
+            function(x){x/2})
+vexp = c("f{\\left(x\\right)}-2","f{\\left(x\\right)}+2","2\\cdot f{\\left(x\\right)}","\\frac{f{\\left(x\\right)}}{2}")
+vct = c("b-2","b+2","2b","\\frac{b}{2}")
+
+ca = paste0("g(x)~=~",gsub("x",hexp[hwo],vexp[vwo],fixed=T),collapse="")
+x2 = hops[[hwo]](x1)
+y2 = vops[[vwo]](y1)
+ct = paste0("(a,b)\\to\\left(",hct[hwo],",",vct[vwo],"\\right)",collapse="")
+
+# ach = character()
+# while(length(ach)<6){
+#     ach = unique(c(ach,paste0("g(x)~=~",gsub("x",hexp[sample(1:4,1)],vexp[sample(1:4,1)],fixed=T),collapse="")))
+# }
+# if(!(ca %in% ach)){
+#     ach[1] == ca
+# }
+
+ach = character()
+for(i in 1:4){
+    for(j in 1:4){
+        ach = c(ach,paste0("g(x)~=~",gsub("x",hexp[i],vexp[j],fixed=T),collapse=""))
+    }
+}
+al = paste0("* $",ach,"$",collapse="\n")
+sol = paste0(1*(ach==ca),collapse="")
+```
+
+Question
+========
+
+The blue curve represents $y=f(x)$. The red curve represents $y=g(x)$.
+
+```{r,echo=F,fig.dim=c(8,4),warning=F}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s",mfrow=c(1,2))
+lim = 20
+plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
+
+for(i in -lim:lim){
+    lines(c(-lim,lim),c(i,i),col="grey",lwd=0.5)
+    lines(c(i,i),c(-lim,lim),col="grey",lwd=0.5)
+}
+for(i in seq(-lim,lim,5)){
+    lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+    lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+text(lim,0,"x",adj=c(-0.3,1.2))
+text(0,lim,"y",adj=c(1.2,-0.3))
+lines(x1,y1,col="blue",lwd=1.4)
+points(x1,y1,col="blue",pch=19,cex=0.5)
+lines(x2,y2,col="red",lwd=1.4)
+points(x2,y2,col="red",pch=19,cex=0.5)
+
+
+plot(0,0,"n",axes=F,ann=F)
+library(latex2exp)
+legend("bottomleft",c(TeX("$y=f(x)$"),TeX("$y=g(x)$")),col=c("blue","red"),lwd=c(1.4,1.4))
+```
+\
+
+What equation expresses the function transformation?
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+Horizontally, we have a `r hmoves[hwo]`. Vertically, we have a `r vmoves[vwo]`. As a coordinate transformation:
+$$`r ct`$$
+In the function-transformation equation, the horizontal transformation is indicated in the argument, and it is "backwards". The vertical transformation is indicated outside the function, and it is "normal".
+
+$$`r ca`$$
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: H_left_V_stretch
