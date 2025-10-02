@@ -4,12 +4,9 @@ geometry: margin=1in
 params:
     rseed: 0
     showsol: true
-    useseed: falsex
+    useseed: false
 urlcolor: blue
 ---
-
-
-PCW_1002_v`r params$rseed` \hspace{1in} NAME: \vspace{5pt} \hrule
 
 ```{r,echo=F}
 if(params$useseed){
@@ -17,6 +14,7 @@ if(params$useseed){
 }
 ```
 
+PCW_1002_v`r params$rseed` \hspace{1in} NAME: \vspace{5pt} \hrule
 
 1. Each of the curves below represent a different $y=f(x)$. For each, draw a second curve, $y=g(x)$, defined by the equation above the graph.
 
@@ -39,6 +37,9 @@ vops = list(function(x){x-2},
 vexp = c("f{\\left(x\\right)}-2","f{\\left(x\\right)}+2","2\\cdot f{\\left(x\\right)}","\\frac{f{\\left(x\\right)}}{2}")
 vct = c("b-2","b+2","2b","\\frac{b}{2}")
 
+
+hwos = sample(1:4)
+vwos = sample(1:4)
 for(i in 1:4){
     while(T){
         x1 = sort(sample(-5:5,np)*2)
@@ -46,8 +47,8 @@ for(i in 1:4){
         m = diff(y1)/diff(x1)
         if(min(x1)<0 && min(y1)<0 && max(x1)>0 && max(y1)>0 && min(abs(diff(m)))>0){break}
     }
-    hwo = sample(1:4,1)
-    vwo = sample(1:4,1)
+    hwo = hwos[i]
+    vwo = vwos[i]
     ca = paste0("$g(x)=",gsub("x",hexp[hwo],vexp[vwo],fixed=T),"$",collapse="")
     x2 = hops[[hwo]](x1)
     y2 = vops[[vwo]](y1)
@@ -56,12 +57,12 @@ for(i in 1:4){
     plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
     mtext(TeX(ca),3,line = 0,padj=0)
     for(i in -lim:lim){
-        lines(c(-lim,lim),c(i,i),col="black",lwd=0.2)
-        lines(c(i,i),c(-lim,lim),col="black",lwd=0.2)
+        lines(c(-lim,lim),c(i,i),col="grey",lwd=0.3)
+        lines(c(i,i),c(-lim,lim),col="grey",lwd=0.3)
     }
     for(i in seq(-lim,lim,5)){
-        lines(c(-lim,lim),c(i,i),col="black",lwd=0.8)
-        lines(c(i,i),c(-lim,lim),col="black",lwd=0.8)
+        lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+        lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
     }
     abline(h=0,lwd=1.5)
     abline(v=0,lwd=1.5)
@@ -103,6 +104,9 @@ vops = list(function(x){x-2},
 vexp = c("f{\\left(x\\right)}-2","f{\\left(x\\right)}+2","2\\cdot f{\\left(x\\right)}","\\frac{f{\\left(x\\right)}}{2}")
 vct = c("b-2","b+2","2b","\\frac{b}{2}")
 
+
+hwos = sample(1:4)
+vwos = sample(1:4)
 for(i in 1:4){
     while(T){
         x1 = sort(sample(-5:5,np)*2)
@@ -110,8 +114,8 @@ for(i in 1:4){
         m = diff(y1)/diff(x1)
         if(min(x1)<0 && min(y1)<0 && max(x1)>0 && max(y1)>0 && min(abs(diff(m)))>0){break}
     }
-    hwo = sample(1:4,1)
-    vwo = sample(1:4,1)
+    hwo = hwos[i]
+    vwo = vwos[i]
     ca = paste0("$g(x)=",gsub("x",hexp[hwo],vexp[vwo],fixed=T),"$",collapse="")
     x2 = hops[[hwo]](x1)
     y2 = vops[[vwo]](y1)
@@ -123,12 +127,12 @@ for(i in 1:4){
         mtext(TeX(ca),3,line = 0,padj=0,col="red")
     }
     for(i in -lim:lim){
-        lines(c(-lim,lim),c(i,i),col="black",lwd=0.2)
-        lines(c(i,i),c(-lim,lim),col="black",lwd=0.2)
+        lines(c(-lim,lim),c(i,i),col="grey",lwd=0.3)
+        lines(c(i,i),c(-lim,lim),col="grey",lwd=0.3)
     }
     for(i in seq(-lim,lim,5)){
-        lines(c(-lim,lim),c(i,i),col="black",lwd=0.8)
-        lines(c(i,i),c(-lim,lim),col="black",lwd=0.8)
+        lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+        lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
     }
     abline(h=0,lwd=1.5)
     abline(v=0,lwd=1.5)
