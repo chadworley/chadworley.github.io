@@ -3,14 +3,12 @@ for(jjj in 1:20){
                       output_file = paste0("prac/PCW_1002_v",sprintf("%03d",jjj)),
                       params = list(rseed = jjj,
                                     showsol = F,
-                                    useseed = T,
-                                    titex = ""))
+                                    useseed = T))
     rmarkdown::render(input = "PCW_1002.Rmd",
                       output_file = paste0("prac/PCW_1002_sol_v",sprintf("%03d",jjj)),
                       params = list(rseed = jjj,
                                     showsol = T,
-                                    useseed = T,
-                                    titex = ""))
+                                    useseed = T))
 }
 
 # 
