@@ -1,0 +1,142 @@
+---
+output: pdf_document
+geometry: margin=1in 
+params:
+    rseed: 0
+    showsol: true
+    useseed: false
+    titex: "PCW_09_30: Write Curve Equations"
+urlcolor: blue
+---
+
+
+PCW_1002_v`r params$rseed` \hspace{1in} NAME: \vspace{5pt} \hrule
+
+
+1. Each of the curves below represent a different $y=f(x)$. For each, draw a second curve, $y=g(x)$, defined by the equation above the graph.
+
+```{r,echo=F,fig.dim=c(6.5,8)}
+library(latex2exp)
+par(mar=c(1,1,4,1),oma=c(0,0,0,0),pty="s",mfrow=c(2,2))
+np = 4
+hmoves = c("shift left by 2","shift right by 2","stretch by factor 2","shrink by factor 2")
+hops = list(function(x){x-2},
+            function(x){x+2},
+            function(x){2*x},
+            function(x){x/2})
+hexp = c("x+2","x-2","\\frac{x}{2}","2x")
+hct = c("a-2","a+2","2a","\\frac{a}{2}")
+vmoves = c("shift down by 2","shift up by 2","stretch by factor 2","shrink by factor 2")
+vops = list(function(x){x-2},
+            function(x){x+2},
+            function(x){2*x},
+            function(x){x/2})
+vexp = c("f{\\left(x\\right)}-2","f{\\left(x\\right)}+2","2\\cdot f{\\left(x\\right)}","\\frac{f{\\left(x\\right)}}{2}")
+vct = c("b-2","b+2","2b","\\frac{b}{2}")
+
+for(i in 1:4){
+    while(T){
+        x1 = sort(sample(-5:5,np)*2)
+        y1 = sample(-5:5,np)*2
+        m = diff(y1)/diff(x1)
+        if(min(x1)<0 && min(y1)<0 && max(x1)>0 && max(y1)>0 && min(abs(diff(m)))>0){break}
+    }
+    hwo = sample(1:4,1)
+    vwo = sample(1:4,1)
+    ca = paste0("$g(x)=",gsub("x",hexp[hwo],vexp[vwo],fixed=T),"$",collapse="")
+    x2 = hops[[hwo]](x1)
+    y2 = vops[[vwo]](y1)
+    ct = paste0("(a,b)\\to\\left(",hct[hwo],",",vct[vwo],"\\right)",collapse="")
+    lim = 20
+    plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
+    mtext(TeX(ca),3,line = 0,padj=0)
+    for(i in -lim:lim){
+        lines(c(-lim,lim),c(i,i),col="black",lwd=0.2)
+        lines(c(i,i),c(-lim,lim),col="black",lwd=0.2)
+    }
+    for(i in seq(-lim,lim,5)){
+        lines(c(-lim,lim),c(i,i),col="black",lwd=0.8)
+        lines(c(i,i),c(-lim,lim),col="black",lwd=0.8)
+    }
+    abline(h=0,lwd=1.5)
+    abline(v=0,lwd=1.5)
+    text(lim,0,"x",adj=c(-0.3,1.2))
+    text(0,lim,"y",adj=c(1.2,-0.3))
+    lines(x1,y1,col="blue",lwd=1.5)
+    points(x1,y1,col="blue",pch=19,cex=0.7)
+    if(params$showsol){
+        lines(x2,y2,col="red",lwd=1.5)
+        points(x2,y2,col="red",pch=19,cex=0.7)
+    }
+}
+
+```
+\
+
+\newpage
+
+PCW_1002_v`r params$rseed` \vspace{5pt} \hrule
+
+2. On each graph below, curve $y=f(x)$ is shown as a dashed line with open dots at key points, and curve $y=g(x)$ is shown as a solid line with closed dots at key points. For each, write an equation that defines $g(x)$ as a transformation of $f(x)$.
+
+```{r,echo=F,fig.dim=c(6.5,8)}
+library(latex2exp)
+par(mar=c(1,1,4,1),oma=c(0,0,0,0),pty="s",mfrow=c(2,2))
+np = 4
+hmoves = c("shift left by 2","shift right by 2","stretch by factor 2","shrink by factor 2")
+hops = list(function(x){x-2},
+            function(x){x+2},
+            function(x){2*x},
+            function(x){x/2})
+hexp = c("x+2","x-2","\\frac{x}{2}","2x")
+hct = c("a-2","a+2","2a","\\frac{a}{2}")
+vmoves = c("shift down by 2","shift up by 2","stretch by factor 2","shrink by factor 2")
+vops = list(function(x){x-2},
+            function(x){x+2},
+            function(x){2*x},
+            function(x){x/2})
+vexp = c("f{\\left(x\\right)}-2","f{\\left(x\\right)}+2","2\\cdot f{\\left(x\\right)}","\\frac{f{\\left(x\\right)}}{2}")
+vct = c("b-2","b+2","2b","\\frac{b}{2}")
+
+for(i in 1:4){
+    while(T){
+        x1 = sort(sample(-5:5,np)*2)
+        y1 = sample(-5:5,np)*2
+        m = diff(y1)/diff(x1)
+        if(min(x1)<0 && min(y1)<0 && max(x1)>0 && max(y1)>0 && min(abs(diff(m)))>0){break}
+    }
+    hwo = sample(1:4,1)
+    vwo = sample(1:4,1)
+    ca = paste0("$g(x)=",gsub("x",hexp[hwo],vexp[vwo],fixed=T),"$",collapse="")
+    x2 = hops[[hwo]](x1)
+    y2 = vops[[vwo]](y1)
+    ct = paste0("(a,b)\\to\\left(",hct[hwo],",",vct[vwo],"\\right)",collapse="")
+    lim = 20
+    plot(0,0,"n",xlim=c(-lim,lim),ylim=c(-lim,lim),axes=F,ann=F)
+    mtext("Eq:",3,line=0,padj=0,at=-20,adj=0)
+    if(params$showsol){
+        mtext(TeX(ca),3,line = 0,padj=0,col="red")
+    }
+    for(i in -lim:lim){
+        lines(c(-lim,lim),c(i,i),col="black",lwd=0.2)
+        lines(c(i,i),c(-lim,lim),col="black",lwd=0.2)
+    }
+    for(i in seq(-lim,lim,5)){
+        lines(c(-lim,lim),c(i,i),col="black",lwd=0.8)
+        lines(c(i,i),c(-lim,lim),col="black",lwd=0.8)
+    }
+    abline(h=0,lwd=1.5)
+    abline(v=0,lwd=1.5)
+    text(lim,0,"x",adj=c(-0.3,1.2))
+    text(0,lim,"y",adj=c(1.2,-0.3))
+    lines(x1,y1,lty=5,lwd=1.5)
+    points(x1,y1,pch=1,cex=0.7)
+    lines(x2,y2,col="black",lwd=1.5)
+    points(x2,y2,col="black",pch=19,cex=0.7)
+}
+
+```
+\
+
+
+
