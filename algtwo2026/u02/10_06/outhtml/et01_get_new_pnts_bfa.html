@@ -1,0 +1,2478 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>et01_get_new_pnts_bfa</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 12;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">et01_get_new_pnts_bfa</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+44
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+88
+</td>
+<td style="text-align:right;">
+43
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~2\cdot f{\left[8\left(x+3\right)\right]}-6\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>6</option><option>8</option><option>26</option><option>40</option><option>80</option><option>82</option><option>83</option><option>90 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>6</option><option>8</option><option>26</option><option>40</option><option>80</option><option>82</option><option>83</option><option>90 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>6</option><option>8</option><option>26</option><option>40</option><option>80</option><option>82</option><option>83</option><option>90 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>6</option><option>8</option><option>26</option><option>40</option><option>80</option><option>82</option><option>83</option><option>90 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>6</option><option>8</option><option>26</option><option>40</option><option>80</option><option>82</option><option>83</option><option>90 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>6</option><option>8</option><option>26</option><option>40</option><option>80</option><option>82</option><option>83</option><option>90 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~2\cdot f{\left[8\left(x+3\right)\right]}-6\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[8\left(x+3\right)~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~\frac{a}{8}-3\]</span></p>
+<p>Because we set <span class="math inline">\(8\left(x+3\right)\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(8\left(x+3\right)\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=2\cdot f{\left[a\right]}-6\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~2\cdot b-6\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~\frac{a}{8}-3\)</span> and <span class="math inline">\(y~=~2\cdot b-6\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[32\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[44\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{32}{8}-3\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot 44-6\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[72\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[16\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{72}{8}-3\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot 16-6\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[88\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[43\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{88}{8}-3\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot 43-6\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+82
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+26
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+80
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+67
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+27
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~\frac{f{\left[6 x-2\right]}-7}{5}\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>2</option><option>4</option><option>11</option><option>12</option><option>39</option><option>49</option><option>59</option><option>89</option><option>100 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>2</option><option>4</option><option>11</option><option>12</option><option>39</option><option>49</option><option>59</option><option>89</option><option>100 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>2</option><option>4</option><option>11</option><option>12</option><option>39</option><option>49</option><option>59</option><option>89</option><option>100 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>2</option><option>4</option><option>11</option><option>12</option><option>39</option><option>49</option><option>59</option><option>89</option><option>100 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>2</option><option>4</option><option>11</option><option>12</option><option>39</option><option>49</option><option>59</option><option>89</option><option>100 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>2</option><option>4</option><option>11</option><option>12</option><option>39</option><option>49</option><option>59</option><option>89</option><option>100 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~\frac{f{\left[6 x-2\right]}-7}{5}\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[6 x-2~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~\frac{a+2}{6}\]</span></p>
+<p>Because we set <span class="math inline">\(6 x-2\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(6 x-2\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[a\right]}-7}{5}\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~\frac{b-7}{5}\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~\frac{a+2}{6}\)</span> and <span class="math inline">\(y~=~\frac{b-7}{5}\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[10\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[12\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{10+2}{6}\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{12-7}{5}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[22\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[67\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{22+2}{6}\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{67-7}{5}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[64\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[27\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{64+2}{6}\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{27-7}{5}\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+35
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+34
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~2\cdot f{\left[9 x+7\right]}-8\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>3</option><option>4</option><option>5</option><option>19</option><option>34</option><option>60</option><option>62</option><option>72</option><option>98 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>3</option><option>4</option><option>5</option><option>19</option><option>34</option><option>60</option><option>62</option><option>72</option><option>98 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>3</option><option>4</option><option>5</option><option>19</option><option>34</option><option>60</option><option>62</option><option>72</option><option>98 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>3</option><option>4</option><option>5</option><option>19</option><option>34</option><option>60</option><option>62</option><option>72</option><option>98 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>3</option><option>4</option><option>5</option><option>19</option><option>34</option><option>60</option><option>62</option><option>72</option><option>98 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>3</option><option>4</option><option>5</option><option>19</option><option>34</option><option>60</option><option>62</option><option>72</option><option>98 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~2\cdot f{\left[9 x+7\right]}-8\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[9 x+7~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~\frac{a-7}{9}\]</span></p>
+<p>Because we set <span class="math inline">\(9 x+7\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(9 x+7\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=2\cdot f{\left[a\right]}-8\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~2\cdot b-8\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~\frac{a-7}{9}\)</span> and <span class="math inline">\(y~=~2\cdot b-8\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[34\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[35\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{34-7}{9}\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot 35-8\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[43\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[34\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{43-7}{9}\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot 34-8\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[52\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{52-7}{9}\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot 4-8\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+62
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~7\cdot\left(f{\left[\frac{x}{2}+4\right]}+5\right)\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 12</option><option>32</option><option>35</option><option>37</option><option>40</option><option>51</option><option>56</option><option>63</option><option>64</option><option>74 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 12</option><option>32</option><option>35</option><option>37</option><option>40</option><option>51</option><option>56</option><option>63</option><option>64</option><option>74 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 12</option><option>32</option><option>35</option><option>37</option><option>40</option><option>51</option><option>56</option><option>63</option><option>64</option><option>74 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 12</option><option>32</option><option>35</option><option>37</option><option>40</option><option>51</option><option>56</option><option>63</option><option>64</option><option>74 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 12</option><option>32</option><option>35</option><option>37</option><option>40</option><option>51</option><option>56</option><option>63</option><option>64</option><option>74 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 12</option><option>32</option><option>35</option><option>37</option><option>40</option><option>51</option><option>56</option><option>63</option><option>64</option><option>74 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~7\cdot\left(f{\left[\frac{x}{2}+4\right]}+5\right)\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x}{2}+4~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~2\left(a-4\right)\]</span></p>
+<p>Because we set <span class="math inline">\(\frac{x}{2}+4\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(\frac{x}{2}+4\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=7\cdot\left(f{\left[a\right]}+5\right)\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~7\cdot\left(b+5\right)\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~2\left(a-4\right)\)</span> and <span class="math inline">\(y~=~7\cdot\left(b+5\right)\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[20\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[0\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot\left(20-4\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[7\cdot\left(0+5\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[24\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[3\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot\left(24-4\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[7\cdot\left(3+5\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[41\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot\left(41-4\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[7\cdot\left(4+5\right)\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+35
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+56
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~8\cdot\left(f{\left[\frac{x}{4}-5\right]}+2\right)\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>20</option><option>24</option><option>40</option><option>50</option><option>56</option><option>60</option><option>72</option><option>96</option><option>100 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>20</option><option>24</option><option>40</option><option>50</option><option>56</option><option>60</option><option>72</option><option>96</option><option>100 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>20</option><option>24</option><option>40</option><option>50</option><option>56</option><option>60</option><option>72</option><option>96</option><option>100 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>20</option><option>24</option><option>40</option><option>50</option><option>56</option><option>60</option><option>72</option><option>96</option><option>100 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>20</option><option>24</option><option>40</option><option>50</option><option>56</option><option>60</option><option>72</option><option>96</option><option>100 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>20</option><option>24</option><option>40</option><option>50</option><option>56</option><option>60</option><option>72</option><option>96</option><option>100 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~8\cdot\left(f{\left[\frac{x}{4}-5\right]}+2\right)\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x}{4}-5~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~4\left(a+5\right)\]</span></p>
+<p>Because we set <span class="math inline">\(\frac{x}{4}-5\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(\frac{x}{4}-5\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=8\cdot\left(f{\left[a\right]}+2\right)\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~8\cdot\left(b+2\right)\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~4\left(a+5\right)\)</span> and <span class="math inline">\(y~=~8\cdot\left(b+2\right)\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[0\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[5\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\cdot\left(0+5\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(5+2\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[5\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[10\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\cdot\left(5+5\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(10+2\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[10\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[7\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\cdot\left(10+5\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(7+2\right)\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+56
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+96
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+72
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~3\cdot f{\left[\frac{x-4}{9}\right]}+7\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 13</option><option>22</option><option>31</option><option>46</option><option>60</option><option>68</option><option>76</option><option>88</option><option>91</option><option>94 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 13</option><option>22</option><option>31</option><option>46</option><option>60</option><option>68</option><option>76</option><option>88</option><option>91</option><option>94 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 13</option><option>22</option><option>31</option><option>46</option><option>60</option><option>68</option><option>76</option><option>88</option><option>91</option><option>94 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 13</option><option>22</option><option>31</option><option>46</option><option>60</option><option>68</option><option>76</option><option>88</option><option>91</option><option>94 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 13</option><option>22</option><option>31</option><option>46</option><option>60</option><option>68</option><option>76</option><option>88</option><option>91</option><option>94 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 13</option><option>22</option><option>31</option><option>46</option><option>60</option><option>68</option><option>76</option><option>88</option><option>91</option><option>94 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~3\cdot f{\left[\frac{x-4}{9}\right]}+7\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x-4}{9}~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~9 a+4\]</span></p>
+<p>Because we set <span class="math inline">\(\frac{x-4}{9}\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(\frac{x-4}{9}\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=3\cdot f{\left[a\right]}+7\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~3\cdot b+7\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~9 a+4\)</span> and <span class="math inline">\(y~=~3\cdot b+7\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[1\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[9\cdot 1+4\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[3\cdot 8+7\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[2\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[28\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[9\cdot 2+4\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[3\cdot 28+7\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[8\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[13\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[9\cdot 8+4\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[3\cdot 13+7\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+91
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+46
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+27
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+17
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~4\cdot\left(f{\left[\frac{x}{8}+5\right]}-7\right)\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 9</option><option>11</option><option>16</option><option>40</option><option>48</option><option>50</option><option>56</option><option>58</option><option>65</option><option>80 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 9</option><option>11</option><option>16</option><option>40</option><option>48</option><option>50</option><option>56</option><option>58</option><option>65</option><option>80 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 9</option><option>11</option><option>16</option><option>40</option><option>48</option><option>50</option><option>56</option><option>58</option><option>65</option><option>80 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 9</option><option>11</option><option>16</option><option>40</option><option>48</option><option>50</option><option>56</option><option>58</option><option>65</option><option>80 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 9</option><option>11</option><option>16</option><option>40</option><option>48</option><option>50</option><option>56</option><option>58</option><option>65</option><option>80 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 9</option><option>11</option><option>16</option><option>40</option><option>48</option><option>50</option><option>56</option><option>58</option><option>65</option><option>80 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~4\cdot\left(f{\left[\frac{x}{8}+5\right]}-7\right)\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x}{8}+5~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~8\left(a-5\right)\]</span></p>
+<p>Because we set <span class="math inline">\(\frac{x}{8}+5\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(\frac{x}{8}+5\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=4\cdot\left(f{\left[a\right]}-7\right)\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~4\cdot\left(b-7\right)\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~8\left(a-5\right)\)</span> and <span class="math inline">\(y~=~4\cdot\left(b-7\right)\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[7\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[11\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(7-5\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\cdot\left(11-7\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[11\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[27\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(11-5\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\cdot\left(27-7\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[12\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[17\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(12-5\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\cdot\left(17-7\right)\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+80
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~2\cdot f{\left[\frac{x}{5}-7\right]}-6\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>5</option><option>16</option><option>28</option><option>45</option><option>54</option><option>55</option><option>70</option><option>80</option><option>82 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>5</option><option>16</option><option>28</option><option>45</option><option>54</option><option>55</option><option>70</option><option>80</option><option>82 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>5</option><option>16</option><option>28</option><option>45</option><option>54</option><option>55</option><option>70</option><option>80</option><option>82 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>5</option><option>16</option><option>28</option><option>45</option><option>54</option><option>55</option><option>70</option><option>80</option><option>82 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>5</option><option>16</option><option>28</option><option>45</option><option>54</option><option>55</option><option>70</option><option>80</option><option>82 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 0</option><option>5</option><option>16</option><option>28</option><option>45</option><option>54</option><option>55</option><option>70</option><option>80</option><option>82 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~2\cdot f{\left[\frac{x}{5}-7\right]}-6\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x}{5}-7~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~5\left(a+7\right)\]</span></p>
+<p>Because we set <span class="math inline">\(\frac{x}{5}-7\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(\frac{x}{5}-7\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=2\cdot f{\left[a\right]}-6\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~2\cdot b-6\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~5\left(a+7\right)\)</span> and <span class="math inline">\(y~=~2\cdot b-6\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[2\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[3\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[5\cdot\left(2+7\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot 3-6\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[4\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[30\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[5\cdot\left(4+7\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot 30-6\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[7\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[11\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[5\cdot\left(7+7\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\cdot 11-6\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+54
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~9\cdot\left(f{\left[2 x+8\right]}-5\right)\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>13</option><option>18</option><option>26</option><option>36</option><option>38</option><option>42</option><option>45</option><option>63</option><option>79 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>13</option><option>18</option><option>26</option><option>36</option><option>38</option><option>42</option><option>45</option><option>63</option><option>79 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>13</option><option>18</option><option>26</option><option>36</option><option>38</option><option>42</option><option>45</option><option>63</option><option>79 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>13</option><option>18</option><option>26</option><option>36</option><option>38</option><option>42</option><option>45</option><option>63</option><option>79 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>13</option><option>18</option><option>26</option><option>36</option><option>38</option><option>42</option><option>45</option><option>63</option><option>79 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>13</option><option>18</option><option>26</option><option>36</option><option>38</option><option>42</option><option>45</option><option>63</option><option>79 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~9\cdot\left(f{\left[2 x+8\right]}-5\right)\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[2 x+8~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~\frac{a-8}{2}\]</span></p>
+<p>Because we set <span class="math inline">\(2 x+8\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(2 x+8\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=9\cdot\left(f{\left[a\right]}-5\right)\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~9\cdot\left(b-5\right)\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~\frac{a-8}{2}\)</span> and <span class="math inline">\(y~=~9\cdot\left(b-5\right)\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[10\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[9\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{10-8}{2}\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[9\cdot\left(9-5\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[80\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[7\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{80-8}{2}\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[9\cdot\left(7-5\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[84\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[12\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{84-8}{2}\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[9\cdot\left(12-5\right)\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+36
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~8\cdot\left(f{\left[5\left(x+2\right)\right]}+9\right)\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>11</option><option>23</option><option>28</option><option>30</option><option>38</option><option>80</option><option>88</option><option>96 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>11</option><option>23</option><option>28</option><option>30</option><option>38</option><option>80</option><option>88</option><option>96 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>11</option><option>23</option><option>28</option><option>30</option><option>38</option><option>80</option><option>88</option><option>96 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>11</option><option>23</option><option>28</option><option>30</option><option>38</option><option>80</option><option>88</option><option>96 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>11</option><option>23</option><option>28</option><option>30</option><option>38</option><option>80</option><option>88</option><option>96 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 1</option><option>4</option><option>11</option><option>23</option><option>28</option><option>30</option><option>38</option><option>80</option><option>88</option><option>96 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~8\cdot\left(f{\left[5\left(x+2\right)\right]}+9\right)\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[5\left(x+2\right)~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~\frac{a}{5}-2\]</span></p>
+<p>Because we set <span class="math inline">\(5\left(x+2\right)\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(5\left(x+2\right)\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=8\cdot\left(f{\left[a\right]}+9\right)\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~8\cdot\left(b+9\right)\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~\frac{a}{5}-2\)</span> and <span class="math inline">\(y~=~8\cdot\left(b+9\right)\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[15\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{15}{5}-2\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(2+9\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[30\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[1\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{30}{5}-2\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(1+9\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[65\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[3\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{65}{5}-2\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(3+9\right)\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+88
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+80
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+96
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~8\cdot\left(f{\left[\frac{x}{3}-5\right]}+7\right)\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 3</option><option>33</option><option>49</option><option>64</option><option>72</option><option>75</option><option>78</option><option>79</option><option>88</option><option>100 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 3</option><option>33</option><option>49</option><option>64</option><option>72</option><option>75</option><option>78</option><option>79</option><option>88</option><option>100 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 3</option><option>33</option><option>49</option><option>64</option><option>72</option><option>75</option><option>78</option><option>79</option><option>88</option><option>100 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 3</option><option>33</option><option>49</option><option>64</option><option>72</option><option>75</option><option>78</option><option>79</option><option>88</option><option>100 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 3</option><option>33</option><option>49</option><option>64</option><option>72</option><option>75</option><option>78</option><option>79</option><option>88</option><option>100 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 3</option><option>33</option><option>49</option><option>64</option><option>72</option><option>75</option><option>78</option><option>79</option><option>88</option><option>100 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~8\cdot\left(f{\left[\frac{x}{3}-5\right]}+7\right)\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x}{3}-5~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~3\left(a+5\right)\]</span></p>
+<p>Because we set <span class="math inline">\(\frac{x}{3}-5\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(\frac{x}{3}-5\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=8\cdot\left(f{\left[a\right]}+7\right)\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~8\cdot\left(b+7\right)\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~3\left(a+5\right)\)</span> and <span class="math inline">\(y~=~8\cdot\left(b+7\right)\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[6\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[2\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[3\cdot\left(6+5\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(2+7\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[20\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[1\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[3\cdot\left(20+5\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(1+7\right)\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[21\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[3\cdot\left(21+5\right)\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[8\cdot\left(4+7\right)\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+72
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+64
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+88
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function with three known input-output pairs, shown as solutions to the equation <span class="math inline">\(b=f[a]\)</span>.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(b\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+88
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+38
+</td>
+</tr>
+</tbody>
+</table>
+<p>Find the corresponding solutions to the following equation: <span class="math display">\[y~=~\frac{f{\left[\frac{x-2}{4}\right]}-3}{5}\]</span></p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 7</option><option>11</option><option>12</option><option>17</option><option>30</option><option>41</option><option>54</option><option>61</option><option>90</option><option>96 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 7</option><option>11</option><option>12</option><option>17</option><option>30</option><option>41</option><option>54</option><option>61</option><option>90</option><option>96 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 7</option><option>11</option><option>12</option><option>17</option><option>30</option><option>41</option><option>54</option><option>61</option><option>90</option><option>96 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 7</option><option>11</option><option>12</option><option>17</option><option>30</option><option>41</option><option>54</option><option>61</option><option>90</option><option>96 </option></select>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<select><option>--------</option><option> 7</option><option>11</option><option>12</option><option>17</option><option>30</option><option>41</option><option>54</option><option>61</option><option>90</option><option>96 </option></select>
+</td>
+<td style="text-align:left;">
+<select><option>--------</option><option> 7</option><option>11</option><option>12</option><option>17</option><option>30</option><option>41</option><option>54</option><option>61</option><option>90</option><option>96 </option></select>
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Restate the given equation.</p>
+<p><span class="math display">\[y~=~\frac{f{\left[\frac{x-2}{4}\right]}-3}{5}\]</span></p>
+<p>Set <span class="math inline">\(f\)</span>’s argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x-2}{4}~=~a\]</span></p>
+<p>Solve the <a href="https://www.khanacademy.org/math/7th-grade-illustrative-math/unit-6-expressions-equations-and-inequalities/x16db28654a9632d7:reasoning-about-solving-equations-part-1/a/two-step-equations-review">two-step equation</a>.</p>
+<p><span class="math display">\[x~=~4 a+2\]</span></p>
+<p>Because we set <span class="math inline">\(\frac{x-2}{4}\)</span> equal to <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(\frac{x-2}{4}\)</span> with <span class="math inline">\(a\)</span> in the main equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[a\right]}-3}{5}\]</span></p>
+<p>We know <span class="math inline">\(f[a]=b\)</span>, so replace <span class="math inline">\(f[a]\)</span> with <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[y~=~\frac{b-3}{5}\]</span></p>
+<p>We now have two formulas: <span class="math inline">\(x~=~4 a+2\)</span> and <span class="math inline">\(y~=~\frac{b-3}{5}\)</span>. Use those formulas!</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+<span class="math inline">\(a\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(b\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[7\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[63\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\cdot 7+2\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{63-3}{5}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[13\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[88\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\cdot 13+2\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{88-3}{5}\]</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<span class="math display">\[22\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[38\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[4\cdot 22+2\]</span>
+</td>
+<td style="text-align:left;">
+<span class="math display">\[\frac{38-3}{5}\]</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Evaluate all numerical expressions to get the answers.</p>
+<table class="table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+<span class="math inline">\(x\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(y\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+</tbody>
+</table>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
