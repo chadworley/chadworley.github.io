@@ -1,13 +1,14 @@
 library("exams")
 
-pppsss = c("01b_id_parent_and_shift.Rmd")
+pppsss = c("lsys_string.Rmd",
+           "turtle_commands.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
     genname = strsplit(ppss,".",T)[[1]][1]
     probs = ppss
 
-    nvers = 12
+    nvers = 6
     ps = character(0)
     for(prob in probs){
       ps = c(ps,rep(prob,nvers))

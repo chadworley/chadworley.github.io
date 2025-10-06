@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>lsys_string</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 6;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">lsys_string</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the <a href="https://en.wikipedia.org/wiki/L-system">L system</a> defined by the following start and replacement rules:</p>
+<ul>
+<li>Start = JX</li>
+<li>Rules:
+<ul>
+<li>C <span class="math inline">\(\to\)</span> XCJ</li>
+<li>F <span class="math inline">\(\to\)</span> CXX</li>
+<li>J <span class="math inline">\(\to\)</span> JX</li>
+<li>X <span class="math inline">\(\to\)</span> FJJ</li>
+</ul></li>
+</ul>
+<p>After 2 iterations, what string is developed?</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the <a href="https://en.wikipedia.org/wiki/L-system">L system</a> defined by the following start and replacement rules:</p>
+<ul>
+<li>Start = N</li>
+<li>Rules:
+<ul>
+<li>E <span class="math inline">\(\to\)</span> NNI</li>
+<li>I <span class="math inline">\(\to\)</span> NTEE</li>
+<li>N <span class="math inline">\(\to\)</span> TIE</li>
+<li>T <span class="math inline">\(\to\)</span> NNN</li>
+</ul></li>
+</ul>
+<p>After 2 iterations, what string is developed?</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the <a href="https://en.wikipedia.org/wiki/L-system">L system</a> defined by the following start and replacement rules:</p>
+<ul>
+<li>Start = G</li>
+<li>Rules:
+<ul>
+<li>E <span class="math inline">\(\to\)</span> EH</li>
+<li>G <span class="math inline">\(\to\)</span> HE</li>
+<li>H <span class="math inline">\(\to\)</span> GGU</li>
+<li>U <span class="math inline">\(\to\)</span> EHEE</li>
+</ul></li>
+</ul>
+<p>After 2 iterations, what string is developed?</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the <a href="https://en.wikipedia.org/wiki/L-system">L system</a> defined by the following start and replacement rules:</p>
+<ul>
+<li>Start = D</li>
+<li>Rules:
+<ul>
+<li>A <span class="math inline">\(\to\)</span> UA</li>
+<li>D <span class="math inline">\(\to\)</span> DQAQ</li>
+<li>Q <span class="math inline">\(\to\)</span> AUU</li>
+<li>U <span class="math inline">\(\to\)</span> UD</li>
+</ul></li>
+</ul>
+<p>After 2 iterations, what string is developed?</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the <a href="https://en.wikipedia.org/wiki/L-system">L system</a> defined by the following start and replacement rules:</p>
+<ul>
+<li>Start = K</li>
+<li>Rules:
+<ul>
+<li>G <span class="math inline">\(\to\)</span> GR</li>
+<li>K <span class="math inline">\(\to\)</span> RRR</li>
+<li>R <span class="math inline">\(\to\)</span> KGR</li>
+</ul></li>
+</ul>
+<p>After 2 iterations, what string is developed?</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Consider the <a href="https://en.wikipedia.org/wiki/L-system">L system</a> defined by the following start and replacement rules:</p>
+<ul>
+<li>Start = MJ</li>
+<li>Rules:
+<ul>
+<li>B <span class="math inline">\(\to\)</span> BJ</li>
+<li>C <span class="math inline">\(\to\)</span> BJJ</li>
+<li>J <span class="math inline">\(\to\)</span> JC</li>
+<li>M <span class="math inline">\(\to\)</span> MC</li>
+</ul></li>
+</ul>
+<p>After 2 iterations, what string is developed?</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
