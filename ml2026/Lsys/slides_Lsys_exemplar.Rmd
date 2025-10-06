@@ -2,7 +2,7 @@
 output: slidy_presentation
 title: "Lindenmayer Systems and Turtle Graphics"
 author: "Mr. Worley"
-date: "2025 Oct 03"
+date: "2025 Oct 06"
 ---
 
 
@@ -144,7 +144,7 @@ catinfo = function(angle,start,rules,N){
         2. `BB-BAC-CA--`
         3. `BB-BB--BB-BAC-CA--CA-BAC---`
         4. `BB-BB--BB-BB---BB-BB--BB-BAC-CA--CA-BAC---CA-BAC--BB-BAC-CA----`
-* It might help to see the 3rd and 4th iterations to the 3rd iteration is spaced.
+* It might help to see the 3rd and 4th iterations spaced out.
 
 ```
 B   B   - B   B   -- B   B   - B   A    C   - C   A    -- C   A    - B   A    C   ---
@@ -159,12 +159,14 @@ A common set of commands:
 
 * Any uppercase letter between A and L means step forward while drawing.
 * Any uppercase letter between M and Z means hop forward without drawing.
-* The + symbol means turn clockwise by 90°.
+* The + symbol means turn clockwise by 90°. (Or some other angle.)
 * The - symbol means turn counterclockwise by 90°.
 * The [ symbol means to save the current location and direction to the top of a [stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) of saved positions.
 * The ] symbol means to return to most recently saved position, and then remove that position from the [stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)). (Last in, first out)
 
-If we use `BB-BB--BB-BB---BB-BB--BB-BAC-CA--CA-BAC---CA-BAC--BB-BAC-CA----`:
+So, using our example from the previous page, and starting pointing North (up)...
+
+`BB-BB--BB-BB---BB-BB--BB-BAC-CA--CA-BAC---CA-BAC--BB-BAC-CA----`
 
 ```{r,echo=F,fig.dim=c(5,5)}
 par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
@@ -183,7 +185,7 @@ points(xyc[[1]][1],xyc[[2]][1],col="darkgreen")
 text(xyc[[1]][1],xyc[[2]][1],"start",col="darkgreen",adj=c(0.5,1.2))
 ```
 
-```{r,echo=F,animation.hook='gifski',interval=0.3,fig.dim=c(5,5),cache=T}
+```{r,echo=F,animation.hook='gifski',interval=0.3,fig.dim=c(8,8),cache=T}
 xyd = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2){
     switch = 1
     d = angle_initial
@@ -281,8 +283,8 @@ for(i in 1:nchar(s)){
     ss = substr(s,1,i)
     xyd1 = xyd(ss,pi/2,angle_initial=pi/2)
     plotit(xyd1,lwd=3,col=rgb(0,0,0))
-    text(-9,9,s,adj=c(0,0.5),col="grey",cex=0.8)
-    text(-9,9,ss,adj=c(0,0.5),cex=0.8)
+    text(-5,9,s,adj=c(0,0.5),col="grey",cex=1)
+    text(-5,9,ss,adj=c(0,0.5),cex=1)
     x = xyd1[[4]]
     y = xyd1[[5]]
     d = xyd1[[6]]
