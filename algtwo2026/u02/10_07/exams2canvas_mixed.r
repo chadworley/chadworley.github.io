@@ -8,26 +8,24 @@ outdir = "outcanvas"
 # exams2canvas(pm,
 #              n=n,
 #              dir=outdir,
-#              points=c(3),
+#              points=c(6),
 #              maxattempts = 6,
-#              name="ET_1006",
+#              name="ET_1007",
 #              template = "canvas_qti12.xml",
 #              cloze = list(enumerate = FALSE))
 
 
 # # Classwork 1
-# pm = list("parent_table_other.Rmd",
-#           "parent_table_power.Rmd",
-#           "parent_table_explog.Rmd")
-# 
-# exams2canvas(pm,
-#              n=n,
-#              dir=outdir,
-#              points=c(2,2,2),
-#              maxattempts = 8,
-#              name="OCW_1006_Parent_Tables",
-#              template = "canvas_qti12.xml",
-#              cloze = list(enumerate = FALSE))
+pm = list("01_eval_log_base_2_3_10.Rmd")
+
+exams2canvas(pm,
+             n=n,
+             dir=outdir,
+             points=c(10),
+             maxattempts = 8,
+             name="OCW_1007_Eval_Logs",
+             template = "canvas_qti12.xml",
+             cloze = list(enumerate = FALSE))
 
 
 # Classwork 2
