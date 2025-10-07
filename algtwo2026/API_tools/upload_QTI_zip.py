@@ -5,7 +5,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
   access_token = f.read()
 
 # Variables
-course_id = '2110' 
+course_id = '2110'
 file_path_list = ["outcanvas/OCW_1006_Parent_Tables.zip"]
 
 ######## FOR UPLOADING ETS
