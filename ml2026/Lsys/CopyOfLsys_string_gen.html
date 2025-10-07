@@ -122,11 +122,11 @@
         </div>
 
         <div class="input-group">
-            <label for="rules">Replacement Rules (one per line, e.g., F = F+F-F or A > AB):</label>
-            <textarea id="rules" placeholder="F > F[+F][-F]X
-X > XXF"
-            >F > FX
-X > F[+X][-X]FX</textarea>
+            <label for="rules">Replacement Rules (one per line, e.g., F=F+F-F or A->AB):</label>
+            <textarea id="rules" placeholder="F = F[+F][-F]X
+X = XXF"
+            >F = FX
+X = F[+X][-X]FX</textarea>
         </div>
 
         <div class="input-group">
@@ -162,8 +162,8 @@ X > F[+X][-X]FX</textarea>
             const rules = {};
             const lines = rulesText.split('\n').filter(line => line.trim() !== ''); // Filter out empty lines
             for (const line of lines) {
-                // Handle both '=' and '>' as separators for rules
-                const parts = line.split(/=|>/).map(part => part.trim());
+                // Handle both '=' and '->' as separators for rules
+                const parts = line.split(/=|->/).map(part => part.trim());
                 if (parts.length === 2) {
                     rules[parts[0]] = parts[1];
                 } else {
