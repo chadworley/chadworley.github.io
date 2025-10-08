@@ -122,12 +122,12 @@
         </div>
 
         <div class="input-group">
-            <label for="rules">Replacement Rules (one per line, e.g., F = F+F-F or A -> AB):</label>
+            <label for="rules">Replacement Rules (one per line, e.g., F = F+F-F or A > AB):</label>
             <textarea id="rules" placeholder="e.g.,
-F -> FX
-X -> F[+X][-X]FX"
-            >F -> FX
-X -> F[+X][-X]FX</textarea>
+F > FX
+X > F[+X][-X]FX"
+            >F > FX
+X > F[+X][-X]FX</textarea>
         </div>
 
         <div class="input-group">
@@ -155,7 +155,7 @@ X -> F[+X][-X]FX</textarea>
     <script>
         /**
          * Parses the rules text into an object for easy lookup.
-         * Expects lines like 'A=AB' or 'F->F[+F]F[-F]F'.
+         * Expects lines like 'A = AB' or 'F > F[+F]F[-F]F'.
          * @param {string} rulesText - The raw text from the rules textarea.
          * @returns {object} An object where keys are characters to replace and values are their replacements.
          */
@@ -164,7 +164,7 @@ X -> F[+X][-X]FX</textarea>
             const lines = rulesText.split('\n').filter(line => line.trim() !== ''); // Filter out empty lines
             for (const line of lines) {
                 // Handle both '=' and '->' as separators for rules
-                const parts = line.split(/=|->/).map(part => part.trim());
+                const parts = line.split(/=|>/).map(part => part.trim());
                 if (parts.length === 2) {
                     rules[parts[0]] = parts[1];
                 } else {
