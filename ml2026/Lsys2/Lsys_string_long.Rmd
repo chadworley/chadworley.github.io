@@ -1,0 +1,59 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+while(T){
+    N = sample(3:4,1)
+    v = sort(sample(c("A","B","C","D","E","F","G"),N))
+    iters = 4
+    
+    start = paste0(sample(v,sample(1:3,1),T),collapse="")
+    rules = list()
+    for(i in 1:N){
+        rplc = paste0(sample(v,sample(2:4,1),T),collapse="")
+        rules[[v[i]]] = rplc
+    }
+    
+    s = strsplit(start,"")[[1]]
+    strings = c(start)
+    
+    for(j in 1:iters){
+        s2 = s
+        for(i in 1:length(s)){
+            s2[i] = rules[[s[i]]]
+        }
+        s2 = paste0(s2,collapse="")
+        strings = c(strings,s2)
+        s = strsplit(s2,"")[[1]]
+    }
+    if(length(unique(s))==N && length(s)<100 && length(s)>40){break}
+}
+# print(start)
+# print(rules)
+# print(strings)
+
+printrules = paste0("  * ",names(rules)," $\\to$ ",rules,collapse="\n")
+
+sol = strings[iters+1]
+```
+
+Question
+========
+
+Consider the [L system](https://en.wikipedia.org/wiki/L-system) defined by the following start and replacement rules:
+
+* Start = `r start`
+* Rules:
+`r printrules`
+
+After `r iters` iterations, what string is developed? I'd recommend using [this tool](https://chadworley.github.io/Lsys_string_gen.html).
+
+
+Solution
+========
+
+
+
+Meta-information
+============
+extype: string
+exsolution: `r sol`
+exname: lsys_string
