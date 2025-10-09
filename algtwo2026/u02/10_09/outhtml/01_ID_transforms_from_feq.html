@@ -1,0 +1,858 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>01_ID_transforms_from_feq</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 12;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">01_ID_transforms_from_feq</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=2\cdot f{\left[6\left(x+3\right)\right]}-8\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>6</option><option>8 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>6</option><option>8 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>6</option><option>8 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>6</option><option>8 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shrink by factor 6</li>
+<li>shift left by distance 3</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>stretch by factor 2</li>
+<li>shift down by distance 8</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=2\cdot f{\left[6\left(x+3\right)\right]}-8\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[6\left(x+3\right)=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=\frac{a}{6}-3\]</span></p>
+<p>Because <span class="math inline">\(6\left(x+3\right)\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=2\cdot f{\left[a\right]}-8\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=2\cdot b-8\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(\frac{a}{6}-3~,~2\cdot b-8\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shrink by factor 6</li>
+<li>shift left by distance 3</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>stretch by factor 2</li>
+<li>shift down by distance 8</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=3\cdot\left(f{\left[\frac{x-4}{9}\right]}-7\right)\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>4</option><option>7</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>4</option><option>7</option><option>9 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>4</option><option>7</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>4</option><option>7</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>stretch by factor 9</li>
+<li>shift right by distance 4</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shift down by distance 7</li>
+<li>stretch by factor 3</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=3\cdot\left(f{\left[\frac{x-4}{9}\right]}-7\right)\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x-4}{9}=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=9 a+4\]</span></p>
+<p>Because <span class="math inline">\(\frac{x-4}{9}\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=3\cdot\left(f{\left[a\right]}-7\right)\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=3\cdot\left(b-7\right)\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(9 a+4~,~3\cdot\left(b-7\right)\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>stretch by factor 9</li>
+<li>shift right by distance 4</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shift down by distance 7</li>
+<li>stretch by factor 3</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=\frac{f{\left[8\left(x+7\right)\right]}+6}{3}\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>6</option><option>7</option><option>8 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>6</option><option>7</option><option>8 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>6</option><option>7</option><option>8 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>6</option><option>7</option><option>8 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shrink by factor 8</li>
+<li>shift left by distance 7</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shift up by distance 6</li>
+<li>shrink by factor 3</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[8\left(x+7\right)\right]}+6}{3}\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[8\left(x+7\right)=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=\frac{a}{8}-7\]</span></p>
+<p>Because <span class="math inline">\(8\left(x+7\right)\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[a\right]}+6}{3}\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=\frac{b+6}{3}\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(\frac{a}{8}-7~,~\frac{b+6}{3}\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shrink by factor 8</li>
+<li>shift left by distance 7</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shift up by distance 6</li>
+<li>shrink by factor 3</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=6\cdot\left(f{\left[\frac{x-9}{2}\right]}+8\right)\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>6</option><option>8</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>6</option><option>8</option><option>9 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>6</option><option>8</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>6</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>stretch by factor 2</li>
+<li>shift right by distance 9</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shift up by distance 8</li>
+<li>stretch by factor 6</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=6\cdot\left(f{\left[\frac{x-9}{2}\right]}+8\right)\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x-9}{2}=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=2 a+9\]</span></p>
+<p>Because <span class="math inline">\(\frac{x-9}{2}\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=6\cdot\left(f{\left[a\right]}+8\right)\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=6\cdot\left(b+8\right)\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(2 a+9~,~6\cdot\left(b+8\right)\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>stretch by factor 2</li>
+<li>shift right by distance 9</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shift up by distance 8</li>
+<li>stretch by factor 6</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=\frac{f{\left[7\left(x+3\right)\right]}}{9}+6\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>6</option><option>7</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>6</option><option>7</option><option>9 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>6</option><option>7</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>6</option><option>7</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shrink by factor 7</li>
+<li>shift left by distance 3</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shrink by factor 9</li>
+<li>shift up by distance 6</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[7\left(x+3\right)\right]}}{9}+6\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[7\left(x+3\right)=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=\frac{a}{7}-3\]</span></p>
+<p>Because <span class="math inline">\(7\left(x+3\right)\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[a\right]}}{9}+6\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=\frac{b}{9}+6\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(\frac{a}{7}-3~,~\frac{b}{9}+6\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shrink by factor 7</li>
+<li>shift left by distance 3</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shrink by factor 9</li>
+<li>shift up by distance 6</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=8\cdot\left(f{\left[\frac{x}{9}+2\right]}+5\right)\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>5</option><option>8</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>5</option><option>8</option><option>9 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>5</option><option>8</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>5</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shift left by distance 2</li>
+<li>stretch by factor 9</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shift up by distance 5</li>
+<li>stretch by factor 8</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=8\cdot\left(f{\left[\frac{x}{9}+2\right]}+5\right)\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x}{9}+2=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=9\left(a-2\right)\]</span></p>
+<p>Because <span class="math inline">\(\frac{x}{9}+2\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=8\cdot\left(f{\left[a\right]}+5\right)\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=8\cdot\left(b+5\right)\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(9\left(a-2\right)~,~8\cdot\left(b+5\right)\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shift left by distance 2</li>
+<li>stretch by factor 9</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shift up by distance 5</li>
+<li>stretch by factor 8</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=\frac{f{\left[5\left(x-7\right)\right]}}{9}+3\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>5</option><option>7</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>5</option><option>7</option><option>9 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>5</option><option>7</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>5</option><option>7</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shrink by factor 5</li>
+<li>shift right by distance 7</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shrink by factor 9</li>
+<li>shift up by distance 3</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[5\left(x-7\right)\right]}}{9}+3\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[5\left(x-7\right)=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=\frac{a}{5}+7\]</span></p>
+<p>Because <span class="math inline">\(5\left(x-7\right)\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[a\right]}}{9}+3\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=\frac{b}{9}+3\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(\frac{a}{5}+7~,~\frac{b}{9}+3\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shrink by factor 5</li>
+<li>shift right by distance 7</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shrink by factor 9</li>
+<li>shift up by distance 3</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=\frac{f{\left[7 x-2\right]}}{5}-3\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>5</option><option>7 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>5</option><option>7 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>5</option><option>7 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>5</option><option>7 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shift right by distance 2</li>
+<li>shrink by factor 7</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shrink by factor 5</li>
+<li>shift down by distance 3</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[7 x-2\right]}}{5}-3\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[7 x-2=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=\frac{a+2}{7}\]</span></p>
+<p>Because <span class="math inline">\(7 x-2\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[a\right]}}{5}-3\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=\frac{b}{5}-3\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(\frac{a+2}{7}~,~\frac{b}{5}-3\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shift right by distance 2</li>
+<li>shrink by factor 7</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shrink by factor 5</li>
+<li>shift down by distance 3</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=8\cdot f{\left[\frac{x}{3}-7\right]}-2\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>7</option><option>8 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>7</option><option>8 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>7</option><option>8 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>3</option><option>7</option><option>8 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shift right by distance 7</li>
+<li>stretch by factor 3</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>stretch by factor 8</li>
+<li>shift down by distance 2</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=8\cdot f{\left[\frac{x}{3}-7\right]}-2\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x}{3}-7=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=3\left(a+7\right)\]</span></p>
+<p>Because <span class="math inline">\(\frac{x}{3}-7\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=8\cdot f{\left[a\right]}-2\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=8\cdot b-2\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(3\left(a+7\right)~,~8\cdot b-2\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shift right by distance 7</li>
+<li>stretch by factor 3</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>stretch by factor 8</li>
+<li>shift down by distance 2</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=7\cdot\left(f{\left[\frac{x-8}{9}\right]}-3\right)\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 3</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>stretch by factor 9</li>
+<li>shift right by distance 8</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shift down by distance 3</li>
+<li>stretch by factor 7</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=7\cdot\left(f{\left[\frac{x-8}{9}\right]}-3\right)\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x-8}{9}=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=9 a+8\]</span></p>
+<p>Because <span class="math inline">\(\frac{x-8}{9}\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=7\cdot\left(f{\left[a\right]}-3\right)\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=7\cdot\left(b-3\right)\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(9 a+8~,~7\cdot\left(b-3\right)\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>stretch by factor 9</li>
+<li>shift right by distance 8</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shift down by distance 3</li>
+<li>stretch by factor 7</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=9\cdot f{\left[\frac{x+8}{2}\right]}+7\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>7</option><option>8</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 2</option><option>7</option><option>8</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>stretch by factor 2</li>
+<li>shift left by distance 8</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>stretch by factor 9</li>
+<li>shift up by distance 7</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=9\cdot f{\left[\frac{x+8}{2}\right]}+7\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[\frac{x+8}{2}=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=2 a-8\]</span></p>
+<p>Because <span class="math inline">\(\frac{x+8}{2}\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=9\cdot f{\left[a\right]}+7\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=9\cdot b+7\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(2 a-8~,~9\cdot b+7\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>stretch by factor 2</li>
+<li>shift left by distance 8</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>stretch by factor 9</li>
+<li>shift up by distance 7</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Let <span class="math inline">\(f\)</span> be a function. Consider the curve defined by the following equation:</p>
+<p><span class="math display">\[y=\frac{f{\left[4\left(x-5\right)\right]}}{7}-9\]</span></p>
+<p>That curve can be interpreted as a transformation of the parent curve <span class="math inline">\(b=f[a]\)</span>. What transformations, <strong>and in what order</strong>, would produce the daughter curve from the parent curve?</p>
+<h3 id="horizontal-transformations">Horizontal Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 4</option><option>5</option><option>7</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift left by distance</option><option>shift right by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 4</option><option>5</option><option>7</option><option>9 </option></select></li>
+</ul>
+<h3 id="vertical-transformations">Vertical Transformations</h3>
+<ul>
+<li>First</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 4</option><option>5</option><option>7</option><option>9 </option></select></li>
+<li>Second</li>
+<li><select><option>--------</option><option> shift up by distance</option><option>shift down by distance</option><option>stretch by factor</option><option>shrink by factor </option></select> <select><option>--------</option><option> 4</option><option>5</option><option>7</option><option>9 </option></select></li>
+</ul>
+<br/>
+<ol type="a">
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shrink by factor 4</li>
+<li>shift right by distance 5</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shrink by factor 7</li>
+<li>shift down by distance 9</li>
+</ul></li>
+</ul>
+<p>It is easiest to see this by following our strategy. Start by writing down the given equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[4\left(x-5\right)\right]}}{7}-9\]</span></p>
+<p>Set the argument equal to <span class="math inline">\(a\)</span>.</p>
+<p><span class="math display">\[4\left(x-5\right)=a\]</span></p>
+<p>Solve the <a href="https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html">two-step equation</a>.</p>
+<p><span class="math display">\[x=\frac{a}{4}+5\]</span></p>
+<p>Because <span class="math inline">\(4\left(x-5\right)\)</span> equals <span class="math inline">\(a\)</span>, we can substitute <span class="math inline">\(a\)</span> for the argument in our equation.</p>
+<p><span class="math display">\[y=\frac{f{\left[a\right]}}{7}-9\]</span></p>
+<p>Because <span class="math inline">\(f(a)\)</span> equals <span class="math inline">\(b\)</span>, we can substitute <span class="math inline">\(b\)</span> for <span class="math inline">\(f(a)\)</span>.</p>
+<p><span class="math display">\[y=\frac{b}{7}-9\]</span></p>
+<p>Write the coordinate transformation (from the <span class="math inline">\(x=\)</span> formula and the <span class="math inline">\(y=\)</span> formula):</p>
+<p><span class="math display">\[(a,b)\to\left(\frac{a}{4}+5~,~\frac{b}{7}-9\right)\]</span></p>
+<p>Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:</p>
+<ul>
+<li>Horizontal transformations:
+<ul>
+<li>shrink by factor 4</li>
+<li>shift right by distance 5</li>
+</ul></li>
+<li>Vertical transformations:
+<ul>
+<li>shrink by factor 7</li>
+<li>shift down by distance 9</li>
+</ul></li>
+</ul>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

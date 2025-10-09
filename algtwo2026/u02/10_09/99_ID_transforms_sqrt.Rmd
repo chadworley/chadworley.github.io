@@ -1,0 +1,228 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+exp_frames2 = c("M\\cdot\\left(x+A\\right)",
+               "M\\cdot x+A",
+               "M\\cdot\\left(x-A\\right)",
+               "M\\cdot x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+vt = list(c("shift up by distance A","stretch by factor M"),
+          c("stretch by factor M","shift up by distance A"),
+          c("shift down by distance A","stretch by factor M"),
+          c("stretch by factor M","shift down by distance A"),
+          c("shift up by distance A","shrink by factor M"),
+          c("shrink by factor M","shift up by distance A"),
+          c("shift down by distance A","shrink by factor M"),
+          c("shrink by factor M","shift down by distance A")
+          )
+
+ht = list(c("shrink by factor M","shift left by distance A"),
+          c("shift left by distance A","shrink by factor M"),
+          c("shrink by factor M","shift right by distance A"),
+          c("shift right by distance A","shrink by factor M"),
+          c("stretch by factor M","shift left by distance A"),
+          c("shift left by distance A","stretch by factor M"),
+          c("stretch by factor M","shift right by distance A"),
+          c("shift right by distance A","stretch by factor M")
+          )
+
+
+
+wd = c("add A and then multiply by M",
+       "multiply by M and then add A",
+       "subtract A and then multiply by M",
+       "multiply by M and then subtract A",
+       "add A and then divide by M",
+       "divide by M and then add A",
+       "subtract A and then divide by M",
+       "divide by M and then subtract A")
+
+efs = sample(1:8,2)
+ks = sample(2:9,4)
+vA = ks[1]
+vM = ks[2]
+hA = ks[3]
+hM = ks[4]
+
+hns = list(c(hM,hA),
+           c(hA,hM),
+           c(hM,hA),
+           c(hA,hM),
+           c(hM,hA),
+           c(hA,hM),
+           c(hM,hA),
+           c(hA,hM))
+
+vns = list(c(vA,vM),
+           c(vM,vA),
+           c(vA,vM),
+           c(vM,vA),
+           c(vA,vM),
+           c(vM,vA),
+           c(vA,vM),
+           c(vM,vA))
+
+hfr = exp_frames[efs[1]]
+vfr = exp_frames2[efs[2]]
+eq = vfr
+eq = gsub("A",vA,eq,fixed=T)
+eq = gsub("M",vM,eq,fixed=T)
+eq = gsub("x","\\sqrt{arg}",eq,fixed=T)
+eq = gsub("arg",hfr,eq,fixed=T)
+eq = gsub("A",hA,eq,fixed=T)
+eq = gsub("M",hM,eq,fixed=T)
+
+argex = hfr
+argex = gsub("A",hA,argex,fixed=T)
+argex = gsub("M",hM,argex,fixed=T)
+
+inva = exp_frames[9-efs[1]]
+inva = gsub("A",hA,inva,fixed=T)
+inva = gsub("M",hM,inva,fixed=T)
+inva = gsub("x","a",inva,fixed=T)
+
+eqa = vfr
+eqa = gsub("A",vA,eqa,fixed=T)
+eqa = gsub("M",vM,eqa,fixed=T)
+eqa = gsub("x","\\sqrt{a}",eqa,fixed=T)
+
+
+eqb = vfr
+eqb = gsub("A",vA,eqb,fixed=T)
+eqb = gsub("M",vM,eqb,fixed=T)
+eqb = gsub("x","b",eqb,fixed=T)
+
+ca1 = ht[[efs[1]]][1]
+ca1 = substr(ca1,1,nchar(ca1)-2)
+ca3 = ht[[efs[1]]][2]
+ca3 = substr(ca3,1,nchar(ca3)-2)
+ca5 = vt[[efs[2]]][1]
+ca5 = substr(ca5,1,nchar(ca5)-2)
+ca7 = vt[[efs[2]]][2]
+ca7 = substr(ca7,1,nchar(ca7)-2)
+
+ca2 = hns[[efs[1]]][1]
+ca4 = hns[[efs[1]]][2]
+ca6 = vns[[efs[2]]][1]
+ca8 = vns[[efs[2]]][2]
+
+ach1 = c("shift left by distance","shift right by distance","stretch by factor","shrink by factor")
+ach2 = sort(ks)
+ach3 = c("shift up by distance","shift down by distance","stretch by factor","shrink by factor")
+
+al1 = paste0("* ",ach1,collapse="\n")
+al2 = paste0("* ",ach2,collapse="\n")
+al3 = paste0("* ",ach3,collapse="\n")
+
+sol1 = paste0(1*(ach1==ca1),collapse="")
+sol2 = paste0(1*(ach2==ca2),collapse="")
+sol3 = paste0(1*(ach1==ca3),collapse="")
+sol4 = paste0(1*(ach2==ca4),collapse="")
+sol5 = paste0(1*(ach3==ca5),collapse="")
+sol6 = paste0(1*(ach2==ca6),collapse="")
+sol7 = paste0(1*(ach3==ca7),collapse="")
+sol8 = paste0(1*(ach2==ca8),collapse="")
+```
+
+
+Question
+========
+
+Let $f$ be a function. Consider the curve defined by the following equation:
+ 
+$$y=`r eq`$$
+
+That curve can be interpreted as a transformation of the parent curve $b=f[a]$. What transformations, **and in what order**, would produce the daughter curve from the parent curve?
+
+### Horizontal Transformations
+
+* First
+* ##ANSWER1## ##ANSWER2##
+* Second
+* ##ANSWER3## ##ANSWER4##
+
+### Vertical Transformations
+
+* First
+* ##ANSWER5## ##ANSWER6##
+* Second
+* ##ANSWER7## ##ANSWER8##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al1`
+`r al2`
+`r al3`
+`r al2`
+`r al3`
+`r al2`
+
+Solution
+========
+
+The correct answers are:
+
+* Horizontal transformations:
+    * `r ca1` `r ca2`
+    * `r ca3` `r ca4`
+* Vertical transformations:
+    * `r ca5` `r ca6`
+    * `r ca7` `r ca8`
+
+It is easiest to see this by following our strategy. Start by writing down the given equation.
+
+$$y=`r eq`$$
+
+Set the argument equal to $a$.
+
+$$`r argex`=a$$
+
+Solve the [two-step equation](https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html).
+
+$$x=`r inva`$$
+
+Because $`r argex`$ equals $a$, we can substitute $a$ for the argument in our equation.
+
+$$y=`r eqa`$$
+
+Because $f(a)$ equals $b$, we can substitute $b$ for $f(a)$.
+
+$$y=`r eqb`$$
+
+Write the coordinate transformation (from the $x=$ formula and the $y=$ formula):
+
+$$(a,b)\to\left(`r inva`~,~`r eqb`\right)$$
+
+Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:
+
+* Horizontal transformations:
+    * `r ca1` `r ca2`
+    * `r ca3` `r ca4`
+* Vertical transformations:
+    * `r ca5` `r ca6`
+    * `r ca7` `r ca8`
+
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`|`r sol6`|`r sol7`|`r sol8`
+exname: transforms_from_feq

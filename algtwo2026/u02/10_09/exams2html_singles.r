@@ -1,13 +1,13 @@
 library("exams")
 
-pppsss = c("EZ_two-step_equations.Rmd")
+pppsss = c("01_ID_transforms_from_feq.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
     genname = strsplit(ppss,".",T)[[1]][1]
     probs = ppss
 
-    nvers = 100
+    nvers = 12
     ps = character(0)
     for(prob in probs){
       ps = c(ps,rep(prob,nvers))

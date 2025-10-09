@@ -1,0 +1,171 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+exp_frames2 = c("M\\cdot\\left(x+A\\right)",
+               "M\\cdot x+A",
+               "M\\cdot\\left(x-A\\right)",
+               "M\\cdot x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+vt = list(c("shift up by distance A","stretch by factor M"),
+          c("stretch by factor M","shift up by distance A"),
+          c("shift down by distance A","stretch by factor M"),
+          c("stretch by factor M","shift down by distance A"),
+          c("shift up by distance A","shrink by factor M"),
+          c("shrink by factor M","shift up by distance A"),
+          c("shift down by distance A","shrink by factor M"),
+          c("shrink by factor M","shift down by distance A")
+          )
+
+ht = list(c("shrink by factor M","shift left by distance A"),
+          c("shift left by distance A","shrink by factor M"),
+          c("shrink by factor M","shift right by distance A"),
+          c("shift right by distance A","shrink by factor M"),
+          c("stretch by factor M","shift left by distance A"),
+          c("shift left by distance A","stretch by factor M"),
+          c("stretch by factor M","shift right by distance A"),
+          c("shift right by distance A","stretch by factor M")
+          )
+
+
+
+wd = c("add A and then multiply by M",
+       "multiply by M and then add A",
+       "subtract A and then multiply by M",
+       "multiply by M and then subtract A",
+       "add A and then divide by M",
+       "divide by M and then add A",
+       "subtract A and then divide by M",
+       "divide by M and then subtract A")
+
+efs = sample(1:8,2)
+ks = sample(2:9,4)
+vA = ks[1]
+vM = ks[2]
+hA = ks[3]
+hM = ks[4]
+
+hns = list(c(hM,hA),
+           c(hA,hM),
+           c(hM,hA),
+           c(hA,hM),
+           c(hM,hA),
+           c(hA,hM),
+           c(hM,hA),
+           c(hA,hM))
+
+vns = list(c(vA,vM),
+           c(vM,vA),
+           c(vA,vM),
+           c(vM,vA),
+           c(vA,vM),
+           c(vM,vA),
+           c(vA,vM),
+           c(vM,vA))
+
+hfr = exp_frames[efs[1]]
+vfr = exp_frames2[efs[2]]
+eq = vfr
+eq = gsub("A",vA,eq,fixed=T)
+eq = gsub("M",vM,eq,fixed=T)
+eq = gsub("x","f{\\left[arg\\right]}",eq,fixed=T)
+eq = gsub("arg",hfr,eq,fixed=T)
+eq = gsub("A",hA,eq,fixed=T)
+eq = gsub("M",hM,eq,fixed=T)
+
+argex = hfr
+argex = gsub("A",hA,argex,fixed=T)
+argex = gsub("M",hM,argex,fixed=T)
+
+invr = exp_frames[9-efs[1]]
+invr = gsub("A",hA,invr,fixed=T)
+invr = gsub("M",hM,invr,fixed=T)
+
+inexp = c(argex,invr)
+
+outex = vfr
+outex = gsub("A",vA,argex,fixed=T)
+outex = gsub("M",vM,argex,fixed=T)
+
+outex2 = exp_frames[9-efs[2]]
+outex2 = gsub("A",vA,outex2,fixed=T)
+outex2 = gsub("M",vM,outex2,fixed=T)
+
+invr = exp_frames[9-efs[1]]
+invr = gsub("A",hA,invr,fixed=T)
+invr = gsub("M",hM,invr,fixed=T)
+
+invr2 = exp_frames[9-efs[1]]
+invr2 = gsub("A",hM,invr2,fixed=T)
+invr2 = gsub("M",hA,invr2,fixed=T)
+
+eqa = vfr
+eqa = gsub("A",vA,eqa,fixed=T)
+eqa = gsub("M",vM,eqa,fixed=T)
+eqa = gsub("x","f{\\left[a\\right]}",eqa,fixed=T)
+
+eqb = vfr
+eqb = gsub("A",vA,eqb,fixed=T)
+eqb = gsub("M",vM,eqb,fixed=T)
+eqb = gsub("x","b",eqb,fixed=T)
+
+ca1 = ht[[efs[1]]][1]
+ca1 = substr(ca1,1,nchar(ca1)-2)
+ca3 = ht[[efs[1]]][2]
+ca3 = substr(ca3,1,nchar(ca3)-2)
+ca5 = vt[[efs[2]]][1]
+ca5 = substr(ca5,1,nchar(ca5)-2)
+ca7 = vt[[efs[2]]][2]
+ca7 = substr(ca7,1,nchar(ca7)-2)
+
+ca2 = hns[[efs[1]]][1]
+ca4 = hns[[efs[1]]][2]
+ca6 = vns[[efs[2]]][1]
+ca8 = vns[[efs[2]]][2]
+
+
+
+
+```
+
+
+Question
+========
+
+Let $f$ be a function so that the parent curve is $b=f[a]$. A daughter curve can be developed by applying the following transformations:
+
+* Horizontal transformations:
+    * First `r ca1` `r ca2`
+    * Then `r ca3` `r ca4`
+* Vertical transformations:
+    * First `r ca5` `r ca6`
+    * Then `r ca7` `r ca8`
+
+Which equation describes the daughter curve?
+
+
+Solution
+========
+
+
+$$y=`r eq`$$
+
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: 
+exname: few_from_transforms

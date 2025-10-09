@@ -3,31 +3,31 @@ n = 50
 outdir = "outcanvas"
 
 ### Entrance ticket
-# pm = list("et01_get_new_pnts_bfa.Rmd")
+# pm = list("et01_get_new_pnts_bfa.Rmd",
+#           "et02_eval_log_base_2_3_10.Rmd")
 # 
 # exams2canvas(pm,
 #              n=n,
 #              dir=outdir,
-#              points=c(3),
+#              points=c(3,2),
 #              maxattempts = 6,
-#              name="ET_1006",
+#              name="ET_1009",
 #              template = "canvas_qti12.xml",
 #              cloze = list(enumerate = FALSE))
 
 
 # # Classwork 1
-# pm = list("parent_table_other.Rmd",
-#           "parent_table_power.Rmd",
-#           "parent_table_explog.Rmd")
-# 
-# exams2canvas(pm,
-#              n=n,
-#              dir=outdir,
-#              points=c(2,2,2),
-#              maxattempts = 8,
-#              name="OCW_1006_Parent_Tables",
-#              template = "canvas_qti12.xml",
-#              cloze = list(enumerate = FALSE))
+pm = list("01_ID_transforms_from_feq.Rmd",
+          "01_ID_transforms_from_feq.Rmd")
+
+exams2canvas(pm,
+             n=n,
+             dir=outdir,
+             points=c(4,4),
+             maxattempts = 8,
+             name="OCW_1009_describe_transform",
+             template = "canvas_qti12.xml",
+             cloze = list(enumerate = FALSE))
 
 
 # Classwork 2

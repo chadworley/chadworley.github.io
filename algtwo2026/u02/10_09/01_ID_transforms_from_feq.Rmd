@@ -93,6 +93,17 @@ inva = gsub("A",hA,inva,fixed=T)
 inva = gsub("M",hM,inva,fixed=T)
 inva = gsub("x","a",inva,fixed=T)
 
+eqa = vfr
+eqa = gsub("A",vA,eqa,fixed=T)
+eqa = gsub("M",vM,eqa,fixed=T)
+eqa = gsub("x","f{\\left[a\\right]}",eqa,fixed=T)
+
+
+eqb = vfr
+eqb = gsub("A",vA,eqb,fixed=T)
+eqb = gsub("M",vM,eqb,fixed=T)
+eqb = gsub("x","b",eqb,fixed=T)
+
 ca1 = ht[[efs[1]]][1]
 ca1 = substr(ca1,1,nchar(ca1)-2)
 ca3 = ht[[efs[1]]][2]
@@ -133,16 +144,20 @@ Let $f$ be a function. Consider the curve defined by the following equation:
  
 $$y=`r eq`$$
 
-That curve can be interpreted as a transformation of the parent curve $y=f[x]$. What transformations, and in what order, would produce the daughter curve from the parent curve?
+That curve can be interpreted as a transformation of the parent curve $b=f[a]$. What transformations, **and in what order**, would produce the daughter curve from the parent curve?
 
 ### Horizontal Transformations
 
+* First
 * ##ANSWER1## ##ANSWER2##
+* Second
 * ##ANSWER3## ##ANSWER4##
 
 ### Vertical Transformations
 
+* First
 * ##ANSWER5## ##ANSWER6##
+* Second
 * ##ANSWER7## ##ANSWER8##
 
 Answerlist
@@ -168,15 +183,41 @@ The correct answers are:
 * Vertical transformations:
     * `r ca5` `r ca6`
     * `r ca7` `r ca8`
-    
 
-It is easiest to see this by following our strategy. First, set the argument equal to $a$.
+It is easiest to see this by following our strategy. Start by writing down the given equation.
+
+$$y=`r eq`$$
+
+Set the argument equal to $a$.
 
 $$`r argex`=a$$
 
-Solve the two-step equation.
+Solve the [two-step equation](https://chadworley.github.io/algtwo2026/u02/10_09/outhtml/EZ_two-step_equations.html).
 
 $$x=`r inva`$$
+
+Because $`r argex`$ equals $a$, we can substitute $a$ for the argument in our equation.
+
+$$y=`r eqa`$$
+
+Because $f(a)$ equals $b$, we can substitute $b$ for $f(a)$.
+
+$$y=`r eqb`$$
+
+Write the coordinate transformation (from the $x=$ formula and the $y=$ formula):
+
+$$(a,b)\to\left(`r inva`~,~`r eqb`\right)$$
+
+Once the function transformations are expressed as a coordinate transformation, we can just follow the order of operations (PEMDAS), and the operations are all intuitive. Multiplication (by number more than 1) causes stretch; division causes shrink; addition or subtraction cause shifts. So, again, the correct answers are:
+
+* Horizontal transformations:
+    * `r ca1` `r ca2`
+    * `r ca3` `r ca4`
+* Vertical transformations:
+    * `r ca5` `r ca6`
+    * `r ca7` `r ca8`
+
+
 
 
 Meta-information
