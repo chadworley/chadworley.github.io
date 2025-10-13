@@ -1,0 +1,425 @@
+---
+output: html_document
+title: "Function Features and Intervals"
+author: "Mr. Worley"
+date: "Tues Oct 14"
+---
+
+# Function Features
+
+* **Domain**
+* **Range**
+* **Increasing/decreasing**
+* **Positive/negative**
+* Extrema (local and global minimums and maximums)
+    * We will cover these another day
+* Intercepts (with $x$ axis or $y$ axis)
+    * These you already know, and we will cover these another day.
+
+# Interval notation
+
+* Standard [interval notation](https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals) looks kind of like the notation we use for [Cartesian coordinates](https://en.wikipedia.org/wiki/Cartesian_coordinate_system).
+* Parentheses indicate an exclusive boundary.
+* Brackets indicate an inclusive boundary.
+* A union symbol ($\cup$) indicates a [union](https://en.wikipedia.org/wiki/Union_(set_theory)) of multiple intervals.
+* Examples:
+    * $(3,5)$ means all real numbers between 3 and 5, but NOT including the boundaries. As an inequality, $3<x<5$.
+    * $(3,5]$ means all real numbers between 3 and 5, but NOT including 3. As an inequality, $3<x\le 5$.
+    * $[3,5)$ means all real numbers between 3 and 5, but NOT including 5. As an inequality, $3\le x < 5$.
+    * $[3,5]$ means all real numbers between 3 and 5, including both boundaries. As an inequality, $3\le x \le 5$.
+    
+
+Using interval notation, express the real numbers highlighted on the number line below.
+
+```{r,echo=F,fig.dim=c(8,2)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-2,2),axes=F,ann=F)
+abline(h=0,lwd=1,col="black")
+for(i in -10:10){
+    lines(c(i,i),c(-0.5,0.5),col="black")
+    text(i,-0.8,i,col="black")
+}
+x = list(c(-9,-5),c(-3,0),c(1,6),c(7,8))
+fill = list(c("red","white"),c("red","red"),c("white","red"),c("white","white"))
+
+for(i in 1:length(x)){
+    xp = x[[i]]
+    lines(xp,c(0,0),col="red",lwd=4)
+    points(xp,c(0,0),pch=19,cex=1,col="red")
+    points(xp,c(0,0),pch=19,cex=0.7,col=fill[[i]])
+}
+```
+
+>* \
+$$[-9,-5) ~\cup~ [-3,0] ~\cup~ (1,6] ~\cup~ (7,8)$$
+
+# Domain of a function
+
+* The [domain](https://en.wikipedia.org/wiki/Domain_of_a_function) of a function describes the set of possible inputs (the possible $x$ values).
+* Using interval notation, express the domain of the function shown below.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid = function(){
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    for(i in -10:10){
+        lines(c(-10,10),c(i,i),col="grey",lwd=0.8)
+        lines(c(i,i),c(-10,10),col="grey",lwd=0.8)
+    }
+    for(i in seq(-10,10,5)){
+        lines(c(-10,10),c(i,i),col="darkgrey",lwd=1.5)
+        lines(c(i,i),c(-10,10),col="darkgrey",lwd=1.5)
+    }
+    abline(h=0,lwd=1.5)
+    abline(v=0,lwd=1.5)
+    text(10,-0.5,"10",col="black")
+    text(-0.5,10,"10",col="black")
+    text(-10,-0.5,"-10",col="black")
+    text(-0.5,-10,"-10",col="black")
+    text(10.5,0.5,"x")
+    text(0.5,10.5,"y")
+}
+mkgrid()
+
+x = list(c(-9,-7,-4),c(-2,1),c(5,7,8))
+y = list(c(-3,2,4),c(9,2),c(-5,-8,-4))
+fc = list(c("blue","blue","white"),
+          c("white","blue"),
+          c("blue","blue","blue"))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col="blue")
+    points(x[[i]],y[[i]],pch=19,col="blue")
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+```
+
+>* Imagine the function flattening onto the $x$ axis.
+
+>* \
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+x = list(c(-9,-7,-4),c(-2,1),c(5,7,8))
+y = list(c(-3,2,4),c(9,2),c(-5,-8,-4))
+fc = list(c("blue","blue","white"),
+          c("white","blue"),
+          c("blue","blue","blue"))
+fc2 = list(c("red","red","white"),
+          c("white","red"),
+          c("red","red","red"))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col="blue")
+    points(x[[i]],y[[i]],pch=19,col="blue")
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+    lines(x[[i]],rep(0,length(x[[i]])),lwd=4,col="red")
+    points(x[[i]],rep(0,length(x[[i]])),pch=19,col="red")
+    points(x[[i]],rep(0,length(x[[i]])),pch=19,cex=0.7,col=fc2[[i]])
+}
+```
+
+>* Domain: $$[-9,-4) ~\cup~ (-2,1) ~\cup~ [5,8]$$
+
+# Range of a function
+
+* The [range](https://en.wikipedia.org/wiki/Range_of_a_function) of a function describes the set of possible outputs (the possible $y$ values).
+* Using interval notation, express the range of the function shown below.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+
+x = list(c(-9,-7,-4),c(-2,1),c(5,7,8))
+y = list(c(-3,2,4),c(9,2),c(-5,-8,-4))
+fc = list(c("blue","blue","white"),
+          c("white","blue"),
+          c("blue","blue","blue"))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col="blue")
+    points(x[[i]],y[[i]],pch=19,col="blue")
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+```
+
+>* Imagine the function flattening onto the $y$ axis.
+
+>* \
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+x = list(c(-9,-7,-4),c(-2,1),c(5,7,8))
+y = list(c(-3,2,4),c(9,2),c(-5,-8,-4))
+fc = list(c("blue","blue","white"),
+          c("white","blue"),
+          c("blue","blue","blue"))
+x2 = list(c(0,0),c(0,0))
+y2 = list(c(-8,-4),c(-3,9))
+fc2 = list(c("red","red"),c("red","white"))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col="blue")
+    points(x[[i]],y[[i]],pch=19,col="blue")
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+for(i in 1:length(x2)){
+    lines(x2[[i]],y2[[i]],lwd=4,col="red")
+    points(x2[[i]],y2[[i]],pch=19,col="red")
+    points(x2[[i]],y2[[i]],pch=19,cex=0.7,col=fc2[[i]])}
+
+```
+
+>* Range: $$[-8,-4]~\cup~[-3,9)$$
+
+# Where is function INCREASING?
+
+* Follow curve left to right (like when reading English).
+* I imagine an ant hiking left to right along the mountain ridges.
+* If curve is going up, it is increasing.
+
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+
+x = list(c(-9,-7,-4),c(-2,1),c(5,7,8))
+y = list(c(-3,2,4),c(9,2),c(-5,-8,-4))
+fc = list(c("blue","blue","white"),
+          c("white","blue"),
+          c("blue","blue","blue"))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col="blue")
+    points(x[[i]],y[[i]],pch=19,col="blue")
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+
+```
+
+* Using function notation, express where the function is increasing. 
+* Notice, on functions, we indicate "where" with the $x$ values.
+
+>* \
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+
+x = list(c(-9,-7,-4),c(-2,1),c(5,7,8))
+y = list(c(-3,2,4),c(9,2),c(-5,-8,-4))
+fc = list(c("grey","grey","white"),
+          c("white","grey"),
+          c("grey","grey","grey"))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col="grey")
+    points(x[[i]],y[[i]],pch=19,col="grey")
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+x2 = list(c(-9,-7,-4),c(7,8))
+y2 = list(c(-3,2,4),c(-8,-4))
+fc2 = list(c("red","red","white"),
+          c("red","red"))
+for(i in 1:length(x2)){
+    lines(x2[[i]],y2[[i]],lwd=4,col="red")
+    points(x2[[i]],y2[[i]],pch=19,col="red")
+    points(x2[[i]],y2[[i]],pch=19,cex=0.7,col=fc2[[i]])
+}
+fc2 = list(c("purple","purple","white"),
+          c("purple","purple"))
+for(i in 1:length(x2)){
+    lines(x2[[i]],rep(0,length(x2[[i]])),lwd=4,col="purple")
+    points(x2[[i]],rep(0,length(x2[[i]])),pch=19,col="purple")
+    points(x2[[i]],rep(0,length(x2[[i]])),pch=19,cex=0.7,col=fc2[[i]])
+}
+```
+
+
+>* $$[-9,-4)~\cup~[7,8]$$
+
+>* Although, if we want to get into a debate, I'd personally argue it is better to not include endpoints in intervals of increase/decrease. You can read a thorough treatment of this discussion here: [https://www.themathdoctors.org/open-or-closed-intervals-it-depends/](https://www.themathdoctors.org/open-or-closed-intervals-it-depends/)
+
+>* In other words, I'd also accept $$(-9,-4)~\cup~(7,8)$$
+
+
+
+# Where is function DECREASING?
+
+* Follow curve left to right (like when reading English).
+* I imagine an ant hiking left to right along the mountain ridges.
+* If curve is going down, it is decreasing.
+
+
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+
+x = list(c(-9,-7,-4),c(-2,1),c(5,7,8))
+y = list(c(-3,2,4),c(9,2),c(-5,-8,-4))
+fc = list(c("blue","blue","white"),
+          c("white","blue"),
+          c("blue","blue","blue"))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col="blue")
+    points(x[[i]],y[[i]],pch=19,col="blue")
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+
+```
+
+
+
+
+* Using function notation, express where the function is increasing. 
+* Notice, on functions, we indicate "where" with the $x$ values.
+
+>* \
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+
+x = list(c(-9,-7,-4),c(-2,1),c(5,7,8))
+y = list(c(-3,2,4),c(9,2),c(-5,-8,-4))
+fc = list(c("grey","grey","white"),
+          c("white","grey"),
+          c("grey","grey","grey"))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col="grey")
+    points(x[[i]],y[[i]],pch=19,col="grey")
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+x2 = list(c(-2,1),c(5,7))
+y2 = list(c(9,2),c(-5,-8))
+fc2 = list(c("white","red"),
+          c("red","red"))
+for(i in 1:length(x2)){
+    lines(x2[[i]],y2[[i]],lwd=4,col="red")
+    points(x2[[i]],y2[[i]],pch=19,col="red")
+    points(x2[[i]],y2[[i]],pch=19,cex=0.7,col=fc2[[i]])
+}
+fc2 = list(c("white","purple"),
+          c("purple","purple"))
+for(i in 1:length(x2)){
+    lines(x2[[i]],rep(0,length(x2[[i]])),lwd=4,col="purple")
+    points(x2[[i]],rep(0,length(x2[[i]])),pch=19,col="purple")
+    points(x2[[i]],rep(0,length(x2[[i]])),pch=19,cex=0.7,col=fc2[[i]])
+}
+```
+
+
+>* $$(-2,1]~\cup~[5,7]$$
+
+>* Again, [we can argue](https://www.themathdoctors.org/open-or-closed-intervals-it-depends/) that the boundaries should not be included. So, I'd also accept $$(-2,1)~\cup~(5,7)$$
+
+# Where is function POSITIVE?
+
+* A function is positive where it is above the $x$ axis.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+
+x = list(c(-9,-6,-4,-1),c(3,6,8))
+y = list(c(-5,10,1,-2),c(4,-2,-3))
+c1 = "white"
+c2 = "blue"
+fc = list(c(c1,c2,c2,c1),
+          c(c2,c2,c2))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col=c2)
+    points(x[[i]],y[[i]],pch=19,col=c2)
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+```
+
+* Using function notation, express where the function is positive. 
+* (Remember, we are indicating $x$ values to denote "where" on a function.)
+
+>* \
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+
+x = list(c(-9,-6,-4,-1),c(3,6,8))
+y = list(c(-5,10,1,-2),c(4,-2,-3))
+c1 = "white"
+c2 = "grey"
+fc = list(c(c1,c2,c2,c1),
+          c(c2,c2,c2))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col=c2)
+    points(x[[i]],y[[i]],pch=19,col=c2)
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+
+x = list(c(-8,-6,-4,-3),c(3,5))
+y = list(c(0,10,1,-0),c(4,0))
+
+c2 = "red"
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col=c2)
+}
+points(3,4,col=c2,pch=19)
+```
+
+>* The function is positive when $x$ is within the intervals indicated below:
+$$(-8,-3)~\cup~[3,5)$$
+
+>* Notice I am not including the $x$ intercepts, because 0 is not positive.
+
+
+# Where is function NEGATIVE?
+
+* A function is negative where it is below the $x$ axis.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+
+x = list(c(-9,-6,-4,-1),c(3,6,8))
+y = list(c(-5,10,1,-2),c(4,-2,-3))
+c1 = "white"
+c2 = "blue"
+fc = list(c(c1,c2,c2,c1),
+          c(c2,c2,c2))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col=c2)
+    points(x[[i]],y[[i]],pch=19,col=c2)
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+```
+
+* Using function notation, express where the function is negative.
+
+>* \
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+mkgrid()
+
+x = list(c(-9,-6,-4,-1),c(3,6,8))
+y = list(c(-5,10,1,-2),c(4,-2,-3))
+c1 = "white"
+c2 = "grey"
+fc = list(c(c1,c2,c2,c1),
+          c(c2,c2,c2))
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col=c2)
+    points(x[[i]],y[[i]],pch=19,col=c2)
+    points(x[[i]],y[[i]],pch=19,cex=0.7,col=fc[[i]])
+}
+
+x = list(c(-9,-8),c(-3,-1),c(5,6,8))
+y = list(c(-5,0),c(0,-2),c(0,-2,-3))
+
+c2 = "red"
+for(i in 1:length(x)){
+    lines(x[[i]],y[[i]],lwd=4,col=c2)
+}
+points(-9,-5,col=c2,pch=19)
+points(-9,-5,col=c1,pch=19,cex=0.6)
+points(-1,-2,col=c2,pch=19)
+points(-1,-2,col=c1,pch=19,cex=0.6)
+points(8,-3,col=c2,pch=19)
+```
+
+>* The function is negative when $x$ is contained in the set of real numbers expressed below in interval notation:
+$$(-9,-8)~\cup~(-3,-1)~\cup~(5,8]$$
+
+>* Notice I am not including the $x$ intercepts, because 0 is not negative.
+
+

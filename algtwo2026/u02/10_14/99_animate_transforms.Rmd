@@ -1,0 +1,152 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+f = function(x){
+    return(x^3-x)
+}
+
+g = function(x,t){
+    return(f(x+t))
+}
+h = function(x,t){
+    return(f(x)+t)
+}
+m = function(x,t){
+    return(f(t*x))
+}
+n = function(x,t){
+    return(t*f(x))
+}
+
+t = c(seq(-10,10,2),seq(10,-10,-2))
+x = seq(-50,50,0.01)
+gt = list()
+ht = list()
+mt = list()
+nt = list()
+for(i in 1:length(t)){
+    gt[[i]] = g(x,t[i])
+    ht[[i]] = h(x,t[i])
+    mt[[i]] = m(x,t[i])
+    nt[[i]] = n(x,t[i])
+}
+
+lis = list(gt,ht,mt,nt)
+
+ord = sample(1:4)
+sol1 = paste0(1*(1:4==ord[1]),collapse="")
+sol2 = paste0(1*(1:4==ord[2]),collapse="")
+sol3 = paste0(1*(1:4==ord[3]),collapse="")
+sol4 = paste0(1*(1:4==ord[4]),collapse="")
+
+ach = c("g(x) = f(x+t)",
+       "h(x) = f(x)+t",
+       "m(x) = f(tx)",
+       "n(x) = t*f(x)"
+       )
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+Question
+========
+
+In [Desmos](https://www.desmos.com/calculator), define function $f$ with the equation below.
+$$f(x)~=~x^3-x$$
+
+Then, define the following four functions, and make a slider for $t$:
+$$g(x)=f(x+t)$$
+$$h(x)=f(x)+t$$
+$$m(x)=f(tx)$$
+$$n(x)=t\cdot f(x)$$
+
+When slider $t$ is animated, with domain (-10,10), those four functions will exhibit the four different behaviors shown below. Match the animations below to the four functions.
+
+### Animation 1
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(2,2)}
+for(i in 1:length(t)){
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    arrows(-10.3,0,10.3,0,0.1,10,3)
+    arrows(0,-10.3,0,10.3,0.1,10,3)
+    lines(x,lis[[ord[1]]][[i]],col="blue",lwd=2)
+}
+```
+\
+
+* Animation 1 matches ##ANSWER1##
+
+### Animation 2
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(2,2)}
+for(i in 1:length(t)){
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    arrows(-10.3,0,10.3,0,0.1,10,3)
+    arrows(0,-10.3,0,10.3,0.1,10,3)
+    lines(x,lis[[ord[2]]][[i]],col="blue",lwd=2)
+}
+```
+\
+
+* Animation 2 matches ##ANSWER2##
+
+### Animation 3
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(2,2)}
+for(i in 1:length(t)){
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    arrows(-10.3,0,10.3,0,0.1,10,3)
+    arrows(0,-10.3,0,10.3,0.1,10,3)
+    lines(x,lis[[ord[3]]][[i]],col="blue",lwd=2)
+}
+```
+\
+
+* Animation 3 matches ##ANSWER3##
+
+
+### Animation 4
+
+```{r,animation.hook="gifski",interval=0.2,echo=F,fig.dim=c(2,2)}
+for(i in 1:length(t)){
+    par(mar=c(0,0,0,0),pty="s")
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    arrows(-10.3,0,10.3,0,0.1,10,3)
+    arrows(0,-10.3,0,10.3,0.1,10,3)
+    lines(x,lis[[ord[4]]][[i]],col="blue",lwd=2)
+}
+```
+\
+
+* Animation 4 matches ##ANSWER4##
+
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+I'd recommend actually using Desmos as described. It should show you the answers.
+
+* Animation 1 matches `r ach[ord[1]]`
+* Animation 2 matches `r ach[ord[2]]`
+* Animation 3 matches `r ach[ord[3]]`
+* Animation 4 matches `r ach[ord[4]]`
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: stretch_graph
