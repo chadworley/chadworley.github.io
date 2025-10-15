@@ -1,0 +1,232 @@
+```{r,echo=F,results = "hide"}
+while(T){
+    xy = sample(-9:9,6)
+    x = sort(xy[1:3])
+    y = xy[4:6]
+    
+    xx1 = seq(x[1],x[2],1)
+    xx2 = seq(x[2],x[3],1)
+    yy1 = (y[2]-y[1])/(x[2]-x[1])*(xx1-x[1])+y[1]
+    yy2 = (y[3]-y[2])/(x[3]-x[2])*(xx2-x[2])+y[2]
+    xx = c(xx1,xx2)
+    yy = c(yy1,yy2)
+    
+    if(abs(sum(sign(y)))==1 && (sign(y[2])==sign(y[1]) || sign(y[2])==sign(y[3])) && sum(yy==0)==1 && (y[2]==max(y) || y[2]==min(y)) && x[3]-x[1]>4){break}
+}
+
+if(y[2]==max(y)){
+    mami = "maximum"
+    lp = "("
+    rp = "]"
+    incl = x[1]
+    incr = x[2]
+    decl = x[2]
+    decr = x[3]
+    col1 = "orange"
+    col1t = rgb(0.4,0.2,0)
+    tex1 = "increasing"
+    col2 = rgb(0,0.6,1)
+    col2t = rgb(0,0.1,0.5)
+    tex2 = "decreasing"
+    yy1 = 9.5
+    yy2 = -9.5
+}
+if(y[2]==min(y)){
+    mami = "minimum"
+    lp = "["
+    rp = ")"
+    incl = x[2]
+    incr = x[3]
+    decl = x[1]
+    decr = x[2]
+    col2 = "orange"
+    col2t = rgb(0.4,0.2,0)
+    tex2 = "increasing"
+    col1 = rgb(0,0.6,1)
+    col1t = rgb(0,0.1,0.5)
+    tex1 = "decreasing"
+    yy1 = -9.5
+    yy2 = 9.5
+}
+
+posl = min(xx[yy>=0])
+posr = max(xx[yy>=0])
+negl = min(xx[yy<=0])
+negr = max(xx[yy<=0])
+
+doml = x[1]
+domr = x[3]
+ranl = min(y)
+ranr = max(y)
+
+relx = x[2]
+rely = y[2]
+
+ach = -9:9
+al = paste0("* ",ach,collapse="\n")
+
+sols = c(posl,posr,
+         negl,negr,
+         incl,incr,
+         decl,decr,
+         doml,domr,
+         ranl,ranr)
+
+fal = paste0(rep(al,length(sols)),collapse="\n")
+
+sol = character()
+for(ss in sols){
+    sol = c(sol,paste0(1*(ach==ss),collapse=""))
+}
+
+fsol = paste0(sol,collapse="|")
+
+```
+
+
+Question
+========
+
+The graph of $y=f(x)$ is shown below.
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(xx,yy,"l",xlim=c(-10,10),ylim=c(-10,10))
+
+for(i in -10:10){
+    if(i%%5==0){
+        abline(h=i,col="darkgrey",lwd=1.2)
+        abline(v=i,col="darkgrey",lwd=1.2)
+    } else {
+        abline(h=i,col="lightgrey",lwd=0.8)
+        abline(v=i,col="lightgrey",lwd=0.8)
+    }
+}
+for(i in seq(-10,10,5)){
+    abline(h=i,col="darkgrey",lwd=1.2)
+    abline(v=i,col="darkgrey",lwd=1.2)
+}
+
+arrows(-10.3,0,10.3,0,0.1,10,3,lwd=3)
+arrows(0,-10.3,0,10.3,0.1,10,3,lwd=3)
+text(10,-0.5,10,cex=0.7)
+text(-10,-0.5,-10,cex=0.7)
+text(-0.5,10,10,cex=0.7)
+text(-0.5,-10,-10,cex=0.7)
+text(10,0.5,"x",cex=0.7)
+text(0.5,10,"y",cex=0.7)
+
+lines(xx,yy,lwd=4,col="blue")
+points(x,y,pch=20,col="blue",cex=1.6)
+points(x[c(1,3)],y[c(1,3)],pch=20,col="white",cex=0.9)
+# points(x,y,pch=20,col="white")
+
+```
+\
+
+```{css,echo=F}
+.smallsel select {
+    width: 5em;
+    margin: 0.5em;
+}
+```
+
+<div class="smallsel">
+
+Using [interval notation](https://en.wikipedia.org/wiki/Interval_(mathematics)#Notations_for_intervals), indicate the intervals described below. All but range indicate $x$ values, and range indicates $y$ values.
+
+1. Where is the function positive?
+* (##ANSWER1##, ##ANSWER2##)
+2. Where is the function negative?
+* (##ANSWER3##, ##ANSWER4##)
+3. Where is the function increasing?
+* (##ANSWER5##, ##ANSWER6##)
+4. Where is the function decreasing?
+* (##ANSWER7##, ##ANSWER8##)
+5. What is the domain of the function?
+* (##ANSWER9##, ##ANSWER10##)
+6. What is the range of the function?
+* `r lp`##ANSWER11##, ##ANSWER12##`r rp`
+
+</div>
+
+Answerlist
+--------
+
+`r fal`
+
+
+Solution
+========
+
+1. Interval where $f$ is positive = (`r posl`, `r posr`)
+2. Interval where $f$ is negative = (`r negl`, `r negr`)
+3. Interval where $f$ is increasing = (`r incl`, `r incr`)
+4. Interval where $f$ is decreasing = (`r decl`, `r decr`)
+5. Domain = (`r doml`, `r domr`)
+6. Range = `r lp``r ranl`, `r ranr``r rp`
+
+
+```{r,echo=F,fig.dim=c(6,6)}
+par(mar=c(0,0,0,0),pty="s")
+plot(xx,yy,"l",xlim=c(-10,10),ylim=c(-10,10))
+
+polygon(c(min(xx[yy>=0]),xx[yy>=0],max(xx[yy>=0])),c(0,yy[yy>=0],0),lwd=4,col=rgb(0.5,1,0.5),border=NA)
+polygon(c(min(xx[yy<=0]),xx[yy<=0],max(xx[yy<=0])),c(0,yy[yy<=0],0),lwd=4,col=rgb(1,0.5,0.7),border=NA)
+
+for(i in -10:10){
+    if(i%%5==0){
+        abline(h=i,col="darkgrey",lwd=1.2)
+        abline(v=i,col="darkgrey",lwd=1.2)
+    } else {
+        abline(h=i,col="lightgrey",lwd=0.8)
+        abline(v=i,col="lightgrey",lwd=0.8)
+    }
+}
+for(i in seq(-10,10,5)){
+    abline(h=i,col="darkgrey",lwd=1.2)
+    abline(v=i,col="darkgrey",lwd=1.2)
+}
+
+arrows(-10.3,0,10.3,0,0.1,10,3,lwd=3)
+arrows(0,-10.3,0,10.3,0.1,10,3,lwd=3)
+text(10,-0.5,10,cex=0.7)
+text(-10,-0.5,-10,cex=0.7)
+text(-0.5,10,10,cex=0.7)
+text(-0.5,-10,-10,cex=0.7)
+text(10,0.5,"x",cex=0.7)
+text(0.5,10,"y",cex=0.7)
+
+lines(x[c(1,2)],y[c(1,2)],lwd=6,col="black")
+lines(x[c(1,2)],y[c(1,2)],lwd=3,col=col1)
+lines(x[c(2,3)],y[c(2,3)],lwd=6,col="black")
+lines(x[c(2,3)],y[c(2,3)],lwd=3,col=col2)
+
+lines(c(min(xx[yy>=0]),max(xx[yy>=0])),c(10.5,10.5),lwd=10,col=rgb(0.5,1,0.5),lend=3)
+text(mean(c(min(xx[yy>=0]),max(xx[yy>=0]))),10.5,"positive",col=rgb(0,0.5,0))
+lines(c(min(xx[yy<=0]),max(xx[yy<=0])),c(-10.5,-10.5),lwd=10,col=rgb(1,0.5,0.7),lend=3)
+text(mean(c(min(xx[yy<=0]),max(xx[yy<=0]))),-10.5,"negative",col=rgb(0.5,0,0.2))
+lines(x[c(1,2)],c(yy1,yy1),lwd=10,col=col1,lend=3)
+text(mean(x[c(1,2)]),yy1,tex1,col=col1t)
+lines(x[c(2,3)],c(yy2,yy2),lwd=10,col=col2,lend=3)
+text(mean(x[c(2,3)]),yy2,tex2,col=col2t)
+
+points(x,y,pch=20,col="blue",cex=1.6)
+points(x[c(1,3)],y[c(1,3)],pch=20,col="white",cex=0.9)
+# points(x,y,pch=20,col="white")
+
+
+text(x,-0.5,x,cex=0.9)
+
+text(xx[yy==0],-0.5,xx[yy==0],cex=0.9)
+
+```
+\
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(sols)),collapse="|")`
+exsolution: `r fsol`
+exname: intervals_check
