@@ -1,0 +1,345 @@
+```{r data generation, echo = FALSE, results = "hide"}
+
+elements = c("+F","-F","[+F]F","[-F]F")
+strings = character()
+
+connections = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2){
+    switch = 1
+    d = angle_initial
+    x = 0
+    y = 0
+    xl = c(x)
+    yl = c(y)
+    dsave = numeric()
+    xsave = numeric()
+    ysave = numeric()
+    chs = strsplit(string,"")[[1]]
+    xl = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    yl = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    draw = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    draw[1]=1
+    j = 1
+    for(i in 1:nchar(string)){
+        ch = chs[i]
+        cn = as.integer(charToRaw(ch))
+        if(cn>=as.integer(charToRaw("A")) && cn<=as.integer(charToRaw("L"))){
+            j = j+1
+            draw[j] = 1
+            x = x+cos(d)
+            y = y+sin(d)
+            xl[j] = x
+            yl[j] = y
+        }
+        if(cn>=as.integer(charToRaw("M")) && cn<=as.integer(charToRaw("Z"))){
+            j = j+1
+            draw[j] = 0
+            x = x+cos(d)
+            y = y+sin(d)
+            xl[j] = x
+            yl[j] = y
+        }
+        if(cn==as.integer(charToRaw("["))){
+            dsave = c(dsave,d)
+            xsave = c(xsave,x)
+            ysave = c(ysave,y)
+        }
+        if(cn==as.integer(charToRaw("]"))){
+            j = j+1
+            draw[j] = 0
+            x = xsave[length(xsave)]
+            y = ysave[length(ysave)]
+            d = dsave[length(dsave)]
+            if(length(xsave)>1){
+                xsave = xsave[1:(length(xsave)-1)]
+                ysave = ysave[1:(length(ysave)-1)]
+                dsave = dsave[1:(length(dsave)-1)]
+            } else {
+                xsave = numeric()
+                ysave = numeric()
+                dsave = numeric()
+            }
+            xl[j] = x
+            yl[j] = y
+        }
+        if(cn==as.integer(charToRaw("-"))){
+            d = d+angle*switch
+        }
+        if(cn==as.integer(charToRaw("+"))){
+            d = d-angle*switch
+        }
+        if(cn==as.integer(charToRaw("."))){
+            switch = switch*(-1)
+        }
+    }
+    conns = character()
+    for(i in 2:length(xl)){
+        if(draw[i]){
+            conns = c(conns,paste0("(",round(xl[i-1]),",",round(yl[i-1]),")-(",round(xl[i]),",",round(yl[i]),")",collapse=""))
+            conns = c(conns,paste0("(",round(xl[i]),",",round(yl[i]),")-(",round(xl[i-1]),",",round(yl[i-1]),")",collapse=""))
+        }
+    }
+    conns = sort(conns)
+    print(conns)
+    return(conns)
+}
+
+
+
+xyd = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2){
+    switch = 1
+    d = angle_initial
+    x = 0
+    y = 0
+    xl = c(x)
+    yl = c(y)
+    dsave = numeric()
+    xsave = numeric()
+    ysave = numeric()
+    chs = strsplit(string,"")[[1]]
+    xl = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    yl = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    draw = numeric(sum(chs %in% LETTERS)+sum(chs=="]")+1)
+    draw[1]=1
+    j = 1
+    for(i in 1:nchar(string)){
+        ch = chs[i]
+        cn = as.integer(charToRaw(ch))
+        if(cn>=as.integer(charToRaw("A")) && cn<=as.integer(charToRaw("L"))){
+            j = j+1
+            draw[j] = 1
+            x = x+cos(d)
+            y = y+sin(d)
+            xl[j] = x
+            yl[j] = y
+        }
+        if(cn>=as.integer(charToRaw("M")) && cn<=as.integer(charToRaw("Z"))){
+            j = j+1
+            draw[j] = 0
+            x = x+cos(d)
+            y = y+sin(d)
+            xl[j] = x
+            yl[j] = y
+        }
+        if(cn==as.integer(charToRaw("["))){
+            dsave = c(dsave,d)
+            xsave = c(xsave,x)
+            ysave = c(ysave,y)
+        }
+        if(cn==as.integer(charToRaw("]"))){
+            j = j+1
+            draw[j] = 0
+            x = xsave[length(xsave)]
+            y = ysave[length(ysave)]
+            d = dsave[length(dsave)]
+            if(length(xsave)>1){
+                xsave = xsave[1:(length(xsave)-1)]
+                ysave = ysave[1:(length(ysave)-1)]
+                dsave = dsave[1:(length(dsave)-1)]
+            } else {
+                xsave = numeric()
+                ysave = numeric()
+                dsave = numeric()
+            }
+            xl[j] = x
+            yl[j] = y
+        }
+        if(cn==as.integer(charToRaw("-"))){
+            d = d+angle*switch
+        }
+        if(cn==as.integer(charToRaw("+"))){
+            d = d-angle*switch
+        }
+        if(cn==as.integer(charToRaw("."))){
+            switch = switch*(-1)
+        }
+    }
+    return(list(xl,yl,draw,x,y,d,xsave,ysave,dsave))
+}
+
+plotit = function(xyd,lwd=1,col="blue"){
+    x = xyd[[1]]
+    y = xyd[[2]]
+    d = xyd[[3]]
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    for(i in -10:10){
+        for(j in -10:10){
+            points(i,j,pch=19,cex=0.5,col="grey")
+        }
+    }
+    points(0,0,pch=19,cex=0.8,col="red")
+    starts = numeric()
+    if(d[1]){
+        starts = c(1)
+    }
+    starts = c(starts,which(diff(d)==1))
+    ends = which(diff(d)==-1)
+    if(d[length(d)]==1){
+        ends = c(ends,length(d))
+    }
+    for(i in 1:length(starts)){
+        lines(x[starts[i]:ends[i]],y[starts[i]:ends[i]],lwd=lwd,col=col)
+    }
+}
+
+plotit2 = function(xyd,lwd=1,col="blue"){
+    x = xyd[[1]]
+    y = xyd[[2]]
+    d = xyd[[3]]
+    plot(0,0,"n",xlim=c(-10,12),ylim=c(-11,11),axes=F,ann=F)
+    for(i in -10:10){
+        for(j in -10:10){
+            points(i,j,pch=19,cex=0.5,col="grey")
+        }
+    }
+    points(0,0,pch=19,cex=0.8,col="red")
+    starts = numeric()
+    if(d[1]){
+        starts = c(1)
+    }
+    starts = c(starts,which(diff(d)==1))
+    ends = which(diff(d)==-1)
+    if(d[length(d)]==1){
+        ends = c(ends,length(d))
+    }
+    for(i in 1:length(starts)){
+        lines(x[starts[i]:ends[i]],y[starts[i]:ends[i]],lwd=lwd,col=col)
+    }
+}
+
+conns = character()
+for(jjj in 1:6){
+    while(T){
+        start = "F"
+        s = start
+        for(i in 1:4){
+            s2 = strsplit(s,"")[[1]]
+            nds = which(s2=="F")
+            ii = sample(nds,1)
+            s2[ii] = sample(elements,1)
+            s3 = paste0(s2,collapse="")
+            s3 = gsub("+-","",s3,fixed=T)
+            s3 = gsub("-+","",s3,fixed=T)
+            s3 = gsub("F","FF",s3,fixed=T)
+            s3 = gsub("-[","[",s3,fixed=T)
+            s3 = gsub("+[","[",s3,fixed=T)
+            s = s3
+        }
+        s = paste0("F",s,"F",collapse="")
+        s2 = strsplit(s,"")[[1]]
+        conn = connections(s)
+        xy = xyd(s)
+        x = xy[[1]]
+        y = xy[[2]]
+        if(sum(s2=="[")==sum(s2=="]") && !(s%in%strings) && length(unique(conn))==length(conn) && !(paste0(conn,collapse=";")%in%conns) && sum(s2=="[")<3 && sum(s2=="[")>0 && max(abs(c(x,y)))<10){break}
+    }
+    strings = c(strings,s)
+    conns = c(conns,paste0(conn,collapse=";"))
+}
+
+wo = sample(1:6,1)
+given = strings[wo]
+sol = paste0(1*(wo==1:6),collapse="")
+
+print(connections(strings[wo]))
+
+```
+
+Question
+========
+
+A turtle starts at the central red dot facing North. It uses the following commands:
+
+* Character `F` means drag pen **Forward**
+* Character `+` means turn 90° right (clockwise)
+* Character `-` means turn 90° left (counterclockwise)
+* Character `X` means hop forward without drawing
+* Character `[` means save current position at top of pile
+* Character `]` means teleport to saved position (use position at top of pile and remove that position from pile)
+
+Use the following command string:
+
+``r given``
+
+Which drawing is correct?
+
+```{r,echo=F,fig.dim=c(5,7)}
+par(mar=c(0,0,2,0),oma=c(0,0,0,0),pty="s",mfrow=c(3,2))
+plotit(xyd(strings[1],pi/2,pi/2),lwd=2,col="blue")
+box()
+mtext("A",3)
+plotit(xyd(strings[2],pi/2,pi/2),lwd=2,col="blue")
+box()
+mtext("B",3)
+plotit(xyd(strings[3],pi/2,pi/2),lwd=2,col="blue")
+box()
+mtext("C",3)
+plotit(xyd(strings[4],pi/2,pi/2),lwd=2,col="blue")
+box()
+mtext("D",3)
+plotit(xyd(strings[5],pi/2,pi/2),lwd=2,col="blue")
+box()
+mtext("E",3)
+plotit(xyd(strings[6],pi/2,pi/2),lwd=2,col="blue")
+box()
+mtext("F",3)
+```
+\
+
+Answerlist
+--------
+
+* A
+* B
+* C
+* D
+* E
+* F
+
+
+Solution
+========
+
+The correct answer is `r LETTERS[wo]`.
+
+
+```{r,echo=F,animation.hook='gifski',interval=0.3,fig.dim=c(5,5)}
+s = strings[wo]
+x = 0
+y = 0
+d = pi/2
+for(i in 1:nchar(s)){
+    par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+    ss = substr(s,1,i)
+    xyd1 = xyd(ss,pi/2,angle_initial=pi/2)
+    plotit2(xyd1,lwd=3,col=rgb(0,0,0))
+    text(-10,11,s,adj=c(0,0.5),col="grey")
+    text(-10,11,ss,adj=c(0,0.5))
+    x = xyd1[[4]]
+    y = xyd1[[5]]
+    d = xyd1[[6]]
+    xsave = round(xyd1[[7]],1)
+    ysave = round(xyd1[[8]],1)
+    dsave = xyd1[[9]]
+    arrows(x-cos(d)/4,y-sin(d)/4,x+cos(d)/4,y+sin(d)/4,0.1,15,2,col="darkgreen",lwd=5)
+    if(length(xsave)>0){
+        # text(-5,-9,paste0(rev(xsave),collapse="\n"),adj=c(0.5,0),col="red")
+        # text(0,-9,paste0(rev(ysave),collapse="\n"),adj=c(0.5,0),col="red")
+        # text(5,-9,paste0(rev(round(dsave/pi*180)),"°",collapse="\n"),adj=c(0.5,0),col="red")
+        for(i in 1:length(xsave)){
+            xs = xsave[i]
+            ys = ysave[i]
+            ds = dsave[i]
+            arrows(xs-cos(ds)/5,ys-sin(ds)/5,xs+cos(ds)/5,ys+sin(ds)/5,0.1,15,2,col="red",lwd=2)
+        }
+    }
+}
+```
+\
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: lsys_string
