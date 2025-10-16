@@ -5,15 +5,15 @@ outdir = "outcanvas"
 ### Entrance ticket
 pm = list("Lsys_string_long.Rmd",
           "Lsys_string_long.Rmd")
+
 exams2canvas(pm,
              n=n,
              dir=outdir,
-             points=c(4,4),
-             maxattempts = 6,
-             name="ET_1015_lsys_string_gen",
+             points=c(5,5),
+             maxattempts = 5,
+             name="ET_1016_L-sys_long_string",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
-
 
 # # Classwork 1
 # pm = list("asymp_exp.Rmd",

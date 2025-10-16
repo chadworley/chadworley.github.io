@@ -1,13 +1,13 @@
 library("exams")
 
-pppsss = c("Lsys_string_long.Rmd")
+pppsss = c("turtle_commands_B.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
     genname = strsplit(ppss,".",T)[[1]][1]
     probs = ppss
 
-    nvers = 12
+    nvers = 5
     ps = character(0)
     for(prob in probs){
       ps = c(ps,rep(prob,nvers))
