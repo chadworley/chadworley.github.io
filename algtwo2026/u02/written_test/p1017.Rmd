@@ -1,0 +1,243 @@
+---
+header-includes:
+   - \usepackage{array}
+output: pdf_document
+geometry: margin=1in
+urlcolor: blue
+params:
+    showsol: true
+---
+
+```{r,echo=F}
+dim = 4
+
+eq1 = "y=-\\log_2{\\left(1-\\frac{x}{3}\\right)}+1"
+eq2 = "y=\\frac{3}{x+5}-1"
+eq3 = "y=2^{1-\\frac{x}{3}}-4"
+eq4 = "y=-\\left|\\frac{x}{3}-1\\right|+2"
+
+```
+
+Name: \hrule
+
+# p1017
+
+1. Make an accurate graph, and describe locations of features.
+
+$$`r eq1`$$
+
+\vfill
+
+```{r,echo=F,fig.dim=c(dim,dim)}
+mkgrid = function(){
+    par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+    lim = 10
+    plot(0,0,"n",xlim=c(-lim*1.15,lim*1.15),ylim=c(-lim*1.2,lim*1.2),axes=F,ann=F)
+    for(i in -lim:lim){
+        lines(c(-lim,lim),c(i,i),col="grey",lwd=0.3)
+        lines(c(i,i),c(-lim,lim),col="grey",lwd=0.3)
+    }
+    for(i in seq(-lim,lim,5)){
+        lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+        lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+    }
+    arrows(-lim*1.1,0,lim*1.1,0,0.1,15,3,lwd=1.5)
+    arrows(0,-lim*1.1,0,lim*1.1,0.1,15,3,lwd=1.5)
+    text(5,-0.5,"5",col="darkgrey",cex=0.6)
+    text(10,-0.5,"10",col="darkgrey",cex=0.6)
+    text(-5,-0.5,"-5",col="darkgrey",cex=0.6)
+    text(-10,-0.5,"-10",col="darkgrey",cex=0.6)
+    text(10,0,"x",adj=c(-0.1,-0.4),cex=0.8)
+    text(0.5,10,"y",adj=c(0.5,-0.1),cex=0.8)
+    for(i in c(-10,-5,5,10)){
+        polygon(c(i-0.4,i-0.4,i+0.4,i+0.4),c(-0.1,-0.9,-0.9,-0.1),col="white",border = NA)
+        text(i,-0.5,i,col="black",cex=0.6)
+        polygon(c(-0.1,-0.95,-0.95,-0.1),c(i-0.4,i-0.4,i+0.4,i+0.4),col="white",border = NA)
+        text(-0.5,i,i,col="black",cex=0.6)
+    }
+}
+mkgrid()
+```
+
+```{r,echo=F,results='asis'}
+mktab = function(){
+    cat("\\begin{tabular}{|m{0.8in}|m{3in}|}\\hline
+Feature & Where \\\\ \\hline \\hline
+Domain &  \\\\ [1.7em]  \\hline
+Range &  \\\\ [1.7em]  \\hline
+Positive &  \\\\  [1.7em]  \\hline
+Negative  &   \\\\ [1.7em]  \\hline
+Increasing & \\\\ [1.7em]  \\hline
+Decreasing &  \\\\ [1.7em]  \\hline
+Asymptote(s) &  \\\\ [1.7em]  \\hline
+\\end{tabular}")
+}
+mktab()
+```
+
+\newpage
+
+2. Make an accurate graph, and describe locations of the features.
+
+$$`r eq2`$$
+
+\vfill
+
+```{r,echo=F,fig.dim=c(dim,dim)}
+mkgrid = function(){
+    par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+    lim = 10
+    plot(0,0,"n",xlim=c(-lim*1.15,lim*1.15),ylim=c(-lim*1.2,lim*1.2),axes=F,ann=F)
+    for(i in -lim:lim){
+        lines(c(-lim,lim),c(i,i),col="grey",lwd=0.3)
+        lines(c(i,i),c(-lim,lim),col="grey",lwd=0.3)
+    }
+    for(i in seq(-lim,lim,5)){
+        lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+        lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+    }
+    arrows(-lim*1.1,0,lim*1.1,0,0.1,15,3,lwd=1.5)
+    arrows(0,-lim*1.1,0,lim*1.1,0.1,15,3,lwd=1.5)
+    text(5,-0.5,"5",col="darkgrey",cex=0.6)
+    text(10,-0.5,"10",col="darkgrey",cex=0.6)
+    text(-5,-0.5,"-5",col="darkgrey",cex=0.6)
+    text(-10,-0.5,"-10",col="darkgrey",cex=0.6)
+    text(10,0,"x",adj=c(-0.1,-0.4),cex=0.8)
+    text(0.5,10,"y",adj=c(0.5,-0.1),cex=0.8)
+    for(i in c(-10,-5,5,10)){
+        polygon(c(i-0.4,i-0.4,i+0.4,i+0.4),c(-0.1,-0.9,-0.9,-0.1),col="white",border = NA)
+        text(i,-0.5,i,col="black",cex=0.6)
+        polygon(c(-0.1,-0.95,-0.95,-0.1),c(i-0.4,i-0.4,i+0.4,i+0.4),col="white",border = NA)
+        text(-0.5,i,i,col="black",cex=0.6)
+    }
+}
+mkgrid()
+```
+
+```{r,echo=F,results='asis'}
+mktab = function(){
+    cat("\\begin{tabular}{|m{1in}|m{3in}|}\\hline
+Feature & Where \\\\ \\hline \\hline
+Domain &  \\\\ [1.7em]  \\hline
+Range &  \\\\ [1.7em]  \\hline
+Positive &  \\\\  [1.7em]  \\hline
+Negative  &   \\\\ [1.7em]  \\hline
+Increasing & \\\\ [1.7em]  \\hline
+Decreasing &  \\\\ [1.7em]  \\hline
+Asymptote(s) &  \\\\ [1.7em]  \\hline
+\\end{tabular}")
+}
+mktab()
+```
+
+\newpage
+
+3. Make an accurate graph, and describe locations of the features.
+
+$$`r eq3`$$
+
+\vfill
+
+```{r,echo=F,fig.dim=c(dim,dim)}
+mkgrid = function(){
+    par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+    lim = 10
+    plot(0,0,"n",xlim=c(-lim*1.15,lim*1.15),ylim=c(-lim*1.2,lim*1.2),axes=F,ann=F)
+    for(i in -lim:lim){
+        lines(c(-lim,lim),c(i,i),col="grey",lwd=0.3)
+        lines(c(i,i),c(-lim,lim),col="grey",lwd=0.3)
+    }
+    for(i in seq(-lim,lim,5)){
+        lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+        lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+    }
+    arrows(-lim*1.1,0,lim*1.1,0,0.1,15,3,lwd=1.5)
+    arrows(0,-lim*1.1,0,lim*1.1,0.1,15,3,lwd=1.5)
+    text(5,-0.5,"5",col="darkgrey",cex=0.6)
+    text(10,-0.5,"10",col="darkgrey",cex=0.6)
+    text(-5,-0.5,"-5",col="darkgrey",cex=0.6)
+    text(-10,-0.5,"-10",col="darkgrey",cex=0.6)
+    text(10,0,"x",adj=c(-0.1,-0.4),cex=0.8)
+    text(0.5,10,"y",adj=c(0.5,-0.1),cex=0.8)
+    for(i in c(-10,-5,5,10)){
+        polygon(c(i-0.4,i-0.4,i+0.4,i+0.4),c(-0.1,-0.9,-0.9,-0.1),col="white",border = NA)
+        text(i,-0.5,i,col="black",cex=0.6)
+        polygon(c(-0.1,-0.95,-0.95,-0.1),c(i-0.4,i-0.4,i+0.4,i+0.4),col="white",border = NA)
+        text(-0.5,i,i,col="black",cex=0.6)
+    }
+}
+mkgrid()
+```
+
+```{r,echo=F,results='asis'}
+mktab = function(){
+    cat("\\begin{tabular}{|m{1in}|m{3in}|}\\hline
+Feature & Where \\\\ \\hline \\hline
+Domain &  \\\\ [1.7em]  \\hline
+Range &  \\\\ [1.7em]  \\hline
+Positive &  \\\\  [1.7em]  \\hline
+Negative  &   \\\\ [1.7em]  \\hline
+Increasing & \\\\ [1.7em]  \\hline
+Decreasing &  \\\\ [1.7em]  \\hline
+Asymptote(s) &  \\\\ [1.7em]  \\hline
+\\end{tabular}")
+}
+mktab()
+```
+
+
+
+\newpage
+
+4. Make an accurate graph, and describe locations of the features.
+
+$$`r eq4`$$
+
+\vfill
+
+```{r,echo=F,fig.dim=c(dim,dim)}
+mkgrid = function(){
+    par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
+    lim = 10
+    plot(0,0,"n",xlim=c(-lim*1.15,lim*1.15),ylim=c(-lim*1.2,lim*1.2),axes=F,ann=F)
+    for(i in -lim:lim){
+        lines(c(-lim,lim),c(i,i),col="grey",lwd=0.3)
+        lines(c(i,i),c(-lim,lim),col="grey",lwd=0.3)
+    }
+    for(i in seq(-lim,lim,5)){
+        lines(c(-lim,lim),c(i,i),col="darkgrey",lwd=0.8)
+        lines(c(i,i),c(-lim,lim),col="darkgrey",lwd=0.8)
+    }
+    arrows(-lim*1.1,0,lim*1.1,0,0.1,15,3,lwd=1.5)
+    arrows(0,-lim*1.1,0,lim*1.1,0.1,15,3,lwd=1.5)
+    text(5,-0.5,"5",col="darkgrey",cex=0.6)
+    text(10,-0.5,"10",col="darkgrey",cex=0.6)
+    text(-5,-0.5,"-5",col="darkgrey",cex=0.6)
+    text(-10,-0.5,"-10",col="darkgrey",cex=0.6)
+    text(10,0,"x",adj=c(-0.1,-0.4),cex=0.8)
+    text(0.5,10,"y",adj=c(0.5,-0.1),cex=0.8)
+    for(i in c(-10,-5,5,10)){
+        polygon(c(i-0.4,i-0.4,i+0.4,i+0.4),c(-0.1,-0.9,-0.9,-0.1),col="white",border = NA)
+        text(i,-0.5,i,col="black",cex=0.6)
+        polygon(c(-0.1,-0.95,-0.95,-0.1),c(i-0.4,i-0.4,i+0.4,i+0.4),col="white",border = NA)
+        text(-0.5,i,i,col="black",cex=0.6)
+    }
+}
+mkgrid()
+```
+
+```{r,echo=F,results='asis'}
+mktab = function(){
+    cat("\\begin{tabular}{|m{1in}|m{3in}|}\\hline
+Feature & Where \\\\ \\hline \\hline
+Domain &  \\\\ [1.7em]  \\hline
+Range &  \\\\ [1.7em]  \\hline
+Positive &  \\\\  [1.7em]  \\hline
+Negative  &   \\\\ [1.7em]  \\hline
+Increasing & \\\\ [1.7em]  \\hline
+Decreasing &  \\\\ [1.7em]  \\hline
+Asymptote(s) &  \\\\ [1.7em]  \\hline
+\\end{tabular}")
+}
+mktab()
+```

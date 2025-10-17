@@ -422,7 +422,25 @@ g64 = list("A",
            7,
            60)
 
-goodies = list(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13,g14,g15,g16,g17,g18,g19,g20,g21,g22,g23,g24,g25,g26,g27,g28,g29,g30,g31,g32,g33,g34,g35,g36,g37,g38,g39,g40,g41,g42,g43,g44,g45,g46,g47,g48,g49,g50,g51,g52,g53,g54,g55,g56,g57,g58,g59,g60,g61,g62,g63,g64)
+g65 = list("X",
+           list("F"="FF",
+                "X"="F[+XXF+F][-XXF-F]FXX"),
+           4,
+           30)
+
+g66 = list("X",
+           list("F"="FF",
+                "X"="FF[+XFF+XF][-XFF-XF]FXX"),
+           4,
+           30)
+
+g67 = list("X",
+           list("F"="FF",
+                "X"="FF[+XFFX+XF][-XFFX-XF]FXXFX"),
+           3,
+           30)
+
+goodies = list(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13,g14,g15,g16,g17,g18,g19,g20,g21,g22,g23,g24,g25,g26,g27,g28,g29,g30,g31,g32,g33,g34,g35,g36,g37,g38,g39,g40,g41,g42,g43,g44,g45,g46,g47,g48,g49,g50,g51,g52,g53,g54,g55,g56,g57,g58,g59,g60,g61,g62,g63,g64,g65,g66,g67)
 
 
 showrules = function(g){
@@ -541,7 +559,7 @@ sol = paste0(1*(gs==gc),collapse="")
 Question
 ========
 
-Consider the $L$-system defined below:
+Consider the $L$-system (and angle) defined below:
 
 * Start:
 ``r goodies[[gc]][[1]]``
@@ -553,21 +571,23 @@ cat(showrules(goodies[[gc]]))
 * Number of recursions (number of iterations):
     * `r goodies[[gc]][[3]]`
 * Angle
-    * `r goodies[[gc]][[4]]`
+    * `r goodies[[gc]][[4]]`°
 
-When we use the resulting string to drive turtle graphics, using [https://draemm.li/various/fractals/l-systems/](https://draemm.li/various/fractals/l-systems/), what image is produced?
+When we use the resulting string (and angle) to drive turtle graphics, using [https://draemm.li/various/fractals/l-systems/](https://draemm.li/various/fractals/l-systems/), what image is produced?
 
-(You might need to adjust other parameters to get image rotated, centered, and scaled.)
+You can also use [this L-system string generator](https://chadworley.github.io/Lsys_string_gen.html) along with [Turbo Turtle](https://scratch.mit.edu/projects/1225522722/editor/) to generate the pattern.
 
-```{r,echo=F,fig.dim=c(6,12)}
-par(mfrow=c(4,2),pty="s",mar=c(2,2,2,2))
+(You will need to adjust other parameters to get image rotated, centered, and scaled.)
+
+```{r,echo=F,fig.dim=c(4,8)}
+par(mfrow=c(4,2),pty="s",mar=c(1,1.5,2,1.5))
 jj = 0
 for(i in gs){
     jj = jj+1
     s = getstr(goodies[[i]][[1]],goodies[[i]][[2]],goodies[[i]][[3]])
     angle = goodies[[i]][[4]]
     xyc = getxyc(s,angle/180*pi,angle_initial=initial_angle/180*pi,col=line_color)
-    makeplot(xyc,lwd=line_width)
+    makeplot(xyc,lwd=0.7)
     mtext(LETTERS[jj],3)
 }
 ```

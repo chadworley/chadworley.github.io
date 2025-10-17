@@ -1,17 +1,17 @@
 library("exams")
-n = 50
+n = 20
 outdir = "outcanvas"
 
 ### Entrance ticket
-pm = list("Lsys_string_long.Rmd",
-          "Lsys_string_long.Rmd")
+pm = list("turtle_commands_B.Rmd",
+          "turtle_commands_B.Rmd")
 
 exams2canvas(pm,
              n=n,
              dir=outdir,
              points=c(5,5),
              maxattempts = 5,
-             name="ET_1016_L-sys_long_string",
+             name="ET_1017_L-sys_turtle_pattern",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
 
