@@ -1,0 +1,610 @@
+g1 = list("A",
+          list("A"="B-A-B",
+               "B"="A+B+A"),
+          6,
+          60)
+g2 = list("A",
+          list("A"="A[+A][-A]B",
+               "B"="[--B][++B]A"),
+          5,
+          30)
+g3 = list("A",
+          list("A"="-B+B+B+B+B+B",
+               "B"="B[--CCA][-CCA]B",
+               "C"="CC"),
+          5,
+          60)
+g4 = list("A",
+          list("A"="[----AAB][--AAB][++AAB]AAB",
+               "B"="[-C][+C][--C][++C][---C][+++C]",
+               "C"="CAB"),
+          3,
+          45)
+
+g5 = list("A",
+          list("A"="[-AAB][--AAB][+AAB][++AAB]AAB",
+               "B"="[-C][+C][--C][++C]CA",
+               "C"="CC"),
+          3,
+          72)
+
+g6 = list("A",
+          list("A"="-B+B+B+B+B+B",
+               "B"="BB[-CCA]",
+               "C"="CC"),
+          5,
+          60)
+
+g7 = list("A",
+          list("A"="B+B+B+B+B",
+               "B"="[-CCA]BB",
+               "C"="CC"),
+          5,
+          72)
+
+g8 = list("A++++A",
+          list("A"="+A-B-B[B]",
+               "B"="-B+A+A[A]"),
+          5,
+          45)
+
+g9 = list("A++A",
+          list("A"="AB[-A][+A]",
+               "B"="A"),
+          6,
+          90)
+
+g10 = list("A+++A+++A+++A",
+           list("A"="B--B",
+                "B"="AA+++AA"),
+           7,
+           30)
+
+g11 = list("A",
+           list("A"="AB",
+                "B"="A[++C][--C]",
+                "C"="C[+C][-C]A"),
+           7,
+           45)
+
+g12 = list("A",
+           list("A"="X[-A][+A]AA",
+                "X"="XX"),
+           5,
+           60)
+
+g13 = list("A",
+           list("A"="X[-A][+A]A",
+                "X"="XX"),
+           6,
+           60)
+
+g14 = list("A++++++.A",
+           list("A"="B+B+B+B+B+B+B",
+                "B"="B[-CCA][+CCA]",
+                "C"="CC"),
+           5,
+           30)
+
+g15 = list("A",
+           list("A"="ABA",
+                "B"="[-BAB][+BAB]"),
+           6,
+           90)
+
+g16 = list("AA",
+           list("A"="ABA",
+                "B"="C[-BAB][+BAB]",
+                "C"="CC"),
+           5,
+           90)
+
+g17 = list("AA",
+           list("A"="B-AA-B",
+                "B"="A+B+A"),
+           6,
+           45)
+
+g18 = list("AA",
+           list("A"="B-AA-B",
+                "B"="AB+B+A"),
+           5,
+           90)
+
+g19 = list("AA",
+           list("A"="B-AA-B",
+                "B"="AB+B+AB"),
+           5,
+           90)
+
+g20 = list("A++A++A++A",
+           list("A"="B-CAC-B",
+                "B"="AB-BA",
+                "C"="CC"),
+           5,
+           135)
+
+g21 = list("A.A",
+           list("A"="BC",
+                "B"="B[+C][-C]",
+                "C"="CAD",
+                "D"="DD[+D+D][-D-D]"),
+           5,
+           60)
+
+g22 = list("A",
+           list("A"="B-ABA-B",
+                "B"="A+B+A"),
+           6,
+           72)
+
+g23 = list("A",
+           list("A"="B-ABA-B",
+                "B"="A+B+A"),
+           6,
+           90)
+
+g24 = list("A",
+           list("A"="B-ABA-B",
+                "B"="A+B+A"),
+           6,
+           120)
+
+g25 = list("A",
+           list("A"="B-ABA-B",
+                "B"="A+B+A"),
+           6,
+           108)
+
+g26 = list("A",
+           list("A"="B-ABA-B",
+                "B"="A+B+A"),
+           4,
+           135)
+
+g27 = list("A++A++A++A",
+           list("A"="B-ABA-B",
+                "B"="A+BB+A"),
+           4,
+           135)
+
+g28 = list("A",
+           list("A"="A[+A][-A]B",
+                "B"="A[--B][++B]B"),
+           6,
+           108)
+
+g29 = list("A",
+           list("A"="A[+A][-A]A[+B][-B]",
+                "B"="A[--B][++B]B"),
+           5,
+           60)
+
+g30 = list("A",
+           list("A"="A[+A][-A]A[+B][-B]",
+                "B"="A[--B][++B]B"),
+           5,
+           20)
+
+g31 = list("A",
+           list("A"="A[+A][-A]A[+B][-B]",
+                "B"="A[----B][++++B]B"),
+           5,
+           45)
+
+g32 = list("A",
+           list("A"="A[++A][--A]A[+B][-B]",
+                "B"="A[----B][++++B]B"),
+           5,
+           45)
+
+g33 = list("A",
+           list("A"="B++B++B++B++B",
+                "B"="B[-CCC-CC-CCA][----CC-CCB]B",
+                "C"="CC"),
+           5,
+           36)
+
+g34 = list("A",
+           list("A"="B++A++A++B",
+                "B"="AB[A-CC-CC-CCA]BA",
+                "C"="CC"),
+           5,
+           90)
+
+g35 = list("A++++XA",
+           list("A"="AA[-B][+B]B",
+                "B"="[---ABC][+++ABC]",
+                "C"="A[-CB][+CB]",
+                "X"="XX"),
+           5,
+           45)
+
+g36 = list("A+++XA",
+           list("A"="AA[-B][+B]B",
+                "B"="[--ABC][++ABC]",
+                "C"="A[-CB][+CB]",
+                "X"="XX"),
+           5,
+           60)
+
+g37 = list("[A]+[A]+[A]+[A]+[A]+[A]",
+           list("A"="AA[-B][+B]B",
+                "B"="[-ABC][+ABC]",
+                "C"="A[-CB][+CB]"),
+           4,
+           60)
+
+g38 = list("[A]+[A]+[A]+[A]+[A]",
+           list("A"="AA[-B][+B]B",
+                "B"="[-ABC][+ABC]",
+                "C"="A[-CB][+CB]"),
+           4,
+           72)
+
+g39 = list("[A]+[A]+[A]+[A]",
+           list("A"="AA[-B][+B]B",
+                "B"="[-ABC][+ABC]",
+                "C"="A[-CB][+CB]"),
+           4,
+           90)
+
+g40 = list("[A]+[A]+[A]",
+           list("A"="AA[-B][+B]B",
+                "B"="[-ABC][+ABC]",
+                "C"="A[-CB][+CB]"),
+           4,
+           120)
+
+g41 = list("A",
+           list("A"="C[+CA][CCCA][-CA]",
+                "C"="CC"),
+           6,
+           45)
+
+g42 = list("A",
+           list("A"="C[+CA][CCCCB][-CA]",
+                "B"="[++A][--A]",
+                "C"="CC"),
+           6,
+           45)
+
+g43 = list("[A]--[A]--[A]--[A]",
+           list("A"="C[+CB][CCA][-CB]",
+                "B"="CCC[+++A][---A]",
+                "C"="CA"),
+           4,
+           45)
+
+g44 = list("A",
+           list("A"="A[-DB][+DB]C",
+                "B"="DC[++DA][--DA]B",
+                "C"="[+++D][---D]A",
+                "D"="DD"),
+           6,
+           40)
+
+g45 = list("[A]+++[A]+++[A]",
+           list("A"="A[---XB][-XB][+XB][+++XB]",
+                "B"="XB[++XA][--XA]XA",
+                "X"="XX"),
+           4,
+           40)
+
+g46 = list("[A]+++[A]+++[A]",
+           list("A"="A[---XB][-XB][+XB][+++XB]",
+                "B"="XB[++XA][--XA]A",
+                "X"="XX"),
+           4,
+           40)
+
+g47 = list("A",
+           list("A"="[---B][-B][+B][+++B]",
+                "B"="BD[++DA][--DA]B",
+                "D"="DD"),
+           5,
+           45)
+
+g48 = list("A------A",
+           list("A"="[---B][-B][+B][+++B]",
+                "B"="BD[++DA][--DA]B",
+                "D"="DD"),
+           5,
+           30)
+
+g49 = list("A+A++++++A+A",
+           list("A"="[---B][-B][+B][+++B]",
+                "B"="BD[++DA][--DA]B",
+                "D"="DD"),
+           4,
+           30)
+
+g50 = list("A--A--A",
+           list("A"="A[-A]A"),
+           6,
+           60)
+
+g51 = list("B---A",
+           list("A"="A[-AB]A",
+                "B"="B[+BA]B"),
+           5,
+           60)
+
+g52 = list("[A][B]",
+           list("A"="[-XBA]A",
+                "B"="[+XAB]B",
+                "X"="XX"),
+           6,
+           30)
+
+g53 = list("[A][B]",
+           list("A"="C[-A-B]A",
+                "B"="C[+B+A]B",
+                "C"="CC"),
+           5,
+           30)
+
+g54 = list("[+A][-B]",
+           list("A"="[-CA-CB]A",
+                "B"="[+CB+CA]B",
+                "C"="CC"),
+           7,
+           30)
+
+g55 = list("[+A][-B]",
+           list("A"="[-CA-CB]A",
+                "B"="[+CB+CA]B",
+                "C"="CC"),
+           6,
+           90)
+
+g56 = list("[+A][-B]",
+           list("A"="[-CA-CB]A",
+                "B"="[+CB+CA]B",
+                "C"="CC"),
+           6,
+           120)
+
+g57 = list("[+A][-B]",
+           list("A"="[-CA-CB]A",
+                "B"="[+CB+CA]B",
+                "C"="CC"),
+           6,
+           150)
+
+g58 = list("[+A][-B]",
+           list("A"="[-CA-CB]CA",
+                "B"="[+CB+CA]CB",
+                "C"="CC"),
+           6,
+           150)
+
+g59 = list("A",
+           list("A"="XXX-B+BB+BB+BB+B",
+                "X"="XX",
+                "B"="B[-XXA]B"),
+           4,
+           90)
+
+g60 = list("A",
+           list("A"="XX[BBB+BB+B]A",
+                "X"="XX",
+                "B"="B[-XA][+XA]B"),
+           4,
+           30)
+
+g61 = list("A",
+           list("A"="XX[B+BB+BB+BB+B]",
+                "X"="XX",
+                "B"="BA"),
+           6,
+           90)
+
+g62 = list("A",
+           list("A"="XXX[B+BB+BB+B]",
+                "X"="XX",
+                "B"="BA"),
+           6,
+           120)
+
+g63 = list("A",
+           list("A"="X[-B+BB+BB+BB+BB+BB+B]",
+                "X"="XX",
+                "B"="X[+A-AA-AA-AA-AA-AA-A]"),
+           3,
+           10)
+
+g64 = list("A",
+           list("A"="B[-A][+A]",
+                "B"="[DA][--DA][++DA]",
+                "D"="DD"),
+           7,
+           60)
+
+g65 = list("X",
+           list("F"="FF",
+                "X"="F[+XXF+F][-XXF-F]FXX"),
+           4,
+           30)
+
+g66 = list("X",
+           list("F"="FF",
+                "X"="FF[+XFF+XF][-XFF-XF]FXX"),
+           4,
+           30)
+
+g67 = list("X",
+           list("F"="FF",
+                "X"="FF[+XFFX+XF][-XFFX-XF]FXXFX"),
+           3,
+           30)
+
+g68 = list("A",
+           list("A"="AA[-B][+B]B",
+                "B"="B[-ABC][+ABC]",
+                "C"="C[-CBA][+CBA]"),
+           4,
+           60)
+
+g69 = list("A",
+           list("A"="A[-BC][+BC]BC",
+                "B"="BB[-ABC][+ABC]",
+                "C"="CCC[-CBA][+CBA]"),
+           4,
+           60)
+
+g70 = list("GA",
+           list("A"="[---BC][+++BC]",
+                "B"="F[--AC][++AC]",
+                "C"="FF[-BA][+BA]",
+                "F"="FF",
+                "G"="F"),
+           5,
+           15)
+
+g71 = list("GA",
+           list("A"="[---BC][+++BC]",
+                "B"="[--AC][++AC]",
+                "C"="FF[-BA][+BA]",
+                "F"="FF",
+                "G"="F"),
+           5,
+           15)
+
+g72 = list("[A]------------[A]",
+           list("A"="[---BC][+++BC]",
+                "B"="[--AC][++AC]",
+                "C"="F[-BA][+BA]",
+                "F"="FF"),
+           5,
+           15)
+
+g73 = list("C",
+           list("A"="F[---BC][+++BC]",
+                "B"="F[-CA][+CA]",
+                "C"="[-AB][+AB]",
+                "F"="FF"),
+           6,
+           15)
+
+goodies = list(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13,g14,g15,g16,g17,g18,g19,g20,g21,g22,g23,g24,g25,g26,g27,g28,g29,g30,g31,g32,g33,g34,g35,g36,g37,g38,g39,g40,g41,g42,g43,g44,g45,g46,g47,g48,g49,g50,g51,g52,g53,g54,g55,g56,g57,g58,g59,g60,g61,g62,g63,g64,g65,g66,g67,g68,g69,g70,g71,g72,g73)
+
+
+getstr = function(start,rules,n){
+    st = start
+    for(jj in 1:n){
+        st2 = ""
+        for(i in 1:nchar(st)){
+            ch = substr(st,i,i)
+            if(!is.null(rules[[ch]])){
+                st2 = paste0(st2,rules[[ch]],collapse="")
+            } else {
+                st2 = paste0(st2,ch,collapse="")
+            }
+        }
+        st = st2
+    }
+    return(st)
+}
+getxyc = function(string="AA+AA+AA+A+A",angle=pi/2,angle_initial=pi/2,col="blue"){
+    switch = 1
+    d = angle_initial
+    x = 0
+    y = 0
+    xl = c(x)
+    yl = c(y)
+    cols = numeric()
+    dsave = numeric()
+    xsave = numeric()
+    ysave = numeric()
+    for(i in 1:nchar(string)){
+        ch = substr(string,i,i)
+        cn = as.integer(charToRaw(ch))
+        if(cn>=as.integer(charToRaw("A")) && cn<=as.integer(charToRaw("L"))){
+            cols = c(cols,col)
+            x = x+cos(d)
+            y = y+sin(d)
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn>=as.integer(charToRaw("M")) && cn<=as.integer(charToRaw("Z"))){
+            cols = c(cols,"NA")
+            x = x+cos(d)
+            y = y+sin(d)
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn==as.integer(charToRaw("["))){
+            dsave = c(dsave,d)
+            xsave = c(xsave,x)
+            ysave = c(ysave,y)
+        }
+        if(cn==as.integer(charToRaw("]"))){
+            cols = c(cols,"NA")
+            x = xsave[length(xsave)]
+            y = ysave[length(ysave)]
+            d = dsave[length(dsave)]
+            if(length(xsave)>1){
+                xsave = xsave[1:(length(xsave)-1)]
+                ysave = ysave[1:(length(ysave)-1)]
+                dsave = dsave[1:(length(dsave)-1)]
+            } else {
+                xsave = numeric()
+                ysave = numeric()
+                dsave = numeric()
+            }
+            xl = c(xl,x)
+            yl = c(yl,y)
+        }
+        if(cn==as.integer(charToRaw("-"))){
+            d = d-angle*switch
+        }
+        if(cn==as.integer(charToRaw("+"))){
+            d = d+angle*switch
+        }
+        if(cn==as.integer(charToRaw("."))){
+            switch = switch*(-1)
+        }
+    }
+    xwid = max(xl)-min(xl)
+    ywid = max(yl)-min(yl)
+    xmid = (max(xl)+min(xl))/2
+    ymid = (max(yl)+min(yl))/2
+    wid = max(c(xwid,ywid))
+    x2 = (xl-xmid)/wid*2
+    y2 = (yl-ymid)/wid*2
+    return(list(x2,y2,cols))
+}
+makeplot = function(xyc,lwd=1){
+    x = xyc[[1]]
+    y = xyc[[2]]
+    c = xyc[[3]]
+    plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+    for(i in 2:length(x)){
+        lines(c(x[i-1],x[i]),c(y[i-1],y[i]),col=c[i-1],lwd=lwd)
+    }
+}
+
+showrules = function(g){
+    rules = g[[2]]
+    pr = paste0(names(rules)," > ",rules,collapse="\n")
+    return(pr)
+}
+
+
+pdf("alldem.pdf",20,20)
+ncol = floor(sqrt(length(goodies)))
+nrow = (length(goodies) %/% ncol)+1
+par(mar=c(0,1,2,1),mfrow=c(nrow,ncol),pty="s")
+for(i in 1:length(goodies)){
+    g99 = goodies[[i]]
+    s = getstr(g99[[1]],g99[[2]],g99[[3]])
+    angle = g99[[4]]
+    xyc = getxyc(s,angle/180*pi,angle_initial=0/180*pi,col=line_color)
+    makeplot(xyc,lwd=1)
+    mtext(i,3)
+}
+dev.off()
+
+
+
