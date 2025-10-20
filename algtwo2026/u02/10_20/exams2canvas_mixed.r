@@ -3,14 +3,14 @@ n = 50
 outdir = "outcanvas"
 
 ### Entrance ticket
-pm = list("et01_intervals_check.Rmd")
+pm = list("et01_use_fsol_find_gsol.Rmd")
 
 exams2canvas(pm,
              n=n,
              dir=outdir,
              points=c(3),
              maxattempts = 6,
-             name="ET_1017",
+             name="ET_1020",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
 

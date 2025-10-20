@@ -1,0 +1,166 @@
+---
+output: pdf_document
+---
+
+```{r,echo=F}
+cex = 0.8
+pcex = 0.7
+
+mkgrid = function(){
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    for(i in -10:10){
+        lines(c(-10,10),c(i,i),col="grey",lwd=0.3)
+        lines(c(i,i),c(-10,10),col="grey",lwd=0.3)
+    }
+    # for(i in -10:10){
+    #     for(j in -10:10){
+    #         points(i,j,pch=19,cex=0.04,col="grey")
+    #     }
+    # }
+    for(i in seq(-10,10,5)){
+        lines(c(-10,10),c(i,i),col="darkgrey",lwd=0.7)
+        lines(c(i,i),c(-10,10),col="darkgrey",lwd=0.7)
+    }
+    arrows(-10.7,0,10.7,0,0.05,15,3,lwd=0.8)
+    arrows(0,-10.7,0,10.7,0.05,15,3,lwd=0.8)
+    text(10.4,-0.6,"a",cex=cex)
+    text(-0.6,10.4,"b",cex=cex)
+}
+```
+
+### Parent Functions on $(a,b)$ Planes
+
+\vfill
+
+```{r,echo=F,fig.dim=c(6.5,8.5),fig.align='center'}
+library(latex2exp)
+par(mar=c(1,1.5,2,1.5),oma=c(0,0,0,0),pty="s",mfrow=c(3,2))
+
+mkgrid()
+mtext(TeX("$b=|a|$"),3,cex=cex)
+x = seq(-10,10,0.1)
+y = abs(x)
+lines(x,y,lwd=1,col="blue")
+points(0,0,pch=19,cex=pcex,col="blue")
+
+
+mkgrid()
+mtext(TeX("$b=1/a$"),3,cex=cex)
+x1 = seq(-10,-1/10,0.01)
+y1 = 1/x1
+lines(x1,y1,lwd=1,col="blue")
+x2 = seq(1/10,10,0.01)
+y2 = 1/x2
+lines(x2,y2,lwd=1,col="blue")
+text(7.5,-1,"HA @ b=0",cex=cex)
+text(-1,7.5,"VA @ a=0",cex=cex,srt=90)
+xp = c(-1,1)
+yp = c(-1,1)
+points(xp,yp,pch=19,cex=pcex,col="blue")
+
+mkgrid()
+mtext(TeX("$b=a^2$"),3,cex=cex)
+x = seq(-sqrt(10),sqrt(10),0.01)
+y = x^2
+lines(x,y,lwd=1,col="blue")
+xp = -3:3
+yp = xp^2
+points(xp,yp,pch=19,cex=pcex,col="blue")
+
+mkgrid()
+mtext(TeX("$b=\\sqrt{a}$"),3,cex=cex)
+x = seq(0,10,0.01)
+y = sqrt(x)
+lines(x,y,lwd=1,col="blue")
+xp = c(0,1,4,9)
+yp = sqrt(xp)
+points(xp,yp,pch=19,cex=pcex,col="blue")
+
+
+mkgrid()
+mtext(TeX("$b=a^3$"),3,cex=cex)
+x = seq(-10^(1/3),10^(1/3),0.01)
+y = x^3
+lines(x,y,lwd=1,col="blue")
+xp = -2:2
+yp = xp^3
+points(xp,yp,pch=19,cex=pcex,col="blue")
+
+mkgrid()
+mtext(TeX("$b=\\sqrt[3]{a}$"),3,cex=cex)
+x = seq(-10,10,0.01)
+y = sign(x)*abs(x)^(1/3)
+lines(x,y,lwd=1,col="blue")
+yp = -2:2
+xp = yp^3
+points(xp,yp,pch=19,cex=pcex,col="blue")
+
+
+```
+
+\newpage
+
+```{r,echo=F,fig.dim=c(6.5,8.5),fig.align='center'}
+par(mar=c(1,1.5,2,1.5),oma=c(0,0,0,0),pty="s",mfrow=c(3,2))
+
+mkgrid()
+mtext(TeX("$b=2^a$"),3,cex=cex)
+x = seq(-10,log2(10),0.01)
+y = 2^x
+lines(x,y,lwd=1,col="blue")
+text(-7.5,-1,"HA @ b=0",cex=cex)
+xp = 0:3
+yp = 2^xp
+points(xp,yp,pch=19,cex=pcex,col="blue")
+
+mkgrid()
+mtext(TeX("$b=\\log_2(a)$"),3,cex=cex)
+y = seq(-10,log2(10),0.01)
+x = 2^y
+lines(x,y,lwd=1,col="blue")
+text(-1,-7.5,"VA @ a=0",cex=cex,srt=90)
+yp = 0:3
+xp = 2^yp
+points(xp,yp,pch=19,cex=pcex,col="blue")
+
+
+
+
+mkgrid()
+mtext(TeX("$b=3^a$"),3,cex=cex)
+x = seq(-10,log(10)/log(3),0.01)
+y = 3^x
+lines(x,y,lwd=1,col="blue")
+text(-7.5,-1,"HA @ b=0",cex=cex)
+xp = 0:3
+yp = 3^xp
+points(xp,yp,pch=19,cex=pcex,col="blue")
+
+mkgrid()
+mtext(TeX("$b=\\log_3(a)$"),3,cex=cex)
+y = seq(-10,log(10)/log(3),0.01)
+x = 3^y
+lines(x,y,lwd=1,col="blue")
+text(-1,-7.5,"VA @ a=0",cex=cex,srt=90)
+yp = 0:3
+xp = 3^yp
+points(xp,yp,pch=19,cex=pcex,col="blue")
+
+mkgrid()
+mtext(TeX("$b=\\sin(a)$"),3,cex=cex)
+x = seq(-10,10,0.01)
+y = sin(x)
+lines(x,y,lwd=1,col="blue")
+
+mkgrid()
+mtext(TeX("$b=\\cos(a)$"),3,cex=cex)
+x = seq(-10,10,0.01)
+y = cos(x)
+lines(x,y,lwd=1,col="blue")
+
+
+```
+
+\vfill
+
+
