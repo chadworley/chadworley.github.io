@@ -1,0 +1,151 @@
+```{r,echo=FALSE}
+options(scipen=999)
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+mfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("+{",cc,"}x^{",dd,"}",collapse="")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+### (x-h)^2+k
+hk = sample(2:9,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+## x^2-2hx+(h^2+k)
+A = -1
+B = 2*h
+C = -h^2+k
+### -(x-h)^2+k
+### -x^2+2hx-h^2+k
+A2 = 1
+B2 = -2*h
+C2 = h^2+k
+
+bl = c(B2,B,-B2,-B)
+cl = c(C2,C,-C2,-C)
+
+while(length(bl)<10 || length(cl)<10){
+    hki = sample(2:9,2)*sample(c(-1,1),2,T)
+    hi = hki[1]
+    ki = hki[2]
+    B2i = -2*hi
+    C2i = hi^2+ki
+    Bi = 2*hi
+    Ci = -hi^2+ki
+    if(length(bl)<10){
+        bl = sort(unique(c(bl,B2i,-B2i,Bi,-Bi)))
+    }
+    if(length(cl)<10){
+        cl = sort(unique(c(cl,C2i,-C2i,Ci,-Ci)))
+    }
+}
+
+sol1 = paste0(1*(B2==bl),collapse="")
+sol2 = paste0(1*(C2==cl),collapse="")
+
+al1 = paste0("* ",bl,collapse="\n")
+al2 = paste0("* ",cl,collapse="\n")
+
+
+```
+
+Question
+========
+
+A downward-facing [parabola](https://en.wikipedia.org/wiki/Parabola) $f$ is defined below.
+
+$$f(x)~=~`r pfix(c(A,B,C),2:0)`$$
+
+An upwards-facing parabola, $g$, is constructed such that $g$ and $f$ are mirror images with a shared vertex, as shown in the graph below.
+
+```{r,echo=F,fig.dim=c(6,3)}
+x = seq(-11,11,0.01)
+f = A*x^2+B*x+C
+g = A2*x^2+B2*x+C2
+
+par(mar=c(0,0,0,0),mfrow=c(1,2))
+plot(x,f,"n",xlim=c(-12,12),ylim=c(-12,12),axes=F,ann=F,col="blue")
+arrows(-12,0,12,0,0.1,15,3,lwd=2)
+arrows(0,-12,0,12,0.1,15,3,lwd=2)
+lines(x,f,col="blue",lwd=3)
+lines(x,g,col="red",lwd=3)
+text(12,-1,"x")
+text(-1,12,"y")
+points(h,k,pch=20,col="black",cex=1.2)
+points(h,k,pch=20,col="yellow",cex=0.8)
+plot(0,0,"n",axes=F,ann=F)
+legend("left",legend=c("y=f(x)","y=g(x)"),col=c("blue","red"),lwd=c(2,2))
+
+```
+\
+
+The second parabola, $g$, can be written in standard form with two parameters ($B$ and $C$).
+
+$$g(x)~=~x^2+Bx+C$$
+
+Find $B$ and $C$.
+
+* $B~=~$##ANSWER1##
+* $C~=~$##ANSWER2##
+
+
+Answerlist
+-------
+
+`r al1`
+`r al2`
+
+
+
+Solution
+========
+
+1. Find the vertex by completing the square. *(First factor out the negative to get a quadratic polynomial with a +1 leading coefficient.)*
+
+$$f(x)~=~-\left(`r pfix(c(1,-B,-C),2:0)`\right)$$
+
+$$\left(\frac{`r -B`}{2}\right)^2~=~`r round(B/2)^2`$$
+
+$$f(x)~=~-\left(`r pfix(c(1,-B,round(B/2)^2,-C,-round(B/2)^2),c(2,1,0,0,0))`\right)$$
+
+$$f(x)~=~-\left( (`r pfix(c(1,round(-B/2)),1:0)`)^2`r mfix(-C-round(-B/2)^2,0)` \right)$$
+
+
+$$f(x)~=~-(`r pfix(c(1,round(-B/2)),1:0)`)^2`r mfix(C+round(-B/2)^2,0)`$$
+
+2. The second parabola has the same vertex $(`r h`,`r k`)$, but it faces upwards. The general vertex form is $A(x-h)^2+k$. If $A$ is positive, the parabola faces upward, and if $A$ is negative, the parabola faces downward. If $|A|>1$, then the parabola gets stretched vertically. If $|A|<1$, then the parabola gets squished vertically. Anyway, in this case, we just need to switch the sign of $A$.
+
+$$g(x)~=~(`r pfix(c(1,round(-B/2)),1:0)`)^2`r mfix(C+round(-B/2)^2,0)`$$
+
+3. Expand to produce standard form.
+
+$$g(x)~=~`r pfix(c(1,2*round(-B/2),round(B/2)^2),2:0)``r mfix(C+round(-B/2)^2,0)`$$
+
+$$g(x)~=~`r pfix(c(1,2*round(-B/2),round(B/2)^2+C+round(-B/2)^2),2:0)`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: flip_parabola

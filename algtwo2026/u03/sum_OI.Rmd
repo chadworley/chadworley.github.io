@@ -1,0 +1,92 @@
+```{r,echo=F}
+abcd = sample(1:9,4,T)*sample(c(-1,1),4,T)
+
+p1 = prod(abcd[1:2])
+p2 = prod(abcd[3:4])
+
+OI = p1+p2
+
+s1 = paste0(p1)
+s2 = paste0(p2)
+if(p1<0){
+    s1 = paste0("(",p1,")")
+}
+if(p2<0){
+    s2 = paste0("(",p2,")")
+}
+
+nums = c(p1,p2,OI)
+
+
+```
+
+
+
+
+Question
+========
+
+Find the sum of the two integers.
+
+$$`r s1`+`r s2`$$
+
+
+Solution
+========
+
+I like to imagine 1-dimensional vectors on a [number line](https://en.wikipedia.org/wiki/Number_line#Comparing_numbers).
+
+First, let's picture $`r s1`$ and $`r s2`$ as 1-dimensional vectors over a number line.
+
+```{r,echo=F,fig.dim=c(6,2)}
+xmin = floor(min(c(nums-10,-10))/10)*10
+xmax = ceiling(max(c(nums+10,+10))/10)*10
+par(mar=c(4,0,0,0))
+plot(0,0,"n",xlim=c(xmin,xmax),ylim=c(0,1),axes=F,ann=F)
+axis(1)
+abline(v=0)
+arrows(0,0.66,p1,0.66,0.1,15,2,col="red",lwd=2)
+arrows(0,0.33,p2,0.33,0.1,15,2,col="blue",lwd=2)
+
+```
+\
+
+Then, move the second vector so its tail sits at the head of the first vector. Our answer is represented by the purple vector, pointing from 0 to the sum of `r s1` plus `r s2`, which is `r OI`.
+
+```{r,echo=F,fig.dim=c(6,2)}
+xmin = floor(min(c(nums-10,-10))/10)*10
+xmax = ceiling(max(c(nums+10,10))/10)*10
+par(mar=c(4,0,0,0))
+plot(0,0,"n",xlim=c(xmin,xmax),ylim=c(0,1),axes=F,ann=F)
+axis(1)
+abline(v=0)
+lines(c(p1,p1),c(0.75,0.5),lty=3)
+arrows(0,0.75,p1,0.75,0.1,15,2,col="red",lwd=2)
+arrows(p1,0.50,p1+p2,0.50,0.1,15,2,col="blue",lwd=2)
+arrows(0,0.25,p1+p2,0.25,0.1,15,2,col="purple",lwd=3)
+
+```
+\
+
+
+
+```{r,echo=F}
+lr1 = c("left","right")[round(sign(p1)/2+1.5)]
+lr2 = c("left","right")[round(sign(p2)/2+1.5)]
+lr3 = c("left","right")[round(sign(OI)/2+1.5)]
+```
+
+More simply, I think of negative addends as representing leftward movement and positive addends representing rightward movement.
+
+* An addend of $`r s1`$ represents moving **`r lr1`** by `r abs(p1)`.
+* An addend of $`r s2`$ represents moving **`r lr2`** by `r abs(p2)`.
+
+When we combine those two movements, we get a net movement of **`r lr3`** by `r abs(OI)`. Thus our answer is $`r OI`$.
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r OI`
+exname: sum_OI

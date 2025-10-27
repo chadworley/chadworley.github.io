@@ -1,0 +1,182 @@
+```{r,echo=F}
+# use sqrt, cbrt, cube, exp2, log2 for stretch/shift
+# use sqrt, exp2, log2 for reflections
+
+# shift left, right, up, down by distance 2
+# stretch vbig, vshrink, hbig, hshrink by factor 2
+# refl h, refl v
+# 10 total transformations...
+
+# 4 on page 1 and 6 on page 2?
+
+flv = c("\\sqrt{x}","\\sqrt[3]{x}","x^3","2^{x}","\\log_{2}\\left(x\\right)","x^2")
+flh = c("\\sqrt{x}","\\sqrt[3]{x}","\\left(x\\right)^3","2^{x}","\\log_{2}\\left(x\\right)","\\left(x\\right)^2")
+
+fs = list(function(x){sqrt(x)},
+          function(x){sign(x)*abs(x)^(1/3)},
+          function(x){x^3},
+          function(x){2^x},
+          function(x){log2(x)},
+          function(x){x^2})
+
+xas = list(NA,NA,NA,c(-10,10),c(0,0),NA)
+yas = list(NA,NA,NA,c(0,0),c(-10,10),NA)
+
+xls = list(seq(0,12,0.01),
+           seq(-12,12,0.01), 
+           seq(-3,3,0.01),
+           seq(-12,4,0.01),
+           seq(0.0001,10.0001,0.01),
+           seq(-4,4,0.01))
+xps = list(c(0,1,4,9),
+           c(-8,-1,0,1,8),
+           c(-3,-2,-1,0,1,2,3),
+           c(0,1,2,3),
+           c(1,2,4,8),
+           c(-3,-2,-1,0,1,2,3))
+yls = list()
+yps = list()
+for(i in 1:6){
+    yls[[i]] = fs[[i]](xls[[i]])
+    yps[[i]] = fs[[i]](xps[[i]])
+}
+
+ord1 = c(sample(c(1,4,5),2),sample(c(1:6,2,3,6),8))
+
+xl = list()
+yl = list()
+xp = list()
+yp = list()
+xa = list()
+ya = list()
+
+# vr, hr, l, r, u, d, hst, hsh, vst, vsh
+tex1 = paste0("y=-",flv[ord1[1]])
+xl[[1]] = xls[[ord1[1]]]
+yl[[1]] = -yls[[ord1[1]]]
+xp[[1]] = xps[[ord1[1]]]
+yp[[1]] = -yps[[ord1[1]]]
+xa[[1]] = xas[[ord1[1]]]
+ya[[1]] = -yas[[ord1[1]]]
+
+tex2 = paste0("y=",gsub("x","-x",flh[ord1[2]],fixed=T))
+xl[[2]] = -xls[[ord1[2]]]
+yl[[2]] = yls[[ord1[2]]]
+xp[[2]] = -xps[[ord1[2]]]
+yp[[2]] = yps[[ord1[2]]]
+xa[[2]] = -xas[[ord1[2]]]
+ya[[2]] = yas[[ord1[2]]]
+
+tex3 = paste0("y=",gsub("x","x+2",flh[ord1[3]],fixed=T))
+xl[[3]] = xls[[ord1[3]]]-2
+yl[[3]] = yls[[ord1[3]]]
+xp[[3]] = xps[[ord1[3]]]-2
+yp[[3]] = yps[[ord1[3]]]
+xa[[3]] = xas[[ord1[3]]]-2
+ya[[3]] = yas[[ord1[3]]]
+
+tex4 = paste0("y=",gsub("x","x-2",flh[ord1[4]],fixed=T))
+xl[[4]] = xls[[ord1[4]]]+2
+yl[[4]] = yls[[ord1[4]]]
+xp[[4]] = xps[[ord1[4]]]+2
+yp[[4]] = yps[[ord1[4]]]
+xa[[4]] = xas[[ord1[4]]]+2
+ya[[4]] = yas[[ord1[4]]]
+
+tex5 = paste0("y=",flv[ord1[5]],"+2")
+xl[[5]] = xls[[ord1[5]]]
+yl[[5]] = yls[[ord1[5]]]+2
+xp[[5]] = xps[[ord1[5]]]
+yp[[5]] = yps[[ord1[5]]]+2
+xa[[5]] = xas[[ord1[5]]]
+ya[[5]] = yas[[ord1[5]]]+2
+
+tex6 = paste0("y=",flv[ord1[6]],"-2")
+xl[[6]] = xls[[ord1[6]]]
+yl[[6]] = yls[[ord1[6]]]-2
+xp[[6]] = xps[[ord1[6]]]
+yp[[6]] = yps[[ord1[6]]]-2
+xa[[6]] = xas[[ord1[6]]]
+ya[[6]] = yas[[ord1[6]]]-2
+
+tex7 = paste0("y=",gsub("x","\\frac{x}{2}",flh[ord1[7]],fixed=T))
+xl[[7]] = xls[[ord1[7]]]*2
+yl[[7]] = yls[[ord1[7]]]
+xp[[7]] = xps[[ord1[7]]]*2
+yp[[7]] = yps[[ord1[7]]]
+xa[[7]] = xas[[ord1[7]]]*2
+ya[[7]] = yas[[ord1[7]]]
+
+tex8 = paste0("y=",gsub("x","2x",flh[ord1[8]],fixed=T))
+xl[[8]] = xls[[ord1[8]]]/2
+yl[[8]] = yls[[ord1[8]]]
+xp[[8]] = xps[[ord1[8]]]/2
+yp[[8]] = yps[[ord1[8]]]
+xa[[8]] = xas[[ord1[8]]]/2
+ya[[8]] = yas[[ord1[8]]]
+
+tex9 = paste0("y=2\\cdot ",flv[ord1[9]])
+xl[[9]] = xls[[ord1[9]]]
+yl[[9]] = yls[[ord1[9]]]*2
+xp[[9]] = xps[[ord1[9]]]
+yp[[9]] = yps[[ord1[9]]]*2
+xa[[9]] = xas[[ord1[9]]]
+ya[[9]] = yas[[ord1[9]]]*2
+
+tex10 = paste0("y=\\frac{",flv[ord1[10]],"}{2}")
+xl[[10]] = xls[[ord1[10]]]
+yl[[10]] = yls[[ord1[10]]]/2
+xp[[10]] = xps[[ord1[10]]]
+yp[[10]] = yps[[ord1[10]]]/2
+xa[[10]] = xas[[ord1[10]]]
+ya[[10]] = yas[[ord1[10]]]/2
+
+texes = c(tex1,tex2,tex3,tex4,tex5,tex6,tex7,tex8,tex9,tex10)
+
+ord2 = sample(1:10)
+
+ach = c("vertical reflection over $x$ axis",
+        "horizontal reflection over $y$ axis",
+        "translate left",
+        "translate right",
+        "translate up",
+        "translate down",
+        "horizontal stretch",
+        "horizontal shrink",
+        "vertical stretch",
+        "vertical shrink"
+        )
+
+al = paste0("* ",ach,collapse="\n")
+sol = paste0(1*(1:10==ord2[1]),collapse="")
+
+```
+
+
+Question
+========
+
+What type of parent-function transformation is shown by the equation below?
+
+$$`r texes[ord2[1]]`$$
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+The correct answer is `r ach[ord2[1]]`.
+
+
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: ID_1_trans

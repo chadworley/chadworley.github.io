@@ -1,0 +1,103 @@
+---
+header-includes:
+   - \usepackage{array}
+   - \usepackage{color}
+output: pdf_document
+params:
+    rseed: 1
+    showsol: false
+    titex: "Practice"
+urlcolor: blue
+---
+
+```{r,echo=F}
+set.seed(params$rseed)
+library(latex2exp)
+if(params$showsol){
+    solstart = ""
+    solend = "\\vfill"
+    hidesolstart = "<!---"
+    hidesolend = "-->"
+    showsol = T
+} else {
+    solstart = "<!---"
+    solend = "-->"
+    hidesolstart = ""
+    hidesolend = ""
+    showsol = F
+}
+```
+
+```{r,echo=F}
+pq = list()
+binpros = character()
+quads = character()
+
+make_quad = function(b,c){
+    exp = paste0("x^2+{",b,"}x+{",c,"}",collapse="")
+    exp = gsub("{1}x","x",exp,fixed=T)
+    exp = gsub("+{-1}x","-x",exp,fixed=T)
+    exp = gsub("+{0}x","",exp,fixed=T)
+    exp = gsub("+{0}","",exp,fixed=T)
+    exp = gsub("{","",exp,fixed=T)
+    exp = gsub("}","",exp,fixed=T)
+    exp = gsub("+-","-",exp,fixed=T)
+    return(exp)
+}
+
+while(length(pq)<10){
+    ab = sort(sample(c(-9:-1,1:9),2,T))
+    canadd = T
+    if(length(pq)>0){
+        for(i in 1:length(pq)){
+            if(sum(pq[[i]]==ab)==2){
+                canadd = F
+            }
+        }
+    }
+    if(canadd){
+        pq[[length(pq)+1]]=ab
+        ab = sample(ab)
+        binp = paste0("(x+",ab[1],")(x+",ab[2],")",collapse="")
+        binp = gsub("+-","-",binp,fixed=T)
+        binpros = c(binpros,binp)
+        quads = c(quads,make_quad(ab[1]+ab[2],ab[1]*ab[2]))
+    }
+}
+```
+
+
+Name: \hspace{4in} Date: \hfill \vspace{3pt} \hrule
+
+## FOIL and Factor `r params$titex` (version `r params$rseed`)
+
+### FOIL the expressions shown below:
+
+
+```{r,echo=F,results='asis'}
+for(i in 1:5){
+    cat(paste0(i,". $",binpros[i],"$\n\n\\vfill\n\n"))
+    if(params$showsol){
+        cat("\\color{red}$$")
+        cat(quads[i])
+        cat("$$ \\color{black}\n\n\\vfill\n\n")
+    }
+}
+
+```
+
+\newpage
+
+### Factor the expressions shown below:
+
+```{r,echo=F,results='asis'}
+for(i in 6:10){
+    cat(paste0(i,". $",quads[i],"$\n\n\\vfill\n\n"))
+    if(params$showsol){
+        cat("\\color{red}$$")
+        cat(binpros[i])
+        cat("$$ \\color{black}\n\n\\vfill\n\n")
+    }
+}
+
+```

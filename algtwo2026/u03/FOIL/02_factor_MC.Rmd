@@ -1,0 +1,134 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+pq = sample(c(-9:-1,1:9),2,T)
+p = pq[1]
+q = pq[2]
+a = 1
+b = p+q
+c = p*q
+
+exp = paste0("x^2+{",b,"}x+{",c,"}",collapse="")
+exp = gsub("{1}x","x",exp,fixed=T)
+exp = gsub("+{-1}x","-x",exp,fixed=T)
+exp = gsub("+{0}x","",exp,fixed=T)
+exp = gsub("+{0}","",exp,fixed=T)
+exp = gsub("{","",exp,fixed=T)
+exp = gsub("}","",exp,fixed=T)
+exp = gsub("+-","-",exp,fixed=T)
+
+z = -9:9
+alls = numeric()
+for(z1 in z){
+    for(z2 in z){
+        alls = c(alls,z1+z2,z1*z2)
+    }
+}
+alls = sort(unique(alls))
+al = paste0("* ",alls,collapse="\n")
+sol1 = paste0(1*(b==alls),collapse="")
+sol2 = paste0(1*(c==alls),collapse="")
+
+binom_prod = paste0("(x+",p,")(x+",q,")",collapse="")
+binom_prod = gsub("+-","-",binom_prod,fixed=T)
+
+cc = sort(c(p,q))
+wc = list(c(p,-q),
+          c(-p,q),
+          c(-p,-q),
+          c(p-1,q+1),
+          c(p+1,q-1),
+          c(-p+1,-q-1),
+          c(-p-1,-q+1),
+          c(p-2,q+2),
+          c(p+2,q-2),
+          c(-p+2,-q-2),
+          c(-p-2,-q+2),
+          c((p*q)%/%1,1),
+          c((p*q)%/%2,2),
+          c((p*q)%/%3,3),
+          c((p*q)%/%4,4),
+          c((p*q)%/%5,5),
+          c((p*q)%/%6,6),
+          c(-(p*q)%/%1,-1),
+          c(-(p*q)%/%2,-2),
+          c(-(p*q)%/%3,-3),
+          c(-(p*q)%/%4,-4),
+          c(-(p*q)%/%5,-5),
+          c(-(p*q)%/%6,-6),
+          sample(c(-9:-1,1:9),2),
+          sample(c(-9:-1,1:9),2),
+          sample(c(-9:-1,1:9),2),
+          sample(c(-9:-1,1:9),2),
+          sample(c(-9:-1,1:9),2)
+          )
+wcl = list()
+for(i in 1:length(wc)){
+    ww = sort(wc[[i]])
+    canadd = T
+    if(length(wcl)>0){
+        for(j in 1:length(wcl)){
+            if(sum(wcl[[j]]==ww)==2){
+                canadd=F
+            }
+        }
+    }
+    if(sum(ww==cc)<2 && canadd && min(abs(ww))>0 && max(abs(ww))<11){wcl[[length(wcl)+1]]=ww}
+}
+
+wcs = sample(wcl,5)
+
+ccshuff = sample(cc)
+ca = paste0("(x+",ccshuff[1],")(x+",ccshuff[2],")",collapse="")
+ca = gsub("+-","-",ca,fixed=T)
+
+wc1 = sample(wcs[[1]])
+wa1 = paste0("(x+",wc1[1],")(x+",wc1[2],")",collapse="")
+wa1 = gsub("+-","-",wa1,fixed=T)
+
+wc2 = sample(wcs[[2]])
+wa2 = paste0("(x+",wc2[1],")(x+",wc2[2],")",collapse="")
+wa2 = gsub("+-","-",wa2,fixed=T)
+
+wc3 = sample(wcs[[3]])
+wa3 = paste0("(x+",wc3[1],")(x+",wc3[2],")",collapse="")
+wa3 = gsub("+-","-",wa3,fixed=T)
+
+wc4 = sample(wcs[[4]])
+wa4 = paste0("(x+",wc4[1],")(x+",wc4[2],")",collapse="")
+wa4 = gsub("+-","-",wa4,fixed=T)
+
+wc5 = sample(wcs[[5]])
+wa5 = paste0("(x+",wc5[1],")(x+",wc5[2],")",collapse="")
+wa5 = gsub("+-","-",wa5,fixed=T)
+
+ach = sample(c(ca,wa1,wa2,wa3,wa4,wa5))
+sol = paste0(1*(ach==ca),collapse="")
+al = paste0("* $",ach,"$",collapse="\n")
+
+```
+
+Question
+========
+
+Factor $`r exp`$.
+
+Answerlist
+--------
+
+`r al`
+
+Solution
+========
+
+You can FOIL every option.
+
+In short, we need two numbers that add to `r b` and multiply to `r c`. Those numbers are `r ccshuff[1]` and `r ccshuff[2]`, so:
+
+$$`r ca`$$
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: factor_MC

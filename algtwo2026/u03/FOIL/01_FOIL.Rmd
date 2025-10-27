@@ -1,0 +1,77 @@
+```{r data generation, echo = FALSE, results = "hide",warning=FALSE}
+pq = sample(c(-9:-1,1:9),2,T)
+p = pq[1]
+q = pq[2]
+a = 1
+b = p+q
+c = p*q
+
+exp = paste0("x^2+{",b,"}x+{",c,"}",collapse="")
+exp = gsub("{1}x","x",exp,fixed=T)
+exp = gsub("+{-1}x","-x",exp,fixed=T)
+exp = gsub("+{0}x","",exp,fixed=T)
+exp = gsub("+{0}","",exp,fixed=T)
+exp = gsub("{","",exp,fixed=T)
+exp = gsub("}","",exp,fixed=T)
+exp = gsub("+-","-",exp,fixed=T)
+
+z = -9:9
+alls = numeric()
+for(z1 in z){
+    for(z2 in z){
+        alls = c(alls,z1+z2,z1*z2)
+    }
+}
+alls = sort(unique(alls))
+al = paste0("* ",alls,collapse="\n")
+sol1 = paste0(1*(b==alls),collapse="")
+sol2 = paste0(1*(c==alls),collapse="")
+
+binom_prod = paste0("(x+",p,")(x+",q,")",collapse="")
+binom_prod = gsub("+-","-",binom_prod,fixed=T)
+
+```
+
+Question
+========
+
+The equivalence below is true for any value of $x$.
+
+$$`r binom_prod` \equiv x^2+Bx+C$$
+
+Find $B$ and $C$.
+
+* $B=$ ##ANSWER1##
+* $C=$ ##ANSWER2##
+
+Answerlist
+--------
+
+`r al`
+`r al`
+
+
+Solution
+========
+
+FOIL!
+
+$$`r binom_prod`~\equiv~x^2+(`r q`)x+(`r p`)x+(`r p*q`)$$
+
+Combine like terms and simplify.
+
+$$`r binom_prod`~\equiv~`r exp`$$
+
+So,
+
+$$B=`r b`$$
+$$C=`r c`$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: FOIL

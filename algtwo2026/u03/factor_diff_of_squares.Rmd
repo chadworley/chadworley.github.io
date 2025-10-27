@@ -1,0 +1,168 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+pfix = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    p = gsub("-{1i}","-i",p,fixed=T)
+    p = gsub("+{1i}","+i",p,fixed=T)
+    return(p)
+}
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+while(T){
+    ab = sample(1:10,2)
+    a = ab[1]
+    b = ab[2]
+    if(gcd(a,b)==1){break}
+}
+A = a^2
+B = b^2
+
+ch = c(pfix(c(paste0(a),paste0(b,"i",collapse="")),1:0),
+       pfix(c(paste0(a),paste0(-b,"i",collapse="")),1:0),
+       pfix(c(paste0(a),paste0(b)),1:0),
+       pfix(c(paste0(a),paste0(-b)),1:0)
+       )
+
+chall = character()
+for(i in 1:4){
+    for(j in i:4){
+        ij = sample(c(i,j))
+        chall = c(chall,paste0("(",ch[ij[1]],")\\cdot(",ch[ij[2]],")",collapse=""))
+    }
+}
+
+ord = sample(1:10)
+al = paste0("* $f(x)~=~",chall[ord],"$",collapse="\n")
+sol = paste0(1*(ord==9),collapse="")
+
+```
+
+
+Question
+========
+
+Consider the quadratic function, $f(x)$, written in standard form:
+
+$$f(x)~=~`r pfix(c(A,-B),c(2,0))`$$
+
+The function $f(x)$ can be rewritten as a product of two linear factors. Which of the following shows $f(x)$ in factored form?
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+The correct answer is $f(x)=`r chall[9]`$.
+
+We can show the correct answer is correct by using multiplication.
+
+```{css,echo=F}
+.boxy td {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    border: 1px solid black;
+  }
+```
+
+<div class="boxy">
+
+| * | $`r a`x$ | $`r b`$ |
+|:---:|:---:|:---:|
+| $`r a`x$ | $`r A`x^2$ | $`r a*b`$ |
+| $`r -b`$ | $`r -a*b`$ | $`r -b^2`$ |
+
+</div>
+
+$$`r chall[9]` ~=~ `r A`x^2+`r a*b`x-`r a*b`x-`r b^2`$$
+
+Eliminate opposite terms.
+
+$$`r chall[9]` ~=~ `r A`x^2-`r b^2`$$
+
+
+This is a special case called a **difference of squares**. People usually memorize this as its own rule.
+
+$$(p^2x^2-q^2) ~\equiv~ (px-q)(px+q)$$
+
+or 
+
+$$(Mx^2-N) ~\equiv~ (\sqrt{M}\,x-\sqrt{N})(\sqrt{M}\,x+\sqrt{N})$$
+
+You could also use the quadratic formula. We know that factors of $f(x)$ are related to the solutions to the equation $f(x)=0$. We also know that we can solve $ax^2+bx+c=0$ for any values of $a$, $b$, and $c$ by using the quadratric formula.
+
+$$\text{If } ax^2+bx+c=0$$
+$$\text{then } x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$$
+
+First, solve $`r pfix(c(A,B),c(2,0))`=0$ using quadratic formula. In this case, $a=`r A`$ and $b=0$ and $c=`r -B`$.
+
+$$x~=~\frac{-0\pm\sqrt{0^2-4(`r A`)(`r -B`)}}{2(`r A`)}$$
+
+Simplify by getting rid of the 0 terms. Also a product with two negative factors is postive.
+
+$$x~=~\frac{\pm\sqrt{4(`r A`)(`r B`)}}{2(`r A`)}$$
+
+The factor of 4 under the radical is a perfect square. $4=2^2$, so $\sqrt{4}=2$. Also, $\sqrt{jk}\equiv\sqrt{j}\sqrt{k}$. You can know this based on exponent rules. Remember, $\sqrt{t}\equiv t^{1/2}$. In short, you can "pull out the 4 as a 2".
+
+$$x~=~\frac{\pm2\sqrt{(`r A`)(`r B`)}}{2(`r A`)}$$
+
+There is a common factor of 2 in numerator and denominator.
+
+
+$$x~=~\frac{\pm\sqrt{(`r A`)(`r B`)}}{`r A`}$$
+
+Here's a fun fact: $\frac{\sqrt{v}}{v} \equiv \frac{1}{\sqrt{v}}$. Use that property.
+
+$$x~=~\frac{\pm\sqrt{`r B`}}{\sqrt{`r A`}}$$
+
+Both `r B` and `r A` are perfect squares.
+
+$$x~=~\frac{\pm`r b`}{`r a`}$$
+
+You can get the factors (from those solutions) by getting the right side to equal 0. 
+
+* Multiply both sides by `r a`.
+
+$$`r a`x~=~\pm`r b`$$
+
+* Subtract $\pm`r b`$ from both sides.
+
+
+$$`r a`x\pm`r b`=0$$
+
+So,
+
+$$f(x)=`r chall[9]`$$
+
+Technically, this analysis just shows $f(x)=A`r chall[9]`$, but we know $A=1$ based on the answer choices.
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: factor_sum_of_squares

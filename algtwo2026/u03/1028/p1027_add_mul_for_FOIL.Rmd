@@ -1,0 +1,151 @@
+---
+output: pdf_document
+geometry: margin=1in
+urlcolor: blue
+params:
+    showsol: true
+    rseed: 0
+---
+
+```{r,echo=F}
+knitr::opts_chunk$set(echo = FALSE)
+if(params$rseed != 0){
+    set.seed(params$rseed)
+}
+library(latex2exp)
+
+nc1 = 3 #number of columns on page 1
+nr1 = 5
+nc2 = 3
+nr2 = 6
+
+nplus1 = floor(nc1*nr1/2)
+ntimes1 = nc1*nr1-nplus1
+ops1 = c(rep("+",nplus1),rep("*",ntimes1))
+sp1 = rep(1:4,ceiling(nplus1/4))
+st1 = rep(1:4,ceiling(ntimes1/4))
+sl1 = c(sample(sp1,nplus1),sample(st1,ntimes1))
+ord1 = sample(1:(nr1*nc1))
+
+nplus2 = ceiling(nc2*nr2/2)
+ntimes2 = nc2*nr2-nplus2
+ops2 = c(rep("+",nplus2),rep("*",ntimes2))
+sp2 = rep(1:4,ceiling(nplus2/4))
+st2 = rep(1:4,ceiling(ntimes2/4))
+sl2 = c(sample(sp2,nplus2),sample(st2,ntimes2))
+ord2 = sample((nr1*nc1+1):(nr1*nc1+nr2*nc2))
+
+ops = c(ops1,ops2)
+sl = c(sl1,sl2)
+ord = c(ord1,ord2)
+
+signs = list(c(-1,-1),c(-1,1),c(1,-1),c(1,1))
+
+ntot = nc1*nr1+nc2*nr2
+probs = character()
+sols = numeric()
+
+f = function(x){
+    if(x<0){
+        return(paste0("(",x,")"))
+    } else {
+        return(paste0(x))
+    }
+}
+
+for(i in 1:ntot){
+    op = ops[ord[i]]
+    if(op=="*"){
+        while(T){
+            a = sample(1:9,1)*signs[[sl[i]]][1]
+            b = sample(1:9,1)*signs[[sl[i]]][2]
+            c = a*b
+            prob1 = paste0(f(a),"\\cdot ",f(b))
+            prob2 = paste0(f(b),"\\cdot ",f(a))
+            prob3 = paste0(f(-a),"\\cdot ",f(-b))
+            prob4 = paste0(f(-b),"\\cdot ",f(-a))
+            if(!((prob1 %in% probs) || (prob2 %in% probs) ||  (prob3 %in% probs) ||  (prob4 %in% probs))){
+                break
+            }
+        }
+        probs = c(probs,prob1)
+        sols = c(sols,c)
+    }
+    if(op=="+" && i<=(nc1*nr1)){
+        while(T){
+            a = sample(1:9,1)*signs[[sl[i]]][1]
+            b = sample(1:9,1)*signs[[sl[i]]][2]
+            c = a+b
+            prob1 = paste0(f(a),"+",f(b))
+            prob2 = paste0(f(b),"+",f(a))
+            prob3 = paste0(f(-a),"+",f(-b))
+            prob4 = paste0(f(-b),"+",f(-a))
+            if(!((prob1 %in% probs) || (prob2 %in% probs) ||  (prob3 %in% probs) ||  (prob4 %in% probs))){
+                break
+            }
+        }
+        probs = c(probs,prob1)
+        sols = c(sols,c)
+    }
+    if(op=="+" && i>(nc1*nr1)){
+        while(T){
+            a = sample(1:9,1)*sample(1:9,1)*signs[[sl[i]]][1]
+            b = sample(1:9,1)*sample(1:9,1)*signs[[sl[i]]][2]
+            c = a+b
+            prob1 = paste0(f(a),"+",f(b))
+            prob2 = paste0(f(b),"+",f(a))
+            prob3 = paste0(f(-a),"+",f(-b))
+            prob4 = paste0(f(-b),"+",f(-a))
+            if(!((prob1 %in% probs) || (prob2 %in% probs) ||  (prob3 %in% probs) ||  (prob4 %in% probs))){
+                break
+            }
+        }
+        probs = c(probs,prob1)
+        sols = c(sols,c)
+    }
+}
+
+```
+
+Name: \vspace{5pt} \hrule
+
+## p1027: Add and Multiply Integers to Prepare for FOIL (v`r params$rseed`)
+
+```{r,fig.dim=c(6.5,8.2)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+for(i in 1:nc1){
+    for(j in 1:nr1){
+        ss = paste0("$",probs[i+(j-1)*nc1],"$")
+        tt = paste0("$",sols[i+(j-1)*nc1],"$")
+        text(c(0.1,0.5,0.9)[i],(nr1-j+1)/(nr1),TeX(ss))
+        if(params$showsol){
+            text(c(0.1,0.5,0.9)[i],(nr1-j+0.5)/(nr1),TeX(tt),col="red")
+        }
+    }
+}
+```
+
+\newpage
+
+
+```{r,fig.dim=c(6.5,9)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+for(i in 1:nc2){
+    for(j in 1:nr2){
+        kk = nr1*nc1+i+(j-1)*nc2
+        ss = paste0("$",probs[kk],"$")
+        tt = paste0("$",sols[kk],"$")
+        text(c(0.1,0.5,0.9)[i],(nr2-j+1)/(nr2),TeX(ss))
+        if(params$showsol){
+            text(c(0.1,0.5,0.9)[i],(nr2-j+0.5)/(nr2),TeX(tt),col="red")
+        }
+    }
+}
+```
+
+
+
+
+
