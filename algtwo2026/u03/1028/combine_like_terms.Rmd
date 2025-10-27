@@ -1,0 +1,113 @@
+```{r,echo=F}
+while(T){
+    coeffs = sample(c(-9:-1,1:9),9)
+    pows = sample(rep(0:2,3))
+    cnts = c()
+    lins = c()
+    quas = c()
+    for(i in 1:length(pows)){
+        if(pows[i]==0){
+            cnts = c(cnts,coeffs[i])
+        }
+        if(pows[i]==1){
+            lins = c(lins,coeffs[i])
+        }
+        if(pows[i]==2){
+            quas = c(quas,coeffs[i])
+        }
+    }
+    A = sum(quas)
+    B = sum(lins)
+    C = sum(cnts)
+    if(abs(A)<10 && abs(A)>1 && abs(B)<10 && abs(B)>1 && abs(C)<10 && abs(C)>1 && length(unique(abs(quas)))==3  && length(unique(abs(lins)))==3  && length(unique(abs(cnts)))==3 ){
+        break
+    }
+}
+
+pn = function(coeffs,pows){
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    return(ex1)
+}
+
+ex1 = pn(coeffs,pows)
+
+ach = -9:9
+sol1 = paste0(1*(ach==A),collapse="")
+sol2 = paste0(1*(ach==B),collapse="")
+sol3 = paste0(1*(ach==C),collapse="")
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+
+
+
+Question
+========
+
+Consider the function below.
+
+$$f(x)~=~`r ex1`$$
+
+By combining [like terms](https://en.wikipedia.org/wiki/Like_terms#Example), we can create a simplified [quadratic function](https://en.wikipedia.org/wiki/Quadratic_function) in standard form.
+
+$$f(x)~=~ax^2+bx+c$$
+
+Find the values of $a$, $b$, and $c$.
+
+* $a=$ ##ANSWER1##
+* $b=$ ##ANSWER2##
+* $c=$ ##ANSWER3##
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+Combine the quadratic terms. The quadratic coefficients are \{`r paste0(quas,collapse=" , ")`\}, and their sum is `r A`.
+
+$$`r pn(quas,c(2,2,2))`~\equiv~ `r A`x^2$$
+
+
+Combine the linear terms. The linear coefficients are \{`r paste0(lins,collapse=" , ")`\}, and their sum is `r B`.
+
+$$`r pn(lins,c(1,1,1))`~\equiv~ `r B`x$$
+
+
+Combine the constant terms.  The constant coefficients are \{`r paste0(cnts,collapse=" , ")`\}, and their sum is `r C`.
+
+$$`r pn(cnts,c(0,0,0))`~\equiv~ `r C`$$
+
+Thus, we can write the function in standard form.
+
+$$f(x)~=~`r pn(c(A,B,C),c(2,1,0))`$$
+
+We can now identify the values of $a$ and $b$ and $c$.
+
+$$a=`r A`$$
+$$b=`r B`$$
+$$c=`r C`$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: combine_like_terms

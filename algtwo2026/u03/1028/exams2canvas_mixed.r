@@ -1,34 +1,33 @@
 library("exams")
-n = 20
+n = 40
 outdir = "outcanvas"
 
 ### Entrance ticket
-pm = list("sum_OI.Rmd",
-          "sum_OI.Rmd",
-          "sum_OI.Rmd",
-          "sum_OI.Rmd",
-          "sum_OI.Rmd")
-exams2canvas(pm,
-             n=n,
-             dir=outdir,
-             points=c(1,1,1,1,1),
-             maxattempts = 6,
-             name="et1028",
-             template = "canvas_qti12.xml",
-             cloze = list(enumerate = FALSE))
-
-# # Classwork 1
-# pm = list("asymp_exp.Rmd",
-#           "asymp_log.Rmd",
-#           "asymp_recip.Rmd")
+# pm = list("sum_OI.Rmd",
+#           "sum_OI.Rmd",
+#           "sum_OI.Rmd",
+#           "sum_OI.Rmd",
+#           "sum_OI.Rmd")
 # exams2canvas(pm,
 #              n=n,
 #              dir=outdir,
-#              points=c(2,2,2),
-#              maxattempts = 8,
-#              name="OCW_0930_asymptote_shift",
+#              points=c(1,1,1,1,1),
+#              maxattempts = 6,
+#              name="et1028",
 #              template = "canvas_qti12.xml",
 #              cloze = list(enumerate = FALSE))
+
+# # Classwork 1
+pm = list("combine_like_terms.Rmd",
+          "combine_like_terms.Rmd")
+exams2canvas(pm,
+             n=n,
+             dir=outdir,
+             points=c(3,3),
+             maxattempts = 6,
+             name="c1028a_combine_like_terms",
+             template = "canvas_qti12.xml",
+             cloze = list(enumerate = FALSE))
 
 
 # Classwork 2
