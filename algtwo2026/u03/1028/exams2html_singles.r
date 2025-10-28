@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("combine_like_terms.Rmd")
+pppsss = c("multiply_2digits.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

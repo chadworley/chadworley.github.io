@@ -1,0 +1,286 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+---
+
+Name: \vspace{5pt} \hrule
+
+## p1028b: Combine Like Terms (v`r params$rseed`)
+
+```{r,echo=F}
+
+if(params$rseed !=0){
+    set.seed(params$rseed)
+}
+
+pn = function(coeffs,pows){
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    return(ex1)
+}
+
+```
+
+
+## Example
+
+
+```{r,echo=F}
+while(T){
+    coeffs = sample(c(-9:-1,1:9),10)
+    pows = c(sample(rep(0:2,3)),sample(0:2,1))
+    cnts = c()
+    lins = c()
+    quas = c()
+    for(i in 1:length(pows)){
+        if(pows[i]==0){
+            cnts = c(cnts,coeffs[i])
+        }
+        if(pows[i]==1){
+            lins = c(lins,coeffs[i])
+        }
+        if(pows[i]==2){
+            quas = c(quas,coeffs[i])
+        }
+    }
+    A = sum(quas)
+    B = sum(lins)
+    C = sum(cnts)
+    if(abs(A)>0 && abs(B)>0 && abs(C)>0){break}
+}
+
+ex1 = pn(coeffs,pows)
+```
+
+Combine like terms.
+$$`r ex1`$$
+
+\color{red}
+### Answer
+Combine the quadratic terms.
+
+$$`r pn(quas,c(2,2,2))`~\equiv~ `r A`x^2$$
+
+Combine the linear terms.
+
+$$`r pn(lins,c(1,1,1))`~\equiv~ `r B`x$$
+
+
+Combine the constant terms.
+
+$$`r pn(cnts,c(0,0,0))`~\equiv~ `r C`$$
+
+The final result:
+
+$$`r pn(c(A,B,C),c(2,1,0))`$$
+\color{black}
+
+\hrule
+
+## Question 1
+
+
+```{r,echo=F}
+while(T){
+    coeffs = sample(c(-9:-1,1:9),10)
+    pows = c(sample(rep(0:2,3)),sample(0:2,1))
+    cnts = c()
+    lins = c()
+    quas = c()
+    for(i in 1:length(pows)){
+        if(pows[i]==0){
+            cnts = c(cnts,coeffs[i])
+        }
+        if(pows[i]==1){
+            lins = c(lins,coeffs[i])
+        }
+        if(pows[i]==2){
+            quas = c(quas,coeffs[i])
+        }
+    }
+    A = sum(quas)
+    B = sum(lins)
+    C = sum(cnts)
+    if(abs(A)>0 && abs(B)>0 && abs(C)>0){break}
+}
+
+ex1 = pn(coeffs,pows)
+if(params$showsol){
+    ans = paste0("$$",pn(c(A,B,C),2:0),"$$")
+} else {
+    ans = ""
+}
+
+```
+
+
+Combine like terms.
+$$`r ex1`$$
+
+\vfill
+
+\color{red}
+`r ans`
+\color{black}
+
+\vfill
+
+\newpage
+
+
+## Question 2
+
+```{r,echo=F}
+while(T){
+    coeffs = sample(c(-9:-1,1:9),10)
+    pows = c(sample(rep(0:2,3)),sample(0:2,1))
+    cnts = c()
+    lins = c()
+    quas = c()
+    for(i in 1:length(pows)){
+        if(pows[i]==0){
+            cnts = c(cnts,coeffs[i])
+        }
+        if(pows[i]==1){
+            lins = c(lins,coeffs[i])
+        }
+        if(pows[i]==2){
+            quas = c(quas,coeffs[i])
+        }
+    }
+    A = sum(quas)
+    B = sum(lins)
+    C = sum(cnts)
+    if(abs(A)>0 && abs(B)>0 && abs(C)>0){break}
+}
+
+ex1 = pn(coeffs,pows)
+if(params$showsol){
+    ans = paste0("$$",pn(c(A,B,C),2:0),"$$")
+} else {
+    ans = ""
+}
+
+```
+
+
+
+Combine like terms.
+$$`r ex1`$$
+
+\vfill
+
+\color{red}
+`r ans`
+\color{black}
+
+\vfill
+
+
+## Question 3
+
+
+```{r,echo=F}
+while(T){
+    coeffs = sample(c(-9:-1,1:9),10)
+    pows = c(sample(rep(0:2,3)),sample(0:2,1))
+    cnts = c()
+    lins = c()
+    quas = c()
+    for(i in 1:length(pows)){
+        if(pows[i]==0){
+            cnts = c(cnts,coeffs[i])
+        }
+        if(pows[i]==1){
+            lins = c(lins,coeffs[i])
+        }
+        if(pows[i]==2){
+            quas = c(quas,coeffs[i])
+        }
+    }
+    A = sum(quas)
+    B = sum(lins)
+    C = sum(cnts)
+    if(abs(A)>0 && abs(B)>0 && abs(C)>0){break}
+}
+
+ex1 = pn(coeffs,pows)
+if(params$showsol){
+    ans = paste0("$$",pn(c(A,B,C),2:0),"$$")
+} else {
+    ans = ""
+}
+
+```
+
+
+Combine like terms.
+$$`r ex1`$$
+
+\vfill
+
+\color{red}
+`r ans`
+\color{black}
+
+\vfill
+
+
+
+## Question 4
+
+```{r,echo=F}
+while(T){
+    coeffs = sample(c(-9:-1,1:9),10)
+    pows = c(sample(rep(0:2,3)),sample(0:2,1))
+    cnts = c()
+    lins = c()
+    quas = c()
+    for(i in 1:length(pows)){
+        if(pows[i]==0){
+            cnts = c(cnts,coeffs[i])
+        }
+        if(pows[i]==1){
+            lins = c(lins,coeffs[i])
+        }
+        if(pows[i]==2){
+            quas = c(quas,coeffs[i])
+        }
+    }
+    A = sum(quas)
+    B = sum(lins)
+    C = sum(cnts)
+    if(abs(A)>0 && abs(B)>0 && abs(C)>0){break}
+}
+
+ex1 = pn(coeffs,pows)
+if(params$showsol){
+    ans = paste0("$$",pn(c(A,B,C),2:0),"$$")
+} else {
+    ans = ""
+}
+
+```
+
+
+Combine like terms.
+$$`r ex1`$$
+
+\vfill
+
+\color{red}
+`r ans`
+\color{black}
+
+\vfill
+
+
