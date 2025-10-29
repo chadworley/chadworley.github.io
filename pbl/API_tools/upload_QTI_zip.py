@@ -5,8 +5,9 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
   access_token = f.read()
 
 # Variables
-course_id = '1790'  # A= 1790...B=1769..
-file_path_list = ["outcanvas/ET_09_22_simplify_fractions.zip"]
+course_id = '1703'  # q2A= 1703...
+file_path_list = ["outcanvas/et1029.zip",
+"outcanvas/c1029_recognize_Frieze_group.zip"]
 
 ######## FOR UPLOADING ETS
 # fpl = []

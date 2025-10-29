@@ -1,0 +1,222 @@
+```{r,echo=F}
+myorder = sample(1:4)
+wrds = c("translation","rotation","glide","mirror")
+mywrds = wrds[myorder]
+
+al = paste0("* ",wrds,collapse="\n")
+sol1 = paste0(1*(myorder[1]==1:4),collapse="")
+sol2 = paste0(1*(myorder[2]==1:4),collapse="")
+sol3 = paste0(1*(myorder[3]==1:4),collapse="")
+sol4 = paste0(1*(myorder[4]==1:4),collapse="")
+
+getbasedots = function(fg=1,n=4){
+    if(fg<6){
+        x = runif(2*n)
+        y = runif(2*n)-0.5
+        h = runif(2*n)
+        p = sample(1:20,2*n)
+    } else {
+        x = runif(n)
+        y = runif(n)-0.5
+        h = runif(n)
+        p = sample(1:20,n)
+        x = c(x,x)
+        y = c(y,-y)
+        h = c(h,h)
+        p = c(p,p) 
+    }
+    dots = data.frame(x,y,h,p)
+    return(dots)
+}
+
+translate = function(dots,dx=1){
+    tdots = data.frame(dots)
+    tdots$x = dots$x+dx
+    return(tdots)
+}
+rotate = function(dots,xr){
+    tdots = data.frame(dots)
+    tdots$x = tdots$x-xr
+    tdots$x = -tdots$x+xr
+    tdots$y = -tdots$y
+    return(tdots)
+}
+glide = function(dots,dx){
+    tdots = data.frame(dots)
+    tdots$x = tdots$x+dx
+    tdots$y = -tdots$y
+    return(tdots)
+}
+mirror = function(dots,xr){
+    tdots = data.frame(dots)
+    tdots$x = tdots$x-xr
+    tdots$x = -tdots$x+xr
+    return(tdots)
+}
+
+```
+
+Question
+========
+
+There are 4 basic transformations in Frieze groups:
+
+* Translation
+* Rotation (by 180$^\circ$)
+* Glide reflection (reflect vertically then translate horizontally)
+* Mirror (reflect horizontally)
+
+I have depicted those four transformations here:
+
+```{r,echo=F,fig.dim=c(3,6)}
+
+lwd=3
+col="blue"
+
+par(mar=c(0,0,0,0),mfrow=c(4,1))
+mydots = data.frame(x=c(0.8,0.8,0.2,0.8),y=c(-0.4,0,0,0.4))
+plot(0,0,type="n",xlim=c(0,2),ylim=c(-0.5,0.5),axes=F,ann=F)
+lines(mydots$x,mydots$y,lwd=lwd,col=col)
+d2 = translate(mydots,1)
+lines(d2$x,d2$y,lwd=lwd,col=col)
+abline(v=1,lty=2)
+text(0.1,0.4,"translation",adj=0)
+abline(h=c(0.5,-0.5))
+abline(v=c(0,2))
+
+plot(0,0,type="n",xlim=c(0,2),ylim=c(-0.5,0.5),axes=F,ann=F)
+lines(mydots$x,mydots$y,lwd=lwd,col=col)
+d2 = rotate(mydots,1)
+lines(d2$x,d2$y,lwd=lwd,col=col)
+abline(v=seq(0,2,1),lty=2)
+points(1,0)
+text(0.1,0.4,"rotation",adj=0)
+abline(h=c(0.5,-0.5))
+abline(v=c(0,2))
+
+plot(0,0,type="n",xlim=c(0,2),ylim=c(-0.5,0.5),axes=F,ann=F)
+lines(mydots$x,mydots$y,lwd=lwd,col=col)
+d2 = glide(mydots,1)
+lines(d2$x,d2$y,lwd=lwd,col=col)
+abline(v=seq(0,2,1),lty=2)
+text(0.1,0.4,"glide",adj=0)
+abline(h=c(0.5,-0.5))
+abline(v=c(0,2))
+
+plot(0,0,type="n",xlim=c(0,2),ylim=c(-0.5,0.5),axes=F,ann=F)
+lines(mydots$x,mydots$y,lwd=lwd,col=col)
+d2 = mirror(mydots,1)
+lines(d2$x,d2$y,lwd=lwd,col=col)
+abline(v=seq(0,2,1),lty=2)
+text(0.1,0.4,"mirror",adj=0)
+abline(h=c(0.5,-0.5))
+abline(v=c(0,2))
+
+```
+\
+
+
+Label the four visual representations below:
+
+## Transformation 1
+
+```{r,echo=F,fig.dim=c(4,2)}
+par(mar=c(0,0,0,0))
+dots = getbasedots(1,6)
+funcs = list(translate(dots,1),rotate(dots,1),glide(dots,1),mirror(dots,1))
+d2 = funcs[[myorder[1]]]
+plot(0,0,type="n",xlim=c(0,2),ylim=c(-0.5,0.5),axes=F,ann=F)
+lines(dots$x,dots$y,lwd=lwd,col=col)
+lines(d2$x,d2$y,lwd=lwd,col=col)
+abline(v=seq(0,2,1),lty=2)
+abline(h=c(0.5,-0.5))
+abline(v=c(0,2))
+```
+\
+
+* ##ANSWER1##
+
+
+## Transformation 2
+
+```{r,echo=F,fig.dim=c(4,2)}
+par(mar=c(0,0,0,0))
+dots = getbasedots(1,6)
+funcs = list(translate(dots,1),rotate(dots,1),glide(dots,1),mirror(dots,1))
+d2 = funcs[[myorder[2]]]
+plot(0,0,type="n",xlim=c(0,2),ylim=c(-0.5,0.5),axes=F,ann=F)
+lines(dots$x,dots$y,lwd=lwd,col=col)
+lines(d2$x,d2$y,lwd=lwd,col=col)
+abline(v=seq(0,2,1),lty=2)
+abline(h=c(0.5,-0.5))
+abline(v=c(0,2))
+```
+\
+
+* ##ANSWER2##
+
+
+## Transformation 3
+
+```{r,echo=F,fig.dim=c(4,2)}
+par(mar=c(0,0,0,0))
+dots = getbasedots(1,6)
+funcs = list(translate(dots,1),rotate(dots,1),glide(dots,1),mirror(dots,1))
+d2 = funcs[[myorder[3]]]
+plot(0,0,type="n",xlim=c(0,2),ylim=c(-0.5,0.5),axes=F,ann=F)
+lines(dots$x,dots$y,lwd=lwd,col=col)
+lines(d2$x,d2$y,lwd=lwd,col=col)
+abline(v=seq(0,2,1),lty=2)
+abline(h=c(0.5,-0.5))
+abline(v=c(0,2))
+```
+\
+
+* ##ANSWER3##
+
+## Transformation 4
+
+```{r,echo=F,fig.dim=c(4,2)}
+par(mar=c(0,0,0,0))
+dots = getbasedots(1,6)
+funcs = list(translate(dots,1),rotate(dots,1),glide(dots,1),mirror(dots,1))
+d2 = funcs[[myorder[4]]]
+plot(0,0,type="n",xlim=c(0,2),ylim=c(-0.5,0.5),axes=F,ann=F)
+lines(dots$x,dots$y,lwd=lwd,col=col)
+lines(d2$x,d2$y,lwd=lwd,col=col)
+abline(v=seq(0,2,1),lty=2)
+abline(h=c(0.5,-0.5))
+abline(v=c(0,2))
+```
+\
+
+* ##ANSWER4##
+
+
+
+
+Answerlist
+--------
+
+`r al`
+`r al`
+`r al`
+`r al`
+
+
+Solution
+========
+
+* Transformation 1: `r mywrds[1]`.
+* Transformation 2: `r mywrds[2]`.
+* Transformation 3: `r mywrds[3]`.
+* Transformation 4: `r mywrds[4]`.
+
+`r myorder`
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`
+exname: tra_rot_gli_mir

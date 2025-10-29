@@ -34,7 +34,7 @@ Ac = [A1c,A2c,A3c,A4c]
 Save_pos = pag.Point(711,228)
 
 pag.click(switch_win_pos)
-for i in range(91,1000):
+for i in range(98,1000):
     ifn = "q{:03d}.png".format(i+1)
     ans = int(sols[i])
     pag.click(add_q_pos)
