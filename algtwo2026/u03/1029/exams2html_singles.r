@@ -1,6 +1,8 @@
 library("exams")
 
-pppsss = c("multiply_2digits.Rmd")
+pppsss = c("foil_get_a.Rmd",
+           "foil_get_b.Rmd",
+           "foil_get_c.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

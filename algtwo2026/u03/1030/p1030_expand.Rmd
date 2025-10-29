@@ -1,0 +1,202 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+---
+
+Name: \vspace{5pt} \hrule
+
+## p1029b: FOIL expansion of product of linear binomials (v`r params$rseed`)
+
+```{r,echo=F}
+if(params$rseed !=0){
+    set.seed(params$rseed)
+}
+
+pn = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+```
+
+The acronym FOIL stands for "Firsts, Outsides, Insides, Lasts". The FOIL method is often used to expand a product of two linear binomials. It reminds us that when we multiply two binomials, we need to add together all four possible products between the terms within each factor.
+
+For example, let's expand the following expression: $(2x+5)\cdot(3x+4)$.
+
+```{r,echo=F,fig.dim=c(6,2)}
+library(latex2exp)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-1,1),ylim=c(0,1),axes=F,ann=F)
+text(0,0.5,TeX("$(2x+5)(3x+4)$"),cex=1.5)
+
+x1 = -0.23
+x2 = 0.1
+y1 = 0.6
+y2 = 0.8
+xmid = mean(c(x1,x2))
+xr = abs(x2-xmid)
+x = seq(x1,x2,0.001)
+y = (y2-y1)*sqrt(((xr)^2-(x-xmid)^2)/xr^2)+y1
+lines(x,y,lwd=3,col="red")
+text(xmid,y2,"Firsts",col="red",adj=c(0.7,-0.2))
+
+x1 = -0.06
+x2 = 0.25
+y1 = 0.6
+y2 = 0.8
+xmid = mean(c(x1,x2))
+xr = abs(x2-xmid)
+x = seq(x1+0.0001,x2-0.0001,length.out=100)
+y = (y2-y1)*sqrt(((xr)^2-(x-xmid)^2)/xr^2)+y1
+lines(x,y,lwd=3,col="purple")
+text(xmid,y2,"Lasts",col="purple",adj=c(0.3,-0.2))
+
+x1 = -0.23
+x2 = 0.25
+y1 = 0.4
+y2 = 0.1
+xmid = mean(c(x1,x2))
+xr = abs(x2-xmid)
+x = seq(x1+0.0001,x2-0.0001,length.out=100)
+y = (y2-y1)*sqrt(((xr)^2-(x-xmid)^2)/xr^2)+y1
+lines(x,y,lwd=3,col="orange")
+text(xmid,y2,"Outsides",col="orange",adj=c(0.5,1.2))
+
+
+x1 = -0.06
+x2 = 0.1
+y1 = 0.4
+y2 = 0.3
+xmid = mean(c(x1,x2))
+xr = abs(x2-xmid)
+x = seq(x1+0.0001,x2-0.0001,length.out=100)
+y = (y2-y1)*sqrt(((xr)^2-(x-xmid)^2)/xr^2)+y1
+lines(x,y,lwd=3,col="blue")
+text(xmid,y2,"Insides",col="blue",adj=c(0.5,1.2))
+
+text(-1,0.8,TeX("Firsts= $6x^2$"),col="red",adj=c(0.2,0.5),cex=1.2)
+text(-1,0.6,TeX("Outsides= $8x$"),col="orange",adj=c(0.2,0.5),cex=1.2)
+text(-1,0.4,TeX("Insides= $15x$"),col="blue",adj=c(0.2,0.5),cex=1.2)
+text(-1,0.2,TeX("Lasts= $20$"),col="purple",adj=c(0.2,0.5),cex=1.2)
+
+answers = c(pn(c(6,23,20),c(2,1,0)))
+
+```
+
+Notice, the outsides' product and the insides' product are both linear, so we can combine the like terms to get our expanded expression (in standard form).
+
+$$6x^2+23x+20$$
+
+Use FOIL to expand the following products of linear binomials.
+
+\hrule
+
+```{r,echo=F}
+qn = 0
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+doit = function(){
+    cat("## Question ")
+    cat(qn)
+    cat("\n\nExpand the product of linear binomials. $(")
+    while(T){
+        ABCD = sample(1:9,4,T)*sample(c(-1,1),4,T)
+        A = ABCD[1]
+        B = ABCD[2]
+        C = ABCD[3]
+        D = ABCD[4]
+        exp1 = pn(c(A,B),1:0)
+        exp2 = pn(c(C,D),1:0)
+        exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+        exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+        if(!(exp4%in%answers)){break}
+    }
+    cat(exp1)
+    cat(")(")
+    cat(exp2)
+    cat(")$\n\n\\vfill\n\n")
+    if(params$showsol){
+        cat("\\color{red}$$")
+        cat(exp3)
+        cat("$$\n\n $$")
+        cat(exp4)
+        cat("$$\\color{black}")
+    }
+    cat("\n\n\\vfill\n\n")
+    return(exp4)
+}
+
+doitez = function(){
+    cat("## Question ")
+    cat(qn)
+    cat("\n\nExpand the product of linear binomials. $(")
+    while(T){
+        A = 1
+        B = sample(1:9,1)*sample(c(-1,1),1)
+        C = 1
+        D = sample(1:9,1)*sample(c(-1,1),1)
+        exp1 = pn(c(A,B),1:0)
+        exp2 = pn(c(C,D),1:0)
+        exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+        exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+        if(!(exp4%in%answers)){break}
+    }
+    cat(exp1)
+    cat(")(")
+    cat(exp2)
+    cat(")$\n\n\\vfill\n\n")
+    if(params$showsol){
+        cat("\\color{red}$$")
+        cat(exp3)
+        cat("$$\n\n $$")
+        cat(exp4)
+        cat("$$\\color{black}")
+    }
+    cat("\n\n\\vfill\n\n")
+    return(exp4)
+}
+answers = c(answers,doitez())
+```
+
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit())
+```
+
+
+\newpage
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doitez())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doitez())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit())
+```
+

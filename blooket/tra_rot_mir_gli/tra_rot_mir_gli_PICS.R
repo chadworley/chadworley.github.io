@@ -1,6 +1,10 @@
 library(latex2exp)
 # library(tinytex)
 
+set.seed(123)
+
+pchgood = c(0,1,3,4,5,7,8,9,10,11,12,13,15,16,18,19,20)
+
 sols = character()
 lwd = 7
 for(i in 1:1000){
@@ -32,8 +36,9 @@ for(i in 1:1000){
         lines(x,y,lwd=lwd,col=hsv(hue,1,0.8))
         lines(x2,y2,lwd=lwd,col=hsv(hue,1,0.8))
     } else {
-        points(x,y,pch=1:length(x),col=hsv((1:length(x))/length(x),1,1),cex=5,lwd=4)
-        points(x2,y2,pch=1:length(x),col=hsv((1:length(x))/length(x),1,1),cex=5,lwd=4)
+        pchs = sample(pchgood,length(x))
+        points(x,y,pch=pchs,col=hsv((1:length(x))/length(x),1,1),cex=5,lwd=4)
+        points(x2,y2,pch=pchs,col=hsv((1:length(x))/length(x),1,1),cex=5,lwd=4)
     }
     dev.off()
     sols = c(sols,trmg)
