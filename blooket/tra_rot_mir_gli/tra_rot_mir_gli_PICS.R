@@ -3,7 +3,7 @@ library(latex2exp)
 
 sols = character()
 lwd = 7
-for(i in 1:10){
+for(i in 1:1000){
     png(paste0("p1/q",sprintf("%03d",i),".png"),500,300)
     par(mar=c(0,0,0,0),oma=c(0,0,0,0))
     plot(0,0,"n",xlim=c(-10,10),ylim=c(-5,5),axes=F,ann=F)
@@ -28,8 +28,9 @@ for(i in 1:10){
         y2 = -y
     }
     if(pol==1){
-        lines(x,y,lwd=lwd)
-        lines(x2,y2,lwd=lwd)
+        hue = runif(1,0,1)
+        lines(x,y,lwd=lwd,col=hsv(hue,1,0.8))
+        lines(x2,y2,lwd=lwd,col=hsv(hue,1,0.8))
     } else {
         points(x,y,pch=1:length(x),col=hsv((1:length(x))/length(x),1,1),cex=5,lwd=4)
         points(x2,y2,pch=1:length(x),col=hsv((1:length(x))/length(x),1,1),cex=5,lwd=4)
