@@ -5,10 +5,11 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
   access_token = f.read()
 
 # Variables
-course_id = '1703'  ## ML=1945... PBL_Q2_ACE=1703... PBL_Q2_BD=
-file_path_list = ["outcanvas/u01_01_tra_rot_gli_mir.zip"]
+course_id = '1945'  ## ML=1945... PBL_Q2_ACE=1703... PBL_Q2_BD=
+file_path_list = ["outcanvas/et1028.zip","outcanvas/c1028a_box_mult_2digit_nums.zip"]
 
 ######## FOR UPLOADING ETS
+
 # fpl = []
 # for i in range(164,173):
 #     fpl.append("ET_"+str(i)+".zip")

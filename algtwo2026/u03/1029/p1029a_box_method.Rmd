@@ -1,0 +1,263 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+---
+
+Name: \vspace{5pt} \hrule
+
+## p1029: Box multiplication of linear binomials (v`r params$rseed`)
+
+```{r,echo=F}
+if(params$rseed !=0){
+    set.seed(params$rseed)
+}
+
+pn = function(coeffs,pows){
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    return(ex1)
+}
+
+```
+
+## Example
+
+Use the box method to multiply $(6x+3)$ and $(2x+4)$.
+
+```{r,echo=F,fig.dim=c(6,2.5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,8),ylim=c(2,8),axes=F,ann=F)
+
+lines(c(0,6),c(2,2),lwd=3)
+lines(c(0,6),c(4,4),lwd=1)
+lines(c(0,6),c(6,6),lwd=3)
+
+lines(c(2,2),c(2,8),lwd=3)
+lines(c(4,4),c(2,8),lwd=1)
+lines(c(6,6),c(2,8),lwd=3)
+
+text(3,7,"6x")
+text(5,7,3)
+text(1,5,"2x")
+text(1,3,4)
+text(1,7,"*")
+
+text(3,5,TeX("$12x^2$"),col="red")
+text(5,5,"6x",col="red")
+text(3,3,"24x",col="red")
+text(5,3,"12",col="red")
+
+text(7.2,6,TeX("$12x^2+6x+24x+12$"),col="red")
+
+text(7.2,4.6,"Combine",col="red")
+text(7.2,4,"like",col="red")
+text(7.2,3.4,"terms.",col="red")
+
+text(7.2,2,TeX("$12x^2+30x+12$"),col="red")
+
+tots = c("12x^2+30x+12")
+
+```
+
+ANSWER: \color{red} $12x^2+30x+12$ \color{black}
+
+
+\vfill
+
+## Question 1
+
+```{r,echo=F}
+while(T){
+    digits = sample(2:9,4)
+    A = digits[1]
+    B = digits[2]
+    C = digits[3]
+    D = digits[4]
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    if(!(exp4%in%tots)){break}
+}
+tots = c(tots,exp4)
+
+```
+
+Use the box method to multiply $(`r exp1`)$ and $(`r exp2`)$.
+
+```{r,echo=F,fig.dim=c(6,2.5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,8),ylim=c(2,8),axes=F,ann=F)
+lines(c(0,6),c(2,2),lwd=3)
+lines(c(0,6),c(4,4),lwd=1)
+lines(c(0,6),c(6,6),lwd=3)
+
+lines(c(2,2),c(2,8),lwd=3)
+lines(c(4,4),c(2,8),lwd=1)
+lines(c(6,6),c(2,8),lwd=3)
+
+text(3,7,TeX(paste0("$",pn(A,1),"$")))
+text(5,7,TeX(paste0("$",pn(B,0),"$")))
+text(1,5,TeX(paste0("$",pn(C,1),"$")))
+text(1,3,TeX(paste0("$",pn(D,0),"$")))
+# text(1,1,"TOTAL")
+# text(7,7,"TOTAL")
+
+text(1,7,"*")
+
+dasol = ""
+
+if(params$showsol){
+    text(3,5,TeX(paste0("$",A*C,"x^2$")),col="red")
+    text(5,5,TeX(paste0("$",B*C,"x$")),col="red")
+    text(3,3,TeX(paste0("$",A*D,"x$")),col="red")
+    text(5,3,TeX(paste0("$",B*D,"$")),col="red")
+    dasol = paste0("$",exp4,"$")
+    
+}
+
+```
+
+ANSWER: \color{red} `r dasol` \color{black}
+
+\vfill
+
+\newpage
+
+## Question 2
+
+```{r,echo=F}
+while(T){
+    digits = sample(2:9,4)*sample(c(-1,1),4,T)
+    A = digits[1]
+    B = digits[2]
+    C = digits[3]
+    D = digits[4]
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    if(!(exp4%in%tots) && length(unique(sign(digits)))==2){break}
+}
+tots = c(tots,exp4)
+
+```
+
+Use the box method to multiply $(`r exp1`)$ and $(`r exp2`)$.
+
+```{r,echo=F,fig.dim=c(6,2.5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,8),ylim=c(2,8),axes=F,ann=F)
+lines(c(0,6),c(2,2),lwd=3)
+lines(c(0,6),c(4,4),lwd=1)
+lines(c(0,6),c(6,6),lwd=3)
+
+lines(c(2,2),c(2,8),lwd=3)
+lines(c(4,4),c(2,8),lwd=1)
+lines(c(6,6),c(2,8),lwd=3)
+
+text(3,7,TeX(paste0("$",pn(A,1),"$")))
+text(5,7,TeX(paste0("$",pn(B,0),"$")))
+text(1,5,TeX(paste0("$",pn(C,1),"$")))
+text(1,3,TeX(paste0("$",pn(D,0),"$")))
+# text(1,1,"TOTAL")
+# text(7,7,"TOTAL")
+
+text(1,7,"*")
+
+dasol = ""
+
+if(params$showsol){
+    text(3,5,TeX(paste0("$",A*C,"x^2$")),col="red")
+    text(5,5,TeX(paste0("$",B*C,"x$")),col="red")
+    text(3,3,TeX(paste0("$",A*D,"x$")),col="red")
+    text(5,3,TeX(paste0("$",B*D,"$")),col="red")
+    dasol = paste0("$",exp4,"$")
+    
+}
+
+```
+
+ANSWER: \color{red} `r dasol` \color{black}
+
+\vfill
+
+## Question 3
+
+```{r,echo=F}
+while(T){
+    digits = sample(2:9,4)*sample(c(-1,1),4,T)
+    A = digits[1]
+    B = digits[2]
+    C = digits[3]
+    D = digits[4]
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    if(!(exp4%in%tots) && length(unique(sign(digits)))==2){break}
+}
+tots = c(tots,exp4)
+
+```
+
+Use the box method to multiply $(`r exp1`)$ and $(`r exp2`)$.
+
+```{r,echo=F,fig.dim=c(6,2.5)}
+library(latex2exp)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,8),ylim=c(2,8),axes=F,ann=F)
+lines(c(0,6),c(2,2),lwd=3)
+lines(c(0,6),c(4,4),lwd=1)
+lines(c(0,6),c(6,6),lwd=3)
+
+lines(c(2,2),c(2,8),lwd=3)
+lines(c(4,4),c(2,8),lwd=1)
+lines(c(6,6),c(2,8),lwd=3)
+
+# text(1,1,"TOTAL")
+# text(7,7,"TOTAL")
+
+text(1,7,"*")
+
+dasol = ""
+
+if(params$showsol){
+    text(3,7,TeX(paste0("$",pn(A,1),"$")),col="red")
+    text(5,7,TeX(paste0("$",pn(B,0),"$")),col="red")
+    text(1,5,TeX(paste0("$",pn(C,1),"$")),col="red")
+    text(1,3,TeX(paste0("$",pn(D,0),"$")),col="red")
+    text(3,5,TeX(paste0("$",A*C,"x^2$")),col="red")
+    text(5,5,TeX(paste0("$",B*C,"x$")),col="red")
+    text(3,3,TeX(paste0("$",A*D,"x$")),col="red")
+    text(5,3,TeX(paste0("$",B*D,"$")),col="red")
+    dasol = paste0("$",exp4,"$")
+    
+}
+
+```
+
+ANSWER: \color{red} `r dasol` \color{black}
+
+\vfill
