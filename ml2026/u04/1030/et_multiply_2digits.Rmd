@@ -1,0 +1,204 @@
+```{r,echo=FALSE}
+options(scipen=999)
+digits = sample(2:9,4)
+At = digits[1]
+Ao = digits[2]
+Bt = digits[3]
+Bo = digits[4]
+A = At*10+Ao
+B = Bt*10+Bo
+
+p1 = At*Bt
+p2 = Ao*Bt
+p3 = At*Bo
+p4 = Ao*Bo
+
+ch1 = c(1,10,100,1000)*p1
+ch2 = c(1,10,100,1000)*p2
+ch3 = c(1,10,100,1000)*p3
+ch4 = c(1,10,100,1000)*p4
+
+sol1 = "0010"
+sol2 = "0100"
+sol3 = "0100"
+sol4 = "1000"
+
+al1 = paste0("* ",ch1,collapse="\n")
+al2 = paste0("* ",ch2,collapse="\n")
+al3 = paste0("* ",ch3,collapse="\n")
+al4 = paste0("* ",ch4,collapse="\n")
+
+tot5 = 100*p1+10*p2
+tot6 = 10*p3+p4
+tot7 = 100*p1+10*p3
+tot8 = 10*p2+p4
+tot9 = A*B
+
+cht = sort(unique(c(tot5,tot6,tot7,tot8,tot9)))
+alt = paste0("* ",cht,collapse="\n")
+sol5 = paste0(1*(tot5==cht),collapse="")
+sol6 = paste0(1*(tot6==cht),collapse="")
+sol7 = paste0(1*(tot7==cht),collapse="")
+sol8 = paste0(1*(tot8==cht),collapse="")
+sol9 = paste0(1*(tot9==cht),collapse="")
+
+```
+
+
+Question
+========
+
+Let's consider an alternative way to multiply `r A` and `r B`.
+
+First, let's break each number into its tens and ones.
+
+$$`r A` ~~=~~ `r At*10`+`r Ao`$$
+$$`r B` ~~=~~ `r Bt*10`+`r Bo`$$
+
+Now, find all 4 indicated products. Also, find the totals.
+
+```{css,echo=F}
+.boxy td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 2em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy select {
+    width: 7em;
+    margin-bottom: 0.8em;
+    margin-top: 0.8em;
+    margin-right: 0.8em;
+    margin-left: 0.8em;
+}
+```
+
+<div class="boxy">
+
+|  \* | $`r At*10`$ | $`r Ao`$ | **total** |
+|:---:|:---:|:---:|:---:|
+|$`r Bt*10`$|##ANSWER1##|##ANSWER2##|##ANSWER5##|
+|$`r Bo`$|##ANSWER3##|##ANSWER4##|##ANSWER6##|
+| **total** |##ANSWER7## |##ANSWER8##|##ANSWER9##|
+
+</div>
+
+
+
+
+
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al3`
+`r al4`
+`r alt`
+`r alt`
+`r alt`
+`r alt`
+`r alt`
+
+
+
+
+Solution
+========
+
+$$`r A`\cdot `r B` = `r A*B`$$
+
+
+```{css,echo=F}
+.boxy td {
+    padding: 1em;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 1em;
+    color: black;
+    background-color: white;
+  }
+.boxy th {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 1em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+.boxy td:first-child {
+    background-color: rgb(200, 200, 200);
+    color: black;
+    padding: 1em;
+    font-size: 1em;
+    text-align: center;
+    border: 1px solid black;
+  }
+```
+
+<div class="boxy">
+
+|  \* | $`r At*10`$ | $`r Ao`$ | **total** |
+|:---:|:---:|:---:|:---:|
+|$`r Bt*10`$|`r At*Bt*100`|`r Ao*Bt*10`|`r tot5`|
+|$`r Bo`$|`r At*Bo*10`|`r Ao*Bo`|`r tot6`|
+| **total** |`r tot7`|`r tot8`|`r tot9`|
+
+</div>
+
+
+At some point I learned about the [multiplication by lines](https://www.mathnstuff.com/math/spoken/here/2class/60/bylines.htm) method. You'll notice there are `r At` lines above `r Ao` lines, both with positive slope. There are also `r Bt` lines above `r Bo` lines, both with negative slope. The number of intersections in the four corners are found with multiplication: $`r At`\cdot`r Bt`=`r p1`$ and $`r Ao`\cdot`r Bt`=`r p2`$ and $`r At`\cdot`r Bo`=`r p3`$  and $`r Ao`\cdot`r Bo`=`r p4`$.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),pty="s")
+plot(0,0,"n",xlim=c(-1,1),ylim=c(-1,1),axes=F,ann=F)
+
+for(i in 1:Ao){
+    abline(-0.6-0.05*Ao/2+0.05*i,1)
+}
+for(i in 1:At){
+    abline(0.6-0.05*At/2+0.05*i,1)
+}
+for(i in 1:Bo){
+    abline(-0.6-0.05*Bo/2+0.05*i,-1)
+}
+for(i in 1:Bt){
+    abline(0.6-0.05*Bt/2+0.05*i,-1)
+}
+
+text(0,0.9,paste0(At,"*",Bt," = ",At*Bt,"\n",At*10,"*",Bt*10," = ",At*Bt*100),col="red",cex=1.5)
+text(0.6,0.3,paste0(Ao,"*",Bt," = ",Ao*Bt,"\n",Ao,"*",Bt*10," = ",Ao*Bt*10),col="red",cex=1.5)
+text(-0.6,0.3,paste0(At,"*",Bo," = ",At*Bo,"\n",At*10,"*",Bo," = ",At*Bo*10),col="red",cex=1.5)
+text(0,-0.4,paste0(Ao,"*",Bo," = ",Ao*Bo),col="red",cex=1.5)
+
+```
+\
+
+$$`r p1*100` + `r p2*10` + `r p3*10` + `r p4` ~~=~~ `r A*B`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`|`r sol4`|`r sol5`|`r sol6`|`r sol7`|`r sol8`|`r sol9`
+exname: multiply_2digits
