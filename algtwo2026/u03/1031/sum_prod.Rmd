@@ -1,0 +1,69 @@
+```{r,echo=FALSE}
+ab = sample(c(-10:-1,1:10),2)
+a = ab[1]
+b = ab[2]
+
+s = a+b
+p = a*b
+
+ach = -10:10
+
+sol1 = 1*(ach==a)
+sol2 = 1*(ach==b)
+
+sol = sol1+sol2
+sol = paste0(sol,collapse="")
+
+al = paste0("* ",ach,collapse="\n")
+
+f1 = numeric()
+f2 = numeric()
+
+for(i in 1:floor(sqrt(abs(p)))){
+    if(p%%i==0){
+        f1 = c(f1,i,-i)
+        f2 = c(f2,round(p/i),-round(p/i))
+    }
+}
+
+```
+
+
+Question
+========
+
+Find two numbers that have:
+
+* a sum (result of addition) of `r s`
+* and a product (result of multiplication) of `r p`
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+Find all the [factor pairs](https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs) of `r p`. Then, determine which pair has a sum of `r s`.
+
+
+```{r,echo=F}
+df = data.frame(paste0("(",f1,")*(",f2,") = ",f1*f2),paste0("(",f1,")+(",f2,") = ",f1+f2))
+colnames(df) = c("product","sum")
+
+kableExtra::kable(df)
+
+```
+
+So the two numbers that have a sum of `r s` and a product of `r p` are:
+
+* `r a` and `r b`
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: sum_prod

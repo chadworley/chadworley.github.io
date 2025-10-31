@@ -1,0 +1,1506 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>sum_prod</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 12;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">sum_prod</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of -11</li>
+<li>and a product (result of multiplication) of 28</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of 28. Then, determine which pair has a sum of -11.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(28) = 28</td>
+<td align="left">(1)+(28) = 29</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(-28) = 28</td>
+<td align="left">(-1)+(-28) = -29</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(14) = 28</td>
+<td align="left">(2)+(14) = 16</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(-14) = 28</td>
+<td align="left">(-2)+(-14) = -16</td>
+</tr>
+<tr class="odd">
+<td align="left">(4)*(7) = 28</td>
+<td align="left">(4)+(7) = 11</td>
+</tr>
+<tr class="even">
+<td align="left">(-4)*(-7) = 28</td>
+<td align="left">(-4)+(-7) = -11</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of -11 and a product of 28 are:</p>
+<ul>
+<li>-7 and -4</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of -19</li>
+<li>and a product (result of multiplication) of 90</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of 90. Then, determine which pair has a sum of -19.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(90) = 90</td>
+<td align="left">(1)+(90) = 91</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(-90) = 90</td>
+<td align="left">(-1)+(-90) = -91</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(45) = 90</td>
+<td align="left">(2)+(45) = 47</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(-45) = 90</td>
+<td align="left">(-2)+(-45) = -47</td>
+</tr>
+<tr class="odd">
+<td align="left">(3)*(30) = 90</td>
+<td align="left">(3)+(30) = 33</td>
+</tr>
+<tr class="even">
+<td align="left">(-3)*(-30) = 90</td>
+<td align="left">(-3)+(-30) = -33</td>
+</tr>
+<tr class="odd">
+<td align="left">(5)*(18) = 90</td>
+<td align="left">(5)+(18) = 23</td>
+</tr>
+<tr class="even">
+<td align="left">(-5)*(-18) = 90</td>
+<td align="left">(-5)+(-18) = -23</td>
+</tr>
+<tr class="odd">
+<td align="left">(6)*(15) = 90</td>
+<td align="left">(6)+(15) = 21</td>
+</tr>
+<tr class="even">
+<td align="left">(-6)*(-15) = 90</td>
+<td align="left">(-6)+(-15) = -21</td>
+</tr>
+<tr class="odd">
+<td align="left">(9)*(10) = 90</td>
+<td align="left">(9)+(10) = 19</td>
+</tr>
+<tr class="even">
+<td align="left">(-9)*(-10) = 90</td>
+<td align="left">(-9)+(-10) = -19</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of -19 and a product of 90 are:</p>
+<ul>
+<li>-10 and -9</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of 5</li>
+<li>and a product (result of multiplication) of 4</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of 4. Then, determine which pair has a sum of 5.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(4) = 4</td>
+<td align="left">(1)+(4) = 5</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(-4) = 4</td>
+<td align="left">(-1)+(-4) = -5</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(2) = 4</td>
+<td align="left">(2)+(2) = 4</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(-2) = 4</td>
+<td align="left">(-2)+(-2) = -4</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of 5 and a product of 4 are:</p>
+<ul>
+<li>1 and 4</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of 17</li>
+<li>and a product (result of multiplication) of 72</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of 72. Then, determine which pair has a sum of 17.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(72) = 72</td>
+<td align="left">(1)+(72) = 73</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(-72) = 72</td>
+<td align="left">(-1)+(-72) = -73</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(36) = 72</td>
+<td align="left">(2)+(36) = 38</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(-36) = 72</td>
+<td align="left">(-2)+(-36) = -38</td>
+</tr>
+<tr class="odd">
+<td align="left">(3)*(24) = 72</td>
+<td align="left">(3)+(24) = 27</td>
+</tr>
+<tr class="even">
+<td align="left">(-3)*(-24) = 72</td>
+<td align="left">(-3)+(-24) = -27</td>
+</tr>
+<tr class="odd">
+<td align="left">(4)*(18) = 72</td>
+<td align="left">(4)+(18) = 22</td>
+</tr>
+<tr class="even">
+<td align="left">(-4)*(-18) = 72</td>
+<td align="left">(-4)+(-18) = -22</td>
+</tr>
+<tr class="odd">
+<td align="left">(6)*(12) = 72</td>
+<td align="left">(6)+(12) = 18</td>
+</tr>
+<tr class="even">
+<td align="left">(-6)*(-12) = 72</td>
+<td align="left">(-6)+(-12) = -18</td>
+</tr>
+<tr class="odd">
+<td align="left">(8)*(9) = 72</td>
+<td align="left">(8)+(9) = 17</td>
+</tr>
+<tr class="even">
+<td align="left">(-8)*(-9) = 72</td>
+<td align="left">(-8)+(-9) = -17</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of 17 and a product of 72 are:</p>
+<ul>
+<li>8 and 9</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of -11</li>
+<li>and a product (result of multiplication) of 10</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of 10. Then, determine which pair has a sum of -11.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(10) = 10</td>
+<td align="left">(1)+(10) = 11</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(-10) = 10</td>
+<td align="left">(-1)+(-10) = -11</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(5) = 10</td>
+<td align="left">(2)+(5) = 7</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(-5) = 10</td>
+<td align="left">(-2)+(-5) = -7</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of -11 and a product of 10 are:</p>
+<ul>
+<li>-10 and -1</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of 3</li>
+<li>and a product (result of multiplication) of -4</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of -4. Then, determine which pair has a sum of 3.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(-4) = -4</td>
+<td align="left">(1)+(-4) = -3</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(4) = -4</td>
+<td align="left">(-1)+(4) = 3</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(-2) = -4</td>
+<td align="left">(2)+(-2) = 0</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(2) = -4</td>
+<td align="left">(-2)+(2) = 0</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of 3 and a product of -4 are:</p>
+<ul>
+<li>4 and -1</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of -6</li>
+<li>and a product (result of multiplication) of 8</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of 8. Then, determine which pair has a sum of -6.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(8) = 8</td>
+<td align="left">(1)+(8) = 9</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(-8) = 8</td>
+<td align="left">(-1)+(-8) = -9</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(4) = 8</td>
+<td align="left">(2)+(4) = 6</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(-4) = 8</td>
+<td align="left">(-2)+(-4) = -6</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of -6 and a product of 8 are:</p>
+<ul>
+<li>-4 and -2</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of -1</li>
+<li>and a product (result of multiplication) of -30</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of -30. Then, determine which pair has a sum of -1.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(-30) = -30</td>
+<td align="left">(1)+(-30) = -29</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(30) = -30</td>
+<td align="left">(-1)+(30) = 29</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(-15) = -30</td>
+<td align="left">(2)+(-15) = -13</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(15) = -30</td>
+<td align="left">(-2)+(15) = 13</td>
+</tr>
+<tr class="odd">
+<td align="left">(3)*(-10) = -30</td>
+<td align="left">(3)+(-10) = -7</td>
+</tr>
+<tr class="even">
+<td align="left">(-3)*(10) = -30</td>
+<td align="left">(-3)+(10) = 7</td>
+</tr>
+<tr class="odd">
+<td align="left">(5)*(-6) = -30</td>
+<td align="left">(5)+(-6) = -1</td>
+</tr>
+<tr class="even">
+<td align="left">(-5)*(6) = -30</td>
+<td align="left">(-5)+(6) = 1</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of -1 and a product of -30 are:</p>
+<ul>
+<li>5 and -6</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of 2</li>
+<li>and a product (result of multiplication) of -8</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of -8. Then, determine which pair has a sum of 2.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(-8) = -8</td>
+<td align="left">(1)+(-8) = -7</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(8) = -8</td>
+<td align="left">(-1)+(8) = 7</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(-4) = -8</td>
+<td align="left">(2)+(-4) = -2</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(4) = -8</td>
+<td align="left">(-2)+(4) = 2</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of 2 and a product of -8 are:</p>
+<ul>
+<li>-2 and 4</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of 4</li>
+<li>and a product (result of multiplication) of -60</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of -60. Then, determine which pair has a sum of 4.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(-60) = -60</td>
+<td align="left">(1)+(-60) = -59</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(60) = -60</td>
+<td align="left">(-1)+(60) = 59</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(-30) = -60</td>
+<td align="left">(2)+(-30) = -28</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(30) = -60</td>
+<td align="left">(-2)+(30) = 28</td>
+</tr>
+<tr class="odd">
+<td align="left">(3)*(-20) = -60</td>
+<td align="left">(3)+(-20) = -17</td>
+</tr>
+<tr class="even">
+<td align="left">(-3)*(20) = -60</td>
+<td align="left">(-3)+(20) = 17</td>
+</tr>
+<tr class="odd">
+<td align="left">(4)*(-15) = -60</td>
+<td align="left">(4)+(-15) = -11</td>
+</tr>
+<tr class="even">
+<td align="left">(-4)*(15) = -60</td>
+<td align="left">(-4)+(15) = 11</td>
+</tr>
+<tr class="odd">
+<td align="left">(5)*(-12) = -60</td>
+<td align="left">(5)+(-12) = -7</td>
+</tr>
+<tr class="even">
+<td align="left">(-5)*(12) = -60</td>
+<td align="left">(-5)+(12) = 7</td>
+</tr>
+<tr class="odd">
+<td align="left">(6)*(-10) = -60</td>
+<td align="left">(6)+(-10) = -4</td>
+</tr>
+<tr class="even">
+<td align="left">(-6)*(10) = -60</td>
+<td align="left">(-6)+(10) = 4</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of 4 and a product of -60 are:</p>
+<ul>
+<li>-6 and 10</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of -10</li>
+<li>and a product (result of multiplication) of 9</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of 9. Then, determine which pair has a sum of -10.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(9) = 9</td>
+<td align="left">(1)+(9) = 10</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(-9) = 9</td>
+<td align="left">(-1)+(-9) = -10</td>
+</tr>
+<tr class="odd">
+<td align="left">(3)*(3) = 9</td>
+<td align="left">(3)+(3) = 6</td>
+</tr>
+<tr class="even">
+<td align="left">(-3)*(-3) = 9</td>
+<td align="left">(-3)+(-3) = -6</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of -10 and a product of 9 are:</p>
+<ul>
+<li>-9 and -1</li>
+</ul>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find two numbers that have:</p>
+<ul>
+<li>a sum (result of addition) of 7</li>
+<li>and a product (result of multiplication) of 10</li>
+</ul>
+<br/>
+<ol type="a">
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>Find all the <a href="https://www.khanacademy.org/math/cc-fourth-grade-math/imp-factors-multiples-and-patterns/imp-factors-and-multiples/e/factor-pairs">factor pairs</a> of 10. Then, determine which pair has a sum of 7.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">product</th>
+<th align="left">sum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(1)*(10) = 10</td>
+<td align="left">(1)+(10) = 11</td>
+</tr>
+<tr class="even">
+<td align="left">(-1)*(-10) = 10</td>
+<td align="left">(-1)+(-10) = -11</td>
+</tr>
+<tr class="odd">
+<td align="left">(2)*(5) = 10</td>
+<td align="left">(2)+(5) = 7</td>
+</tr>
+<tr class="even">
+<td align="left">(-2)*(-5) = 10</td>
+<td align="left">(-2)+(-5) = -7</td>
+</tr>
+</tbody>
+</table>
+<p>So the two numbers that have a sum of 7 and a product of 10 are:</p>
+<ul>
+<li>2 and 5</li>
+</ul>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

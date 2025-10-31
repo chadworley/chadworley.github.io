@@ -6,7 +6,7 @@ with open("//Users/chad.worley@bartcharter.org/Documents/canvasAPItests/acctok.t
 
 # Variables
 course_id = '2110'
-file_path_list = ["outcanvas/c1031_prime_factorization.zip"]
+file_path_list = ["outcanvas/c1031_factor_quadratic.zip"]
 
 ######## FOR UPLOADING ETS
 # fpl = []

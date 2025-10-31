@@ -13,8 +13,8 @@ for(i in 1:50){
     par(mar=c(0,0,0,0),oma=c(0,0,0,0))
     plot(0,0,"n",xlim=c(-10,10),ylim=c(-5,5),axes=F,ann=F)
     trmg = sample(1:4,1)
-    x = runif(n,-10,-0)
-    y = runif(n,-5,5)
+    x = runif(n,-9,-1)
+    y = runif(n,-4,4)
     if(trmg==1){
         x2 = x+10
         y2 = y
