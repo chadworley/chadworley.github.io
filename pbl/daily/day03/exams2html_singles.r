@@ -1,6 +1,6 @@
 library("exams")
 
-pppsss = c("cq_recognize_Frieze_group.Rmd")
+pppsss = c("et_recognize_Frieze_group.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"
