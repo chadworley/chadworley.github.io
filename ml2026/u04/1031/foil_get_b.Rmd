@@ -1,0 +1,72 @@
+```{r,echo=F}
+pn = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    abcd = sample(1:9,4,T)*sample(c(-1,1),4,T)
+    A = abcd[1]
+    B = abcd[2]
+    C = abcd[3]
+    D = abcd[4]
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    if(min(abs(c(a,b,c)))>0){break}
+}
+
+
+exp1 = pn(c(A,B),c(1,0))
+exp2 = pn(c(C,D),c(1,0))
+```
+
+
+
+
+Question
+========
+
+Consider the following product of linear binomials:
+
+$$(`r exp1`)(`r exp2`)$$
+
+When the expression is expanded and like terms are combined, an equivalent expression can be expressed in standard form:
+
+$$ax^2+bx+c$$
+
+where $a$, $b$, and $c$ are integers. 
+
+* What is the value of $b$?
+
+
+Solution
+========
+
+* For similar examples that show how to use box method and FOIL:
+    * [https://chadworley.github.io/algtwo2026/u03/1029/outhtml/foil_get_b.html](https://chadworley.github.io/algtwo2026/u03/1029/outhtml/foil_get_b.html)
+    
+You could use the box method or FOIL. Either way, you should first get
+
+$$`r pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))`$$
+
+And, after combining like terms, you should get
+$$`r pn(c(A*C,A*D+B*C,B*D),c(2,1,0))`$$
+
+Thus, $a=`r A*C`$ and $b=`r A*D+B*C`$ and $c=`r B*D`$. This question specifically asked for the value of $b$, so the answer is $`r A*D+B*C`$.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r A*D+B*C`
+exname: foil_get_b
