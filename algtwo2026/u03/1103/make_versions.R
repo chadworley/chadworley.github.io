@@ -1,7 +1,7 @@
-fn = "pa1103_box_factor_a=prime.Rmd"
+fn = "pb1103_factor_prime_a.Rmd"
 shortfn = strsplit(fn,"_")[[1]][1]
 nlow = 1
-nhigh = 20
+nhigh = 50
 
 sss = "<!DOCTYPE html>
 <html lang='en'>
