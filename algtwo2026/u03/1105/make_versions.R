@@ -1,4 +1,4 @@
-fn = "pa1105_factor_prime_a.Rmd"
+fn = "p1105_factor_prime_a.Rmd"
 shortfn = strsplit(fn,"_")[[1]][1]
 nlow = 1
 nhigh = 50
