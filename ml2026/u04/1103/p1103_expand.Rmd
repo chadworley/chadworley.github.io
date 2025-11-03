@@ -1,0 +1,152 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+---
+
+Name: \vspace{5pt} \hrule
+
+## p1103: Expand Product of Linear Binomials (v`r params$rseed`)
+
+```{r,echo=F}
+if(params$rseed !=0){
+    set.seed(params$rseed)
+}
+
+pn = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+```
+
+
+```{r,echo=F}
+qn = 0
+answers = character()
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+doit = function(){
+    cat("## Question ")
+    cat(qn)
+    cat("\n\nExpand the product of linear binomials. $(")
+    while(T){
+        ABCD = sample(1:9,4,T)*sample(c(-1,1),4,T)
+        A = ABCD[1]
+        B = ABCD[2]
+        C = ABCD[3]
+        D = ABCD[4]
+        exp1 = pn(c(A,B),1:0)
+        exp2 = pn(c(C,D),1:0)
+        exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+        exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+        if(!(exp4%in%answers)){break}
+    }
+    cat(exp1)
+    cat(")(")
+    cat(exp2)
+    cat(")$\n\n\\vfill\n\n")
+    if(params$showsol){
+        cat("\\color{red}$$")
+        cat(exp3)
+        cat("$$\n\n $$")
+        cat(exp4)
+        cat("$$\\color{black}")
+    }
+    cat("\n\n\\vfill\n\n")
+    return(exp4)
+}
+
+doitez = function(){
+    cat("## Question ")
+    cat(qn)
+    cat("\n\nExpand the product of linear binomials. $(")
+    while(T){
+        A = 1
+        B = sample(1:9,1)*sample(c(-1,1),1)
+        C = 1
+        D = sample(1:9,1)*sample(c(-1,1),1)
+        exp1 = pn(c(A,B),1:0)
+        exp2 = pn(c(C,D),1:0)
+        exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+        exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+        if(!(exp4%in%answers)){break}
+    }
+    cat(exp1)
+    cat(")(")
+    cat(exp2)
+    cat(")$\n\n\\vfill\n\n")
+    if(params$showsol){
+        cat("\\color{red}$$")
+        cat(exp3)
+        cat("$$\n\n $$")
+        cat(exp4)
+        cat("$$\\color{black}")
+    }
+    cat("\n\n\\vfill\n\n")
+    return(exp4)
+}
+answers = c(answers,doitez())
+```
+
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doitez())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doitez())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit())
+```
+
+
+\newpage
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doitez())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doitez())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit())
+```
+
