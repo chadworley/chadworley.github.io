@@ -3,16 +3,16 @@ n = 30
 outdir = "outcanvas"
 
 ### Entrance ticket
-pm = list("ez_a1_factored_eq_0.Rmd",
-          "ez_primes_factored_eq_0.Rmd")
-exams2canvas(pm,
-             n=n,
-             dir=outdir,
-             points=rep(2,length(pm)),
-             maxattempts = 8,
-             name="et1106",
-             template = "canvas_qti12.xml",
-             cloze = list(enumerate = FALSE))
+# pm = list("ez_a1_factored_eq_0.Rmd",
+#           "ez_primes_factored_eq_0.Rmd")
+# exams2canvas(pm,
+#              n=n,
+#              dir=outdir,
+#              points=rep(2,length(pm)),
+#              maxattempts = 8,
+#              name="et1106",
+#              template = "canvas_qti12.xml",
+#              cloze = list(enumerate = FALSE))
 
 # Classwork 1
 pm = list("solve_a1_standard_eq_0.Rmd",
