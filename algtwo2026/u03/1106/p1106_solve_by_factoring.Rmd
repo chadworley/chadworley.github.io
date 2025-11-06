@@ -1,0 +1,254 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+---
+
+Name: \vspace{5pt} \hrule
+
+## p1106: Solve by factoring (v`r params$rseed`)
+
+
+```{r,echo=F}
+if(params$rseed !=0){
+    set.seed(params$rseed)
+}
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    return(ex1)
+}
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+doit = function(){
+    cat(qn)
+    cat(". Solve the equation $$")
+    while(T){
+        ABCD = sample(1:9,4,T)*sample(c(-1,1),4,T)
+        A = sample(c(2,3,5,7,11),1) #ABCD[1]
+        B = ABCD[2]
+        C = 1 #ABCD[3]
+        D = ABCD[4]
+        exp1 = pn(c(A,B),1:0)
+        exp2 = pn(c(C,D),1:0)
+        exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+        exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+        exp5 = paste0("(",exp1,")(",exp2,")")
+        if(!(exp4%in%answers) && abs(gcd(A,B))==1){break}
+    }
+    cat(exp4)
+    cat("=0$$\n\n")
+    xsol1 = paste0("$$x=",-D,"$$",collapse="")
+    xsol2 = paste0("$$x=\\frac{",-B,"}{",A,"}$$")
+    if(params$showsol){
+        cat("\n\n\\color{red}$$")
+        cat(exp5)
+        cat("=0$$\n")
+        cat(xsol1)
+        cat("\n")
+        cat(xsol2)
+        cat("\n\n\\color{black}")
+    }
+    cat("\n\n\\vfill\n\n")
+    return(exp4)
+}
+
+doit2sfs = function(){
+    cat(qn)
+    cat(". Solve the equation $$")
+    while(T){
+        ABCD = sample(1:9,4,T)*sample(c(-1,1),4,T)
+        A = sample(c(2,3,5,7,11),1) #ABCD[1]
+        B = ABCD[2]
+        C = 1 #ABCD[3]
+        D = ABCD[4]
+        exp1 = pn(c(A,B),1:0)
+        exp2 = pn(c(C,D),1:0)
+        exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+        exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+        exp5 = paste0("(",exp1,")(",exp2,")")
+        if(!(exp4%in%answers) && abs(gcd(A,B))==1){break}
+    }
+    a2 = sample(1:8,1)
+    b2 = sample(1:9,1)*sample(c(-1,1),1)
+    c2 = sample(1:9,1)*sample(c(-1,1),1)
+    ls = pn(c(A*C+a2,A*D+B*C+b2,B*D+c2),c(2,1,0))
+    rs = pn(c(a2,b2,c2),2:0)
+    cat(ls)
+    cat("~=~")
+    cat(rs)
+    cat("$$\n\n")
+    xsol1 = paste0("$$x=",-D,"$$",collapse="")
+    xsol2 = paste0("$$x=\\frac{",-B,"}{",A,"}$$")
+    if(params$showsol){
+        cat("\n\n\\color{red}$$")
+        cat(exp4)
+        cat("=0$$\n$$")
+        cat(exp5)
+        cat("=0$$\n")
+        cat(xsol1)
+        cat("\n")
+        cat(xsol2)
+        cat("\n\n\\color{black}")
+    }
+    cat("\n\n\\vfill\n\n")
+    return(exp4)
+}
+
+doita1 = function(){
+    cat(qn)
+    cat(". Solve the equation $$")
+    while(T){
+        ABCD = sample(1:9,4,T)*sample(c(-1,1),4,T)
+        A = 1 #sample(c(2,3,5,7,11),1) #ABCD[1]
+        B = ABCD[2]
+        C = 1 #ABCD[3]
+        D = ABCD[4]
+        exp1 = pn(c(A,B),1:0)
+        exp2 = pn(c(C,D),1:0)
+        exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+        exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+        exp5 = paste0("(",exp1,")(",exp2,")")
+        if(!(exp4%in%answers) && abs(gcd(A,B))==1){break}
+    }
+    cat(exp4)
+    xsol1 = paste0("$$x=",-D,"$$")
+    xsol2 = paste0("$$x=",-B,"$$")
+    cat("=0$$\n\n")
+    if(params$showsol){
+        cat("\n\n\\color{red}$$")
+        cat(exp5)
+        cat("=0$$\n")
+        cat(xsol1)
+        cat("\n")
+        cat(xsol2)
+        cat("\n\n\\color{black}")
+    }
+    cat("\n\n\\vfill\n\n")
+    return(exp4)
+}
+
+
+doita12sfs = function(){
+    cat(qn)
+    cat(". Solve the equation $$")
+    while(T){
+        ABCD = sample(1:9,4,T)*sample(c(-1,1),4,T)
+        A = 1 #sample(c(2,3,5,7,11),1) #ABCD[1]
+        B = ABCD[2]
+        C = 1 #ABCD[3]
+        D = ABCD[4]
+        exp1 = pn(c(A,B),1:0)
+        exp2 = pn(c(C,D),1:0)
+        exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+        exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+        exp5 = paste0("(",exp1,")(",exp2,")")
+        if(!(exp4%in%answers) && abs(gcd(A,B))==1){break}
+    }
+    xsol1 = paste0("$$x=",-D,"$$")
+    xsol2 = paste0("$$x=",-B,"$$")
+    a2 = sample(1:8,1)
+    b2 = sample(1:9,1)*sample(c(-1,1),1)
+    c2 = sample(1:9,1)*sample(c(-1,1),1)
+    ls = pn(c(A*C+a2,A*D+B*C+b2,B*D+c2),c(2,1,0))
+    rs = pn(c(a2,b2,c2),2:0)
+    cat(ls)
+    cat("~=~")
+    cat(rs)
+    cat("$$\n\n")
+    if(params$showsol){
+        cat("\n\n\\color{red}$$")
+        cat(exp4)
+        cat("=0$$\n$$")
+        cat(exp5)
+        cat("=0$$\n")
+        cat(xsol1)
+        cat("\n")
+        cat(xsol2)
+        cat("\n\n\\color{black}")
+    }
+    cat("\n\n\\vfill\n\n")
+    return(exp4)
+}
+
+```
+
+
+
+```{r,echo=F,results='asis'}
+answers = character()
+qn = 0
+
+qn = qn+1
+answers = c(answers,doita1())
+```
+
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doita1())
+```
+
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doita12sfs())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doita12sfs())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doita12sfs())
+```
+
+\newpage
+
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit2sfs())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit2sfs())
+```
+
+```{r,echo=F,results='asis'}
+qn = qn+1
+answers = c(answers,doit2sfs())
+```
+
+
+
+
+
+

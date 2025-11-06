@@ -1,0 +1,79 @@
+```{r,echo=FALSE}
+prm = c(2,3,5,7)
+pqrs = sample(prm)
+p = pqrs[1]
+q = pqrs[2]*sample(c(-1,1),1)
+r = pqrs[3]
+s = pqrs[4]*sample(c(-1,1),1)
+
+eq1 = paste0("(",p,"x+",q,")(",r,"x+",s,")=0",collapse="")
+eq1 = gsub("+-","-",eq1,fixed=T)
+
+eq2 = paste0(p,"x+",q,"=0",collapse="")
+eq2 = gsub("+-","-",eq2,fixed=T)
+op2 = c("Add","Subtract")[round(sign(q)/2+1.5)]
+eq2b = paste0(p,"x=",-q,collapse="")
+
+eq3 = paste0(r,"x+",s,"=0",collapse="")
+eq3 = gsub("+-","-",eq3,fixed=T)
+op3 = c("Add","Subtract")[round(sign(s)/2+1.5)]
+eq3b = paste0(r,"x=",-s,collapse="")
+
+ach = character()
+for(i in prm){
+    prm2 = prm[prm!=i]
+    for(j in prm2){
+        ach = c(ach,paste0("x=\\frac{",j,"}{",i,"}"))
+        ach = c(ach,paste0("x=\\frac{",-j,"}{",i,"}"))
+    }
+}
+al = paste0("* $",ach,"$",collapse="\n")
+
+cc1 = paste0("x=\\frac{",sign(-p*q)*abs(q),"}{",abs(p),"}")
+cc2 = paste0("x=\\frac{",sign(-r*s)*abs(s),"}{",abs(r),"}")
+
+sol1 = ach==cc1
+sol2 = ach==cc2
+sol = sol1+sol2
+sol = paste0(1*(sol),collapse="")
+
+```
+
+
+Question
+========
+
+Find the values of $x$ that make the following equation true. (In other words, solve the equation.)
+
+$$`r eq1`$$
+
+Answerlist
+--------
+
+`r al`
+
+Solution
+========
+
+Use the zero-product property. This tells us the solutions can be found by solving both of the following equations: $`r eq2`$ and $`r eq3`$.
+
+1. Start with the first one.
+$$`r eq2`$$
+`r op2` `r abs(q)`
+$$`r eq2b`$$
+Divide both sides by `r p`.
+$$`r cc1`$$
+
+
+2. Now do the second one.
+$$`r eq3`$$
+`r op3` `r abs(s)`
+$$`r eq3b`$$
+Divide both sides by `r r`.
+$$`r cc2`$$
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: primes_factored_eq_0
