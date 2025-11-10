@@ -1,4 +1,4 @@
-fn = "at1110paper_practice_test.Rmd"
+fn = "at1110example_practice_test.Rmd"
 shortfn = strsplit(fn,"_")[[1]][1]
 nlow = 1
 nhigh = 50
