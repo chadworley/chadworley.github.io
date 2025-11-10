@@ -39,8 +39,8 @@
 <body>
     <h1>Select Practice Test</h1>
 
-    <label for="testNumber">Choose a test number (101-120):</label>
-    <input type="number" id="testNumber" min="101" max="120" value="101">
+    <label for="testNumber">Choose a test number (1-50):</label>
+    <input type="number" id="testNumber" min="1" max="50" value="1">
 
     <div id="linksContainer" class="hidden">
         <a id="exampleLink" href="#" target="_blank">View Example Test PDF</a>
@@ -48,24 +48,25 @@
     </div>
 
     <script>
-        const testNumberInput = document.getElementById("testNumber");
-        const linksContainer = document.getElementById("linksContainer");
-        const exampleLink = document.getElementById("exampleLink");
-        const solutionLink = document.getElementById("solutionLink");
+        const testNumberInput = document.getElementById('testNumber');
+        const linksContainer = document.getElementById('linksContainer');
+        const exampleLink = document.getElementById('exampleLink');
+        const solutionLink = document.getElementById('solutionLink');
 
         function updateLinks() {
             let num = parseInt(testNumberInput.value, 10);
 
             // Basic validation
-            if (isNaN(num) || num < 101 || num > 120) {
-                linksContainer.classList.add("hidden"); // Hide links if input is invalid
+            if (isNaN(num) || num < 1 || num > 50) {
+                linksContainer.classList.add('hidden'); // Hide links if input is invalid
                 return;
             }
 
-            const formattedNum = String(num).padStart(3, "0");
+            // Format number to have leading zeros (e.g., $1 \rightarrow 001$, $10 \rightarrow 010$)
+            const formattedNum = String(num).padStart(3, '0');
 
             const exampleFileName = `at1110example_v${formattedNum}.pdf`;
-            const solutionFileName = `at1110example_SOL_v${formattedNum}.pdf`;
+            const solutionFileName = `at1110example_SOL_${formattedNum}.pdf`;
 
             exampleLink.href = exampleFileName;
             exampleLink.textContent = `View Test ${num} (${exampleFileName})`;
@@ -73,11 +74,11 @@
             solutionLink.href = solutionFileName;
             solutionLink.textContent = `View Solution ${num} (${solutionFileName})`;
 
-            linksContainer.classList.remove("hidden"); // Show links once valid input
+            linksContainer.classList.remove('hidden'); // Show links once valid input
         }
 
         // Add event listener to update links when input changes
-        testNumberInput.addEventListener("input", updateLinks);
+        testNumberInput.addEventListener('input', updateLinks);
 
         // Call updateLinks initially to set up for the default value (1) on page load
         updateLinks();

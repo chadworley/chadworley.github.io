@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+fn = "at1110example_practice_test.Rmd"
+shortfn = strsplit(fn,"_")[[1]][1]
+nlow = 101
+nhigh = 120
+
+sss = '<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,8 +44,8 @@
 <body>
     <h1>Select Practice Test</h1>
 
-    <label for="testNumber">Choose a test number (101-120):</label>
-    <input type="number" id="testNumber" min="101" max="120" value="101">
+    <label for="testNumber">Choose a test number (NLOW-NHIGH):</label>
+    <input type="number" id="testNumber" min="NLOW" max="NHIGH" value="NLOW">
 
     <div id="linksContainer" class="hidden">
         <a id="exampleLink" href="#" target="_blank">View Example Test PDF</a>
@@ -57,7 +62,7 @@
             let num = parseInt(testNumberInput.value, 10);
 
             // Basic validation
-            if (isNaN(num) || num < 101 || num > 120) {
+            if (isNaN(num) || num < NLOW || num > NHIGH) {
                 linksContainer.classList.add("hidden"); // Hide links if input is invalid
                 return;
             }
@@ -83,4 +88,31 @@
         updateLinks();
     </script>
 </body>
-</html>
+</html>'
+
+makeem = function(fn,shortfn,nlow,nhigh){
+    directory_path = shortfn
+    if (!dir.exists(directory_path)) {
+        dir.create(directory_path)
+    }
+    wid = nhigh-nlow+1
+    # for(jjj in nlow:nhigh){
+    #     rmarkdown::render(input = fn,
+    #                       output_file = paste0(shortfn,"/",shortfn,"_v",sprintf("%03d",jjj)),
+    #                       params = list(rseed = jjj,
+    #                                     showsol = F))
+    #     rmarkdown::render(input = fn,
+    #                       output_file = paste0(shortfn,"/",shortfn,"_SOL_v",sprintf("%03d",jjj)),
+    #                       params = list(rseed = jjj,
+    #                                     showsol = T))
+    # }
+    
+    sss = gsub("at1110example",shortfn,sss,fixed=T)
+    sss = gsub("NLOW",nlow,sss,fixed=T)
+    sss = gsub("NHIGH",nhigh,sss,fixed=T)
+    fileConn<-file(paste0(shortfn,"/",shortfn,".html"))
+    writeLines(sss, fileConn)
+    close(fileConn)
+}
+
+makeem(fn,shortfn,nlow,nhigh)
