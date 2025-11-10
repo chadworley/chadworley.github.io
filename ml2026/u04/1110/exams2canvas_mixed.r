@@ -10,7 +10,7 @@ exams2canvas(pm,
              dir=outdir,
              points=rep(2,length(pm)),
              maxattempts = 8,
-             name="et1107",
+             name="et1110",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
 
