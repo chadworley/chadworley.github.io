@@ -1,0 +1,116 @@
+```{r,echo=FALSE}
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    ex1 = gsub("{","",ex1,fixed=T)
+    ex1 = gsub("}","",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+
+standards = character()
+factoreds = character()
+
+fp = list(list(c(1,6),c(2,3)),
+          list(c(1,8),c(2,4)),
+          list(c(1,10),c(2,5)),
+          list(c(1,14),c(2,7)),
+          list(c(1,22),c(2,11)))
+
+mults = list(c(-1,-1),
+             c(1,-1),
+             c(-1,1),
+             c(1,1))
+
+wfp = sample(1:length(fp),1)
+fp = fp[[wfp]]
+
+for(fs in fp){
+    for(m in mults){
+        A = 1
+        B = fs[1]*m[1]
+        C = 1
+        D = fs[2]*m[2]
+        exp1 = pn(c(A,B),1:0)
+        exp2 = pn(c(C,D),1:0)
+        exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+        exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+        exp5 = paste0("(",exp1,")(",exp2,")")
+        standards = c(standards,exp4)
+        factoreds = c(factoreds,exp5)
+    }
+}
+
+oa = sample(1:length(standards))
+ob = sample(1:length(standards))
+
+al = paste0("* ",factoreds[ob],collapse="\n")
+fal = paste0(rep(al,length(standards)),collapse="\n")
+
+sols = character()
+for(i in oa){
+    sols = c(sols,paste0(1*(i==ob),collapse=""))
+}
+
+
+```
+
+
+Question
+========
+
+Match the standard form expressions to their equivalent factored forms.
+
+```{r,echo=F,results='asis'}
+for(i in 1:length(standards)){
+    cat("* $")
+    cat(standards[oa[i]])
+    cat("~\\equiv$ ##ANSWER")
+    cat(i)
+    cat("##\n")
+}
+```
+
+Answerlist
+--------
+
+`r fal`
+
+Solution
+========
+
+See [FOIL](https://en.wikipedia.org/wiki/FOIL_method) and [factorization](https://www.khanacademy.org/math/algebra-basics/alg-basics-quadratics-and-polynomials/alg-basics-factoring-quadratics-1/a/factoring-quadratics-leading-coefficient-1).
+
+```{r,echo=F,results='asis'}
+for(i in 1:length(standards)){
+    cat("* $")
+    cat(standards[oa[i]])
+    cat("~\\equiv ")
+    cat(factoreds[oa[i]])
+    cat("$\n")
+}
+```
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: `r paste0(rep("schoice",length(standards)),collapse="|")`
+exsolution: `r paste0(sols,collapse="|")`
+exname: match_factored_standard_B
