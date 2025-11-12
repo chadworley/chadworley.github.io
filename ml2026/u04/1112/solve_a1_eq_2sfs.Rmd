@@ -1,0 +1,108 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+maxopt = 12
+pfix = function(c,d){
+    d = d[c!=0]
+    c = c[c!=0]
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    if(p==""){
+        p = "0"
+    }
+    return(p)
+}
+
+
+pq = sample(1:12,2,T)*sample(c(-1,1),2,T)
+p = pq[1]
+q = pq[2]
+ch = -12:12
+a = 1
+b = p+q
+c = p*q
+se = pfix(c(a,b,c),2:0)
+
+a2 = sample(1:8,1)
+b2 = sample(1:9,1)*sample(c(-1,1),1)
+c2 = sample(1:9,1)*sample(c(-1,1),1)
+se2 = paste0(pfix(c(a+a2,b+b2,c+c2),2:0),"~=~",pfix(c(a2,b2,c2),2:0))
+
+fal = character()
+
+fal = paste0("x=",ch)
+fal = paste0("* $",fal,"$",collapse="\n")
+
+sol1 = ch==-p
+sol2 = ch==-q
+sol = sol1+sol2
+sol = paste0(1*(sol!=0),collapse="")
+
+soltxt1 = pfix(c(1,p,q,p*q),c(2,1,1,0))
+solp = pfix(c(1,p),c(1,0))
+solq = pfix(c(1,q),c(1,0))
+solp2 = pfix(c(1,p),c(1,0))
+solq2 = pfix(c(1,q),c(1,0))
+
+if(solp != "x"){
+    solp2 = paste0("(",solp,")")
+}
+if(solq != "x"){
+    solq2 = paste0("(",solq,")")
+}
+
+```
+
+
+Question
+========
+
+Solve the equation.
+
+$$`r se2`$$
+
+Indicate **all** solutions.
+
+Answerlist
+--------
+
+`r fal`
+
+
+
+Solution
+========
+
+Make right side equal to zero by subtracting $`r pfix(c(a2,b2,c2),2:0)`$ from both sides.
+
+$$`r se`=0$$
+
+
+[Factor the left-side expression](https://chadworley.github.io/algtwo2026/u03/1031/outhtml/factor_quadratic.html).
+
+$$`r solp2` `r solq2`=0$$
+
+The [zero-product property](https://en.wikipedia.org/wiki/Zero-product_property) tells us that if a product equals 0, then at least one of the factors of the product equals 0. In this case, we know the product of $`r solp2`$ and $`r solq2`$ equals zero. This means to satisfy the equation either $`r solp`$ equals zero or $`r solq`$ equals zero. Solve each of these using addition or subtraction.
+
+* First solution:
+$$`r solp`=0$$
+$$x=`r -p`$$
+
+* Second solution:
+$$`r solq`=0$$
+$$x=`r -q`$$
+
+Thus, the two solutions are $x=`r -p`$ and $x=`r -q`$.
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: solve_a1_eq_2sfs

@@ -1,0 +1,322 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+---
+
+Name: \vspace{5pt} \hrule
+
+## at1110paper_practice_test (v`r params$rseed`)
+
+
+```{r,echo=F}
+if(params$rseed !=0){
+    set.seed(params$rseed)
+}
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+questions = c()
+solutions = c()
+
+```
+
+
+```{r q1,echo=F,results='asis'}
+standards = character()
+while(T){
+    ABCD = sample(2:9,4)*sample(c(-1,1),4,T)
+    A = abs(ABCD[1]) #ABCD[1]
+    B = ABCD[2]
+    C = abs(ABCD[3]) #ABCD[3]
+    D = ABCD[4]
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    exp5 = paste0("(",exp1,")(",exp2,")")
+    if(!(exp4%in%standards) && abs(gcd(A,B))==1 && abs(gcd(C,D))==1 && b!=0){break}
+}
+standards = c(standards,exp4)
+
+question = paste0("Expand the following expression into standard form.
+$$(",exp1,")(",exp2,")$$")
+solution = paste0("$$",exp3,"$$\n$$",exp4,"$$")
+
+questions = c(questions,question)
+solutions = c(solutions,solution)
+
+```
+
+
+```{r q2,echo=F,results='asis'}
+standards = character()
+while(T){
+    ABCD = sample(2:9,4)*sample(c(-1,1),4,T)
+    A = abs(ABCD[1]) #ABCD[1]
+    B = ABCD[2]
+    C = abs(ABCD[3]) #ABCD[3]
+    D = ABCD[4]
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    exp5 = paste0("(",exp1,")(",exp2,")")
+    if(!(exp4%in%standards) && abs(gcd(A,B))==1 && abs(gcd(C,D))==1 && b!=0 ){break}
+}
+standards = c(standards,exp4)
+
+question = paste0("Solve the equation. $$(",exp1,")(",exp2,")~=~0$$")
+
+sol1 = paste0("x=\\frac{",-B,"}{",A,"}")
+sol2 = paste0("x=\\frac{",-D,"}{",C,"}")
+solution = paste0("$$",sol1,"~~~~~~~~",sol2,"$$")
+
+questions = c(questions,question)
+solutions = c(solutions,solution)
+```
+
+
+```{r q3,echo=F,results='asis'}
+standards = character()
+while(T){
+    ABCD = sample(2:9,4)*sample(c(-1,1),4,T)
+    A = abs(ABCD[1]) #ABCD[1]
+    B = ABCD[2]
+    C = abs(ABCD[1]) #ABCD[3]
+    D = -ABCD[2]
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    exp5 = paste0("(",exp1,")(",exp2,")")
+    if(!(exp4%in%standards) && abs(gcd(A,B))==1 && abs(gcd(C,D))==1){break}
+}
+standards = c(standards,exp4)
+
+question = paste0("Expand the following expression into standard form.
+$$(",exp1,")(",exp2,")$$")
+solution = paste0("$$",exp3,"$$\n$$",exp4,"$$")
+
+questions = c(questions,question)
+solutions = c(solutions,solution)
+```
+
+```{r q4,echo=F,results='asis'}
+standards = character()
+while(T){
+    ABCD = sample(2:9,4)*sample(c(-1,1),4,T)
+    A = abs(ABCD[1]) #ABCD[1]
+    B = ABCD[2]
+    C = abs(ABCD[1]) #ABCD[3]
+    D = ABCD[2]
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    exp5 = paste0("(",exp1,")(",exp2,")")
+    if(!(exp4%in%standards) && abs(gcd(A,B))==1 && abs(gcd(C,D))==1){break}
+}
+standards = c(standards,exp4)
+
+question = paste0("Expand the following expression into standard form.
+$$(",exp1,")^2$$")
+solution = paste0("$$",exp3,"$$\n$$",exp4,"$$")
+
+questions = c(questions,question)
+solutions = c(solutions,solution)
+```
+
+
+```{r q5,echo=F,results='asis'}
+standards = character()
+while(T){
+    ABCD = sample(2:9,4)*sample(c(-1,1),4,T)
+    A = 1 #abs(ABCD[1]) #ABCD[1]
+    B = ABCD[2]
+    C = 1 #abs(ABCD[1]) #ABCD[3]
+    D = ABCD[4]
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    exp5 = paste0("(",exp1,")(",exp2,")")
+    if(!(exp4%in%standards) && abs(gcd(A,B))==1 && abs(gcd(C,D))==1 && b!=0){break}
+}
+standards = c(standards,exp4)
+
+question = paste0("Factor the expression.
+$$",exp4,"$$")
+solution = paste0("$$(",exp1,")(",exp2,")$$")
+
+questions = c(questions,question)
+solutions = c(solutions,solution)
+```
+
+
+```{r q6,echo=F,results='asis'}
+standards = character()
+while(T){
+    ABCD = sample(1:9,4)*sample(c(-1,1),4,T)
+    A = sample(c(2,3,5,7),1)
+    B = ABCD[2]
+    C = 1 #abs(ABCD[1]) #ABCD[3]
+    D = ABCD[4]
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    exp5 = paste0("(",exp1,")(",exp2,")")
+    
+    abc2 = sample(2:5,3)*sample(c(-1,1),3,T)
+    a2 = abs(abc2[1])
+    b2 = abc2[2]
+    c2 = abc2[3]
+    
+    eq1 = paste0(pn(c(A*C+a2,A*D+B*C+b2,B*D+c2),c(2,1,0)),"~=~",pn(c(a2,b2,c2),2:0))
+    
+    if(!(exp4%in%standards) && abs(gcd(A,B))==1 && abs(gcd(C,D))==1 && b!=0){break}
+}
+standards = c(standards,exp4)
+
+question = paste0("Solve the equation. $$",eq1,"$$")
+sol1 = paste0("x=\\frac{",-B,"}{",A,"}")
+sol2 = paste0("x=",-D)
+solution = paste0("$$",exp4,"=0$$\n$$(",exp1,")(",exp2,")=0$$\n$$",sol1,"~~~~~~~~",sol2,"$$")
+
+questions = c(questions,question)
+solutions = c(solutions,solution)
+```
+
+
+```{r q7,echo=F,results='asis'}
+standards = character()
+while(T){
+    ABCD = sample(2:6,4)*sample(c(-1,1),4,T)
+    A = abs(ABCD[1])
+    B = ABCD[2]
+    C = abs(ABCD[3])
+    D = ABCD[4]
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    exp5 = paste0("(",exp1,")(",exp2,")")
+    if(!(exp4%in%standards) && abs(gcd(A,B))==1 && abs(gcd(C,D))==1 && b!=0){break}
+}
+standards = c(standards,exp4)
+
+
+question = paste0("Solve the equation with factoring by grouping. $$",exp3,"~=~0$$")
+sol1 = paste0("x=\\frac{",-B,"}{",A,"}")
+sol2 = paste0("x=\\frac{",-D,"}{",C,"}")
+solution = paste0("$$(",exp1,")(",exp2,")=0$$\n$$",sol1,"~~~~~~~~",sol2,"$$")
+
+questions = c(questions,question)
+solutions = c(solutions,solution)
+```
+
+
+```{r q8,echo=F,results='asis'}
+standards = character()
+while(T){
+    ABCD = sample(3:9,4)*sample(c(-1,1),4,T)
+    A = abs(ABCD[1])
+    B = ABCD[2]
+    C = A #abs(ABCD[3])
+    D = -B #ABCD[4]
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    exp1 = pn(c(A,B),1:0)
+    exp2 = pn(c(C,D),1:0)
+    exp3 = pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))
+    exp4 = pn(c(A*C,A*D+B*C,B*D),c(2,1,0))
+    exp5 = paste0("(",exp1,")(",exp2,")")
+    if(!(exp4%in%standards) && abs(gcd(A,B))==1 && abs(gcd(C,D))==1){break}
+}
+standards = c(standards,exp4)
+
+question = paste0("Factor the expression.
+$$",exp4,"$$")
+solution = paste0("$$(",exp1,")(",exp2,")$$")
+
+questions = c(questions,question)
+solutions = c(solutions,solution)
+```
+
+```{r,echo=F,results='asis'}
+ord = sample(1:8)
+
+for(i in 1:4){
+    cat(i)
+    cat(". ")
+    cat(questions[ord[i]])
+    cat("\n\n\\vfill\n\n")
+    if(params$showsol){
+        cat("\\color{red}\n")
+        cat(solutions[ord[i]])
+        cat("\n\n\\vfill\n\n\\color{black}\n\n")
+    }
+}
+
+cat("\\newpage\n\n")
+
+for(i in 5:8){
+    cat(i)
+    cat(". ")
+    cat(questions[ord[i]])
+    cat("\n\n\\vfill\n\n")
+    if(params$showsol){
+        cat("\\color{red}\n")
+        cat(solutions[ord[i]])
+        cat("\n\n\\vfill\n\n\\color{black}\n\n")
+    }
+}
+
+```
+
+
+
