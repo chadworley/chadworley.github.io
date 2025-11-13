@@ -21,16 +21,26 @@ pn = function(coeffs,pows){
     return(ex1)
 }
 
-xy = sample(3:9,2)
-x = xy[1]*sample(c(-1,1),1)
-y = xy[2]*sample(c(-1,1),1)
+while(T){
+    xy = sample(3:9,2)
+    x = xy[1]*sample(c(-1,1),1)
+    y = xy[2]*sample(c(-1,1),1)
+    area = x^2+2*x*y
+    x1 = sqrt(area+y^2)-y
+    x2 = -sqrt(area+y^2)-y
+    if(abs(x+y)>2){break}
+}
 
-area = x^2+2*x*y
 
-x1 = sqrt(area+y^2)-y
-x2 = -sqrt(area+y^2)-y
+ach = -30:30
+al = paste0("* ",ach,collapse="\n")
 
-al = -30:30
+sol1 = ach==x1
+sol2 = ach==x2
+
+sol = sol1+sol2
+sol = sol!=0
+sol = paste0(1*sol,collapse="")
 
 ```
 
@@ -40,6 +50,12 @@ Question
 By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation:
 
 $$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
+Answerlist
+--------
+
+`r al`
+
 
 Solution
 ========
@@ -73,6 +89,6 @@ $$x~=~`r x1`~~~~~~~~\text{or}~~~~~~~~x~=~`r x2`$$
 
 Meta-information
 ============
-extype: num
-exsolution: `r x`
+extype: mchoice
+exsolution: `r sol`
 exname: complete_the_square_E
