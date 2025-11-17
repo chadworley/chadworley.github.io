@@ -1,0 +1,296 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: false
+---
+
+Name: \vspace{5pt} \hrule
+
+## at1118paper: Complete the Square (v`r params$rseed`)
+
+
+```{r,echo=F}
+options(scipen=999)
+if(params$rseed !=0){
+    set.seed(params$rseed)
+}
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+```
+
+```{r,echo=F}
+n = 8
+xy = sort(sample(8:30,2))
+x = xy[1]
+y = -xy[2]
+area = x^2+2*x*y
+
+x1 = sqrt(area+y^2)-y
+x2 = -sqrt(area+y^2)-y
+
+x1s = c(x1)
+x2s = c(x2)
+ys = c(y)
+areas = c(area)
+
+for(i in 1:(n-1)){
+    while(T){
+        xy = sample(3:30,2)
+        x = xy[1]*sample(c(-1,1),1)
+        y = xy[2]*sample(c(-1,1),1)
+        area = x^2+2*x*y
+        x1 = sqrt(area+y^2)-y
+        x2 = -sqrt(area+y^2)-y
+        if(!(area %in% areas) && !(y %in% ys)){
+            x1s = c(x1s,x1)
+            x2s = c(x2s,x2)
+            ys = c(ys,y)
+            areas = c(areas,area)
+            break
+        }
+    }
+}
+i=0
+```
+
+
+
+## Example
+
+```{r,echo=F}
+i = i+1
+x1 = x1s[i]
+x2 = x2s[i]
+y = ys[i]
+area = areas[i]
+```
+
+By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation:
+
+$$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
+
+```{r,echo=F,results='asis'}
+if(T){# if(params$showsol){
+    cat("\\color{red}\n\n")
+    cat(paste0("Add ${\\left(\\frac{",2*y,"}{2}\\right)}^{2}$, which equals $",y^2,"$, to both sides of the equation."))
+    cat("$$",pn(c(1,2*y,y^2),2:0),"~=~",area+y^2,"$$\n")
+    cat("Factor the left side.\n")
+    cat("$$(",pn(c(1,y),1:0),")^2~=~",area+y^2,"$$\n")
+    cat("Undo the squaring. We need to consider both $\\pm\\sqrt{",area+y^2,"}$.\n")
+    cat("\\begin{align*}")
+    cat(paste0(pn(c(1,y),1:0),"&=",-sqrt(area+y^2),"&\\text{or}&&",pn(c(1,y),1:0),"&=",sqrt(area+y^2),"\\\\ \n"))
+    cat(paste0("x&=",-sqrt(area+y^2)+y,"&\\text{or}&&x&=",sqrt(area+y^2)+y,"\n"))
+    cat("\\end{align*}")
+    cat("\\color{black}")
+}
+```
+
+## Question `r i`
+
+```{r,echo=F}
+i = i+1
+x1 = x1s[i]
+x2 = x2s[i]
+y = ys[i]
+area = areas[i]
+```
+
+By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation:
+
+$$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
+
+\vfill
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat("\\color{red}\n\n")
+    cat("$$",pn(c(1,2*y,y^2),2:0),"~=~",area+y^2,"$$\n")
+    cat("$$(",pn(c(1,y),1:0),")^2~=~",area+y^2,"$$\n")
+    cat("$$",pn(c(1,y),1:0),"~=~\\pm",sqrt(area+y^2),"$$\n")
+    cat("$$x=",x2,"~~~~~~~~\\text{or}~~~~~~~~ x=",x1,"$$\n\n")
+    cat("\\color{black}")
+}
+```
+
+\vfill
+
+## Question `r i`
+
+```{r,echo=F}
+i = i+1
+x1 = x1s[i]
+x2 = x2s[i]
+y = ys[i]
+area = areas[i]
+```
+
+By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation:
+
+$$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
+
+\vfill
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat("\\color{red}\n\n")
+    cat("$$",pn(c(1,2*y,y^2),2:0),"~=~",area+y^2,"$$\n")
+    cat("$$(",pn(c(1,y),1:0),")^2~=~",area+y^2,"$$\n")
+    cat("$$",pn(c(1,y),1:0),"~=~\\pm",sqrt(area+y^2),"$$\n")
+    cat("$$x=",x2,"~~~~~~~~\\text{or}~~~~~~~~ x=",x1,"$$\n\n")
+    cat("\\color{black}")
+}
+```
+
+\vfill
+
+
+\newpage
+
+## Question `r i`
+
+```{r,echo=F}
+i = i+1
+x1 = x1s[i]
+x2 = x2s[i]
+y = ys[i]
+area = areas[i]
+```
+
+By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation:
+
+$$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
+
+\vfill
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat("\\color{red}\n\n")
+    cat("$$",pn(c(1,2*y,y^2),2:0),"~=~",area+y^2,"$$\n")
+    cat("$$(",pn(c(1,y),1:0),")^2~=~",area+y^2,"$$\n")
+    cat("$$",pn(c(1,y),1:0),"~=~\\pm",sqrt(area+y^2),"$$\n")
+    cat("$$x=",x2,"~~~~~~~~\\text{or}~~~~~~~~ x=",x1,"$$\n\n")
+    cat("\\color{black}")
+}
+```
+
+\vfill
+
+## Question `r i`
+
+```{r,echo=F}
+i = i+1
+x1 = x1s[i]
+x2 = x2s[i]
+y = ys[i]
+area = areas[i]
+```
+
+By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation:
+
+$$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
+
+\vfill
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat("\\color{red}\n\n")
+    cat("$$",pn(c(1,2*y,y^2),2:0),"~=~",area+y^2,"$$\n")
+    cat("$$(",pn(c(1,y),1:0),")^2~=~",area+y^2,"$$\n")
+    cat("$$",pn(c(1,y),1:0),"~=~\\pm",sqrt(area+y^2),"$$\n")
+    cat("$$x=",x2,"~~~~~~~~\\text{or}~~~~~~~~ x=",x1,"$$\n\n")
+    cat("\\color{black}")
+}
+```
+
+\vfill
+
+## Question `r i`
+
+```{r,echo=F}
+i = i+1
+x1 = x1s[i]
+x2 = x2s[i]
+y = ys[i]
+area = areas[i]
+```
+
+By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation:
+
+$$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
+
+\vfill
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat("\\color{red}\n\n")
+    cat("$$",pn(c(1,2*y,y^2),2:0),"~=~",area+y^2,"$$\n")
+    cat("$$(",pn(c(1,y),1:0),")^2~=~",area+y^2,"$$\n")
+    cat("$$",pn(c(1,y),1:0),"~=~\\pm",sqrt(area+y^2),"$$\n")
+    cat("$$x=",x2,"~~~~~~~~\\text{or}~~~~~~~~ x=",x1,"$$\n\n")
+    cat("\\color{black}")
+}
+```
+
+\vfill
+
+
+## Question `r i`
+
+```{r,echo=F}
+i = i+1
+x1 = x1s[i]
+x2 = x2s[i]
+y = ys[i]
+area = areas[i]
+```
+
+By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation:
+
+$$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
+
+\vfill
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat("\\color{red}\n\n")
+    cat("$$",pn(c(1,2*y,y^2),2:0),"~=~",area+y^2,"$$\n")
+    cat("$$(",pn(c(1,y),1:0),")^2~=~",area+y^2,"$$\n")
+    cat("$$",pn(c(1,y),1:0),"~=~\\pm",sqrt(area+y^2),"$$\n")
+    cat("$$x=",x2,"~~~~~~~~\\text{or}~~~~~~~~ x=",x1,"$$\n\n")
+    cat("\\color{black}")
+}
+```
+
+\vfill
+
+
+

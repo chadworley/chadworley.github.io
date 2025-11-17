@@ -1,0 +1,135 @@
+```{r,echo=FALSE}
+options(scipen=999)
+xy = sort(sample(8:30,2))
+x = xy[1]
+y = xy[2]
+area = x^2+2*x*y
+```
+
+Question
+========
+
+
+A rectangular painting has a perimeter of `r 8*y` inches. A rectangular frame has a thickness of $x$ inches and an area of `r 4*area` square inches.
+
+
+```{r,echo=F,fig.dim=c(3,3)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+
+N = 1000
+H = 0.6
+ylo = (1-H)/2
+yhi = 1-(1-H)/2
+
+polygon(c(0,0,1,1),c(ylo-0.1,yhi+0.1,yhi+0.1,ylo-0.1))
+
+
+for(i in 0:N){
+    lines(c(0.1,0.9),rep((1-H)/2+H*i/N,2),col=hsv(i/N,0.8,0.8))
+}
+
+text(0.05,ylo-0.1,"x",adj=c(0.5,1.2))
+text(0.95,ylo-0.1,"x",adj=c(0.5,1.2))
+text(0.05,yhi+0.1,"x",adj=c(0.5,-0.2))
+text(0.95,yhi+0.1,"x",adj=c(0.5,-0.2))
+
+text(0,ylo-0.05,"x",adj=c(1.2,0.5))
+text(1,ylo-0.05,"x",adj=c(-0.2,0.5))
+text(0,yhi+0.05,"x",adj=c(1.2,0.5))
+text(1,yhi+0.05,"x",adj=c(-0.2,0.5))
+
+
+```
+\
+
+The total combined area, found by adding together the area of the square and the area of the rectangle, is $`r area`$ square feet.
+
+What value of $x$ satisfies the conditions stated above?
+
+
+Solution
+========
+
+Write the sum of areas in algebraic notation.
+
+$$x^2+`r 2*y`x~=~`r area`$$
+
+To visualize "completing the square", cut the rectangle in half, so divide `r 2*y` by two.
+
+$$\frac{`r 2*y`}{2}~=~`r y`$$
+
+Place those two halves to make an L-shaped figure.
+
+```{r,echo=F,fig.dim=c(2,2)}
+library(latex2exp)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+# plot(0,0,"n",xlim=c(-0.1,0.7),ylim=c(0.3,1.1),axes=F,ann=F)
+# 
+# polygon(c(0,0.2,0.2,0),c(0.8,0.8,1,1),col=col1)
+# polygon(c(0.55,0.2,0.2,0.55),c(0.8,0.8,1,1),col=col2)
+# polygon(c(0,0.2,0.2,0),c(0.8,0.8,0.45,0.45),col=col2)
+# 
+# text(0.1,1,"x",adj=c(0.5,-0.2))
+# text(0,0.9,"x",adj=c(1.2,0.5))
+# 
+# text(mean(c(0.2,0.55)),0.8,y,adj=c(0.5,1.2))
+# text(0.2,mean(c(0.8,0.45)),y,adj=c(0.5,1.2),srt=90)
+```
+\
+
+
+Add some extra area to the picture to make a large square. In this case, we need to add a square with edge lengths of `r y`, adding `r y^2` square feet to the area.
+
+
+```{r,echo=F,fig.dim=c(2,2)}
+# library(latex2exp)
+# par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+# plot(0,0,"n",xlim=c(-0.1,0.7),ylim=c(0.3,1.1),axes=F,ann=F)
+# 
+# col3 = rgb(1,1,0,0.7)
+# 
+# polygon(c(0,0.2,0.2,0),c(0.8,0.8,1,1),col=col1)
+# polygon(c(0.55,0.2,0.2,0.55),c(0.8,0.8,1,1),col=col2)
+# polygon(c(0,0.2,0.2,0),c(0.8,0.8,0.45,0.45),col=col2)
+# polygon(c(0.55,0.2,0.2,0.55),c(0.8,0.8,0.45,0.45),col=col3)
+# 
+# text(0.1,1,"x",adj=c(0.5,-0.2))
+# text(0,0.9,"x",adj=c(1.2,0.5))
+# 
+# text(mean(c(0.2,0.55)),0.45,y,adj=c(0.5,1.2))
+# text(0.55,mean(c(0.8,0.45)),y,adj=c(-0.2,0.5))
+```
+\
+
+
+$$x^2+`r 2*y`x+`r y^2`~=~`r area`+`r y^2`$$
+
+
+$$x^2+`r 2*y`x+`r y^2`~=~`r area+y^2`$$
+
+But, notice, if you look at the last picture, we have another way to represent the total area. The newly formed large square has side lengths of $x+`r y`$. So we can represent the total area of the large square as $(x+`r y`)^2$.
+
+$$(x+`r y`)^2~=~`r area+y^2`$$
+
+Undo the squaring on both sides. Use a calculator to find that $\sqrt{`r area+y^2`}=`r sqrt(area+y^2)`$.
+
+$$x+`r y`~=~\pm `r sqrt(area+y^2)`$$
+
+And, lastly, subtract `r y` from both sides of the equation.
+
+$$x~=~-`r y` \pm  `r sqrt(area+y^2)`$$
+
+We are only interesting in the positive value.
+
+
+$$x~=~-`r y` +  `r sqrt(area+y^2)`$$
+
+$$x~=~`r x`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r x`
+exname: complete_the_square_E
