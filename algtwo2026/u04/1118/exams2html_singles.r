@@ -1,11 +1,6 @@
 library("exams")
 
-pppsss = c("solve_sqr_x_eq_A.Rmd",
-           "solve_sqr_x_eq_C.Rmd",
-           "complete_the_square_A.Rmd",
-           "complete_the_square_B.Rmd",
-           "complete_the_square_C.Rmd",
-           "complete_the_square_E.Rmd")
+pppsss = c("complete_the_square_H.Rmd")
 
 for(ppss in pppsss){
     outdir = "outhtml"

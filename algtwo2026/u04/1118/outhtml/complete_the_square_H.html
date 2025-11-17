@@ -1,0 +1,1326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>complete_the_square_H</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 6;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">complete_the_square_H</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>By <a href="https://en.wikipedia.org/wiki/Completing_the_square">completing the square</a>, find both solutions to the given equation:</p>
+<p><span class="math display">\[x^2-12x~=~45\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-30
+</li>
+<li>
+-29
+</li>
+<li>
+-28
+</li>
+<li>
+-27
+</li>
+<li>
+-26
+</li>
+<li>
+-25
+</li>
+<li>
+-24
+</li>
+<li>
+-23
+</li>
+<li>
+-22
+</li>
+<li>
+-21
+</li>
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+<li>
+21
+</li>
+<li>
+22
+</li>
+<li>
+23
+</li>
+<li>
+24
+</li>
+<li>
+25
+</li>
+<li>
+26
+</li>
+<li>
+27
+</li>
+<li>
+28
+</li>
+<li>
+29
+</li>
+<li>
+30
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given equation:</p>
+<p><span class="math display">\[x^2-12x~=~45\]</span></p>
+<p>In order to make the left side of the equation a <a href="https://www.khanacademy.org/math/math2/xe2ae2386aa2e13d6:quad-1/xe2ae2386aa2e13d6:perfect-sq/a/factoring-quadratics-perfect-squares">perfect square</a>, we can add <span class="math inline">\(\left(\frac{-12}{2}\right)^2=36\)</span> to both sides (where -12 is the linear coefficient).</p>
+<p><span class="math display">\[x^2-12x+36~=~45+36\]</span></p>
+<p><span class="math display">\[x^2-12x+36~=~81\]</span></p>
+<p>We can rewrite the left side in factored form. Notice that because the left side is a perfect square, we get a squared binomial.</p>
+<p><span class="math display">\[(x-6)^2~=~81\]</span></p>
+<p>Because the squaring function is not one-to-one, when we “undo” it in algebra, we need to consider the possibility of multiple solutions. In this case both 9 and -9 produce 81 when squared.</p>
+<p><span class="math display">\[x-6~=~\pm 9\]</span></p>
+<p>And, lastly, subtract -6 from both sides of the equation.</p>
+<p><span class="math display">\[x~=~\pm9+6\]</span></p>
+<p><span class="math display">\[x~=~15~~~~~~~~\text{or}~~~~~~~~x~=~-3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>By <a href="https://en.wikipedia.org/wiki/Completing_the_square">completing the square</a>, find both solutions to the given equation:</p>
+<p><span class="math display">\[x^2-14x~=~72\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-30
+</li>
+<li>
+-29
+</li>
+<li>
+-28
+</li>
+<li>
+-27
+</li>
+<li>
+-26
+</li>
+<li>
+-25
+</li>
+<li>
+-24
+</li>
+<li>
+-23
+</li>
+<li>
+-22
+</li>
+<li>
+-21
+</li>
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+<li>
+21
+</li>
+<li>
+22
+</li>
+<li>
+23
+</li>
+<li>
+24
+</li>
+<li>
+25
+</li>
+<li>
+26
+</li>
+<li>
+27
+</li>
+<li>
+28
+</li>
+<li>
+29
+</li>
+<li>
+30
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given equation:</p>
+<p><span class="math display">\[x^2-14x~=~72\]</span></p>
+<p>In order to make the left side of the equation a <a href="https://www.khanacademy.org/math/math2/xe2ae2386aa2e13d6:quad-1/xe2ae2386aa2e13d6:perfect-sq/a/factoring-quadratics-perfect-squares">perfect square</a>, we can add <span class="math inline">\(\left(\frac{-14}{2}\right)^2=49\)</span> to both sides (where -14 is the linear coefficient).</p>
+<p><span class="math display">\[x^2-14x+49~=~72+49\]</span></p>
+<p><span class="math display">\[x^2-14x+49~=~121\]</span></p>
+<p>We can rewrite the left side in factored form. Notice that because the left side is a perfect square, we get a squared binomial.</p>
+<p><span class="math display">\[(x-7)^2~=~121\]</span></p>
+<p>Because the squaring function is not one-to-one, when we “undo” it in algebra, we need to consider the possibility of multiple solutions. In this case both 11 and -11 produce 121 when squared.</p>
+<p><span class="math display">\[x-7~=~\pm 11\]</span></p>
+<p>And, lastly, subtract -7 from both sides of the equation.</p>
+<p><span class="math display">\[x~=~\pm11+7\]</span></p>
+<p><span class="math display">\[x~=~18~~~~~~~~\text{or}~~~~~~~~x~=~-4\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>By <a href="https://en.wikipedia.org/wiki/Completing_the_square">completing the square</a>, find both solutions to the given equation:</p>
+<p><span class="math display">\[x^2-8x~=~128\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-30
+</li>
+<li>
+-29
+</li>
+<li>
+-28
+</li>
+<li>
+-27
+</li>
+<li>
+-26
+</li>
+<li>
+-25
+</li>
+<li>
+-24
+</li>
+<li>
+-23
+</li>
+<li>
+-22
+</li>
+<li>
+-21
+</li>
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+<li>
+21
+</li>
+<li>
+22
+</li>
+<li>
+23
+</li>
+<li>
+24
+</li>
+<li>
+25
+</li>
+<li>
+26
+</li>
+<li>
+27
+</li>
+<li>
+28
+</li>
+<li>
+29
+</li>
+<li>
+30
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given equation:</p>
+<p><span class="math display">\[x^2-8x~=~128\]</span></p>
+<p>In order to make the left side of the equation a <a href="https://www.khanacademy.org/math/math2/xe2ae2386aa2e13d6:quad-1/xe2ae2386aa2e13d6:perfect-sq/a/factoring-quadratics-perfect-squares">perfect square</a>, we can add <span class="math inline">\(\left(\frac{-8}{2}\right)^2=16\)</span> to both sides (where -8 is the linear coefficient).</p>
+<p><span class="math display">\[x^2-8x+16~=~128+16\]</span></p>
+<p><span class="math display">\[x^2-8x+16~=~144\]</span></p>
+<p>We can rewrite the left side in factored form. Notice that because the left side is a perfect square, we get a squared binomial.</p>
+<p><span class="math display">\[(x-4)^2~=~144\]</span></p>
+<p>Because the squaring function is not one-to-one, when we “undo” it in algebra, we need to consider the possibility of multiple solutions. In this case both 12 and -12 produce 144 when squared.</p>
+<p><span class="math display">\[x-4~=~\pm 12\]</span></p>
+<p>And, lastly, subtract -4 from both sides of the equation.</p>
+<p><span class="math display">\[x~=~\pm12+4\]</span></p>
+<p><span class="math display">\[x~=~16~~~~~~~~\text{or}~~~~~~~~x~=~-8\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>By <a href="https://en.wikipedia.org/wiki/Completing_the_square">completing the square</a>, find both solutions to the given equation:</p>
+<p><span class="math display">\[x^2+14x~=~-33\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-30
+</li>
+<li>
+-29
+</li>
+<li>
+-28
+</li>
+<li>
+-27
+</li>
+<li>
+-26
+</li>
+<li>
+-25
+</li>
+<li>
+-24
+</li>
+<li>
+-23
+</li>
+<li>
+-22
+</li>
+<li>
+-21
+</li>
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+<li>
+21
+</li>
+<li>
+22
+</li>
+<li>
+23
+</li>
+<li>
+24
+</li>
+<li>
+25
+</li>
+<li>
+26
+</li>
+<li>
+27
+</li>
+<li>
+28
+</li>
+<li>
+29
+</li>
+<li>
+30
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given equation:</p>
+<p><span class="math display">\[x^2+14x~=~-33\]</span></p>
+<p>In order to make the left side of the equation a <a href="https://www.khanacademy.org/math/math2/xe2ae2386aa2e13d6:quad-1/xe2ae2386aa2e13d6:perfect-sq/a/factoring-quadratics-perfect-squares">perfect square</a>, we can add <span class="math inline">\(\left(\frac{14}{2}\right)^2=49\)</span> to both sides (where 14 is the linear coefficient).</p>
+<p><span class="math display">\[x^2+14x+49~=~-33+49\]</span></p>
+<p><span class="math display">\[x^2+14x+49~=~16\]</span></p>
+<p>We can rewrite the left side in factored form. Notice that because the left side is a perfect square, we get a squared binomial.</p>
+<p><span class="math display">\[(x+7)^2~=~16\]</span></p>
+<p>Because the squaring function is not one-to-one, when we “undo” it in algebra, we need to consider the possibility of multiple solutions. In this case both 4 and -4 produce 16 when squared.</p>
+<p><span class="math display">\[x+7~=~\pm 4\]</span></p>
+<p>And, lastly, subtract 7 from both sides of the equation.</p>
+<p><span class="math display">\[x~=~\pm4-7\]</span></p>
+<p><span class="math display">\[x~=~-3~~~~~~~~\text{or}~~~~~~~~x~=~-11\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>By <a href="https://en.wikipedia.org/wiki/Completing_the_square">completing the square</a>, find both solutions to the given equation:</p>
+<p><span class="math display">\[x^2-14x~=~51\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-30
+</li>
+<li>
+-29
+</li>
+<li>
+-28
+</li>
+<li>
+-27
+</li>
+<li>
+-26
+</li>
+<li>
+-25
+</li>
+<li>
+-24
+</li>
+<li>
+-23
+</li>
+<li>
+-22
+</li>
+<li>
+-21
+</li>
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+<li>
+21
+</li>
+<li>
+22
+</li>
+<li>
+23
+</li>
+<li>
+24
+</li>
+<li>
+25
+</li>
+<li>
+26
+</li>
+<li>
+27
+</li>
+<li>
+28
+</li>
+<li>
+29
+</li>
+<li>
+30
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given equation:</p>
+<p><span class="math display">\[x^2-14x~=~51\]</span></p>
+<p>In order to make the left side of the equation a <a href="https://www.khanacademy.org/math/math2/xe2ae2386aa2e13d6:quad-1/xe2ae2386aa2e13d6:perfect-sq/a/factoring-quadratics-perfect-squares">perfect square</a>, we can add <span class="math inline">\(\left(\frac{-14}{2}\right)^2=49\)</span> to both sides (where -14 is the linear coefficient).</p>
+<p><span class="math display">\[x^2-14x+49~=~51+49\]</span></p>
+<p><span class="math display">\[x^2-14x+49~=~100\]</span></p>
+<p>We can rewrite the left side in factored form. Notice that because the left side is a perfect square, we get a squared binomial.</p>
+<p><span class="math display">\[(x-7)^2~=~100\]</span></p>
+<p>Because the squaring function is not one-to-one, when we “undo” it in algebra, we need to consider the possibility of multiple solutions. In this case both 10 and -10 produce 100 when squared.</p>
+<p><span class="math display">\[x-7~=~\pm 10\]</span></p>
+<p>And, lastly, subtract -7 from both sides of the equation.</p>
+<p><span class="math display">\[x~=~\pm10+7\]</span></p>
+<p><span class="math display">\[x~=~17~~~~~~~~\text{or}~~~~~~~~x~=~-3\]</span></p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>By <a href="https://en.wikipedia.org/wiki/Completing_the_square">completing the square</a>, find both solutions to the given equation:</p>
+<p><span class="math display">\[x^2-16x~=~57\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-30
+</li>
+<li>
+-29
+</li>
+<li>
+-28
+</li>
+<li>
+-27
+</li>
+<li>
+-26
+</li>
+<li>
+-25
+</li>
+<li>
+-24
+</li>
+<li>
+-23
+</li>
+<li>
+-22
+</li>
+<li>
+-21
+</li>
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+<li>
+21
+</li>
+<li>
+22
+</li>
+<li>
+23
+</li>
+<li>
+24
+</li>
+<li>
+25
+</li>
+<li>
+26
+</li>
+<li>
+27
+</li>
+<li>
+28
+</li>
+<li>
+29
+</li>
+<li>
+30
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>The given equation:</p>
+<p><span class="math display">\[x^2-16x~=~57\]</span></p>
+<p>In order to make the left side of the equation a <a href="https://www.khanacademy.org/math/math2/xe2ae2386aa2e13d6:quad-1/xe2ae2386aa2e13d6:perfect-sq/a/factoring-quadratics-perfect-squares">perfect square</a>, we can add <span class="math inline">\(\left(\frac{-16}{2}\right)^2=64\)</span> to both sides (where -16 is the linear coefficient).</p>
+<p><span class="math display">\[x^2-16x+64~=~57+64\]</span></p>
+<p><span class="math display">\[x^2-16x+64~=~121\]</span></p>
+<p>We can rewrite the left side in factored form. Notice that because the left side is a perfect square, we get a squared binomial.</p>
+<p><span class="math display">\[(x-8)^2~=~121\]</span></p>
+<p>Because the squaring function is not one-to-one, when we “undo” it in algebra, we need to consider the possibility of multiple solutions. In this case both 11 and -11 produce 121 when squared.</p>
+<p><span class="math display">\[x-8~=~\pm 11\]</span></p>
+<p>And, lastly, subtract -8 from both sides of the equation.</p>
+<p><span class="math display">\[x~=~\pm11+8\]</span></p>
+<p><span class="math display">\[x~=~19~~~~~~~~\text{or}~~~~~~~~x~=~-3\]</span></p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    
