@@ -1,7 +1,7 @@
-fn = "at1113examB_FOIL_factor.Rmd"
+fn = "at1117paper_CTS.Rmd"
 shortfn = strsplit(fn,"_")[[1]][1]
 nlow = 301
-nhigh = 340
+nhigh = 330
 
 sss = "<!DOCTYPE html>
 <html lang='en'>
