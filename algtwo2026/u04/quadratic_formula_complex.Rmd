@@ -1,0 +1,75 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+while(T){
+  R = sample(c(-6:-1,1:6),2)
+  if(abs(R[1])!=abs(R[2])){break}
+}
+a = 1
+b = -2*R[1]
+c = R[1]^2+R[2]^2
+rs = c(R[1],R[1],-R[1],-R[1],R[2],R[2],-R[2],-R[2])
+is = c(R[2],-R[2],R[2],-R[2],R[1],-R[1],R[1],-R[1])
+cns = gsub("+-","-",paste0(rs,"+",is,"i"),fixed = TRUE)
+cns = gsub("+1i","+i",cns,fixed=T)
+cns = gsub("-1i","-i",cns,fixed=T)
+cn1 = cns[1]
+cn2 = cns[2]
+cns = sample(cns)
+ex = paste0("x^2+",b,"x+",c,collapse="")
+ex = gsub("+-","-",ex,fixed=TRUE)
+ex = gsub("+1x","+x",ex,fixed=TRUE)
+ex = gsub("-1x","-x",ex,fixed=TRUE)
+sol = paste0(1*(cns==cn1)+1*(cns==cn2),collapse="")
+anli = paste0("* ",cns,"\n",collapse="")
+```
+
+
+Question
+========
+
+The quadratic formula says if $ax^2+bx+c=0$ then $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$.
+
+The [radicand](https://en.wiktionary.org/wiki/radicand) is called the [discriminant](https://en.wikipedia.org/wiki/Discriminant#Degree_2). If the discriminant is negative, or, as an algebraic inequality, if $b^2-4ac<0$, then the solutions are [complex](https://en.wikipedia.org/wiki/Complex_number). When a quadratic equation has complex solutions, those solutions are always [complex conjugates](https://en.wikipedia.org/wiki/Complex_conjugate).
+
+Use the quadratic formula to solve 
+
+$$`r ex`=0$$
+
+*Remember:* $i=\sqrt{-1}$.
+
+Answerlist
+--------
+`r anli`
+
+
+
+Solution
+========
+
+Plug numbers into the quadratic formula.
+
+$$x = \frac{-(`r b`)\pm\sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)} $$
+
+Simplify.
+
+$$x = \frac{`r -b` \pm \sqrt{`r b^2-4*a*c`}}{`r 2*a`}$$
+
+$$x = \frac{`r -b` \pm `r sqrt(-b^2+4*a*c)`i}{`r 2*a`}$$
+
+$$x = `r cn2` ~~~~~~~~\text{OR}~~~~~~~~ x=`r cn1`$$
+
+I should point out this relates to factoring because we could rewrite the original equation in factored form.
+
+$$(x-(`r cn2`))\cdot(x-(`r cn1`))~=~0$$
+
+We need to practice multiplying complex numbers before you'd be able to check this though.
+
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: quadratic_formula_complex

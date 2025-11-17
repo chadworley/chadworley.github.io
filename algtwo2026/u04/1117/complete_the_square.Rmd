@@ -1,0 +1,122 @@
+```{r,echo=FALSE}
+options(scipen=999)
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+mfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("+{",cc,"}x^{",dd,"}",collapse="")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+### (x-h)^2+k
+hk = sample(2:9,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+
+## x^2-2hx+(h^2+k)
+B = -2*h
+C = h^2+k
+
+ch = -10:10
+mch = paste0("+",ch)
+mch = gsub("+-","-",mch,fixed=T)
+al = paste0("* ",mch,collapse="\n")
+
+sol1 = paste0(1*(-h==ch),collapse="")
+sol2 = paste0(1*(k==ch),collapse="")
+
+
+```
+
+Question
+========
+
+Polynomial $p$ is defined below in standard form.
+$$p(x)~=~`r pfix(c(1,B,C),2:0)`$$
+
+Please rewrite $p$ in vertex form by [completing the square](https://en.wikipedia.org/wiki/Completing_the_square).
+
+```{css,echo=F}
+.shortselect select {
+    width: 6em;
+}
+```
+
+<div class="shortselect">
+
+* $p(x)~=~(x$##ANSWER1##$)^2$##ANSWER2##
+
+</div>
+
+Answerlist
+-------
+
+`r al`
+`r al`
+
+
+Solution
+========
+
+The correct answer:
+
+$$p(x) ~=~ \left(`r pfix(c(1,-h),c(1,0))`\right)^2`r mfix(C-(B/2)^2,0)`$$
+
+Here is a list of some perfect squares:
+
+\begin{align*}
+(x-5)^2 ~&=~ x^2-10x+25 \\
+(x-4)^2 ~&=~ x^2-8x+16 \\
+(x-3)^2 ~&=~ x^2-6x+9 \\
+(x-2)^2 ~&=~ x^2-4x+4 \\
+(x-1)^2 ~&=~ x^2-2x+1 \\
+(x+1)^2 ~&=~ x^2+2x+1 \\
+(x+2)^2 ~&=~ x^2+4x+4 \\
+(x+3)^2 ~&=~ x^2+6x+9 \\
+(x+4)^2 ~&=~ x^2+8x+16 \\
+(x+5)^2 ~&=~ x^2+10x+25 
+\end{align*}
+
+Notice that every perfect square in standard form has the form $(x+j)^2~=~x^2+2jx+j^2$. 
+
+We are given $p(x)~=~`r pfix(c(1,B,C),2:0)`$. We can show that since our quadratic coefficient is 1 and our linear coefficient is `r B`, we just need to square half of `r B` to "complete the square".
+
+$$\left(\frac{`r B`}{2}\right)^2 ~=~ \left(`r B/2`\right)^2 ~=~ `r round(B/2)^2`$$
+
+We then add and subtract this amount to the polynomial...
+
+$$p(x) ~=~ `r pfix(c(1,B,(B/2)^2,C,-(B/2)^2),c(2,1,0,0,0))`$$
+
+Notice the first three terms are a perfect square. Rewrite them in factored form.
+
+$$p(x) ~=~ \left(`r pfix(c(1,-h),c(1,0))`\right)^2`r mfix(c(C,-(B/2)^2),c(0,0))`$$
+
+Combine the constants.
+
+$$p(x) ~=~ \left(`r pfix(c(1,-h),c(1,0))`\right)^2`r mfix(C-(B/2)^2,0)`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: complete_the_square

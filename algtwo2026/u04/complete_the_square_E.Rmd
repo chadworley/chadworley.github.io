@@ -1,0 +1,94 @@
+```{r,echo=FALSE}
+options(scipen=999)
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    ex1 = gsub("{","",ex1,fixed=T)
+    ex1 = gsub("}","",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+
+while(T){
+    xy = sample(3:9,2)
+    x = xy[1]*sample(c(-1,1),1)
+    y = xy[2]*sample(c(-1,1),1)
+    area = x^2+2*x*y
+    x1 = sqrt(area+y^2)-y
+    x2 = -sqrt(area+y^2)-y
+    if(abs(x+y)>2){break}
+}
+
+
+ach = -30:30
+al = paste0("* ",ach,collapse="\n")
+
+sol1 = ach==x1
+sol2 = ach==x2
+
+sol = sol1+sol2
+sol = sol!=0
+sol = paste0(1*sol,collapse="")
+
+```
+
+Question
+========
+
+By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation:
+
+$$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+The given equation:
+
+$$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
+In order to make the left side of the equation a [perfect square](https://www.khanacademy.org/math/math2/xe2ae2386aa2e13d6:quad-1/xe2ae2386aa2e13d6:perfect-sq/a/factoring-quadratics-perfect-squares), we can add $\left(\frac{`r 2*y`}{2}\right)^2=`r y^2`$ to both sides (where `r 2*y` is the linear coefficient).
+
+$$`r pn(c(1,2*y,y^2),2:0)`~=~`r pn(c(area,y^2),c(0,0))`$$
+
+
+$$`r pn(c(1,2*y,y^2),2:0)`~=~`r area+y^2`$$
+
+We can rewrite the left side in factored form. Notice that because the left side is a perfect square, we get a squared binomial.
+
+$$(`r pn(c(1,y),1:0)`)^2~=~`r area+y^2`$$
+
+Because the squaring function is not one-to-one, when we "undo" it in algebra, we need to consider the possibility of multiple solutions. In this case both `r sqrt(area+y^2)` and `r -sqrt(area+y^2)` produce `r area+y^2` when squared.
+
+$$`r pn(c(1,y),1:0)`~=~\pm `r sqrt(area+y^2)`$$
+
+And, lastly, subtract `r y` from both sides of the equation.
+
+$$x~=~\pm`r pn(c(sqrt(area+y^2),-y),c(0,0))`$$
+
+
+$$x~=~`r x1`~~~~~~~~\text{or}~~~~~~~~x~=~`r x2`$$
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: complete_the_square_E

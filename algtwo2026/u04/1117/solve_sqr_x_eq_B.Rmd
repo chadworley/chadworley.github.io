@@ -1,0 +1,90 @@
+```{r,echo=FALSE}
+library(numbers)
+options(scipen=999)
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+
+primes = c(2,3,5,7)
+
+while(T){
+    pr = sample(primes,2,T)
+    xsq = pr[1]^2*pr[2]
+    if(xsq <= 175){break}
+}
+
+
+ach = character()
+for(i in 1:length(primes)){
+    for(j in 1:length(primes)){
+        ach = c(ach,paste0("x=\\pm",primes[i],"\\sqrt{",primes[j],"}",collapse=""))
+    }
+}
+
+al = paste0("* $",ach,"$",collapse="\n")
+
+
+pfs = primeFactors(xsq)
+tp = table(pfs)
+pf = paste0(names(tp),"^{",as.vector(tp),"}",collapse="\\cdot")
+
+
+ann = paste0("x=\\pm",pr[1],"\\sqrt{",pr[2],"}",collapse="")
+
+sol = paste0(1*(ann==ach),collapse="")
+
+```
+
+Question
+========
+
+Find all solutions to the equation below:
+
+$$x^2~=~`r xsq`$$
+
+
+Answerlist
+-------
+
+`r al`
+
+
+Solution
+========
+
+$$x^2~=~`r xsq`$$
+
+$$x~=~\pm\sqrt{`r xsq`}$$
+
+Find the [prime factorization](https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic) of `r xsq`. You can do this with a [factor tree](https://www.khanacademy.org/math/pre-algebra/pre-algebra-factors-multiples/pre-algebra-prime-factorization-prealg/v/prime-factorization). You should find that $`r xsq`=`r pf`$.
+
+$$x~=~\pm\sqrt{`r pf`}$$
+
+[Simplify the square root](https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:rational-exponents-radicals/x2f8bb11595b61c86:simplifying-square-roots/v/simplifying-square-roots-1).
+
+
+$$x~=~\pm `r pr[1]` \sqrt{`r pr[2]`}$$
+
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: solve_sqr_x_eq_B

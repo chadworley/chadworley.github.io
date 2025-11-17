@@ -1,0 +1,153 @@
+```{r,echo=FALSE}
+options(scipen=999)
+xy = sort(sample(8:30,2))
+x = xy[1]
+y = xy[2]
+area = x^2+2*x*y
+```
+
+Question
+========
+
+A wrap-around L-shaped patio will measure `r y` feet along each wall. The patio will stick out $x$ feet from the walls, and the total area will be `r x^2+2*x*y` square feet. *Note: you can assume all angles are right angles.*
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+N = x+y
+b = seq(0,1,length.out=N+1)
+
+
+polygon(c(0,x/N,x/N,1,1,0),c(0,0,y/N,y/N,1,1),col="grey")
+text(2*x/N/3,1-2*x/N/3,paste0(area," sqft"))
+
+
+# polygon(c(0,x/N,x/N,0),c(y/N,y/N,1,1),col="grey")
+# polygon(c(1,x/N,x/N,1),c(y/N,y/N,1,1),col="grey")
+# polygon(c(0,x/N,x/N,0),c(0,0,y/N,y/N),col="grey")
+# polygon(c(1,x/N,x/N,1),c(0,0,y/N,y/N),col="pink")
+
+col1 = "black" #rgb(0.5,0.5,0)
+col2 = "black" #rgb(0.5,0.2,0.2)
+
+text(x/N/2,0,"x ft",cex=1.3,col=col1,adj=c(0.5,1.2))
+text(1,(1-x/N/2),"x ft",cex=1.3,col=col1,srt=90,adj=c(0.5,1.2))
+
+text(1-y/N/2,1-x/N,paste0(y," ft"),cex=1.3,col=col2,adj=c(0.5,1.2))
+text(x/N,(y/N/2),paste0(y," ft"),cex=1.3,col=col2,srt=90,adj=c(0.5,1.2))
+
+```
+\
+
+What value of $x$ satisfies the conditions stated above?
+
+
+Solution
+========
+
+We can write an equation by saying the sum of $x^2$ and $`r y`x$ and $`r y`x$ equals `r x^2+2*x*y`. These expressions represent the areas of a small square and two rectangles.
+
+```{r,echo=F,fig.dim=c(4,4)}
+library(latex2exp)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+N = x+y
+b = seq(0,1,length.out=N+1)
+
+
+# polygon(c(0,x/N,x/N,1,1,0),c(0,0,y/N,y/N,1,1),col="grey")
+
+polygon(c(0,x/N,x/N,0),c(y/N,y/N,1,1),col=rgb(1,1,0,0.7))
+polygon(c(1,x/N,x/N,1),c(y/N,y/N,1,1),col=rgb(0,1,0,0.7))
+polygon(c(0,x/N,x/N,0),c(0,0,y/N,y/N),col=rgb(0,1,0,0.7))
+
+text(x/N/2,1-x/N/2,TeX(paste0("$x^2$ sqft")),col=rgb(0.5,0.5,0))
+text(1-y/N/2,1-x/N/2,paste0(y,"x sqft"),col=rgb(0,0.5,0))
+text(x/N/2,y/N/2,paste0(y,"x sqft"),col=rgb(0,0.5,0))
+
+# polygon(c(1,x/N,x/N,1),c(0,0,y/N,y/N),col="pink")
+
+col1 = "black" #rgb(0.5,0.5,0)
+col2 = "black" #rgb(0.5,0.2,0.2)
+
+text(x/N/2,-0.05,"x",cex=1.3,col=col1)
+text(1.05,(1-x/N/2),"x",cex=1.3,col=col1)
+
+text(1-y/N/2,1-x/N-0.05,y,cex=1.3,col=col2)
+text(x/N+0.05,(y/N/2),y,cex=1.3,col=col2)
+
+```
+\
+
+$$x^2+`r y`x+`r y`x~=~`r area`$$
+
+Combine like terms.
+
+$$x^2+`r 2*y`x~=~`r area`$$
+
+
+There is a fun way to solve this. We will "complete the square". In this situation, we imagine adding some extra area to the picture to make a large square. In this case, we need to add a square with edge lengths of `r y`, adding `r y^2` square feet to the area.
+
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+N = x+y
+b = seq(0,1,length.out=N+1)
+
+
+polygon(c(0,x/N,x/N,1,1,0),c(0,0,y/N,y/N,1,1),col=rgb(0,0,1,0.5))
+text(2*x/N/3,1-2*x/N/3,paste0(area," sqft"),col=rgb(0,0,0.8))
+
+polygon(c(x/N,1,1,x/N),c(0,0,1-x/N,1-x/N),col=rgb(1,0,0,0.5))
+
+text(1-y/N/2,y/N/2,paste0(y^2," sqft"),col=rgb(0.8,0,0))
+
+# polygon(c(0,x/N,x/N,0),c(y/N,y/N,1,1),col="grey")
+# polygon(c(1,x/N,x/N,1),c(y/N,y/N,1,1),col="grey")
+# polygon(c(0,x/N,x/N,0),c(0,0,y/N,y/N),col="grey")
+# polygon(c(1,x/N,x/N,1),c(0,0,y/N,y/N),col="pink")
+
+col1 = "black" #rgb(0.5,0.5,0)
+col2 = "black" #rgb(0.5,0.2,0.2)
+
+text(x/N/2,-0.05,"x",cex=1.3,col=col1)
+text(1.05,(1-x/N/2),"x",cex=1.3,col=col1)
+
+text(1-y/N/2,-0.05,y,cex=1.3,col=col2)
+text(1+0.05,(y/N/2),y,cex=1.3,col=col2)
+
+```
+\
+
+
+$$x^2+`r 2*y`x+`r y^2`~=~`r area`+`r y^2`$$
+
+
+$$x^2+`r 2*y`x+`r y^2`~=~`r area+y^2`$$
+
+But, notice, if you look at the last picture, we have another way to represent the total area. The newly formed large square has side lengths of $x+`r y`$. So we can represent the total area of the large square as $(x+`r y`)^2$.
+
+$$(x+`r y`)^2~=~`r area+y^2`$$
+
+Undo the squaring on both sides. Use a calculator to find that $\sqrt{`r area+y^2`}=`r sqrt(area+y^2)`$.
+
+$$x+`r y`~=~\pm `r sqrt(area+y^2)`$$
+
+And, lastly, subtract `r y` from both sides of the equation.
+
+$$x~=~-`r y` \pm  `r sqrt(area+y^2)`$$
+
+We are only interesting in the positive value.
+
+
+$$x~=~-`r y` +  `r sqrt(area+y^2)`$$
+
+$$x~=~`r x`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r x`
+exname: complete_the_square_C

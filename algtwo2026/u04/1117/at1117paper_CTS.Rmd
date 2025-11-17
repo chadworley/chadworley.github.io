@@ -1,0 +1,118 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+---
+
+Name: \vspace{5pt} \hrule
+
+## at1117paper: Complete the Square (v`r params$rseed`)
+
+
+```{r,echo=F}
+options(scipen=999)
+if(params$rseed !=0){
+    set.seed(params$rseed)
+}
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+```
+
+```{r,echo=F}
+n = 6
+xy = sort(sample(8:30,2))
+x = xy[1]
+y = xy[2]
+area = x^2+2*x*y
+
+xs = c(x)
+ys = c(y)
+areas = c(area)
+
+for(i in 1:(n-1)){
+    while(T){
+        xy = sort(sample(6:30,2))
+        x = xy[1]
+        y = xy[2]
+        area = x^2+2*x*y
+        if((!(x %in% xs))||(!(y %in% ys))){
+            xs = c(xs,x)
+            ys = c(ys,y)
+            area = c(areas,area)
+            break
+        }
+    }
+}
+
+```
+
+### Question 1
+
+```{r,echo=F}
+i = 1
+x = xs[i]
+y = ys[i]
+area = areas[i]
+```
+
+A wrap-around L-shaped patio will measure $y$ feet along one wall and $z$ feet along another wall. The patio will stick out $x$ feet from the walls, and the total area will be `r x^2+2*x*y` square feet. *Note: you can assume all angles are right angles.*
+
+```{r,echo=F,fig.dim=c(2,2)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
+N = x+y
+b = seq(0,1,length.out=N+1)
+
+
+polygon(c(0,x/N,x/N,1,1,0),c(0,0,y/N,y/N,1,1),col="grey")
+text(2*x/N/3,1-2*x/N/3,paste0(area," sqft"))
+
+
+# polygon(c(0,x/N,x/N,0),c(y/N,y/N,1,1),col="grey")
+# polygon(c(1,x/N,x/N,1),c(y/N,y/N,1,1),col="grey")
+# polygon(c(0,x/N,x/N,0),c(0,0,y/N,y/N),col="grey")
+# polygon(c(1,x/N,x/N,1),c(0,0,y/N,y/N),col="pink")
+
+col1 = "black" #rgb(0.5,0.5,0)
+col2 = "black" #rgb(0.5,0.2,0.2)
+
+text(x/N/2,0,"x ft",cex=1.3,col=col1,adj=c(0.5,1.2))
+text(1,(1-x/N/2),"x ft",cex=1.3,col=col1,srt=90,adj=c(0.5,1.2))
+
+text(1-y/N/2,1-x/N,"y ft",cex=1.3,col=col2,adj=c(0.5,1.2))
+text(x/N,(y/N/2),"z ft",cex=1.3,col=col2,srt=90,adj=c(0.5,1.2))
+
+```
+\
+
+You know that the sum of $y$ and $z$ is `r 2*y`.
+
+$$y+z=`r 2*y`$$
+
+What value of $x$ satisfies the conditions stated above?
+
+
+
+

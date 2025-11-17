@@ -1,8 +1,8 @@
 ---
 output: pdf_document
 params:
-    rseed: 555
-    showsol: true
+    rseed: 556
+    showsol: false
 ---
 
 Name: \vspace{5pt} \hrule
@@ -154,7 +154,7 @@ standards = c(standards,exp4)
 
 question = paste0("Expand the following expression into standard form.
 $$(",exp1,")^2$$")
-solution = paste0("$$",exp3,"$$\n$$",exp4,"$$")
+solution = paste0("$$(",exp1,")(",exp1,")$$\n$$",exp3,"$$\n$$",exp4,"$$")
 
 questions = c(questions,question)
 solutions = c(solutions,solution)
@@ -233,9 +233,9 @@ standards = character()
 while(T){
     ABCD = sample(2:6,4)*sample(c(-1,1),4,T)
     A = abs(ABCD[1])
-    B = ABCD[2]
+    B = abs(ABCD[2])
     C = abs(ABCD[3])
-    D = ABCD[4]
+    D = abs(ABCD[4])
     a = A*C
     b = A*D+B*C
     c = B*D
@@ -252,7 +252,8 @@ standards = c(standards,exp4)
 question = paste0("Solve the equation with factoring by grouping. $$",exp3,"~=~0$$")
 sol1 = paste0("x=\\frac{",-B,"}{",A,"}")
 sol2 = paste0("x=\\frac{",-D,"}{",C,"}")
-solution = paste0("$$(",exp1,")(",exp2,")=0$$\n$$",sol1,"~~~~~~~~",sol2,"$$")
+solution = paste0("$$",A,"x(",exp2,")+",B,"(",exp2,")$$\n$$(",exp1,")(",exp2,")=0$$\n$$",sol1,"~~~~~~~~",sol2,"$$")
+solution = gsub("+-","-",solution,fixed=T)
 
 questions = c(questions,question)
 solutions = c(solutions,solution)
@@ -319,7 +320,6 @@ for(i in 5:8){
         cat("\\newpage\n\n")
     }
 }
-
 ```
 
 

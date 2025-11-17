@@ -1,0 +1,114 @@
+```{r,echo=FALSE}
+library(reticulate)
+options(scipen=999)
+maxnum = 8
+ezprimes = c(2,3,5)
+primes = c(2,3,5,7,11,13)
+while(T){
+    n = sample(5:maxnum,1)
+    p1 = sample(ezprimes,n-1,T,c(10,4,7))
+    p2 = sample(primes,1)
+    ps = c(p1,p2)
+    C = prod(c(ps))
+    if(C<1000){break}
+}
+num1 = sum(ps==2)
+num2 = sum(ps==3)
+num3 = sum(ps==5)
+num4 = sum(ps==7)
+num5 = sum(ps==11)
+num6 = sum(ps==13)
+
+nums = c(num1,num2,num3,num4,num5,num6)
+
+ch = 0:maxnum
+
+al = paste0("* ",ch,collapse="\n")
+fal = paste0(rep(al,6),collapse="\n")
+
+sol1 = paste0(1*(num1==ch),collapse="")
+sol2 = paste0(1*(num2==ch),collapse="")
+sol3 = paste0(1*(num3==ch),collapse="")
+sol4 = paste0(1*(num4==ch),collapse="")
+sol5 = paste0(1*(num5==ch),collapse="")
+sol6 = paste0(1*(num6==ch),collapse="")
+
+sols = c(sol1,sol2,sol3,sol4,sol5,sol6)
+fsol = paste0(sols,collapse="|")
+
+solexp = paste0(primes,"^{",nums,"}",collapse="\\cdot")
+solexpshort = paste0(primes[nums!=0],"^{",nums[nums!=0],"}",collapse="\\cdot")
+
+```
+
+
+Question
+========
+
+A composite number was created by multiplying a sample (with repetition) of primes between 2 and 13.
+
+* The composite: `r C`
+
+Please factor the composite number into its [prime factorization](https://en.wikipedia.org/wiki/Fundamental_theorem_of_arithmetic).
+
+$`r C`~=~2^a \cdot 3^b \cdot 5^c \cdot7^d \cdot 11^e \cdot 13^f$
+
+* $a=$ ##ANSWER1##
+* $b=$ ##ANSWER2##
+* $c=$ ##ANSWER3##
+* $d=$ ##ANSWER4##
+* $e=$ ##ANSWER5##
+* $f=$ ##ANSWER6##
+
+
+
+Answerlist
+--------
+
+`r fal`
+
+
+Solution
+========
+
+You can make a [factor tree](https://en.wikipedia.org/wiki/Integer_factorization#Prime_decomposition).
+
+```{r,echo=F,fig.dim=c(7,3)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,7),ylim=c(0,3),axes=F,ann=F)
+sps = sort(ps)
+dx = 6/n
+tot = C
+for(i in 1:n){
+    if(i<n){
+        text(1+(i-1)*dx-0.2*dx,1,sps[i],col="red")
+        text(1+(i-1)*dx,2,tot,col="black")
+        lines(c(1+(i-1)*dx+0.2,1+(i-1)*dx+0.8*dx),c(2,2))
+        lines(c(1+(i-1)*dx-0.1,1+(i-1)*dx-0.2),c(1.6,1.3))
+    } else {
+        text(1+(i-1)*dx,2,tot,col="red")
+    }
+    tot = round(tot/sps[i])
+}
+```
+\
+
+We can express `r C` as a product of primes.
+
+$$`r C`~=~ `r paste0(sps,collapse="\\cdot")`$$
+
+Repeated multiplication can be expressed with powers.
+
+$$`r C`~=~ `r solexpshort`$$
+
+For this problem, we want all the exponents for primes between 2 and 13 to be expressed explicitly (so we include some exponents of 0).
+
+$$`r C`~=~ `r solexp`$$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice|schoice|schoice|schoice
+exsolution: `r fsol`
+exname: prime_factorization

@@ -1,0 +1,74 @@
+```{r,echo=FALSE}
+options(scipen=999)
+xy = sample(8:30,2)
+
+x = xy[1]
+y = xy[2]
+
+```
+
+Question
+========
+
+A large square comprises a yellow square, two congruent blue rectangles, and a red square.
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+N = x+y
+b = seq(0,1,length.out=N+1)
+
+polygon(c(0,x/N,x/N,0),c(y/N,y/N,1,1),col="yellow")
+polygon(c(1,x/N,x/N,1),c(y/N,y/N,1,1),col="lightblue")
+polygon(c(0,x/N,x/N,0),c(0,0,y/N,y/N),col="lightblue")
+polygon(c(1,x/N,x/N,1),c(0,0,y/N,y/N),col="pink")
+
+for(i in b){
+    lines(c(0,1),c(i,i),col="grey")
+    lines(c(i,i),c(0,1),col="grey")
+}
+
+```
+\
+
+The yellow square has an area of `r x^2` little squares. The two blue rectangles have a combined area of `r 2*x*y` little squares.
+
+What is the area, in little squares, of the red square?
+
+
+
+Solution
+========
+
+
+Find the edge length of the yellow square by using the square-root operator.
+
+$$x=\sqrt{`r x^2`}$$
+
+$$x=`r x`$$
+
+Find the area of each blue rectangle.
+
+$$B=\frac{`r 2*x*y`}{2}$$
+$$B=`r x*y`$$
+
+Each blue rectangle has one length of `r x` and another of length $y$.
+
+$$xy~=~`r x*y`$$
+$$`r x`y~=~`r x*y`$$
+$$y~=~`r y`$$
+
+The red square has side lengths equal to $y=`r y`$. To find its area, square the side length.
+
+$$R=y^2$$
+$$R=`r y`^2$$
+$$R=`r y^2`$$
+
+The area of the red square is `r y^2` little squares.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r y^2`
+exname: complete_the_square_A
