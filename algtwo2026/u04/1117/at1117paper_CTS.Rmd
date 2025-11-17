@@ -68,7 +68,7 @@ for(i in 1:(n-1)){
 
 ```
 
-### Question 1
+## Example
 
 ```{r,echo=F}
 i = 1
@@ -77,42 +77,26 @@ y = ys[i]
 area = areas[i]
 ```
 
-A wrap-around L-shaped patio will measure $y$ feet along one wall and $z$ feet along another wall. The patio will stick out $x$ feet from the walls, and the total area will be `r x^2+2*x*y` square feet. *Note: you can assume all angles are right angles.*
 
-```{r,echo=F,fig.dim=c(2,2)}
-par(mar=c(0,0,0,0),oma=c(0,0,0,0))
-plot(0,0,"n",xlim=c(-0.1,1.1),ylim=c(-0.1,1.1),axes=F,ann=F)
-N = x+y
-b = seq(0,1,length.out=N+1)
+A square's edge length is $x$ feet. A rectangle has a height of $x$ feet and a width of $`r 2*y`$ feet. Their combined area, found by adding the square's area and the rectangle's area, is $`r area`$ square feet. What is the value of $x$?
 
+### Example's Solution
 
-polygon(c(0,x/N,x/N,1,1,0),c(0,0,y/N,y/N,1,1),col="grey")
-text(2*x/N/3,1-2*x/N/3,paste0(area," sqft"))
+\color{red}
+$$x^2+`r 2*y`=`r area`$$
 
+To complete the square, add $\left(\frac{`r 2*y`}{2}\right)^2=`r y^2`$ to both sides.
+$$x^2+`r 2*y`+`r y^2`=`r area+y^2`$$
+Recognize the left side is now a perfect-square trinomial. Factor the left side.
+$$(x+`r y`)^2=`r area+y^2`$$
+Undo the squaring.
+$$x+`r y`=\pm\sqrt{`r area+y^2`}$$
+$$x+`r y`=\pm`r sqrt(area+y^2)`$$
+Subtract `r y` from both sides.
+$$x=-`r y`\pm`r sqrt(area+y^2)`$$
+In this geometric example, we are only concerned about the positive solution. So, $$x=`r x`$$
 
-# polygon(c(0,x/N,x/N,0),c(y/N,y/N,1,1),col="grey")
-# polygon(c(1,x/N,x/N,1),c(y/N,y/N,1,1),col="grey")
-# polygon(c(0,x/N,x/N,0),c(0,0,y/N,y/N),col="grey")
-# polygon(c(1,x/N,x/N,1),c(0,0,y/N,y/N),col="pink")
-
-col1 = "black" #rgb(0.5,0.5,0)
-col2 = "black" #rgb(0.5,0.2,0.2)
-
-text(x/N/2,0,"x ft",cex=1.3,col=col1,adj=c(0.5,1.2))
-text(1,(1-x/N/2),"x ft",cex=1.3,col=col1,srt=90,adj=c(0.5,1.2))
-
-text(1-y/N/2,1-x/N,"y ft",cex=1.3,col=col2,adj=c(0.5,1.2))
-text(x/N,(y/N/2),"z ft",cex=1.3,col=col2,srt=90,adj=c(0.5,1.2))
-
-```
-\
-
-You know that the sum of $y$ and $z$ is `r 2*y`.
-
-$$y+z=`r 2*y`$$
-
-What value of $x$ satisfies the conditions stated above?
-
+\color{black}
 
 
 
