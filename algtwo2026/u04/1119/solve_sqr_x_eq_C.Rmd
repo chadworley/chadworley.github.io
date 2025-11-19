@@ -1,0 +1,76 @@
+```{r,echo=FALSE}
+
+# 0 = (x-h)^2+k
+# -k = (x-h)^2
+
+pn = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+twonums = sample(4:10,2)
+
+nk = twonums[1]^2
+snk = round(sqrt(nk))
+h = twonums[2]*sample(c(-1,1),1)
+x1 = h+snk
+x2 = h-snk
+
+ach = -20:20
+
+sol1 = ach==x1
+sol2 = ach==x2
+sol = sol1 + sol2
+sol = paste0(1*(sol!=0),collapse="")
+
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+Question
+========
+
+Find all solutions to the equation below:
+
+$$(`r pn(c(1,-h),1:0)`)^2~=~`r nk`$$
+
+
+Answerlist
+-------
+
+`r al`
+
+
+Solution
+========
+
+Notice, because the [squaring](https://en.wikipedia.org/wiki/Square_(algebra)) function is NOT one-to-one, when we "undo" it on both sides of an equation, we need to consider multiple possibilities.
+
+In this case, you should know that, when squared, both $`r -snk`$ and $`r snk`$ produce $`r nk`$.
+
+$$(`r pn(c(1,-h),1:0)`)^2~=~`r nk`$$
+
+
+$$`r pn(c(1,-h),1:0)`~=~\pm`r snk`$$
+
+
+$$x~=~`r h`\pm`r snk`$$
+
+So the two solutions are $x=`r x1`$ and $x=`r x2`$.
+
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: solve_sqr_x_eq_B

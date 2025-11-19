@@ -1,0 +1,108 @@
+```{r,echo=FALSE}
+pn = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+# twonums = sample(4:10,2)
+# nk = twonums[1]^2
+# snk = round(sqrt(nk))
+# h = twonums[2]*sample(c(-1,1),1)
+# x1 = h+snk
+# x2 = h-snk
+
+
+while(T){
+    wid = sample(1:9,1)*2+1
+    mid = sample(-11:10,1)+0.5
+    x1 = mid-wid/2
+    x2 = mid+wid/2
+    if(x1!=0 && x2!=0){break}
+}
+
+
+ach = -20:20
+
+sol1 = ach==x1
+sol2 = ach==x2
+sol = sol1 + sol2
+sol = paste0(1*(sol!=0),collapse="")
+
+al = paste0("* ",ach,collapse="\n")
+
+
+if(mid<0){
+    eq1 = paste0("\\left(x+\\frac{",-mid*2,"}{2}\\right)^2~=~\\frac{",wid^2,"}{4}")
+    eq2 = paste0("x+\\frac{",-mid*2,"}{2}~=~\\pm\\frac{",wid,"}{2}")
+    wrd1 = "Subtract"
+    wrd2 = "from"
+    eq3 = paste0("x~=~\\frac{",mid*2,"}{2}\\pm\\frac{",wid,"}{2}")
+    eq4 = paste0("x~=~\\frac{",mid*2,"\\pm ",wid,"}{2}")
+} else {
+    eq1 = paste0("\\left(x-\\frac{",mid*2,"}{2}\\right)^2~=~\\frac{",wid^2,"}{4}")
+    eq2 = paste0("x-\\frac{",mid*2,"}{2}~=~\\pm\\frac{",wid,"}{2}")
+    wrd1 = "Add"
+    wrd2 = "to"
+    eq3 = paste0("x~=~\\frac{",mid*2,"}{2}\\pm\\frac{",wid,"}{2}")
+    eq4 = paste0("x~=~\\frac{",mid*2,"\\pm ",wid,"}{2}")
+}
+
+ach = -20:20
+
+sol1 = ach==x1
+sol2 = ach==x2
+sol = sol1 + sol2
+sol = paste0(1*(sol!=0),collapse="")
+
+al = paste0("* ",ach,collapse="\n")
+```
+
+Question
+========
+
+Find all solutions to the equation below:
+
+$$`r eq1`$$
+
+
+Answerlist
+-------
+
+`r al`
+
+
+Solution
+========
+
+Undo the squaring on both sides. Notice that $\sqrt{\frac{`r wid^2`}{4}}=\frac{\sqrt{`r wid^2`}}{\sqrt{4}}=\frac{`r wid`}{2}$. Also, remember that when you undo the squaring function, we need to consider multiple possibilities because the squaring function is NOT one-to-one.
+
+$$`r eq2`$$
+
+`r wrd1` $\frac{`r abs(2*mid)`}{2}$ `r wrd2` both sides of the equation.
+
+$$`r eq3`$$
+
+We are adding/subtracting fractions, and the fractions have a common denominator, so we can simply add/subtract the numerators.
+
+$$`r eq4`$$
+
+Evaluate both solutions.
+
+$$x=`r x1`~~~~~\text{or}~~~~x=`r x2`$$
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: solve_sqr_x_eq_D
