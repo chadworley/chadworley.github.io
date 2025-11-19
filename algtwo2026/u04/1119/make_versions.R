@@ -3,7 +3,7 @@ shortfn = strsplit(fn,"_")[[1]][1]
 nlow = 501
 nhigh = 520
 
-sss = "<!DOCTYPE html>
+sss44 = "<!DOCTYPE html>
 <html lang='en'>
 <head>
     <meta charset='UTF-8'>
@@ -35,22 +35,22 @@ makeem = function(fn,shortfn,nlow,nhigh){
         dir.create(directory_path)
     }
     wid = nhigh-nlow+1
-    for(jjj in nlow:nhigh){
-        rmarkdown::render(input = fn,
-                          output_file = paste0(shortfn,"/",shortfn,"_v",sprintf("%03d",jjj)),
-                          params = list(rseed = jjj,
-                                        showsol = F))
-        rmarkdown::render(input = fn,
-                          output_file = paste0(shortfn,"/",shortfn,"_SOL_",sprintf("%03d",jjj)),
-                          params = list(rseed = jjj,
-                                        showsol = T))
-    }
+    # for(jjj in nlow:nhigh){
+    #     rmarkdown::render(input = fn,
+    #                       output_file = paste0(shortfn,"/",shortfn,"_v",sprintf("%03d",jjj)),
+    #                       params = list(rseed = jjj,
+    #                                     showsol = F))
+    #     rmarkdown::render(input = fn,
+    #                       output_file = paste0(shortfn,"/",shortfn,"_SOL_",sprintf("%03d",jjj)),
+    #                       params = list(rseed = jjj,
+    #                                     showsol = T))
+    # }
     
-    sss = gsub("p1029",shortfn,sss,fixed=T)
-    sss = gsub("WID",wid,sss,fixed=T)
-    sss = gsub("BOT",nlow,sss,fixed=T)
+    sss44 = gsub("p1029",shortfn,sss44,fixed=T)
+    sss44 = gsub("WID",wid,sss44,fixed=T)
+    sss44 = gsub("BOT",nlow,sss44,fixed=T)
     fileConn<-file(paste0(shortfn,"/",shortfn,".html"))
-    writeLines(sss, fileConn)
+    writeLines(sss44, fileConn)
     close(fileConn)
 }
 
