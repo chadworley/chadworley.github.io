@@ -1,0 +1,123 @@
+```{r,echo=FALSE}
+pn = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+
+funcs = list(function(x,A,M){M*(x+A)},
+             function(x,A,M){M*x+A},
+             function(x,A,M){M*(x-A)},
+             function(x,A,M){M*x-A},
+             function(x,A,M){(x+A)/M},
+             function(x,A,M){x/M+A},
+             function(x,A,M){(x-A)/M},
+             function(x,A,M){x/M-A}
+             )
+
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{x+A}{M}",
+               "\\frac{x}{M}+A",
+               "\\frac{x-A}{M}",
+               "\\frac{x}{M}-A")
+
+qt = sample(1:8,1)
+
+while(T){
+    twonums = sample(4:10,2)
+    nk = twonums[1]^2
+    snk = round(sqrt(nk))
+    h = twonums[2]*sample(c(-1,1),1)
+    x1 = h+snk
+    x2 = h-snk
+    AM = sample(2:20,2)
+    A = AM[1]
+    M = AM[2]
+    RS = funcs[[qt]](nk,A,M)
+    if(RS %% 1 == 0){break}
+}
+
+
+ach = -20:20
+
+sol1 = ach==x1
+sol2 = ach==x2
+sol = sol1 + sol2
+sol = paste0(1*(sol!=0),collapse="")
+
+al = paste0("* ",ach,collapse="\n")
+
+eq = exp_frames[qt]
+eq = gsub("M",M,eq,fixed=T)
+eq = gsub("A",A,eq,fixed=T)
+eq = gsub("x",paste0("(",pn(c(1,-h),1:0),")^2",collapse=""),eq,fixed=T)
+
+wd2 = c("  1. add A\n  2. multiply by M",
+        "  1. multiply by M\n  2. add A",
+        "  1. subtract A\n  2. multiply by M",
+        "  1. multiply by M\n  2. subtract A",
+        "  1. add A\n  2. divide by M",
+        "  1. divide by M\n  2. add A",
+        "  1. subtract A\n  2. divide by M",
+        "  1. divide by M\n  2. subtract A")
+
+wd = wd2[9-qt]
+wd = gsub("A",A,wd,fixed=T)
+wd = gsub("M",M,wd,fixed=T)
+
+```
+
+Question
+========
+
+Find all solutions to the equation below:
+
+$$`r eq`~=~`r RS`$$
+
+
+Answerlist
+-------
+
+`r al`
+
+
+Solution
+========
+
+First, to both sides of the equation:
+
+`r wd`
+
+
+$$(`r pn(c(1,-h),1:0)`)^2~=~`r nk`$$
+
+Undo the squaring. When squared, both $`r -snk`$ and $`r snk`$ produce $`r nk`$.
+
+
+$$`r pn(c(1,-h),1:0)`~=~\pm`r snk`$$
+
+
+$$x~=~`r h`\pm`r snk`$$
+
+So the two solutions are $x=`r x1`$ and $x=`r x2`$.
+
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: solve_sqr_x_eq_B

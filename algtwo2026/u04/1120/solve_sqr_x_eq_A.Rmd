@@ -1,0 +1,71 @@
+```{r,echo=FALSE}
+options(scipen=999)
+pfix = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+
+x1 = sample(3:9,1)
+x2 = -x1
+
+ach = -9:9
+
+sol1 = ach==x1
+sol2 = ach==x2
+sol = sol1 + sol2
+sol = paste0(1*(sol!=0),collapse="")
+
+al = paste0("* ",ach,collapse="\n")
+
+```
+
+Question
+========
+
+Find all solutions to the equation below:
+
+$$x^2~=~`r x1^2`$$
+
+
+Answerlist
+-------
+
+`r al`
+
+
+Solution
+========
+
+Notice, because the [squaring](https://en.wikipedia.org/wiki/Square_(algebra)) function is NOT one-to-one, when we "undo" it on both sides of an equation, we need to consider multiple possibilities.
+
+In this case, you should know that, when squared, both $`r x2`$ and $`r x1`$ produce $`r x1^2`$.
+
+$$(`r x2`)^2~=~`r x2^2`$$
+$$(`r x1`)^2~=~`r x2^2`$$
+
+Thus the solutions are $`r x2`$ and $`r x1`$.
+
+You might show your work as follows:
+
+$$x^2 ~=~ `r x1^2`$$
+$$x ~=~ \pm \sqrt{`r x1^2`}$$
+$$x ~=~ \pm `r x1`$$
+
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: solve_sqr_x_eq_A

@@ -1,0 +1,954 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+    <html>
+    <head>
+    <title>solve_sqr_x_eq_E</title>
+    <style type="text/css">
+    body{font-family: Arial, Helvetica, Sans;}
+    h4.qqq {
+      background-color: black;
+      color: white;
+    }
+    ol.outermostlist{
+        list-style-type: none;
+        padding:0px;
+        margin:0px;
+    }
+    </style>
+    <meta charset="utf-8" />
+<script type="text/javascript"   src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+    </head>
+    <script type="text/javascript">
+    const nv = 6;
+    function loader(){
+      qs = document.body.getElementsByTagName("h4");
+      lnk = document.getElementById("linksies");
+      qs[0].parentElement.parentElement.classList.add("outermostlist");
+      for(let i=0;i<qs.length;i++){
+        if(i%2==0){
+          qs[i].innerHTML = "Version "+((i/2)%nv+1).toString();
+          qs[i].id = "Q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          qs[i].classList.add("qqq");
+          if(i%(2*nv)==0){
+            let newid = "q"+(Math.floor(i/2/nv+1)).toString();
+            lnk.innerHTML += "<a id=tempid href='#Q"+(Math.floor(i/2/nv+1)).toString()+"v1'>Question "+(Math.floor(i/2/nv+1)).toString()+"</a><br>";
+            document.getElementById("tempid").id = newid;
+          }
+          qs[i].parentElement.id = "q"+(Math.floor(i/2/nv+1)).toString()+"v"+((i/2)%nv+1).toString();
+          if(i%(2*nv)!=0){
+            qs[i].parentElement.style.display = "none";
+          }
+          }
+    }
+    }
+    function shower(){
+      let x = this.nextSibling;
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        this.innerHTML = "Hide solution";
+      } else {
+        x.style.display = "none";
+        this.innerHTML = "Show solution";
+      }
+    }
+    function prev(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn-1+nv)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    function next(){
+      let x = this.parentElement;
+      let prefix = x.id.split("v")[0]
+      let vn = parseInt(x.id.split("v")[1]);
+      let new_vn = (vn+1)%nv;
+      if(new_vn==0){
+        new_vn = nv;
+      }
+      let y = document.getElementById(prefix+"v"+new_vn.toString());
+      x.style.display = "none";
+      y.style.display = "block";
+      document.getElementById(prefix).href = "#"+prefix+"v"+new_vn.toString();
+    }
+    </script>
+    <body onLoad="loader()">
+    <div style="display:none">
+    \(\renewcommand{\hat}[1]{\widehat{#1}}\)
+    </div>
+    <h2 id="sqid">solve_sqr_x_eq_E</h2>
+    <div id="linksies", style="display:none"></div>
+    <ol>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation below:</p>
+<p><span class="math display">\[15\left((x-{4})^2+12\right)~=~915\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>First, to both sides of the equation:</p>
+<ol style="list-style-type: decimal">
+<li>divide by 15</li>
+<li>subtract 12</li>
+</ol>
+<p><span class="math display">\[(x-{4})^2~=~49\]</span></p>
+<p>Undo the squaring. When squared, both <span class="math inline">\(-7\)</span> and <span class="math inline">\(7\)</span> produce <span class="math inline">\(49\)</span>.</p>
+<p><span class="math display">\[x-{4}~=~\pm7\]</span></p>
+<p><span class="math display">\[x~=~4\pm7\]</span></p>
+<p>So the two solutions are <span class="math inline">\(x=11\)</span> and <span class="math inline">\(x=-3\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation below:</p>
+<p><span class="math display">\[15 (x+{10})^2+11~=~551\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>First, to both sides of the equation:</p>
+<ol style="list-style-type: decimal">
+<li>subtract 11</li>
+<li>divide by 15</li>
+</ol>
+<p><span class="math display">\[(x+{10})^2~=~36\]</span></p>
+<p>Undo the squaring. When squared, both <span class="math inline">\(-6\)</span> and <span class="math inline">\(6\)</span> produce <span class="math inline">\(36\)</span>.</p>
+<p><span class="math display">\[x+{10}~=~\pm6\]</span></p>
+<p><span class="math display">\[x~=~-10\pm6\]</span></p>
+<p>So the two solutions are <span class="math inline">\(x=-4\)</span> and <span class="math inline">\(x=-16\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation below:</p>
+<p><span class="math display">\[10 (x+{4})^2+6~=~1006\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>First, to both sides of the equation:</p>
+<ol style="list-style-type: decimal">
+<li>subtract 6</li>
+<li>divide by 10</li>
+</ol>
+<p><span class="math display">\[(x+{4})^2~=~100\]</span></p>
+<p>Undo the squaring. When squared, both <span class="math inline">\(-10\)</span> and <span class="math inline">\(10\)</span> produce <span class="math inline">\(100\)</span>.</p>
+<p><span class="math display">\[x+{4}~=~\pm10\]</span></p>
+<p><span class="math display">\[x~=~-4\pm10\]</span></p>
+<p>So the two solutions are <span class="math inline">\(x=6\)</span> and <span class="math inline">\(x=-14\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation below:</p>
+<p><span class="math display">\[11\left((x+{8})^2+3\right)~=~924\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>First, to both sides of the equation:</p>
+<ol style="list-style-type: decimal">
+<li>divide by 11</li>
+<li>subtract 3</li>
+</ol>
+<p><span class="math display">\[(x+{8})^2~=~81\]</span></p>
+<p>Undo the squaring. When squared, both <span class="math inline">\(-9\)</span> and <span class="math inline">\(9\)</span> produce <span class="math inline">\(81\)</span>.</p>
+<p><span class="math display">\[x+{8}~=~\pm9\]</span></p>
+<p><span class="math display">\[x~=~-8\pm9\]</span></p>
+<p>So the two solutions are <span class="math inline">\(x=1\)</span> and <span class="math inline">\(x=-17\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation below:</p>
+<p><span class="math display">\[\frac{(x+{7})^2}{4}+2~=~6\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>First, to both sides of the equation:</p>
+<ol style="list-style-type: decimal">
+<li>subtract 2</li>
+<li>multiply by 4</li>
+</ol>
+<p><span class="math display">\[(x+{7})^2~=~16\]</span></p>
+<p>Undo the squaring. When squared, both <span class="math inline">\(-4\)</span> and <span class="math inline">\(4\)</span> produce <span class="math inline">\(16\)</span>.</p>
+<p><span class="math display">\[x+{7}~=~\pm4\]</span></p>
+<p><span class="math display">\[x~=~-7\pm4\]</span></p>
+<p>So the two solutions are <span class="math inline">\(x=-3\)</span> and <span class="math inline">\(x=-11\)</span>.</p>
+<br/>
+</div></li>
+<li>
+<br><h4>Question</h4><button onclick='prev.call(this)'>prev</button><button onclick='next.call(this)'>next</button>
+<p>Find all solutions to the equation below:</p>
+<p><span class="math display">\[\frac{(x-{10})^2}{9}+2~=~11\]</span></p>
+<br/>
+<ol type="a">
+<li>
+-20
+</li>
+<li>
+-19
+</li>
+<li>
+-18
+</li>
+<li>
+-17
+</li>
+<li>
+-16
+</li>
+<li>
+-15
+</li>
+<li>
+-14
+</li>
+<li>
+-13
+</li>
+<li>
+-12
+</li>
+<li>
+-11
+</li>
+<li>
+-10
+</li>
+<li>
+-9
+</li>
+<li>
+-8
+</li>
+<li>
+-7
+</li>
+<li>
+-6
+</li>
+<li>
+-5
+</li>
+<li>
+-4
+</li>
+<li>
+-3
+</li>
+<li>
+-2
+</li>
+<li>
+-1
+</li>
+<li>
+0
+</li>
+<li>
+1
+</li>
+<li>
+2
+</li>
+<li>
+3
+</li>
+<li>
+4
+</li>
+<li>
+5
+</li>
+<li>
+6
+</li>
+<li>
+7
+</li>
+<li>
+8
+</li>
+<li>
+9
+</li>
+<li>
+10
+</li>
+<li>
+11
+</li>
+<li>
+12
+</li>
+<li>
+13
+</li>
+<li>
+14
+</li>
+<li>
+15
+</li>
+<li>
+16
+</li>
+<li>
+17
+</li>
+<li>
+18
+</li>
+<li>
+19
+</li>
+<li>
+20
+</li>
+</ol>
+<br/>
+<h4>Solution</h4><button onclick='shower.call(this)'>Show solution</button><div class='hider' style = 'display: none;'>
+<p>First, to both sides of the equation:</p>
+<ol style="list-style-type: decimal">
+<li>subtract 2</li>
+<li>multiply by 9</li>
+</ol>
+<p><span class="math display">\[(x-{10})^2~=~81\]</span></p>
+<p>Undo the squaring. When squared, both <span class="math inline">\(-9\)</span> and <span class="math inline">\(9\)</span> produce <span class="math inline">\(81\)</span>.</p>
+<p><span class="math display">\[x-{10}~=~\pm9\]</span></p>
+<p><span class="math display">\[x~=~10\pm9\]</span></p>
+<p>So the two solutions are <span class="math inline">\(x=19\)</span> and <span class="math inline">\(x=1\)</span>.</p>
+<br/>
+</div></li>
+</ol>
+    </body>
+    </html>
+    

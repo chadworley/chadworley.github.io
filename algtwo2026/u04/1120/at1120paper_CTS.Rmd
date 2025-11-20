@@ -1,0 +1,54 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+---
+
+Name: \vspace{5pt} \hrule
+
+## at1120paper: Simplify radicals (v`r params$rseed`)
+
+
+```{r,echo=F}
+options(scipen=999)
+if(params$rseed !=0){
+    set.seed(params$rseed)
+}
+```
+
+
+```{r,echo=F}
+pows = sample(2:5,3)
+tot = 2^pows[1]*3^pows[2]*5^pows[3]
+s1 = paste0(c(2,3,5),"^{",pows,"}",collapse="\\cdot")
+
+
+```
+
+### Question 1
+
+Use the prime factorization, $`r tot`=`r s1`$, to simplify the radical expression:
+
+$$\sqrt{`r tot`}$$
+
+
+```{r,echo=F,results='asis'}
+if(params$showsol){
+    cat("\\color{red}\n")
+    p2 = pows %/% 2
+    p3 = pows %% 2
+    s2 = paste0(c(2,3,5),"^{",p2,"}",collapse="\\cdot")
+    s3 = paste0(c(2,3,5),"^{",p3,"}",collapse="\\cdot")
+    s4 = paste0(s2,"\\sqrt{",s3,"}")
+    cat("$$",s4,"$$\n")
+    aa = 2^p2[1]*3^p2[2]*5^p2[3]
+    bb = 2^p3[1]*3^p3[2]*5^p3[3]
+    cat("$$",aa,"\\sqrt{",bb,"}$$\n")
+    cat("\\color{black}")
+}
+
+```
+
+
+

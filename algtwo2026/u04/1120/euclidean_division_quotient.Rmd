@@ -1,0 +1,106 @@
+```{r,echo=FALSE}
+
+while(T){
+    quotient = sample(3:9,1)
+    divisor = sample(3:9,1)
+    remainder = sample(1:(divisor-1),1)
+    dividend = quotient*divisor+remainder
+    nums = c(quotient,divisor,remainder,dividend)
+    if(length(unique(nums))==4){break}
+}
+
+
+```
+
+Question
+========
+
+Acquaint yourself with the terminology and process of [Euclidean division](https://en.wikipedia.org/wiki/Euclidean_division).
+
+If the dividend is `r dividend` and the divisor is `r divisor`, then what is the **quotient**?
+
+
+Solution
+========
+
+If `r dividend` beads are grouped into piles of `r divisor` beads, there will be `r quotient` complete piles and `r remainder` beads left over. In the terminology to Euclidean division:
+
+* The dividend = `r dividend`
+* The divisor = `r divisor`
+* The quotient = `r quotient`
+* The remainder = `r remainder`
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",axes=F,ann=F,xlim=c(0,1),ylim=c(0,1))
+
+npiles = quotient
+npc = floor(sqrt(npiles))
+nbc = floor(sqrt(divisor))
+wid = 1/(npc+2)/2
+
+
+polygon(c(0,0,1,1),c(0,1,1,0))
+
+x1s = numeric()
+y1s = numeric()
+
+for(i in 0:(npiles-1)){
+    xmid = (i %% npc+1) / (npc+2) 
+    ymid = (i %/% npc+0.5) / (npc+2)
+    # points(xmid,ymid,pch=20)
+    for(j in 0:(divisor-1)){
+        xshi = (-0.5+(j %% nbc) / (nbc+2)) * wid
+        yshi = (-0.5+(j %/% nbc) / (nbc+2)) * wid
+        # points(xmid+xshi,ymid+yshi,pch=19)
+        x1s = c(x1s,xmid+xshi)
+        y1s = c(y1s,ymid+yshi)
+    }
+}
+
+x2s = numeric()
+y2s = numeric()
+
+for(i in 1:remainder){
+    xmid = 1-1/(npc+2)
+    ymid = 0.5
+    for(j in 0:(remainder-1)){
+        xshi = (-0.5+(j %% nbc) / (nbc+2)) * wid
+        yshi = (-0.5+(j %/% nbc) / (nbc+2)) * wid
+        # points(xmid+xshi,ymid+yshi,pch=19,col="red")
+        x2s = c(x2s,xmid+xshi)
+        y2s = c(y2s,ymid+yshi)
+    }
+}
+
+xmin = min(c(x1s,x2s))
+xmax = max(c(x1s,x2s))
+ymin = min(c(y1s,y2s))
+ymax = max(c(y1s,y2s))
+
+xwid = xmax-xmin
+ywid = ymax-ymin
+xmid = mean(c(xmax,xmin))
+ymid = mean(c(ymax,ymin))
+
+xa = (x1s-xmid)/xwid*0.8
+ya = (y1s-ymid)/ywid*0.8
+xb = (x2s-xmid)/xwid*0.8
+yb = (y2s-ymid)/ywid*0.8
+
+points(xa+0.5,ya+0.5,pch=19)
+points(xb+0.5,yb+0.5,pch=19,col="red")
+
+```
+\
+
+It might also help to express this with math notation:
+
+$$\frac{`r dividend`}{`r divisor`}~=~`r quotient`+\frac{`r remainder`}{`r divisor`}$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r quotient`
+exname: euclidean_division_quotient
