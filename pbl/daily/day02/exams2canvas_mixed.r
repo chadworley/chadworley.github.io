@@ -2,15 +2,14 @@ library("exams")
 n = 30
 outdir = "outcanvas"
 
-probs = list("et_tra_rot_gli_mir.Rmd",
-             "et_tra_rot_gli_mir.Rmd")
-pnts = c(2,2)
+probs = list("et_tra_rot_gli_mir.Rmd")
+pnts = c(8)
 exams2canvas(probs,
              n=n,
              dir=outdir,
              points=pnts,
              maxattempts = 6,
-             name="et1119",
+             name="et1120",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE)
 )

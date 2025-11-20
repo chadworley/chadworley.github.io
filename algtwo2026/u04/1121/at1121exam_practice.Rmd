@@ -7,7 +7,7 @@ params:
 
 Name: \vspace{5pt} \hrule
 
-## at1121exam_practice: Radicals and Completing Squares (v`r params$rseed`)
+## at1121exam_practice: Radicals and Squares (v`r params$rseed`)
 
 
 ```{r,echo=F}
@@ -116,6 +116,16 @@ funcs = list(function(x,A,M){M*(x+A)},
              function(x,A,M){x/M-A}
              )
 
+func2 = list(function(x,A,M){x+A},
+             function(x,A,M){M*x},
+             function(x,A,M){x-A},
+             function(x,A,M){M*x},
+             function(x,A,M){x+A},
+             function(x,A,M){x/M},
+             function(x,A,M){x-A},
+             function(x,A,M){x/M}
+             )
+
 exp_frames = c("M\\left(x+A\\right)",
                "M x+A",
                "M\\left(x-A\\right)",
@@ -124,6 +134,15 @@ exp_frames = c("M\\left(x+A\\right)",
                "\\frac{x}{M}+A",
                "\\frac{x-A}{M}",
                "\\frac{x}{M}-A")
+
+exp_frame2 = c("x+A",
+               "M x",
+               "x-A",
+               "M x",
+               "x+A",
+               "\\frac{x}{M}",
+               "x-A",
+               "\\frac{x}{M}")
 
 qt = sample(1:8,1)
 
@@ -147,18 +166,38 @@ eq = gsub("M",M,eq,fixed=T)
 eq = gsub("A",A,eq,fixed=T)
 eq = gsub("x",paste0("(",pn(c(1,-h),1:0),")^2",collapse=""),eq,fixed=T)
 
-wd2 = c("  1. add A\n  2. multiply by M",
-        "  1. multiply by M\n  2. add A",
-        "  1. subtract A\n  2. multiply by M",
-        "  1. multiply by M\n  2. subtract A",
-        "  1. add A\n  2. divide by M",
-        "  1. divide by M\n  2. add A",
-        "  1. subtract A\n  2. divide by M",
-        "  1. divide by M\n  2. subtract A")
+eq2 = exp_frame2[qt]
+eq2 = gsub("M",M,eq2,fixed=T)
+eq2 = gsub("A",A,eq2,fixed=T)
+eq2 = gsub("x",paste0("(",pn(c(1,-h),1:0),")^2",collapse=""),eq2,fixed=T)
 
-wd = wd2[9-qt]
-wd = gsub("A",A,wd,fixed=T)
-wd = gsub("M",M,wd,fixed=T)
+RS2 = func2[[qt]](nk,A,M)
+
+wd1 = c("add A to both sides",
+        "multiply both sides by M",
+        "subtract A from both sides",
+        "multiply both sides by M",
+        "add A to both sides",
+        "divide both sides by M",
+        "subtract A from both sides",
+        "divide both sides by M")
+
+wd2 = c("multiply both sides by M",
+        "add A to both sides",
+        "multiply both sides by M",
+        "subtract A from both sides",
+        "divide both sides by M",
+        "add A to both sides",
+        "divide both sides by M",
+        "subtract A from both sides")
+
+wdA = wd1[9-qt]
+wdA = gsub("A",A,wdA,fixed=T)
+wdA = gsub("M",M,wdA,fixed=T)
+
+wdB = wd2[9-qt]
+wdB = gsub("A",A,wdB,fixed=T)
+wdB = gsub("M",M,wdB,fixed=T)
 
 ```
 
@@ -172,10 +211,19 @@ $$`r eq`~=~`r RS`$$
 ```{r,echo=F,results='asis'}
 if(params$showsol){
     cat("\\color{red}\n")
-    cat(wd)
+    cat(paste0("First, ",wdA,"."))
+    cat("\n")
+    cat("$$",eq2,"=",RS2,"$$\n")
+    cat(paste0("Then, ",wdB,"."))
     cat("\n")
     cat("$$(",pn(c(1,-h),1:0),")^2=",nk,"$$\n")
+    cat("Undo the squaring. Remember the plus-minus symbol.\n")
     cat("$$",pn(c(1,-h),1:0),"=\\pm",snk,"$$\n")
+    if(h<0){
+        cat("Subtract ",abs(h)," from both sides.")
+    } else {
+        cat("Add ",abs(h)," to both sides.")
+    }
     cat("$$x=",h,"\\pm",snk,"$$\n")
     cat(paste0("So the two solutions are $x=",x1,"$ and $x=",x2,"$."))
     cat("\\color{black}\n")
@@ -224,16 +272,17 @@ while(T){
 }
 ```
 
-By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation:
+By [completing the square](https://en.wikipedia.org/wiki/Completing_the_square), find both solutions to the given equation. *You must show work for full credit!*
 
 $$`r pn(c(1,2*y),2:1)`~=~`r area`$$
+
 
 
 \vfill
 
 \color{red}
 
-```{r,echo=F,results='asis'}
+```{r,echo=F,results='asis',eval=params$showsol}
 cat(paste0("$$",pn(c(1,2*y,y^2),2:0),"=",pn(c(area,y^2),c(0,0)),"$$"))
 cat(paste0("$$",pn(c(1,2*y,y^2),2:0),"=",area+y^2,"$$"))
 cat(paste0("$$(",pn(c(1,y),1:0),")^2=",area+y^2,"$$"))
@@ -297,26 +346,26 @@ while(T){
 ```
 
 
-Quadratic polynomial $p$ is defined below in standard form.
-$$p(x)~=~`r pfix(c(a,B,C),2:0)`$$
+A quadratic polynomial function is shown below in standard form.
+$$y~=~`r pfix(c(a,B,C),2:0)`$$
 
-Express the polynomial in **vertex form** and identify the location of the vertex.
+Express the function in **vertex form** and identify the **location** of the vertex.
 
 \vfill
 
-```{r,echo=F,results='asis'}
+```{r,echo=F,results='asis',eval=params$showsol}
 cat("\\color{red}\n")
 cat("From the first two terms, factor out ",a,".\n")
-cat("$$p(x)=",a,"(",pfix(c(1,B/a),2:1),")",mfix(C,0),"$$\n")
-cat("We want a perfect square.\n")
-cat("$$p(x)=",a,"(",pfix(c(1,B/a,(B/a/2)^2,-(B/a/2)^2),c(2,1,0,0)),")",mfix(C,0),"$$\n")
+cat("$$y=",a,"(",pfix(c(1,B/a),2:1),")",mfix(C,0),"$$\n")
+cat("We want a perfect square. Halve ",B/a," and square the result to get ",(B/a/2)^2,". Add and subtract that value inside the parentheses.\n")
+cat("$$y=",a,"(",pfix(c(1,B/a,(B/a/2)^2,-(B/a/2)^2),c(2,1,0,0)),")",mfix(C,0),"$$\n")
 cat("Factor the perfect-square trinomial.\n")
-cat("$$p(x)=",a,"((x",mfix(B/a/2,0),")^2",mfix(-(B/a/2)^2,0),")",mfix(C,0),"$$\n")
+cat("$$y=",a,"((x",mfix(B/a/2,0),")^2",mfix(-(B/a/2)^2,0),")",mfix(C,0),"$$\n")
 cat(paste0("Distribute the ",a,".\n"))
-cat("$$p(x)=",a,"(x",mfix(B/a/2,0),")^2",mfix(-(B/2)^2/a,0),mfix(C,0),"$$\n")
+cat("$$y=",a,"(x",mfix(B/a/2,0),")^2",mfix(-(B/2)^2/a,0),mfix(C,0),"$$\n")
 cat("Combine the constants to get **vertex form**:")
-cat("$$p(x)=",a,"(x",mfix(B/a/2,0),")^2",mfix(-(B/2)^2/a+C,0),"$$\n")
-cat("The vertex is at (",h,",",k,").\n")
+cat("$$y=",a,"(x",mfix(B/a/2,0),")^2",mfix(-(B/2)^2/a+C,0),"$$\n")
+cat(paste0("The vertex is at point $(",h,",",k,")$.\n"))
 cat("\\color{black}\n")
 ```
 
