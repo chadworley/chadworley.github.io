@@ -1,4 +1,4 @@
-fn = "at1121exam_practice.Rmd"
+fn = "at1121exam_examples.Rmd"
 shortfn = strsplit(fn,"_")[[1]][1]
 nlow = 1
 nhigh = 20
@@ -97,14 +97,14 @@ makeem = function(fn,shortfn,nlow,nhigh){
     }
     wid = nhigh-nlow+1
     for(jjj in nlow:nhigh){
-        rmarkdown::render(input = fn,
-                          output_file = paste0(directory_path,"/",shortfn,"_v",sprintf("%03d",jjj)),
-                          params = list(rseed = jjj,
-                                        showsol = F))
         # rmarkdown::render(input = fn,
-        #                   output_file = paste0(directory_path,"/",shortfn,"_SOL_v",sprintf("%03d",jjj)),
+        #                   output_file = paste0(directory_path,"/",shortfn,"_v",sprintf("%03d",jjj)),
         #                   params = list(rseed = jjj,
-        #                                 showsol = T))
+        #                                 showsol = F))
+        rmarkdown::render(input = fn,
+                          output_file = paste0(directory_path,"/",shortfn,"_SOL_v",sprintf("%03d",jjj)),
+                          params = list(rseed = jjj,
+                                        showsol = T))
     }
     
     sss = gsub("at1110example",shortfn,sss,fixed=T)
