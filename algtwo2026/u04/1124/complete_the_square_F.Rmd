@@ -1,0 +1,144 @@
+```{r,echo=FALSE}
+options(scipen=999)
+
+library(numbers)
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    ex1 = gsub("{","",ex1,fixed=T)
+    ex1 = gsub("}","",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+
+fronts = 2:10
+inrads = c(2,3,5,6,7,10)
+pr1 = numeric()
+pr2 = numeric()
+for(i in fronts){
+    for(j in inrads){
+        if(i*i*j<=200){
+            pr1 = c(pr1,i)
+            pr2 = c(pr2,j)
+        }
+    }
+}
+nrads = length(pr1)
+wrad = sample(1:nrads,1)
+front = pr1[wrad]
+inrad = pr2[wrad]
+RS = front^2*inrad
+b = 2*sample(3:9,1)*sample(c(-1,1),1)
+cts = (b/2)^2
+RSi = RS-cts
+
+ach1 = -10:10
+ach2 = 1:10
+ach3 = 1:10
+
+sol1 = paste0(1*(round(-b/2)==ach1),collapse="")
+sol2 = paste0(1*(front==ach2),collapse="")
+sol3 = paste0(1*(inrad==ach3),collapse="")
+
+al1 = paste0("* ",ach1,collapse="\n")
+al2 = paste0("* ",ach2,collapse="\n")
+al3 = paste0("* ",ach3,collapse="\n")
+
+if(b<0){
+    w1 = "Add"
+    w2 = "to"
+} else {
+    w1 = "Subtract"
+    w2 = "from"
+}
+
+pfs = primeFactors(RS)
+tp = table(pfs)
+pf = paste0(names(tp),"^{",as.vector(tp),"}",collapse="\\cdot")
+
+
+```
+
+Question
+========
+
+Use completing-the-square to solve the equation below.
+
+$$`r pn(c(1,b),2:1)`~=~`r RSi`$$
+
+The solution, when simplified, can be expressed in the form shown below.
+
+$$x~=~m \pm n\sqrt{p}$$
+
+* $m=$ ##ANSWER1##
+* $n=$ ##ANSWER2##
+* $p=$ ##ANSWER3##
+
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al3`
+
+Solution
+========
+
+$$`r pn(c(1,b),2:1)`~=~`r RSi`$$
+
+The linear coefficient is `r b`. Square half of `r b` to get `r round(b/2)^2`. Add this amount to both sides to complete the square.
+
+
+$$`r pn(c(1,b,round(b/2)^2),2:0)`~=~`r pn(c(RSi,round(b/2)^2),c(0,0))`$$
+
+Simplify the right side.
+
+$$`r pn(c(1,b,round(b/2)^2),2:0)`~=~`r c(RSi+round(b/2)^2)`$$
+
+Factor the left side.
+
+
+$$(`r pn(c(1,round(b/2)),1:0)`)^2~=~`r c(RSi+round(b/2)^2)`$$
+
+Undo the squaring.
+
+
+$$`r pn(c(1,round(b/2)),1:0)`~=~\pm \sqrt{`r c(RSi+round(b/2)^2)`}$$
+
+[Simplify the radical](https://www.khanacademy.org/math/college-algebra/xa5dd2923c88e7aa8:exponents-and-radicals/xa5dd2923c88e7aa8:simplifying-square-roots/v/simplifying-square-roots-1). I recommend using prime factorization (with a factor tree).
+
+$$`r pn(c(1,round(b/2)),1:0)`~=~\pm \sqrt{`r pf`}$$
+
+
+$$`r pn(c(1,round(b/2)),1:0)`~=~\pm `r front`\sqrt{`r inrad`}$$
+
+`r w1` `r abs(round(b/2))` `r w2` both sides.
+
+$$x~=~`r -round(b/2)`\pm `r front`\sqrt{`r inrad`}$$
+
+So,
+
+* $m=`r -round(b/2)`$
+* $n=`r front`$
+* $p=`r inrad`$
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: complete_the_square_F
