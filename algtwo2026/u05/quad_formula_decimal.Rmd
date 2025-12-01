@@ -1,0 +1,144 @@
+```{r,echo=FALSE}
+options(scipen=999)
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    ex1 = gsub("{","",ex1,fixed=T)
+    ex1 = gsub("}","",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+
+
+addorsub = function(x){
+    if(x<0){
+        return(paste0("-",abs(x),collapse=""))
+    } else {
+        return(paste0("+",abs(x),collapse=""))
+    }
+}
+
+while(T){
+    abc = sample(2:12,3)*sample(c(-1,1),3,T)
+    a = abc[1]
+    b = abc[2]
+    c = abc[3]
+    if(b^2-4*a*c>0){
+        x1 = -b/2/a-sqrt(b^2-4*a*c)/2/a
+        x2 = -b/2/a+sqrt(b^2-4*a*c)/2/a
+        xlow = -b/2/a-abs(sqrt(b^2-4*a*c)/2/a)
+        xhigh = -b/2/a+abs(sqrt(b^2-4*a*c)/2/a)
+        if(abs(x2-x1)>0.3 && abs(x1)>0.01 && abs(x2)>0.01 && abs(x1)<100 && abs(x2)<100 && !(x1%%1==0) && !(x2%%1==0)){break}
+    }
+}
+
+ach1 = round(xlow+(sample(-4:0,1)+0:4)*0.03,2)
+ach2 = round(xhigh+(sample(-4:0,1)+0:4)*0.03,2)
+
+x1r = round(x1,2)
+x2r = round(x2,2)
+xlowr = round(xlow,2)
+xhighr = round(xhigh,2)
+
+al1 = paste0("* ",sprintf("%0.2f",ach1),collapse="\n")
+al2 = paste0("* ",sprintf("%0.2f",ach2),collapse="\n")
+
+sol1 = paste0(1*(ach1==xlowr),collapse="")
+sol2 = paste0(1*(ach2==xhighr),collapse="")
+
+
+```
+
+
+Question
+========
+
+If we start with a generic quadratic equation and use [completing the square](https://en.wikipedia.org/wiki/Completing_the_square) to solve it, we can derive the [quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula):
+
+* If $ax^2+bx+c=0$, then
+$$x~=~\frac{-b \pm \sqrt{b^2-4ac}}{2a}$$
+
+Use the quadratic formula to find both solutions (rounded to the nearest hundredth) to the equation below.
+
+$$`r pn(abc,2:0)`~=~0$$
+
+* $x=$ ##ANSWER1##
+* or
+* $x=$ ##ANSWER2##
+
+
+
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+
+
+Solution
+========
+
+Identify the parameters.
+
+* The quadratic coefficient: $a=`r a`$
+* The linear coefficient: $b=`r b`$
+* The constant: $c=`r c`$
+
+Plug the numbers into the quadratic formula.
+
+$$x~=~\frac{-(`r b`)\pm \sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)}$$
+
+Simplify.
+
+
+
+$$x~=~\frac{`r -b`\pm \sqrt{`r b^2` `r addorsub(-4*a*c)`}}{`r 2*a`}$$
+
+Simplify MORE.
+
+$$x~=~\frac{`r -b`\pm \sqrt{`r b^2-4*a*c`}}{`r 2*a`}$$
+
+Now, plug both expressions into a calculator.
+
+
+$$x~=~\frac{`r -b`- \sqrt{`r b^2-4*a*c`}}{`r 2*a`}~=~`r x1` ~\approx `r x1r`$$
+
+OR 
+
+$$x~=~\frac{`r -b`+ \sqrt{`r b^2-4*a*c`}}{`r 2*a`}~=~`r x2` ~\approx `r x2r`$$
+
+
+If you are using a basic (one-line) scientific calculator, you can type the expressions like:
+
+`` (`r -b`-sqrt(`r b^2-4*a*c`))/(`r 2*a`) ``
+
+`` (`r -b`+sqrt(`r b^2-4*a*c`))/(`r 2*a`) ``
+
+Or maybe...
+
+
+`` (`r -b`-√(`r b^2-4*a*c`))/(`r 2*a`) ``
+
+`` (`r -b`+√(`r b^2-4*a*c`))/(`r 2*a`) ``
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: quad_formula_decimal

@@ -1,0 +1,139 @@
+```{r,echo=FALSE}
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    ex1 = gsub("{","",ex1,fixed=T)
+    ex1 = gsub("}","",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+
+gcd <- function(...) Reduce(gcd2, c(...))
+
+while(T){
+    abc = sample(2:12,3)*sample(c(-1,1),3,T)
+    a = abc[1]
+    b = abc[2]
+    c = abc[3]
+    h = -b/2/a
+    D = b^2-4*a*c
+    if(D>0){
+        wid = sqrt(D)/2/abs(a)
+        r = h-wid
+        s = h+wid
+        k = a*r*s-a*h^2
+        if(!(h%%1==0)){break}
+    }
+}
+
+hn1 = -b
+hd1 = 2*a
+
+hn2 = round(hn1/gcd(hn1,hd1))
+hd2 = round(hd1/gcd(hn1,hd1))
+
+hfrac = paste0("\\frac{",sign(h)*abs(hn2),"}{",abs(hd2),"}")
+
+kn1 = b^2-4*a*c
+kd1 = -4*a
+
+kn2 = round(kn1/gcd(kn1,kd1))
+kd2 = round(kd1/gcd(kn1,kd1))
+
+kfrac = paste0("\\frac{",sign(k)*abs(kn2),"}{",abs(kd2),"}")
+
+```
+
+
+Question
+========
+
+
+Consider the [quadratic function](https://en.wikipedia.org/wiki/Quadratic_function) defined below. 
+
+$$f(x)~=~`r pn(abc,2:0)`$$
+
+Below, I've graphed $y=f(x)$, and I've included the axis of symmetry as a dashed purple line and the vertex as a filled red dot.
+
+```{r,echo=F}
+par(mar=c(5,5,1,1))
+plot(0,0,"n",xlim=c(h-2*wid,h+2*wid),ylim=c(-2*abs(k),2*abs(k)),xlab="x",ylab="y")
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+x = seq(h-2*wid,h+2*wid,wid/100)
+y = a*x^2+b*x+c
+lines(x,y,lwd=3,col="blue")
+
+abline(v=h,col="purple",lty=2)
+
+points(h,k,pch=19,col="red")
+text(h,k,"(h,k)",adj=c(1.2,0.5+sign(a)),col="red")
+
+```
+\
+
+Calculate $k$, the vertical coordinate of the vertex. *The tolerance is $\pm 0.01$.*
+
+
+Solution
+========
+
+We were given a quadratic function in standard form. Identify the parameters.
+
+* The quadratic coefficient: $a=`r a`$
+* The linear coefficient: $b=`r b`$
+* The constant: $c=`r c`$
+
+The [the geometric significance of the quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula#Geometric_significance) tells us that $h=\frac{-b}{2a}$ and the distance of the roots to the axis of symmetry is $\frac{\sqrt{b^2-4ac}}{2a}$. Use the formula to calculate $h$.
+
+$$\begin{align}
+h &= \frac{-b}{2a} \\\\ 
+ &= \frac{-(`r b`)}{2(`r a`)} \\\\
+ &= `r hfrac`
+\end{align}$$
+
+To find $k$, you can plug the value of $h$ into the function as a value of $x$.
+
+```{r,echo=F}
+pn1 = pn(abc,2:0)
+pn1 = gsub("x",paste0("\\left(",hfrac,"\\right)"),pn1,fixed=T)
+```
+
+$$k ~=~`r pn1`$$
+
+
+Use a calculator...
+
+$$k~=~`r k`$$
+
+
+There are some easier formulas you can come up with...
+
+$$k~=~\frac{4ac-b^2}{4a}$$
+$$k~=~\frac{4(`r a`)(`r c`)-(`r b`)^2}{4(`r a`)}$$
+$$k~=~`r kfrac`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r k`
+exname: quad_k_from_standard
+extol: 0.01

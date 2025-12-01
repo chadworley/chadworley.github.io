@@ -1,0 +1,129 @@
+```{r,echo=FALSE}
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    ex1 = gsub("{","",ex1,fixed=T)
+    ex1 = gsub("}","",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+
+gcd2 <- function(a, b) {
+  if (b == 0) a else Recall(b, a %% b)
+}
+
+gcd <- function(...) Reduce(gcd2, c(...))
+
+while(T){
+    abc = sample(2:12,3)*sample(c(-1,1),3,T)
+    a = abc[1]
+    b = abc[2]
+    c = abc[3]
+    h = -b/2/a
+    D = b^2-4*a*c
+    if(D>0){
+        r = sqrt(D)/2/abs(a)
+        m = h-r
+        n = h+r
+        k = a*m*n-a*h^2
+        if(!(h%%1==0)){break}
+    }
+}
+
+hn1 = -b
+hd1 = 2*a
+
+hn2 = round(hn1/gcd(hn1,hd1))
+hd2 = round(hd1/gcd(hn1,hd1))
+
+hfrac = paste0("\\frac{",sign(h)*abs(hn2),"}{",abs(hd2),"}")
+
+kn1 = b^2-4*a*c
+kd1 = -4*a
+
+kn2 = round(kn1/gcd(kn1,kd1))
+kd2 = round(kd1/gcd(kn1,kd1))
+
+kfrac = paste0("\\frac{",sign(k)*abs(kn2),"}{",abs(kd2),"}")
+
+```
+
+
+Question
+========
+
+
+Consider the [quadratic function](https://en.wikipedia.org/wiki/Quadratic_function) defined below. 
+
+$$f(x)~=~`r pn(abc,2:0)`$$
+
+Below, I've graphed $y=f(x)$, and I've included the axis of symmetry as a dashed purple line and I've marked the distance from the axis of symmetry to one of the roots with a red line segment labelled $r$.
+
+```{r,echo=F}
+par(mar=c(5,5,1,1))
+plot(0,0,"n",xlim=c(h-2*r,h+2*r),ylim=c(-2*abs(k),2*abs(k)),xlab="x",ylab="y")
+abline(h=0,lwd=2,col="darkgrey")
+abline(v=0,lwd=2,col="darkgrey")
+x = seq(h-2*r,h+2*r,r/100)
+y = a*x^2+b*x+c
+lines(x,y,lwd=3,col="blue")
+
+abline(v=h,col="purple",lty=2)
+
+# points(h,k,pch=19,col="red")
+# text(h,k,"(h,k)",adj=c(1.2,0.5+sign(a)),col="red")
+
+
+points(h,0,pch=19,col="black")
+points(n,0,pch=19,col="black")
+
+lines(c(h,n),c(0,0),lwd=3,col="red")
+text(mean(c(h,n)),0,"r",adj=c(0.5,0.5-sign(a)),col="red",cex=2)
+
+```
+\
+
+Using [the geometric significance of the quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula#Geometric_significance), calculate $r$, the distance between the axis of symmetry and one of the roots. *The tolerance is $\pm 0.01$.*
+
+
+Solution
+========
+
+Look at the quadratic formula, which tells us if our quadratic function is in standard form, like $y=ax^2+bx+c$, then:
+
+$$\text{roots of quadratic function} ~=~ \frac{-b}{2a}\pm\frac{\sqrt{b^2-4ac}}{2a}$$
+
+We were given a quadratic function in standard form. Identify the parameters.
+
+* The quadratic coefficient: $a=`r a`$
+* The linear coefficient: $b=`r b`$
+* The constant: $c=`r c`$
+
+The [the geometric significance of the quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula#Geometric_significance) tells us that $h=\frac{-b}{2a}$ and the distance of the roots to the axis of symmetry is $r=\left|\frac{\sqrt{b^2-4ac}}{2a}\right|$. Use the formula to calculate $r$.
+
+$$r~=~\left|\frac{\sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)}\right|$$
+
+Use a calculator.
+
+$$r~=~`r r`$$
+
+
+
+Meta-information
+============
+extype: num
+exsolution: `r r`
+exname: quad_k_from_standard
+extol: 0.01

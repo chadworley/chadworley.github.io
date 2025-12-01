@@ -1,0 +1,90 @@
+---
+output: pdf_document
+---
+
+# Quadratic parameters
+
+A quadratic function represents a parabola with a vertical axis of symmetry. The vertex is at point $(h,k)$ and the axis of symmetry is the line $x=h$. 
+
+If the parabola crosses the $x$ axis, there will be two $x$-intercepts (also called roots or zeros) at $(r,0)$ and $(s,0)$. Those two roots will be equally far from the axis of symmetry, and we can call that distance $w$.
+
+
+```{r,echo=F,fig.dim=c(3,3)}
+par(mar=c(0,0,0,0))
+
+# # y = a*(x-h)^2+k
+# # y = ax^2 - 2ahx + ah^2+k
+# 
+# # y = a(x-r)(x-s)
+# # y = a(x^2-(r+s)x+rs)
+# # y = ax^2 - a(r+s)x + ars
+# 
+# # ah^2+k = ars
+# # a = -k/(h^2-rs)
+# # a = k/(rs-h^2)
+
+r = 2
+s = 8
+roots = c(r,s)
+wid = (roots[2]-roots[1])/2
+k = -abs(wid)
+h = mean(roots)
+r = roots[1]
+s = roots[2]
+a = k/(r*s-h^2)
+
+x = seq(h-2*wid,h+2*wid,wid/100)
+y = a*(x-h)^2+k
+
+plot(0,0,"n",xlim=c(h-2*wid,h+2*wid),ylim=c(-2*abs(k),2*abs(k)),axes=F,ann=F)
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+
+lines(x,y,lwd=3,col="blue")
+abline(v=h,col="purple",lty=2)
+text(h,-k,"axis of symmetry",col="purple",srt=90,adj=c(0.5,-0.2),cex=0.8)
+points(h,k,pch=19,col="purple")
+text(h,k,"(h,k)",col="purple",cex=0.8,adj=c(1.1,1.4))
+points(h,0,pch=19,col="purple")
+text(h,0,"(h,0)",col="purple",cex=0.8,adj=c(-0.1,1.4))
+
+points(r,0,col="red",pch=19)
+points(s,0,col="red",pch=19)
+text(r,0,"(r,0)",col="red",adj=c(1.1,1.4),cex=0.8)
+text(s,0,"(s,0)",col="red",adj=c(-0.1,1.4),cex=0.8)
+
+
+lines(c(r,h),c(0,0),col="darkorange",lwd=2)
+text(mean(c(r,h)),0,"w",col="darkorange",cex=0.8,adj=c(0.5,-0.3))
+
+
+```
+
+
+The same quadratic function can be expressed in multiple ways:
+
+\begin{align*}
+\text{Standard:} ~~&~~ y=ax^2+bx+c \\
+\text{Vertex:} ~~&~~ y=a(x-h)^2+k \\
+\text{Factored:} ~~&~~ y=a(x-r)(x-s) \\
+\end{align*}
+
+
+It is possible prove the following formulas:
+
+$$h~=~\frac{-b}{2a}~=~\frac{r+s}{2}$$
+
+$$w~=~\left|\frac{\sqrt{b^2-4ac}}{2a}\right|~=~\frac{|s-r|}{2}$$
+
+$$k~=~ ah^2+bh+c ~=~\frac{4ac-b^2}{4a}$$
+
+
+$$r~=~h-w~=~\frac{-b-\sqrt{b^2-4ac}}{2a}$$
+$$s~=~h+w~=~\frac{-b+\sqrt{b^2-4ac}}{2a}$$
+
+
+
+
+
+
+

@@ -1,0 +1,161 @@
+```{r,echo=FALSE}
+options(scipen=999)
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    ex1 = gsub("{","",ex1,fixed=T)
+    ex1 = gsub("}","",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+
+simpsqrt = function(x){
+    primes = c(2,3,5,7,11,13,17)
+}
+
+addorsub = function(x){
+    if(x<0){
+        return(paste0("-",abs(x),collapse=""))
+    } else {
+        return(paste0("+",abs(x),collapse=""))
+    }
+}
+
+while(T){
+    abc = sample(2:12,3)*sample(c(-1,1),3,T)
+    a = abc[1]
+    b = abc[2]
+    c = abc[3]
+    if(b^2-4*a*c>0){
+        x1 = -b/2/a-abs(sqrt(b^2-4*a*c)/2/a)
+        x2 = -b/2/a+abs(sqrt(b^2-4*a*c)/2/a)
+        xm = -b/2/a-sqrt(b^2-4*a*c)/2/a
+        xp = -b/2/a+sqrt(b^2-4*a*c)/2/a
+        if(abs(x2-x1)>0.4 && abs(x1)>0.01 && abs(x2)>0.01 && abs(x1)<100 && abs(x2)<100 && !(x1%%1==0) && !(x2%%1==0)){break}
+    }
+}
+
+ach1 = round(x1+(sample(-4:0,1)+0:4)*0.03,2)
+ach2 = round(x2+(sample(-4:0,1)+0:4)*0.03,2)
+
+x1r = round(x1,2)
+x2r = round(x2,2)
+
+al1 = paste0("* ",sprintf("%0.2f",ach1),collapse="\n")
+al2 = paste0("* ",sprintf("%0.2f",ach2),collapse="\n")
+
+sol1 = paste0(1*(ach1==x1r),collapse="")
+sol2 = paste0(1*(ach2==x2r),collapse="")
+
+```
+
+
+Question
+========
+
+
+Consider the quadratic function defined below:
+
+$$f(x)~=~`r pn(abc,2:0)`$$
+
+When we graph $y=f(x)$, we see there are two [roots](https://en.wikipedia.org/wiki/Zero_of_a_function) at $(r,0)$ and $(s,0)$. (The word "roots" means the same thing as "$x$-intercepts" or "zeros".)
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(4,4,1,1))
+wid = abs(sqrt(b^2-4*a*c)/2/a)
+mid = -b/2/a
+
+k = a*mid^2+b*mid+c
+
+plot(0,0,"n",xlim=c(mid-2*wid,mid+2*wid),ylim=c(-2*abs(k),2*abs(k)),xlab="x",ylab="y")
+
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+
+xs = seq(mid-2*wid,mid+2*wid,wid/100)
+ys = a*xs^2+b*xs+c
+
+lines(xs,ys,col="blue",lwd=3)
+
+points(x1,0,pch=19,col="red")
+points(x2,0,pch=19,col="red")
+
+text(x1,0,"(r,0)",adj=c(0.5+0.6,sign(a)+0.5),col="red",cex=1.5)
+text(x2,0,"(s,0)",adj=c(0.5-0.6,sign(a)+0.5),col="red",cex=1.5)
+
+```
+\
+
+By using the [quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula), find the roots.
+
+* $r=$ ##ANSWER1##
+* $s=$ ##ANSWER2##
+
+
+
+Answerlist
+--------
+
+
+`r al1`
+`r al2`
+
+
+Solution
+========
+
+Identify the parameters.
+
+* The quadratic coefficient: $a=`r a`$
+* The linear coefficient: $b=`r b`$
+* The constant: $c=`r c`$
+
+The $x$-intercepts of a function are found by solving for $x$ when $f(x)=0$.
+
+$$`r pn(abc,2:0)`=0$$
+
+Use the quadratic formula to solve the equation.
+
+$$x~=~\frac{-(`r b`)\pm \sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)}$$
+
+Simplify.
+
+
+
+$$x~=~\frac{`r -b`\pm \sqrt{`r b^2` `r addorsub(-4*a*c)`}}{`r 2*a`}$$
+
+Simplify MORE.
+
+$$x~=~\frac{`r -b`\pm \sqrt{`r b^2-4*a*c`}}{`r 2*a`}$$
+
+Now, plug both expressions into a calculator.
+
+
+$$x~=~\frac{`r -b`- \sqrt{`r b^2-4*a*c`}}{`r 2*a`}~=~`r xm` ~\approx `r sprintf("%0.2f",xm)`$$
+
+OR 
+
+$$x~=~\frac{`r -b`+ \sqrt{`r b^2-4*a*c`}}{`r 2*a`}~=~`r xp` ~\approx  `r sprintf("%0.2f",xp)`$$
+
+So, $r=`r x1`$ and $s=`r x2`$.
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice
+exsolution: `r sol1`|`r sol2`
+exname: quad_formula_roots
