@@ -1,0 +1,82 @@
+```{r,echo=FALSE}
+options(scipen=999)
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+pfix = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+aposs = 2:10
+bposs = 2:10
+
+a = sample(aposs,1)
+b = sample(bposs,1)
+
+sol1 = paste0(1*(aposs==a),collapse="")
+sol2 = paste0(1*(bposs==b),collapse="")
+sol3 = paste0(1*(bposs==b),collapse="")
+
+al1 = paste0("* ",aposs,collapse="\n")
+al2 = paste0("* ",bposs,collapse="\n")
+al3 = paste0("* ",bposs,collapse="\n")
+
+
+```
+
+
+Question
+========
+
+If $`r a`x^2-`r a*b^2`$ is fully factored, it can be expressed in the form $a(x+p)(x-q)$, where $a$, $p$, and $q$ are positive integers.
+
+Find $a$, $p$, and $q$.
+
+* $a=$ ##ANSWER1##
+* $p=$ ##ANSWER2##
+* $q=$ ##ANSWER3##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al3`
+
+
+Solution
+========
+
+$$`r a`x^2-`r a*b^2`$$
+
+Notice that `r a` and `r a*b^2` are both multiples of `r a`. Factor out this constant.
+
+$$`r a`(x^2-`r b^2`)$$
+
+In the parentheses is a [difference of squares](https://en.wikipedia.org/wiki/Difference_of_two_squares). Thus, we just need to find the square root of `r b^2`, and then it is easy to find the factors.
+
+$$`r a`(x+`r b`)(x-`r b`)$$
+
+Thus,
+$$a=`r a`$$
+$$p=`r b`$$
+$$q=`r b`$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: factor_quadratic

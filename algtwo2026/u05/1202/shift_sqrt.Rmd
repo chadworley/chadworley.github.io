@@ -1,0 +1,115 @@
+```{r data generation, echo = FALSE, results = "hide"}
+hk = sample(1:6,2)*sample(c(-1,1),2,T)
+h = hk[1]
+k = hk[2]
+
+lr = c("left","right")[(sign(h)+1)/2+1]
+du = c("down","up")[(sign(k)+1)/2+1]
+
+x1 = seq(0,30,0.1)
+y1 = sqrt(x1)
+
+x2 = x1+h
+y2 = y1+k
+
+px1 = c(0,1,4,9,16,25,36)
+py1 = 0:6
+
+px2 = px1+h
+py2 = py1+k
+
+cch = paste0("\\sqrt{x+",-h,"}+",k,collapse="")
+cch = gsub("+-","-",cch,fixed=T)
+ach = character()
+for(i in c(-1,1)){
+    for(j in c(-1,1)){
+        ch = paste0("\\sqrt{x+",-h*i,"}+",k*j,collapse="")
+        ch = gsub("+-","-",ch,fixed=T)
+        ach = c(ach,ch)
+        ch = paste0("\\sqrt{x+",k*i,"}+",h*j,collapse="")
+        ch = gsub("+-","-",ch,fixed=T)
+        ach = c(ach,ch)
+    }
+}
+ach = sort(ach)
+al = paste0("* $y=",ach,"$",collapse="\n")
+sol = paste0(1*(ach==cch),collapse="")
+
+argeq1 = paste0("0=x+",-h,collapse="")
+argeq1 = gsub("+-","-",argeq1,fixed=T)
+
+argeq2 = paste0("a+",h,"=x",collapse="")
+argeq2 = gsub("+-","-",argeq2,fixed=T)
+
+```
+
+Question
+========
+
+Consider the shifted [square-root function](https://en.wikipedia.org/wiki/Square_root) graphed below:
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+for(i in -10:10){
+    lines(c(i,i),c(-10,10),lwd=0.4)
+    lines(c(-10,10),c(i,i),lwd=0.4)
+}
+for(i in seq(-10,10,5)){
+    lines(c(i,i),c(-10,10),lwd=0.8)
+    lines(c(-10,10),c(i,i),lwd=0.8)
+}
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+
+text(10.5,-0.5,"x")
+text(-0.5,10.5,"y")
+text(5,-0.5,"5")
+text(-0.5,5,"5")
+
+lines(x2,y2,col="blue",lwd=3)
+points(px2,py2,pch=19,col="blue",cex=0.8)
+
+```
+\
+
+Which equation represents the plotted curve?
+
+
+
+Answerlist
+--------
+
+`r al`
+
+
+Solution
+========
+
+The parent function, $y=\sqrt{x}$, has been shifted $`r abs(h)`$ units `r lr` and $`r abs(k)`$ units `r du`.
+
+
+The correct answer is $$y=`r cch`$$
+
+Notice the horizontal translation is counterintuitive. The horizontal coordinate transformation is the INVERSE of the argument expression, whereas the vertical coordinate transformation is simply the outer operations.
+
+```{r,echo=F}
+ct = paste0("(a+",h,",b+",k,")",collapse="")
+ct = gsub("+-","-",ct,fixed=T)
+```
+
+$$(a,b)~\to~`r ct`$$
+
+where $(a,b)$ is a solution to the parent equation $\sqrt{a}=b$. For example, $\sqrt{0}=0$ or $\sqrt{1}=1$ or $\sqrt{4}=2$ or $\sqrt{9}=3$... Thus from curve $y=\sqrt{x}$ to curve $y=`r cch`$, we have the following coordinate transformations:
+
+$$(0,0) \to (`r h`,`r k`)$$
+$$(1,1) \to (`r h+1`,`r k+1`)$$
+$$(4,2) \to (`r h+4`,`r k+2`)$$
+$$(9,3) \to (`r h+9`,`r k+3`)$$
+
+
+Meta-information
+============
+extype: schoice
+exsolution: `r sol`
+exname: shift_sqrt
