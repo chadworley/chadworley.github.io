@@ -1,0 +1,149 @@
+```{r,echo=FALSE}
+options(scipen=999)
+maxopt = 10
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+pfix = function(c,d){
+    d = d[c!=0]
+    c = c[c!=0]
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    PQRS = sample(2:9,4,T)
+    P = PQRS[1]
+    Q = PQRS[2]*sample(c(-1,1),1)
+    R = PQRS[3]
+    S = PQRS[4]*sample(c(-1,1),1)
+    pr = prod(c(P,Q,R,S))
+    su = P*S+Q*R
+    a = P*R
+    b = su
+    c = Q*S
+    addend1 = P*S
+    addend2 = Q*R
+    ads = c(addend1,addend2)
+    ch1 = pfix(c(P,Q),1:0)
+    ch2 = pfix(c(R,S),1:0)
+    if(abs(pr)<200 && min(abs(ads))<11 && abs(gcd(P,Q))==1 && abs(gcd(R,S))==1 && ch1!=ch2){break}
+}
+ch1 = pfix(c(P,Q),1:0)
+ch2 = pfix(c(R,S),1:0)
+
+chs = c(ch1,ch2)
+
+while(length(chs)<20){
+    PQRS2 = sample(2:9,4,T)
+    P2 = PQRS2[1]
+    Q2 = PQRS2[2]*sample(c(-1,1),1)
+    R2 = PQRS2[3]
+    S2 = PQRS2[4]*sample(c(-1,1),1)
+    pr2 = prod(c(P2,Q2,R2,S2))
+    su2 = P2*S2+Q2*R2
+    a2 = P2*R2
+    b2 = su2
+    c2 = Q2*S2
+    addend12 = P2*S2
+    addend22 = Q2*R2
+    ads2 = c(addend12,addend22)
+    if(abs(pr2)<200 && min(abs(ads2))<11 && abs(gcd(P2,Q2))==1 && abs(gcd(R2,S2))==1 &&
+       sum(c(P,Q,R,S)==c(P2,Q2,R2,S2))){
+        chs = unique(c(chs,pfix(c(P2,Q2),1:0),pfix(c(R2,S2),1:0)))
+    }
+}
+
+ex1 = pfix(c(a,addend1,addend2,c),c(2,1,1,0))
+
+ach = sort(chs)
+al = paste0("* $",ach,"$",collapse="\n")
+
+sol1 = ach==ch1
+sol2 = ach==ch2
+
+sol = sol1+sol2
+
+sol = paste0(1*(sol!=0),collapse="")
+
+
+```
+
+
+Question
+========
+
+Please review [this article](https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-grouping/a/factoring-by-grouping) on factoring by grouping.
+
+Consider the expression:
+
+$$`r ex1`$$
+
+Notice that the product of the quadratic coefficient and the constant is `r a*c`.
+
+$$(`r a`)(`r c`)=`r a*c`$$ 
+
+Also the product of both linear coefficients is `r a*c`. $$(`r addend1`)(`r addend2`)=`r a*c`$$
+
+Since both of those products match, we are set up for factoring by grouping. 
+
+When the expression is factored into factored form, what are the two factors?
+
+
+Answerlist
+--------
+
+`r al`
+
+Solution
+========
+
+$$`r ex1`$$
+
+The first two terms are $`r a`x^2$ and $`r addend1`x$. The greatest common factor of those two terms is $`r pfix(P,1)`$. Factor out $`r pfix(P,1)`$ from the first two terms.
+
+```{r,echo=F}
+ex2 = paste0(pfix(P,1),"(",pfix(c(R,S),1:0),")+",pfix(c(Q*R,Q*S),1:0),collapse="")
+ex2 = gsub("+-","-",ex2,fixed=T)
+ex2 = gsub("+{-","-{",ex2,fixed=T)
+```
+
+$$`r ex2`$$
+
+The last two terms are $`r addend2`x$ and $`r c`$. The greatest common factor of those two terms is $`r Q`$. Notice, I am picking the sign (positive or negative) so that both expressions in parentheses will match. Factor out $`r Q`$ from the last two terms.
+
+```{r,echo=F}
+ex3 = paste0(pfix(P,1),"(",pfix(c(R,S),1:0),")+",Q,"(",pfix(c(R,S),1:0),")",collapse="")
+ex3 = gsub("+{-","-{",ex3,fixed=T)
+ex3 = gsub("+-","-",ex3,fixed=T)
+```
+
+
+$$`r ex3`$$
+
+```{r,echo=F}
+term1 = paste0(pfix(P,1),"(",pfix(c(R,S),1:0),")",collapse="")
+term2 = paste0(Q,"(",pfix(c(R,S),1:0),")",collapse="")
+```
+
+We now have two terms: $`r term1`$ and $`r term2`$. Notice, both terms share a factor of $`r pfix(c(R,S),1:0)`$, so we can now get the expression in fully factored form. (By using distributive property... backwards...)
+
+$$(`r pfix(c(P,Q),1:0)`)(`r pfix(c(R,S),1:0)`)$$
+
+If that was confusing, I recommend checking out [the article](https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratics-multiplying-factoring/x2f8bb11595b61c86:factor-quadratics-grouping/a/factoring-by-grouping).
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: factor_by_grouping

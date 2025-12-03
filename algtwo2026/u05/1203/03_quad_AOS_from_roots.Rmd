@@ -1,0 +1,84 @@
+```{r,echo=FALSE}
+
+while(T){
+    roots = round(sort(runif(2,10,90)),1)
+    wid = (roots[2]-roots[1])/2
+    k = -abs(wid)
+    h = mean(roots)
+    r = roots[1]
+    s = roots[2]
+    if(abs(diff(roots))>10 && h-2*wid<0){break}
+}
+
+
+# # y = a*(x-h)^2+k
+# # y = ax^2 - 2ahx + ah^2+k
+# 
+# # y = a(x-r)(x-s)
+# # y = a(x^2-(r+s)x+rs)
+# # y = ax^2 - a(r+s)x + ars
+# 
+# # ah^2+k = ars
+# # a = -k/(h^2-rs)
+# # a = k/(rs-h^2)
+
+a = k/(r*s-h^2)
+
+```
+
+
+Question
+========
+
+A [quadratic function](https://en.wikipedia.org/wiki/Quadratic_function) is graphed below. Notice the curve is a [parabola](https://en.wikipedia.org/wiki/Parabola) with a vertical axis of symmetry.
+
+
+```{r,echo=F,fig.dim=c(4,4)}
+par(mar=c(1,1,1,1),pty="s")
+plot(0,0,"n",xlim=c(h-2*wid,h+2*wid),ylim=c(-2*wid,2*wid),axes=F,ann=F)
+
+abline(h=0,lwd=2,col="darkgrey")
+abline(v=0,lwd=2,col="darkgrey")
+
+x = seq(h-2*wid,h+2*wid,wid/100)
+y = a*(x-h)^2+k
+
+lines(x,y,col="blue",lwd=3)
+points(roots,c(0,0),col="red",pch=19)
+text(roots[1],0,paste0("(",sprintf("%0.1f",roots[1]),", 0)"),col="red",adj=c(1.1,1.4),cex=1.3)
+text(roots[2],0,paste0("(",sprintf("%0.1f",roots[2]),", 0)"),col="red",adj=c(-0.1,1.4),cex=1.3)
+
+abline(v=h,lty=2,col="purple")
+text(h,wid,"Axis of Symmetry",srt=90,col="purple",adj=c(0.5,-0.5))
+text(h,wid,"x = h",srt=90,col="purple",adj=c(0.5,1.5))
+
+points(h,k,col="purple",pch=19)
+text(h,k,"(h,k)",adj=c(-0.1,1.4),col="purple",cex=1.3)
+
+```
+\
+
+
+Notice the axis of symmetry intersects with the parabola at the vertex. We will typically use $h$ to represent the horizontal coordinate of the vertex and $k$ to represent the vertical coordinate of the vertex. Thus the vertex is at the point $(h,k)$ and the line of symmetry can be represented with the line $x=h$.
+
+As shown in the graph, the parabola has roots at $`r sprintf("%0.1f",roots[1])`$ and $`r sprintf("%0.1f",roots[2])`$.
+
+Find the value of $h$.
+
+Solution
+========
+
+You can simply find the [mean](https://en.wikipedia.org/wiki/Arithmetic_mean) (average) of the two roots.
+
+$$h=\frac{`r sprintf("%0.1f",roots[1])`+`r sprintf("%0.1f",roots[2])`}{2}$$
+
+
+$$h=`r sprintf("%0.2f",h)`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r h`
+exname: quad_LOS_from_roots
+extol: 0.1

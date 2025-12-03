@@ -1,0 +1,192 @@
+```{r,echo=FALSE}
+options(scipen=999)
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+prime_numbers <- function(n) {
+  if (n < 2) {
+    stop("Input number should be at least 2.")
+  }
+
+  # Create a boolean vector representing numbers from 2 to n, initially all TRUE
+  primes <- rep(TRUE, n) 
+  primes[1] <- FALSE # 1 is not prime
+
+  # Iterate from 2 up to the square root of n
+  for (p in 2:floor(sqrt(n))) {
+    if (primes[p]) { # If p is prime
+      # Mark all multiples of p as not prime
+      primes[seq(p*p, n, p)] <- FALSE 
+    }
+  }
+
+  # Return the numbers corresponding to TRUE values
+  return(which(primes))
+}
+
+simp_rad = function(x){
+    possprimes = prime_numbers(sqrt(x))
+    rad = x
+    pre = 1
+    for(p in possprimes){
+        while(T){
+            if(x%%(p^2)==0){
+                pre = pre*p
+                x = x/p^2
+            } else {
+                break
+            }
+        }
+    }
+    return(c(pre,x))
+}
+
+pr_rad = function(prerad){
+    pre = prerad[1]
+    rad = prerad[2]
+    if(pre==1 && rad>1){
+        return(paste0("\\sqrt{",rad,"}"))
+    }
+    if(pre==1 && rad==1){
+        return("1")
+    }
+    if(pre==1 && rad==0){
+        return("0")
+    }
+    if(pre>1 && rad>1){
+        return(paste0(pre,"\\sqrt{",rad,"}"))
+    }
+    if(pre>1 && rad==1){
+        return(paste0(pre))
+    }
+    if(pre>1 && rad==0){
+        return("0")
+    }
+}
+
+
+pn = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+goodpre = 2 #sample(c(2:6,8,9,10),1)
+
+while(T){
+    # l = sample(50:300,1)/10
+    # w = l+delta
+    delta = sample(2:12,1)*sample(c(-1,1),1)
+    A = sample(30:500,1)
+    a = 1
+    b = delta
+    c = -A
+    l = (-b+sqrt(b^2-4*a*c))/2/a
+    w = l+delta
+    sr = simp_rad(b^2-4*a*c)
+    if(sr[1]==goodpre && sr[2]>1 && sr[2]<50){break}
+}
+
+
+## l(l+delta) = A
+## l^2+delta*l-A = 0
+
+
+
+if(delta>0){
+    ch1 = paste0("A rectangle's height is ",delta," meters shorter than its width.")
+    ch2 = paste0("A rectangle's width is ",delta," meters longer than its height.")
+    wrd1 = sample(c(ch1,ch2),1)
+} else {
+    ch1 = paste0("A rectangle's height is ",abs(delta)," meters longer than its width.")
+    ch2 = paste0("A rectangle's width is ",abs(delta)," meters shorter than its height.")
+    wrd1 = sample(c(ch1,ch2),1)
+}
+
+
+
+
+
+```
+
+
+Question
+========
+
+`r wrd1` The area is `r A` square meters. In meters, what is the height? (*Answers should be accurate within $\pm 0.1$ meters*)
+
+
+Solution
+========
+
+Let $x$ represent the height. The width is $`r pn(c(1,delta),1:0)`$. The area of a rectangle equals the product of height times width.
+
+$$`r A`~=~x\cdot (`r pn(c(1,delta),1:0)`)$$
+
+Distribute the multiplication of $x$ to the terms in parentheses.
+
+$$`r A`~=~`r pn(c(1,delta),2:1)`$$
+
+Subtract `r A` from both sides.
+
+$$0~=~`r pn(c(1,delta,-A),2:0)`$$
+
+Now the right side of the equation is in standard form. We can identify $a$, $b$, and $c$ in order to use the quadratic formula.
+
+$$a=`r a`$$
+$$b=`r b`$$
+$$c=`r c`$$
+
+Remember the formula.
+
+$$x~=~\frac{-b\pm \sqrt{b^2-4ac}}{2a}$$
+
+Plug in the coefficients.
+
+$$x~=~\frac{-(`r b`)\pm \sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)}$$
+
+Simplify.
+
+
+$$x~=~\frac{`r -b`\pm \sqrt{`r pn(c(b^2,-4*a*c),c(0,0))`}}{`r 2*a`}$$
+
+Simplify more.
+
+$$x~=~\frac{`r -b`\pm \sqrt{`r b^2-4*a*c`}}{`r 2*a`}$$
+
+
+Simplify more. 
+
+
+$$x~=~\frac{`r -b`\pm `r pr_rad(simp_rad(b^2-4*a*c))`}{`r 2*a`}$$
+
+```{r,echo=F,results='asis'}
+if(-b%%2==0 && simp_rad(b^2-4*a*c)[1]%%2==0){
+    cat("Simplify more.")
+    if(simp_rad(b^2-4*a*c)[1]==2){
+        cat(paste0("$$x~=~",-b/2,"\\pm \\sqrt{",simp_rad(b^2-4*a*c)[2],"}$$"))
+    } else {
+        cat(paste0("$$x~=~",-b/2,"\\pm ",simp_rad(b^2-4*a*c)[1]/2,"\\sqrt{",simp_rad(b^2-4*a*c)[2],"}$$"))
+    }
+}
+```
+
+This (or, honestly, one of the earlier, less simplified expressions) can be put into a calculator to get the two possible values for $x$ as decimal approximations. We are only interested in the positive solution.
+
+$$x=`r l`$$
+
+
+Meta-information
+============
+extype: num
+exsolution: `r l`
+exname: solve_rect_quadratic
+extol: 0.1

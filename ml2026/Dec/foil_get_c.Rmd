@@ -1,0 +1,169 @@
+```{r,echo=F}
+pn = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    abcd = sample(1:9,4,T)*sample(c(-1,1),4,T)
+    A = abcd[1]
+    B = abcd[2]
+    C = abcd[3]
+    D = abcd[4]
+    a = A*C
+    b = A*D+B*C
+    c = B*D
+    if(min(abs(c(a,b,c)))>0){break}
+}
+
+
+exp1 = pn(c(A,B),c(1,0))
+exp2 = pn(c(C,D),c(1,0))
+```
+
+
+
+
+Question
+========
+
+Consider the following product of linear binomials:
+
+$$(`r exp1`)(`r exp2`)$$
+
+When the expression is expanded and like terms are combined, an equivalent expression can be expressed in standard form:
+
+$$ax^2+bx+c$$
+
+where $a$, $b$, and $c$ are integers. 
+
+* What is the value of $c$?
+
+
+Solution
+========
+
+You could use the box method.
+
+```{r,echo=F,fig.dim=c(2,2)}
+library(latex2exp)
+
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,6),ylim=c(0,6),axes=F,ann=F)
+abline(h=0)
+abline(h=2)
+abline(h=4,lwd=3)
+abline(v=2,lwd=3)
+abline(v=4)
+abline(v=6)
+
+text(3,5,TeX(paste0("$",pn(C,1),"$")))
+text(5,5,TeX(paste0("$",pn(D,0),"$")))
+
+text(1,3,TeX(paste0("$",pn(A,1),"$")))
+text(1,1,TeX(paste0("$",pn(B,0),"$")))
+
+text(3,3,TeX(paste0("$",pn(A*C,2),"$")),col="red")
+text(5,3,TeX(paste0("$",pn(A*D,1),"$")),col="red")
+text(3,1,TeX(paste0("$",pn(B*C,1),"$")),col="red")
+text(5,1,TeX(paste0("$",pn(B*D,0),"$")),col="red")
+
+```
+\
+
+Or, you can FOIL...
+
+```{r,echo=F,fig.dim=c(6,2)}
+library(latex2exp)
+par(mar=c(0,0,0,0),oma=c(0,0,0,0))
+plot(0,0,"n",xlim=c(-1,1),ylim=c(0,1),axes=F,ann=F)
+simpex1 = paste0(A,"x+",B)
+simpex2 = paste0(C,"x+",D)
+simpex1 = gsub("+-","-",simpex1,fixed=T)
+simpex2 = gsub("+-","-",simpex2,fixed=T)
+
+e1 = gsub("{","",exp1,fixed=T)
+e1 = gsub("}","",e1,fixed=T)
+e2 = gsub("{","",exp2,fixed=T)
+e2 = gsub("}","",e2,fixed=T)
+
+text(0,0.5,TeX(paste0("$(",e1,")(",e2,")$")),cex=1.5)
+
+x1 = -0.23
+x2 = 0.1
+y1 = 0.6
+y2 = 0.8
+xmid = mean(c(x1,x2))
+xr = abs(x2-xmid)
+x = seq(x1,x2,0.001)
+y = (y2-y1)*sqrt(((xr)^2-(x-xmid)^2)/xr^2)+y1
+lines(x,y,lwd=3,col="red")
+text(xmid,y2,"Firsts",col="red",adj=c(0.7,-0.2))
+
+x1 = -0.06
+x2 = 0.25+(sign(A)-1)*(-0.01)+(sign(C)-1)*(-0.01)
+y1 = 0.6
+y2 = 0.8
+xmid = mean(c(x1,x2))
+xr = abs(x2-xmid)
+x = seq(x1+0.0001,x2-0.0001,length.out=100)
+y = (y2-y1)*sqrt(((xr)^2-(x-xmid)^2)/xr^2)+y1
+lines(x,y,lwd=3,col="purple")
+text(xmid,y2,"Lasts",col="purple",adj=c(0.3,-0.2))
+
+x1 = -0.23
+x2 = 0.25+(sign(A)-1)*(-0.01)+(sign(C)-1)*(-0.01)
+y1 = 0.4
+y2 = 0.1
+xmid = mean(c(x1,x2))
+xr = abs(x2-xmid)
+x = seq(x1+0.0001,x2-0.0001,length.out=100)
+y = (y2-y1)*sqrt(((xr)^2-(x-xmid)^2)/xr^2)+y1
+lines(x,y,lwd=3,col="orange")
+text(xmid,y2,"Outsides",col="orange",adj=c(0.5,1.2))
+
+
+x1 = -0.06
+x2 = 0.1
+y1 = 0.4
+y2 = 0.3
+xmid = mean(c(x1,x2))
+xr = abs(x2-xmid)
+x = seq(x1+0.0001,x2-0.0001,length.out=100)
+y = (y2-y1)*sqrt(((xr)^2-(x-xmid)^2)/xr^2)+y1
+lines(x,y,lwd=3,col="blue")
+text(xmid,y2,"Insides",col="blue",adj=c(0.5,1.2))
+
+text(-0.95,0.8,TeX(paste0("Firsts= $",pn(A*C,2),"$")),col="red",adj=c(0,0.5),cex=1.2)
+text(-0.95,0.6,TeX(paste0("Outsides= $",pn(A*D,1),"$")),col="orange",adj=c(0,0.5),cex=1.2)
+text(-0.95,0.4,TeX(paste0("Insides= $",pn(B*C,1),"$")),col="blue",adj=c(0,0.5),cex=1.2)
+text(-0.95,0.2,TeX(paste0("Lasts= $",B*D,"$")),col="purple",adj=c(0,0.5),cex=1.2)
+
+answers = c(pn(c(6,23,20),c(2,1,0)))
+
+```
+\
+
+Either way, you should first get
+$$`r pn(c(A*C,A*D,B*C,B*D),c(2,1,1,0))`$$
+
+And, after combining like terms, you should get
+$$`r pn(c(A*C,A*D+B*C,B*D),c(2,1,0))`$$
+
+Thus, $a=`r A*C`$ and $b=`r A*D+B*C`$ and $c=`r B*D`$. This question specifically asked for the value of $c$, so the answer is $`r B*D`$.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r B*D`
+exname: foil_get_c
