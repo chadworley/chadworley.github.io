@@ -16,7 +16,7 @@ exams2canvas(pm,
              dir=outdir,
              points=rep(3,length(pm)),
              maxattempts = 8,
-             name="et_1202",
+             name="et_1203",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
 
@@ -35,11 +35,11 @@ exams2canvas(pm,
              dir=outdir,
              points=rep(4,length(pm)),
              maxattempts = 8,
-             name="review_1202",
+             name="review_1203",
              template = "canvas_qti12.xml",
              cloze = list(enumerate = FALSE))
 
-# 
+
 # # # Classwork 2
 # pm = list("cannon_balloon.Rmd")
 # exams2canvas(pm,
