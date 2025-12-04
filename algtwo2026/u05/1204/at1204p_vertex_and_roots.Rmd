@@ -1,0 +1,714 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+---
+
+Name: \vspace{5pt} \hrule
+
+## at1204p_vertex_and_roots... from standard-form quadratic functions (v`r params$rseed`)
+
+
+```{r,echo=F,warning=FALSE,message=FALSE}
+library(primes)
+
+if(params$rseed !=0){
+    set.seed(params$rseed)
+}
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+prime_numbers <- function(n) {
+  if (n < 2) {
+    stop("Input number should be at least 2.")
+  }
+
+  # Create a boolean vector representing numbers from 2 to n, initially all TRUE
+  primes <- rep(TRUE, n) 
+  primes[1] <- FALSE # 1 is not prime
+
+  # Iterate from 2 up to the square root of n
+  for (p in 2:floor(sqrt(n))) {
+    if (primes[p]) { # If p is prime
+      # Mark all multiples of p as not prime
+      primes[seq(p*p, n, p)] <- FALSE 
+    }
+  }
+  # Return the numbers corresponding to TRUE values
+  return(which(primes))
+}
+
+simp_rad = function(x){
+    possprimes = ceiling(prime_numbers(x))
+    rad = x
+    pre = 1
+    for(p in possprimes){
+        while(T){
+            if(x%%(p^2)==0){
+                pre = pre*p
+                x = x/p^2
+            } else {
+                break
+            }
+        }
+    }
+    return(c(pre,x))
+}
+
+pr_rad = function(prerad){
+    pre = prerad[1]
+    rad = prerad[2]
+    if(pre==1 && rad>1){
+        return(paste0("\\sqrt{",rad,"}"))
+    }
+    if(pre==1 && rad==1){
+        return("1")
+    }
+    if(pre==1 && rad==0){
+        return("0")
+    }
+    if(pre>1 && rad>1){
+        return(paste0(pre,"\\sqrt{",rad,"}"))
+    }
+    if(pre>1 && rad==1){
+        return(paste0(pre))
+    }
+    if(pre>1 && rad==0){
+        return("0")
+    }
+}
+
+
+```
+
+For each quadratic function, find:
+
+1. The equation of the axis of symmetry
+2. The distance of each root to the axis of symmetry ($w$)
+3. Both $x$-intercepts (also called the roots or the zeros), each shown as cartesian coordinates
+4. The location of the vertex ($h,k$) shown as cartesian coordinates
+
+Your answers should be in simplified exact form, no decimal approximations. Improper fractions are preferred to mixed numbers.
+
+
+```{r example1,echo=F}
+
+abcs = character()
+
+while(T){
+    a = 6 #sample(1:10,1)
+    b = 4 #sample(1:10,1)*sample(c(-1,1),1)
+    c = -5 #sample(1:10,1)*sample(c(-1,1),1)
+    if(b^2-4*a*c>2 && abs(gcd(c(a,b,c)))==1){
+        D = b^2-4*a*c
+        pr = simp_rad(D)
+        if(pr[1]>1 && pr[2]>1){
+            abcs = c(abcs,paste0(c(a,b,c),collapse="#"))
+            break
+        }
+    }
+}
+
+sol = paste0("\\frac{",-b,"\\pm",pr_rad(pr),"}{",2*a,"}")
+
+soli = paste0("\\frac{",-b,"\\pm",pr_rad(pr),"}{",2*a,"}")
+
+soli2 = paste0("\\frac{",-b,"}{",2*a,"}\\pm\\frac{",pr_rad(pr),"}{",2*a,"}")
+
+# (L + M sqrt(N)) / P
+
+L = -b
+M = pr[1]
+N = pr[2]
+P = 2*a
+
+ggg = gcd(c(L,M,P))
+
+L = L/ggg
+M = abs(M/ggg)
+P = P/ggg
+
+sol = paste0("\\frac{",L,"\\pm",M,"\\sqrt{",N,"}}{",P,"}")
+if(M==1){
+    sol = paste0("\\frac{",L,"\\pm \\sqrt{",N,"}}{",P,"}")
+}
+if(P==1){
+    sol = paste0(L,"\\pm",M,"\\sqrt{",N,"}")
+}
+if(M==1 && P==1){
+    sol = paste0(L,"\\pm \\sqrt{",N,"}")
+}
+
+# (L + M sqrt(N)) / P
+# L/P +  Msqrt(N)/P
+
+L = -b
+M = pr[1]
+N = pr[2]
+P = 2*a
+
+gg1 = gcd(c(L,P))
+gg2 = gcd(c(M,P))
+
+L = L/gg1
+P1 = P/gg1
+M = M/gg2
+P2 = P/gg2
+
+frac1 = paste0("\\frac{",L,"}{",P1,"}")
+frac2 = paste0("\\frac{",M,"\\sqrt{",N,"}}{",P2,"}")
+if(P1==1){
+    frac1 = paste0(L)
+}
+if(P2==1){
+    frac2 = paste0(M,"\\sqrt{",N,"}")
+}
+if(M==1){
+    frac2 = paste0("\\frac{\\sqrt{",N,"}}{",P2,"}")
+}
+if(M==1 && P2==1){
+    frac2 = paste0("\\sqrt{",N,"}")
+}
+sol2 = paste0(frac1,"\\pm ",frac2)
+
+
+pfs = prime_factors(b^2-4*a*c)[[1]]
+pfm = paste0(pfs,collapse="\\cdot ")
+
+prepfs = prime_factors(pr[1])[[1]]
+prepfm = paste0(prepfs,collapse="\\cdot ")
+
+radpfs = prime_factors(pr[2])[[1]]
+radpfm = paste0(radpfs,collapse="\\cdot ")
+```
+
+## Example
+
+$$f(x)~=~`r pn(c(a,b,c),2:0)`$$
+
+### Example solution
+
+\color{red}
+
+1. Find the axis of symmetry. Use the formula $h=\frac{-b}{2a}$, where $h$ is the horizontal coordinate of the vertex. Remember that the vertical axis of symmetry intersects the vertex.
+$$h=\frac{-(`r b`)}{2(`r a`)}$$
+
+$$\text{axis of symmetry:}~~~x=`r frac1`$$
+
+2. Find the distance of each root from the axis of symmetry. Use the formula $w=\frac{\sqrt{b^2-4ac}}{2a}$.
+$$w~=~\frac{\sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)}$$
+
+$$w~=~\frac{\sqrt{`r b^2-4*a*c`}}{`r 2*a`} ~=~\frac{\sqrt{`r pfm`}}{`r 2*a`}~=~\frac{`r pr[1]`\sqrt{`r pr[2]`}}{`r 2*a`}$$
+
+$$w~=~`r frac2`$$
+
+3. The $x$-intercepts can be found by adding $w$ to or subtracting $w$ from $h$.
+
+$$\left(`r frac1`-`r frac2`,\,0\right)~~~\text{and}~~~\left(`r frac1`+`r frac2`,\,0\right)$$
+
+4. Find the vertex. We already know $h=`r frac1`$, so we just need $k$. Use the formula $k=\frac{4ac-b^2}{4a}$.
+
+$$k=\frac{4(`r a`)(`r c`)-(`r b`)^2}{4(`r a`)}$$
+
+
+```{r,echo=F}
+gb = gcd(c(4*a*c-b^2,4*a))
+num3 = (4*a*c-b^2)/gb
+den3 = 4*a/gb
+if(gb==1){
+    las = ""
+    fin = paste0("\\frac{",num3,"}{",den3,"}")
+} else {
+    las = paste0("~=~\\frac{",num3,"}{",den3,"}")
+    fin = paste0("\\frac{",num3,"}{",den3,"}")
+    if(den3==1){
+        las = paste0("~=~",num3)
+        fin = paste0(num3)
+    }
+}
+
+
+```
+
+$$k~=~\frac{`r 4*a*c-b^2`}{`r 4*a`}`r las`$$
+
+$$\text{vertex: }~~\left(`r frac1`,\, `r fin`\right)$$
+
+
+\color{black}
+
+
+
+\newpage 
+
+## Question 1
+
+```{r q1,echo=F}
+
+while(T){
+    a = sample(1:10,1)
+    b = sample(1:10,1)*sample(c(-1,1),1)
+    c = sample(1:10,1)*sample(c(-1,1),1)
+    if(b^2-4*a*c>2 && abs(gcd(c(a,b,c)))==1){
+        D = b^2-4*a*c
+        pr = simp_rad(D)
+        abcstring = paste0(c(a,b,c),collapse="#")
+        if(pr[1]>1 && pr[2]>1 && !(abcstring %in% abcs)){
+            abcs = c(abcs,abcstring)
+            break
+        }
+    }
+}
+
+sol = paste0("\\frac{",-b,"\\pm",pr_rad(pr),"}{",2*a,"}")
+
+soli = paste0("\\frac{",-b,"\\pm",pr_rad(pr),"}{",2*a,"}")
+
+soli2 = paste0("\\frac{",-b,"}{",2*a,"}\\pm\\frac{",pr_rad(pr),"}{",2*a,"}")
+
+# (L + M sqrt(N)) / P
+
+L = -b
+M = pr[1]
+N = pr[2]
+P = 2*a
+
+ggg = gcd(c(L,M,P))
+
+L = L/ggg
+M = abs(M/ggg)
+P = P/ggg
+
+sol = paste0("\\frac{",L,"\\pm",M,"\\sqrt{",N,"}}{",P,"}")
+if(M==1){
+    sol = paste0("\\frac{",L,"\\pm \\sqrt{",N,"}}{",P,"}")
+}
+if(P==1){
+    sol = paste0(L,"\\pm",M,"\\sqrt{",N,"}")
+}
+if(M==1 && P==1){
+    sol = paste0(L,"\\pm \\sqrt{",N,"}")
+}
+
+# (L + M sqrt(N)) / P
+# L/P +  Msqrt(N)/P
+
+L = -b
+M = pr[1]
+N = pr[2]
+P = 2*a
+
+gg1 = gcd(c(L,P))
+gg2 = gcd(c(M,P))
+
+L = L/gg1
+P1 = P/gg1
+M = M/gg2
+P2 = P/gg2
+
+frac1 = paste0("\\frac{",L,"}{",P1,"}")
+frac2 = paste0("\\frac{",M,"\\sqrt{",N,"}}{",P2,"}")
+if(P1==1){
+    frac1 = paste0(L)
+}
+if(P2==1){
+    frac2 = paste0(M,"\\sqrt{",N,"}")
+}
+if(M==1){
+    frac2 = paste0("\\frac{\\sqrt{",N,"}}{",P2,"}")
+}
+if(M==1 && P2==1){
+    frac2 = paste0("\\sqrt{",N,"}")
+}
+sol2 = paste0(frac1,"\\pm ",frac2)
+
+
+pfs = prime_factors(b^2-4*a*c)[[1]]
+pfm = paste0(pfs,collapse="\\cdot ")
+
+prepfs = prime_factors(pr[1])[[1]]
+prepfm = paste0(prepfs,collapse="\\cdot ")
+
+radpfs = prime_factors(pr[2])[[1]]
+radpfm = paste0(radpfs,collapse="\\cdot ")
+```
+
+For the quadratic function listed below, find:
+
+1. The equation of the axis of symmetry
+2. The distance of each root to the axis of symmetry ($w$)
+3. Both $x$-intercepts (also called the roots or the zeros), each shown as cartesian coordinates
+4. The location of the vertex ($h,k$) shown as cartesian coordinates
+
+Box your answers.
+
+
+$$f(x)~=~`r pn(c(a,b,c),2:0)`$$
+
+
+```{r,echo=F,eval=params$showsol,results='asis'}
+cat("\\color{red}\n\n")
+cat("\\vfill\n\n")
+cat("1. Axis of symmetry\n")
+cat(paste0("$$h=\\frac{-(",-b,")}{2(",a,")}$$\n"))
+cat(paste0("$$\\text{axis of symmetry:}~~~x=",frac1,"$$\n\n"))
+
+cat("2. Distance from axis of symmetry to root\n")
+cat("$$w~=~\\frac{\\sqrt{(",b,")^2-4(",a,")(",c,")}}{2(",a,")}$$\n")
+cat("$$w~=~\\frac{\\sqrt{",b^2-4*a*c,"}}{",2*a,"} ~=~\\frac{\\sqrt{",pfm,"}}{",2*a,"}~=~\\frac{",pr[1],"\\sqrt{",pr[2],"}}{",2*a,"}$$\n")
+cat("$$w~=~",frac2,"$$\n\n")
+
+cat("3. Roots\n")
+cat("$$\\left(",frac1,"-",frac2,",\\,0\\right)~~~\\text{and}~~~\\left(",frac1,"+",frac2,",\\,0\\right)$$\n\n")
+
+
+cat("4. Vertex\n")
+cat("$$k=\\frac{4(",a,")(",c,")-(",b,")^2}{4(",a,")}$$\n")
+gb = gcd(c(4*a*c-b^2,4*a))
+num3 = (4*a*c-b^2)/gb
+den3 = 4*a/gb
+if(gb==1){
+    las = ""
+    fin = paste0("\\frac{",num3,"}{",den3,"}")
+} else {
+    las = paste0("~=~\\frac{",num3,"}{",den3,"}")
+    fin = paste0("\\frac{",num3,"}{",den3,"}")
+    if(den3==1){
+        las = paste0("~=~",num3)
+        fin = paste0(num3)
+    }
+}
+
+cat("$$k~=~\\frac{",4*a*c-b^2,"}{",4*a,"}",las,"$$\n")
+cat("$$\\text{vertex: }~~\\left(",frac1,",\\, ",fin,"\\right)$$\n\n")
+cat("\\color{black}\n\n")
+
+
+cat("\\vfill\n\n")
+
+```
+
+
+
+\newpage 
+
+## Question 2
+
+```{r q2,echo=F}
+
+while(T){
+    a = sample(1:10,1)
+    b = sample(1:10,1)*sample(c(-1,1),1)
+    c = sample(1:10,1)*sample(c(-1,1),1)
+    if(b^2-4*a*c>2 && abs(gcd(c(a,b,c)))==1){
+        D = b^2-4*a*c
+        pr = simp_rad(D)
+        abcstring = paste0(c(a,b,c),collapse="#")
+        if(pr[1]>1 && pr[2]>1 && !(abcstring %in% abcs)){
+            abcs = c(abcs,abcstring)
+            break
+        }
+    }
+}
+
+sol = paste0("\\frac{",-b,"\\pm",pr_rad(pr),"}{",2*a,"}")
+
+soli = paste0("\\frac{",-b,"\\pm",pr_rad(pr),"}{",2*a,"}")
+
+soli2 = paste0("\\frac{",-b,"}{",2*a,"}\\pm\\frac{",pr_rad(pr),"}{",2*a,"}")
+
+# (L + M sqrt(N)) / P
+
+L = -b
+M = pr[1]
+N = pr[2]
+P = 2*a
+
+ggg = gcd(c(L,M,P))
+
+L = L/ggg
+M = abs(M/ggg)
+P = P/ggg
+
+sol = paste0("\\frac{",L,"\\pm",M,"\\sqrt{",N,"}}{",P,"}")
+if(M==1){
+    sol = paste0("\\frac{",L,"\\pm \\sqrt{",N,"}}{",P,"}")
+}
+if(P==1){
+    sol = paste0(L,"\\pm",M,"\\sqrt{",N,"}")
+}
+if(M==1 && P==1){
+    sol = paste0(L,"\\pm \\sqrt{",N,"}")
+}
+
+# (L + M sqrt(N)) / P
+# L/P +  Msqrt(N)/P
+
+L = -b
+M = pr[1]
+N = pr[2]
+P = 2*a
+
+gg1 = gcd(c(L,P))
+gg2 = gcd(c(M,P))
+
+L = L/gg1
+P1 = P/gg1
+M = M/gg2
+P2 = P/gg2
+
+frac1 = paste0("\\frac{",L,"}{",P1,"}")
+frac2 = paste0("\\frac{",M,"\\sqrt{",N,"}}{",P2,"}")
+if(P1==1){
+    frac1 = paste0(L)
+}
+if(P2==1){
+    frac2 = paste0(M,"\\sqrt{",N,"}")
+}
+if(M==1){
+    frac2 = paste0("\\frac{\\sqrt{",N,"}}{",P2,"}")
+}
+if(M==1 && P2==1){
+    frac2 = paste0("\\sqrt{",N,"}")
+}
+sol2 = paste0(frac1,"\\pm ",frac2)
+
+
+pfs = prime_factors(b^2-4*a*c)[[1]]
+pfm = paste0(pfs,collapse="\\cdot ")
+
+prepfs = prime_factors(pr[1])[[1]]
+prepfm = paste0(prepfs,collapse="\\cdot ")
+
+radpfs = prime_factors(pr[2])[[1]]
+radpfm = paste0(radpfs,collapse="\\cdot ")
+```
+
+For the quadratic function listed below, find:
+
+1. The equation of the axis of symmetry
+2. The distance of each root to the axis of symmetry ($w$)
+3. Both $x$-intercepts (also called the roots or the zeros), each shown as cartesian coordinates
+4. The location of the vertex ($h,k$) shown as cartesian coordinates
+
+Box your answers.
+
+
+$$f(x)~=~`r pn(c(a,b,c),2:0)`$$
+
+
+```{r,echo=F,eval=params$showsol,results='asis'}
+cat("\\color{red}\n\n")
+cat("\\vfill\n\n")
+cat("1. Axis of symmetry\n")
+cat(paste0("$$h=\\frac{-(",-b,")}{2(",a,")}$$\n"))
+cat(paste0("$$\\text{axis of symmetry:}~~~x=",frac1,"$$\n\n"))
+
+cat("2. Distance from axis of symmetry to root\n")
+cat("$$w~=~\\frac{\\sqrt{(",b,")^2-4(",a,")(",c,")}}{2(",a,")}$$\n")
+cat("$$w~=~\\frac{\\sqrt{",b^2-4*a*c,"}}{",2*a,"} ~=~\\frac{\\sqrt{",pfm,"}}{",2*a,"}~=~\\frac{",pr[1],"\\sqrt{",pr[2],"}}{",2*a,"}$$\n")
+cat("$$w~=~",frac2,"$$\n\n")
+
+cat("3. Roots\n")
+cat("$$\\left(",frac1,"-",frac2,",\\,0\\right)~~~\\text{and}~~~\\left(",frac1,"+",frac2,",\\,0\\right)$$\n\n")
+
+
+cat("4. Vertex\n")
+cat("$$k=\\frac{4(",a,")(",c,")-(",b,")^2}{4(",a,")}$$\n")
+gb = gcd(c(4*a*c-b^2,4*a))
+num3 = (4*a*c-b^2)/gb
+den3 = 4*a/gb
+if(gb==1){
+    las = ""
+    fin = paste0("\\frac{",num3,"}{",den3,"}")
+} else {
+    las = paste0("~=~\\frac{",num3,"}{",den3,"}")
+    fin = paste0("\\frac{",num3,"}{",den3,"}")
+    if(den3==1){
+        las = paste0("~=~",num3)
+        fin = paste0(num3)
+    }
+}
+
+cat("$$k~=~\\frac{",4*a*c-b^2,"}{",4*a,"}",las,"$$\n")
+cat("$$\\text{vertex: }~~\\left(",frac1,",\\, ",fin,"\\right)$$\n\n")
+cat("\\color{black}\n\n")
+
+cat("\\vfill\n\n")
+
+```
+
+
+\newpage 
+
+## Question 3
+
+```{r q3,echo=F}
+
+while(T){
+    a = sample(1:10,1)
+    b = sample(1:10,1)*sample(c(-1,1),1)
+    c = sample(1:10,1)*sample(c(-1,1),1)
+    if(b^2-4*a*c>2 && abs(gcd(c(a,b,c)))==1){
+        D = b^2-4*a*c
+        pr = simp_rad(D)
+        abcstring = paste0(c(a,b,c),collapse="#")
+        if(pr[1]>1 && pr[2]>1 && !(abcstring %in% abcs)){
+            abcs = c(abcs,abcstring)
+            break
+        }
+    }
+}
+
+sol = paste0("\\frac{",-b,"\\pm",pr_rad(pr),"}{",2*a,"}")
+
+soli = paste0("\\frac{",-b,"\\pm",pr_rad(pr),"}{",2*a,"}")
+
+soli2 = paste0("\\frac{",-b,"}{",2*a,"}\\pm\\frac{",pr_rad(pr),"}{",2*a,"}")
+
+# (L + M sqrt(N)) / P
+
+L = -b
+M = pr[1]
+N = pr[2]
+P = 2*a
+
+ggg = gcd(c(L,M,P))
+
+L = L/ggg
+M = abs(M/ggg)
+P = P/ggg
+
+sol = paste0("\\frac{",L,"\\pm",M,"\\sqrt{",N,"}}{",P,"}")
+if(M==1){
+    sol = paste0("\\frac{",L,"\\pm \\sqrt{",N,"}}{",P,"}")
+}
+if(P==1){
+    sol = paste0(L,"\\pm",M,"\\sqrt{",N,"}")
+}
+if(M==1 && P==1){
+    sol = paste0(L,"\\pm \\sqrt{",N,"}")
+}
+
+# (L + M sqrt(N)) / P
+# L/P +  Msqrt(N)/P
+
+L = -b
+M = pr[1]
+N = pr[2]
+P = 2*a
+
+gg1 = gcd(c(L,P))
+gg2 = gcd(c(M,P))
+
+L = L/gg1
+P1 = P/gg1
+M = M/gg2
+P2 = P/gg2
+
+frac1 = paste0("\\frac{",L,"}{",P1,"}")
+frac2 = paste0("\\frac{",M,"\\sqrt{",N,"}}{",P2,"}")
+if(P1==1){
+    frac1 = paste0(L)
+}
+if(P2==1){
+    frac2 = paste0(M,"\\sqrt{",N,"}")
+}
+if(M==1){
+    frac2 = paste0("\\frac{\\sqrt{",N,"}}{",P2,"}")
+}
+if(M==1 && P2==1){
+    frac2 = paste0("\\sqrt{",N,"}")
+}
+sol2 = paste0(frac1,"\\pm ",frac2)
+
+
+pfs = prime_factors(b^2-4*a*c)[[1]]
+pfm = paste0(pfs,collapse="\\cdot ")
+
+prepfs = prime_factors(pr[1])[[1]]
+prepfm = paste0(prepfs,collapse="\\cdot ")
+
+radpfs = prime_factors(pr[2])[[1]]
+radpfm = paste0(radpfs,collapse="\\cdot ")
+```
+
+For the quadratic function listed below, find:
+
+1. The equation of the axis of symmetry
+2. The distance of each root to the axis of symmetry ($w$)
+3. Both $x$-intercepts (also called the roots or the zeros), each shown as cartesian coordinates
+4. The location of the vertex ($h,k$) shown as cartesian coordinates
+
+Box your answers.
+
+
+$$f(x)~=~`r pn(c(a,b,c),2:0)`$$
+
+
+```{r,echo=F,eval=params$showsol,results='asis'}
+cat("\\color{red}\n\n")
+cat("\\vfill\n\n")
+cat("1. Axis of symmetry\n")
+cat(paste0("$$h=\\frac{-(",-b,")}{2(",a,")}$$\n"))
+cat(paste0("$$\\text{axis of symmetry:}~~~x=",frac1,"$$\n\n"))
+
+cat("2. Distance from axis of symmetry to root\n")
+cat("$$w~=~\\frac{\\sqrt{(",b,")^2-4(",a,")(",c,")}}{2(",a,")}$$\n")
+cat("$$w~=~\\frac{\\sqrt{",b^2-4*a*c,"}}{",2*a,"} ~=~\\frac{\\sqrt{",pfm,"}}{",2*a,"}~=~\\frac{",pr[1],"\\sqrt{",pr[2],"}}{",2*a,"}$$\n")
+cat("$$w~=~",frac2,"$$\n\n")
+
+cat("3. Roots\n")
+cat("$$\\left(",frac1,"-",frac2,",\\,0\\right)~~~\\text{and}~~~\\left(",frac1,"+",frac2,",\\,0\\right)$$\n\n")
+
+
+cat("4. Vertex\n")
+cat("$$k=\\frac{4(",a,")(",c,")-(",b,")^2}{4(",a,")}$$\n")
+gb = gcd(c(4*a*c-b^2,4*a))
+num3 = (4*a*c-b^2)/gb
+den3 = 4*a/gb
+if(gb==1){
+    las = ""
+    fin = paste0("\\frac{",num3,"}{",den3,"}")
+} else {
+    las = paste0("~=~\\frac{",num3,"}{",den3,"}")
+    fin = paste0("\\frac{",num3,"}{",den3,"}")
+    if(den3==1){
+        las = paste0("~=~",num3)
+        fin = paste0(num3)
+    }
+}
+
+cat("$$k~=~\\frac{",4*a*c-b^2,"}{",4*a,"}",las,"$$\n")
+cat("$$\\text{vertex: }~~\\left(",frac1,",\\, ",fin,"\\right)$$\n\n")
+cat("\\color{black}\n\n")
+
+cat("\\vfill\n\n")
+
+```
+
+
+
+
+

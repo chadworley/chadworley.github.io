@@ -1,7 +1,7 @@
-fn = "at1203p_vertex_and_roots.Rmd"
-shortfn = "at1203p" #strsplit(fn,"_")[[1]][1]
+fn = "at1204p_vertex_and_roots.Rmd"
+shortfn = "at1204p" #strsplit(fn,"_")[[1]][1]
 nlow = 100
-nhigh = 110
+nhigh = 130
 
 sss44 = "<!DOCTYPE html>
 <html lang='en'>
