@@ -1,0 +1,231 @@
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
+library(primes)
+options(scipen=999)
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+prime_numbers <- function(n) {
+  if (n < 2) {
+    stop("Input number should be at least 2.")
+  }
+
+  # Create a boolean vector representing numbers from 2 to n, initially all TRUE
+  primes <- rep(TRUE, n) 
+  primes[1] <- FALSE # 1 is not prime
+
+  # Iterate from 2 up to the square root of n
+  for (p in 2:floor(sqrt(n))) {
+    if (primes[p]) { # If p is prime
+      # Mark all multiples of p as not prime
+      primes[seq(p*p, n, p)] <- FALSE 
+    }
+  }
+  # Return the numbers corresponding to TRUE values
+  return(which(primes))
+}
+
+simp_rad = function(x){
+    possprimes = ceiling(prime_numbers(x))
+    rad = x
+    pre = 1
+    for(p in possprimes){
+        while(T){
+            if(x%%(p^2)==0){
+                pre = pre*p
+                x = x/p^2
+            } else {
+                break
+            }
+        }
+    }
+    return(c(pre,x))
+}
+
+pr_rad = function(prerad){
+    pre = prerad[1]
+    rad = prerad[2]
+    if(pre==1 && rad>1){
+        return(paste0("\\sqrt{",rad,"}"))
+    }
+    if(pre==1 && rad==1){
+        return("1")
+    }
+    if(pre==1 && rad==0){
+        return("0")
+    }
+    if(pre>1 && rad>1){
+        return(paste0(pre,"\\sqrt{",rad,"}"))
+    }
+    if(pre>1 && rad==1){
+        return(paste0(pre))
+    }
+    if(pre>1 && rad==0){
+        return("0")
+    }
+}
+
+pn = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    a = sample(1:10,1)
+    b = sample(1:10,1)*sample(c(-1,1),1)
+    c = sample(1:10,1)*sample(c(-1,1),1)
+    if(b^2-4*a*c>2 && abs(gcd(c(a,b,c)))==1){
+        D = b^2-4*a*c
+        pr = simp_rad(D)
+        if(pr[1]>1 && pr[2]>1){
+            break
+        }
+    }
+}
+
+sol = paste0("\\frac{",-b,"\\pm",pr_rad(pr),"}{",2*a,"}")
+
+soli = paste0("\\frac{",-b,"\\pm",pr_rad(pr),"}{",2*a,"}")
+
+soli2 = paste0("\\frac{",-b,"}{",2*a,"}\\pm\\frac{",pr_rad(pr),"}{",2*a,"}")
+
+# (L + M sqrt(N)) / P
+
+L = -b
+M = pr[1]
+N = pr[2]
+P = 2*a
+
+ggg = gcd(c(L,M,P))
+
+L = L/ggg
+M = abs(M/ggg)
+P = P/ggg
+
+sol = paste0("\\frac{",L,"\\pm",M,"\\sqrt{",N,"}}{",P,"}")
+if(M==1){
+    sol = paste0("\\frac{",L,"\\pm \\sqrt{",N,"}}{",P,"}")
+}
+if(P==1){
+    sol = paste0(L,"\\pm",M,"\\sqrt{",N,"}")
+}
+if(M==1 && P==1){
+    sol = paste0(L,"\\pm \\sqrt{",N,"}")
+}
+
+# (L + M sqrt(N)) / P
+# L/P +  Msqrt(N)/P
+
+L = -b
+M = pr[1]
+N = pr[2]
+P = 2*a
+
+gg1 = gcd(c(L,P))
+gg2 = gcd(c(M,P))
+
+L = L/gg1
+P1 = P/gg1
+M = M/gg2
+P2 = P/gg2
+
+frac1 = paste0("\\frac{",L,"}{",P1,"}")
+frac2 = paste0("\\frac{",M,"\\sqrt{",N,"}}{",P2,"}")
+if(P1==1){
+    frac1 = paste0(L)
+}
+if(P2==1){
+    frac2 = paste0(M,"\\sqrt{",N,"}")
+}
+if(M==1){
+    frac2 = paste0("\\frac{\\sqrt{",N,"}}{",P2,"}")
+}
+if(M==1 && P2==1){
+    frac2 = paste0("\\sqrt{",N,"}")
+}
+sol2 = paste0(frac1,"\\pm ",frac2)
+
+
+pfs = prime_factors(b^2-4*a*c)[[1]]
+pfm = paste0(pfs,collapse="\\cdot ")
+
+prepfs = prime_factors(pr[1])[[1]]
+prepfm = paste0(prepfs,collapse="\\cdot ")
+
+radpfs = prime_factors(pr[2])[[1]]
+radpfm = paste0(radpfs,collapse="\\cdot ")
+
+```
+
+
+Question
+========
+
+Find the solutions in exact, simplified form. Please write your answer as two terms with a $\pm$ between them.
+
+$$`r pn(c(a,b,c),2:0)`=0$$
+
+
+
+Solution
+========
+
+Remember the quadratic formula.
+
+$$x~=~ \frac{-b\pm \sqrt{b^2-4ac}}{2a}$$
+
+Identify the coefficients.
+
+$$a=`r a`$$
+$$b=`r b`$$
+$$c=`r c`$$
+
+Plug them in.
+
+$$x~=~ \frac{-(`r b`)\pm \sqrt{(`r b`)^2-4(`r a`)(`r c`)}}{2(`r a`)}$$
+
+Simplify.
+
+$$x~=~ \frac{`r -b`\pm \sqrt{`r pn(c(b^2,-4*a*c),c(0,0))`}}{`r 2*a`}$$
+
+
+Simplify.
+
+$$x~=~ \frac{`r -b`\pm \sqrt{`r b^2-4*a*c`}}{`r 2*a`}$$
+
+To simplify the radical, I recommend using prime factorization to find that $`r b^2-4*a*c`~=~ `r pfm`$. 
+
+
+$$x~=~ \frac{`r -b`\pm \sqrt{`r pfm`}}{`r 2*a`}$$
+
+
+For each pair of factors inside a square root, we can "pull" them outside the radical as a single factor. This is because square-root is an exponent (of $1/2$), and exponents distribute over multiplication. Also, because for any number $n$ we know $\sqrt{n^2}\equiv |n|$.
+
+
+$$x~=~`r soli`$$
+
+Split the fraction.
+
+
+$$x~=~`r soli2`$$
+
+
+Simplify each fraction.
+
+$$x~=~`r sol2`$$
+
+Meta-information
+============
+extype: num
+exsolution: 
+exname: 
+extol: 0.1

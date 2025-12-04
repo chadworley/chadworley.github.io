@@ -1,0 +1,61 @@
+```{r,echo=F}
+
+# This seems broken on Canvas... the fractions shows as LaTeX...
+
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+
+while(T){
+    ab = sample(2:12,2)
+    a = ab[1]
+    b = ab[2]
+    c = sample(2:10,1)
+    if(gcd(c(a,b))==1){break}
+}
+
+factorsA = numeric()
+factorsB = numeric()
+
+for(i in 1:400){
+    if((a*c)%%i==0){
+        factorsA = c(factorsA,i)
+    }
+    if((b*c)%%i==0){
+        factorsB = c(factorsB,i)
+    }
+}
+
+```
+
+
+
+
+Question
+========
+
+Find the greatest common of `r a*c` and `r b*c`.
+
+
+Solution
+========
+
+
+The factors of `r a*c`:
+
+* `r paste0(factorsA,collapse=", ")`
+
+The factors of `r b*c`:
+
+* `r paste0(factorsB,collapse=", ")`
+
+The greatest common factor of `r a*c` and `r b*c` is `r c`.
+
+
+Meta-information
+============
+extype: num
+exsolution: `r c`
+exname: get_gcd
