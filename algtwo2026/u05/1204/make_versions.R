@@ -36,10 +36,10 @@ makeem = function(fn,shortfn,nlow,nhigh){
     }
     wid = nhigh-nlow+1
     for(jjj in nlow:nhigh){
-        rmarkdown::render(input = fn,
-                          output_file = paste0(shortfn,"/",shortfn,"_v",sprintf("%03d",jjj)),
-                          params = list(rseed = jjj,
-                                        showsol = F))
+        # rmarkdown::render(input = fn,
+        #                   output_file = paste0(shortfn,"/",shortfn,"_v",sprintf("%03d",jjj)),
+        #                   params = list(rseed = jjj,
+        #                                 showsol = F))
         rmarkdown::render(input = fn,
                           output_file = paste0(shortfn,"/",shortfn,"_SOL_",sprintf("%03d",jjj)),
                           params = list(rseed = jjj,

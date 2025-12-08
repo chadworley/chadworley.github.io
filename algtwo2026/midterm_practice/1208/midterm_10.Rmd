@@ -1,0 +1,108 @@
+```{r data generation, echo = FALSE, results = "hide"}
+options(scipen=999)
+## 1/A * (x-h)^2 - B = 0
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+pn = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+while(T){
+    A = sample(2:15,1)
+    B = sample(1:30,1)
+    h = sample(1:9,1)*sample(c(-1,1),1)
+    if(sqrt(A*B)%%1==0 && A!=B){break}
+}
+
+a1 = -sqrt(A*B)+h
+a2 = sqrt(A*B)+h
+ia1 = -sqrt(A*B)-h
+ia2 = sqrt(A*B)-h
+
+dlt = sample(c(3,-2,-1,1,2,3),2)
+
+ia3 = -sqrt(A*B)+h+dlt
+ia4 = sqrt(A*B)+h+dlt
+ia5 = -sqrt(A*B)-h+dlt
+ia6 = sqrt(A*B)-h+dlt
+
+ach = sort(unique(c(a1,a2,ia1,ia2,ia3,ia4,ia5,ia6)))
+al = paste0("* $x=",ach,"$",collapse="\n")
+
+sol1 = 1*(ach==a1)
+sol2 = 1*(ach==a2)
+sol = paste0(1*((sol1+sol2)!=0),collapse="")
+
+if(h<0){
+    wrd = paste0("Subtract ",-h," from both sides.")
+} else {
+    wrd = paste0("Add ",h," to both sides.")
+}
+
+```
+
+Question
+========
+
+Solve the following equation:
+
+$$\frac{1}{`r A`}(`r pn(c(1,-h),c(1,0))`)^2-`r B`=0$$
+
+
+Answerlist
+--------
+
+`r al`
+
+
+
+Solution
+========
+
+Add `r B` to both sides of the equation.
+
+
+$$\frac{1}{`r A`}(`r pn(c(1,-h),c(1,0))`)^2~=~`r B`$$
+
+Multiply both sides of the equation by `r A`.
+
+
+$$(`r pn(c(1,-h),c(1,0))`)^2~=~`r A*B`$$
+
+We wish to undo the squaring. Remember, since $y=x^2$ is not a one-to-one function, we need to consider multiple possibilities. In this case, we need to consider both the positive and negative square roots.
+
+In other words... square-root both sides, and remember the $\pm$. If necessary, use a calculator to find $\sqrt{`r A*B`}=`r sqrt(A*B)`$.
+
+
+$$`r pn(c(1,-h),c(1,0))`~=~\pm`r round(sqrt(A*B))`$$
+
+`r wrd`
+
+
+$$x~=~ `r h` \pm`r round(sqrt(A*B))`$$
+
+We can consider these two possibilities separately.
+
+$$\begin{align*}
+x&=`r h`-`r sqrt(A*B)` &\text{or} && x&=`r h`+`r sqrt(A*B)`\\
+x&=`r h-sqrt(A*B)` &\text{or} && x&=`r h+sqrt(A*B)`\\
+\end{align*}$$
+
+
+
+Meta-information
+============
+extype: mchoice
+exsolution: `r sol`
+exname: midterm_10

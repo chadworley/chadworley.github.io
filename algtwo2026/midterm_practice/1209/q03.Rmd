@@ -1,0 +1,99 @@
+---
+output: pdf_document
+---
+
+## Midterm practice: Transform square-root function
+
+```{r,echo=F}
+set.seed(2)
+options(scipen=999)
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    ex1 = gsub("{","",ex1,fixed=T)
+    ex1 = gsub("}","",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+
+xlist = list()
+ylist = list()
+eqs = character()
+handles = character()
+
+while(length(handles)<12){
+    # y = a sqrt(1/b*(x-h))+k
+    hk = sample(1:6,2)*sample(c(-1,1),2,T)
+    h = hk[1]
+    k = hk[2]
+    isHS = sample(c(T,F),1)
+    if(isHS){
+        a = 1
+        b = sample(2:3,1)*sample(c(-1,1),1)
+        expr = paste0("y=\\sqrt{\\frac{1}{",b,"}(",pn(c(1,-h),1:0),")}+",k,collapse="")
+        expr = gsub("+-","-",expr,fixed=T)
+    } else {
+        a = sample(2:3,1)*sample(c(-1,1),1)
+        b = 1
+        expr = paste0("y=",a,"\\sqrt{",pn(c(1,-h),1:0),"}+",k,collapse="")
+        expr = gsub("+-","-",expr,fixed=T)
+    }
+    x = seq(h,12*sign(b),0.01*sign(b))
+    y = a*sqrt(1/b*(x-h))+k
+    handle = paste0(c(a,b,h,k),collapse="#")
+    if(!(handle %in% handles)){
+        n = length(eqs)+1
+        xlist[[n]] = x
+        ylist[[n]] = y
+        eqs = c(eqs,expr)
+        handles = c(handles,handle)
+    }
+}
+
+```
+
+For each of the graphs shown below:
+
+1. Identify the stretch and/or reflection.
+2. Identify the translations.
+3. Write an equation for the child square-root curve.
+
+
+```{r,echo=F,fig.dim=c(6,8)}
+par(mar=c(1,1,1,1),mfrow=c(4,3),pty="s")
+
+for(n in 1:12){
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    mtext(n,3,cex=0.8)
+    for(i in -10:10){
+        lines(c(-10,10),c(i,i),col="grey",lwd=0.7)
+        lines(c(i,i),c(-10,10),col="grey",lwd=0.7)
+    }
+    # abline(h=0)
+    # abline(v=0)
+    arrows(-10.5,0,10.5,0,0.1,15,3,lwd=1)
+    arrows(0,-10.5,0,10.5,0.1,15,3,lwd=1)
+    lines(xlist[[n]],ylist[[n]],col="blue",lwd=1.5)
+    text(10.5,-0.75,"x",cex=0.8)
+    text(-0.75,10.5,"y",cex=0.8)
+}
+
+```
+
+

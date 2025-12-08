@@ -1,0 +1,91 @@
+```{r,echo=FALSE}
+options(scipen=999)
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+pn = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+aposs = 2:10
+bposs = 2:10
+cposs = 2:10
+
+while(T){
+    a = sample(aposs,1)
+    b = sample(bposs,1)
+    c = sample(cposs,1)
+    if(b!=c){break}
+}
+
+
+sol1 = paste0(1*(aposs==a),collapse="")
+sol2 = paste0(1*(bposs==b),collapse="")
+sol3 = paste0(1*(cposs==c),collapse="")
+
+al1 = paste0("* ",aposs,collapse="\n")
+al2 = paste0("* ",bposs,collapse="\n")
+al3 = paste0("* ",cposs,collapse="\n")
+
+A = a
+B = a*(b-c)
+C = -a*b*c
+
+```
+
+
+Question
+========
+
+If $`r pn(c(A,B,C),2:0)`$ is fully factored, it can be expressed in the form $a(x+p)(x-q)$, where $a$, $p$, and $q$ are positive integers.
+
+Find $a$, $p$, and $q$.
+
+* $a=$ ##ANSWER1##
+* $p=$ ##ANSWER2##
+* $q=$ ##ANSWER3##
+
+Answerlist
+--------
+
+`r al1`
+`r al2`
+`r al3`
+
+
+Solution
+========
+
+$$`r pn(c(A,B,C),2:0)`$$
+
+Notice that `r a` and `r B` and `r C` are all multiples of `r a`. Factor out this constant.
+
+$$`r a`(`r pn(c(1,b-c,-b*c),2:0)`)$$
+
+In the parentheses is a quadratic trinomial with an implied leading coefficient of 1. Thus, we simply need two numbers whose sum is `r b-c` and whose product is `r -b*c`. This puzzle is solved with `r b` and `r -c`.
+
+$$`r a`(x+`r b`)(x-`r c`)$$
+
+Thus,
+$$a=`r a`$$
+$$p=`r b`$$
+$$q=`r c`$$
+
+
+
+Meta-information
+============
+extype: cloze
+exclozetype: schoice|schoice|schoice
+exsolution: `r sol1`|`r sol2`|`r sol3`
+exname: factor_quadratic

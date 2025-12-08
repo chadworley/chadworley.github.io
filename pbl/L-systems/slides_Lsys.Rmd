@@ -530,27 +530,26 @@ catinfo(angle,start,rules,N)
 
     >0. `A`
     >1. `ART-`
-    >2. `ART-RAT-TAR-`
-    >3. `ART-RAT-TAR--RAT-ART-TAR--TAR-ART-RAT--`
-    >3. `ART-RAT-TAR--RAT-ART-TAR--TAR-ART-RAT---RAT-ART-TAR--ART-RAT-TAR--TAR-ART-RAT---TAR-ART-RAT--ART-RAT-TAR--RAT-ART-TAR---`
+    >2. `ART-RAT-TAR--`
+    >3. `ART-RAT-TAR--RAT-ART-TAR--TAR-ART-RAT---`
+    >3. `ART-RAT-TAR--RAT-ART-TAR--TAR-ART-RAT---RAT-ART-TAR--ART-RAT-TAR--TAR-ART-RAT---TAR-ART-RAT--ART-RAT-TAR--RAT-ART-TAR----`
 
 # Recursive Replacement of Letters
 
 * Start:
-    * "CAT"
+    * `x`
 * Rules:
-    * "C" $\to$ "TTT"
-    * "A" $\to$ "AA"
-    * "T" $\to$ "C"
+    * `A` $\to$ `A-`
+    * `x` $\to$ `Ax`
+    * `-` $\to$ `-`
+(Notice that since "-" is replaced with "-", it is a **constant**. We usually do not list constants in the rules; constants are implied by not having a rule.)
 * Find the recursions (the iterations):
 
-    >0. "CAT"
-    >1. "TTTAAC"
-    >2. "CCCAAAATTT"
-    >3. "TTTTTTTTTAAAAAAAACCC"
-    >4. "CCCCCCCCCAAAAAAAAAAAAAAAATTTTTTTTT"
-
->- Notice there were 9 Cs, 16 As, 9 Ts
+    >0. `x`
+    >1. `Ax`
+    >2. `A-Ax`
+    >3. `A--A-Ax`
+    >4. `A---A--A-Ax`
 
 # Okay, but what about those pictures?
 
@@ -652,6 +651,29 @@ plotit = function(xyd,lwd=1,col="blue"){
         lines(x[starts[i]:ends[i]],y[starts[i]:ends[i]],lwd=lwd,col=col)
     }
 }
+
+plotit2 = function(xyd,lwd=1,col="blue"){
+    x = xyd[[1]]
+    y = xyd[[2]]
+    d = xyd[[3]]
+    plot(0,0,"n",xlim=c(-10,10),ylim=c(-10,10),axes=F,ann=F)
+    for(xxx in -8:8){
+        jjj = -6:6
+        points(rep(xxx,length(jjj)),jjj,pch=19,col="grey")
+    }
+    starts = numeric()
+    if(d[1]){
+        starts = c(1)
+    }
+    starts = c(starts,which(diff(d)==1))
+    ends = which(diff(d)==-1)
+    if(d[length(d)]==1){
+        ends = c(ends,length(d))
+    }
+    for(i in 1:length(starts)){
+        lines(x[starts[i]:ends[i]],y[starts[i]:ends[i]],lwd=lwd,col=col)
+    }
+}
 ```
 
 ```{r,echo=F,animation.hook='gifski',interval=1,fig.dim=c(5,5),cache=T}
@@ -664,7 +686,7 @@ for(i in 1:nchar(s)){
     par(mar=c(0,0,0,0),oma=c(0,0,0,0),pty="s")
     ss = substr(s,1,i)
     xyd1 = xyd(ss,pi/2,angle_initial=pi/2)
-    plotit(xyd1,lwd=3,col=rgb(0,0,0))
+    plotit2(xyd1,lwd=3,col=rgb(0,0,0))
     text(-9,9,s,adj=c(0,0.5),col="grey")
     text(-9,9,ss,adj=c(0,0.5))
     x = xyd1[[4]]
@@ -752,13 +774,6 @@ Over a few days we will code the following programs in Scratch:
     * Return to top-of-list position and delete position from list
 * Copy and paste a string of characters (a "word") into Scratch, each character corresponding to a move; turtle draws whole picture.
     * We can use [a L-system string generator](https://chadworley.github.io/pbl/L-systems/Lsys_string_gen.html) to create the strings.
-
-
-
-
-
-
-
 
 
 

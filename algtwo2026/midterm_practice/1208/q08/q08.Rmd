@@ -1,0 +1,82 @@
+---
+output: pdf_document
+---
+
+## Midterm practice: Factor difference of squares
+
+```{r,echo=F}
+set.seed(8)
+options(scipen=999)
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+pn = function(c,d){
+    if(sum(c==0)==length(c) && sum(d==0)==length(d)){
+        p = "0"
+    } else {
+        d = d[c!=0]
+        c = c[c!=0]
+        p = paste0("{",c,"}x^{",d,"}",collapse="+")
+        p = gsub("x^{0}","",p,fixed=T)
+        p = gsub("x^{1}","x",p,fixed=T)
+        p = gsub("+{-","-{",p,fixed=T)
+        p = gsub("+{1}x","+x",p,fixed=T)
+        p = gsub("-{1}x","-x",p,fixed=T)
+        p = gsub("{-1}x","-x",p,fixed=T)
+        p = gsub("{1}x","x",p,fixed=T)
+    }
+    
+    return(p)
+}
+
+
+## a(rx-p)(rx+p)
+
+nq = 20
+qs = character()
+sols = character()
+
+while(length(qs)<nq){
+    a = sample(1:5,1)
+    rp = sample(1:9,2)
+    r = rp[1]
+    p = rp[2]
+    ques = paste0("Fully factor \\hspace{5pt}$",pn(c(a*r^2,-a*p^2),c(2,0)),"$")
+    sol = paste0("${",a,"}(",r,"x+",p,")(",r,"x-",p,")$")
+    sol = gsub("{1}(","(",sol,fixed=T)
+    sol = gsub("(1x","(x",sol,fixed=T)
+    sol = gsub("{","",sol,fixed=T)
+    sol = gsub("}","",sol,fixed=T)
+    if(!(ques %in% qs) && gcd(c(r,p)==1)){
+        qs = c(qs,ques)
+        sols = c(sols,sol)
+    }
+}
+
+```
+
+First factor any common factors. Then, identify the difference of squares to help factor the expression.
+
+\noindent 
+```{r,echo=F,results='asis'}
+for(i in 1:nq){
+    cat(paste0(i,". ",qs[i],"\n\n"))
+    cat("\\vfill")
+}
+
+```
+
+\newpage
+
+
+\noindent 
+```{r,echo=F,results='asis'}
+for(i in sample(1:nq)){
+    sss = paste0(i,". \\hspace{10pt}",sols[i],"\n\n")
+    cat(sss)
+    cat("\\vfill")
+}
+
+```

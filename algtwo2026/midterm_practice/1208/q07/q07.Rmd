@@ -1,0 +1,171 @@
+---
+output: pdf_document
+---
+
+## Midterm practice: Factor quadratic, $a=$prime.
+
+```{r,echo=F}
+set.seed(5)
+options(scipen=999)
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+pn = function(c,d){
+    if(sum(c==0)==length(c) && sum(d==0)==length(d)){
+        p = "0"
+    } else {
+        d = d[c!=0]
+        c = c[c!=0]
+        p = paste0("{",c,"}x^{",d,"}",collapse="+")
+        p = gsub("x^{0}","",p,fixed=T)
+        p = gsub("x^{1}","x",p,fixed=T)
+        p = gsub("+{-","-{",p,fixed=T)
+        p = gsub("+{1}x","+x",p,fixed=T)
+        p = gsub("-{1}x","-x",p,fixed=T)
+        p = gsub("{-1}x","-x",p,fixed=T)
+        p = gsub("{1}x","x",p,fixed=T)
+    }
+    
+    return(p)
+}
+
+getsols = function(pqrs){
+    p = pqrs[1]
+    q = pqrs[2]
+    r = pqrs[3]
+    s = pqrs[4]
+    p2 = p/gcd(c(q,p))
+    q2 = q/gcd(c(q,p))
+    r2 = r/gcd(c(s,r))
+    s2 = s/gcd(c(s,r))
+    sol1 = paste0("\\frac{",abs(q2)*sign(p2*q2),"}{",abs(p2),"}",collapse="")
+    sol2 = paste0("\\frac{",abs(s2)*sign(r2*s2),"}{",abs(r2),"}",collapse="")
+    if(abs(p2)==1){
+        sol1 = paste0(abs(q2)*sign(p2*q2))
+    }
+    if(abs(r2)==1){
+        sol2 = paste0(abs(s2)*sign(r2*s2))
+    }
+    return(c(sol1,sol2))
+}
+
+## x=-q/p or x=-s/r
+## (px+q)*(rx+s) = 0
+## prx^2+(ps+qr)x+qs = 0
+
+nq = 20
+
+pqrses = list()
+handles = character()
+n = 0
+sols = character()
+wts = numeric()
+
+fsols = character()
+
+while(length(pqrses)<nq){
+    pqrs = sample(1:10,4,T)*sample(c(-1,1),4,T)
+    p = 1 #pqrs[1]
+    q = pqrs[2]
+    r = sample(c(2,3,5,7),1) #pqrs[3]
+    s = pqrs[4]
+    pqrs = c(p,q,r,s)
+    a = p*r
+    b = p*s+q*r
+    c = q*s
+    lsc = c(a,b,c)
+    lsp = 2:0
+    rsc = 0
+    rsp = 0
+    handle = paste0(pqrs,collapse="#")
+    if(max(abs(c(a,b,c,lsc,rsc)))<21 && 
+       a>0 && abs(gcd(c(c,b,a)))==1 &&
+       !(handle %in% handles) &&
+       b^2-4*a*c <= 225 &&
+       abs(c)>1){
+        n=n+1
+        pqrses[[n]] = pqrs
+        handles = c(handles,handle)
+        sols = c(sols,paste0(paste0("n=",getsols(pqrs)[1])))
+        fsols = c(fsols,paste0(getsols(pqrs)[2]))
+    }
+}
+
+```
+
+You should try to factor the expression. I recommend guess-and-check. If that is giving you too much trouble, try figuring out how you can use quadratic formula.
+
+\noindent 
+```{r,echo=F,results='asis'}
+for(i in 1:nq){
+    pqrs = pqrses[[i]]
+    p = pqrs[1]
+    q = pqrs[2]
+    r = pqrs[3]
+    s = pqrs[4]
+    a = p*r
+    b = p*s+q*r
+    c = q*s
+    w = (4*a*c-b^2)/4/a
+    wt = 1
+    if(wt==1){
+        lsc = c(a,b,c)
+        lsp = 2:0
+        rsc = 0
+        rsp = 0
+    }
+    if(wt==2){
+        lsc = c(a,b)
+        lsp = 2:1
+        rsc = -c
+        rsp = 0
+    }
+    if(wt==3){
+        rslt = sample(2:9,1)*sample(c(-1,1),1)
+        lsc = c(a,b+rslt)
+        lsp = 2:1
+        rsc = c(rslt,-c)
+        rsp = 1:0
+    }
+    cat(paste0(i,". If $n$ is an integer and $(x+n)$ is a factor of polynomial \\hspace{5pt} $",pn(lsc,lsp),"$\\hspace{5pt} then what is the value of $n$?\n\n"))
+    cat("\\vfill")
+    # if(i==floor(nq/2)){
+    #     cat("\\newpage")
+    # }
+}
+
+```
+
+\newpage
+
+
+\noindent 
+```{r,echo=F,results='asis'}
+for(i in sample(1:nq)){
+    pqrs = pqrses[[i]]
+    p = pqrs[1]
+    q = pqrs[2]
+    r = pqrs[3]
+    s = pqrs[4]
+    a = p*r
+    b = p*s+q*r
+    c = q*s
+    w = (4*a*c-b^2)/4/a
+    wt = 1
+    if(wt==1){
+        lsc = c(a,b,c)
+        lsp = 2:0
+        rsc = 0
+        rsp = 0
+    }
+    sss = paste0(i,". Factors as \\hspace{10pt} $(",pn(c(p,q),1:0),")(",pn(c(r,s),1:0),")$ \\hspace{10pt} so \\hspace{10pt}  $",sols[i],"$")
+    cat(sss)
+    cat("\\vfill")
+    # if(i==floor(nq/2)){
+    #     cat("\\newpage")
+    # }
+}
+
+```

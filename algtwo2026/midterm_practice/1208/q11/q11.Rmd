@@ -1,0 +1,87 @@
+---
+output: pdf_document
+---
+
+## Midterm practice: Solve with completing the square
+
+```{r,echo=F}
+set.seed(111)
+options(scipen=999)
+pn = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+nq = 20
+qs = character()
+sols = character()
+
+while(length(qs)<nq){
+    fronts = 2:10
+    inrads = c(2,3,5,6,7,10)
+    pr1 = numeric()
+    pr2 = numeric()
+    for(i in fronts){
+        for(j in inrads){
+            if(i*i*j<=200){
+                pr1 = c(pr1,i)
+                pr2 = c(pr2,j)
+            }
+        }
+    }
+    nrads = length(pr1)
+    wrad = sample(1:nrads,1)
+    front = pr1[wrad]
+    inrad = pr2[wrad]
+    RS = front^2*inrad
+    b = 2*sample(3:9,1)*sample(c(-1,1),1)
+    cts = (b/2)^2
+    RSi = RS-cts
+    c = sample(1:8,1)*sample(c(-1,1),1)
+    
+    ques = paste0("Use completing-the-square to solve the equation: \\hspace{5pt}$", pn(c(1,b,c),2:0),"~=~",RSi+c,"$")
+    sol = paste0("$x=",-round(b/2),"\\pm ",front,"\\sqrt{",inrad,"}$",collapse="")
+    sol = gsub("{1}(","(",sol,fixed=T)
+    sol = gsub("(1x","(x",sol,fixed=T)
+    sol = gsub("{","",sol,fixed=T)
+    sol = gsub("}","",sol,fixed=T)
+    if(!(ques %in% qs)){
+        qs = c(qs,ques)
+        sols = c(sols,sol)
+    }
+}
+
+```
+
+
+
+\noindent 
+```{r,echo=F,results='asis'}
+for(i in 1:nq){
+    cat(paste0(i,". ",qs[i],"\n\n"))
+    cat("\\vfill")
+}
+
+```
+
+\newpage
+
+
+\noindent 
+```{r,echo=F,results='asis'}
+for(i in sample(1:nq)){
+    sss = paste0(i,". \\hspace{10pt}",sols[i],"\n\n")
+    cat(sss)
+    cat("\\vfill")
+}
+
+```

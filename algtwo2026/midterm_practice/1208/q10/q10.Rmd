@@ -1,0 +1,143 @@
+---
+output: pdf_document
+---
+
+## Midterm practice: Solve with square rooting with $\pm$
+
+```{r,echo=F}
+set.seed(10)
+options(scipen=999)
+pn = function(c,d){
+    cc = c[c!=0]
+    dd = d[c!=0]
+    p = paste0("{",cc,"}x^{",dd,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+funcs = list(function(x,A,M){M*(x+A)},
+             function(x,A,M){M*x+A},
+             function(x,A,M){M*(x-A)},
+             function(x,A,M){M*x-A},
+             function(x,A,M){(x+A)/M},
+             function(x,A,M){x/M+A},
+             function(x,A,M){(x-A)/M},
+             function(x,A,M){x/M-A}
+             )
+
+func2 = list(function(x,A,M){x+A},
+             function(x,A,M){M*x},
+             function(x,A,M){x-A},
+             function(x,A,M){M*x},
+             function(x,A,M){x+A},
+             function(x,A,M){x/M},
+             function(x,A,M){x-A},
+             function(x,A,M){x/M}
+             )
+
+exp_frames = c("M\\left(x+A\\right)",
+               "M x+A",
+               "M\\left(x-A\\right)",
+               "M x-A",
+               "\\frac{1}{M}\\left(x+A\\right)",
+               "\\frac{1}{M}x+A",
+               "\\frac{1}{M}\\left(x-A\\right)",
+               "\\frac{1}{M}x-A")
+
+exp_frame2 = c("x+A",
+               "M x",
+               "x-A",
+               "M x",
+               "x+A",
+               "\\frac{1}{M}x",
+               "x-A",
+               "\\frac{1}{M}x")
+
+
+wd1 = c("add A to both sides",
+        "multiply both sides by M",
+        "subtract A from both sides",
+        "multiply both sides by M",
+        "add A to both sides",
+        "divide both sides by M",
+        "subtract A from both sides",
+        "divide both sides by M")
+
+wd2 = c("multiply both sides by M",
+        "add A to both sides",
+        "multiply both sides by M",
+        "subtract A from both sides",
+        "divide both sides by M",
+        "add A to both sides",
+        "divide both sides by M",
+        "subtract A from both sides")
+
+
+nq = 20
+qs = character()
+sols = character()
+
+while(length(qs)<nq){
+    qt = sample(1:8,1) #sample(5:8,1) #sample(1:8,1)
+    while(T){
+        twonums = sample(4:10,2)
+        nk = twonums[1]^2
+        snk = round(sqrt(nk))
+        h = twonums[2]*sample(c(-1,1),1)
+        x1 = h+snk
+        x2 = h-snk
+        AM = sample(2:20,2)
+        A = AM[1]
+        M = AM[2]
+        RS = funcs[[qt]](nk,A,M)
+        RS2 = func2[[qt]](nk,A,M)
+        if(RS %% 1 == 0 && abs(RS)>0 && abs(RS)<150 && abs(RS2)<150){break}
+    }
+    eq = exp_frames[qt]
+    eq = gsub("M",M,eq,fixed=T)
+    eq = gsub("A",A,eq,fixed=T)
+    eq = gsub("x",paste0("(",pn(c(1,-h),1:0),")^2",collapse=""),eq,fixed=T)
+
+    ques = paste0("Solve the following equation: \\hspace{5pt}$",eq,"~=~",RS,"$")
+    sol = paste0("$x=",x1,"$ and $x=",x2,"$",collapse="")
+    sol = gsub("{1}(","(",sol,fixed=T)
+    sol = gsub("(1x","(x",sol,fixed=T)
+    sol = gsub("{","",sol,fixed=T)
+    sol = gsub("}","",sol,fixed=T)
+    if(!(ques %in% qs)){
+        qs = c(qs,ques)
+        sols = c(sols,sol)
+    }
+}
+
+```
+
+Solve for $x$ by undoing a series of operations. When you undo the squaring, remember to have a $\pm$ of the square root. You should do your work on a separate piece of paper. Answers are on the back, but shuffled.
+
+\noindent 
+```{r,echo=F,results='asis'}
+for(i in 1:nq){
+    cat(paste0(i,". ",qs[i],"\n\n"))
+    cat("\\vfill")
+}
+
+```
+
+\newpage
+
+
+\noindent 
+```{r,echo=F,results='asis'}
+for(i in sample(1:nq)){
+    sss = paste0(i,". \\hspace{10pt}",sols[i],"\n\n")
+    cat(sss)
+    cat("\\vfill")
+}
+
+```

@@ -1,0 +1,91 @@
+---
+output: pdf_document
+params:
+    rseed: 0
+    showsol: true
+---
+
+Name: \vspace{5pt} \hrule
+
+## at1205p_quadratic_optimization (v`r params$rseed`)
+
+
+```{r,echo=F}
+# Adam prob:
+# 0.95-(0.95/50)x
+
+options(scipen=999)
+
+pn = function(coeffs,pows){
+    pows = pows[coeffs!=0]
+    coeffs = coeffs[coeffs!=0]
+    ex1 = paste0("{",coeffs,"}x^{",pows,"}",collapse="+")
+    ex1 = gsub("+{-","-{",ex1,fixed=T)
+    ex1 = gsub("{1}x^{0}","1",ex1,fixed=T)
+    ex1 = gsub("{-1}x^{0}","-1",ex1,fixed=T)
+    ex1 = gsub("{1}x","x",ex1,fixed=T)
+    ex1 = gsub("{-1}x","-x",ex1,fixed=T)
+    ex1 = gsub("x^{0}","",ex1,fixed=T)
+    ex1 = gsub("x^{1}","x",ex1,fixed=T)
+    ex1 = gsub("+-","-",ex1,fixed=T)
+    if(ex1 == ""){
+        ex1 = "0"
+    }
+    return(ex1)
+}
+
+while(T){
+    p0a = sample(70:99,1)/100
+    maxdisa = sample(20:70,1)
+    ma = ceiling(p0a/maxdisa*100)/100
+    apr = paste0(sprintf("%.02f",p0a),"-",sprintf("%.02f",ma),"x")
+    maxda = floor(p0a/ma)
+    
+    p0b = sample(70:99,1)/100
+    maxdisb = sample(20:70,1)
+    mb = ceiling(p0b/maxdisb*100)/100
+    bpr = paste0(sprintf("%.02f",p0b),"-",sprintf("%.02f",mb),"x")
+    maxdb = floor(p0b/mb)
+    
+    mimad = min(maxda,maxdb)
+    
+    #### p(x) = (p0a-ma*x)(1-(p0b-mb*x))
+    #### p(x) = (p0a-ma*x)(1-p0b+mb*x)
+    #### p(x) = -ma*mb*x^2 -ma*x+p0b*ma*x+p0a*mb*x + p0a-p0b*p0a
+    #### p(x) = (-ma*mb)*x^2 + (p0b*ma+p0a*mb-ma)*x + (p0a-p0b*p0a)
+    
+    a = signif(-ma*mb,8)
+    b = signif(p0b*ma+p0a*mb-ma,8)
+    c = signif(p0a-p0b*p0a,8)
+    
+    xopt = -b/2/a
+    popt = (4*a*c-b^2)/4/a
+    if(xopt<mimad && xopt>1){break}
+}
+
+```
+
+Adam's probability ($a$) of making a basketball shot is a function of distance ($x$) in feet.
+$$a(x)~=~`r apr`$$
+Betty's probability ($b$) of making a basketball shot is also function of distance ($x$) in feet.
+$$b(x)~=~`r bpr`$$
+(*Technically, these functions are only accurate representations when $x$ is between 0 feet and `r mimad` feet.*)
+
+Adam and Betty are playing a minigame. Adam chooses a location from where both players will attempt a shot. If Adam makes the shot and Betty misses the shot, then Adam wins. The probability that Adam wins ($w$) is a function of distance. (See *compound probability of independent events* and also *complementary probability* for why we are multiplying $a(x)$ by $(1-b(x))$.)
+$$w(x)~=~a(x) \cdot (1-b(x))$$
+
+We can substitute the functions' expressions.
+$$w(x)~=~ (`r apr`)\cdot (1-(`r bpr`))$$
+
+After a bit of distribution and rearrangement, you could produce the following equivalent equation.
+$$w(x)~=~ `r pn(c(a,b,c),2:0)`$$
+
+
+1. What distance should Adam choose in order to maximize his chance to win?
+2. If Adam chooses that optimal distance, what is his chance to win?
+
+
+\newpage
+
+
+

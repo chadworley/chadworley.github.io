@@ -1,0 +1,101 @@
+```{r,echo=FALSE}
+options(scipen=999)
+gcd2 <- function(a, b) {
+    if (b == 0) a else Recall(b, a %% b)
+}
+gcd <- function(...) Reduce(gcd2, c(...))
+
+pfix = function(c,d){
+    p = paste0("{",c,"}x^{",d,"}",collapse="+")
+    p = gsub("x^{0}","",p,fixed=T)
+    p = gsub("x^{1}","x",p,fixed=T)
+    p = gsub("+{-","-{",p,fixed=T)
+    p = gsub("+{1}x","+x",p,fixed=T)
+    p = gsub("-{1}x","-x",p,fixed=T)
+    p = gsub("{-1}x","-x",p,fixed=T)
+    p = gsub("{1}x","x",p,fixed=T)
+    return(p)
+}
+
+x = sample(10:40,1)
+y = 2*x
+tot = 4*x
+A = x*y
+
+```
+
+
+Question
+========
+
+Amelia will use `r tot` feet of fence to build a rectangular enclosure for her dog. Amelia will build the enclosure next to a very long barn, so she'll only use the fencing for 3 of the sides of the rectangle.
+
+Let $x$ represent the length of fence perpendicular to the barn, and let $y$ represent the length of fence parallel to the barn.
+
+```{r,echo=F,fig.dim=c(5,5)}
+par(mar=c(0,0,0,0))
+plot(0,0,"n",xlim=c(0,1),ylim=c(0,1),axes=F,ann=F)
+polygon(c(0,0.2,0.2,0),c(0,0,1,1),col="red")
+polygon(c(1,0.2,0.2,1),c(0,0,1,1),col=rgb(0.2,0.9,0.2))
+text(0.1,0.5,"BARN",col=rgb(0.6,0,0),srt=90,cex=2)
+lines(c(0.2,0.5,0.5,0.2),c(0.3,0.3,0.7,0.7),lwd=5,col="black")
+text(0.35,0.7,"x",adj=c(0.5,-0.2),cex=2)
+text(0.35,0.3,"x",adj=c(0.5,1.2),cex=2)
+text(0.5,0.5,"y",adj=c(-0.4,0.5),cex=2)
+
+```
+\
+
+She wants to give her dog as much area as possible. Find the value of $x$ that maximizes the area.
+
+Solution
+========
+
+The total length of fence is `r tot` feet. There are 2 sides with lengths of $x$ and one side with a length of $y$.
+
+$$2x+y~=~`r tot`$$
+
+Solve for $y$.
+
+$$y~=~`r tot`-2x$$
+
+Write an equation for the area. A rectangular area equals the length times the width.
+
+$$A~=~xy$$
+
+Substitute $`r tot`-2x$ in place of $y$ to get area in terms of only $x$.
+
+
+$$A~=~x(`r tot`-2x)$$
+
+From here, we can expand into standard form, and use the formula $h=\frac{-b}{2a}$ to find the vertex. Expand into standard form.
+
+$$A~=~-2x^2+`r 2*tot`x$$
+
+You can graph $A$ versus $x$ and get a downwards facing parabola.
+
+```{r,echo=F,fig.dim=c(5,5)}
+xs = seq(-0.1*tot/(2),1.1*tot/(2),length.out=1000)
+As = -(2)*xs^2+tot*xs
+
+plot(xs,As,"l",xlab="x",ylab="A")
+abline(h=0,lwd=2)
+abline(v=0,lwd=2)
+lines(xs,As,lwd=3,col="blue")
+
+points(x,A,pch=19,col="red")
+
+```
+\
+
+Now, remember the vertex (in this case the maximum) occurs when $x=\frac{-b}{2a}$. 
+
+$$x_{\text{optimal}}~=~\frac{-(`r 2*tot`)}{2(-2)}~=~`r x`$$
+
+So, the area is maximized when $x=`r x`$ feet and $y=`r y`$ feet.
+
+Meta-information
+============
+extype: num
+exsolution: `r x`
+exname: optimize_rect_fence_barn
